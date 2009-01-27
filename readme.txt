@@ -19,9 +19,15 @@ Display a list of contextually related posts for the current post. You can selec
 
 2. Extract the contents of contextual-related-posts.zip to wp-content/plugins/ folder. You should get a folder called contextual-related-posts.
 
-4. Activate the Plugin in WP-Admin. 
+3. Activate the Plugin in WP-Admin. 
 
-5. Goto Settings > Related Posts to configure
+4. Goto Settings > Related Posts to configure
+
+
+== Changelog ==
+
+* 1.1 - Fixed MySQL index key conflicts by using a more unique index key name.
+* 1.0.1 - Release
 
 
 == Frequently Asked Questions ==
@@ -34,6 +40,8 @@ WordPress 2.0 or above
 = Can I customize what is displayed? =
 
 All options can be customized within the Options page in WP-Admin itself
+
+The plugin uses the css class `crp_related` in the `div` that surrounds the list items. So, if you are interested, you can add code to your *style.css* file of your theme to style the related posts list.
 
 For more information, please visit http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 

@@ -14,6 +14,7 @@ function crp_options() {
 		$crp_settings[limit] = ($_POST['limit']);
 		$crp_settings[add_to_content] = (($_POST['add_to_content']) ? true : false);
 		$crp_settings[add_to_feed] = (($_POST['add_to_feed']) ? true : false);
+		$crp_settings[match_content] = (($_POST['match_content']) ? true : false);
 		
 		update_option('ald_crp_settings', $crp_settings);
 		
@@ -77,6 +78,12 @@ function crp_options() {
       <label>
       <input type="checkbox" name="add_to_feed" id="add_to_feed" <?php if ($crp_settings[add_to_feed]) echo 'checked="checked"' ?> />
       <?php _e('Add related posts to feed','ald_crp_plugin'); ?>
+      </label>
+    </p>
+    <p>
+      <label>
+      <input type="checkbox" name="match_content" id="match_content" <?php if ($crp_settings[match_content]) echo 'checked="checked"' ?> />
+      <?php _e('Find related posts based on content as well as title. If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)','ald_crp_plugin'); ?>
       </label>
     </p>
     <p>
