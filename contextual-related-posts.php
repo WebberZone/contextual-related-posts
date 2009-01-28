@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.1
+Version:     1.1.1
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -99,8 +99,8 @@ function crp_default_options() {
 						title => $title,		// Add before the content
 						add_to_content => true,		// Add related posts to content (only on single pages)
 						add_to_feed => true,		// Add related posts to feed
-						limit => '5'	// How many posts to display?
-						match_content => '5'	// Match against post content as well as title
+						limit => '5',	// How many posts to display?
+						match_content => '5',	// Match against post content as well as title
 						);
 	return $crp_settings;
 }
