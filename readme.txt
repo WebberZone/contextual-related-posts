@@ -1,6 +1,6 @@
 === Contextual Related Posts ===
 Tags: related posts, similar posts
-Contributors: Ajay D'Souza, Mark Ghosh
+Contributors: Ajay, Mark Ghosh
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 2.5
@@ -19,6 +19,30 @@ You can select the number of posts to display and if you want to automatically d
 Now, you can choose to exclude posts from certain categories as well as exclude pages.
 
 
+= Features =
+
+* Display Related Posts automatically in content / feed, no need to edit template files 
+* Doesn’t require the post to be tagged in order to display related posts 
+* You can manually add code to your template where you want the related posts to be displayed 
+* Exclude posts from categories 
+* Exclude display of related posts on Pages 
+* Exclude links pages in Related Posts list 
+* Find related posts based on content and post title 
+
+
+= Changelog =
+
+* 1.2.1 - Bug fixed to support PHP4
+* 1.2
+	- Option to blank output in case nothing is found
+	- Exclude posts from certain categories
+	- Exclude pages
+	- Option to choose if you want related posts to be displayed on pages
+* 1.1.1 - Now you can optionally choose if you want to use the post content to search for related posts
+* 1.1 - Fixed MySQL index key conflicts by using a more unique index key name.
+* 1.0.1 - Release
+
+
 == Installation ==
 
 1. Download the plugin
@@ -29,17 +53,6 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 4. Goto Settings > Related Posts to configure
 
-
-== Changelog ==
-
-* 1.2
-	- Option to blank output in case nothing is found
-	- Exclude posts from certain categories
-	- Exclude pages
-	- Option to choose if you want related posts to be displayed on pages
-* 1.1.1 - Now you can optionally choose if you want to use the post content to search for related posts
-* 1.1 - Fixed MySQL index key conflicts by using a more unique index key name.
-* 1.0.1 - Release
 
 
 == Frequently Asked Questions ==

@@ -35,7 +35,8 @@ function crp_options() {
 		
 		$exclude_categories = '';
 		foreach ($exclude_categories_slugs as $exclude_categories_slug) {
-			$exclude_categories .= get_category_by_slug($exclude_categories_slug)->term_id . ',';
+			$catObj = get_category_by_slug($exclude_categories_slug);
+			$exclude_categories .= $catObj->term_id . ',';
 		}
 		$crp_settings[exclude_categories] = substr($exclude_categories, 0, -2);
 
