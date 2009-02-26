@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.1.1
+Version:     1.2
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -22,9 +22,10 @@ define('ALD_crp_DIR', dirname(__FILE__));
 ********************************************************************/
 function ald_crp() {
 	global $wpdb, $post, $single;
-    $poststable = $wpdb->posts;
+
 	$crp_settings = crp_read_options();
 	$limit = $crp_settings['limit'];
+	$exclude_categories = explode(',',$crp_settings['exclude_categories']);
 	
 	// Make sure the post is not from the future
 	$time_difference = get_settings('gmt_offset');
@@ -37,35 +38,48 @@ function ald_crp() {
 		$stuff = addslashes($post->post_title);
 	}
 	
-	$sql = "SELECT ID,post_title,post_content,post_excerpt,post_date,"
+	$sql = "SELECT DISTINCT ID,post_title,post_date,"
 	. "MATCH(post_title,post_content) AGAINST ('$stuff') AS score "
-	. "FROM $poststable WHERE "
+	. "FROM $wpdb->posts WHERE "
 	. "MATCH (post_title,post_content) AGAINST ('$stuff') "
 	. "AND post_date <= '$now' "
 	. "AND post_status = 'publish' "
-	. "AND id != $post->ID "
-	. "LIMIT 0,$limit";
-
+	. "AND id != $post->ID ";
+	if ($crp_settings['exclude_pages']) $sql .= "AND post_type = 'post' ";
+	$sql .= "ORDER BY score DESC ";
+	
 	$search_counter = 0;
 	$searches = $wpdb->get_results($sql);
 	
-	$output = '<div id="crp_related">'.$crp_settings['title'];
+	$output = '<div id="crp_related">';
 	
 	if($searches){
+		$output .= $crp_settings['title'];
 		$output .= '<ul>';
 		foreach($searches as $search) {
+			$categorys = get_the_category($search->ID);	//Fetch categories of the plugin
+			$p_in_c = false;
 			$title = trim(stripslashes($search->post_title));
-			if ($search_counter <= $limit) {
-				$output .= '<li><a href="'.get_permalink($search->ID).'" rel="bookmark">'.$title.'</a></li>';
-			} //end of search_counter loop
-			$search_counter++; 
+			foreach ($categorys as $cat) {
+				if (!$p_in_c) $p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
+			}
+
+			if (!$p_in_c) {
+				if ($search_counter <= $limit) {
+					$output .= '<li><a href="'.get_permalink($search->ID).'" rel="bookmark">'.$title.'</a></li>';
+					$search_counter++; 
+				} //end of search_counter loop
+			} 
 		} //end of foreach loop
 		$output .= '</ul>';
 	}else{
-		$output .= '<p>'.__('No related posts found').'</p>'; 
+		$output .= (($_POST['blank_output']) ? '' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'); 
 	}
-	
-	$output .= '</div><br/><br/>';
+	if ((strpos($output, '<li>')) === false) {
+		$output = '<div id="crp_related">';
+		$output .= (($_POST['blank_output']) ? '' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'); 
+	}
+	$output .= '</div>';
 	
 	return $output;
 }
@@ -76,11 +90,13 @@ function ald_crp_content($content) {
 	$crp_settings = crp_read_options();
 	$output = ald_crp();
 	
-    if((is_feed())&&($crp_settings['add_to_feed'])) {
+    if((is_single())&&($crp_settings['add_to_content'])) {
         return $content.$output;
-    } elseif(($single)&&($crp_settings['add_to_content'])) {
+    } elseif((is_page())&&($crp_settings['add_to_page'])) {
         return $content.$output;
-	} else {
+	} elseif((is_feed())&&($crp_settings['add_to_feed'])) {
+        return $content.$output;
+    } else {
         return $content;
     }
 }
@@ -93,14 +109,19 @@ function echo_ald_crp() {
 
 // Default Options
 function crp_default_options() {
-	$title = __('<h2>Related Posts:</h2>');
+	$title = __('<h3>Related Posts:</h3>');
 
 	$crp_settings = 	Array (
-						title => $title,		// Add before the content
-						add_to_content => true,		// Add related posts to content (only on single pages)
+						title => $title,			// Add before the content
+						add_to_content => true,		// Add related posts to content (only on single posts)
+						add_to_page => false,		// Add related posts to content (only on single pages)
 						add_to_feed => true,		// Add related posts to feed
-						limit => '5',	// How many posts to display?
-						match_content => '5',	// Match against post content as well as title
+						limit => '5',				// How many posts to display?
+						match_content => true,		// Match against post content as well as title
+						exclude_pages => true,		// Exclude Pages
+						blank_output => true,		// Match against post tags as well as title
+						exclude_categories => '',	// Exclude these categories
+						exclude_cat_slugs => '',	// Exclude these categories
 						);
 	return $crp_settings;
 }
