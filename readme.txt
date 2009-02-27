@@ -32,6 +32,7 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 = Changelog =
 
+* 1.2.2 - Minor bug fixed about limit of posts
 * 1.2.1 - Bug fixed to support PHP4
 * 1.2
 	- Option to blank output in case nothing is found
