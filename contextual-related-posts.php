@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.2.2
+Version:     1.3
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -48,7 +48,7 @@ function ald_crp() {
 	if ($crp_settings['exclude_pages']) $sql .= "AND post_type = 'post' ";
 	$sql .= "ORDER BY score DESC ";
 	
-	$search_counter = 1;
+	$search_counter = 0;
 	$searches = $wpdb->get_results($sql);
 	
 	$output = '<div id="crp_related">';
@@ -58,18 +58,18 @@ function ald_crp() {
 		$output .= '<ul>';
 		foreach($searches as $search) {
 			$categorys = get_the_category($search->ID);	//Fetch categories of the plugin
-			$p_in_c = false;
+			$p_in_c = false;	// Variable to check if post exists in a particular category
 			$title = trim(stripslashes($search->post_title));
-			foreach ($categorys as $cat) {
-				if (!$p_in_c) $p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
+			foreach ($categorys as $cat) {	// Loop to check if post exists in excluded category
+				$p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
+				if ($p_in_c) break;	// End loop if post found in category
 			}
 
 			if (!$p_in_c) {
-				if ($search_counter <= $limit) {
-					$output .= '<li><a href="'.get_permalink($search->ID).'" rel="bookmark">'.$title.'</a></li>';
-					$search_counter++; 
-				} //end of search_counter loop
-			} 
+				$output .= '<li><a href="'.get_permalink($search->ID).'" rel="bookmark">'.$title.'</a></li>';
+				$search_counter++; 
+			}
+			if ($search_counter == $limit) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
 		$output .= '</ul>';
 	}else{

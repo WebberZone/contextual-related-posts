@@ -4,7 +4,7 @@ Contributors: Ajay, Mark Ghosh
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 2.5
-Tested up to: 2.7
+Tested up to: 2.7.1
 
 
 Show user defined number of contextually related posts
@@ -32,6 +32,10 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 = Changelog =
 
+* 1.3 
+	- Better optimization in WP-Admin area. 
+	- Fixed compatibility problems with Simple Tags plugin
+	- Fixed large number of queries being generated
 * 1.2.2 - Minor bug fixed about limit of posts
 * 1.2.1 - Bug fixed to support PHP4
 * 1.2

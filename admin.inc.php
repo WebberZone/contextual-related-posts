@@ -174,8 +174,9 @@ function crp_adminmenu() {
 	}
 
 	if ((function_exists('add_options_page'))&&($crp_is_admin)) {
-		add_options_page(__("Related Posts", 'myald_crp_plugin'), __("Related Posts", 'myald_crp_plugin'), 9, 'crp_options', 'crp_options');
-		}
+		$plugin_page = add_options_page(__("Related Posts", 'myald_crp_plugin'), __("Related Posts", 'myald_crp_plugin'), 9, 'crp_options', 'crp_options');
+		add_action( 'admin_head-'. $plugin_page, 'crp_adminhead' );
+	}
 }
 add_action('admin_menu', 'crp_adminmenu');
 
@@ -192,17 +193,8 @@ if (siw && siw.selectingSomething)
 return answer;
 }//
 </script>
-<?php }
-add_action('admin_head', 'crp_adminhead');
-
-function crp_adminfoot() {
-	global $crp_url;
-
-?>
 <script type="text/javascript" src="<?php echo $crp_url ?>/wick/sample_data.js.php"></script>
 <script type="text/javascript" src="<?php echo $crp_url ?>/wick/wick.js"></script>
 <?php }
-add_action('admin_footer', 'crp_adminfoot');
-
 
 ?>
