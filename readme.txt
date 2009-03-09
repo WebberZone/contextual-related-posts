@@ -32,6 +32,7 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 = Changelog =
 
+* 1.3.1 - Fixed bug that didn't blank out posts even when option was selected
 * 1.3 
 	- Better optimization in WP-Admin area. 
 	- Fixed compatibility problems with Simple Tags plugin

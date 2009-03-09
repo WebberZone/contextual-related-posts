@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.3
+Version:     1.3.1
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -73,11 +73,12 @@ function ald_crp() {
 		} //end of foreach loop
 		$output .= '</ul>';
 	}else{
-		$output .= (($_POST['blank_output']) ? '' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'); 
+		$output = '<div id="crp_related">';
+		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'; 
 	}
 	if ((strpos($output, '<li>')) === false) {
 		$output = '<div id="crp_related">';
-		$output .= (($_POST['blank_output']) ? '' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'); 
+		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'; 
 	}
 	$output .= '</div>';
 	
@@ -119,7 +120,7 @@ function crp_default_options() {
 						limit => '5',				// How many posts to display?
 						match_content => true,		// Match against post content as well as title
 						exclude_pages => true,		// Exclude Pages
-						blank_output => true,		// Match against post tags as well as title
+						blank_output => true,		// Blank output?
 						exclude_categories => '',	// Exclude these categories
 						exclude_cat_slugs => '',	// Exclude these categories
 						);
