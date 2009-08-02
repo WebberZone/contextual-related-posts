@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.3.1
+Version:     1.4
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -10,12 +10,19 @@ Author URI:  http://ajaydsouza.com/
 
 if (!defined('ABSPATH')) die("Aren't you supposed to come here via WP-Admin?");
 
+define('ALD_crp_DIR', dirname(__FILE__));
+define('CRP_LOCAL_NAME', 'crp');
+
 function ald_crp_init() {
-     load_plugin_textdomain('myald_crp_plugin', PLUGINDIR.'/'.dirname(plugin_basename(__FILE__)));
+	//* Begin Localization Code */
+	$crp_localizationName = CRP_LOCAL_NAME;
+	$crp_comments_locale = get_locale();
+	$crp_comments_mofile = ALD_crp_DIR . "/languages/" . $crp_localizationName . "-". $crp_comments_locale.".mo";
+	load_textdomain($crp_localizationName, $crp_comments_mofile);
+	//* End Localization Code */
 }
 add_action('init', 'ald_crp_init');
 
-define('ALD_crp_DIR', dirname(__FILE__));
 
 /*********************************************************************
 *				Main Function (Do not edit)							*
@@ -38,18 +45,23 @@ function ald_crp() {
 		$stuff = addslashes($post->post_title);
 	}
 	
-	$sql = "SELECT DISTINCT ID,post_title,post_date,"
-	. "MATCH(post_title,post_content) AGAINST ('$stuff') AS score "
-	. "FROM $wpdb->posts WHERE "
-	. "MATCH (post_title,post_content) AGAINST ('$stuff') "
-	. "AND post_date <= '$now' "
-	. "AND post_status = 'publish' "
-	. "AND id != $post->ID ";
-	if ($crp_settings['exclude_pages']) $sql .= "AND post_type = 'post' ";
-	$sql .= "ORDER BY score DESC ";
 	
-	$search_counter = 0;
-	$searches = $wpdb->get_results($sql);
+	if (($post->ID != '')||($stuff != '')) {
+		$sql = "SELECT DISTINCT ID,post_title,post_date,"
+		. "MATCH(post_title,post_content) AGAINST ('".$stuff."') AS score "
+		. "FROM ".$wpdb->posts." WHERE "
+		. "MATCH (post_title,post_content) AGAINST ('".$stuff."') "
+		. "AND post_date <= '".$now."' "
+		. "AND post_status = 'publish' "
+		. "AND id != ".$post->ID." ";
+		if ($crp_settings['exclude_pages']) $sql .= "AND post_type = 'post' ";
+		$sql .= "ORDER BY score DESC ";
+		
+		$search_counter = 0;
+		$searches = $wpdb->get_results($sql);
+	} else {
+		$searches = false;
+	}
 	
 	$output = '<div id="crp_related">';
 	
@@ -74,11 +86,11 @@ function ald_crp() {
 		$output .= '</ul>';
 	}else{
 		$output = '<div id="crp_related">';
-		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'; 
+		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found',CRP_LOCAL_NAME).'</p>'; 
 	}
 	if ((strpos($output, '<li>')) === false) {
 		$output = '<div id="crp_related">';
-		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found','ald_crp_plugin').'</p>'; 
+		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found',CRP_LOCAL_NAME).'</p>'; 
 	}
 	$output .= '</div>';
 	
@@ -110,7 +122,7 @@ function echo_ald_crp() {
 
 // Default Options
 function crp_default_options() {
-	$title = __('<h3>Related Posts:</h3>');
+	$title = __('<h3>Related Posts:</h3>',CRP_LOCAL_NAME);
 
 	$crp_settings = 	Array (
 						title => $title,			// Add before the content
@@ -158,6 +170,8 @@ function ald_crp_activate() {
     $wpdb->hide_errors();
     $wpdb->query('ALTER TABLE '.$wpdb->posts.' ENGINE = MYISAM;');
     $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related (post_title, post_content);');
+    $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related_title (post_title);');
+    $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related_content (post_content);');
     $wpdb->show_errors();
 }
 if (function_exists('register_activation_hook')) {
@@ -168,6 +182,23 @@ if (function_exists('register_activation_hook')) {
 if (is_admin() || strstr($_SERVER['PHP_SELF'], 'wp-admin/')) {
 	require_once(ALD_crp_DIR . "/admin.inc.php");
 }
+
+// Add meta links
+function crp_plugin_actions( $links, $file ) {
+	$plugin = plugin_basename(__FILE__);
+ 
+	// create link
+	if ($file == $plugin) {
+		$links[] = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('Settings', crp_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="http://ajaydsouza.org">' . __('Support', CRP_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="http://ajaydsouza.com/donate/">' . __('Donate', CRP_LOCAL_NAME ) . '</a>';
+	}
+	return $links;
+}
+global $wp_version;
+if ( version_compare( $wp_version, '2.8alpha', '>' ) )
+	add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and higher
+else add_filter( 'plugin_action_links', 'crp_plugin_actions', 10, 2 );
 
 
 ?>

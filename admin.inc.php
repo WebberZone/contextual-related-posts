@@ -2,6 +2,10 @@
 /**********************************************************************
 *					Admin Page										*
 *********************************************************************/
+if (!defined('ABSPATH')) die("Aren't you supposed to come here via WP-Admin?");
+
+if (!defined('CRP_LOCAL_NAME')) define('CRP_LOCAL_NAME', 'better-search');
+
 // Pre-2.6 compatibility
 if ( !defined('WP_CONTENT_URL') )
 	define( 'WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
@@ -42,7 +46,7 @@ function crp_options() {
 
 		update_option('ald_crp_settings', $crp_settings);
 		
-		$str = '<div id="message" class="updated fade"><p>'. __('Options saved successfully.','ald_crp_plugin') .'</p></div>';
+		$str = '<div id="message" class="updated fade"><p>'. __('Options saved successfully.',CRP_LOCAL_NAME) .'</p></div>';
 		echo $str;
 	}
 	
@@ -51,48 +55,63 @@ function crp_options() {
 		$crp_settings = crp_default_options();
 		update_option('ald_crp_settings', $crp_settings);
 		
-		$str = '<div id="message" class="updated fade"><p>'. __('Options set to Default.','ald_crp_plugin') .'</p></div>';
+		$str = '<div id="message" class="updated fade"><p>'. __('Options set to Default.',CRP_LOCAL_NAME) .'</p></div>';
+		echo $str;
+	}
+	if ($_POST['crp_recreate']){
+		$sql = "ALTER TABLE $poststable DROP INDEX crp_related";
+		$wpdb->query($sql);
+		
+		$sql = "ALTER TABLE $poststable DROP INDEX crp_related_title";
+		$wpdb->query($sql);
+		
+		$sql = "ALTER TABLE $poststable DROP INDEX crp_related_content";
+		$wpdb->query($sql);
+		
+		ald_crp_activate();
+		
+		$str = '<div id="message" class="updated fade"><p>'. __('Index recreated',CRP_LOCAL_NAME) .'</p></div>';
 		echo $str;
 	}
 ?>
 
 <div class="wrap">
-  <h2>Contextual Related Posts </h2>
+  <h2>Contextual Related Posts</h2>
   <div style="border: #ccc 1px solid; padding: 10px">
     <fieldset class="options">
     <legend>
     <h3>
-      <?php _e('Support the Development','ald_crp_plugin'); ?>
+      <?php _e('Support the Development',CRP_LOCAL_NAME); ?>
     </h3>
     </legend>
     <p>
-      <?php _e('If you find ','ald_crp_plugin'); ?>
+      <?php _e('If you find ',CRP_LOCAL_NAME); ?>
       <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a>
-      <?php _e('useful, please do','ald_crp_plugin'); ?>
-      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=donate@ajaydsouza.com&amp;item_name=Related%20Posts%20(From%20WP-Admin)&amp;no_shipping=1&amp;return=http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/&amp;cancel_return=http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/&amp;cn=Note%20to%20Author&amp;tax=0&amp;currency_code=USD&amp;bn=PP-DonationsBF&amp;charset=UTF-8" title="Donate via PayPal"><?php _e('drop in your contribution','ald_crp_plugin'); ?></a>.
-	  (<a href="http://ajaydsouza.com/donate/"><?php _e('Some reasons why you should.','ald_crp_plugin'); ?></a>)</p>
+      <?php _e('useful, please do',CRP_LOCAL_NAME); ?>
+      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=donate@ajaydsouza.com&amp;item_name=Related%20Posts%20(From%20WP-Admin)&amp;no_shipping=1&amp;return=http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/&amp;cancel_return=http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/&amp;cn=Note%20to%20Author&amp;tax=0&amp;currency_code=USD&amp;bn=PP-DonationsBF&amp;charset=UTF-8" title="Donate via PayPal"><?php _e('drop in your contribution',CRP_LOCAL_NAME); ?></a>.
+	  (<a href="http://ajaydsouza.com/donate/"><?php _e('Some reasons why you should.',CRP_LOCAL_NAME); ?></a>)</p>
     </fieldset>
   </div>
   <form method="post" id="crp_options" name="crp_options" style="border: #ccc 1px solid; padding: 10px" onsubmit="return checkForm()">
     <fieldset class="options">
     <legend>
     <h3>
-      <?php _e('Options:','ald_crp_plugin'); ?>
+      <?php _e('Options:',CRP_LOCAL_NAME); ?>
     </h3>
     </legend>
     <p>
       <label>
-      <?php _e('Number of related posts to display: ','ald_crp_plugin'); ?>
+      <?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?>
       <input type="textbox" name="limit" id="limit" value="<?php echo stripslashes($crp_settings[limit]); ?>">
       </label>
     </p>
     <p>
       <label>
-      <?php _e('Title of related posts: ','ald_crp_plugin'); ?>
+      <?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?>
       <input type="textbox" name="title" id="title" value="<?php echo stripslashes($crp_settings[title]); ?>">
       </label>
     </p>
-    <p><?php _e('Exclude Categories: ','ald_crp_plugin'); ?></p>
+    <p><?php _e('Exclude Categories: ',CRP_LOCAL_NAME); ?></p>
 	<div style="position:relative;text-align:left">
 		<table id="MYCUSTOMFLOATER" class="myCustomFloater" style="position:absolute;top:50px;left:0;background-color:#cecece;display:none;visibility:hidden">
 		<tr><td><!--
@@ -107,49 +126,50 @@ function crp_options() {
 		</table>
 		<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo stripslashes($crp_settings[exclude_cat_slugs]); ?></textarea>
 	</div>
-	<p><?php _e('When there are no posts, what should be shown?','ald_crp_plugin'); ?><br />
+	<p><?php _e('When there are no posts, what should be shown?',CRP_LOCAL_NAME); ?><br />
 		<label>
 		<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ($crp_settings['blank_output']) echo 'checked="checked"' ?> />
-		<?php _e('Blank Output','ald_crp_plugin'); ?></label>
+		<?php _e('Blank Output',CRP_LOCAL_NAME); ?></label>
 		<br />
 		<label>
 		<input type="radio" name="blank_output" value="noposts" id="blank_output_1" <?php if (!$crp_settings['blank_output']) echo 'checked="checked"' ?> />
-		<?php _e('Display "No Related Posts"','ald_crp_plugin'); ?></label>
+		<?php _e('Display "No Related Posts"',CRP_LOCAL_NAME); ?></label>
 		<br />
 	</p>
     <p>
       <label>
       <input type="checkbox" name="add_to_content" id="add_to_content" <?php if ($crp_settings[add_to_content]) echo 'checked="checked"' ?> />
-      <?php _e('Add related posts to the post content on single posts. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists(\'echo_ald_crp\')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed','ald_crp_plugin'); ?>
+      <?php _e('Add related posts to the post content on single posts. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists(\'echo_ald_crp\')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed',CRP_LOCAL_NAME); ?>
       </label>
     </p>
     <p>
       <label>
       <input type="checkbox" name="add_to_page" id="add_to_page" <?php if ($crp_settings[add_to_page]) echo 'checked="checked"' ?> />
-      <?php _e('Add related posts to pages. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists(\'echo_ald_crp\')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed','ald_crp_plugin'); ?>
+      <?php _e('Add related posts to pages. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists(\'echo_ald_crp\')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed',CRP_LOCAL_NAME); ?>
       </label>
     </p>
     <p>
       <label>
       <input type="checkbox" name="add_to_feed" id="add_to_feed" <?php if ($crp_settings[add_to_feed]) echo 'checked="checked"' ?> />
-      <?php _e('Add related posts to feed','ald_crp_plugin'); ?>
+      <?php _e('Add related posts to feed',CRP_LOCAL_NAME); ?>
       </label>
     </p>
     <p>
       <label>
       <input type="checkbox" name="match_content" id="match_content" <?php if ($crp_settings[match_content]) echo 'checked="checked"' ?> />
-      <?php _e('Find related posts based on content as well as title. If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)','ald_crp_plugin'); ?>
+      <?php _e('Find related posts based on content as well as title. If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)',CRP_LOCAL_NAME); ?>
       </label>
     </p>
     <p>
       <label>
       <input type="checkbox" name="exclude_pages" id="exclude_pages" <?php if ($crp_settings[exclude_pages]) echo 'checked="checked"' ?> />
-      <?php _e('Exclude Pages in Related Posts','ald_crp_plugin'); ?>
+      <?php _e('Exclude Pages in Related Posts',CRP_LOCAL_NAME); ?>
       </label>
     </p>
     <p>
-      <input type="submit" name="crp_save" id="crp_save" value="Save Options" style="border:#00CC00 1px solid" />
-      <input name="crp_default" type="submit" id="crp_default" value="Default Options" style="border:#FF0000 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default? If you don\'t have a copy of the username, please hit Cancel and copy it first.','ald_crp_plugin'); ?>')) return false;" />
+      <input type="submit" name="crp_save" id="crp_save" value="Save Options" style="border:#0C0 1px solid" />
+      <input name="crp_default" type="submit" id="crp_default" value="Default Options" style="border:#F00 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default? If you don\'t have a copy of the username, please hit Cancel and copy it first.',CRP_LOCAL_NAME); ?>')) return false;" />
+      <input name="crp_recreate" type="submit" id="crp_recreate" value="Recreate index" style="border:#00c 1px solid" onclick="if (!confirm('<?php _e('Are you sure you want to recreate the index?',CRP_LOCAL_NAME); ?>')) return false;" />
     </p>
     </fieldset>
   </form>
@@ -174,9 +194,11 @@ function crp_adminmenu() {
 	}
 
 	if ((function_exists('add_options_page'))&&($crp_is_admin)) {
-		$plugin_page = add_options_page(__("Related Posts", 'myald_crp_plugin'), __("Related Posts", 'myald_crp_plugin'), 9, 'crp_options', 'crp_options');
+		$plugin_page = add_options_page(__("Related Posts", CRP_LOCAL_NAME), __("Related Posts", CRP_LOCAL_NAME), 9, 'crp_options', 'crp_options');
 		add_action( 'admin_head-'. $plugin_page, 'crp_adminhead' );
 	}
+	
+	ald_crp_activate();
 }
 add_action('admin_menu', 'crp_adminmenu');
 
