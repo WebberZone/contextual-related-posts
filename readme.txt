@@ -21,7 +21,7 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 = Features =
 
 * Display Related Posts automatically in content / feed, no need to edit template files 
-* Doesn’t require the post to be tagged in order to display related posts 
+* Doesn't require the post to be tagged in order to display related posts 
 * You can manually add code to your template where you want the related posts to be displayed 
 * Exclude posts from categories 
 * Exclude display of related posts on Pages 
