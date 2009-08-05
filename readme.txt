@@ -31,6 +31,10 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Changelog ==
 
+= 1.4.1 =
+* Added Italian language
+* Minor fix for text in the admin page
+
 = 1.4 =
 * Added complete localization support
 * Added button to recreate the mySQL FULLTEXT index

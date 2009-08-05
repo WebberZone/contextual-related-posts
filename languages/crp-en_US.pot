@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-02 12:12+0530\n"
+"POT-Creation-Date: 2009-08-05 22:53+0530\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -95,7 +95,7 @@ msgid "Exclude Pages in Related Posts"
 msgstr ""
 
 #: admin.inc.php:171
-msgid "Do you want to set options to Default? If you don't have a copy of the username, please hit Cancel and copy it first."
+msgid "Do you want to set options to Default?"
 msgstr ""
 
 #: admin.inc.php:172

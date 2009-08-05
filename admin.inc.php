@@ -168,7 +168,7 @@ function crp_options() {
     </p>
     <p>
       <input type="submit" name="crp_save" id="crp_save" value="Save Options" style="border:#0C0 1px solid" />
-      <input name="crp_default" type="submit" id="crp_default" value="Default Options" style="border:#F00 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default? If you don\'t have a copy of the username, please hit Cancel and copy it first.',CRP_LOCAL_NAME); ?>')) return false;" />
+      <input name="crp_default" type="submit" id="crp_default" value="Default Options" style="border:#F00 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default?',CRP_LOCAL_NAME); ?>')) return false;" />
       <input name="crp_recreate" type="submit" id="crp_recreate" value="Recreate index" style="border:#00c 1px solid" onclick="if (!confirm('<?php _e('Are you sure you want to recreate the index?',CRP_LOCAL_NAME); ?>')) return false;" />
     </p>
     </fieldset>
