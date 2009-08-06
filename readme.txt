@@ -32,7 +32,7 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 == Changelog ==
 
 = 1.4.1 =
-* Added Italian language
+* Added Italian and Danish languages
 * Minor fix for text in the admin page
 
 = 1.4 =
