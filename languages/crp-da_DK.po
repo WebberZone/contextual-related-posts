@@ -1,0 +1,132 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Contextual Related Posts 1.4.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-06 09:50+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Team Blogos <wordpress@blogos.dk>\n"
+"Language-Team: Team Blogos <wordpress@blogos.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2;plural=n != 1;\n"
+"X-Poedit-Language: Danish\n"
+"X-Poedit-Country: DENMARK\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_c;_e;__ngettext:1,2;__ngettext_noop:1,2;_n:1,2;_nc:1,2;_n_noop:1,2\n"
+"X-Poedit-Basepath: d:\\wordpress\\plugins\\contextual-related-posts\n"
+"X-Poedit-SearchPath-0: d:\\wordpress\\plugins\\contextual-related-posts\n"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:49
+msgid "Options saved successfully."
+msgstr "Indstillingerne blev gemt."
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:58
+msgid "Options set to Default."
+msgstr "Indstillingerne sat til standardværdier."
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:73
+msgid "Index recreated"
+msgstr "Indeks blev gendannet"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:84
+msgid "Support the Development"
+msgstr "Støt udviklingen"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:88
+msgid "If you find "
+msgstr "Hvis du finder "
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:90
+msgid "useful, please do"
+msgstr "brugbar, så venligst"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:91
+msgid "drop in your contribution"
+msgstr "giv et bidrag"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:92
+msgid "Some reasons why you should."
+msgstr "Nogle grunde til, du skulle gøre det."
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:99
+msgid "Options:"
+msgstr "Indstillinger:"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:104
+msgid "Number of related posts to display: "
+msgstr "Antal Lignende indlæg, der skal vises: "
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:110
+msgid "Title of related posts: "
+msgstr "Titel på Lignende indlæg: "
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:114
+msgid "Exclude Categories: "
+msgstr "Udelad kategorier: "
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:129
+msgid "When there are no posts, what should be shown?"
+msgstr "Hvad skal der vises, hvis der ingen indlæg er?"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:132
+msgid "Blank Output"
+msgstr "Intet"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:136
+msgid "Display \"No Related Posts\""
+msgstr "Vis \"Ingen lignende indlæg\""
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:142
+msgid "Add related posts to the post content on single posts. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
+msgstr "Tilføj Lignende indlæg til indlæggenes indhold i enkelt-indlæg. <br />Hvis du vælger at deaktivere dette, skal du tilføje <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> til din skabelonfil, hvor du ønsker de lignende indlæg vist"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:148
+msgid "Add related posts to pages. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
+msgstr "Tilføj Lignende indlæg til statiske sider. <br />Hvis du vælger at deaktivere dette, skal du tilføje <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> til din skabelonfil, hvor du ønsker de lignende indlæg vist"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:154
+msgid "Add related posts to feed"
+msgstr "Tilføj Lignende indlæg til feeds"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:160
+msgid "Find related posts based on content as well as title. If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
+msgstr "Find Lignende indlæg ud fra såvel indhold som titel. Hvis umarkeret, bruges kun indlæggenes titler (jeg anbefaler et cache-plugin, hvis du aktiverer dette)"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:166
+msgid "Exclude Pages in Related Posts"
+msgstr "Udelad sider i Lignende indlæg"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:171
+msgid "Do you want to set options to Default?"
+msgstr "Ønsker du at sætte indstillingerne til standardværdierne?"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:172
+msgid "Are you sure you want to recreate the index?"
+msgstr "Er du sikker på, du ønsker at gendanne indekset?"
+
+#: d:\wordpress\plugins\contextual-related-posts/admin.inc.php:197
+msgid "Related Posts"
+msgstr "Lignende indlæg"
+
+#: d:\wordpress\plugins\contextual-related-posts/contextual-related-posts.php:89
+#: d:\wordpress\plugins\contextual-related-posts/contextual-related-posts.php:93
+msgid "No related posts found"
+msgstr "Ingen lignende indlæg fundet"
+
+#: d:\wordpress\plugins\contextual-related-posts/contextual-related-posts.php:125
+msgid "<h3>Related Posts:</h3>"
+msgstr "<h3>Lignende indlæg:</h3>"
+
+#: d:\wordpress\plugins\contextual-related-posts/contextual-related-posts.php:192
+msgid "Settings"
+msgstr "Opsætning"
+
+#: d:\wordpress\plugins\contextual-related-posts/contextual-related-posts.php:193
+msgid "Support"
+msgstr "Support"
+
+#: d:\wordpress\plugins\contextual-related-posts/contextual-related-posts.php:194
+msgid "Donate"
+msgstr "Donation"
+
