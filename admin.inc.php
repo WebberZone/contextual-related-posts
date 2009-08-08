@@ -25,7 +25,7 @@ function crp_options() {
 
 	if($_POST['crp_save']){
 		$crp_settings[title] = ($_POST['title']);
-		$crp_settings[limit] = ($_POST['limit']);
+		$crp_settings[limit] = ((is_int($_POST['limit'])) ? ($_POST['limit']) : 5);
 		$crp_settings[exclude_cat_slugs] = ($_POST['exclude_cat_slugs']);
 		$crp_settings[add_to_content] = (($_POST['add_to_content']) ? true : false);
 		$crp_settings[add_to_page] = (($_POST['add_to_page']) ? true : false);
@@ -102,13 +102,13 @@ function crp_options() {
     <p>
       <label>
       <?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?>
-      <input type="textbox" name="limit" id="limit" value="<?php echo stripslashes($crp_settings[limit]); ?>">
+      <input type="textbox" name="limit" id="limit" value="<?php echo attribute_escape(stripslashes($crp_settings[limit])); ?>">
       </label>
     </p>
     <p>
       <label>
       <?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?>
-      <input type="textbox" name="title" id="title" value="<?php echo stripslashes($crp_settings[title]); ?>">
+      <input type="textbox" name="title" id="title" value="<?php echo attribute_escape(stripslashes($crp_settings[title])); ?>">
       </label>
     </p>
     <p><?php _e('Exclude Categories: ',CRP_LOCAL_NAME); ?></p>
@@ -124,7 +124,7 @@ function crp_options() {
 			</div>
 		</td></tr>
 		</table>
-		<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo stripslashes($crp_settings[exclude_cat_slugs]); ?></textarea>
+		<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo (stripslashes($crp_settings[exclude_cat_slugs])); ?></textarea>
 	</div>
 	<p><?php _e('When there are no posts, what should be shown?',CRP_LOCAL_NAME); ?><br />
 		<label>
@@ -198,7 +198,6 @@ function crp_adminmenu() {
 		add_action( 'admin_head-'. $plugin_page, 'crp_adminhead' );
 	}
 	
-	ald_crp_activate();
 }
 add_action('admin_menu', 'crp_adminmenu');
 

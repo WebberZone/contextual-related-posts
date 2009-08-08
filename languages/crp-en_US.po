@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-05 22:53+0530\n"
+"POT-Creation-Date: 2009-08-08 11:39+0530\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -115,15 +115,15 @@ msgstr ""
 msgid "<h3>Related Posts:</h3>"
 msgstr ""
 
-#: contextual-related-posts.php:192
+#: contextual-related-posts.php:190
 msgid "Settings"
 msgstr ""
 
-#: contextual-related-posts.php:193
+#: contextual-related-posts.php:191
 msgid "Support"
 msgstr ""
 
-#: contextual-related-posts.php:194
+#: contextual-related-posts.php:192
 msgid "Donate"
 msgstr ""
 

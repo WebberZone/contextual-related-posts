@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.4.1
+Version:     1.4.2
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -31,7 +31,7 @@ function ald_crp() {
 	global $wpdb, $post, $single;
 
 	$crp_settings = crp_read_options();
-	$limit = $crp_settings['limit'];
+	$limit = (stripslashes($crp_settings['limit']));
 	$exclude_categories = explode(',',$crp_settings['exclude_categories']);
 	
 	// Make sure the post is not from the future
@@ -66,7 +66,7 @@ function ald_crp() {
 	$output = '<div id="crp_related">';
 	
 	if($searches){
-		$output .= $crp_settings['title'];
+		$output .= (stripslashes($crp_settings[title]));
 		$output .= '<ul>';
 		foreach($searches as $search) {
 			$categorys = get_the_category($search->ID);	//Fetch categories of the plugin
@@ -143,8 +143,6 @@ function crp_default_options() {
 function crp_read_options() 
 {
 	$crp_settings_changed = false;
-	
-	//ald_crp_activate();
 	
 	$defaults = crp_default_options();
 	

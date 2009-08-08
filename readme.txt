@@ -31,6 +31,10 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Changelog ==
 
+= 1.4.2 =
+* Fixed: Using doublequotes in the title would mess up the screen
+* Fixed: Errors when the mySQL index was being regenerated
+
 = 1.4.1 =
 * Added Italian and Danish languages
 * Minor fix for text in the admin page
