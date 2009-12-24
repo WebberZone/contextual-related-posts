@@ -33,6 +33,15 @@ function crp_options() {
 		$crp_settings[match_content] = (($_POST['match_content']) ? true : false);
 		$crp_settings[exclude_pages] = (($_POST['exclude_pages']) ? true : false);
 		$crp_settings[blank_output] = (($_POST['blank_output'] == 'blank' ) ? true : false);
+		$crp_settings[post_thumb_op] = $_POST['post_thumb_op'];
+		$crp_settings[before_list] = $_POST['before_list'];
+		$crp_settings[after_list] = $_POST['after_list'];
+		$crp_settings[before_list_item] = $_POST['before_list_item'];
+		$crp_settings[after_list_item] = $_POST['after_list_item'];
+		$crp_settings[thumb_meta] = $_POST['thumb_meta'];
+		$crp_settings[thumb_default] = $_POST['thumb_default'];
+		$crp_settings[thumb_height] = ((is_int($_POST['thumb_height'])) ? ($_POST['thumb_height']) : 100);
+		$crp_settings[thumb_width] = ((is_int($_POST['thumb_width'])) ? ($_POST['thumb_width']) : 100);
 		
 		
 		$exclude_categories_slugs = explode(", ",$crp_settings[exclude_cat_slugs]);
@@ -105,12 +114,6 @@ function crp_options() {
       <input type="textbox" name="limit" id="limit" value="<?php echo attribute_escape(stripslashes($crp_settings[limit])); ?>">
       </label>
     </p>
-    <p>
-      <label>
-      <?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?>
-      <input type="textbox" name="title" id="title" value="<?php echo attribute_escape(stripslashes($crp_settings[title])); ?>">
-      </label>
-    </p>
     <p><?php _e('Exclude Categories: ',CRP_LOCAL_NAME); ?></p>
 	<div style="position:relative;text-align:left">
 		<table id="MYCUSTOMFLOATER" class="myCustomFloater" style="position:absolute;top:50px;left:0;background-color:#cecece;display:none;visibility:hidden">
@@ -126,16 +129,6 @@ function crp_options() {
 		</table>
 		<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo (stripslashes($crp_settings[exclude_cat_slugs])); ?></textarea>
 	</div>
-	<p><?php _e('When there are no posts, what should be shown?',CRP_LOCAL_NAME); ?><br />
-		<label>
-		<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ($crp_settings['blank_output']) echo 'checked="checked"' ?> />
-		<?php _e('Blank Output',CRP_LOCAL_NAME); ?></label>
-		<br />
-		<label>
-		<input type="radio" name="blank_output" value="noposts" id="blank_output_1" <?php if (!$crp_settings['blank_output']) echo 'checked="checked"' ?> />
-		<?php _e('Display "No Related Posts"',CRP_LOCAL_NAME); ?></label>
-		<br />
-	</p>
     <p>
       <label>
       <input type="checkbox" name="add_to_content" id="add_to_content" <?php if ($crp_settings[add_to_content]) echo 'checked="checked"' ?> />
@@ -166,6 +159,85 @@ function crp_options() {
       <?php _e('Exclude Pages in Related Posts',CRP_LOCAL_NAME); ?>
       </label>
     </p>
+    <h4>
+      <?php _e('Output Options:',CRP_LOCAL_NAME); ?>
+    </h4>
+    <p>
+      <label>
+      <?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="title" id="title" value="<?php echo attribute_escape(stripslashes($crp_settings[title])); ?>">
+      </label>
+    </p>
+	<p><?php _e('When there are no posts, what should be shown?',CRP_LOCAL_NAME); ?><br />
+		<label>
+		<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ($crp_settings['blank_output']) echo 'checked="checked"' ?> />
+		<?php _e('Blank Output',CRP_LOCAL_NAME); ?></label>
+		<br />
+		<label>
+		<input type="radio" name="blank_output" value="noposts" id="blank_output_1" <?php if (!$crp_settings['blank_output']) echo 'checked="checked"' ?> />
+		<?php _e('Display "No Related Posts"',CRP_LOCAL_NAME); ?></label>
+		<br />
+	</p>
+	<h4><?php _e('Customize the output:',CRP_LOCAL_NAME); ?></h4>
+	<p>
+      <label>
+      <?php _e('HTML to display before the list of posts: ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="before_list" id="before_list" value="<?php echo attribute_escape(stripslashes($crp_settings[before_list])); ?>">
+      </label>
+	</p>
+	<p>
+      <label>
+      <?php _e('HTML to display before each list item: ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="before_list_item" id="before_list_item" value="<?php echo attribute_escape(stripslashes($crp_settings[before_list_item])); ?>">
+      </label>
+	</p>
+	<p>
+      <label>
+      <?php _e('HTML to display after each list item: ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="after_list_item" id="after_list_item" value="<?php echo attribute_escape(stripslashes($crp_settings[after_list_item])); ?>">
+      </label>
+	</p>
+	<p>
+      <label>
+      <?php _e('HTML to display after the list of posts: ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="after_list" id="after_list" value="<?php echo attribute_escape(stripslashes($crp_settings[after_list])); ?>">
+      </label>
+	</p>
+	<h4><?php _e('Post thumbnail options:',CRP_LOCAL_NAME); ?></h4>
+	<p>
+		<label>
+		<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php if ($crp_settings['post_thumb_op']=='inline') echo 'checked="checked"' ?> />
+		<?php _e('Display thumbnails inline with posts',CRP_LOCAL_NAME); ?></label>
+		<br />
+		<label>
+		<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_1" <?php if ($crp_settings['post_thumb_op']=='thumbs_only') echo 'checked="checked"' ?> />
+		<?php _e('Display only thumbnails, no text',CRP_LOCAL_NAME); ?></label>
+		<br />
+		<label>
+		<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_2" <?php if ($crp_settings['post_thumb_op']=='text_only') echo 'checked="checked"' ?> />
+		<?php _e('Do not display thumbnails, only text.',CRP_LOCAL_NAME); ?></label>
+		<br />
+	</p>
+    <p>
+      <label>
+      <?php _e('Post thumbnail meta field (the meta should point contain the image source): ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_meta])); ?>">
+      </label>
+    </p>
+    <p><strong><?php _e('Thumbnail dimensions:',CRP_LOCAL_NAME); ?></strong><br />
+      <label>
+      <?php _e('Max width: ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="thumb_width" id="thumb_width" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_width])); ?>" style="width:30px">px
+      </label>
+	  <br />
+      <label>
+      <?php _e('Max height: ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_height])); ?>" style="width:30px">px
+      </label>
+    </p>
+	<p><?php _e('The plugin will first check if the post contains a thumbnail. If it doesn\'t then it will check the meta field. If this is not available, then it will show the default image as specified below:',CRP_LOCAL_NAME); ?>
+	<input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_default])); ?>" style="width:500px">
+	</p>
     <p>
       <input type="submit" name="crp_save" id="crp_save" value="Save Options" style="border:#0C0 1px solid" />
       <input name="crp_default" type="submit" id="crp_default" value="Default Options" style="border:#F00 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default?',CRP_LOCAL_NAME); ?>')) return false;" />

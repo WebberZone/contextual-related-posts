@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.4.2
+Version:     1.5
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -46,7 +46,7 @@ function ald_crp() {
 	}
 	
 	
-	if (($post->ID != '')||($stuff != '')) {
+	if ((is_int($post->ID))&&($stuff != '')) {
 		$sql = "SELECT DISTINCT ID,post_title,post_date,"
 		. "MATCH(post_title,post_content) AGAINST ('".$stuff."') AS score "
 		. "FROM ".$wpdb->posts." WHERE "
@@ -67,7 +67,7 @@ function ald_crp() {
 	
 	if($searches){
 		$output .= (stripslashes($crp_settings[title]));
-		$output .= '<ul>';
+		$output .= $crp_settings['before_list'];
 		foreach($searches as $search) {
 			$categorys = get_the_category($search->ID);	//Fetch categories of the plugin
 			$p_in_c = false;	// Variable to check if post exists in a particular category
@@ -78,12 +78,30 @@ function ald_crp() {
 			}
 
 			if (!$p_in_c) {
-				$output .= '<li><a href="'.get_permalink($search->ID).'" rel="bookmark">'.$title.'</a></li>';
+				$output .= $crp_settings['before_list_item'];
+				if (($crp_settings['post_thumb_op']=='inline')||($crp_settings['post_thumb_op']=='thumbs_only')) {
+					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">';
+					if ((function_exists('has_post_thumbnail')) && (has_post_thumbnail($search->ID))) {
+						$output .= get_the_post_thumbnail( $search->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title));
+					} else {
+						$postimage = get_post_meta($search->ID, 'post-image', true);
+						if ($postimage) {
+							$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" />';
+						} else {
+							$output .= '<img src="'.$crp_settings[thumb_default].'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" />';
+						}
+					}
+					$output .= '</a> ';
+				}
+				if (($crp_settings['post_thumb_op']=='inline')||($crp_settings['post_thumb_op']=='text_only')) {
+					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">'.$title.'</a>';
+				}
+				$output .= $crp_settings['after_list_item'];
 				$search_counter++; 
 			}
 			if ($search_counter == $limit) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
-		$output .= '</ul>';
+		$output .= $crp_settings['after_list'];
 	}else{
 		$output = '<div id="crp_related">';
 		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found',CRP_LOCAL_NAME).'</p>'; 
@@ -123,6 +141,7 @@ function echo_ald_crp() {
 // Default Options
 function crp_default_options() {
 	$title = __('<h3>Related Posts:</h3>',CRP_LOCAL_NAME);
+	$thumb_default = get_bloginfo('wpurl').'/wp-content/plugins/contextual-related-posts/default.png';
 
 	$crp_settings = 	Array (
 						title => $title,			// Add before the content
@@ -134,7 +153,16 @@ function crp_default_options() {
 						exclude_pages => true,		// Exclude Pages
 						blank_output => true,		// Blank output?
 						exclude_categories => '',	// Exclude these categories
-						exclude_cat_slugs => '',	// Exclude these categories
+						exclude_cat_slugs => '',	// Exclude these categories (slugs)
+						before_list => '<ul>',	// Before the entire list
+						after_list => '</ul>',	// After the entire list
+						before_list_item => '<li>',	// Before each list item
+						after_list_item => '</li>',	// After each list item
+						post_thumb_op => 'text_only',	// Display only text in posts
+						thumb_height => '100',	// Height of thumbnails
+						thumb_width => '100',	// Width of thumbnails
+						thumb_meta => 'post-image',	// Meta field that is used to store the location of default thumbnail image
+						thumb_default => $thumb_default,	// Default thumbnail image
 						);
 	return $crp_settings;
 }

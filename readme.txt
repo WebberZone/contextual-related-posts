@@ -4,7 +4,7 @@ Contributors: Ajay, Mark Ghosh
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 2.5
-Tested up to: 2.8.2
+Tested up to: 2.9.1
 
 
 Show user defined number of contextually related posts
@@ -27,9 +27,13 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 * Exclude display of related posts on Pages 
 * Exclude links pages in Related Posts list 
 * Find related posts based on content and post title 
-
+* Option to display post thumbnails. WordPress 2.9 thumbnails need to be activated in your themes "functions.php"
 
 == Changelog ==
+
+= 1.5 =
+* Added an Option to display post thumbnails
+* The output can be completely customised now
 
 = 1.4.2 =
 * Fixed: Using doublequotes in the title would mess up the screen
