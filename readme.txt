@@ -31,6 +31,9 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Changelog ==
 
+= 1.5.1 =
+* Fixed: Numeric options were not being saved correctly
+
 = 1.5 =
 * Added an Option to display post thumbnails
 * The output can be completely customised now

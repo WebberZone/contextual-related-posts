@@ -25,7 +25,7 @@ function crp_options() {
 
 	if($_POST['crp_save']){
 		$crp_settings[title] = ($_POST['title']);
-		$crp_settings[limit] = ((is_int($_POST['limit'])) ? ($_POST['limit']) : 5);
+		$crp_settings[limit] = intval($_POST['limit']);
 		$crp_settings[exclude_cat_slugs] = ($_POST['exclude_cat_slugs']);
 		$crp_settings[add_to_content] = (($_POST['add_to_content']) ? true : false);
 		$crp_settings[add_to_page] = (($_POST['add_to_page']) ? true : false);
@@ -40,8 +40,8 @@ function crp_options() {
 		$crp_settings[after_list_item] = $_POST['after_list_item'];
 		$crp_settings[thumb_meta] = $_POST['thumb_meta'];
 		$crp_settings[thumb_default] = $_POST['thumb_default'];
-		$crp_settings[thumb_height] = ((is_int($_POST['thumb_height'])) ? ($_POST['thumb_height']) : 100);
-		$crp_settings[thumb_width] = ((is_int($_POST['thumb_width'])) ? ($_POST['thumb_width']) : 100);
+		$crp_settings[thumb_height] = intval($_POST['thumb_height']);
+		$crp_settings[thumb_width] = intval($_POST['thumb_width']);
 		
 		
 		$exclude_categories_slugs = explode(", ",$crp_settings[exclude_cat_slugs]);
