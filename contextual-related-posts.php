@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.5.1
+Version:     1.5.2
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -84,7 +84,7 @@ function ald_crp() {
 					if ((function_exists('has_post_thumbnail')) && (has_post_thumbnail($search->ID))) {
 						$output .= get_the_post_thumbnail( $search->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title));
 					} else {
-						$postimage = get_post_meta($search->ID, 'post-image', true);
+						$postimage = get_post_meta($search->ID, $crp_settings[thumb_meta], true);
 						if ($postimage) {
 							$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" />';
 						} else {

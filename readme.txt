@@ -31,6 +31,9 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Changelog ==
 
+= 1.5.2 =
+* Fixed: Fixed display of post thumbnails using postmeta field
+
 = 1.5.1 =
 * Fixed: Numeric options were not being saved correctly
 
