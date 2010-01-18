@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.5.3
+Version:     1.6
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
