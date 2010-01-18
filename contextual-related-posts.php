@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.5.2
+Version:     1.5.3
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -12,6 +12,20 @@ if (!defined('ABSPATH')) die("Aren't you supposed to come here via WP-Admin?");
 
 define('ALD_crp_DIR', dirname(__FILE__));
 define('CRP_LOCAL_NAME', 'crp');
+
+// Pre-2.6 compatibility
+if ( ! defined( 'WP_CONTENT_URL' ) )
+      define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
+if ( ! defined( 'WP_CONTENT_DIR' ) )
+      define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
+if ( ! defined( 'WP_PLUGIN_URL' ) )
+      define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
+if ( ! defined( 'WP_PLUGIN_DIR' ) )
+      define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
+
+// Guess the location
+$crp_path = WP_PLUGIN_DIR.'/'.plugin_basename(dirname(__FILE__));
+$crp_url = WP_PLUGIN_URL.'/'.plugin_basename(dirname(__FILE__));
 
 function ald_crp_init() {
 	//* Begin Localization Code */
@@ -47,7 +61,7 @@ function ald_crp() {
 	
 	
 	if ((is_int($post->ID))&&($stuff != '')) {
-		$sql = "SELECT DISTINCT ID,post_title,post_date,"
+		$sql = "SELECT DISTINCT ID,post_title,post_date,post_content,"
 		. "MATCH(post_title,post_content) AGAINST ('".$stuff."') AS score "
 		. "FROM ".$wpdb->posts." WHERE "
 		. "MATCH (post_title,post_content) AGAINST ('".$stuff."') "
@@ -82,25 +96,37 @@ function ald_crp() {
 				if (($crp_settings['post_thumb_op']=='inline')||($crp_settings['post_thumb_op']=='thumbs_only')) {
 					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">';
 					if ((function_exists('has_post_thumbnail')) && (has_post_thumbnail($search->ID))) {
-						$output .= get_the_post_thumbnail( $search->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title));
+						$output .= get_the_post_thumbnail( $search->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title,'class' => 'crp_thumb'));
 					} else {
 						$postimage = get_post_meta($search->ID, $crp_settings[thumb_meta], true);
-						if ($postimage) {
-							$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" />';
-						} else {
-							$output .= '<img src="'.$crp_settings[thumb_default].'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" />';
+						if ((!$postimage)&&($crp_settings['scan_images'])) {
+							preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $search->post_content, $matches );
+							// any image there?
+							if( isset( $matches ) && $matches[1][0] ) {
+								$postimage = $matches[1][0]; // we need the first one only!
+							}
 						}
+						if (!$postimage) $postimage = $crp_settings[thumb_default];
+						$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" class="crp_thumb" />';
 					}
 					$output .= '</a> ';
 				}
 				if (($crp_settings['post_thumb_op']=='inline')||($crp_settings['post_thumb_op']=='text_only')) {
-					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">'.$title.'</a>';
+					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_title">'.$title.'</a>';
+				}
+				if ($crp_settings['show_excerpt']) {
+					$output .= '<span class="crp_excerpt"> '.crp_excerpt($search->post_content,$crp_settings['excerpt_length']).'</span>';
 				}
 				$output .= $crp_settings['after_list_item'];
 				$search_counter++; 
 			}
 			if ($search_counter == $limit) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
+		if ($crp_settings['show_credit']) {
+			$output .= $crp_settings['before_list_item'];
+			$output .= __('Powered by',CRP_LOCAL_NAME);
+			$output .= ' <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a>'.$crp_settings['after_list_item'];
+		}
 		$output .= $crp_settings['after_list'];
 	}else{
 		$output = '<div id="crp_related">';
@@ -140,8 +166,9 @@ function echo_ald_crp() {
 
 // Default Options
 function crp_default_options() {
+	global $crp_url;
 	$title = __('<h3>Related Posts:</h3>',CRP_LOCAL_NAME);
-	$thumb_default = get_bloginfo('wpurl').'/wp-content/plugins/contextual-related-posts/default.png';
+	$thumb_default = $crp_url.'/default.png';
 
 	$crp_settings = 	Array (
 						title => $title,			// Add before the content
@@ -149,6 +176,7 @@ function crp_default_options() {
 						add_to_page => false,		// Add related posts to content (only on single pages)
 						add_to_feed => true,		// Add related posts to feed
 						limit => '5',				// How many posts to display?
+						show_credit => true,		// Link to this plugin's page?
 						match_content => true,		// Match against post content as well as title
 						exclude_pages => true,		// Exclude Pages
 						blank_output => true,		// Blank output?
@@ -159,10 +187,13 @@ function crp_default_options() {
 						before_list_item => '<li>',	// Before each list item
 						after_list_item => '</li>',	// After each list item
 						post_thumb_op => 'text_only',	// Display only text in posts
-						thumb_height => '100',	// Height of thumbnails
-						thumb_width => '100',	// Width of thumbnails
+						thumb_height => '50',	// Height of thumbnails
+						thumb_width => '50',	// Width of thumbnails
 						thumb_meta => 'post-image',	// Meta field that is used to store the location of default thumbnail image
 						thumb_default => $thumb_default,	// Default thumbnail image
+						scan_images => false,			// Scan post for images
+						show_excerpt => false,			// Show description in list item
+						excerpt_length => '10',		// Length of characters
 						);
 	return $crp_settings;
 }
@@ -204,10 +235,29 @@ if (function_exists('register_activation_hook')) {
 	register_activation_hook(__FILE__,'ald_crp_activate');
 }
 
+function crp_excerpt($content,$excerpt_length){
+	$out = strip_tags($content);
+	$blah = explode(' ',$out);
+	if (!$excerpt_length) $excerpt_length = 10;
+	if(count($blah) > $excerpt_length){
+		$k = $excerpt_length;
+		$use_dotdotdot = 1;
+	}else{
+		$k = count($blah);
+		$use_dotdotdot = 0;
+	}
+	$excerpt = '';
+	for($i=0; $i<$k; $i++){
+		$excerpt .= $blah[$i].' ';
+	}
+	$excerpt .= ($use_dotdotdot) ? '...' : '';
+	$out = $excerpt;
+	return $out;
+}
+
 // This function adds an Options page in WP Admin
 if (is_admin() || strstr($_SERVER['PHP_SELF'], 'wp-admin/')) {
 	require_once(ALD_crp_DIR . "/admin.inc.php");
-}
 
 // Add meta links
 function crp_plugin_actions( $links, $file ) {
@@ -215,7 +265,7 @@ function crp_plugin_actions( $links, $file ) {
  
 	// create link
 	if ($file == $plugin) {
-		$links[] = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('Settings', crp_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('Settings', CRP_LOCAL_NAME ) . '</a>';
 		$links[] = '<a href="http://ajaydsouza.org">' . __('Support', CRP_LOCAL_NAME ) . '</a>';
 		$links[] = '<a href="http://ajaydsouza.com/donate/">' . __('Donate', CRP_LOCAL_NAME ) . '</a>';
 	}
@@ -226,5 +276,6 @@ if ( version_compare( $wp_version, '2.8alpha', '>' ) )
 	add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and higher
 else add_filter( 'plugin_action_links', 'crp_plugin_actions', 10, 2 );
 
+}
 
 ?>

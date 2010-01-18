@@ -1,0 +1,69 @@
+#options-div
+{
+	width:570px;
+	overflow:hidden;
+	display:block;
+	float:left;
+	margin:0;
+	padding:10px;
+}
+
+#side
+{
+	width:300px;
+	min-height:440px;
+	margin-left:610px;
+	padding:10px;
+}
+
+#side .side-widget
+{
+	background:#FFF;
+	border:solid 1px #DDD;
+	margin-bottom:10px;
+	border-width:0 1px 1px;
+}
+
+.side-widget span.title
+{
+	background: #E6EADB;
+	border: #E1D6C6 1px solid;
+	border-bottom: #F3F6ED 0px solid;
+	color: #676E04;
+	font-size: 1em;
+	font-weight: bold;
+	height: 22px;
+	padding: 2px;
+	text-align: center;
+	display: block;
+}
+
+.side-widget p
+{
+	padding:10px;
+}
+
+.side-widget ul
+{
+	margin:10px 5px 5px;
+}
+
+.side-widget ul li
+{
+	list-style:square;
+	padding-bottom:3px;
+	margin-left:20px;
+}
+
+.side-widget span.rss-date
+{
+	color:#999;
+	font:normal normal 10px/12px Georgia, "Times New Roman", Times, serif;
+}
+
+#donate-form
+{
+	background:#c9defa;
+	padding:10px;
+	text-align: center;
+}

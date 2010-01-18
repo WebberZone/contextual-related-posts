@@ -28,8 +28,15 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 * Exclude links pages in Related Posts list 
 * Find related posts based on content and post title 
 * Option to display post thumbnails. WordPress 2.9 thumbnails need to be activated in your themes "functions.php"
+* Display excerpts in post. You can customize the length of the excerpt
 
 == Changelog ==
+
+= 1.6 =
+* New: The plugin extracts the first image in the post and displays that if the post thumbnail and the post-image meta field is missing
+* New: Display excerpts in the list
+* New: Credit link to the CRP page added. You can choose to turn this off, though I would appreciate if you leave it on.
+* Updated: All parts of the list are now wrapped in classes for easy CSS customisation
 
 = 1.5.2 =
 * Fixed: Fixed display of post thumbnails using postmeta field

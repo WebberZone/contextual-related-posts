@@ -4,18 +4,6 @@
 *********************************************************************/
 if (!defined('ABSPATH')) die("Aren't you supposed to come here via WP-Admin?");
 
-if (!defined('CRP_LOCAL_NAME')) define('CRP_LOCAL_NAME', 'better-search');
-
-// Pre-2.6 compatibility
-if ( !defined('WP_CONTENT_URL') )
-	define( 'WP_CONTENT_URL', get_option('siteurl') . '/wp-content');
-if ( !defined('WP_CONTENT_DIR') )
-	define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-// Guess the location
-$crp_path = WP_CONTENT_DIR.'/plugins/'.plugin_basename(dirname(__FILE__));
-$crp_url = WP_CONTENT_URL.'/plugins/'.plugin_basename(dirname(__FILE__));
-
-
 function crp_options() {
 	
 	global $wpdb;
@@ -33,6 +21,7 @@ function crp_options() {
 		$crp_settings[match_content] = (($_POST['match_content']) ? true : false);
 		$crp_settings[exclude_pages] = (($_POST['exclude_pages']) ? true : false);
 		$crp_settings[blank_output] = (($_POST['blank_output'] == 'blank' ) ? true : false);
+		$crp_settings[blank_output_text] = $_POST['blank_output_text'];
 		$crp_settings[post_thumb_op] = $_POST['post_thumb_op'];
 		$crp_settings[before_list] = $_POST['before_list'];
 		$crp_settings[after_list] = $_POST['after_list'];
@@ -42,7 +31,10 @@ function crp_options() {
 		$crp_settings[thumb_default] = $_POST['thumb_default'];
 		$crp_settings[thumb_height] = intval($_POST['thumb_height']);
 		$crp_settings[thumb_width] = intval($_POST['thumb_width']);
-		
+		$crp_settings[scan_images] = (($_POST['scan_images']) ? true : false);
+		$crp_settings[show_excerpt] = (($_POST['show_excerpt']) ? true : false);
+		$crp_settings[excerpt_length] = intval($_POST['excerpt_length']);
+		$crp_settings[show_credit] = (($_POST['show_credit']) ? true : false);
 		
 		$exclude_categories_slugs = explode(", ",$crp_settings[exclude_cat_slugs]);
 		
@@ -86,21 +78,7 @@ function crp_options() {
 
 <div class="wrap">
   <h2>Contextual Related Posts</h2>
-  <div style="border: #ccc 1px solid; padding: 10px">
-    <fieldset class="options">
-    <legend>
-    <h3>
-      <?php _e('Support the Development',CRP_LOCAL_NAME); ?>
-    </h3>
-    </legend>
-    <p>
-      <?php _e('If you find ',CRP_LOCAL_NAME); ?>
-      <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a>
-      <?php _e('useful, please do',CRP_LOCAL_NAME); ?>
-      <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&amp;business=donate@ajaydsouza.com&amp;item_name=Related%20Posts%20(From%20WP-Admin)&amp;no_shipping=1&amp;return=http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/&amp;cancel_return=http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/&amp;cn=Note%20to%20Author&amp;tax=0&amp;currency_code=USD&amp;bn=PP-DonationsBF&amp;charset=UTF-8" title="Donate via PayPal"><?php _e('drop in your contribution',CRP_LOCAL_NAME); ?></a>.
-	  (<a href="http://ajaydsouza.com/donate/"><?php _e('Some reasons why you should.',CRP_LOCAL_NAME); ?></a>)</p>
-    </fieldset>
-  </div>
+  <div id="options-div">
   <form method="post" id="crp_options" name="crp_options" style="border: #ccc 1px solid; padding: 10px" onsubmit="return checkForm()">
     <fieldset class="options">
     <legend>
@@ -159,6 +137,12 @@ function crp_options() {
       <?php _e('Exclude Pages in Related Posts',CRP_LOCAL_NAME); ?>
       </label>
     </p>
+    <p>
+      <label>
+      <input type="checkbox" name="show_credit" id="show_credit" <?php if ($crp_settings[show_credit]) echo 'checked="checked"' ?> />
+      <?php _e('Append link to this plugin as item. Optional, but would be nice to give me some link love',CRP_LOCAL_NAME); ?>
+      </label>
+    </p>
     <h4>
       <?php _e('Output Options:',CRP_LOCAL_NAME); ?>
     </h4>
@@ -178,6 +162,18 @@ function crp_options() {
 		<?php _e('Display "No Related Posts"',CRP_LOCAL_NAME); ?></label>
 		<br />
 	</p>
+    <p>
+      <label>
+      <input type="checkbox" name="show_excerpt" id="show_excerpt" <?php if ($crp_settings[show_excerpt]) echo 'checked="checked"' ?> />
+      <strong><?php _e('Show post excerpt in list?',CRP_LOCAL_NAME); ?></strong>
+      </label>
+    </p>
+    <p>
+      <label>
+      <?php _e('Length of excerpt (in words): ',CRP_LOCAL_NAME); ?>
+      <input type="textbox" name="excerpt_length" id="excerpt_length" value="<?php echo stripslashes($crp_settings[excerpt_length]); ?>">
+      </label>
+    </p>
 	<h4><?php _e('Customize the output:',CRP_LOCAL_NAME); ?></h4>
 	<p>
       <label>
@@ -224,6 +220,12 @@ function crp_options() {
       <input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_meta])); ?>">
       </label>
     </p>
+    <p>
+      <label>
+      <input type="checkbox" name="scan_images" id="scan_images" <?php if ($crp_settings[scan_images]) echo 'checked="checked"' ?> />
+      <?php _e('If the postmeta is not set, then should the plugin extract the first image from the post. This can slow down the loading of your post if the first image in the related posts is large in file-size',CRP_LOCAL_NAME); ?>
+      </label>
+    </p>
     <p><strong><?php _e('Thumbnail dimensions:',CRP_LOCAL_NAME); ?></strong><br />
       <label>
       <?php _e('Max width: ',CRP_LOCAL_NAME); ?>
@@ -246,6 +248,44 @@ function crp_options() {
     </fieldset>
   </form>
 </div>
+
+  <div id="side">
+	<div class="side-widget">
+	<span class="title"><?php _e('Quick links') ?></span>				
+	<ul>
+		<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e('Contextual Related Posts ');_e('plugin page',CRP_LOCAL_NAME) ?></a></li>
+		<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',CRP_LOCAL_NAME) ?></a></li>
+		<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',CRP_LOCAL_NAME) ?></a></li>
+		<li><a href="http://ajaydsouza.org"><?php _e('Support forum',CRP_LOCAL_NAME) ?></a></li>
+		<li><a href="http://twitter.com/ajaydsouza"><?php _e('Follow @ajaydsouza on Twitter',CRP_LOCAL_NAME) ?></a></li>
+	</ul>
+	</div>
+	<div class="side-widget">
+	<span class="title"><?php _e('Recent developments',CRP_LOCAL_NAME) ?></span>				
+	<?php require_once(ABSPATH . WPINC . '/rss.php'); wp_widget_rss_output('http://ajaydsouza.com/archives/category/wordpress/plugins/feed/', array('items' => 5, 'show_author' => 0, 'show_date' => 1));
+	?>
+	</div>
+	<div class="side-widget">
+		<span class="title"><?php _e('Support the development',CRP_LOCAL_NAME) ?></span>
+		<div id="donate-form">
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+			<input type="hidden" name="cmd" value="_xclick">
+			<input type="hidden" name="business" value="KGVN7LJLLZCMY">
+			<input type="hidden" name="lc" value="IN">
+			<input type="hidden" name="item_name" value="Donation for Contextual Related Posts">
+			<input type="hidden" name="item_number" value="crp">
+			<strong><?php _e('Enter amount in USD: ',CRP_LOCAL_NAME) ?></strong> <input name="amount" value="10.00" size="6" type="text"><br />
+			<input type="hidden" name="currency_code" value="USD">
+			<input type="hidden" name="button_subtype" value="services">
+			<input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted">
+			<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php _e('Send your donation to the author of',CRP_LOCAL_NAME) ?> Contextual Related Posts?">
+			<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+			</form>
+		</div>
+	</div>
+  </div>
+  
+</div>
 <?php
 
 }
@@ -266,7 +306,7 @@ function crp_adminmenu() {
 	}
 
 	if ((function_exists('add_options_page'))&&($crp_is_admin)) {
-		$plugin_page = add_options_page(__("Related Posts", CRP_LOCAL_NAME), __("Related Posts", CRP_LOCAL_NAME), 9, 'crp_options', 'crp_options');
+		$plugin_page = add_options_page(__("Contextual Related Posts", CRP_LOCAL_NAME), __("Related Posts", CRP_LOCAL_NAME), 9, 'crp_options', 'crp_options');
 		add_action( 'admin_head-'. $plugin_page, 'crp_adminhead' );
 	}
 	
@@ -278,6 +318,7 @@ function crp_adminhead() {
 
 ?>
 <link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/wick/wick.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/admin-styles.css" />
 <script type="text/javascript" language="JavaScript">
 function checkForm() {
 answer = true;
