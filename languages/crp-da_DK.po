@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts 1.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-18 23:54+0530\n"
+"POT-Creation-Date: 2010-02-06 18:36+0530\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Team Blogos <wordpress@blogos.dk>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "X-Poedit-Country: DENMARK\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-KeywordsList: __;_c;_e;__ngettext:1,2;__ngettext_noop:1,2;_n:1,2;_nc:1,2;_n_noop:1,2\n"
-"X-Poedit-Basepath: d:\\wordpress\\plugins\\contextual-related-posts\n"
-"X-Poedit-SearchPath-0: d:\\wordpress\\plugins\\contextual-related-posts\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
 
 #: admin.inc.php:50
 msgid "Options saved successfully."
@@ -221,33 +221,24 @@ msgstr "Related Posts (Lignende indlæg)"
 msgid "Powered by"
 msgstr ""
 
-#: contextual-related-posts.php:133
-#: contextual-related-posts.php:137
+#: contextual-related-posts.php:132
+#: contextual-related-posts.php:136
 msgid "No related posts found"
 msgstr "Ingen lignende indlæg fundet"
 
-#: contextual-related-posts.php:170
+#: contextual-related-posts.php:169
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Lignende indlæg:</h3>"
 
-#: contextual-related-posts.php:268
+#: contextual-related-posts.php:267
 msgid "Settings"
 msgstr "Opsætning"
 
-#: contextual-related-posts.php:269
+#: contextual-related-posts.php:268
 msgid "Support"
 msgstr "Support"
 
-#: contextual-related-posts.php:270
+#: contextual-related-posts.php:269
 msgid "Donate"
 msgstr "Donation"
-
-#~ msgid "If you find "
-#~ msgstr "Hvis du finder "
-#~ msgid "useful, please do"
-#~ msgstr "brugbar, så venligst"
-#~ msgid "drop in your contribution"
-#~ msgstr "giv et bidrag"
-#~ msgid "Some reasons why you should."
-#~ msgstr "Nogle grunde til, du skulle gøre det."
 

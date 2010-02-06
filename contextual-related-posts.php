@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.6
+Version:     1.6.1
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -85,7 +85,7 @@ function ald_crp() {
 		foreach($searches as $search) {
 			$categorys = get_the_category($search->ID);	//Fetch categories of the plugin
 			$p_in_c = false;	// Variable to check if post exists in a particular category
-			$title = trim(stripslashes($search->post_title));
+			$title = get_the_title($search->ID);
 			foreach ($categorys as $cat) {	// Loop to check if post exists in excluded category
 				$p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
 				if ($p_in_c) break;	// End loop if post found in category
@@ -129,10 +129,9 @@ function ald_crp() {
 		}
 		$output .= $crp_settings['after_list'];
 	}else{
-		$output = '<div id="crp_related">';
 		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found',CRP_LOCAL_NAME).'</p>'; 
 	}
-	if ((strpos($output, '<li>')) === false) {
+	if ((strpos($output, $crp_settings['before_list_item'])) === false) {
 		$output = '<div id="crp_related">';
 		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found',CRP_LOCAL_NAME).'</p>'; 
 	}

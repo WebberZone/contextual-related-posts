@@ -32,6 +32,10 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Changelog ==
 
+= 1.6.1 =
+* Fixed: Custom output was not detecting styles properly
+* Fixed: Incorrect XHTML code was being generated when using special characters in the post title
+
 = 1.6 =
 * New: The plugin extracts the first image in the post and displays that if the post thumbnail and the post-image meta field is missing
 * New: Display excerpts in the list

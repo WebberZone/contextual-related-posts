@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 18:34+0530\n"
+"POT-Creation-Date: 2010-02-06 18:35+0530\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -16,222 +16,222 @@ msgstr ""
 
 #: admin.inc.php:50
 msgid "Options saved successfully."
-msgstr ""
+msgstr "Optionen gespeichert."
 
 #: admin.inc.php:59
 msgid "Options set to Default."
-msgstr ""
+msgstr "Optionen auf die Voreinstellungen zurückgesetzt."
 
 #: admin.inc.php:74
 msgid "Index recreated"
-msgstr ""
+msgstr "Index aufgefrischt"
 
 #: admin.inc.php:86
 msgid "Options:"
-msgstr ""
+msgstr "Optionen:"
 
 #: admin.inc.php:91
 msgid "Number of related posts to display: "
-msgstr ""
+msgstr "Maximale Anzahl der angezeigten ähnlichen Beiträge: "
 
 #: admin.inc.php:95
 msgid "Exclude Categories: "
-msgstr ""
+msgstr "Kategorien ausschließen: "
 
 #: admin.inc.php:113
 msgid "Add related posts to the post content on single posts. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr ""
+msgstr "Ähnliche Beiträge am Ende jedes Einzelbeitrags auflisten.<br />Wenn Sie das deaktivieren wollen, fügen Sie <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> in das Template ein, in dem die ähnlichen Beiträge aufgeliistet werden sollen"
 
 #: admin.inc.php:119
 msgid "Add related posts to pages. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr ""
+msgstr "Ähnliche Beiträge auch in statischen Seiten auflisten.<br />Wenn Sie das deaktivieren wollen, fügen Sie <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>  in das Template ein, in dem die ähnlichen Beiträge aufgeliistet werden sollen"
 
 #: admin.inc.php:125
 msgid "Add related posts to feed"
-msgstr ""
+msgstr "Ähnliche Beiträge auch in die Feeds aufnehmen"
 
 #: admin.inc.php:131
 msgid "Find related posts based on content as well as title. If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
-msgstr ""
+msgstr "Ähnliche Beiträge sowohl im Beitragstitel als auch im Beitragsinhalt suchen. Bei Deaktivierung wird nur in den Beittragstiteln gesucht. (Im Falle der Aktivierung wird empfohlen, ein Cache-Plugin einzusetzen)"
 
 #: admin.inc.php:137
 msgid "Exclude Pages in Related Posts"
-msgstr ""
+msgstr "Statische Seiten in ähnlichen Beiträgen ausschließen"
 
 #: admin.inc.php:143
 msgid "Append link to this plugin as item. Optional, but would be nice to give me some link love"
-msgstr ""
+msgstr "Einen Link auf dieses Plugin an die Beitragsliste anhängen. Optional, aber es wäre nett, wenn Sie diesen Punkt aktivieren würden."
 
 #: admin.inc.php:147
 msgid "Output Options:"
-msgstr ""
+msgstr "Ausgabeotionen:"
 
 #: admin.inc.php:151
 msgid "Title of related posts: "
-msgstr ""
+msgstr "Überschrift über der Liste der ähnlichen Beiträge: "
 
 #: admin.inc.php:155
 msgid "When there are no posts, what should be shown?"
-msgstr ""
+msgstr "Wenn keine ähnlichen Beiträge gefunden werden, was soll dann angezeigt werden?"
 
 #: admin.inc.php:158
 msgid "Blank Output"
-msgstr ""
+msgstr "Nichts"
 
 #: admin.inc.php:162
 msgid "Display \"No Related Posts\""
-msgstr ""
+msgstr "\"Keine ähnlichen Beiträge\" anzeigen"
 
 #: admin.inc.php:168
 msgid "Show post excerpt in list?"
-msgstr ""
+msgstr "Auszug des Beitrags in der Liste anzeigen?"
 
 #: admin.inc.php:173
 msgid "Length of excerpt (in words): "
-msgstr ""
+msgstr "Länge des Auszugs (in Worten): "
 
 #: admin.inc.php:177
 msgid "Customize the output:"
-msgstr ""
+msgstr "Die Ausgabe anpassen:"
 
 #: admin.inc.php:180
 msgid "HTML to display before the list of posts: "
-msgstr ""
+msgstr "HTML vor der Beitragsliste: "
 
 #: admin.inc.php:186
 msgid "HTML to display before each list item: "
-msgstr ""
+msgstr "HTML vor jedem Listenelement: "
 
 #: admin.inc.php:192
 msgid "HTML to display after each list item: "
-msgstr ""
+msgstr "HTML nach jedem Listenelement: "
 
 #: admin.inc.php:198
 msgid "HTML to display after the list of posts: "
-msgstr ""
+msgstr "HTML nach der Beitragsliste: "
 
 #: admin.inc.php:202
 msgid "Post thumbnail options:"
-msgstr ""
+msgstr "Optionen für die Beitrags-Thumbnails:"
 
 #: admin.inc.php:206
 msgid "Display thumbnails inline with posts"
-msgstr ""
+msgstr "Thumbnails und Beitragstitel anzeigen"
 
 #: admin.inc.php:210
 msgid "Display only thumbnails, no text"
-msgstr ""
+msgstr "Nur Thumbnails, keine Beitragstitel anzeigen"
 
 #: admin.inc.php:214
 msgid "Do not display thumbnails, only text."
-msgstr ""
+msgstr "Keine Thumbnails, nur Beitragstitel anzeigen"
 
 #: admin.inc.php:219
 msgid "Post thumbnail meta field (the meta should point contain the image source): "
-msgstr ""
+msgstr "Meta-Feld des Beitrags-Thumbnails (der Wert sollte auf das Bild zeigen): "
 
 #: admin.inc.php:226
 msgid "If the postmeta is not set, then should the plugin extract the first image from the post. This can slow down the loading of your post if the first image in the related posts is large in file-size"
-msgstr ""
+msgstr "Wenn 'Postmeta' nicht gesetzt ist, dann soll das Plugin das erste Bild aus dem jeweiligen Beitrag verwenden. Das kann allerdings das Laden des Beitrags verlangsamen, wenn die Bilddateien der ähnlichen Beiträge groß sind!"
 
 #: admin.inc.php:229
 msgid "Thumbnail dimensions:"
-msgstr ""
+msgstr "Größe der Thumbnails:"
 
 #: admin.inc.php:231
 msgid "Max width: "
-msgstr ""
+msgstr "Maximale Breite: "
 
 #: admin.inc.php:236
 msgid "Max height: "
-msgstr ""
+msgstr "Maximale Höhe: "
 
 #: admin.inc.php:240
 msgid "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified below:"
-msgstr ""
+msgstr "Das Plugin prüft zunächst, ob der Beitrag einen Thumbnail enthält. Wenn nicht, wird das Meta-Feld überprüft. Wenn auch dieses nicht vorhanden ist, wird das  unten spezifizierte Default-Thumbnail angezeigt:"
 
 #: admin.inc.php:245
 msgid "Do you want to set options to Default?"
-msgstr ""
+msgstr "Wollen Sie die Optionen auf die Voreinstellungen zurücksetzen?"
 
 #: admin.inc.php:246
 msgid "Are you sure you want to recreate the index?"
-msgstr ""
+msgstr "Sind Sie sicher, einen neuen Index zu erzeugen?"
 
 #: admin.inc.php:254
 msgid "Quick links"
-msgstr ""
+msgstr "Links"
 
 #: admin.inc.php:256
 msgid "Contextual Related Posts "
-msgstr ""
+msgstr "Contextual Related Posts "
 
 #: admin.inc.php:256
 msgid "plugin page"
-msgstr ""
+msgstr "Plugin-Seite"
 
 #: admin.inc.php:257
 msgid "Other plugins"
-msgstr ""
+msgstr "Weitere Plugins"
 
 #: admin.inc.php:258
 msgid "Ajay's blog"
-msgstr ""
+msgstr "Ajay's Blog"
 
 #: admin.inc.php:259
 msgid "Support forum"
-msgstr ""
+msgstr "Support Forum"
 
 #: admin.inc.php:260
 msgid "Follow @ajaydsouza on Twitter"
-msgstr ""
+msgstr "@ajaydsouza auf Twitter folgen"
 
 #: admin.inc.php:264
 msgid "Recent developments"
-msgstr ""
+msgstr "Neueste Entwicklungen"
 
 #: admin.inc.php:269
 msgid "Support the development"
-msgstr ""
+msgstr "Unterstützen Sie die Entwicklung"
 
 #: admin.inc.php:277
 msgid "Enter amount in USD: "
-msgstr ""
+msgstr "Den Betrag in USD eingeben: "
 
 #: admin.inc.php:281
 msgid "Send your donation to the author of"
-msgstr ""
+msgstr "Schicken Sie eine Spende an den Autor von"
 
 #: admin.inc.php:309
 msgid "Contextual Related Posts"
-msgstr ""
+msgstr "Contextual Related Posts"
 
 #: admin.inc.php:309
 msgid "Related Posts"
-msgstr ""
+msgstr "Related Posts"
 
 #: contextual-related-posts.php:127
 msgid "Powered by"
-msgstr ""
+msgstr "Powered by"
 
 #: contextual-related-posts.php:132
 #: contextual-related-posts.php:136
 msgid "No related posts found"
-msgstr ""
+msgstr "Keine ähnlichen Beiträge gefunden"
 
 #: contextual-related-posts.php:169
 msgid "<h3>Related Posts:</h3>"
-msgstr ""
+msgstr "<h3>Ähnliche Beiträge:</h3>"
 
 #: contextual-related-posts.php:267
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: contextual-related-posts.php:268
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: contextual-related-posts.php:269
 msgid "Donate"
-msgstr ""
+msgstr "Spenden"
 

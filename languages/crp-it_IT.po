@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts in italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-18 23:54+0530\n"
+"POT-Creation-Date: 2010-02-06 18:35+0530\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -219,24 +219,24 @@ msgstr "Related Posts"
 msgid "Powered by"
 msgstr ""
 
-#: contextual-related-posts.php:133
-#: contextual-related-posts.php:137
+#: contextual-related-posts.php:132
+#: contextual-related-posts.php:136
 msgid "No related posts found"
 msgstr "Non é stato trovato alcun articolo correlato"
 
-#: contextual-related-posts.php:170
+#: contextual-related-posts.php:169
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Related Posts:</h3>"
 
-#: contextual-related-posts.php:268
+#: contextual-related-posts.php:267
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: contextual-related-posts.php:269
+#: contextual-related-posts.php:268
 msgid "Support"
 msgstr "Supporto"
 
-#: contextual-related-posts.php:270
+#: contextual-related-posts.php:269
 msgid "Donate"
 msgstr "Donazioni"
 
