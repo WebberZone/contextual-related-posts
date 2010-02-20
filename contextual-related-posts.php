@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.6.1
+Version:     1.6.2
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -96,7 +96,7 @@ function ald_crp() {
 				if (($crp_settings['post_thumb_op']=='inline')||($crp_settings['post_thumb_op']=='thumbs_only')) {
 					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">';
 					if ((function_exists('has_post_thumbnail')) && (has_post_thumbnail($search->ID))) {
-						$output .= get_the_post_thumbnail( $search->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title,'class' => 'crp_thumb'));
+						$output .= get_the_post_thumbnail( $search->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title,'class' => 'crp_thumb','border' => '0'));
 					} else {
 						$postimage = get_post_meta($search->ID, $crp_settings[thumb_meta], true);
 						if ((!$postimage)&&($crp_settings['scan_images'])) {
@@ -107,7 +107,7 @@ function ald_crp() {
 							}
 						}
 						if (!$postimage) $postimage = $crp_settings[thumb_default];
-						$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" class="crp_thumb" />';
+						$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" border="0" class="crp_thumb" />';
 					}
 					$output .= '</a> ';
 				}
@@ -175,7 +175,7 @@ function crp_default_options() {
 						add_to_page => false,		// Add related posts to content (only on single pages)
 						add_to_feed => true,		// Add related posts to feed
 						limit => '5',				// How many posts to display?
-						show_credit => true,		// Link to this plugin's page?
+						show_credit => false,		// Link to this plugin's page?
 						match_content => true,		// Match against post content as well as title
 						exclude_pages => true,		// Exclude Pages
 						blank_output => true,		// Blank output?
@@ -260,7 +260,8 @@ if (is_admin() || strstr($_SERVER['PHP_SELF'], 'wp-admin/')) {
 
 // Add meta links
 function crp_plugin_actions( $links, $file ) {
-	$plugin = plugin_basename(__FILE__);
+	static $plugin;
+	if (!$plugin) $plugin = plugin_basename(__FILE__);
  
 	// create link
 	if ($file == $plugin) {
@@ -275,6 +276,26 @@ if ( version_compare( $wp_version, '2.8alpha', '>' ) )
 	add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and higher
 else add_filter( 'plugin_action_links', 'crp_plugin_actions', 10, 2 );
 
+add_action('after_plugin_row', 'crp_add_plugin_row', 10, 2);
+function crp_add_plugin_row($links, $file) {
+	static $plugin;
+	global $wp_version;
+	if (!$plugin) $plugin = plugin_basename(__FILE__);
+
+	if ($file == $plugin ){
+		$current = get_option('update_plugins');
+		if (!isset($current->response[$file])) return false;
+
+		$columns = substr($wp_version, 0, 3) >= "2.8" ? 3 : 5;
+		$url = "http://svn.wp-plugins.org/contextual-related-posts/trunk/update-info.txt";
+		$update = wp_remote_fopen($url);
+		echo '<td colspan="'.$columns.'">';
+		echo $update;
+		echo '</td>';
+	}
 }
+
+
+} // End admin.inc
 
 ?>

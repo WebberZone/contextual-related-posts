@@ -4,7 +4,7 @@ Contributors: Ajay, Mark Ghosh
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 2.5
-Tested up to: 2.9.1
+Tested up to: 2.9.2
 
 
 Show user defined number of contextually related posts
@@ -31,6 +31,11 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 * Display excerpts in post. You can customize the length of the excerpt
 
 == Changelog ==
+
+= 1.6.2 =
+* Turned the credit option to false by default. This setting won't effect current users.
+* Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail
+* From the next version, the plugin will display update information in your WP-Admin
 
 = 1.6.1 =
 * Fixed: Custom output was not detecting styles properly
@@ -93,6 +98,11 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 = 1.0.1 =
 * Release
 
+== Upgrade Notice ==
+
+= 1.6.2 =
+Turned the credit option to false by default. This setting won't effect current users.
+Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail.
 
 == Installation ==
 
