@@ -32,6 +32,9 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Changelog ==
 
+= 1.6.3 =
+* Fixed: The plugin will now display a list of changes in the WordPress Admin > Plugins area whenever an update is available
+
 = 1.6.2 =
 * Turned the credit option to false by default. This setting won't effect current users.
 * Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail
@@ -100,9 +103,10 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Upgrade Notice ==
 
-= 1.6.2 =
-Turned the credit option to false by default. This setting won't effect current users.
-Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail.
+= 1.6.3 =
+* Turned the credit option to false by default. This setting won't effect current users.
+* Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail.
+* The plugin will now display a list of changes in the WordPress Admin > Plugins area whenever an update is available
 
 == Installation ==
 

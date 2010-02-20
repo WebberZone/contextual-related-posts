@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.6.2
+Version:     1.6.3
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -276,24 +276,27 @@ if ( version_compare( $wp_version, '2.8alpha', '>' ) )
 	add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and higher
 else add_filter( 'plugin_action_links', 'crp_plugin_actions', 10, 2 );
 
-add_action('after_plugin_row', 'crp_add_plugin_row', 10, 2);
-function crp_add_plugin_row($links, $file) {
-	static $plugin;
+// Display message about plugin update option
+function crp_check_version($file, $plugin_data) {
 	global $wp_version;
-	if (!$plugin) $plugin = plugin_basename(__FILE__);
-
-	if ($file == $plugin ){
-		$current = get_option('update_plugins');
+	static $this_plugin;
+	$wp_version = str_replace(".","",$wp_version);
+	if (!$this_plugin) $this_plugin = plugin_basename(__FILE__);
+	if ($file == $this_plugin){
+		$current = $wp_version < 28 ? get_option('update_plugins') : get_transient('update_plugins');
 		if (!isset($current->response[$file])) return false;
 
-		$columns = substr($wp_version, 0, 3) >= "2.8" ? 3 : 5;
-		$url = "http://svn.wp-plugins.org/contextual-related-posts/trunk/update-info.txt";
+		$columns =  $wp_version < 28 ? 5 : 3;
+		$url = 'http://svn.wp-plugins.org/contextual-related-posts/trunk/update-info.txt';
 		$update = wp_remote_fopen($url);
-		echo '<td colspan="'.$columns.'">';
-		echo $update;
-		echo '</td>';
+		if ($update != "") {
+			echo '<tr class="plugin-update-tr"><td colspan="'.$columns.'" class="plugin-update"><div class="update-message">';
+			echo $update;
+			echo '</div></td></tr>';
+		}
 	}
 }
+add_action('after_plugin_row', 'crp_check_version', 10, 2);
 
 
 } // End admin.inc
