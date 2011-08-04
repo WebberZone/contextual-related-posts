@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.6.3
+Version:     1.6.4
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -170,29 +170,29 @@ function crp_default_options() {
 	$thumb_default = $crp_url.'/default.png';
 
 	$crp_settings = 	Array (
-						title => $title,			// Add before the content
-						add_to_content => true,		// Add related posts to content (only on single posts)
-						add_to_page => false,		// Add related posts to content (only on single pages)
-						add_to_feed => true,		// Add related posts to feed
-						limit => '5',				// How many posts to display?
-						show_credit => false,		// Link to this plugin's page?
-						match_content => true,		// Match against post content as well as title
-						exclude_pages => true,		// Exclude Pages
-						blank_output => true,		// Blank output?
-						exclude_categories => '',	// Exclude these categories
-						exclude_cat_slugs => '',	// Exclude these categories (slugs)
-						before_list => '<ul>',	// Before the entire list
-						after_list => '</ul>',	// After the entire list
-						before_list_item => '<li>',	// Before each list item
-						after_list_item => '</li>',	// After each list item
-						post_thumb_op => 'text_only',	// Display only text in posts
-						thumb_height => '50',	// Height of thumbnails
-						thumb_width => '50',	// Width of thumbnails
-						thumb_meta => 'post-image',	// Meta field that is used to store the location of default thumbnail image
-						thumb_default => $thumb_default,	// Default thumbnail image
-						scan_images => false,			// Scan post for images
-						show_excerpt => false,			// Show description in list item
-						excerpt_length => '10',		// Length of characters
+						'title' => $title,			// Add before the content
+						'add_to_content' => true,		// Add related posts to content (only on single posts)
+						'add_to_page' => false,		// Add related posts to content (only on single pages)
+						'add_to_feed' => true,		// Add related posts to feed
+						'limit' => '5',				// How many posts to display?
+						'show_credit' => false,		// Link to this plugin's page?
+						'match_content' => true,		// Match against post content as well as title
+						'exclude_pages' => true,		// Exclude Pages
+						'blank_output' => true,		// Blank output?
+						'exclude_categories' => '',	// Exclude these categories
+						'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
+						'before_list' => '<ul>',	// Before the entire list
+						'after_list' => '</ul>',	// After the entire list
+						'before_list_item' => '<li>',	// Before each list item
+						'after_list_item' => '</li>',	// After each list item
+						'post_thumb_op' => 'text_only',	// Display only text in posts
+						'thumb_height' => '50',	// Height of thumbnails
+						'thumb_width' => '50',	// Width of thumbnails
+						'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image
+						'thumb_default' => $thumb_default,	// Default thumbnail image
+						'scan_images' => false,			// Scan post for images
+						'show_excerpt' => false,			// Show description in list item
+						'excerpt_length' => '10',		// Length of characters
 						);
 	return $crp_settings;
 }

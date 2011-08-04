@@ -4,7 +4,7 @@ Contributors: Ajay, Mark Ghosh
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 2.5
-Tested up to: 2.9.2
+Tested up to: 3.3
 
 
 Show user defined number of contextually related posts
@@ -31,6 +31,9 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 * Display excerpts in post. You can customize the length of the excerpt
 
 == Changelog ==
+
+= 1.6.4 =
+* Fixed: Undefined constants PHP errors
 
 = 1.6.3 =
 * Fixed: The plugin will now display a list of changes in the WordPress Admin > Plugins area whenever an update is available

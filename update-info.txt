@@ -1,3 +1,1 @@
-* Turned the credit option to false by default. This setting won't effect current users.<br />
-* Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail.<br />
-* The plugin will now display a list of changes in the WordPress Admin > Plugins area whenever an update is available
+* Fixed: Undefined constants PHP errors

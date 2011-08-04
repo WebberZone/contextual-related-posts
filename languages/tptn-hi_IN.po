@@ -1,0 +1,175 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Топ 10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-07-26 23:48+0530\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Ashish Jha <ashish@outshinesolutions.com>\n"
+"Language-Team: Outshine Solutions <ashish@outshinesolutions.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Hindi\n"
+"X-Poedit-Country: INDIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: admin.inc.php:33
+msgid "Options saved successfully."
+msgstr "विकल्प सफलतापूर्वक बचाया."
+
+#: admin.inc.php:42
+msgid "Options set to Default."
+msgstr "विकल्प डिफ़ॉल्ट से तैयार है."
+
+#: admin.inc.php:53
+msgid "Support the Development"
+msgstr "समर्थन विकास"
+
+#: admin.inc.php:57
+msgid "If you find "
+msgstr "यदि आप पाते हैं"
+
+#: admin.inc.php:59
+msgid "useful, please do"
+msgstr "उपयोगी है, कृपया करे"
+
+#: admin.inc.php:60
+msgid "drop in your contribution"
+msgstr "अपने योगदान में गिरावट"
+
+#: admin.inc.php:61
+msgid "Some reasons why you should."
+msgstr "कुछ कारणों तुम क्यों चाहिए."
+
+#: admin.inc.php:68
+msgid "Options:"
+msgstr "विकल्प हैं:"
+
+#: admin.inc.php:73
+msgid "Format to display the count in: "
+msgstr "प्रारूप में गिनती प्रदर्शित करने के लिए:"
+
+#: admin.inc.php:77
+msgid "Use <code>%totalcount%</code> to display the total count and <code>%dailycount%</code> to display the daily count. e.g. the default options displays <code>(Visited 123 times, 23 visits today)</code>"
+msgstr "का प्रयोग करें <code>% totalcount% </ कोड> कुल संख्या प्रदर्शित करने के लिए और <code>% dailycount% </ कोड> को दैनिक गणना प्रदर्शन. उदाहरण डिफ़ॉल्ट विकल्प प्रदर्शित <code> (दौरा 123 बार, 23 का दौरा आज) </ कोड>"
+
+#: admin.inc.php:80
+msgid "Number of popular posts to display: "
+msgstr "लोकप्रिय पदों की संख्या प्रदर्शित करने के लिए:"
+
+#: admin.inc.php:86
+msgid "Title of popular posts: "
+msgstr "लोकप्रिय पदों का शीर्षक:"
+
+#: admin.inc.php:92
+msgid "Title of daily popular posts: "
+msgstr "दैनिक लोकप्रिय पदों का शीर्षक:"
+
+#: admin.inc.php:98
+msgid "Daily Popular should contain views of how many days? "
+msgstr "दैनिक लोकप्रिय कितने दिनों के विचारों को शामिल करना चाहिए?"
+
+#: admin.inc.php:105
+msgid "Exclude Pages in display of Popular Posts? Number of views on Pages will continue to be counted."
+msgstr "लोकप्रिय के प्रदर्शन में पेज बाहर निकालें पोस्ट? पन्नों पर विचार की संख्या की गिनती जारी रहेगी."
+
+#: admin.inc.php:111
+msgid "Display number of views on posts?"
+msgstr "पदों पर विचारों के प्रदर्शन की संख्या?"
+
+#: admin.inc.php:117
+msgid "Display number of views on pages?"
+msgstr "पन्नों पर विचार के प्रदर्शन की संख्या?"
+
+#: admin.inc.php:123
+msgid "Track visits of authors on their own posts?"
+msgstr "ट्रैक लेखक के अपने पदों पर यात्रा?"
+
+#: admin.inc.php:129
+msgid "Display number of page views in popular lists?"
+msgstr "लोकप्रिय सूची में पृष्ठ विचारों का प्रदर्शन नंबर?"
+
+#: admin.inc.php:135
+msgid "Force daily posts' list to be dynamic? This options uses JavaScript to load the post and can increase your page load time"
+msgstr "सेना दैनिक 'पदों की सूची गतिशील हो? इस विकल्प को पद भार जावास्क्रिप्ट का उपयोग करता है और अपने पृष्ठ लोड समय बढ़ा सकते हैं"
+
+#: admin.inc.php:141
+msgid "Display page views on Edit posts/pages in WP-Admin? An extra column is added with the count"
+msgstr "प्रदर्शन संपादित करें पदों पर पृष्ठ विचार / WP में पृष्ठों-व्यवस्थापक? एक अतिरिक्त कॉलम गिनती के साथ जोड़ दिया है"
+
+#: admin.inc.php:147
+msgid "A link to the plugin is added as an extra list item to the list of popular posts. Not mandatory, but thanks if you do it!"
+msgstr "प्लगइन के लिए एक कड़ी लोकप्रिय पदों की सूची के लिए एक अतिरिक्त सूची आइटम के रूप में जोड़ा है. नहीं अनिवार्य है, लेकिन धन्यवाद यदि तुम इसे करो!"
+
+#: admin.inc.php:152
+msgid "Do you want to set options to Default?"
+msgstr "क्या आप डिफ़ॉल्ट विकल्प सेट करना चाहते हैं?"
+
+#: admin.inc.php:168
+#: admin.inc.php:192
+#: admin.inc.php:364
+#: top-10.php:354
+#: top-10.php:373
+msgid "Popular Posts"
+msgstr "लोकप्रिय पोस्ट्स "
+
+#: admin.inc.php:168
+msgid "Daily Popular Posts"
+msgstr "दैनिक लोकप्रिय पोस्ट्स "
+
+#: admin.inc.php:191
+#: admin.inc.php:192
+msgid "Top 10"
+msgstr "शीर्ष 10"
+
+#: admin.inc.php:272
+msgid "Results"
+msgstr "परिणाम"
+
+#: admin.inc.php:274
+#: admin.inc.php:280
+msgid "of"
+msgstr "का"
+
+#: admin.inc.php:278
+msgid "Page"
+msgstr "पृष्ठ"
+
+#: admin.inc.php:292
+msgid "View Daily Popular Posts"
+msgstr "देखें दैनिक लोकप्रिय पोस्ट्स "
+
+#: admin.inc.php:296
+msgid "View Overall Popular Posts"
+msgstr "देखें दैनिक लोकप्रिय पोस्ट्स "
+
+#: admin.inc.php:300
+msgid "Results per-page:"
+msgstr "प्रति परिणाम पृष्ठ:"
+
+#: admin.inc.php:324
+msgid "Previous"
+msgstr "पिछला"
+
+#: admin.inc.php:342
+msgid "Next"
+msgstr "अगला"
+
+#: admin.inc.php:365
+#: top-10.php:303
+#: top-10.php:374
+msgid "Daily Popular"
+msgstr "दैनिक लोकप्रिय"
+
+#: admin.inc.php:376
+msgid "Total / Today's Views"
+msgstr "कुल / आज दर्शाव"
+
+#: top-10.php:156
+msgid "<h3>Popular Posts</h3>"
+msgstr "<h3> लोकप्रिय  पोस्ट्स  </ h3>"
+
+#: top-10.php:157
+msgid "<h3>Daily Popular</h3>"
+msgstr "<h3> दैनिक लोकप्रिय </ h3>"
+
