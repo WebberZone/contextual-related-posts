@@ -32,6 +32,10 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 == Changelog ==
 
+= 1.6.5 =
+* Fixed: Few code tweaks to optimise MySQL performance
+* Added: Dutch language file
+
 = 1.6.4 =
 * Fixed: Undefined constants PHP errors
 

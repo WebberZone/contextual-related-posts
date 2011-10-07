@@ -5,162 +5,165 @@ msgstr ""
 "POT-Creation-Date: 2011-10-07 18:40-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
-"Language-Team:  <me@ajaydsouza.com>\n"
+"Language-Team: http://WPwebshop.com <info@wppg.me>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: English\n"
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
 "X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-Country: NETHERLANDS\n"
+"X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin.inc.php:50
 msgid "Options saved successfully."
-msgstr "Optionen gespeichert."
+msgstr "Opties succesvol opgeslagen."
 
 #: admin.inc.php:59
 msgid "Options set to Default."
-msgstr "Optionen auf die Voreinstellungen zurückgesetzt."
+msgstr "Opties ingesteld op standaard."
 
 #: admin.inc.php:74
 msgid "Index recreated"
-msgstr "Index aufgefrischt"
+msgstr "Index opnieuw gemaakt"
 
 #: admin.inc.php:86
 msgid "Options:"
-msgstr "Optionen:"
+msgstr "Opties:"
 
 #: admin.inc.php:91
 msgid "Number of related posts to display: "
-msgstr "Maximale Anzahl der angezeigten ähnlichen Beiträge: "
+msgstr "Aantal weer te geven gerelateerde berichten:"
 
 #: admin.inc.php:95
 msgid "Exclude Categories: "
-msgstr "Kategorien ausschließen: "
+msgstr "Uitsluiten Categorieën"
 
 #: admin.inc.php:113
 msgid "Add related posts to the post content on single posts. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr "Ähnliche Beiträge am Ende jedes Einzelbeitrags auflisten.<br />Wenn Sie das deaktivieren wollen, fügen Sie <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> in das Template ein, in dem die ähnlichen Beiträge aufgeliistet werden sollen"
+msgstr "Voeg gerelateerde berichten toe aan de bericht inhoud op enkele pagina's. <br />Wanneer je ervoor kiest om dit uit te zetten moet je de code <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> toevoegen aan je sjabloon bestand waar je het wilt laten weergeven"
 
 #: admin.inc.php:119
 msgid "Add related posts to pages. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr "Ähnliche Beiträge auch in statischen Seiten auflisten.<br />Wenn Sie das deaktivieren wollen, fügen Sie <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>  in das Template ein, in dem die ähnlichen Beiträge aufgeliistet werden sollen"
+msgstr "Voeg gerelateerde berichten toe aan pagina's. <br />Wanneer je ervoor kiest om dit uit te zetten moet je de code <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> toevoegen aan je sjabloon bestand waar je het wilt laten weergeven"
 
 #: admin.inc.php:125
 msgid "Add related posts to feed"
-msgstr "Ähnliche Beiträge auch in die Feeds aufnehmen"
+msgstr "Voeg gerelateerde berichten toe aan feed"
 
 #: admin.inc.php:131
 msgid "Find related posts based on content as well as title. If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
-msgstr "Ähnliche Beiträge sowohl im Beitragstitel als auch im Beitragsinhalt suchen. Bei Deaktivierung wird nur in den Beittragstiteln gesucht. (Im Falle der Aktivierung wird empfohlen, ein Cache-Plugin einzusetzen)"
+msgstr "Vind gerelateerde berichten gebaseerd op zowel content als titel. Indien niet geselecteerd worden er alleen berichttitels gebruikt. (Ik beveel het gebruik van een caching plugin aan wanneer je dit inschakelt)"
 
 #: admin.inc.php:137
 msgid "Exclude Pages in Related Posts"
-msgstr "Statische Seiten in ähnlichen Beiträgen ausschließen"
+msgstr "Uitsluiten Pagina's in Gerelateerde Berichten"
 
 #: admin.inc.php:143
 msgid "Append link to this plugin as item. Optional, but would be nice to give me some link love"
-msgstr "Einen Link auf dieses Plugin an die Beitragsliste anhängen. Optional, aber es wäre nett, wenn Sie diesen Punkt aktivieren würden."
+msgstr "Voeg een link naar deze plugin als item toe. Optioneel, maar het zou leuk zijn als je me wat linkgenot geeft"
 
 #: admin.inc.php:147
 msgid "Output Options:"
-msgstr "Ausgabeotionen:"
+msgstr "Output Opties:"
 
 #: admin.inc.php:151
 msgid "Title of related posts: "
-msgstr "Überschrift über der Liste der ähnlichen Beiträge: "
+msgstr "Titel van gerelateerde berichten:"
 
 #: admin.inc.php:155
 msgid "When there are no posts, what should be shown?"
-msgstr "Wenn keine ähnlichen Beiträge gefunden werden, was soll dann angezeigt werden?"
+msgstr "Wat moet er weergegeven worden wanneer er geen berichten zijn?"
 
 #: admin.inc.php:158
 msgid "Blank Output"
-msgstr "Nichts"
+msgstr "Lege Output"
 
 #: admin.inc.php:162
 msgid "Display \"No Related Posts\""
-msgstr "\"Keine ähnlichen Beiträge\" anzeigen"
+msgstr "Weergave \"Geen Gerelateerde Berichten\""
 
 #: admin.inc.php:168
 msgid "Show post excerpt in list?"
-msgstr "Auszug des Beitrags in der Liste anzeigen?"
+msgstr "Laat bericht uittreksel zien in lijst?"
 
 #: admin.inc.php:173
 msgid "Length of excerpt (in words): "
-msgstr "Länge des Auszugs (in Worten): "
+msgstr "Lengte van uittreksel (in woorden):"
 
 #: admin.inc.php:177
 msgid "Customize the output:"
-msgstr "Die Ausgabe anpassen:"
+msgstr "Aanpassen van de output:"
 
 #: admin.inc.php:180
 msgid "HTML to display before the list of posts: "
-msgstr "HTML vor der Beitragsliste: "
+msgstr "Weer te geven HTML voor de berichtenlijst:"
 
 #: admin.inc.php:186
 msgid "HTML to display before each list item: "
-msgstr "HTML vor jedem Listenelement: "
+msgstr "Weer te geven HTML voor elk item in de lijst:"
 
 #: admin.inc.php:192
 msgid "HTML to display after each list item: "
-msgstr "HTML nach jedem Listenelement: "
+msgstr "Weer te geven HTML na elk item in de lijst:"
 
 #: admin.inc.php:198
 msgid "HTML to display after the list of posts: "
-msgstr "HTML nach der Beitragsliste: "
+msgstr "Weer te geven HTML na de berichtenlijst:"
 
 #: admin.inc.php:202
 msgid "Post thumbnail options:"
-msgstr "Optionen für die Beitrags-Thumbnails:"
+msgstr "Berichtopties miniatuurafbeelding:"
 
 #: admin.inc.php:206
 msgid "Display thumbnails inline with posts"
-msgstr "Thumbnails und Beitragstitel anzeigen"
+msgstr "Toon miniatuurafbeeldingen inline met berichten"
 
 #: admin.inc.php:210
 msgid "Display only thumbnails, no text"
-msgstr "Nur Thumbnails, keine Beitragstitel anzeigen"
+msgstr "Alleen miniatuurafbeeldingen weergeven, geen tekst"
 
 #: admin.inc.php:214
 msgid "Do not display thumbnails, only text."
-msgstr "Keine Thumbnails, nur Beitragstitel anzeigen"
+msgstr "Geen miniatuurafbeeldingen weergeven, alleen tekst."
 
 #: admin.inc.php:219
 msgid "Post thumbnail meta field (the meta should point contain the image source): "
-msgstr "Meta-Feld des Beitrags-Thumbnails (der Wert sollte auf das Bild zeigen): "
+msgstr "Bericht miniatuurafbeelding metaveld (de meta moet de afbeeldingsbron bevatten):"
 
 #: admin.inc.php:226
 msgid "If the postmeta is not set, then should the plugin extract the first image from the post. This can slow down the loading of your post if the first image in the related posts is large in file-size"
-msgstr "Wenn 'Postmeta' nicht gesetzt ist, dann soll das Plugin das erste Bild aus dem jeweiligen Beitrag verwenden. Das kann allerdings das Laden des Beitrags verlangsamen, wenn die Bilddateien der ähnlichen Beiträge groß sind!"
+msgstr "Als de postmeta niet is ingesteld moet de plugin de eerste afbeelding van het bericht uitpakken. Dit kan het laden van uw bericht vertragen, indien het eerste beeld in de gerelateerde berichten groot is qua bestandsgrootte"
 
 #: admin.inc.php:229
 msgid "Thumbnail dimensions:"
-msgstr "Größe der Thumbnails:"
+msgstr "Afmetingen miniatuurafbeelding:"
 
 #: admin.inc.php:231
 msgid "Max width: "
-msgstr "Maximale Breite: "
+msgstr "Maximale breedte:"
 
 #: admin.inc.php:236
 msgid "Max height: "
-msgstr "Maximale Höhe: "
+msgstr "Maximale hoogte:"
 
 #: admin.inc.php:240
 msgid "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified below:"
-msgstr "Das Plugin prüft zunächst, ob der Beitrag einen Thumbnail enthält. Wenn nicht, wird das Meta-Feld überprüft. Wenn auch dieses nicht vorhanden ist, wird das  unten spezifizierte Default-Thumbnail angezeigt:"
+msgstr "De plugin zal eerst controleren of het bericht een miniatuurafbeelding bevat, zoniet dan zal de plugin het metaveld controleren. Wanneer het geen miniatuurafbeelding bevat wordt de standaard afbeelding getoond zoals hieronder aangegeven:"
 
 #: admin.inc.php:245
 msgid "Do you want to set options to Default?"
-msgstr "Wollen Sie die Optionen auf die Voreinstellungen zurücksetzen?"
+msgstr "Wil je opties terug naar standaard instellen?"
 
 #: admin.inc.php:246
 msgid "Are you sure you want to recreate the index?"
-msgstr "Sind Sie sicher, einen neuen Index zu erzeugen?"
+msgstr "Weet je zeker dat je de index opnieuw wilt creeëren?"
 
 #: admin.inc.php:254
 msgid "Quick links"
-msgstr "Links"
+msgstr "Quick links"
 
 #: admin.inc.php:256
 msgid "Contextual Related Posts "
@@ -168,39 +171,39 @@ msgstr "Contextual Related Posts "
 
 #: admin.inc.php:256
 msgid "plugin page"
-msgstr "Plugin-Seite"
+msgstr "plugin pagina"
 
 #: admin.inc.php:257
 msgid "Other plugins"
-msgstr "Weitere Plugins"
+msgstr "Andere plugins"
 
 #: admin.inc.php:258
 msgid "Ajay's blog"
-msgstr "Ajay's Blog"
+msgstr "Ajay's blog"
 
 #: admin.inc.php:259
 msgid "Support forum"
-msgstr "Support Forum"
+msgstr "Ondersteuningsforum"
 
 #: admin.inc.php:260
 msgid "Follow @ajaydsouza on Twitter"
-msgstr "@ajaydsouza auf Twitter folgen"
+msgstr "Volg @ajaydsouza via Twitter"
 
 #: admin.inc.php:264
 msgid "Recent developments"
-msgstr "Neueste Entwicklungen"
+msgstr "Recente ontwikkelingen"
 
 #: admin.inc.php:269
 msgid "Support the development"
-msgstr "Unterstützen Sie die Entwicklung"
+msgstr "Ondersteun de ontwikkeling"
 
 #: admin.inc.php:277
 msgid "Enter amount in USD: "
-msgstr "Den Betrag in USD eingeben: "
+msgstr "Voer het bedrag in USD in:"
 
 #: admin.inc.php:281
 msgid "Send your donation to the author of"
-msgstr "Schicken Sie eine Spende an den Autor von"
+msgstr "Stuur je donatie aan de auteur van"
 
 #: admin.inc.php:309
 msgid "Contextual Related Posts"
@@ -208,7 +211,7 @@ msgstr "Contextual Related Posts"
 
 #: admin.inc.php:309
 msgid "Related Posts"
-msgstr "Related Posts"
+msgstr "Gerelateerde Berichten"
 
 #: contextual-related-posts.php:126
 msgid "Powered by"
@@ -217,21 +220,21 @@ msgstr "Powered by"
 #: contextual-related-posts.php:131
 #: contextual-related-posts.php:135
 msgid "No related posts found"
-msgstr "Keine ähnlichen Beiträge gefunden"
+msgstr "Geen gerelateerde berichten gevonden"
 
 #: contextual-related-posts.php:168
 msgid "<h3>Related Posts:</h3>"
-msgstr "<h3>Ähnliche Beiträge:</h3>"
+msgstr "<h3>Gerelateerde Berichten:</h3>"
 
 #: contextual-related-posts.php:268
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "Instellingen"
 
 #: contextual-related-posts.php:269
 msgid "Support"
-msgstr "Support"
+msgstr "Ondersteuning"
 
 #: contextual-related-posts.php:270
 msgid "Donate"
-msgstr "Spenden"
+msgstr "Doneren"
 

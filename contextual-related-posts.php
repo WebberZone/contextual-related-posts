@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.6.4
+Version:     1.6.5
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
 Author:      Ajay D'Souza
@@ -61,15 +61,14 @@ function ald_crp() {
 	
 	
 	if ((is_int($post->ID))&&($stuff != '')) {
-		$sql = "SELECT DISTINCT ID,post_title,post_date,post_content,"
-		. "MATCH(post_title,post_content) AGAINST ('".$stuff."') AS score "
+		$sql = "SELECT DISTINCT ID,post_title,post_date "
 		. "FROM ".$wpdb->posts." WHERE "
 		. "MATCH (post_title,post_content) AGAINST ('".$stuff."') "
 		. "AND post_date <= '".$now."' "
 		. "AND post_status = 'publish' "
 		. "AND id != ".$post->ID." ";
 		if ($crp_settings['exclude_pages']) $sql .= "AND post_type = 'post' ";
-		$sql .= "ORDER BY score DESC ";
+		$sql .= "LIMIT ".$limit*3;
 		
 		$search_counter = 0;
 		$searches = $wpdb->get_results($sql);
@@ -100,7 +99,7 @@ function ald_crp() {
 					} else {
 						$postimage = get_post_meta($search->ID, $crp_settings[thumb_meta], true);
 						if ((!$postimage)&&($crp_settings['scan_images'])) {
-							preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $search->post_content, $matches );
+							preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post($search->ID)->post_content, $matches );
 							// any image there?
 							if( isset( $matches ) && $matches[1][0] ) {
 								$postimage = $matches[1][0]; // we need the first one only!
@@ -115,7 +114,7 @@ function ald_crp() {
 					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_title">'.$title.'</a>';
 				}
 				if ($crp_settings['show_excerpt']) {
-					$output .= '<span class="crp_excerpt"> '.crp_excerpt($search->post_content,$crp_settings['excerpt_length']).'</span>';
+					$output .= '<span class="crp_excerpt"> '.crp_excerpt($search->ID,$crp_settings['excerpt_length']).'</span>';
 				}
 				$output .= $crp_settings['after_list_item'];
 				$search_counter++; 
@@ -234,7 +233,8 @@ if (function_exists('register_activation_hook')) {
 	register_activation_hook(__FILE__,'ald_crp_activate');
 }
 
-function crp_excerpt($content,$excerpt_length){
+function crp_excerpt($id,$excerpt_length){
+	$content = get_post($id)->post_content;
 	$out = strip_tags($content);
 	$blah = explode(' ',$out);
 	if (!$excerpt_length) $excerpt_length = 10;

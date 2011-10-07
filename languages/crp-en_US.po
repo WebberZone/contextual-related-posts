@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 11:50+0530\n"
+"POT-Creation-Date: 2011-10-07 18:40-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -210,28 +210,28 @@ msgstr ""
 msgid "Related Posts"
 msgstr ""
 
-#: contextual-related-posts.php:127
+#: contextual-related-posts.php:126
 msgid "Powered by"
 msgstr ""
 
-#: contextual-related-posts.php:132
-#: contextual-related-posts.php:136
+#: contextual-related-posts.php:131
+#: contextual-related-posts.php:135
 msgid "No related posts found"
 msgstr ""
 
-#: contextual-related-posts.php:169
+#: contextual-related-posts.php:168
 msgid "<h3>Related Posts:</h3>"
 msgstr ""
 
-#: contextual-related-posts.php:267
+#: contextual-related-posts.php:268
 msgid "Settings"
 msgstr ""
 
-#: contextual-related-posts.php:268
+#: contextual-related-posts.php:269
 msgid "Support"
 msgstr ""
 
-#: contextual-related-posts.php:269
+#: contextual-related-posts.php:270
 msgid "Donate"
 msgstr ""
 

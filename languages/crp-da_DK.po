@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts 1.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-20 11:50+0530\n"
+"POT-Creation-Date: 2011-10-07 18:40-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Team Blogos <wordpress@blogos.dk>\n"
@@ -217,28 +217,28 @@ msgstr "Related Posts (Lignende indlæg)"
 msgid "Related Posts"
 msgstr "Related Posts (Lignende indlæg)"
 
-#: contextual-related-posts.php:127
+#: contextual-related-posts.php:126
 msgid "Powered by"
 msgstr ""
 
-#: contextual-related-posts.php:132
-#: contextual-related-posts.php:136
+#: contextual-related-posts.php:131
+#: contextual-related-posts.php:135
 msgid "No related posts found"
 msgstr "Ingen lignende indlæg fundet"
 
-#: contextual-related-posts.php:169
+#: contextual-related-posts.php:168
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Lignende indlæg:</h3>"
 
-#: contextual-related-posts.php:267
+#: contextual-related-posts.php:268
 msgid "Settings"
 msgstr "Opsætning"
 
-#: contextual-related-posts.php:268
+#: contextual-related-posts.php:269
 msgid "Support"
 msgstr "Support"
 
-#: contextual-related-posts.php:269
+#: contextual-related-posts.php:270
 msgid "Donate"
 msgstr "Donation"
 
