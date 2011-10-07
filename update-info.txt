@@ -1,2 +1,2 @@
 * Fixed: Few code tweaks to optimise MySQL performance<br />
-* Added: Dutch language file
+* Added: Dutch and Spanish language files
