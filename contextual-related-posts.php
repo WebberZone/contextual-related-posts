@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.6.5
+Version:     1.7
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
-Description: Show user defined number of contextually related posts. Based on the plugin by <a href="http://weblogtoolscollection.com">Mark Ghosh</a>.  <a href="options-general.php?page=crp_options">Configure...</a>
+Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
 Author URI:  http://ajaydsouza.com/
 */
@@ -92,27 +92,18 @@ function ald_crp() {
 
 			if (!$p_in_c) {
 				$output .= $crp_settings['before_list_item'];
-				if (($crp_settings['post_thumb_op']=='inline')||($crp_settings['post_thumb_op']=='thumbs_only')) {
-					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">';
-					if ((function_exists('has_post_thumbnail')) && (has_post_thumbnail($search->ID))) {
-						$output .= get_the_post_thumbnail( $search->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title,'class' => 'crp_thumb','border' => '0'));
-					} else {
-						$postimage = get_post_meta($search->ID, $crp_settings[thumb_meta], true);
-						if ((!$postimage)&&($crp_settings['scan_images'])) {
-							preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', get_post($search->ID)->post_content, $matches );
-							// any image there?
-							if( isset( $matches ) && $matches[1][0] ) {
-								$postimage = $matches[1][0]; // we need the first one only!
-							}
-						}
-						if (!$postimage) $postimage = $crp_settings[thumb_default];
-						$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" width="'.$crp_settings[thumb_width].'" height="'.$crp_settings[thumb_height].'" border="0" class="crp_thumb" />';
-					}
-					$output .= '</a> ';
+
+				$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_link">'; // Add beginning of link
+				if ($crp_settings['post_thumb_op']=='after') {
+					$output .= '<span class="crp_title"> '.$title.'</span>'; // Add title if post thumbnail is to be displayed after
 				}
-				if (($crp_settings['post_thumb_op']=='inline')||($crp_settings['post_thumb_op']=='text_only')) {
-					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_title">'.$title.'</a>';
+				if ($crp_settings['post_thumb_op']=='inline' || $crp_settings['post_thumb_op']=='after' || $crp_settings['post_thumb_op']=='thumbs_only') {
+					$output .= crp_get_the_post_thumbnail($search->ID);
 				}
+				if ($crp_settings['post_thumb_op']=='inline' || $crp_settings['post_thumb_op']=='text_only') {
+					$output .= '<span class="crp_title"> '.$title.'</span>'; // Add title when required by settings
+				}
+				$output .= '</a>'; // Close the link
 				if ($crp_settings['show_excerpt']) {
 					$output .= '<span class="crp_excerpt"> '.crp_excerpt($search->ID,$crp_settings['excerpt_length']).'</span>';
 				}
@@ -162,6 +153,13 @@ function echo_ald_crp() {
 	echo $output;
 }
 
+if (!function_exists('related_posts')) {
+function related_posts() {
+	$output = ald_crp();
+	echo $output;
+}
+}
+
 // Default Options
 function crp_default_options() {
 	global $crp_url;
@@ -189,6 +187,7 @@ function crp_default_options() {
 						'thumb_width' => '50',	// Width of thumbnails
 						'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image
 						'thumb_default' => $thumb_default,	// Default thumbnail image
+						'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
 						'scan_images' => false,			// Scan post for images
 						'show_excerpt' => false,			// Show description in list item
 						'excerpt_length' => '10',		// Length of characters
@@ -223,8 +222,12 @@ function ald_crp_activate() {
 	global $wpdb;
 
     $wpdb->hide_errors();
-    $wpdb->query('ALTER TABLE '.$wpdb->posts.' ENGINE = MYISAM;');
-    $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related (post_title, post_content);');
+	if($wpdb->db_version()>=5.6) 
+		{ $wpdb->query('ALTER TABLE '.$wpdb->posts.' ENGINE = InnoDB;'); }
+		else
+		{ $wpdb->query('ALTER TABLE '.$wpdb->posts.' ENGINE = MYISAM;'); }
+    
+	$wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related (post_title, post_content);');
     $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related_title (post_title);');
     $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related_content (post_content);');
     $wpdb->show_errors();
@@ -233,6 +236,35 @@ if (function_exists('register_activation_hook')) {
 	register_activation_hook(__FILE__,'ald_crp_activate');
 }
 
+// Function to get the post thumbnail
+function crp_get_the_post_thumbnail($postid) {
+
+	$result = get_post($postid);
+	$crp_settings = crp_read_options();
+	$output = '';
+
+	if (function_exists('has_post_thumbnail') && has_post_thumbnail($result->ID)) {
+		$output .= get_the_post_thumbnail($result->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title, 'class' => 'crp_thumb', 'border' => '0'));
+	} else {
+		$postimage = get_post_meta($result->ID, $crp_settings[thumb_meta], true);	// Check
+		if (!$postimage && $crp_settings['scan_images']) {
+			preg_match_all( '|<img.*?src=[\'"](.*?)[\'"].*?>|i', $result->post_content, $matches );
+			// any image there?
+			if (isset($matches) && $matches[1][0]) {
+				$postimage = $matches[1][0]; // we need the first one only!
+			}
+		}
+		if (!$postimage) $postimage = get_post_meta($result->ID, '_video_thumbnail', true); // If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin
+		if ($crp_settings['thumb_default_show'] && !$postimage) $postimage = $crp_settings[thumb_default]; // If no thumb found and settings permit, use default thumb
+		if ($postimage) {
+		  $output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" style="max-width:'.$crp_settings[thumb_width].'px;max-height:'.$crp_settings[thumb_height].'px;" border="0" class="crp_thumb" />';
+		}
+	}
+	
+	return $output;
+}
+
+// Function to create an excerpt for the post
 function crp_excerpt($id,$excerpt_length){
 	$content = get_post($id)->post_content;
 	$out = strip_tags($content);
@@ -266,7 +298,7 @@ function crp_plugin_actions( $links, $file ) {
 	// create link
 	if ($file == $plugin) {
 		$links[] = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('Settings', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="http://ajaydsouza.org">' . __('Support', CRP_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="http://ajaydsouza.com/support/">' . __('Support', CRP_LOCAL_NAME ) . '</a>';
 		$links[] = '<a href="http://ajaydsouza.com/donate/">' . __('Donate', CRP_LOCAL_NAME ) . '</a>';
 	}
 	return $links;
@@ -275,28 +307,6 @@ global $wp_version;
 if ( version_compare( $wp_version, '2.8alpha', '>' ) )
 	add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and higher
 else add_filter( 'plugin_action_links', 'crp_plugin_actions', 10, 2 );
-
-// Display message about plugin update option
-function crp_check_version($file, $plugin_data) {
-	global $wp_version;
-	static $this_plugin;
-	$wp_version = str_replace(".","",$wp_version);
-	if (!$this_plugin) $this_plugin = plugin_basename(__FILE__);
-	if ($file == $this_plugin){
-		$current = $wp_version < 28 ? get_option('update_plugins') : get_transient('update_plugins');
-		if (!isset($current->response[$file])) return false;
-
-		$columns =  $wp_version < 28 ? 5 : 3;
-		$url = 'http://svn.wp-plugins.org/contextual-related-posts/trunk/update-info.txt';
-		$update = wp_remote_fopen($url);
-		if ($update != "") {
-			echo '<tr class="plugin-update-tr"><td colspan="'.$columns.'" class="plugin-update"><div class="update-message">';
-			echo $update;
-			echo '</div></td></tr>';
-		}
-	}
-}
-add_action('after_plugin_row', 'crp_check_version', 10, 2);
 
 
 } // End admin.inc

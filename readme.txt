@@ -1,36 +1,54 @@
 === Contextual Related Posts ===
-Tags: related posts, similar posts
+Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail
 Contributors: Ajay, Mark Ghosh
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 2.5
-Tested up to: 3.3
+Tested up to: 3.4
 
 
-Show user defined number of contextually related posts
+Increase reader retention and reduce bounce rates by displaying a set of related posts on your website or in your feed
 
 == Description ==
 
-Display a list of contextually related posts for the current post. 
+<a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed. 
 
-You can select the number of posts to display and if you want to automatically display the related posts in your content / feed.
-
-Now, you can choose to exclude posts from certain categories as well as exclude pages.
+The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
 
 
-= Features =
+= Key features =
 
-* Display Related Posts automatically in content / feed, no need to edit template files 
-* Doesn't require the post to be tagged in order to display related posts 
-* You can manually add code to your template where you want the related posts to be displayed 
-* Exclude posts from categories 
+* Display Related Posts automatically after the content on your website or in the feed without the need to edit template files
+* Manual install available to select the exact placement of the posts. This will require you to edit your theme files
+* Relevancy matching based on title and/or content of the post
+* Exclude posts from categories from being displayed in the list
 * Exclude display of related posts on Pages 
-* Exclude links pages in Related Posts list 
-* Find related posts based on content and post title 
-* Option to display post thumbnails. WordPress 2.9 thumbnails need to be activated in your themes "functions.php"
-* Display excerpts in post. You can customize the length of the excerpt
+* Support for WordPress post thumbnails
+* Auto-extract the first image in your post to be displayed as a thumbnail
+* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>
+* Display excerpts in post. You can select the length of the excerpt in words
+* Output wrapped in CSS class that allows you to style the list
+* Select what tags you would like to wrap the text in
+
+== Upgrade Notice ==
+
+= 1.7 =
+* Added: Better thumbnail support
+* Added: Limited support for InnoDB
+* Modified: Cleaner Settings page interface
+
 
 == Changelog ==
+
+= 1.7 =
+* Added: New function <code>related posts()</code> that allows you to manually add posts to your theme
+* Added: Support for <a href="https://wordpress.org/extend/plugins/video-thumbnails/">Video Thumbnails</a> plugin
+* Added: Thumbnail settings now reflect max width and max height instead of fixed width and height
+* Added: Option to display thumbnails before or after the title
+* Added: Option to not display thumbnails instead of the default thumbnail
+* Added: Plugin now uses InnoDB instead of MyISAM if your server is running mySQL v5.6 or higher
+* Modified: Cleaner Settings page interface
+* Modified: Updated <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ page</a>
 
 = 1.6.5 =
 * Fixed: Few code tweaks to optimise MySQL performance
@@ -108,13 +126,6 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 = 1.0.1 =
 * Release
 
-== Upgrade Notice ==
-
-= 1.6.3 =
-* Turned the credit option to false by default. This setting won't effect current users.
-* Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail.
-* The plugin will now display a list of changes in the WordPress Admin > Plugins area whenever an update is available
-
 == Installation ==
 
 1. Download the plugin
@@ -125,24 +136,62 @@ Now, you can choose to exclude posts from certain categories as well as exclude 
 
 4. Goto Settings > Related Posts to configure
 
+== Screenshots ==
+
+1. CRP options in WP-Admin - General Options
+2. CRP options in WP-Admin - Output Options
+
 
 == Frequently Asked Questions ==
 
-= What are the requirements for this plugin? =
+If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/tags/contextual-related-posts?forum_id=10">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
 
-WordPress 2.5 or above
+= How can I customise the output? =
 
+Several customization options are available via the Settings page in WordPress Admin. You can access this via <strong>Settings » Related Posts</strong>
 
-= Can I customize what is displayed? =
+The plugin also provides you with a set of CSS classes that allow you to style your posts by adding code to the *style.css* sheet. In a future version, I will be adding in CSS support within the plugins Settings page.
 
-All options can be customized within the Options page in WP-Admin itself
+The following CSS styles are available:
 
-The plugin uses the css class `crp_related` in the `div` that surrounds the list items. So, if you are interested, you can add code to your *style.css* file of your theme to style the related posts list.
+* **crp_related**: ID of the main wrapper `div`
+
+* **crp_link**: Class of the `a` tag for each list item
+
+* **crp_title**: Class of the `span` tag for title of the post
+
+* **crp_excerpt**: Class of the `span` tag for excerpt (if included)
+
+* **crp_thumb**: Class of the post thumbnail `img` tag
 
 For more information, please visit http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 
-= Support =
+= How does the plugin select thumbnails? =
 
-All questions need to be redirected at the Support Forum at http://ajaydsouza.org/
+The plugin selects thumbnails in the following order:
 
-No support questions will be entertained in the comments or via email.
+1. Post Thumbnail image: The image that you can set while editing your post in WordPress > New Post screen
+
+2. Post meta field: This is the meta field value you can use when editing your post. The default is `post-image`
+
+3. First image in the post: The plugin will try to fetch the first image in the post
+
+3. Video Thumbnails: Meta field set by <a href="https://wordpress.org/extend/plugins/video-thumbnails/">Video Thumbnails</a>
+
+4. Default Thumbnail: If enabled, it will use the default thumbnail that you specify in the Settings screen
+
+== Wishlist ==
+
+Below are a few features that I plan on implementing in future versions of the plugin. However, there is no fixed time-frame for this and largely depends on how much time I can contribute to development.
+
+* Select random posts if there are no similar posts
+* Widget to display the related posts
+* Shortcode support
+* Exclude display on select categories
+* Exclude display on select posts 
+* Caching related posts
+* Better relevance tweaking
+* Custom post support
+
+If you would like a feature to be added, or if you already have the code for the feature, you can let us know by <a href="http://wordpress.org/tags/contextual-related-posts?forum_id=10">posting in this forum</a>.
+

@@ -1,18 +1,38 @@
-#options-div
+#page-wrap {
+	background: white;
+	min-width: 600px;
+	max-width: 100%;
+	margin: 10px auto;
+}
+
+#page-wrap #inside {
+	margin: 10px 10px 0px 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+#header {
+	background: #fff;
+	text-align: left;
+}
+#header h2, h3 {
+	color: #000;
+}
+	
+#options-div, #crp_options
 {
-	width:570px;
+	/* width:570px; */
 	overflow:hidden;
 	display:block;
-	float:left;
 	margin:0;
-	padding:10px;
+	padding:0;
 }
 
 #side
 {
 	width:300px;
 	min-height:440px;
-	margin-left:610px;
+	/* margin-left:610px; */
+	float:right;
 	padding:10px;
 }
 
@@ -67,3 +87,14 @@
 	padding:10px;
 	text-align: center;
 }
+
+.form-table
+{
+	width:100%;
+}
+
+.form-table th
+{
+	font-weight:normal;
+}
+

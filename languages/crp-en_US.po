@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-07 18:40-0000\n"
+"POT-Creation-Date: 2012-03-22 23:37-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -14,224 +14,254 @@ msgstr ""
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin.inc.php:50
+#: admin.inc.php:51
 msgid "Options saved successfully."
 msgstr ""
 
-#: admin.inc.php:59
+#: admin.inc.php:60
 msgid "Options set to Default."
 msgstr ""
 
-#: admin.inc.php:74
+#: admin.inc.php:75
 msgid "Index recreated"
 msgstr ""
 
-#: admin.inc.php:86
-msgid "Options:"
-msgstr ""
-
-#: admin.inc.php:91
-msgid "Number of related posts to display: "
-msgstr ""
-
-#: admin.inc.php:95
-msgid "Exclude Categories: "
-msgstr ""
-
-#: admin.inc.php:113
-msgid "Add related posts to the post content on single posts. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr ""
-
-#: admin.inc.php:119
-msgid "Add related posts to pages. <br />If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr ""
-
-#: admin.inc.php:125
-msgid "Add related posts to feed"
-msgstr ""
-
-#: admin.inc.php:131
-msgid "Find related posts based on content as well as title. If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
-msgstr ""
-
-#: admin.inc.php:137
-msgid "Exclude Pages in Related Posts"
-msgstr ""
-
-#: admin.inc.php:143
-msgid "Append link to this plugin as item. Optional, but would be nice to give me some link love"
-msgstr ""
-
-#: admin.inc.php:147
-msgid "Output Options:"
-msgstr ""
-
-#: admin.inc.php:151
-msgid "Title of related posts: "
-msgstr ""
-
-#: admin.inc.php:155
-msgid "When there are no posts, what should be shown?"
-msgstr ""
-
-#: admin.inc.php:158
-msgid "Blank Output"
-msgstr ""
-
-#: admin.inc.php:162
-msgid "Display \"No Related Posts\""
-msgstr ""
-
-#: admin.inc.php:168
-msgid "Show post excerpt in list?"
-msgstr ""
-
-#: admin.inc.php:173
-msgid "Length of excerpt (in words): "
-msgstr ""
-
-#: admin.inc.php:177
-msgid "Customize the output:"
-msgstr ""
-
-#: admin.inc.php:180
-msgid "HTML to display before the list of posts: "
-msgstr ""
-
-#: admin.inc.php:186
-msgid "HTML to display before each list item: "
-msgstr ""
-
-#: admin.inc.php:192
-msgid "HTML to display after each list item: "
-msgstr ""
-
-#: admin.inc.php:198
-msgid "HTML to display after the list of posts: "
-msgstr ""
-
-#: admin.inc.php:202
-msgid "Post thumbnail options:"
-msgstr ""
-
-#: admin.inc.php:206
-msgid "Display thumbnails inline with posts"
-msgstr ""
-
-#: admin.inc.php:210
-msgid "Display only thumbnails, no text"
-msgstr ""
-
-#: admin.inc.php:214
-msgid "Do not display thumbnails, only text."
-msgstr ""
-
-#: admin.inc.php:219
-msgid "Post thumbnail meta field (the meta should point contain the image source): "
-msgstr ""
-
-#: admin.inc.php:226
-msgid "If the postmeta is not set, then should the plugin extract the first image from the post. This can slow down the loading of your post if the first image in the related posts is large in file-size"
-msgstr ""
-
-#: admin.inc.php:229
-msgid "Thumbnail dimensions:"
-msgstr ""
-
-#: admin.inc.php:231
-msgid "Max width: "
-msgstr ""
-
-#: admin.inc.php:236
-msgid "Max height: "
-msgstr ""
-
-#: admin.inc.php:240
-msgid "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified below:"
-msgstr ""
-
-#: admin.inc.php:245
-msgid "Do you want to set options to Default?"
-msgstr ""
-
-#: admin.inc.php:246
-msgid "Are you sure you want to recreate the index?"
-msgstr ""
-
-#: admin.inc.php:254
-msgid "Quick links"
-msgstr ""
-
-#: admin.inc.php:256
-msgid "Contextual Related Posts "
-msgstr ""
-
-#: admin.inc.php:256
-msgid "plugin page"
-msgstr ""
-
-#: admin.inc.php:257
-msgid "Other plugins"
-msgstr ""
-
-#: admin.inc.php:258
-msgid "Ajay's blog"
-msgstr ""
-
-#: admin.inc.php:259
-msgid "Support forum"
-msgstr ""
-
-#: admin.inc.php:260
-msgid "Follow @ajaydsouza on Twitter"
-msgstr ""
-
-#: admin.inc.php:264
-msgid "Recent developments"
-msgstr ""
-
-#: admin.inc.php:269
+#: admin.inc.php:88
 msgid "Support the development"
 msgstr ""
 
-#: admin.inc.php:277
+#: admin.inc.php:96
 msgid "Enter amount in USD: "
 msgstr ""
 
-#: admin.inc.php:281
+#: admin.inc.php:100
 msgid "Send your donation to the author of"
 msgstr ""
 
-#: admin.inc.php:309
-msgid "Contextual Related Posts"
+#: admin.inc.php:106
+msgid "Quick links"
 msgstr ""
 
-#: admin.inc.php:309
-msgid "Related Posts"
+#: admin.inc.php:108
+msgid "Contextual Related Posts "
 msgstr ""
 
-#: contextual-related-posts.php:126
-msgid "Powered by"
+#: admin.inc.php:108
+msgid "plugin page"
 msgstr ""
 
-#: contextual-related-posts.php:131
-#: contextual-related-posts.php:135
-msgid "No related posts found"
+#: admin.inc.php:109
+msgid "Other plugins"
 msgstr ""
 
-#: contextual-related-posts.php:168
-msgid "<h3>Related Posts:</h3>"
+#: admin.inc.php:110
+msgid "Ajay's blog"
 msgstr ""
 
-#: contextual-related-posts.php:268
-msgid "Settings"
-msgstr ""
-
-#: contextual-related-posts.php:269
+#: admin.inc.php:111
+#: contextual-related-posts.php:301
 msgid "Support"
 msgstr ""
 
-#: contextual-related-posts.php:270
+#: admin.inc.php:112
+msgid "Follow @ajaydsouza on Twitter"
+msgstr ""
+
+#: admin.inc.php:116
+msgid "Recent developments"
+msgstr ""
+
+#: admin.inc.php:128
+msgid "General options"
+msgstr ""
+
+#: admin.inc.php:131
+msgid "Number of related posts to display: "
+msgstr ""
+
+#: admin.inc.php:134
+msgid "Exclude Categories: "
+msgstr ""
+
+#: admin.inc.php:152
+msgid "Add related posts to the post content on single posts"
+msgstr ""
+
+#: admin.inc.php:153
+#: admin.inc.php:156
+msgid "If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
+msgstr ""
+
+#: admin.inc.php:155
+msgid "Add related posts to pages"
+msgstr ""
+
+#: admin.inc.php:158
+msgid "Add related posts to feed"
+msgstr ""
+
+#: admin.inc.php:161
+msgid "Find related posts based on content as well as title"
+msgstr ""
+
+#: admin.inc.php:162
+msgid "If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
+msgstr ""
+
+#: admin.inc.php:164
+msgid "Exclude Pages in Related Posts"
+msgstr ""
+
+#: admin.inc.php:167
+msgid "Add a link to the plugin page as a final item in the list"
+msgstr ""
+
+#: admin.inc.php:168
+msgid " <em>Optional</em>"
+msgstr ""
+
+#: admin.inc.php:176
+msgid "Output Options"
+msgstr ""
+
+#: admin.inc.php:179
+msgid "Title of related posts: "
+msgstr ""
+
+#: admin.inc.php:182
+msgid "When there are no posts, what should be shown?"
+msgstr ""
+
+#: admin.inc.php:186
+msgid "Blank Output"
+msgstr ""
+
+#: admin.inc.php:190
+msgid "Display \"No Related Posts\""
+msgstr ""
+
+#: admin.inc.php:194
+msgid "Show post excerpt in list?"
+msgstr ""
+
+#: admin.inc.php:197
+msgid "Length of excerpt (in words): "
+msgstr ""
+
+#: admin.inc.php:200
+msgid "Customize the output:"
+msgstr ""
+
+#: admin.inc.php:202
+msgid "HTML to display before the list of posts: "
+msgstr ""
+
+#: admin.inc.php:205
+msgid "HTML to display before each list item: "
+msgstr ""
+
+#: admin.inc.php:208
+msgid "HTML to display after each list item: "
+msgstr ""
+
+#: admin.inc.php:211
+msgid "HTML to display after the list of posts: "
+msgstr ""
+
+#: admin.inc.php:214
+msgid "Post thumbnail options:"
+msgstr ""
+
+#: admin.inc.php:216
+msgid "Location of post thumbnail:"
+msgstr ""
+
+#: admin.inc.php:220
+msgid "Display thumbnails inline with posts"
+msgstr ""
+
+#: admin.inc.php:224
+msgid "Display only thumbnails, no text"
+msgstr ""
+
+#: admin.inc.php:228
+msgid "Do not display thumbnails, only text."
+msgstr ""
+
+#: admin.inc.php:231
+msgid "Maximum width of the thumbnail: "
+msgstr ""
+
+#: admin.inc.php:234
+msgid "Maximum height of the thumbnail: "
+msgstr ""
+
+#: admin.inc.php:237
+msgid "Post thumbnail meta field name: "
+msgstr ""
+
+#: admin.inc.php:238
+msgid "The value of this field should contain the image source and is set in the <em>Add New Post</em> screen"
+msgstr ""
+
+#: admin.inc.php:240
+msgid "If the postmeta is not set, then should the plugin extract the first image from the post?"
+msgstr ""
+
+#: admin.inc.php:241
+msgid "This can slow down the loading of your page if the first image in the related posts is large in file-size"
+msgstr ""
+
+#: admin.inc.php:243
+msgid "Use default thumbnail? "
+msgstr ""
+
+#: admin.inc.php:244
+msgid "If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown."
+msgstr ""
+
+#: admin.inc.php:246
+msgid "Default thumbnail: "
+msgstr ""
+
+#: admin.inc.php:247
+msgid "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified above"
+msgstr ""
+
+#: admin.inc.php:254
+msgid "Do you want to set options to Default?"
+msgstr ""
+
+#: admin.inc.php:255
+msgid "Are you sure you want to recreate the index?"
+msgstr ""
+
+#: admin.inc.php:285
+msgid "Contextual Related Posts"
+msgstr ""
+
+#: admin.inc.php:285
+msgid "Related Posts"
+msgstr ""
+
+#: contextual-related-posts.php:117
+msgid "Powered by"
+msgstr ""
+
+#: contextual-related-posts.php:122
+#: contextual-related-posts.php:126
+msgid "No related posts found"
+msgstr ""
+
+#: contextual-related-posts.php:166
+msgid "<h3>Related Posts:</h3>"
+msgstr ""
+
+#: contextual-related-posts.php:300
+msgid "Settings"
+msgstr ""
+
+#: contextual-related-posts.php:302
 msgid "Donate"
 msgstr ""
 
