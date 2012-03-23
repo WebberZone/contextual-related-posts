@@ -217,19 +217,19 @@ function crp_options() {
 			<td>
 				<label>
 				<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php if ($crp_settings['post_thumb_op']=='inline') echo 'checked="checked"' ?> />
-				<?php _e('Display thumbnails inline with posts, before title',crp_LOCAL_NAME); ?></label>
+				<?php _e('Display thumbnails inline with posts, before title',CRP_LOCAL_NAME); ?></label>
 				<br />
 				<label>
 				<input type="radio" name="post_thumb_op" value="after" id="post_thumb_op_1" <?php if ($crp_settings['post_thumb_op']=='after') echo 'checked="checked"' ?> />
-				<?php _e('Display thumbnails inline with posts, after title',crp_LOCAL_NAME); ?></label>
+				<?php _e('Display thumbnails inline with posts, after title',CRP_LOCAL_NAME); ?></label>
 				<br />
 				<label>
 				<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_2" <?php if ($crp_settings['post_thumb_op']=='thumbs_only') echo 'checked="checked"' ?> />
-				<?php _e('Display only thumbnails, no text',crp_LOCAL_NAME); ?></label>
+				<?php _e('Display only thumbnails, no text',CRP_LOCAL_NAME); ?></label>
 				<br />
 				<label>
 				<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php if ($crp_settings['post_thumb_op']=='text_only') echo 'checked="checked"' ?> />
-				<?php _e('Do not display thumbnails, only text.',crp_LOCAL_NAME); ?></label>
+				<?php _e('Do not display thumbnails, only text.',CRP_LOCAL_NAME); ?></label>
 				<br />
 			</td>
 			</tr>
@@ -246,7 +246,7 @@ function crp_options() {
 			<td><input type="checkbox" name="scan_images" id="scan_images" <?php if ($crp_settings[scan_images]) echo 'checked="checked"' ?> /> <br /><?php _e('This can slow down the loading of your page if the first image in the related posts is large in file-size',CRP_LOCAL_NAME); ?></td>
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_default_show"><?php _e('Use default thumbnail? ',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="checkbox" name="thumb_default_show" id="thumb_default_show" <?php if ($crp_settings[thumb_default_show]) echo 'checked="checked"' ?> /> <br /><?php _e('If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown.',crp_LOCAL_NAME); ?></td>
+			<td><input type="checkbox" name="thumb_default_show" id="thumb_default_show" <?php if ($crp_settings[thumb_default_show]) echo 'checked="checked"' ?> /> <br /><?php _e('If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown.',CRP_LOCAL_NAME); ?></td>
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_default"><?php _e('Default thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_default])); ?>" style="width:500px"> <br /><?php _e('The plugin will first check if the post contains a thumbnail. If it doesn\'t then it will check the meta field. If this is not available, then it will show the default image as specified above',CRP_LOCAL_NAME); ?></td>
