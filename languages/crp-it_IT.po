@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts in italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-22 23:38-0000\n"
+"POT-Creation-Date: 2012-03-23 00:18-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -182,74 +182,80 @@ msgid "Location of post thumbnail:"
 msgstr ""
 
 #: admin.inc.php:220
-msgid "Display thumbnails inline with posts"
+#, fuzzy
+msgid "Display thumbnails inline with posts, before title"
 msgstr "Mostra gli articoli con le miniature inline"
 
 #: admin.inc.php:224
+#, fuzzy
+msgid "Display thumbnails inline with posts, after title"
+msgstr "Mostra gli articoli con le miniature inline"
+
+#: admin.inc.php:228
 msgid "Display only thumbnails, no text"
 msgstr "Mostra le sole miniature, nessun testo"
 
-#: admin.inc.php:228
+#: admin.inc.php:232
 msgid "Do not display thumbnails, only text."
 msgstr "Non mostrare le miniature, solo testo."
 
-#: admin.inc.php:231
+#: admin.inc.php:236
 msgid "Maximum width of the thumbnail: "
 msgstr ""
 
-#: admin.inc.php:234
+#: admin.inc.php:239
 msgid "Maximum height of the thumbnail: "
 msgstr ""
 
-#: admin.inc.php:237
+#: admin.inc.php:242
 #, fuzzy
 msgid "Post thumbnail meta field name: "
 msgstr "Opzioni miniature articolo:"
 
-#: admin.inc.php:238
+#: admin.inc.php:243
 msgid "The value of this field should contain the image source and is set in the <em>Add New Post</em> screen"
 msgstr ""
 
-#: admin.inc.php:240
+#: admin.inc.php:245
 #, fuzzy
 msgid "If the postmeta is not set, then should the plugin extract the first image from the post?"
 msgstr "Se il postmeta non fosse stato impostato, il plugin estrarrà dall'articolo la prima immagine. Questa operazione potrebbe rallentare il caricamento del tuo articolo nel caso in cui la prima immagine corelata fosse di grandi dimensioni"
 
-#: admin.inc.php:241
+#: admin.inc.php:246
 #, fuzzy
 msgid "This can slow down the loading of your page if the first image in the related posts is large in file-size"
 msgstr "Se il postmeta non fosse stato impostato, il plugin estrarrà dall'articolo la prima immagine. Questa operazione potrebbe rallentare il caricamento del tuo articolo nel caso in cui la prima immagine corelata fosse di grandi dimensioni"
 
-#: admin.inc.php:243
+#: admin.inc.php:248
 msgid "Use default thumbnail? "
 msgstr ""
 
-#: admin.inc.php:244
+#: admin.inc.php:249
 msgid "If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 
-#: admin.inc.php:246
+#: admin.inc.php:251
 msgid "Default thumbnail: "
 msgstr ""
 
-#: admin.inc.php:247
+#: admin.inc.php:252
 #, fuzzy
 msgid "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified above"
 msgstr "Come prima operazione, il plugin controllerà la presenza di una miniatura nell'articolo. Nel caso in cui non fosse presente, verificherà il campo meta. Qualora non fosse disponibile, mostrerà l'immagine predefinita come specificato qui sotto:"
 
-#: admin.inc.php:254
+#: admin.inc.php:259
 msgid "Do you want to set options to Default?"
 msgstr "Sei certo di volere impostare alle opzioni predefinite?"
 
-#: admin.inc.php:255
+#: admin.inc.php:260
 msgid "Are you sure you want to recreate the index?"
 msgstr "Sei certo di volere ricreare l'indice?"
 
-#: admin.inc.php:285
+#: admin.inc.php:290
 msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin.inc.php:285
+#: admin.inc.php:290
 msgid "Related Posts"
 msgstr "Related Posts"
 

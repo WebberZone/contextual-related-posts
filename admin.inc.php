@@ -217,15 +217,20 @@ function crp_options() {
 			<td>
 				<label>
 				<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php if ($crp_settings['post_thumb_op']=='inline') echo 'checked="checked"' ?> />
-				<?php _e('Display thumbnails inline with posts',CRP_LOCAL_NAME); ?></label>
+				<?php _e('Display thumbnails inline with posts, before title',crp_LOCAL_NAME); ?></label>
 				<br />
 				<label>
-				<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_1" <?php if ($crp_settings['post_thumb_op']=='thumbs_only') echo 'checked="checked"' ?> />
-				<?php _e('Display only thumbnails, no text',CRP_LOCAL_NAME); ?></label>
+				<input type="radio" name="post_thumb_op" value="after" id="post_thumb_op_1" <?php if ($crp_settings['post_thumb_op']=='after') echo 'checked="checked"' ?> />
+				<?php _e('Display thumbnails inline with posts, after title',crp_LOCAL_NAME); ?></label>
 				<br />
 				<label>
-				<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_2" <?php if ($crp_settings['post_thumb_op']=='text_only') echo 'checked="checked"' ?> />
-				<?php _e('Do not display thumbnails, only text.',CRP_LOCAL_NAME); ?></label>
+				<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_2" <?php if ($crp_settings['post_thumb_op']=='thumbs_only') echo 'checked="checked"' ?> />
+				<?php _e('Display only thumbnails, no text',crp_LOCAL_NAME); ?></label>
+				<br />
+				<label>
+				<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php if ($crp_settings['post_thumb_op']=='text_only') echo 'checked="checked"' ?> />
+				<?php _e('Do not display thumbnails, only text.',crp_LOCAL_NAME); ?></label>
+				<br />
 			</td>
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_width"><?php _e('Maximum width of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
