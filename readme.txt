@@ -32,6 +32,9 @@ The list is based on the content of the title and/or content of the posts which 
 
 == Upgrade Notice ==
 
+= 1.7.1 =
+* Fixed: Minor bug fix for location of thumbnail
+
 = 1.7 =
 * Added: Better thumbnail support
 * Added: Limited support for InnoDB
@@ -39,6 +42,9 @@ The list is based on the content of the title and/or content of the posts which 
 
 
 == Changelog ==
+
+= 1.7.1 =
+* Fixed: Minor bug fix for location of thumbnail
 
 = 1.7 =
 * Added: New function <code>related posts()</code> that allows you to manually add posts to your theme
