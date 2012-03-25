@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.7.1
+Version:     1.7.2
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -93,17 +93,17 @@ function ald_crp() {
 			if (!$p_in_c) {
 				$output .= $crp_settings['before_list_item'];
 
-				$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_link">'; // Add beginning of link
+				//$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_link">'; // Add beginning of link
 				if ($crp_settings['post_thumb_op']=='after') {
-					$output .= '<span class="crp_title"> '.$title.'</span>'; // Add title if post thumbnail is to be displayed after
+					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_title">'.$title.'</a>'; // Add title if post thumbnail is to be displayed after
 				}
 				if ($crp_settings['post_thumb_op']=='inline' || $crp_settings['post_thumb_op']=='after' || $crp_settings['post_thumb_op']=='thumbs_only') {
-					$output .= crp_get_the_post_thumbnail($search->ID);
+					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">'.crp_get_the_post_thumbnail($search->ID).'</a>';
 				}
 				if ($crp_settings['post_thumb_op']=='inline' || $crp_settings['post_thumb_op']=='text_only') {
-					$output .= '<span class="crp_title"> '.$title.'</span>'; // Add title when required by settings
+					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_title">'.$title.'</a>'; // Add title when required by settings
 				}
-				$output .= '</a>'; // Close the link
+				//$output .= '</a>'; // Close the link
 				if ($crp_settings['show_excerpt']) {
 					$output .= '<span class="crp_excerpt"> '.crp_excerpt($search->ID,$crp_settings['excerpt_length']).'</span>';
 				}
@@ -242,7 +242,8 @@ function crp_get_the_post_thumbnail($postid) {
 	$result = get_post($postid);
 	$crp_settings = crp_read_options();
 	$output = '';
-
+	$title = get_the_title($postid);
+	
 	if (function_exists('has_post_thumbnail') && has_post_thumbnail($result->ID)) {
 		$output .= get_the_post_thumbnail($result->ID, array($crp_settings[thumb_width],$crp_settings[thumb_height]), array('title' => $title,'alt' => $title, 'class' => 'crp_thumb', 'border' => '0'));
 	} else {

@@ -1,4 +1,4 @@
-﻿=== Contextual Related Posts ===
+=== Contextual Related Posts ===
 Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail
 Contributors: Ajay, Mark Ghosh
 Donate link: http://ajaydsouza.com/donate/
@@ -32,16 +32,16 @@ The list is based on the content of the title and/or content of the posts which 
 
 == Upgrade Notice ==
 
-= 1.7.1 =
-* Fixed: Minor bug fix for location of thumbnail
-
-= 1.7 =
-* Added: Better thumbnail support
-* Added: Limited support for InnoDB
-* Modified: Cleaner Settings page interface
+= 1.7.2 =
+* Fixed: Title attribute was missing for the thumbnails
+* Modified: Reverted the output code to v1.6.5 style with `img` wrapped in its own `a` tag
 
 
 == Changelog ==
+
+= 1.7.2 =
+* Fixed: Title attribute was missing for the thumbnails
+* Modified: Reverted the output code to v1.6.5 style with `img` wrapped in its own `a` tag
 
 = 1.7.1 =
 * Fixed: Minor bug fix for location of thumbnail
@@ -154,15 +154,13 @@ If your question isn't listed here, please post a comment at the <a href="http:/
 
 = How can I customise the output? =
 
-Several customization options are available via the Settings page in WordPress Admin. You can access this via <strong>Settings » Related Posts</strong>
+Several customization options are available via the Settings page in WordPress Admin. You can access this via <strong>Settings � Related Posts</strong>
 
 The plugin also provides you with a set of CSS classes that allow you to style your posts by adding code to the *style.css* sheet. In a future version, I will be adding in CSS support within the plugins Settings page.
 
 The following CSS styles are available:
 
 * **crp_related**: ID of the main wrapper `div`
-
-* **crp_link**: Class of the `a` tag for each list item
 
 * **crp_title**: Class of the `span` tag for title of the post
 
@@ -200,5 +198,4 @@ Below are a few features that I plan on implementing in future versions of the p
 * Custom post support
 
 If you would like a feature to be added, or if you already have the code for the feature, you can let us know by <a href="http://wordpress.org/tags/contextual-related-posts?forum_id=10">posting in this forum</a>.
-
 
