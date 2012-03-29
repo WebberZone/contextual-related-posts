@@ -32,12 +32,14 @@ The list is based on the content of the title and/or content of the posts which 
 
 == Upgrade Notice ==
 
-= 1.7.2 =
-* Fixed: Title attribute was missing for the thumbnails
-* Modified: Reverted the output code to v1.6.5 style with `img` wrapped in its own `a` tag
+= 1.7.3 =
+* Fixed: Donation link
 
 
 == Changelog ==
+
+= 1.7.3 =
+* Fixed: Donation link
 
 = 1.7.2 =
 * Fixed: Title attribute was missing for the thumbnails

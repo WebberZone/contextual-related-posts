@@ -89,7 +89,7 @@ function crp_options() {
 			<div id="donate-form">
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 				<input type="hidden" name="cmd" value="_xclick">
-				<input type="hidden" name="business" value="KGVN7LJLLZCMY">
+				<input type="hidden" name="business" value="donate@ajaydsouza.com">
 				<input type="hidden" name="lc" value="IN">
 				<input type="hidden" name="item_name" value="Donation for Contextual Related Posts">
 				<input type="hidden" name="item_number" value="crp">
