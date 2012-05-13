@@ -32,11 +32,15 @@ The list is based on the content of the title and/or content of the posts which 
 
 == Upgrade Notice ==
 
-= 1.7.3 =
-* Fixed: Donation link
+= 1.7.4 =
+* Fixed: Clash with YARPP
 
 
 == Changelog ==
+
+= 1.7.4 =
+* Fixed: Clash with YARPP
+
 
 = 1.7.3 =
 * Fixed: Donation link
