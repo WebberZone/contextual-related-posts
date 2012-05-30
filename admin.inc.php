@@ -10,6 +10,12 @@ function crp_options() {
     $poststable = $wpdb->posts;
 
 	$crp_settings = crp_read_options();
+	parse_str($crp_settings['post_types'],$post_types);
+	$wp_post_types	= get_post_types( array(
+		'public'	=> true,
+	) );
+	$posts_types_inc = array_intersect($wp_post_types, $post_types);
+
 
 	if($_POST['crp_save']){
 		$crp_settings[title] = ($_POST['title']);
@@ -32,10 +38,12 @@ function crp_options() {
 		$crp_settings[thumb_height] = intval($_POST['thumb_height']);
 		$crp_settings[thumb_width] = intval($_POST['thumb_width']);
 		$crp_settings[thumb_default_show] = (($_POST['thumb_default_show']) ? true : false);
+		$crp_settings[thumb_timthumb] = (($_POST['thumb_timthumb']) ? true : false);
 		$crp_settings[scan_images] = (($_POST['scan_images']) ? true : false);
 		$crp_settings[show_excerpt] = (($_POST['show_excerpt']) ? true : false);
 		$crp_settings[excerpt_length] = intval($_POST['excerpt_length']);
 		$crp_settings[show_credit] = (($_POST['show_credit']) ? true : false);
+		$crp_settings[custom_CSS] = $_POST['custom_CSS'];
 		
 		$exclude_categories_slugs = explode(", ",$crp_settings[exclude_cat_slugs]);
 		
@@ -46,8 +54,19 @@ function crp_options() {
 		}
 		$crp_settings[exclude_categories] = substr($exclude_categories, 0, -2);
 
+		$wp_post_types	= get_post_types( array(
+			'public'	=> true,
+		) );
+		$post_types_arr = (is_array($_POST['post_types'])) ? $_POST['post_types'] : array('post' => 'post');
+		$post_types = array_intersect($wp_post_types, $post_types_arr);
+		$crp_settings[post_types] = http_build_query($post_types, '', '&');
+
 		update_option('ald_crp_settings', $crp_settings);
 		
+		$crp_settings = crp_read_options();
+		parse_str($crp_settings['post_types'],$post_types);
+		$posts_types_inc = array_intersect($wp_post_types, $post_types);
+
 		$str = '<div id="message" class="updated fade"><p>'. __('Options saved successfully.',CRP_LOCAL_NAME) .'</p></div>';
 		echo $str;
 	}
@@ -57,6 +76,13 @@ function crp_options() {
 		$crp_settings = crp_default_options();
 		update_option('ald_crp_settings', $crp_settings);
 		
+		$crp_settings = crp_read_options();
+		parse_str($crp_settings['post_types'],$post_types);
+		$wp_post_types	= get_post_types( array(
+			'public'	=> true,
+		) );
+		$posts_types_inc = array_intersect($wp_post_types, $post_types);
+
 		$str = '<div id="message" class="updated fade"><p>'. __('Options set to Default.',CRP_LOCAL_NAME) .'</p></div>';
 		echo $str;
 	}
@@ -117,6 +143,9 @@ function crp_options() {
 		<?php require_once(ABSPATH . WPINC . '/rss.php'); wp_widget_rss_output('http://ajaydsouza.com/archives/category/wordpress/plugins/feed/', array('items' => 5, 'show_author' => 0, 'show_date' => 1));
 		?>
 		</div>
+		<div class="side-widget">
+		<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fajaydsouzacom&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;appId=113175385243" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+		</div>
 	  </div>
 
 	  <div id="options-div">
@@ -163,6 +192,20 @@ function crp_options() {
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_pages"><?php _e('Exclude Pages in Related Posts',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="exclude_pages" id="exclude_pages" <?php if ($crp_settings[exclude_pages]) echo 'checked="checked"' ?> /></td>
+			</tr>
+			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_pages"><?php _e('Post types to include in results (including custom post types)',CRP_LOCAL_NAME); ?></label></th>
+			<td>
+				<select name="post_types[]" multiple="multiple" size="<?php echo min(20,count($wp_post_types)); ?>">
+					<?php foreach ($wp_post_types as $wp_post_type) {
+						$post_type_op = '<option value="'.$wp_post_type.'"';
+						if (in_array($wp_post_type, $posts_types_inc)) $post_type_op .= 'selected="selected"';
+						$post_type_op .= '>'.$wp_post_type.'</option>'; 
+						echo $post_type_op;
+					}
+					?>
+				</select>
+				<br /><?php _e('Use CTRL on Windows and COMMAND on Mac to select multiple items',CRP_LOCAL_NAME); ?>
+			</td>
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="show_credit"><?php _e('Add a link to the plugin page as a final item in the list',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="show_credit" id="show_credit" <?php if ($crp_settings[show_credit]) echo 'checked="checked"' ?> /> <?php _e(' <em>Optional</em>',CRP_LOCAL_NAME); ?></td>
@@ -239,6 +282,9 @@ function crp_options() {
 			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_height"><?php _e('Maximum height of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_height])); ?>" style="width:30px" />px</td>
 			</tr>
+			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_timthumb"><?php _e('Use timthumb to generate thumbnails? ',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="thumb_timthumb" id="thumb_timthumb" <?php if ($crp_settings[thumb_timthumb]) echo 'checked="checked"' ?> /> <br /><?php _e('If checked, <a href="http://www.binarymoon.co.uk/projects/timthumb/">timthumb</a> will be used to generate thumbnails',CRP_LOCAL_NAME); ?></td>
+			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_meta"><?php _e('Post thumbnail meta field name: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo attribute_escape(stripslashes($crp_settings[thumb_meta])); ?>"> <br /><?php _e('The value of this field should contain the image source and is set in the <em>Add New Post</em> screen',CRP_LOCAL_NAME); ?></td>
 			</tr>
@@ -253,6 +299,16 @@ function crp_options() {
 			</tr>
 			</table>
 		</div>
+		<div class="tabbertab">
+		<h3>
+		  <?php _e('Custom Styles',CRP_LOCAL_NAME); ?>
+		</h3>
+			<table class="form-table">
+			<tr style="vertical-align: top; "><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',ATA_LOCAL_NAME); ?></th>
+			</tr>
+			<tr style="vertical-align: top; "><td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80"><?php echo stripslashes($crp_settings[custom_CSS]); ?></textarea>
+			<br /><em><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> for available CSS classes to style.',ATA_LOCAL_NAME); ?></em></td></tr>
+			</table>		
 		</div>
 		<p>
 		  <input type="submit" name="crp_save" id="crp_save" value="Save Options" style="border:#0C0 1px solid" />
@@ -293,6 +349,18 @@ function crp_adminmenu() {
 	
 }
 add_action('admin_menu', 'crp_adminmenu');
+
+// Admin notices
+function crp_admin_notice() {
+	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('plugin settings page', ATF_LOCAL_NAME ) . '</a>';
+
+	if ( !current_user_can( 'manage_options' ) ) return;
+
+    echo '<div class="error">
+       <p>'.__('Contextual Related Posts plugin has just been installed / upgraded. Please visit the ', ATF_LOCAL_NAME ).$plugin_settings_page.__(' to configure.', ATF_LOCAL_NAME ).'</p>
+    </div>';
+}
+// add_action('admin_notices', 'crp_admin_notice');
 
 function crp_adminhead() {
 	global $crp_url;

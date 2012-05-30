@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.7.4
+Version:     1.8
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -45,6 +45,7 @@ function ald_crp() {
 	global $wpdb, $post, $single;
 
 	$crp_settings = crp_read_options();
+	parse_str($crp_settings['post_types'],$post_types);
 	$limit = (stripslashes($crp_settings['limit']));
 	$exclude_categories = explode(',',$crp_settings['exclude_categories']);
 	
@@ -62,12 +63,19 @@ function ald_crp() {
 	
 	if ((is_int($post->ID))&&($stuff != '')) {
 		$sql = "SELECT DISTINCT ID,post_title,post_date "
-		. "FROM ".$wpdb->posts." WHERE "
+		. " FROM ".$wpdb->posts." WHERE "
 		. "MATCH (post_title,post_content) AGAINST ('".$stuff."') "
 		. "AND post_date <= '".$now."' "
 		. "AND post_status = 'publish' "
-		. "AND id != ".$post->ID." ";
-		if ($crp_settings['exclude_pages']) $sql .= "AND post_type = 'post' ";
+		. "AND id != ".$post->ID." "
+		. "AND ( ";
+		$multiple = false;
+		foreach ($post_types as $post_type) {
+			if ( $multiple ) $sql .= ' OR ';
+			$sql .= " post_type = '".$post_type."' ";
+			$multiple = true;
+		}
+		$sql .=" ) ";
 		$sql .= "LIMIT ".$limit*3;
 		
 		$search_counter = 0;
@@ -76,7 +84,7 @@ function ald_crp() {
 		$searches = false;
 	}
 	
-	$output = '<div id="crp_related">';
+	$output = (is_singular()) ? '<div id="crp_related" class="crp_related">' : '<div class="crp_related">';
 	
 	if($searches){
 		$output .= (stripslashes($crp_settings[title]));
@@ -158,6 +166,12 @@ function crp_default_options() {
 	global $crp_url;
 	$title = __('<h3>Related Posts:</h3>',CRP_LOCAL_NAME);
 	$thumb_default = $crp_url.'/default.png';
+	// get relevant post types
+	$args = array (
+				'public' => true,
+				'_builtin' => true
+			);
+	$post_types	= http_build_query(get_post_types($args), '', '&');
 
 	$crp_settings = 	Array (
 						'title' => $title,			// Add before the content
@@ -181,9 +195,12 @@ function crp_default_options() {
 						'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image
 						'thumb_default' => $thumb_default,	// Default thumbnail image
 						'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
+						'thumb_timthumb' => true,	// Use timthumb
 						'scan_images' => false,			// Scan post for images
 						'show_excerpt' => false,			// Show description in list item
 						'excerpt_length' => '10',		// Length of characters
+						'post_types' => $post_types,		// WordPress custom post types
+						'custom_CSS' => '',			// Custom CSS to style the output
 						);
 	return $crp_settings;
 }
@@ -210,12 +227,30 @@ function crp_read_options()
 
 }
 
+// Header function
+add_action('wp_head','crp_header');
+function crp_header() {
+	global $wpdb, $post, $single;
+
+	$crp_settings = crp_read_options();
+	$crp_custom_CSS = stripslashes($crp_settings[custom_CSS]);
+	
+	// Add CSS to header 
+	if ($crp_custom_CSS != '') {
+		if((is_single())&&($crp_settings['add_to_content'])) {
+			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+		} elseif((is_page())&&($crp_settings['add_to_page'])) {
+			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+		}
+	}
+}
+	
 // Create full text index
 function ald_crp_activate() {
 	global $wpdb;
 
     $wpdb->hide_errors();
-	if($wpdb->db_version()>=5.6) 
+	if(version_compare(5.6, $wpdb->db_version(), '<=')) 
 		{ $wpdb->query('ALTER TABLE '.$wpdb->posts.' ENGINE = InnoDB;'); }
 		else
 		{ $wpdb->query('ALTER TABLE '.$wpdb->posts.' ENGINE = MYISAM;'); }
@@ -224,6 +259,7 @@ function ald_crp_activate() {
     $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related_title (post_title);');
     $wpdb->query('ALTER TABLE '.$wpdb->posts.' ADD FULLTEXT crp_related_content (post_content);');
     $wpdb->show_errors();
+	
 }
 if (function_exists('register_activation_hook')) {
 	register_activation_hook(__FILE__,'ald_crp_activate');
@@ -232,6 +268,7 @@ if (function_exists('register_activation_hook')) {
 // Function to get the post thumbnail
 function crp_get_the_post_thumbnail($postid) {
 
+	global $crp_url;
 	$result = get_post($postid);
 	$crp_settings = crp_read_options();
 	$output = '';
@@ -251,7 +288,11 @@ function crp_get_the_post_thumbnail($postid) {
 		if (!$postimage) $postimage = get_post_meta($result->ID, '_video_thumbnail', true); // If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin
 		if ($crp_settings['thumb_default_show'] && !$postimage) $postimage = $crp_settings[thumb_default]; // If no thumb found and settings permit, use default thumb
 		if ($postimage) {
-		  $output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" style="max-width:'.$crp_settings[thumb_width].'px;max-height:'.$crp_settings[thumb_height].'px;" border="0" class="crp_thumb" />';
+			if ($crp_settings[thumb_timthumb]) {
+				$output .= '<img src="'.$crp_url.'/timthumb/timthumb.php?src='.urlencode($postimage).'&amp;w='.$crp_settings[thumb_width].'&amp;h='.$crp_settings[thumb_height].'&amp;zc=1&amp;q=75" alt="'.$title.'" title="'.$title.'" style="max-width:'.$crp_settings[thumb_width].'px;max-height:'.$crp_settings[thumb_height].'px;" border="0" class="crp_thumb" />';
+			} else {
+				$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" style="max-width:'.$crp_settings[thumb_width].'px;max-height:'.$crp_settings[thumb_height].'px;" border="0" class="crp_thumb" />';
+			}
 		}
 	}
 	
@@ -292,7 +333,7 @@ function crp_plugin_actions( $links, $file ) {
 	// create link
 	if ($file == $plugin) {
 		$links[] = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('Settings', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="http://ajaydsouza.com/support/">' . __('Support', CRP_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __('Support', CRP_LOCAL_NAME ) . '</a>';
 		$links[] = '<a href="http://ajaydsouza.com/donate/">' . __('Donate', CRP_LOCAL_NAME ) . '</a>';
 	}
 	return $links;
