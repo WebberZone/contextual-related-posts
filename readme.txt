@@ -36,7 +36,7 @@ The list is based on the content of the title and/or content of the posts which 
 == Upgrade Notice ==
 
 = 1.8 =
-* Added support WordPress Custom Post Types, new `Custom Styles` tab, timthumb support. Please visit the Settings page to configure soon after upgrade.
+* Added support for WordPress Custom Post Types, new `Custom Styles` tab, timthumb support. Please visit the Settings page to configure soon after upgrade.
 
 
 == Changelog ==
