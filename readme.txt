@@ -1,11 +1,11 @@
-=== Contextual Related Posts ===
+﻿=== Contextual Related Posts ===
 Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail
-Contributors: Ajay, Mark Ghosh
+Contributors: Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
-Requires at least: 2.5
+Requires at least: 3.0
 Tested up to: 3.4
-
+License: GPLv2 or later
 
 Increase reader retention and reduce bounce rates by displaying a set of related posts on your website or in your feed
 
@@ -23,24 +23,30 @@ The list is based on the content of the title and/or content of the posts which 
 * Relevancy matching based on title and/or content of the post
 * Exclude posts from categories from being displayed in the list
 * Exclude display of related posts on Pages 
-* Support for WordPress post thumbnails
-* Auto-extract the first image in your post to be displayed as a thumbnail
-* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>
+* Support for Custom Post Types
+* Thumbnail support
+	* Support for WordPress post thumbnails
+	* Auto-extract the first image in your post to be displayed as a thumbnail
+	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>
+	* Use timthumb to resize images
 * Display excerpts in post. You can select the length of the excerpt in words
-* Output wrapped in CSS class that allows you to style the list
-* Select what tags you would like to wrap the text in
+* Output wrapped in CSS class that allows you to style the list. You can enter your custom CSS styles from within WordPress Admin area
+* Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
 
 == Upgrade Notice ==
 
-= 1.7.4 =
-* Fixed: Clash with YARPP
+= 1.8 =
+* Added support WordPress Custom Post Types, new `Custom Styles` tab, timthumb support. Please visit the Settings page to configure soon after upgrade.
 
 
 == Changelog ==
 
-= 1.7.4 =
-* Fixed: Clash with YARPP
-
+= 1.8 =
+* Modified: Replaced `id` attribute with `class` tag on non-singular pages. On singular pages it will display both `id` and `class`
+* Added: Option to use timthumb to create thumbnail images (turned ON by default)
+* Added: Support for WordPress Custom Post Types
+* Added: New `Custom Styles` tab to allow you to easily style the output
+* Modified: New "default.png" file based on from KDE’s <a href="http://www.oxygen-icons.org/">Oxygen icon set</a>
 
 = 1.7.3 =
 * Fixed: Donation link
@@ -146,27 +152,32 @@ The list is based on the content of the title and/or content of the posts which 
 
 3. Activate the Plugin in WP-Admin. 
 
-4. Goto Settings > Related Posts to configure
+4. Goto **Settings &raquo; Related Posts** to configure
+
+5. Optionally visit the **Custom Styles** tab to add any custom CSS styles. These are added to `wp_head` on the pages where the posts are displayed
 
 == Screenshots ==
 
 1. CRP options in WP-Admin - General Options
 2. CRP options in WP-Admin - Output Options
+3. CRP options in WP-Admin - Custom Styles
 
 
 == Frequently Asked Questions ==
 
-If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/tags/contextual-related-posts?forum_id=10">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
+If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
 
 = How can I customise the output? =
 
-Several customization options are available via the Settings page in WordPress Admin. You can access this via <strong>Settings � Related Posts</strong>
+Several customization options are available via the Settings page in WordPress Admin. You can access this via <strong>Settings &raquo; Related Posts</strong>
 
 The plugin also provides you with a set of CSS classes that allow you to style your posts by adding code to the *style.css* sheet. In a future version, I will be adding in CSS support within the plugins Settings page.
 
-The following CSS styles are available:
+The following CSS classes / IDs are available:
 
-* **crp_related**: ID of the main wrapper `div`
+* **crp_related**: ID of the main wrapper `div`. This is only displayed on singular pages, i.e. post, page and attachment
+
+* **crp_related**: Class of the main wrapper `div`. If you are displaying the related posts on non-singular pages, then you should style this
 
 * **crp_title**: Class of the `span` tag for title of the post
 
@@ -180,7 +191,7 @@ For more information, please visit http://ajaydsouza.com/wordpress/plugins/conte
 
 The plugin selects thumbnails in the following order:
 
-1. Post Thumbnail image: The image that you can set while editing your post in WordPress > New Post screen
+1. Post Thumbnail image: The image that you can set while editing your post in WordPress &raquo; New Post screen
 
 2. Post meta field: This is the meta field value you can use when editing your post. The default is `post-image`
 
@@ -190,6 +201,13 @@ The plugin selects thumbnails in the following order:
 
 4. Default Thumbnail: If enabled, it will use the default thumbnail that you specify in the Settings screen
 
+The plugin uses <a href="http://www.binarymoon.co.uk/projects/timthumb/">timthumb</a> to generate thumbnails by default. Depending on the configuration of your webhost you might run into certain problems. Please check out <a href="http://www.binarymoon.co.uk/2010/11/timthumb-hints-tips/">the timthumb troubleshooting page</a> regarding permission settings for the folder and files.
+
+= Manual install =
+
+If you disable automatic display of related posts please add `<?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?>` to your template file where you want the related posts to be displayed.
+You can also use this function to display related posts on any type of page generated by WordPress including homepage and archive pages.
+
 == Wishlist ==
 
 Below are a few features that I plan on implementing in future versions of the plugin. However, there is no fixed time-frame for this and largely depends on how much time I can contribute to development.
@@ -197,11 +215,15 @@ Below are a few features that I plan on implementing in future versions of the p
 * Select random posts if there are no similar posts
 * Widget to display the related posts
 * Shortcode support
-* Exclude display on select categories
+* Exclude display on select categories and tags
 * Exclude display on select posts 
 * Caching related posts
 * Better relevance tweaking
-* Custom post support
+* Improved Custom post support
+* Multi-side support
+* Ready-made styles
+* Better post excerpt support
+* Upload your own default thumbnail
 
-If you would like a feature to be added, or if you already have the code for the feature, you can let us know by <a href="http://wordpress.org/tags/contextual-related-posts?forum_id=10">posting in this forum</a>.
+If you would like a feature to be added, or if you already have the code for the feature, you can let us know by <a href="http://wordpress.org/support/plugin/contextual-related-posts">posting in this forum</a>.
 
