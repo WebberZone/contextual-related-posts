@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts in italiano\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-04 18:54-0000\n"
+"POT-Creation-Date: 2012-06-16 11:23-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Gianni Diurno | http://gidibao.net/ <gidibao@gmail.com>\n"
@@ -39,36 +39,36 @@ msgstr "Inserisci la cifra in USD: "
 msgid "Send your donation to the author of"
 msgstr "Invia la tua donazione all'autore di"
 
-#: admin.inc.php:132
+#: admin.inc.php:135
 msgid "Quick links"
 msgstr "Collegamenti veloci"
 
-#: admin.inc.php:134
+#: admin.inc.php:137
 msgid "Contextual Related Posts "
 msgstr "Contextual Related Posts "
 
-#: admin.inc.php:134
+#: admin.inc.php:137
 msgid "plugin page"
 msgstr "pagina plugin"
 
-#: admin.inc.php:135
+#: admin.inc.php:138
 msgid "Other plugins"
 msgstr "Altri plugin"
 
-#: admin.inc.php:136
+#: admin.inc.php:139
 msgid "Ajay's blog"
 msgstr "Il blog di Ajay"
 
-#: admin.inc.php:137
-#: contextual-related-posts.php:336
+#: admin.inc.php:140
+#: contextual-related-posts.php:451
 msgid "Support"
 msgstr "Supporto"
 
-#: admin.inc.php:138
+#: admin.inc.php:141
 msgid "Follow @ajaydsouza on Twitter"
 msgstr "Segui @ajaydsouza su Twitter"
 
-#: admin.inc.php:142
+#: admin.inc.php:145
 msgid "Recent developments"
 msgstr "Sviluppi recenti"
 
@@ -81,48 +81,48 @@ msgid "Number of related posts to display: "
 msgstr "numero di articoli correlati da mostrare:"
 
 #: admin.inc.php:163
-msgid "Exclude Categories: "
-msgstr "escludi le categorie:"
-
-#: admin.inc.php:181
-msgid "Add related posts to the post content on single posts"
+msgid "Post types to include in results (including custom post types)"
 msgstr ""
 
-#: admin.inc.php:182
-#: admin.inc.php:185
-#, fuzzy
-msgid "If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr "aggiungi gli articoli correlati alle pagine. <br />oppure disattiva ed inserisci <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> nel tuo template laddove desideri che siano visualizzati"
+#: admin.inc.php:174
+msgid "Use CTRL on Windows and COMMAND on Mac to select multiple items"
+msgstr ""
 
-#: admin.inc.php:184
-#, fuzzy
-msgid "Add related posts to pages"
-msgstr "aggiungi gli articoli correlati al feed"
-
-#: admin.inc.php:187
-msgid "Add related posts to feed"
-msgstr "aggiungi gli articoli correlati al feed"
-
-#: admin.inc.php:190
+#: admin.inc.php:177
 msgid "Find related posts based on content as well as title"
 msgstr ""
 
-#: admin.inc.php:191
+#: admin.inc.php:178
 #, fuzzy
 msgid "If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
 msgstr "Ricerca degli articoli correlati in relazione al contenuto ed al titolo. Se disattivata, verranno utilizzati i soli titoli dei post. (in questo caso é preferibile attivare un plugin per la cache)"
 
-#: admin.inc.php:193
-msgid "Exclude Pages in Related Posts"
-msgstr "Escludi le pagine da Related Posts"
-
-#: admin.inc.php:196
-msgid "Post types to include in results (including custom post types)"
+#: admin.inc.php:180
+msgid "List of post or page IDs to exclude from the results: "
 msgstr ""
+
+#: admin.inc.php:183
+msgid "Exclude Categories: "
+msgstr "escludi le categorie:"
+
+#: admin.inc.php:201
+msgid "Add related posts to the post content on single posts"
+msgstr ""
+
+#: admin.inc.php:202
+#: admin.inc.php:205
+#, fuzzy
+msgid "If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
+msgstr "aggiungi gli articoli correlati alle pagine. <br />oppure disattiva ed inserisci <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> nel tuo template laddove desideri che siano visualizzati"
+
+#: admin.inc.php:204
+#, fuzzy
+msgid "Add related posts to pages"
+msgstr "aggiungi gli articoli correlati al feed"
 
 #: admin.inc.php:207
-msgid "Use CTRL on Windows and COMMAND on Mac to select multiple items"
-msgstr ""
+msgid "Add related posts to feed"
+msgstr "aggiungi gli articoli correlati al feed"
 
 #: admin.inc.php:210
 msgid "Add a link to the plugin page as a final item in the list"
@@ -271,9 +271,23 @@ msgstr ""
 msgid "Do not include <code>style</code> tags. Check out the <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\">FAQ</a> for available CSS classes to style."
 msgstr ""
 
+#: admin.inc.php:314
+#, fuzzy
+msgid "Save Options"
+msgstr "Opzioni:"
+
+#: admin.inc.php:315
+#, fuzzy
+msgid "Default Options"
+msgstr "Opzioni output:"
+
 #: admin.inc.php:315
 msgid "Do you want to set options to Default?"
 msgstr "Sei certo di volere impostare alle opzioni predefinite?"
+
+#: admin.inc.php:316
+msgid "Recreate Index"
+msgstr ""
 
 #: admin.inc.php:316
 msgid "Are you sure you want to recreate the index?"
@@ -284,6 +298,7 @@ msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
 #: admin.inc.php:346
+#: contextual-related-posts.php:190
 msgid "Related Posts"
 msgstr "Related Posts"
 
@@ -300,29 +315,72 @@ msgstr ""
 msgid " to configure."
 msgstr ""
 
-#: contextual-related-posts.php:125
+#: contextual-related-posts.php:146
 msgid "Powered by"
 msgstr "Powered by"
 
-#: contextual-related-posts.php:130
-#: contextual-related-posts.php:134
+#: contextual-related-posts.php:151
+#: contextual-related-posts.php:156
 msgid "No related posts found"
 msgstr "Non é stato trovato alcun articolo correlato"
 
-#: contextual-related-posts.php:167
+#: contextual-related-posts.php:189
+#, fuzzy
+msgid "Display Related Posts"
+msgstr "\"Nessun articolo correlato\""
+
+#: contextual-related-posts.php:200
+msgid "Title"
+msgstr ""
+
+#: contextual-related-posts.php:205
+msgid "No. of posts"
+msgstr ""
+
+#: contextual-related-posts.php:209
+#, fuzzy
+msgid "Thumbnail options"
+msgstr "Opzioni miniature articolo:"
+
+#: contextual-related-posts.php:211
+#, fuzzy
+msgid "Thumbnails inline, before title"
+msgstr "Mostra gli articoli con le miniature inline"
+
+#: contextual-related-posts.php:212
+#, fuzzy
+msgid "Thumbnails inline, after title"
+msgstr "Mostra gli articoli con le miniature inline"
+
+#: contextual-related-posts.php:213
+#, fuzzy
+msgid "Only thumbnails, no text"
+msgstr "Mostra le sole miniature, nessun testo"
+
+#: contextual-related-posts.php:214
+#, fuzzy
+msgid "No thumbnails, only text."
+msgstr "Non mostrare le miniature, solo testo."
+
+#: contextual-related-posts.php:219
+#, fuzzy
+msgid " Show excerpt?"
+msgstr "Desideri mostrare gli estratti?"
+
+#: contextual-related-posts.php:271
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Related Posts:</h3>"
 
-#: contextual-related-posts.php:335
+#: contextual-related-posts.php:450
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: contextual-related-posts.php:337
+#: contextual-related-posts.php:452
 msgid "Donate"
 msgstr "Donazioni"
 
-#~ msgid "Options:"
-#~ msgstr "Opzioni:"
+#~ msgid "Exclude Pages in Related Posts"
+#~ msgstr "Escludi le pagine da Related Posts"
 
 #~ msgid ""
 #~ "Add related posts to the post content on single posts. <br />If you "

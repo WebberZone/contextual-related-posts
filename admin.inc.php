@@ -25,7 +25,6 @@ function crp_options() {
 		$crp_settings[add_to_page] = (($_POST['add_to_page']) ? true : false);
 		$crp_settings[add_to_feed] = (($_POST['add_to_feed']) ? true : false);
 		$crp_settings[match_content] = (($_POST['match_content']) ? true : false);
-		$crp_settings[exclude_pages] = (($_POST['exclude_pages']) ? true : false);
 		$crp_settings[blank_output] = (($_POST['blank_output'] == 'blank' ) ? true : false);
 		$crp_settings[blank_output_text] = $_POST['blank_output_text'];
 		$crp_settings[post_thumb_op] = $_POST['post_thumb_op'];
@@ -44,6 +43,7 @@ function crp_options() {
 		$crp_settings[excerpt_length] = intval($_POST['excerpt_length']);
 		$crp_settings[show_credit] = (($_POST['show_credit']) ? true : false);
 		$crp_settings[custom_CSS] = $_POST['custom_CSS'];
+		$crp_settings[exclude_post_ids] = $_POST['exclude_post_ids'];
 		
 		$exclude_categories_slugs = explode(", ",$crp_settings[exclude_cat_slugs]);
 		
@@ -123,10 +123,13 @@ function crp_options() {
 				<input type="hidden" name="currency_code" value="USD">
 				<input type="hidden" name="button_subtype" value="services">
 				<input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted">
-				<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php _e('Send your donation to the author of',CRP_LOCAL_NAME) ?> Contextual Related Posts?">
+				<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php _e('Send your donation to the author of',CRP_LOCAL_NAME) ?> Contextual Related Posts" title="<?php _e('Send your donation to the author of',CRP_LOCAL_NAME) ?> Contextual Related Posts">
 				<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 				</form>
 			</div>
+		</div>
+		<div class="side-widget">
+		<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fajaydsouzacom&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;appId=113175385243" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
 		</div>
 		<div class="side-widget">
 		<span class="title"><?php _e('Quick links') ?></span>				
@@ -134,7 +137,7 @@ function crp_options() {
 			<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e('Contextual Related Posts ');_e('plugin page',CRP_LOCAL_NAME) ?></a></li>
 			<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',CRP_LOCAL_NAME) ?></a></li>
 			<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',CRP_LOCAL_NAME) ?></a></li>
-			<li><a href="http://ajaydsouza.com/support/"><?php _e('Support',CRP_LOCAL_NAME) ?></a></li>
+			<li><a href="http://wordpress.org/support/plugin/contextual-related-posts"><?php _e('Support',CRP_LOCAL_NAME) ?></a></li>
 			<li><a href="http://twitter.com/ajaydsouza"><?php _e('Follow @ajaydsouza on Twitter',CRP_LOCAL_NAME) ?></a></li>
 		</ul>
 		</div>
@@ -142,9 +145,6 @@ function crp_options() {
 		<span class="title"><?php _e('Recent developments',CRP_LOCAL_NAME) ?></span>				
 		<?php require_once(ABSPATH . WPINC . '/rss.php'); wp_widget_rss_output('http://ajaydsouza.com/archives/category/wordpress/plugins/feed/', array('items' => 5, 'show_author' => 0, 'show_date' => 1));
 		?>
-		</div>
-		<div class="side-widget">
-		<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fajaydsouzacom&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;appId=113175385243" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
 		</div>
 	  </div>
 
@@ -159,6 +159,26 @@ function crp_options() {
 			<table class="form-table">
 			<tr style="vertical-align: top;"><th scope="row"><label for="limit"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="limit" id="limit" value="<?php echo attribute_escape(stripslashes($crp_settings[limit])); ?>"></td>
+			</tr>
+			<tr style="vertical-align: top;"><th scope="row"><?php _e('Post types to include in results (including custom post types)',CRP_LOCAL_NAME); ?></th>
+			<td>
+				<select name="post_types[]" multiple="multiple" size="<?php echo min(20,count($wp_post_types)); ?>">
+					<?php foreach ($wp_post_types as $wp_post_type) {
+						$post_type_op = '<option value="'.$wp_post_type.'"';
+						if (in_array($wp_post_type, $posts_types_inc)) $post_type_op .= 'selected="selected"';
+						$post_type_op .= '>'.$wp_post_type.'</option>'; 
+						echo $post_type_op;
+					}
+					?>
+				</select>
+				<br /><?php _e('Use CTRL on Windows and COMMAND on Mac to select multiple items',CRP_LOCAL_NAME); ?>
+			</td>
+			</tr>
+			<tr style="vertical-align: top;"><th scope="row"><label for="match_content"><?php _e('Find related posts based on content as well as title',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="match_content" id="match_content" <?php if ($crp_settings[match_content]) echo 'checked="checked"' ?> /> <br /><?php _e('If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)',CRP_LOCAL_NAME); ?></td>
+			</tr>
+			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_post_ids"><?php _e('List of post or page IDs to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="textbox" name="exclude_post_ids" id="exclude_post_ids" value="<?php echo attribute_escape(stripslashes($crp_settings[exclude_post_ids])); ?>"  style="width:250px"></td>
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_cat_slugs"><?php _e('Exclude Categories: ',CRP_LOCAL_NAME); ?></label></th>
 			<td>
@@ -186,26 +206,6 @@ function crp_options() {
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="add_to_feed"><?php _e('Add related posts to feed',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="add_to_feed" id="add_to_feed" <?php if ($crp_settings[add_to_feed]) echo 'checked="checked"' ?> /></td>
-			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="match_content"><?php _e('Find related posts based on content as well as title',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="checkbox" name="match_content" id="match_content" <?php if ($crp_settings[match_content]) echo 'checked="checked"' ?> /> <br /><?php _e('If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)',CRP_LOCAL_NAME); ?></td>
-			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_pages"><?php _e('Exclude Pages in Related Posts',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="checkbox" name="exclude_pages" id="exclude_pages" <?php if ($crp_settings[exclude_pages]) echo 'checked="checked"' ?> /></td>
-			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_pages"><?php _e('Post types to include in results (including custom post types)',CRP_LOCAL_NAME); ?></label></th>
-			<td>
-				<select name="post_types[]" multiple="multiple" size="<?php echo min(20,count($wp_post_types)); ?>">
-					<?php foreach ($wp_post_types as $wp_post_type) {
-						$post_type_op = '<option value="'.$wp_post_type.'"';
-						if (in_array($wp_post_type, $posts_types_inc)) $post_type_op .= 'selected="selected"';
-						$post_type_op .= '>'.$wp_post_type.'</option>'; 
-						echo $post_type_op;
-					}
-					?>
-				</select>
-				<br /><?php _e('Use CTRL on Windows and COMMAND on Mac to select multiple items',CRP_LOCAL_NAME); ?>
-			</td>
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="show_credit"><?php _e('Add a link to the plugin page as a final item in the list',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="show_credit" id="show_credit" <?php if ($crp_settings[show_credit]) echo 'checked="checked"' ?> /> <?php _e(' <em>Optional</em>',CRP_LOCAL_NAME); ?></td>
@@ -304,16 +304,16 @@ function crp_options() {
 		  <?php _e('Custom Styles',CRP_LOCAL_NAME); ?>
 		</h3>
 			<table class="form-table">
-			<tr style="vertical-align: top; "><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',ATA_LOCAL_NAME); ?></th>
+			<tr style="vertical-align: top; "><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',CRP_LOCAL_NAME); ?></th>
 			</tr>
 			<tr style="vertical-align: top; "><td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80"><?php echo stripslashes($crp_settings[custom_CSS]); ?></textarea>
-			<br /><em><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> for available CSS classes to style.',ATA_LOCAL_NAME); ?></em></td></tr>
+			<br /><em><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> for available CSS classes to style.',CRP_LOCAL_NAME); ?></em></td></tr>
 			</table>		
 		</div>
 		<p>
-		  <input type="submit" name="crp_save" id="crp_save" value="Save Options" style="border:#0C0 1px solid" />
-		  <input name="crp_default" type="submit" id="crp_default" value="Default Options" style="border:#F00 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default?',CRP_LOCAL_NAME); ?>')) return false;" />
-		  <input name="crp_recreate" type="submit" id="crp_recreate" value="Recreate index" style="border:#00c 1px solid" onclick="if (!confirm('<?php _e('Are you sure you want to recreate the index?',CRP_LOCAL_NAME); ?>')) return false;" />
+		  <input type="submit" name="crp_save" id="crp_save" value="<?php _e('Save Options',CRP_LOCAL_NAME); ?>" style="border:#0C0 1px solid" />
+		  <input name="crp_default" type="submit" id="crp_default" value="<?php _e('Default Options',CRP_LOCAL_NAME); ?>" style="border:#F00 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default?',CRP_LOCAL_NAME); ?>')) return false;" />
+		  <input name="crp_recreate" type="submit" id="crp_recreate" value="<?php _e('Recreate Index',CRP_LOCAL_NAME); ?>" style="border:#00c 1px solid" onclick="if (!confirm('<?php _e('Are you sure you want to recreate the index?',CRP_LOCAL_NAME); ?>')) return false;" />
 		</p>
 		</fieldset>
 	  </form>

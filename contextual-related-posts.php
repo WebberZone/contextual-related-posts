@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8
+Version:     1.8.1
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -10,7 +10,7 @@ Author URI:  http://ajaydsouza.com/
 
 if (!defined('ABSPATH')) die("Aren't you supposed to come here via WP-Admin?");
 
-define('ALD_crp_DIR', dirname(__FILE__));
+define('ALD_CRP_DIR', dirname(__FILE__));
 define('CRP_LOCAL_NAME', 'crp');
 
 // Pre-2.6 compatibility
@@ -31,7 +31,7 @@ function ald_crp_init() {
 	//* Begin Localization Code */
 	$crp_localizationName = CRP_LOCAL_NAME;
 	$crp_comments_locale = get_locale();
-	$crp_comments_mofile = ALD_crp_DIR . "/languages/" . $crp_localizationName . "-". $crp_comments_locale.".mo";
+	$crp_comments_mofile = ALD_CRP_DIR . "/languages/" . $crp_localizationName . "-". $crp_comments_locale.".mo";
 	load_textdomain($crp_localizationName, $crp_comments_mofile);
 	//* End Localization Code */
 }
@@ -41,12 +41,32 @@ add_action('init', 'ald_crp_init');
 /*********************************************************************
 *				Main Function (Do not edit)							*
 ********************************************************************/
-function ald_crp() {
+function ald_crp( $args ) {
+	$defaults = array(
+		'is_widget' => FALSE,
+		'echo' => TRUE,
+	);
+	$defaults = array_merge($defaults, crp_read_options());
+	
+	// Parse incomming $args into an array and merge it with $defaults
+	$args = wp_parse_args( $args, $defaults );
+	
+	// OPTIONAL: Declare each item in $args as its own variable i.e. $type, $before.
+	extract( $args, EXTR_SKIP );
+
+	return get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op);
+}
+
+
+//function get_crp($is_widget = FALSE, $limit = '5', $show_excerpt = FALSE) {
+function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op) {
 	global $wpdb, $post, $single;
 
 	$crp_settings = crp_read_options();
 	parse_str($crp_settings['post_types'],$post_types);
-	$limit = (stripslashes($crp_settings['limit']));
+	if (empty($limit)) $limit = stripslashes($crp_settings['limit']);
+	if (empty($post_thumb_op)) $post_thumb_op = stripslashes($crp_settings['post_thumb_op']);
+	if (!isset($show_excerpt)) $show_excerpt = $crp_settings['show_excerpt'];
 	$exclude_categories = explode(',',$crp_settings['exclude_categories']);
 	
 	// Make sure the post is not from the future
@@ -67,8 +87,9 @@ function ald_crp() {
 		. "MATCH (post_title,post_content) AGAINST ('".$stuff."') "
 		. "AND post_date <= '".$now."' "
 		. "AND post_status = 'publish' "
-		. "AND id != ".$post->ID." "
-		. "AND ( ";
+		. "AND id != ".$post->ID." ";
+		if ($crp_settings[exclude_post_ids]!='') $sql .= "AND id NOT IN (".$crp_settings[exclude_post_ids].") ";
+		$sql .= "AND ( ";
 		$multiple = false;
 		foreach ($post_types as $post_type) {
 			if ( $multiple ) $sql .= ' OR ';
@@ -87,7 +108,7 @@ function ald_crp() {
 	$output = (is_singular()) ? '<div id="crp_related" class="crp_related">' : '<div class="crp_related">';
 	
 	if($searches){
-		$output .= (stripslashes($crp_settings[title]));
+		if(!$is_widget) $output .= (stripslashes($crp_settings[title]));
 		$output .= $crp_settings['before_list'];
 		foreach($searches as $search) {
 			$categorys = get_the_category($search->ID);	//Fetch categories of the plugin
@@ -102,17 +123,17 @@ function ald_crp() {
 				$output .= $crp_settings['before_list_item'];
 
 				//$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_link">'; // Add beginning of link
-				if ($crp_settings['post_thumb_op']=='after') {
+				if ($post_thumb_op=='after') {
 					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_title">'.$title.'</a>'; // Add title if post thumbnail is to be displayed after
 				}
-				if ($crp_settings['post_thumb_op']=='inline' || $crp_settings['post_thumb_op']=='after' || $crp_settings['post_thumb_op']=='thumbs_only') {
+				if ($post_thumb_op=='inline' || $post_thumb_op=='after' || $post_thumb_op=='thumbs_only') {
 					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark">'.crp_get_the_post_thumbnail($search->ID).'</a>';
 				}
-				if ($crp_settings['post_thumb_op']=='inline' || $crp_settings['post_thumb_op']=='text_only') {
+				if ($post_thumb_op=='inline' || $post_thumb_op=='text_only') {
 					$output .= '<a href="'.get_permalink($search->ID).'" rel="bookmark" class="crp_title">'.$title.'</a>'; // Add title when required by settings
 				}
 				//$output .= '</a>'; // Close the link
-				if ($crp_settings['show_excerpt']) {
+				if ($show_excerpt) {
 					$output .= '<span class="crp_excerpt"> '.crp_excerpt($search->ID,$crp_settings['excerpt_length']).'</span>';
 				}
 				$output .= $crp_settings['after_list_item'];
@@ -128,6 +149,7 @@ function ald_crp() {
 		$output .= $crp_settings['after_list'];
 	}else{
 		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.__('No related posts found',CRP_LOCAL_NAME).'</p>'; 
+		//$output .= '<p>'.strip_tags($sql).'</p>'; 
 	}
 	if ((strpos($output, $crp_settings['before_list_item'])) === false) {
 		$output = '<div id="crp_related">';
@@ -142,14 +164,13 @@ function ald_crp_content($content) {
 	
 	global $single;
 	$crp_settings = crp_read_options();
-	$output = ald_crp();
 	
     if((is_single())&&($crp_settings['add_to_content'])) {
-        return $content.$output;
+        return $content.ald_crp();
     } elseif((is_page())&&($crp_settings['add_to_page'])) {
-        return $content.$output;
+        return $content.ald_crp();
 	} elseif((is_feed())&&($crp_settings['add_to_feed'])) {
-        return $content.$output;
+        return $content.ald_crp();
     } else {
         return $content;
     }
@@ -157,9 +178,92 @@ function ald_crp_content($content) {
 add_filter('the_content', 'ald_crp_content');
 
 function echo_ald_crp() {
-	$output = ald_crp();
-	echo $output;
+	echo get_crp(FALSE);
 }
+
+// Create a Wordpress Widget for CRP
+class WidgetCRP extends WP_Widget
+{
+	function WidgetCRP()
+	{
+		$widget_ops = array('classname' => 'widget_crp', 'description' => __( 'Display Related Posts',CRP_LOCAL_NAME) );
+		$this->WP_Widget('widget_crp',__('Related Posts',CRP_LOCAL_NAME), $widget_ops);
+	}
+	function form($instance) {
+		$title = esc_attr($instance['title']);
+		$limit = esc_attr($instance['limit']);
+		$show_excerpt = esc_attr($instance['show_excerpt']);
+		$post_thumb_op = esc_attr($instance['post_thumb_op']);
+		?>
+		<p>
+		<label for="<?php echo $this->get_field_id('title'); ?>">
+		<?php _e('Title', CRP_LOCAL_NAME); ?>: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /> 
+		</label>
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id('limit'); ?>">
+		<?php _e('No. of posts', CRP_LOCAL_NAME); ?>: <input class="widefat" id="<?php echo $this->get_field_id('limit'); ?>" name="<?php echo $this->get_field_name('limit'); ?>" type="text" value="<?php echo attribute_escape($limit); ?>" /> 
+		</label>
+		</p>
+		<p>
+		<?php _e('Thumbnail options', CRP_LOCAL_NAME); ?>: <br />
+		<select class="widefat" id="<?php echo $this->get_field_id('post_thumb_op'); ?>" name="<?php echo $this->get_field_name('post_thumb_op'); ?>">
+		  <option value="inline" <?php if ($post_thumb_op=='inline') echo 'selected="selected"' ?>><?php _e('Thumbnails inline, before title',CRP_LOCAL_NAME); ?></option>
+		  <option value="after" <?php if ($post_thumb_op=='after') echo 'selected="selected"' ?>><?php _e('Thumbnails inline, after title',CRP_LOCAL_NAME); ?></option>
+		  <option value="thumbs_only" <?php if ($post_thumb_op=='thumbs_only') echo 'selected="selected"' ?>><?php _e('Only thumbnails, no text',CRP_LOCAL_NAME); ?></option>
+		  <option value="text_only" <?php if ($post_thumb_op=='text_only') echo 'selected="selected"' ?>><?php _e('No thumbnails, only text.',CRP_LOCAL_NAME); ?></option>
+		</select>
+		</p>
+		<p>
+		<label for="<?php echo $this->get_field_id('show_excerpt'); ?>">
+		<input id="<?php echo $this->get_field_id('show_excerpt'); ?>" name="<?php echo $this->get_field_name('show_excerpt'); ?>" type="checkbox" <?php if ($show_excerpt) echo 'checked="checked"' ?> /> <?php _e(' Show excerpt?', CRP_LOCAL_NAME); ?>
+		</label>
+		</p>
+		<?php
+	} //ending form creation
+	function update($new_instance, $old_instance) {
+		$instance = $old_instance;
+		$instance['title'] = strip_tags($new_instance['title']);
+		$instance['limit'] = ($new_instance['limit']);
+		$instance['show_excerpt'] = ($new_instance['show_excerpt']);
+		$instance['post_thumb_op'] = ($new_instance['post_thumb_op']);
+		return $instance;
+	} //ending update
+	function widget($args, $instance) {
+		global $wpdb;
+		
+		extract($args, EXTR_SKIP);
+		
+		$crp_settings = crp_read_options();
+
+		$title = apply_filters('widget_title', empty($instance['title']) ? strip_tags($crp_settings[title]) : $instance['title']);
+		$limit = $instance['limit'];
+		$show_excerpt = $instance['show_excerpt'];
+		$post_thumb_op = $instance['post_thumb_op'];
+		if (empty($limit)) $limit = $crp_settings[limit];
+		
+		$output = $before_widget;
+		$output .= $before_title . $title . $after_title;
+		$output .= ald_crp('is_widget=1&limit='.$limit.'&show_excerpt='.$show_excerpt.'&post_thumb_op='.$post_thumb_op);
+		$output .= $after_widget;
+	
+		if((is_single())&&($crp_settings['add_to_content'])) {
+			echo $output;
+		} elseif((is_page())&&($crp_settings['add_to_page'])) {
+			echo $output;
+		} elseif((is_feed())&&($crp_settings['add_to_feed'])) {
+			echo $output;
+		}
+
+	} //ending function widget
+}
+function init_ald_crp(){
+	if (function_exists('register_widget')) { 
+		register_widget('WidgetCRP');
+	} 
+}
+add_action('init', 'init_ald_crp', 1); 
+ 
 
 // Default Options
 function crp_default_options() {
@@ -181,10 +285,10 @@ function crp_default_options() {
 						'limit' => '5',				// How many posts to display?
 						'show_credit' => false,		// Link to this plugin's page?
 						'match_content' => true,		// Match against post content as well as title
-						'exclude_pages' => true,		// Exclude Pages
 						'blank_output' => true,		// Blank output?
 						'exclude_categories' => '',	// Exclude these categories
 						'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
+						'exclude_post_ids' => '',	// Comma separated list of page / post IDs
 						'before_list' => '<ul>',	// Before the entire list
 						'after_list' => '</ul>',	// After the entire list
 						'before_list_item' => '<li>',	// Before each list item
@@ -301,7 +405,8 @@ function crp_get_the_post_thumbnail($postid) {
 
 // Function to create an excerpt for the post
 function crp_excerpt($id,$excerpt_length){
-	$content = get_post($id)->post_content;
+	$content = get_post($id)->post_excerpt;
+	if ($content=='') $content = get_post($id)->post_content;
 	$out = strip_tags($content);
 	$blah = explode(' ',$out);
 	if (!$excerpt_length) $excerpt_length = 10;
@@ -321,9 +426,19 @@ function crp_excerpt($id,$excerpt_length){
 	return $out;
 }
 
+// Function to save the global page ID. Used for the widget
+// Code from: http://indrek.it/blog/wordpress-front-page-vs-home-page-and-getting-post-id-outside-or-after-the-loop-in-every-possible-way/
+function crp_save_page_ID() {
+    // Declare globals as before
+    global $crp_page_id;
+    global $post;
+    $my_page_id = $post->ID;
+}
+add_action('wp_head',  'crp_save_page_ID');
+
 // This function adds an Options page in WP Admin
 if (is_admin() || strstr($_SERVER['PHP_SELF'], 'wp-admin/')) {
-	require_once(ALD_crp_DIR . "/admin.inc.php");
+	require_once(ALD_CRP_DIR . "/admin.inc.php");
 
 // Add meta links
 function crp_plugin_actions( $links, $file ) {

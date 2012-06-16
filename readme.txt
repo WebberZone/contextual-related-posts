@@ -4,7 +4,7 @@ Contributors: Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 3.0
-Tested up to: 3.4
+Tested up to: 3.5
 License: GPLv2 or later
 
 Increase reader retention and reduce bounce rates by displaying a set of related posts on your website or in your feed
@@ -35,11 +35,20 @@ The list is based on the content of the title and/or content of the posts which 
 
 == Upgrade Notice ==
 
-= 1.8 =
-* Added support for WordPress Custom Post Types, new `Custom Styles` tab, timthumb support. Please visit the Settings page to configure soon after upgrade.
+= 1.8.1 =
+* New widget support; performance improvements; use the excerpt; exclude posts / pages by page id.
 
 
 == Changelog ==
+
+= 1.8.1 =
+* Added: Widget support. Widget display follows the same settings as having the related posts after content.
+* Added: Exclude posts and pages by ID
+* Modified: Optimised performance when automatic insertion into content is turned off
+* Modified: Plugin uses the default excerpt if it is set, else it creates one based on content. Both settings respect the excerpt length set in the plugin
+* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="http://ajaydsouza.com/contact/">contact me</a>.
+* Deleted: Redundant option to exclude display of the related posts on pages. You can use the custom post types feature instead
+* Added: Chinese language file
 
 = 1.8 =
 * Modified: Replaced `id` attribute with `class` tag on non-singular pages. On singular pages it will display both `id` and `class`
@@ -213,7 +222,6 @@ You can also use this function to display related posts on any type of page gene
 Below are a few features that I plan on implementing in future versions of the plugin. However, there is no fixed time-frame for this and largely depends on how much time I can contribute to development.
 
 * Select random posts if there are no similar posts
-* Widget to display the related posts
 * Shortcode support
 * Exclude display on select categories and tags
 * Exclude display on select posts 
@@ -222,7 +230,6 @@ Below are a few features that I plan on implementing in future versions of the p
 * Improved Custom post support
 * Multi-side support
 * Ready-made styles
-* Better post excerpt support
 * Upload your own default thumbnail
 
 If you would like a feature to be added, or if you already have the code for the feature, you can let us know by <a href="http://wordpress.org/support/plugin/contextual-related-posts">posting in this forum</a>.

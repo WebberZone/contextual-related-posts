@@ -1,105 +1,100 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Contextual Related Posts 1.5.1\n"
+"Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-06-16 11:23-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
-"Language-Team: Team Blogos <wordpress@blogos.dk>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2;plural=n != 1;\n"
-"X-Poedit-Language: Danish\n"
-"X-Poedit-Country: DENMARK\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_c;_e;__ngettext:1,2;__ngettext_noop:1,2;_n:1,2;_nc:1,2;_n_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
 "X-Poedit-Basepath: ../\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin.inc.php:70
 msgid "Options saved successfully."
-msgstr "Indstillingerne blev gemt."
+msgstr "成功保存设置。"
 
 #: admin.inc.php:86
 msgid "Options set to Default."
-msgstr "Indstillingerne sat til standardværdier."
+msgstr "已重置设置。"
 
 #: admin.inc.php:101
 msgid "Index recreated"
-msgstr "Indeks blev gendannet"
+msgstr "已重新创建索引"
 
 #: admin.inc.php:114
-#, fuzzy
 msgid "Support the development"
-msgstr "Støt udviklingen"
+msgstr "支持开发"
 
 #: admin.inc.php:122
 msgid "Enter amount in USD: "
-msgstr ""
+msgstr "输入美元金额："
 
 #: admin.inc.php:126
 msgid "Send your donation to the author of"
-msgstr ""
+msgstr "捐赠给作者"
 
 #: admin.inc.php:135
 msgid "Quick links"
-msgstr ""
+msgstr "快速链接"
 
 #: admin.inc.php:137
-#, fuzzy
 msgid "Contextual Related Posts "
-msgstr "Related Posts (Lignende indlæg)"
+msgstr "相关日志"
 
 #: admin.inc.php:137
 msgid "plugin page"
-msgstr ""
+msgstr "插件页面"
 
 #: admin.inc.php:138
 msgid "Other plugins"
-msgstr ""
+msgstr "其他插件"
 
 #: admin.inc.php:139
 msgid "Ajay's blog"
-msgstr ""
+msgstr "Ajay 的博客"
 
 #: admin.inc.php:140
 #: contextual-related-posts.php:451
 msgid "Support"
-msgstr "Support"
+msgstr "技术支持"
 
 #: admin.inc.php:141
 msgid "Follow @ajaydsouza on Twitter"
-msgstr ""
+msgstr "在推特上关注 @ajaydsouza"
 
 #: admin.inc.php:145
 msgid "Recent developments"
-msgstr ""
+msgstr "最新开发"
 
 #: admin.inc.php:157
 msgid "General options"
-msgstr ""
+msgstr "一般设置"
 
 #: admin.inc.php:160
 msgid "Number of related posts to display: "
-msgstr "Antal Lignende indlæg, der skal vises: "
+msgstr "相关日志数量："
 
 #: admin.inc.php:163
 msgid "Post types to include in results (including custom post types)"
-msgstr ""
+msgstr "被索引的日志类型（包含自定义日志类型）"
 
 #: admin.inc.php:174
 msgid "Use CTRL on Windows and COMMAND on Mac to select multiple items"
-msgstr ""
+msgstr "在 Windows 上使用 CTRL ，或在 Mac 上使用 COMMAND 进行多选"
 
 #: admin.inc.php:177
 msgid "Find related posts based on content as well as title"
-msgstr ""
+msgstr "根据标题和正文内容索引相关日志"
 
 #: admin.inc.php:178
-#, fuzzy
 msgid "If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
-msgstr "Find Lignende indlæg ud fra såvel indhold som titel. Hvis umarkeret, bruges kun indlæggenes titler (jeg anbefaler et cache-plugin, hvis du aktiverer dette)"
+msgstr "假如没有勾选此项，则只从标题索引。（推荐已经开启缓存的用户勾选使用）"
 
 #: admin.inc.php:180
 msgid "List of post or page IDs to exclude from the results: "
@@ -107,185 +102,178 @@ msgstr ""
 
 #: admin.inc.php:183
 msgid "Exclude Categories: "
-msgstr "Udelad kategorier: "
+msgstr "排除分类："
 
 #: admin.inc.php:201
 msgid "Add related posts to the post content on single posts"
-msgstr ""
+msgstr "添加相关日志到文章里"
 
 #: admin.inc.php:202
 #: admin.inc.php:205
-#, fuzzy
 msgid "If you choose to disable this, please add <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed"
-msgstr "Tilføj Lignende indlæg til statiske sider. <br />Hvis du vælger at deaktivere dette, skal du tilføje <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> til din skabelonfil, hvor du ønsker de lignende indlæg vist"
+msgstr "假如没有勾选此项，请在模板文件中找到需要显示的地方，添加代码 <code>&lt;?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>"
 
 #: admin.inc.php:204
-#, fuzzy
 msgid "Add related posts to pages"
-msgstr "Tilføj Lignende indlæg til feeds"
+msgstr "添加相关日志到页面里"
 
 #: admin.inc.php:207
 msgid "Add related posts to feed"
-msgstr "Tilføj Lignende indlæg til feeds"
+msgstr "添加相关日志到 feed 里"
 
 #: admin.inc.php:210
 msgid "Add a link to the plugin page as a final item in the list"
-msgstr ""
+msgstr "在相关日志后添加插件页面的链接"
 
 #: admin.inc.php:211
 msgid " <em>Optional</em>"
-msgstr ""
+msgstr " <em>可选</em>"
 
 #: admin.inc.php:219
-#, fuzzy
 msgid "Output Options"
-msgstr "Indstillinger for output:"
+msgstr "显示设置"
 
 #: admin.inc.php:222
 msgid "Title of related posts: "
-msgstr "Titel på Lignende indlæg: "
+msgstr "相关日志的标题："
 
 #: admin.inc.php:225
 msgid "When there are no posts, what should be shown?"
-msgstr "Hvad skal der vises, hvis der ingen indlæg er?"
+msgstr "当不存在相关日志时，显示什么？"
 
 #: admin.inc.php:229
 msgid "Blank Output"
-msgstr "Intet"
+msgstr "不显示"
 
 #: admin.inc.php:233
 msgid "Display \"No Related Posts\""
-msgstr "Vis \"Ingen lignende indlæg\""
+msgstr "显示 \"没有相关日志\""
 
 #: admin.inc.php:237
 msgid "Show post excerpt in list?"
-msgstr ""
+msgstr "是否显示日志摘要？"
 
 #: admin.inc.php:240
 msgid "Length of excerpt (in words): "
-msgstr ""
+msgstr "摘要长度（词数）："
 
 #: admin.inc.php:243
 msgid "Customize the output:"
-msgstr "Tilpas outputtet:"
+msgstr "自定义显示："
 
 #: admin.inc.php:245
 msgid "HTML to display before the list of posts: "
-msgstr "HTML, der skal vises før listen med indlæg: "
+msgstr "显示在每篇日志后面的 HTML 标签："
 
 #: admin.inc.php:248
 msgid "HTML to display before each list item: "
-msgstr "HTML, der skal vises før hvert punkt på listen: "
+msgstr "显示在每篇日志后面的 HTML 标签："
 
 #: admin.inc.php:251
 msgid "HTML to display after each list item: "
-msgstr "HTML, der skal vises efter hvert punkt på listen: "
+msgstr "显示在日志列表前面的 HTML 标签："
 
 #: admin.inc.php:254
 msgid "HTML to display after the list of posts: "
-msgstr "HTML, der skal vises efter listen med indlæg: "
+msgstr "显示在日志列表后面的 HTML 标签："
 
 #: admin.inc.php:257
 msgid "Post thumbnail options:"
-msgstr "Indstillinger for indlægsminiaturer:"
+msgstr "日志缩略图设置："
 
 #: admin.inc.php:259
 msgid "Location of post thumbnail:"
-msgstr ""
+msgstr "日志缩略图位置："
 
 #: admin.inc.php:263
-#, fuzzy
 msgid "Display thumbnails inline with posts, before title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "在标题前显示缩略图"
 
 #: admin.inc.php:267
-#, fuzzy
 msgid "Display thumbnails inline with posts, after title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "在标题后显示缩略图"
 
 #: admin.inc.php:271
 msgid "Display only thumbnails, no text"
-msgstr "Vis kun miniaturer, ingen tekst"
+msgstr "不显示文本，只显示缩略图"
 
 #: admin.inc.php:275
 msgid "Do not display thumbnails, only text."
-msgstr "Vis ikke miniaturer, kun tekst."
+msgstr "不显示缩略图，只显示文本"
 
 #: admin.inc.php:279
 msgid "Maximum width of the thumbnail: "
-msgstr ""
+msgstr "缩略图最大宽度"
 
 #: admin.inc.php:282
 msgid "Maximum height of the thumbnail: "
-msgstr ""
+msgstr "缩略图最大高度"
 
 #: admin.inc.php:285
 msgid "Use timthumb to generate thumbnails? "
-msgstr ""
+msgstr "是否使用 timthumb 生成缩略图？"
 
 #: admin.inc.php:286
 msgid "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\">timthumb</a> will be used to generate thumbnails"
-msgstr ""
+msgstr "勾选此项，将使用 <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\">timthumb</a> 生成缩略图"
 
 #: admin.inc.php:288
-#, fuzzy
 msgid "Post thumbnail meta field name: "
-msgstr "Indstillinger for indlægsminiaturer:"
+msgstr "日志缩略图自定义栏目的名称："
 
 #: admin.inc.php:289
 msgid "The value of this field should contain the image source and is set in the <em>Add New Post</em> screen"
-msgstr ""
+msgstr "该栏目的值在 <em>文章编辑 » 自定义栏目</em> 填写，需填写图像地址"
 
 #: admin.inc.php:291
 msgid "If the postmeta is not set, then should the plugin extract the first image from the post?"
-msgstr ""
+msgstr "假如缩略图自定义栏目没有填写，是否使用日志的第一张图片？"
 
 #: admin.inc.php:292
 msgid "This can slow down the loading of your page if the first image in the related posts is large in file-size"
-msgstr ""
+msgstr "勾选此项，若相关的日志中第一张图片过大，则页面载入速度会减慢。"
 
 #: admin.inc.php:294
 msgid "Use default thumbnail? "
-msgstr ""
+msgstr "是否使用默认缩略图？"
 
 #: admin.inc.php:295
 msgid "If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown."
-msgstr ""
+msgstr "勾选此项，当不存在缩略图时，显示以下默认缩略图，不勾选则不显示任何图像。"
 
 #: admin.inc.php:297
 msgid "Default thumbnail: "
-msgstr ""
+msgstr "默认缩略图："
 
 #: admin.inc.php:298
-#, fuzzy
 msgid "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified above"
-msgstr "Pluginnet tjekker først, om indlægget indeholder en miniature. Hvis indlægget ikke gør det, tjekker pluginnet metafeltet. Hvis dette ikke findes, vil det vise standardbilledet specificeret nedenfor:"
+msgstr "本插件按先后顺序检测日志本身、缩略图自定义栏目是否含有缩略图，若不存在，则显示上面默认图像"
 
 #: admin.inc.php:304
 msgid "Custom Styles"
-msgstr ""
+msgstr "自定义样式"
 
 #: admin.inc.php:307
 msgid "Custom CSS to add to header:"
-msgstr ""
+msgstr "添加自定义 CSS 到 header："
 
 #: admin.inc.php:310
 msgid "Do not include <code>style</code> tags. Check out the <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\">FAQ</a> for available CSS classes to style."
-msgstr ""
+msgstr "不要包含 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
 
 #: admin.inc.php:314
 #, fuzzy
 msgid "Save Options"
-msgstr "Indstillinger:"
+msgstr "显示设置"
 
 #: admin.inc.php:315
 #, fuzzy
 msgid "Default Options"
-msgstr "Indstillinger for output:"
+msgstr "显示设置"
 
 #: admin.inc.php:315
 msgid "Do you want to set options to Default?"
-msgstr "Ønsker du at sætte indstillingerne til standardværdierne?"
+msgstr "是否要重置设置？"
 
 #: admin.inc.php:316
 msgid "Recreate Index"
@@ -293,43 +281,42 @@ msgstr ""
 
 #: admin.inc.php:316
 msgid "Are you sure you want to recreate the index?"
-msgstr "Er du sikker på, du ønsker at gendanne indekset?"
+msgstr "是否要重建索引？"
 
 #: admin.inc.php:346
-#, fuzzy
 msgid "Contextual Related Posts"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr "Contextual Related Posts 相关日志"
 
 #: admin.inc.php:346
 #: contextual-related-posts.php:190
 msgid "Related Posts"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr "相关日志"
 
 #: admin.inc.php:355
 msgid "plugin settings page"
-msgstr ""
+msgstr "插件设置页面"
 
 #: admin.inc.php:360
 msgid "Contextual Related Posts plugin has just been installed / upgraded. Please visit the "
-msgstr ""
+msgstr "Contextual Related Posts 已经安装/升级完毕。请访问"
 
 #: admin.inc.php:360
 msgid " to configure."
-msgstr ""
+msgstr "设置插件"
 
 #: contextual-related-posts.php:146
 msgid "Powered by"
-msgstr ""
+msgstr "插件作者："
 
 #: contextual-related-posts.php:151
 #: contextual-related-posts.php:156
 msgid "No related posts found"
-msgstr "Ingen lignende indlæg fundet"
+msgstr "没有发现相关日志"
 
 #: contextual-related-posts.php:189
 #, fuzzy
 msgid "Display Related Posts"
-msgstr "Vis \"Ingen lignende indlæg\""
+msgstr "显示 \"没有相关日志\""
 
 #: contextual-related-posts.php:200
 msgid "Title"
@@ -342,74 +329,44 @@ msgstr ""
 #: contextual-related-posts.php:209
 #, fuzzy
 msgid "Thumbnail options"
-msgstr "Indstillinger for indlægsminiaturer:"
+msgstr "日志缩略图设置："
 
 #: contextual-related-posts.php:211
 #, fuzzy
 msgid "Thumbnails inline, before title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "在标题前显示缩略图"
 
 #: contextual-related-posts.php:212
 #, fuzzy
 msgid "Thumbnails inline, after title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "在标题后显示缩略图"
 
 #: contextual-related-posts.php:213
 #, fuzzy
 msgid "Only thumbnails, no text"
-msgstr "Vis kun miniaturer, ingen tekst"
+msgstr "不显示文本，只显示缩略图"
 
 #: contextual-related-posts.php:214
 #, fuzzy
 msgid "No thumbnails, only text."
-msgstr "Vis ikke miniaturer, kun tekst."
+msgstr "不显示缩略图，只显示文本"
 
 #: contextual-related-posts.php:219
+#, fuzzy
 msgid " Show excerpt?"
-msgstr ""
+msgstr "是否显示日志摘要？"
 
 #: contextual-related-posts.php:271
 msgid "<h3>Related Posts:</h3>"
-msgstr "<h3>Lignende indlæg:</h3>"
+msgstr "<h3>相关日志：</h3>"
 
 #: contextual-related-posts.php:450
 msgid "Settings"
-msgstr "Opsætning"
+msgstr "设置"
 
 #: contextual-related-posts.php:452
 msgid "Donate"
-msgstr "Donation"
+msgstr "捐赠"
 
 #~ msgid "Exclude Pages in Related Posts"
-#~ msgstr "Udelad sider i Lignende indlæg"
-
-#~ msgid ""
-#~ "Add related posts to the post content on single posts. <br />If you "
-#~ "choose to disable this, please add <code>&lt;?php if(function_exists"
-#~ "('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file "
-#~ "where you want it displayed"
-#~ msgstr ""
-#~ "Tilføj Lignende indlæg til indlæggenes indhold i enkelt-indlæg. <br /"
-#~ ">Hvis du vælger at deaktivere dette, skal du tilføje <code>&lt;?php if"
-#~ "(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> til din "
-#~ "skabelonfil, hvor du ønsker de lignende indlæg vist"
-
-#~ msgid ""
-#~ "Post thumbnail meta field (the meta should point contain the image "
-#~ "source): "
-#~ msgstr ""
-#~ "Metafelt for indlægsminiaturer (metafeltet skal indeholde URL&#39;en til "
-#~ "billedet): "
-
-#~ msgid "Thumbnail dimensions:"
-#~ msgstr "Miniaturedimensioner:"
-
-#~ msgid "Max width: "
-#~ msgstr "Max bredde: "
-
-#~ msgid "Max height: "
-#~ msgstr "Max højde: "
-
-#, fuzzy
-#~ msgid "Support forum"
-#~ msgstr "Support"
+#~ msgstr "在相关日志中排除页面"
