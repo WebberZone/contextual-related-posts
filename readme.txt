@@ -21,8 +21,8 @@ The list is based on the content of the title and/or content of the posts which 
 * Display Related Posts automatically after the content on your website or in the feed without the need to edit template files
 * Manual install available to select the exact placement of the posts. This will require you to edit your theme files
 * Relevancy matching based on title and/or content of the post
-* Exclude posts from categories from being displayed in the list
-* Exclude display of related posts on Pages 
+* Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
+* Widget support
 * Support for Custom Post Types
 * Thumbnail support
 	* Support for WordPress post thumbnails
@@ -30,16 +30,19 @@ The list is based on the content of the title and/or content of the posts which 
 	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>
 	* Use timthumb to resize images
 * Display excerpts in post. You can select the length of the excerpt in words
-* Output wrapped in CSS class that allows you to style the list. You can enter your custom CSS styles from within WordPress Admin area
+* Output wrapped in CSS classes that allows you to style the list. You can enter your custom CSS styles from within WordPress Admin area
 * Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
 
 == Upgrade Notice ==
 
-= 1.8.1 =
+= 1.8.2 =
 * New widget support; performance improvements; use the excerpt; exclude posts / pages by page id.
 
 
 == Changelog ==
+
+= 1.8.2 =
+* Fixed: PHP warning error
 
 = 1.8.1 =
 * Added: Widget support. Widget display follows the same settings as having the related posts after content.

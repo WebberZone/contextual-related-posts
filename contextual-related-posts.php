@@ -166,11 +166,11 @@ function ald_crp_content($content) {
 	$crp_settings = crp_read_options();
 	
     if((is_single())&&($crp_settings['add_to_content'])) {
-        return $content.ald_crp();
+        return $content.ald_crp('is_widget=0');
     } elseif((is_page())&&($crp_settings['add_to_page'])) {
-        return $content.ald_crp();
+        return $content.ald_crp('is_widget=0');
 	} elseif((is_feed())&&($crp_settings['add_to_feed'])) {
-        return $content.ald_crp();
+        return $content.ald_crp('is_widget=0');
     } else {
         return $content;
     }
