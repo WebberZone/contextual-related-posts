@@ -35,14 +35,18 @@ The list is based on the content of the title and/or content of the posts which 
 
 == Upgrade Notice ==
 
-= 1.8.2 =
+= 1.8.3 =
 * New widget support; performance improvements; use the excerpt; exclude posts / pages by page id.
 
 
 == Changelog ==
 
+= 1.8.3 =
+* Fixed: PHP warning errors on manual code for sites with PHP error reporting turn on in strict mode
+* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="http://ajaydsouza.com/contact/">contact me</a>.
+
 = 1.8.2 =
-* Fixed: PHP warning error
+* Fixed: PHP warning errors for sites with PHP error reporting turn on in strict mode
 
 = 1.8.1 =
 * Added: Widget support. Widget display follows the same settings as having the related posts after content.

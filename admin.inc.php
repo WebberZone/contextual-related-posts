@@ -132,9 +132,9 @@ function crp_options() {
 		<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fajaydsouzacom&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;appId=113175385243" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
 		</div>
 		<div class="side-widget">
-		<span class="title"><?php _e('Quick links') ?></span>				
+		<span class="title"><?php _e('Quick Links',CRP_LOCAL_NAME) ?></span>				
 		<ul>
-			<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e('Contextual Related Posts ');_e('plugin page',CRP_LOCAL_NAME) ?></a></li>
+			<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e('Contextual Related Posts plugin page',CRP_LOCAL_NAME) ?></a></li>
 			<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',CRP_LOCAL_NAME) ?></a></li>
 			<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',CRP_LOCAL_NAME) ?></a></li>
 			<li><a href="http://wordpress.org/support/plugin/contextual-related-posts"><?php _e('Support',CRP_LOCAL_NAME) ?></a></li>

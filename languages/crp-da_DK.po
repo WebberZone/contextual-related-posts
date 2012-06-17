@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts 1.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-16 11:23-0000\n"
+"POT-Creation-Date: 2012-06-17 09:19-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Team Blogos <wordpress@blogos.dk>\n"
@@ -43,17 +43,13 @@ msgid "Send your donation to the author of"
 msgstr ""
 
 #: admin.inc.php:135
-msgid "Quick links"
+msgid "Quick Links"
 msgstr ""
 
 #: admin.inc.php:137
 #, fuzzy
-msgid "Contextual Related Posts "
+msgid "Contextual Related Posts plugin page"
 msgstr "Related Posts (Lignende indlæg)"
-
-#: admin.inc.php:137
-msgid "plugin page"
-msgstr ""
 
 #: admin.inc.php:138
 msgid "Other plugins"

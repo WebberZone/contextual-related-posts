@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-16 11:23-0000\n"
+"POT-Creation-Date: 2012-06-17 09:18-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: \n"
@@ -40,16 +40,14 @@ msgid "Send your donation to the author of"
 msgstr "捐赠给作者"
 
 #: admin.inc.php:135
-msgid "Quick links"
-msgstr "快速链接"
+#, fuzzy
+msgid "Quick Links"
+msgstr "快捷链接"
 
 #: admin.inc.php:137
-msgid "Contextual Related Posts "
+#, fuzzy
+msgid "Contextual Related Posts plugin page"
 msgstr "相关日志"
-
-#: admin.inc.php:137
-msgid "plugin page"
-msgstr "插件页面"
 
 #: admin.inc.php:138
 msgid "Other plugins"
@@ -90,7 +88,7 @@ msgstr "在 Windows 上使用 CTRL ，或在 Mac 上使用 COMMAND 进行多选"
 
 #: admin.inc.php:177
 msgid "Find related posts based on content as well as title"
-msgstr "根据标题和正文内容索引相关日志"
+msgstr "根据标题和正文内容索引"
 
 #: admin.inc.php:178
 msgid "If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)"
@@ -98,11 +96,11 @@ msgstr "假如没有勾选此项，则只从标题索引。（推荐已经开启
 
 #: admin.inc.php:180
 msgid "List of post or page IDs to exclude from the results: "
-msgstr ""
+msgstr "排除的文章或页面 ID："
 
 #: admin.inc.php:183
 msgid "Exclude Categories: "
-msgstr "排除分类："
+msgstr "排除的分类 ID："
 
 #: admin.inc.php:201
 msgid "Add related posts to the post content on single posts"
@@ -259,17 +257,15 @@ msgstr "添加自定义 CSS 到 header："
 
 #: admin.inc.php:310
 msgid "Do not include <code>style</code> tags. Check out the <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\">FAQ</a> for available CSS classes to style."
-msgstr "不要包含 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
+msgstr "不要使用 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
 
 #: admin.inc.php:314
-#, fuzzy
 msgid "Save Options"
-msgstr "显示设置"
+msgstr "保存设置"
 
 #: admin.inc.php:315
-#, fuzzy
 msgid "Default Options"
-msgstr "显示设置"
+msgstr "默认设置"
 
 #: admin.inc.php:315
 msgid "Do you want to set options to Default?"
@@ -277,7 +273,7 @@ msgstr "是否要重置设置？"
 
 #: admin.inc.php:316
 msgid "Recreate Index"
-msgstr ""
+msgstr "重建索引"
 
 #: admin.inc.php:316
 msgid "Are you sure you want to recreate the index?"
@@ -285,7 +281,7 @@ msgstr "是否要重建索引？"
 
 #: admin.inc.php:346
 msgid "Contextual Related Posts"
-msgstr "Contextual Related Posts 相关日志"
+msgstr "Contextual Related Posts"
 
 #: admin.inc.php:346
 #: contextual-related-posts.php:190
@@ -298,11 +294,11 @@ msgstr "插件设置页面"
 
 #: admin.inc.php:360
 msgid "Contextual Related Posts plugin has just been installed / upgraded. Please visit the "
-msgstr "Contextual Related Posts 已经安装/升级完毕。请访问"
+msgstr "Contextual Related Posts 插件已经安装/升级完毕。请访问"
 
 #: admin.inc.php:360
 msgid " to configure."
-msgstr "设置插件"
+msgstr "设置插件。"
 
 #: contextual-related-posts.php:146
 msgid "Powered by"
@@ -314,45 +310,38 @@ msgid "No related posts found"
 msgstr "没有发现相关日志"
 
 #: contextual-related-posts.php:189
-#, fuzzy
 msgid "Display Related Posts"
-msgstr "显示 \"没有相关日志\""
+msgstr "显示相关日志"
 
 #: contextual-related-posts.php:200
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: contextual-related-posts.php:205
 msgid "No. of posts"
-msgstr ""
+msgstr "日志数量"
 
 #: contextual-related-posts.php:209
-#, fuzzy
 msgid "Thumbnail options"
-msgstr "日志缩略图设置："
+msgstr "缩略图设置："
 
 #: contextual-related-posts.php:211
-#, fuzzy
 msgid "Thumbnails inline, before title"
 msgstr "在标题前显示缩略图"
 
 #: contextual-related-posts.php:212
-#, fuzzy
 msgid "Thumbnails inline, after title"
 msgstr "在标题后显示缩略图"
 
 #: contextual-related-posts.php:213
-#, fuzzy
 msgid "Only thumbnails, no text"
 msgstr "不显示文本，只显示缩略图"
 
 #: contextual-related-posts.php:214
-#, fuzzy
 msgid "No thumbnails, only text."
 msgstr "不显示缩略图，只显示文本"
 
 #: contextual-related-posts.php:219
-#, fuzzy
 msgid " Show excerpt?"
 msgstr "是否显示日志摘要？"
 
@@ -367,6 +356,9 @@ msgstr "设置"
 #: contextual-related-posts.php:452
 msgid "Donate"
 msgstr "捐赠"
+
+#~ msgid "plugin page"
+#~ msgstr "插件页面"
 
 #~ msgid "Exclude Pages in Related Posts"
 #~ msgstr "在相关日志中排除页面"

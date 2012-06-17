@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-16 11:23-0000\n"
+"POT-Creation-Date: 2012-06-17 09:19-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -40,16 +40,14 @@ msgid "Send your donation to the author of"
 msgstr "Отправить пожертвование автору"
 
 #: admin.inc.php:135
-msgid "Quick links"
+#, fuzzy
+msgid "Quick Links"
 msgstr "Быстрые ссылки"
 
 #: admin.inc.php:137
-msgid "Contextual Related Posts "
+#, fuzzy
+msgid "Contextual Related Posts plugin page"
 msgstr "Контекстные похожие посты"
-
-#: admin.inc.php:137
-msgid "plugin page"
-msgstr "Страница плагина"
 
 #: admin.inc.php:138
 msgid "Other plugins"
@@ -378,6 +376,9 @@ msgstr "Настройки"
 #: contextual-related-posts.php:452
 msgid "Donate"
 msgstr "Пожертвование"
+
+#~ msgid "plugin page"
+#~ msgstr "Страница плагина"
 
 #~ msgid "Exclude Pages in Related Posts"
 #~ msgstr "Исключить страницы в Похожих постах"
