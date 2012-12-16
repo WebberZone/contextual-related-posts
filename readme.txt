@@ -4,7 +4,7 @@ Contributors: Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 3.0
-Tested up to: 3.5
+Tested up to: 3.6
 License: GPLv2 or later
 
 Increase reader retention and reduce bounce rates by displaying a set of related posts on your website or in your feed
@@ -35,11 +35,25 @@ The list is based on the content of the title and/or content of the posts which 
 
 == Upgrade Notice ==
 
-= 1.8.3 =
-* New widget support; performance improvements; use the excerpt; exclude posts / pages by page id.
+= 1.8.4 =
+* Exclude related posts on certain posts/pages, include related posts on home page and other archive pages, new timthumb version, miscellaneous fixes. 
+Refer to Changelog for more information
 
 
 == Changelog ==
+
+= 1.8.4 =
+* Added: Option to exclude display of related posts on certain posts/pages. This option is available under "Output Options"
+* Added: Options to display related posts on home page, category archives, tag archives and other archives
+* Added: Option to set how recent the related posts should be
+* Added: Option to limit post title length
+* Modified: Filter (<code>crp_postimage</code>) added for WordPress Post Thumbnails to allow you to modify your image with your own script. Plugin comes inbuilt with thumbnail resizing using timthumb
+* Modified: If the option to scan for the first image in the post is set to ON, then only images from the same domain as your blog are used as thumbnails. External images are ignored.
+* Modified: Updated to latest version of timthumb
+* Fixed: Widget now displays on posts and page correctly. Previously displaying the widget resulted in duplicate display of related posts
+* Fixed: Related Posts now display correctly in feeds when feed content is set to "Summary"
+* Fixed: Fixed PHP Notices: "Use of undefined constant"
+* Fixed: Custom CSS styles will be included in the header of all posts and pages. On archives it will be included depending on the settings
 
 = 1.8.3 =
 * Fixed: PHP warning errors on manual code for sites with PHP error reporting turn on in strict mode
@@ -231,13 +245,15 @@ Below are a few features that I plan on implementing in future versions of the p
 * Select random posts if there are no similar posts
 * Shortcode support
 * Exclude display on select categories and tags
-* Exclude display on select posts 
+* Restrict related posts to same category
 * Caching related posts
 * Better relevance tweaking
+* Limit characters in content that is compared
 * Improved Custom post support
-* Multi-side support
+* Multi-site support
 * Ready-made styles
 * Upload your own default thumbnail
+    
 
-If you would like a feature to be added, or if you already have the code for the feature, you can let us know by <a href="http://wordpress.org/support/plugin/contextual-related-posts">posting in this forum</a>.
+If you would like a feature to be added, or if you already have the code for the feature, you can let me know by <a href="http://wordpress.org/support/plugin/contextual-related-posts">posting in this forum</a>.
 
