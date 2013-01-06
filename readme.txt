@@ -28,19 +28,32 @@ The list is based on the content of the title and/or content of the posts which 
 	* Support for WordPress post thumbnails
 	* Auto-extract the first image in your post to be displayed as a thumbnail
 	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>
-	* Use timthumb to resize images
+	* Use timthumb to resize images or use your own filter function to resize post images
 * Display excerpts in post. You can select the length of the excerpt in words
 * Output wrapped in CSS classes that allows you to style the list. You can enter your custom CSS styles from within WordPress Admin area
 * Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
 
 == Upgrade Notice ==
 
-= 1.8.4 =
-* Exclude related posts on certain posts/pages, include related posts on home page and other archive pages, new timthumb version, miscellaneous fixes. 
+= 1.8.5 =
+* New options to open links in new window and add `rel="nofollow"`; 
+quality setting for thumbnails when using timthumb; 
+custom text for no related posts; 
+new options for related posts in feeds; 
+thumbnail height and width can be configured for widgets;
 Refer to Changelog for more information
 
 
 == Changelog ==
+
+= 1.8.5 =
+* Added: Option to open links in new window - Find this under Output Options
+* Added: Option to add <code>rel="nofollow"</code> to links - Find this under Output Options
+* Added: Option to set quality of thumbnails - Find this under Output Options
+* Added: Custom text to display if no related posts are found - Find this under Output Options
+* Added: Thumbnail height and width can now be configured for the widget
+* Fixed: Filter (<code>crp_postimage</code>) added for WordPress Post Thumbnails to allow you to modify your image with your own script. Plugin comes inbuilt with thumbnail resizing using timthumb
+* Fixed: PHP notices when WP_DEBUG is set to true
 
 = 1.8.4 =
 * Added: Option to exclude display of related posts on certain posts/pages. This option is available under "Output Options"
@@ -188,9 +201,10 @@ Refer to Changelog for more information
 
 == Screenshots ==
 
-1. CRP options in WP-Admin - General Options
-2. CRP options in WP-Admin - Output Options
-3. CRP options in WP-Admin - Custom Styles
+1. CRP options in WP-Admin - General options
+2. CRP options in WP-Admin - Output options
+3. CRP options in WP-Admin - Feed options
+4. CRP options in WP-Admin - Custom styles
 
 
 == Frequently Asked Questions ==
@@ -246,7 +260,6 @@ Below are a few features that I plan on implementing in future versions of the p
 * Shortcode support
 * Exclude display on select categories and tags
 * Restrict related posts to same category
-* Caching related posts
 * Better relevance tweaking
 * Limit characters in content that is compared
 * Improved Custom post support
