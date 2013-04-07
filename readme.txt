@@ -7,7 +7,7 @@ Requires at least: 3.0
 Tested up to: 3.6
 License: GPLv2 or later
 
-Increase reader retention and reduce bounce rates by displaying a set of related posts on your website or in your feed
+Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
 
 == Description ==
 
@@ -15,51 +15,60 @@ Increase reader retention and reduce bounce rates by displaying a set of related
 
 The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
 
+Contextual Related Posts is one of the most feature rich related posts plugins for WordPress with support for thumbnails, shortcodes, widgets, custom post types, caching and CSS styles.
 
 = Key features =
 
-* Display Related Posts automatically after the content on your website or in the feed without the need to edit template files
-* Manual install available to select the exact placement of the posts. This will require you to edit your theme files
-* Relevancy matching based on title and/or content of the post
-* Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
-* Widget support
-* Support for Custom Post Types
-* Thumbnail support
+* **Automatic**: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
+* **Manual install**: Want more control over placement? Check the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> on which functions are available for manual install.
+* **Widgets**: Add related posts to widgetized area of your theme. Lots of options available
+* **Shortcode**: Use `[crp]` to display the posts anywhere you want in the post content
+* **The algorithm**: Find related posts by title and/or content of the current post
+* **Caching**: Related posts output is automatically cached as visitors browse through your site
+* **Exclusions**: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
+* **Custom post types**: The related posts list lets you include posts, pages, attachments or any other custom post type!
+* **Thumbnail support**:
 	* Support for WordPress post thumbnails
 	* Auto-extract the first image in your post to be displayed as a thumbnail
 	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>
 	* Use timthumb to resize images or use your own filter function to resize post images
-* Display excerpts in post. You can select the length of the excerpt in words
-* Output wrapped in CSS classes that allows you to style the list. You can enter your custom CSS styles from within WordPress Admin area
-* Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
+* **Styles**: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area
+* **Customisable output**:
+	* Display excerpts in post. You can select the length of the excerpt in words
+	* Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
+
 
 == Upgrade Notice ==
 
-= 1.8.5 =
-* New options to open links in new window and add `rel="nofollow"`; 
-quality setting for thumbnails when using timthumb; 
-custom text for no related posts; 
-new options for related posts in feeds; 
-thumbnail height and width can be configured for widgets;
+= 1.8.6 =
+* New caching option; new function to return related posts; New shortcode; bug fixes and performance improvements
 Refer to Changelog for more information
 
 
 == Changelog ==
 
+= 1.8.6 =
+* New: Related posts are now cached
+* New: New function <code>get_crp_posts</code> to get only the list of posts in an array. Check the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> on how to use it.
+* New: Timthumb will now resize images on wordpress.org, wordpress.com and wp.com. The latter two are useful if you're running Jetpack
+* New: Shortcode functionality. You can use the shortcode `[crp]` to display the related posts. Check the FAQ for further details.
+* Fixed: Exclude category option missed the last category in the list
+* Fixed: Open links in new window option was not working
+
 = 1.8.5 =
-* Added: Option to open links in new window - Find this under Output Options
-* Added: Option to add <code>rel="nofollow"</code> to links - Find this under Output Options
-* Added: Option to set quality of thumbnails - Find this under Output Options
-* Added: Custom text to display if no related posts are found - Find this under Output Options
-* Added: Thumbnail height and width can now be configured for the widget
+* New: Option to open links in new window - Find this under Output Options
+* New: Option to add <code>rel="nofollow"</code> to links - Find this under Output Options
+* New: Option to set quality of thumbnails - Find this under Output Options
+* New: Custom text to display if no related posts are found - Find this under Output Options
+* New: Thumbnail height and width can now be configured for the widget
 * Fixed: Filter (<code>crp_postimage</code>) added for WordPress Post Thumbnails to allow you to modify your image with your own script. Plugin comes inbuilt with thumbnail resizing using timthumb
 * Fixed: PHP notices when WP_DEBUG is set to true
 
 = 1.8.4 =
-* Added: Option to exclude display of related posts on certain posts/pages. This option is available under "Output Options"
-* Added: Options to display related posts on home page, category archives, tag archives and other archives
-* Added: Option to set how recent the related posts should be
-* Added: Option to limit post title length
+* New: Option to exclude display of related posts on certain posts/pages. This option is available under "Output Options"
+* New: Options to display related posts on home page, category archives, tag archives and other archives
+* New: Option to set how recent the related posts should be
+* New: Option to limit post title length
 * Modified: Filter (<code>crp_postimage</code>) added for WordPress Post Thumbnails to allow you to modify your image with your own script. Plugin comes inbuilt with thumbnail resizing using timthumb
 * Modified: If the option to scan for the first image in the post is set to ON, then only images from the same domain as your blog are used as thumbnails. External images are ignored.
 * Modified: Updated to latest version of timthumb
@@ -76,19 +85,19 @@ Refer to Changelog for more information
 * Fixed: PHP warning errors for sites with PHP error reporting turn on in strict mode
 
 = 1.8.1 =
-* Added: Widget support. Widget display follows the same settings as having the related posts after content.
-* Added: Exclude posts and pages by ID
+* New: Widget support. Widget display follows the same settings as having the related posts after content.
+* New: Exclude posts and pages by ID
 * Modified: Optimised performance when automatic insertion into content is turned off
 * Modified: Plugin uses the default excerpt if it is set, else it creates one based on content. Both settings respect the excerpt length set in the plugin
 * Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="http://ajaydsouza.com/contact/">contact me</a>.
 * Deleted: Redundant option to exclude display of the related posts on pages. You can use the custom post types feature instead
-* Added: Chinese language file
+* New: Chinese language file
 
 = 1.8 =
 * Modified: Replaced `id` attribute with `class` tag on non-singular pages. On singular pages it will display both `id` and `class`
-* Added: Option to use timthumb to create thumbnail images (turned ON by default)
-* Added: Support for WordPress Custom Post Types
-* Added: New `Custom Styles` tab to allow you to easily style the output
+* New: Option to use timthumb to create thumbnail images (turned ON by default)
+* New: Support for WordPress Custom Post Types
+* New: New `Custom Styles` tab to allow you to easily style the output
 * Modified: New "default.png" file based on from KDE’s <a href="http://www.oxygen-icons.org/">Oxygen icon set</a>
 
 = 1.7.3 =
@@ -102,18 +111,18 @@ Refer to Changelog for more information
 * Fixed: Minor bug fix for location of thumbnail
 
 = 1.7 =
-* Added: New function <code>related posts()</code> that allows you to manually add posts to your theme
-* Added: Support for <a href="https://wordpress.org/extend/plugins/video-thumbnails/">Video Thumbnails</a> plugin
-* Added: Thumbnail settings now reflect max width and max height instead of fixed width and height
-* Added: Option to display thumbnails before or after the title
-* Added: Option to not display thumbnails instead of the default thumbnail
-* Added: Plugin now uses InnoDB instead of MyISAM if your server is running mySQL v5.6 or higher
+* New: New function <code>related posts()</code> that allows you to manually add posts to your theme
+* New: Support for <a href="https://wordpress.org/extend/plugins/video-thumbnails/">Video Thumbnails</a> plugin
+* New: Thumbnail settings now reflect max width and max height instead of fixed width and height
+* New: Option to display thumbnails before or after the title
+* New: Option to not display thumbnails instead of the default thumbnail
+* New: Plugin now uses InnoDB instead of MyISAM if your server is running mySQL v5.6 or higher
 * Modified: Cleaner Settings page interface
 * Modified: Updated <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ page</a>
 
 = 1.6.5 =
 * Fixed: Few code tweaks to optimise MySQL performance
-* Added: Dutch and Spanish language files
+* New: Dutch and Spanish language files
 
 = 1.6.4 =
 * Fixed: Undefined constants PHP errors
@@ -189,6 +198,14 @@ Refer to Changelog for more information
 
 == Installation ==
 
+= WordPress install =
+1. Navigate to Plugins within your WordPress Admin Area
+
+2. Click "Add new" and in the search box enter "Contextual Related Posts" and select "Keyword" from the dropdown
+
+3. Find the plugin in the list (usually the first result) and click "Install Now"
+
+= Manual install =
 1. Download the plugin
 
 2. Extract the contents of contextual-related-posts.zip to wp-content/plugins/ folder. You should get a folder called contextual-related-posts.
@@ -249,8 +266,40 @@ The plugin uses <a href="http://www.binarymoon.co.uk/projects/timthumb/">timthum
 
 = Manual install =
 
+The following functions are available in case you wish to do a manual install of the posts by editing the theme files.
+
+**echo_ald_crp()**
+
 If you disable automatic display of related posts please add `<?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?>` to your template file where you want the related posts to be displayed.
 You can also use this function to display related posts on any type of page generated by WordPress including homepage and archive pages.
+
+**get_crp_posts()**
+
+Takes a post ID and returns an array of related post IDs. 
+
+Usage: `<?php if(function_exists('get_crp_posts')) get_crp_posts($postid, $limit) ?>`
+
+Parameters:
+
+*$postid* : The ID of the post you'd like to fetch. By default the current post is fetched. Use within the Loop for best results.
+
+*$limit* : Maximum number of posts to return. The actual number displayed may be lower depending on the matching algorithm and the category / post exclusion settings.
+
+= Shortcodes =
+
+You can insert the related posts anywhere in your post using the `[crp]` shortcode. The plugin takes two optional attributes `limit` and `heading` as follows:
+
+`[crp limit="5" heading="1"]`
+
+*limit* : Maximum number of posts to return. The actual number displayed may be lower depending on the matching algorithm and the category / post exclusion settings.
+
+*heading* : By default, the heading you specify in **Title of related posts:** under **Output options** will be displayed. You can override this by specifying your own heading e.g.
+
+`
+<h3>Similar posts</h3>
+[crp limit="2" heading="0"] 
+`
+
 
 == Wishlist ==
 

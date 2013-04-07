@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.5
+Version:     1.8.6
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -41,13 +41,19 @@ add_action('init', 'ald_crp_init');
 /*********************************************************************
 *				Main Functions										*
 ********************************************************************/
+// Set $crp_settings as a global variable to prevent relookups in every function
+global 	$crp_settings; 
+$crp_settings = crp_read_options();
+
 // Main function, accepts parameters in a query string format
 function ald_crp( $args ) {
+	global $crp_settings;
+
 	$defaults = array(
 		'is_widget' => FALSE,
 		'echo' => TRUE,
 	);
-	$defaults = array_merge($defaults, crp_read_options());
+	$defaults = array_merge($defaults, $crp_settings);
 	
 	// Parse incomming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
@@ -62,19 +68,105 @@ function ald_crp( $args ) {
 function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_height, $thumb_width) {
 	global $wpdb, $post, $single;
 
-	$crp_settings = crp_read_options();
+	global $crp_settings;
+
+	//Support caching to speed up retrieval
+	if ( !empty($crp_settings['cache']) ) {
+		$output = get_post_meta($post->ID, 'crp_related_posts', true);
+		if ( $output ) return $output;
+	}
+
 	if (empty($limit)) $limit = stripslashes($crp_settings['limit']);
-	if (empty($post_thumb_op)) $post_thumb_op = stripslashes($crp_settings['post_thumb_op']);
 	if (!isset($show_excerpt)) $show_excerpt = $crp_settings['show_excerpt'];
+	if (empty($post_thumb_op)) $post_thumb_op = stripslashes($crp_settings['post_thumb_op']);
 	if (empty($thumb_height)) $thumb_height = stripslashes($crp_settings['thumb_height']);
 	if (empty($thumb_width)) $thumb_width = stripslashes($crp_settings['thumb_width']);
 
-	parse_str($crp_settings['post_types'],$post_types);
 	$exclude_categories = explode(',',$crp_settings['exclude_categories']);
 	
 	$rel_attribute = (($crp_settings['link_nofollow']) ? ' rel="nofollow" ' : ' ' );
-	$target_attribute = (($crp_settings['link_nofollow']) ? ' target="_blank" ' : ' ' );
+	$target_attribute = (($crp_settings['link_new_window']) ? ' target="_blank" ' : ' ' );
 	
+	// Retrieve the list of posts
+	$results = get_crp_posts($post->ID, $limit, TRUE);
+		
+	$output = (is_singular()) ? '<div id="crp_related" class="crp_related">' : '<div class="crp_related">';
+	
+	if($results){
+		$loop_counter = 0;
+
+		if(!$is_widget) $output .= (stripslashes($crp_settings['title']));
+		$output .= $crp_settings['before_list'];
+
+		foreach($results as $result) {
+			$categorys = get_the_category($result->ID);	//Fetch categories of the plugin
+			$p_in_c = false;	// Variable to check if post exists in a particular category
+			$title = crp_max_formatted_content(get_the_title($result->ID),$crp_settings['title_length']);
+			foreach ($categorys as $cat) {	// Loop to check if post exists in excluded category
+				$p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
+				if ($p_in_c) break;	// End loop if post found in category
+			}
+
+			if (!$p_in_c) {
+				$output .= $crp_settings['before_list_item'];
+
+				//$output .= '<a href="'.get_permalink($result->ID).'" class="crp_link">'; // Add beginning of link
+				if ($post_thumb_op=='after') {
+					$output .= '<a href="'.get_permalink($result->ID).'" '.$rel_attribute.' '.$target_attribute.'class="crp_title">'.$title.'</a>'; // Add title if post thumbnail is to be displayed after
+				}
+				if ($post_thumb_op=='inline' || $post_thumb_op=='after' || $post_thumb_op=='thumbs_only') {
+					$output .= '<a href="'.get_permalink($result->ID).'" '.$rel_attribute.' '.$target_attribute.'>';
+					$output .= crp_get_the_post_thumbnail('postid='.$result->ID.'&thumb_height='.$thumb_height.'&thumb_width='.$thumb_width.'&thumb_meta='.$crp_settings['thumb_meta'].'&thumb_default='.$crp_settings['thumb_default'].'&thumb_default_show='.$crp_settings['thumb_default_show'].'&thumb_timthumb='.$crp_settings['thumb_timthumb'].'&thumb_timthumb_q='.$crp_settings['thumb_timthumb_q'].'&scan_images='.$crp_settings['scan_images'].'&class=crp_thumb&filter=crp_postimage');
+					$output .= '</a>';
+				}
+				if ($post_thumb_op=='inline' || $post_thumb_op=='text_only') {
+					$output .= '<a href="'.get_permalink($result->ID).'" '.$rel_attribute.' '.$target_attribute.' class="crp_title">'.$title.'</a>'; // Add title when required by settings
+				}
+				//$output .= '</a>'; // Close the link
+				if ($show_excerpt) {
+					$output .= '<span class="crp_excerpt"> '.crp_excerpt($result->ID,$crp_settings['excerpt_length']).'</span>';
+				}
+				$output .= $crp_settings['after_list_item'];
+				$loop_counter++; 
+			}
+			if ($loop_counter == $limit) break;	// End loop when related posts limit is reached
+		} //end of foreach loop
+		if ($crp_settings['show_credit']) {
+			$output .= $crp_settings['before_list_item'];
+			$output .= __('Powered by',CRP_LOCAL_NAME);
+			$output .= ' <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/" rel="nofollow">Contextual Related Posts</a>'.$crp_settings['after_list_item'];
+		}
+		$output .= $crp_settings['after_list'];
+	}else{
+		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.$crp_settings['blank_output_text'].'</p>'; 
+	}
+	if ((strpos($output, $crp_settings['before_list_item'])) === false) {
+		$output = '<div id="crp_related">';
+		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.$crp_settings['blank_output_text'].'</p>'; 
+	}
+	$output .= '</div>';
+	
+
+	//Support caching to speed up retrieval
+	if ( !empty($crp_settings['cache']) )
+		update_post_meta($post->ID, 'crp_related_posts', $output, '');
+
+	return $output;
+}
+
+// Fetch related posts as an array
+function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
+	global $wpdb, $post, $single;
+
+	global $crp_settings;
+	
+	$post = (empty($postid)) ? get_post($postid) : $post;
+
+	if (empty($limit)) $limit = stripslashes($crp_settings['limit']);
+	$limit = ($strict_limit) ? $limit : ($limit*3);	
+
+	parse_str($crp_settings['post_types'],$post_types);	// Save post types in $post_types variable
+
 	// Make sure the post is not from the future
 	$time_difference = get_option('gmt_offset');
 	$now = gmdate("Y-m-d H:i:s",(time()+($time_difference*3600)));
@@ -94,7 +186,7 @@ function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_heigh
 	
 	// Create the SQL query to fetch the related posts from the database
 	if ((is_int($post->ID))&&($stuff != '')) {
-		$sql = "SELECT DISTINCT ID,post_title,post_date "
+		$sql = "SELECT DISTINCT ID "
 		. " FROM ".$wpdb->posts." WHERE "
 		. "MATCH (post_title,post_content) AGAINST ('".$stuff."') "
 		. "AND post_date <= '".$now."' "
@@ -110,77 +202,21 @@ function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_heigh
 			$multiple = true;
 		}
 		$sql .=" ) ";
-		$sql .= "LIMIT ".$limit*3;
+		$sql .= "LIMIT ".$limit;
 		
-		$search_counter = 0;
-		$searches = $wpdb->get_results($sql);
+		$results = $wpdb->get_results($sql);
 	} else {
-		$searches = false;
+		$results = false;
 	}
 	
-	$output = (is_singular()) ? '<div id="crp_related" class="crp_related">' : '<div class="crp_related">';
-	
-	if($searches){
-		if(!$is_widget) $output .= (stripslashes($crp_settings['title']));
-		$output .= $crp_settings['before_list'];
-		foreach($searches as $search) {
-			$categorys = get_the_category($search->ID);	//Fetch categories of the plugin
-			$p_in_c = false;	// Variable to check if post exists in a particular category
-			$title = crp_max_formatted_content(get_the_title($search->ID),$crp_settings['title_length']);
-			foreach ($categorys as $cat) {	// Loop to check if post exists in excluded category
-				$p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
-				if ($p_in_c) break;	// End loop if post found in category
-			}
-
-			if (!$p_in_c) {
-				$output .= $crp_settings['before_list_item'];
-
-				//$output .= '<a href="'.get_permalink($search->ID).'" class="crp_link">'; // Add beginning of link
-				if ($post_thumb_op=='after') {
-					$output .= '<a href="'.get_permalink($search->ID).'" '.$rel_attribute.' '.$target_attribute.'class="crp_title">'.$title.'</a>'; // Add title if post thumbnail is to be displayed after
-				}
-				if ($post_thumb_op=='inline' || $post_thumb_op=='after' || $post_thumb_op=='thumbs_only') {
-					$output .= '<a href="'.get_permalink($search->ID).'" '.$rel_attribute.' '.$target_attribute.'>';
-					$output .= crp_get_the_post_thumbnail('postid='.$search->ID.'&thumb_height='.$thumb_height.'&thumb_width='.$thumb_width.'&thumb_meta='.$crp_settings['thumb_meta'].'&thumb_default='.$crp_settings['thumb_default'].'&thumb_default_show='.$crp_settings['thumb_default_show'].'&thumb_timthumb='.$crp_settings['thumb_timthumb'].'&thumb_timthumb_q='.$crp_settings['thumb_timthumb_q'].'&scan_images='.$crp_settings['scan_images'].'&class=crp_thumb&filter=crp_postimage');
-					//$output .= crp_get_the_post_thumbnail($search->ID, $crp_settings);
-					$output .= '</a>';
-				}
-				if ($post_thumb_op=='inline' || $post_thumb_op=='text_only') {
-					$output .= '<a href="'.get_permalink($search->ID).'" '.$rel_attribute.' '.$target_attribute.' class="crp_title">'.$title.'</a>'; // Add title when required by settings
-				}
-				//$output .= '</a>'; // Close the link
-				if ($show_excerpt) {
-					$output .= '<span class="crp_excerpt"> '.crp_excerpt($search->ID,$crp_settings['excerpt_length']).'</span>';
-				}
-				$output .= $crp_settings['after_list_item'];
-				$search_counter++; 
-			}
-			if ($search_counter == $limit) break;	// End loop when related posts limit is reached
-		} //end of foreach loop
-		if ($crp_settings['show_credit']) {
-			$output .= $crp_settings['before_list_item'];
-			$output .= __('Powered by',CRP_LOCAL_NAME);
-			$output .= ' <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/" rel="nofollow">Contextual Related Posts</a>'.$crp_settings['after_list_item'];
-		}
-		$output .= $crp_settings['after_list'];
-	}else{
-		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.$crp_settings['blank_output_text'].'</p>'; 
-		//$output .= '<p>'.strip_tags($sql).'</p>'; 
-	}
-	if ((strpos($output, $crp_settings['before_list_item'])) === false) {
-		$output = '<div id="crp_related">';
-		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.$crp_settings['blank_output_text'].'</p>'; 
-	}
-	$output .= '</div>';
-	
-	return $output;
+	return $results;
 }
 
 // Filter for 'the_content' to add the related posts
 function ald_crp_content($content) {
 	
 	global $single, $post;
-	$crp_settings = crp_read_options();
+	global $crp_settings;
 	
 	
 	$exclude_on_post_ids = explode(',',$crp_settings['exclude_on_post_ids']);
@@ -209,7 +245,7 @@ add_filter('the_content', 'ald_crp_content');
 // Filter to add related posts to feeds
 function ald_crp_rss($content) {
 	global $post;
-	$crp_settings = crp_read_options();
+	global $crp_settings;
 	$limit_feed = $crp_settings['limit_feed'];
 	$show_excerpt_feed = $crp_settings['show_excerpt_feed'];
 	$post_thumb_op_feed = $crp_settings['post_thumb_op_feed'];
@@ -224,6 +260,7 @@ add_filter('the_excerpt_rss', 'ald_crp_rss');
 add_filter('the_content_feed', 'ald_crp_rss');
 
 
+// Manual install
 function echo_ald_crp() {
 	echo ald_crp('is_widget=0');
 }
@@ -298,7 +335,7 @@ class WidgetCRP extends WP_Widget
 		
 		extract($args, EXTR_SKIP);
 		
-		$crp_settings = crp_read_options();
+		global $crp_settings;
 
 		$exclude_on_post_ids = explode(',',$crp_settings['exclude_on_post_ids']);
 		
@@ -332,13 +369,29 @@ add_action('init', 'init_ald_crp', 1);
  
 
 /*********************************************************************
+*				Shortcode functions									*
+********************************************************************/
+// Creates a shortcode [crp limit="5" heading="1"]
+function crp_shortcode( $atts, $content = null ) {
+	extract( shortcode_atts( array(
+	  'limit' => '5',
+	  'heading' => '1',
+	  ), $atts ) );
+	
+	$heading = 1 - $heading;	  
+	return ald_crp('is_widget='.$heading.'&limit='.$limit);
+}
+add_shortcode( 'crp', 'crp_shortcode' );
+
+
+/*********************************************************************
 *				Default options										*
 ********************************************************************/
 // Default Options
 function crp_default_options() {
 	global $crp_url;
 	$title = __('<h3>Related Posts:</h3>',CRP_LOCAL_NAME);
-	$blank_output_text = __('No related posts founds',CRP_LOCAL_NAME);
+	$blank_output_text = __('No related posts found',CRP_LOCAL_NAME);
 	$thumb_default = $crp_url.'/default.png';
 	// get relevant post types
 	$args = array (
@@ -356,6 +409,7 @@ function crp_default_options() {
 						'add_to_category_archives' => false,		// Add related posts to category archives
 						'add_to_tag_archives' => false,		// Add related posts to tag archives
 						'add_to_archives' => false,		// Add related posts to other archives
+						'cache' => false,			// Cache output for faster page load
 						'limit' => '5',				// How many posts to display?
 						'daily_range' => '1095',				// How old posts should be displayed?
 						'show_credit' => false,		// Link to this plugin's page?
@@ -422,7 +476,7 @@ add_action('wp_head','crp_header');
 function crp_header() {
 	global $wpdb, $post, $single;
 
-	$crp_settings = crp_read_options();
+	global $crp_settings;
 	$crp_custom_CSS = stripslashes($crp_settings['custom_CSS']);
 	
 	// Add CSS to header 

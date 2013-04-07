@@ -24,6 +24,7 @@ function crp_options() {
 		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'];
 		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'];
 		$crp_settings['match_content'] = (isset($_POST['match_content']) ? true : false);
+		$crp_settings['cache'] = (isset($_POST['cache']) ? true : false);
 
 		$crp_settings['add_to_content'] = (isset($_POST['add_to_content']) ? true : false);
 		$crp_settings['add_to_page'] = (isset($_POST['add_to_page']) ? true : false);
@@ -70,12 +71,12 @@ function crp_options() {
 		$crp_settings['exclude_cat_slugs'] = ($_POST['exclude_cat_slugs']);
 		$exclude_categories_slugs = explode(", ",$crp_settings['exclude_cat_slugs']);
 		
-		$exclude_categories = '';
+		//$exclude_categories = array();
 		foreach ($exclude_categories_slugs as $exclude_categories_slug) {
 			$catObj = get_category_by_slug($exclude_categories_slug);
-			if (isset($catObj->term_id)) $exclude_categories .= $catObj->term_id . ',';
+			if (isset($catObj->term_id)) $exclude_categories[] = $catObj->term_id;
 		}
-		$crp_settings['exclude_categories'] = substr($exclude_categories, 0, -2);
+		$crp_settings['exclude_categories'] = (isset($exclude_categories)) ? join(',', $exclude_categories) : '';
 
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
@@ -90,6 +91,8 @@ function crp_options() {
 		parse_str($crp_settings['post_types'],$post_types);
 		$posts_types_inc = array_intersect($wp_post_types, $post_types);
 
+		delete_post_meta_by_key('crp_related_posts'); // Delete the cache
+		
 		$str = '<div id="message" class="updated fade"><p>'. __('Options saved successfully.',CRP_LOCAL_NAME) .'</p></div>';
 		echo $str;
 	}
@@ -179,6 +182,11 @@ function crp_options() {
 		<div class="tabbertab" id="crp_genoptions">
 		<h3><?php _e('General options',CRP_LOCAL_NAME); ?></h3>
 			<table class="form-table">
+			<tr style="vertical-align: top;"><th scope="row"><label for="cache"><?php _e('Cache output?',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="cache" id="cache" <?php if ($crp_settings['cache']) echo 'checked="checked"' ?> />
+				<br /><?php _e('Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.',CRP_LOCAL_NAME); ?>
+			</td>
+			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><label for="limit"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="limit" id="limit" value="<?php echo esc_attr(stripslashes($crp_settings['limit'])); ?>"></td>
 			</tr>
@@ -221,6 +229,7 @@ function crp_options() {
 					</table>
 					<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo (stripslashes($crp_settings['exclude_cat_slugs'])); ?></textarea>
 				</div>
+				<?php _e('Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the starting letters and it will prompt you with options',CRP_LOCAL_NAME); ?>
 			</td>
 			</tr>
 			<tr style="vertical-align: top;"><th scope="row"><?php _e('Add related posts to:',CRP_LOCAL_NAME); ?></th>
@@ -422,12 +431,12 @@ add_action('admin_menu', 'crp_adminmenu');
 
 // Admin notices
 function crp_admin_notice() {
-	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('plugin settings page', ATF_LOCAL_NAME ) . '</a>';
+	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('plugin settings page', CRP_LOCAL_NAME ) . '</a>';
 
 	if ( !current_user_can( 'manage_options' ) ) return;
 
     echo '<div class="error">
-       <p>'.__('Contextual Related Posts plugin has just been installed / upgraded. Please visit the ', ATF_LOCAL_NAME ).$plugin_settings_page.__(' to configure.', ATF_LOCAL_NAME ).'</p>
+       <p>'.__('Contextual Related Posts plugin has just been installed / upgraded. Please visit the ', CRP_LOCAL_NAME ).$plugin_settings_page.__(' to configure.', CRP_LOCAL_NAME ).'</p>
     </div>';
 }
 // add_action('admin_notices', 'crp_admin_notice');
