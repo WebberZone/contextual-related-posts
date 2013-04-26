@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 23:42-0000\n"
+"POT-Creation-Date: 2013-04-26 08:01-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -23,91 +23,91 @@ msgstr "Настройки сохранены успешно."
 msgid "Options set to Default."
 msgstr "Опции возвращены к стандартным"
 
-#: admin.inc.php:127
+#: admin.inc.php:128
 msgid "Index recreated"
 msgstr "Индекс воссоздан"
 
-#: admin.inc.php:140
+#: admin.inc.php:141
 msgid "Support the development"
 msgstr "Поддержка развития проекта"
 
-#: admin.inc.php:148
+#: admin.inc.php:149
 msgid "Enter amount in USD: "
 msgstr "Введите сумму в долларах США:"
 
-#: admin.inc.php:152
+#: admin.inc.php:153
 msgid "Send your donation to the author of"
 msgstr "Отправить пожертвование автору"
 
-#: admin.inc.php:163
+#: admin.inc.php:164
 #, fuzzy
 msgid "Quick Links"
 msgstr "Быстрые ссылки"
 
-#: admin.inc.php:165
+#: admin.inc.php:166
 #, fuzzy
 msgid "Contextual Related Posts plugin page"
 msgstr "Контекстные похожие посты"
 
-#: admin.inc.php:166
+#: admin.inc.php:167
 msgid "Other plugins"
 msgstr "Другие плагины"
 
-#: admin.inc.php:167
+#: admin.inc.php:168
 msgid "Ajay's blog"
 msgstr "Блог автора (Ajay, английский язык)"
 
-#: admin.inc.php:168 contextual-related-posts.php:662
+#: admin.inc.php:169 contextual-related-posts.php:662
 msgid "Support"
 msgstr "Поддержка"
 
-#: admin.inc.php:169
+#: admin.inc.php:170
 msgid "Reviews"
 msgstr ""
 
-#: admin.inc.php:173
+#: admin.inc.php:174
 msgid "Recent developments"
 msgstr "Последние разработки"
 
-#: admin.inc.php:183
+#: admin.inc.php:184
 msgid "General options"
 msgstr ""
 
-#: admin.inc.php:185
+#: admin.inc.php:186
 msgid "Cache output?"
 msgstr ""
 
-#: admin.inc.php:187
+#: admin.inc.php:188
 msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
 msgstr ""
 
-#: admin.inc.php:190 admin.inc.php:363
+#: admin.inc.php:191 admin.inc.php:376
 msgid "Number of related posts to display: "
 msgstr "Количество отображаемых похожих постов:"
 
-#: admin.inc.php:193
+#: admin.inc.php:194
 msgid "Related posts should be newer than:"
 msgstr ""
 
-#: admin.inc.php:194
+#: admin.inc.php:195
 msgid "days"
 msgstr ""
 
-#: admin.inc.php:196
+#: admin.inc.php:197
 msgid "Post types to include in results (including custom post types)"
 msgstr ""
 
-#: admin.inc.php:207
+#: admin.inc.php:208
 msgid "Use CTRL on Windows and COMMAND on Mac to select multiple items"
 msgstr ""
 
-#: admin.inc.php:210
+#: admin.inc.php:211
 msgid "Find related posts based on content as well as title"
 msgstr ""
 
-#: admin.inc.php:211
+#: admin.inc.php:213
 #, fuzzy
 msgid ""
 "If unchecked, only posts titles are used. (I recommend using a caching "
@@ -118,55 +118,55 @@ msgstr ""
 "сообщений. (Я рекомендую использовать плагин кэширования, если вы включите "
 "опцию)"
 
-#: admin.inc.php:213
+#: admin.inc.php:216
 msgid "List of post or page IDs to exclude from the results: "
 msgstr ""
 
-#: admin.inc.php:216
+#: admin.inc.php:219
 msgid "Categories to exclude from the results: "
 msgstr ""
 
-#: admin.inc.php:232
+#: admin.inc.php:235
 msgid ""
 "Comma separated list of category slugs. The field above has an autocomplete "
 "so simply start typing in the starting letters and it will prompt you with "
 "options"
 msgstr ""
 
-#: admin.inc.php:235
+#: admin.inc.php:238
 #, fuzzy
 msgid "Add related posts to:"
 msgstr "Добавить похожие посты в фид"
 
-#: admin.inc.php:237
+#: admin.inc.php:240
 msgid "Posts"
 msgstr ""
 
-#: admin.inc.php:238
+#: admin.inc.php:241
 msgid "Pages"
 msgstr ""
 
-#: admin.inc.php:239
+#: admin.inc.php:242
 msgid "Home page"
 msgstr ""
 
-#: admin.inc.php:240
+#: admin.inc.php:243
 msgid "Feeds"
 msgstr ""
 
-#: admin.inc.php:241
+#: admin.inc.php:244
 msgid "Category archives"
 msgstr ""
 
-#: admin.inc.php:242
+#: admin.inc.php:245
 msgid "Tag archives"
 msgstr ""
 
-#: admin.inc.php:243
+#: admin.inc.php:246
 msgid "Other archives"
 msgstr ""
 
-#: admin.inc.php:244
+#: admin.inc.php:247
 #, fuzzy
 msgid ""
 "If you choose to disable this, please add <code>&lt;?php if(function_exists"
@@ -178,150 +178,150 @@ msgstr ""
 "('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>, в отображаемый шаблон на "
 "вашем сайте"
 
-#: admin.inc.php:247
+#: admin.inc.php:250
 msgid "Add a link to the plugin page as a final item in the list"
 msgstr ""
 
-#: admin.inc.php:248
+#: admin.inc.php:251
 msgid " <em>Optional</em>"
 msgstr ""
 
-#: admin.inc.php:255
+#: admin.inc.php:258
 #, fuzzy
 msgid "Output options"
 msgstr "Опции вывода:"
 
-#: admin.inc.php:257
+#: admin.inc.php:260
 msgid "Title of related posts: "
 msgstr "Названия связанных постов:"
 
-#: admin.inc.php:260
+#: admin.inc.php:263
 msgid "When there are no posts, what should be shown?"
 msgstr "Когда нет сообщений, что должно быть показано?"
 
-#: admin.inc.php:264
+#: admin.inc.php:267
 msgid "Blank Output"
 msgstr "Пустой выход"
 
-#: admin.inc.php:268
+#: admin.inc.php:271
 msgid "Display:"
 msgstr ""
 
-#: admin.inc.php:272 admin.inc.php:366
+#: admin.inc.php:275 admin.inc.php:379
 msgid "Show post excerpt in list?"
 msgstr "Показать выдержки из поста в списке?"
 
-#: admin.inc.php:275
+#: admin.inc.php:278
 msgid "Length of excerpt (in words): "
 msgstr "Длина выдержки (в словах):"
 
-#: admin.inc.php:278
+#: admin.inc.php:281
 msgid "Limit post title length (in characters)"
 msgstr ""
 
-#: admin.inc.php:281
+#: admin.inc.php:284
 msgid "Open links in new window"
 msgstr ""
 
-#: admin.inc.php:284
+#: admin.inc.php:287
 msgid "Add nofollow attribute to links in the list"
 msgstr ""
 
-#: admin.inc.php:287
+#: admin.inc.php:290
 #, fuzzy
 msgid "Exclude display of related posts on these posts / pages"
 msgstr "Добавить похожие посты в фид"
 
-#: admin.inc.php:290
+#: admin.inc.php:293
 msgid "Enter comma separated list of IDs. e.g. 188,320,500"
 msgstr ""
 
-#: admin.inc.php:293
+#: admin.inc.php:296
 msgid "Customize the output:"
 msgstr "Настройки выхода:"
 
-#: admin.inc.php:295
+#: admin.inc.php:298
 msgid "HTML to display before the list of posts: "
 msgstr "HTML для показа перед списком сообщений: "
 
-#: admin.inc.php:298
+#: admin.inc.php:301
 msgid "HTML to display before each list item: "
 msgstr "HTML для показа перед каждым элементом списка: "
 
-#: admin.inc.php:301
+#: admin.inc.php:304
 msgid "HTML to display after each list item: "
 msgstr "HTML для отображения после каждого элемента списка: "
 
-#: admin.inc.php:304
+#: admin.inc.php:307
 msgid "HTML to display after the list of posts: "
 msgstr "HTML для отображения после списка сообщений: "
 
-#: admin.inc.php:307
+#: admin.inc.php:310
 msgid "Post thumbnail options:"
 msgstr "Опции изображения поста:"
 
-#: admin.inc.php:309 admin.inc.php:369
+#: admin.inc.php:312 admin.inc.php:382
 msgid "Location of post thumbnail:"
 msgstr ""
 
-#: admin.inc.php:313 admin.inc.php:373
+#: admin.inc.php:316 admin.inc.php:386
 #, fuzzy
 msgid "Display thumbnails inline with posts, before title"
 msgstr "Показать эскизы в соответствии с сообщениями"
 
-#: admin.inc.php:317 admin.inc.php:377
+#: admin.inc.php:320 admin.inc.php:390
 #, fuzzy
 msgid "Display thumbnails inline with posts, after title"
 msgstr "Показать эскизы в соответствии с сообщениями"
 
-#: admin.inc.php:321 admin.inc.php:381
+#: admin.inc.php:324 admin.inc.php:394
 msgid "Display only thumbnails, no text"
 msgstr "Показывать только изображения, без текста"
 
-#: admin.inc.php:325 admin.inc.php:385
+#: admin.inc.php:328 admin.inc.php:398
 msgid "Do not display thumbnails, only text."
 msgstr "Не показывать изображения, только текст"
 
-#: admin.inc.php:329 admin.inc.php:389
+#: admin.inc.php:332 admin.inc.php:402
 msgid "Maximum width of the thumbnail: "
 msgstr ""
 
-#: admin.inc.php:332 admin.inc.php:392
+#: admin.inc.php:335 admin.inc.php:405
 msgid "Maximum height of the thumbnail: "
 msgstr ""
 
-#: admin.inc.php:335
+#: admin.inc.php:338
 msgid "Use timthumb to generate thumbnails? "
 msgstr ""
 
-#: admin.inc.php:336
+#: admin.inc.php:340
 msgid ""
 "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
 "\">timthumb</a> will be used to generate thumbnails"
 msgstr ""
 
-#: admin.inc.php:338
+#: admin.inc.php:343
 msgid "Quality of thumbnails generated by timthumb"
 msgstr ""
 
-#: admin.inc.php:341
+#: admin.inc.php:346
 msgid ""
 "Enter values between 0 and 100 only. 100 is highest quality, however, it is "
 "also the highest file size. Suggested maximum value is 95. CRP default is 75."
 msgstr ""
 
-#: admin.inc.php:344
+#: admin.inc.php:349
 #, fuzzy
 msgid "Post thumbnail meta field name: "
 msgstr "Опции изображения поста:"
 
-#: admin.inc.php:345
+#: admin.inc.php:351
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
 msgstr ""
 
-#: admin.inc.php:347
+#: admin.inc.php:354
 #, fuzzy
 msgid ""
 "If the postmeta is not set, then should the plugin extract the first image "
@@ -330,7 +330,7 @@ msgstr ""
 "Если postmeta не установлен, то плагин скачает первое изображение поста. Это "
 "может замедлить загрузку сообщения (если изображение слишком велико)"
 
-#: admin.inc.php:348
+#: admin.inc.php:356
 #, fuzzy
 msgid ""
 "This can slow down the loading of your page if the first image in the "
@@ -339,21 +339,21 @@ msgstr ""
 "Если postmeta не установлен, то плагин скачает первое изображение поста. Это "
 "может замедлить загрузку сообщения (если изображение слишком велико)"
 
-#: admin.inc.php:350
+#: admin.inc.php:359
 msgid "Use default thumbnail? "
 msgstr ""
 
-#: admin.inc.php:351
+#: admin.inc.php:361
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 
-#: admin.inc.php:353
+#: admin.inc.php:364
 msgid "Default thumbnail: "
 msgstr ""
 
-#: admin.inc.php:354
+#: admin.inc.php:366
 #, fuzzy
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
@@ -364,75 +364,75 @@ msgstr ""
 "обнаружатся, то плагин проверит мета-данные. Если они будут недоступны, то "
 "плагин будет показывать изображение по умолчанию, как указано ниже:"
 
-#: admin.inc.php:359
+#: admin.inc.php:372
 #, fuzzy
 msgid "Feed options"
 msgstr "Опции:"
 
-#: admin.inc.php:361
+#: admin.inc.php:374
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
 "Options tab."
 msgstr ""
 
-#: admin.inc.php:398
+#: admin.inc.php:411
 msgid "Custom Styles"
 msgstr ""
 
-#: admin.inc.php:400
+#: admin.inc.php:413
 msgid "Custom CSS to add to header:"
 msgstr ""
 
-#: admin.inc.php:403
+#: admin.inc.php:416
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a href=\"http://"
 "wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
 "\">FAQ</a> for available CSS classes to style."
 msgstr ""
 
-#: admin.inc.php:407
+#: admin.inc.php:421
 #, fuzzy
 msgid "Save Options"
 msgstr "Опции:"
 
-#: admin.inc.php:408
+#: admin.inc.php:422
 #, fuzzy
 msgid "Default Options"
 msgstr "Опции вывода:"
 
-#: admin.inc.php:408
+#: admin.inc.php:422
 msgid "Do you want to set options to Default?"
 msgstr "Вы хотите задать параметры по умолчанию?"
 
-#: admin.inc.php:409
+#: admin.inc.php:423
 msgid "Recreate Index"
 msgstr ""
 
-#: admin.inc.php:409
+#: admin.inc.php:423
 msgid "Are you sure you want to recreate the index?"
 msgstr "Вы уверены, что хотите воссоздать индекс?"
 
-#: admin.inc.php:426
+#: admin.inc.php:441
 msgid "Contextual Related Posts"
 msgstr "Контекстные похожие посты"
 
-#: admin.inc.php:426 contextual-related-posts.php:277
+#: admin.inc.php:441 contextual-related-posts.php:277
 msgid "Related Posts"
 msgstr "Похожие посты"
 
-#: admin.inc.php:434
+#: admin.inc.php:449
 #, fuzzy
 msgid "plugin settings page"
 msgstr "Страница плагина"
 
-#: admin.inc.php:439
+#: admin.inc.php:454
 msgid ""
 "Contextual Related Posts plugin has just been installed / upgraded. Please "
 "visit the "
 msgstr ""
 
-#: admin.inc.php:439
+#: admin.inc.php:454
 msgid " to configure."
 msgstr ""
 

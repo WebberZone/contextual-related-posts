@@ -2,11 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-26 08:02-0000\n"
+"POT-Creation-Date: 2013-04-26 08:01-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
-"Language-Team: \n"
-"Language: zh_CN\n"
+"Language-Team:  <me@ajaydsouza.com>\n"
+"Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,49 +17,47 @@ msgstr ""
 
 #: admin.inc.php:96
 msgid "Options saved successfully."
-msgstr "成功保存设置。"
+msgstr "Opcijas veiksmīgi saglabāts."
 
 #: admin.inc.php:112
 msgid "Options set to Default."
-msgstr "已重置设置。"
+msgstr "Opcijas iestatīts uz Default."
 
 #: admin.inc.php:128
 msgid "Index recreated"
-msgstr "已重新创建索引"
+msgstr "indekss pārbūvēts"
 
 #: admin.inc.php:141
 msgid "Support the development"
-msgstr "支持开发"
+msgstr "Atbalstīt"
 
 #: admin.inc.php:149
 msgid "Enter amount in USD: "
-msgstr "输入美元金额："
+msgstr "Ievadiet summu USD:"
 
 #: admin.inc.php:153
 msgid "Send your donation to the author of"
-msgstr "捐赠给作者"
+msgstr "Sūtiet savu ziedojumu autoram"
 
 #: admin.inc.php:164
-#, fuzzy
 msgid "Quick Links"
-msgstr "快捷链接"
+msgstr "Ātrās saites"
 
 #: admin.inc.php:166
-#, fuzzy
 msgid "Contextual Related Posts plugin page"
-msgstr "相关日志"
+msgstr "Konteksta saistītus amatus"
 
 #: admin.inc.php:167
 msgid "Other plugins"
-msgstr "其他插件"
+msgstr "citas plugins"
 
 #: admin.inc.php:168
 msgid "Ajay's blog"
-msgstr "Ajay 的博客"
+msgstr "Ajay blogs"
 
 #: admin.inc.php:169 contextual-related-posts.php:662
 msgid "Support"
-msgstr "技术支持"
+msgstr "atbalstīt"
 
 #: admin.inc.php:170
 msgid "Reviews"
@@ -67,11 +65,11 @@ msgstr ""
 
 #: admin.inc.php:174
 msgid "Recent developments"
-msgstr "最新开发"
+msgstr "Nesenie notikumi"
 
 #: admin.inc.php:184
 msgid "General options"
-msgstr "一般设置"
+msgstr ""
 
 #: admin.inc.php:186
 msgid "Cache output?"
@@ -85,7 +83,7 @@ msgstr ""
 
 #: admin.inc.php:191 admin.inc.php:376
 msgid "Number of related posts to display: "
-msgstr "相关日志数量："
+msgstr "Skaits saistītus amatus, lai parādītu:"
 
 #: admin.inc.php:194
 msgid "Related posts should be newer than:"
@@ -97,30 +95,31 @@ msgstr ""
 
 #: admin.inc.php:197
 msgid "Post types to include in results (including custom post types)"
-msgstr "被索引的日志类型（包含自定义日志类型）"
+msgstr ""
 
 #: admin.inc.php:208
 msgid "Use CTRL on Windows and COMMAND on Mac to select multiple items"
-msgstr "在 Windows 上使用 CTRL ，或在 Mac 上使用 COMMAND 进行多选"
+msgstr ""
 
 #: admin.inc.php:211
 msgid "Find related posts based on content as well as title"
-msgstr "根据标题和正文内容索引"
+msgstr ""
 
 #: admin.inc.php:213
 msgid ""
 "If unchecked, only posts titles are used. (I recommend using a caching "
 "plugin if you enable this)"
-msgstr "假如没有勾选此项，则只从标题索引。（推荐已经开启缓存的用户勾选使用）"
+msgstr ""
+"Ja nekontrolēti, tikai amati nosaukumi tiek izmantoti. (Es ieteiktu izmantot "
+"caching spraudnis, ja aktivizēsiet šo)"
 
 #: admin.inc.php:216
 msgid "List of post or page IDs to exclude from the results: "
-msgstr "排除的文章或页面 ID："
+msgstr ""
 
 #: admin.inc.php:219
-#, fuzzy
 msgid "Categories to exclude from the results: "
-msgstr "排除的文章或页面 ID："
+msgstr ""
 
 #: admin.inc.php:235
 msgid ""
@@ -130,9 +129,8 @@ msgid ""
 msgstr ""
 
 #: admin.inc.php:238
-#, fuzzy
 msgid "Add related posts to:"
-msgstr "添加相关日志到 feed 里"
+msgstr "Pievienot saistītus amatus barībā"
 
 #: admin.inc.php:240
 msgid "Posts"
@@ -168,33 +166,33 @@ msgid ""
 "('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where "
 "you want it displayed"
 msgstr ""
-"假如没有勾选此项，请在模板文件中找到需要显示的地方，添加代码 <code>&lt;?php "
-"if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>"
+"Ja vēlaties atslēgt šo, lūdzu, pievienojiet <code> <php if (function_exists "
+"(\"echo_ald_crp\")) echo_ald_crp ();?> </ Code>, lai jūsu veidnes failu, kur "
+"vēlaties to parādīt"
 
 #: admin.inc.php:250
 msgid "Add a link to the plugin page as a final item in the list"
-msgstr "在相关日志后添加插件页面的链接"
+msgstr ""
 
 #: admin.inc.php:251
 msgid " <em>Optional</em>"
-msgstr " <em>可选</em>"
+msgstr ""
 
 #: admin.inc.php:258
-#, fuzzy
 msgid "Output options"
-msgstr "显示设置"
+msgstr "Izejas opcijas:"
 
 #: admin.inc.php:260
 msgid "Title of related posts: "
-msgstr "相关日志的标题："
+msgstr "Nosaukums saistītus amatus:"
 
 #: admin.inc.php:263
 msgid "When there are no posts, what should be shown?"
-msgstr "当不存在相关日志时，显示什么？"
+msgstr "Ja nav amati, kas būtu redzams?"
 
 #: admin.inc.php:267
 msgid "Blank Output"
-msgstr "不显示"
+msgstr "tukša izeja"
 
 #: admin.inc.php:271
 msgid "Display:"
@@ -202,11 +200,11 @@ msgstr ""
 
 #: admin.inc.php:275 admin.inc.php:379
 msgid "Show post excerpt in list?"
-msgstr "是否显示日志摘要？"
+msgstr "Rādīt post izvilkumu sarakstā?"
 
 #: admin.inc.php:278
 msgid "Length of excerpt (in words): "
-msgstr "摘要长度（词数）："
+msgstr "Garums izrakstā (vārdiem)"
 
 #: admin.inc.php:281
 msgid "Limit post title length (in characters)"
@@ -221,9 +219,8 @@ msgid "Add nofollow attribute to links in the list"
 msgstr ""
 
 #: admin.inc.php:290
-#, fuzzy
 msgid "Exclude display of related posts on these posts / pages"
-msgstr "添加相关日志到页面里"
+msgstr "Pievienot saistītus amatus barībā"
 
 #: admin.inc.php:293
 msgid "Enter comma separated list of IDs. e.g. 188,320,500"
@@ -231,67 +228,65 @@ msgstr ""
 
 #: admin.inc.php:296
 msgid "Customize the output:"
-msgstr "自定义显示："
+msgstr "Pielāgot izejas:"
 
 #: admin.inc.php:298
 msgid "HTML to display before the list of posts: "
-msgstr "显示在每篇日志后面的 HTML 标签："
+msgstr "HTML, lai parādītu, pirms amatu sarakstu:"
 
 #: admin.inc.php:301
 msgid "HTML to display before each list item: "
-msgstr "显示在每篇日志后面的 HTML 标签："
+msgstr "HTML, lai parādītu pirms katras saraksta elementa:"
 
 #: admin.inc.php:304
 msgid "HTML to display after each list item: "
-msgstr "显示在日志列表前面的 HTML 标签："
+msgstr "HTML, lai parādītu pēc katra saraksta elementa:"
 
 #: admin.inc.php:307
 msgid "HTML to display after the list of posts: "
-msgstr "显示在日志列表后面的 HTML 标签："
+msgstr "HTML, lai parādītu pēc amatu sarakstā:"
 
 #: admin.inc.php:310
 msgid "Post thumbnail options:"
-msgstr "日志缩略图设置："
+msgstr "Post sīktēlu iespējas:"
 
 #: admin.inc.php:312 admin.inc.php:382
 msgid "Location of post thumbnail:"
-msgstr "日志缩略图位置："
+msgstr ""
 
 #: admin.inc.php:316 admin.inc.php:386
 msgid "Display thumbnails inline with posts, before title"
-msgstr "在标题前显示缩略图"
+msgstr "Rādīt skices ar ziņojumiem"
 
 #: admin.inc.php:320 admin.inc.php:390
 msgid "Display thumbnails inline with posts, after title"
-msgstr "在标题后显示缩略图"
+msgstr "Rādīt sīktēlus saskaņā ar soobscheniyamiazat skicēm ar ziņojumiem"
 
 #: admin.inc.php:324 admin.inc.php:394
 msgid "Display only thumbnails, no text"
-msgstr "不显示文本，只显示缩略图"
+msgstr "Attēlotu tikai sīktēlus, teksts"
 
 #: admin.inc.php:328 admin.inc.php:398
 msgid "Do not display thumbnails, only text."
-msgstr "不显示缩略图，只显示文本"
+msgstr "Nerādīt sīktēlus, tikai tekstu."
 
 #: admin.inc.php:332 admin.inc.php:402
 msgid "Maximum width of the thumbnail: "
-msgstr "缩略图最大宽度"
+msgstr ""
 
 #: admin.inc.php:335 admin.inc.php:405
 msgid "Maximum height of the thumbnail: "
-msgstr "缩略图最大高度"
+msgstr ""
 
 #: admin.inc.php:338
 msgid "Use timthumb to generate thumbnails? "
-msgstr "是否使用 timthumb 生成缩略图？"
+msgstr ""
 
 #: admin.inc.php:340
 msgid ""
 "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
 "\">timthumb</a> will be used to generate thumbnails"
 msgstr ""
-"勾选此项，将使用 <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
-"\">timthumb</a> 生成缩略图"
 
 #: admin.inc.php:343
 msgid "Quality of thumbnails generated by timthumb"
@@ -305,40 +300,42 @@ msgstr ""
 
 #: admin.inc.php:349
 msgid "Post thumbnail meta field name: "
-msgstr "日志缩略图自定义栏目的名称："
+msgstr "Attēlu rīki post:"
 
 #: admin.inc.php:351
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
-msgstr "该栏目的值在 <em>文章编辑 » 自定义栏目</em> 填写，需填写图像地址"
+msgstr ""
 
 #: admin.inc.php:354
 msgid ""
 "If the postmeta is not set, then should the plugin extract the first image "
 "from the post?"
-msgstr "假如缩略图自定义栏目没有填写，是否使用日志的第一张图片？"
+msgstr ""
+"Ja postmeta nav noteikts, tad būtu spraudnis iegūt pirmo attēlu no amata?"
 
 #: admin.inc.php:356
 msgid ""
 "This can slow down the loading of your page if the first image in the "
 "related posts is large in file-size"
-msgstr "勾选此项，若相关的日志中第一张图片过大，则页面载入速度会减慢。"
+msgstr ""
+"Tas var palēnināt iekraušana lapas, ja pirmo attēlu saistītajos amatos ir "
+"liela faila izmēra"
 
 #: admin.inc.php:359
 msgid "Use default thumbnail? "
-msgstr "是否使用默认缩略图？"
+msgstr ""
 
 #: admin.inc.php:361
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
-"勾选此项，当不存在缩略图时，显示以下默认缩略图，不勾选则不显示任何图像。"
 
 #: admin.inc.php:364
 msgid "Default thumbnail: "
-msgstr "默认缩略图："
+msgstr ""
 
 #: admin.inc.php:366
 msgid ""
@@ -346,13 +343,13 @@ msgid ""
 "then it will check the meta field. If this is not available, then it will "
 "show the default image as specified above"
 msgstr ""
-"本插件按先后顺序检测日志本身、缩略图自定义栏目是否含有缩略图，若不存在，则显"
-"示上面默认图像"
+"Spraudnis vispirms pārbaudīt, vai sūtījums satur sīktēlu. Ja tā nav, tad tas "
+"būs pārbaudīt meta laukā. Ja šāda informācija nav pieejama, tad tas rādīs "
+"noklusējuma attēlu, kā minēts iepriekš"
 
 #: admin.inc.php:372
-#, fuzzy
 msgid "Feed options"
-msgstr "一般设置"
+msgstr "Iespējas:"
 
 #: admin.inc.php:374
 msgid ""
@@ -363,145 +360,172 @@ msgstr ""
 
 #: admin.inc.php:411
 msgid "Custom Styles"
-msgstr "自定义样式"
+msgstr ""
 
 #: admin.inc.php:413
 msgid "Custom CSS to add to header:"
-msgstr "添加自定义 CSS 到 header："
+msgstr ""
 
 #: admin.inc.php:416
-#, fuzzy
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a href=\"http://"
 "wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
 "\">FAQ</a> for available CSS classes to style."
 msgstr ""
-"不要使用 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/"
-"extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
 
 #: admin.inc.php:421
 msgid "Save Options"
-msgstr "保存设置"
+msgstr "Saglabāt opcijas"
 
 #: admin.inc.php:422
 msgid "Default Options"
-msgstr "默认设置"
+msgstr "noklusējuma opcijas"
 
 #: admin.inc.php:422
 msgid "Do you want to set options to Default?"
-msgstr "是否要重置设置？"
+msgstr "Vai jūs vēlaties, lai uzstādītu iespējas Default?"
 
 #: admin.inc.php:423
 msgid "Recreate Index"
-msgstr "重建索引"
+msgstr ""
 
 #: admin.inc.php:423
 msgid "Are you sure you want to recreate the index?"
-msgstr "是否要重建索引？"
+msgstr "Vai jūs tiešām vēlaties, lai atjaunotu indeksu?"
 
 #: admin.inc.php:441
 msgid "Contextual Related Posts"
-msgstr "Contextual Related Posts"
+msgstr "Konteksta Related Posts"
 
 #: admin.inc.php:441 contextual-related-posts.php:277
 msgid "Related Posts"
-msgstr "相关日志"
+msgstr "Related Posts"
 
 #: admin.inc.php:449
 msgid "plugin settings page"
-msgstr "插件设置页面"
+msgstr "spraudnis iestatījumu lapa"
 
 #: admin.inc.php:454
 msgid ""
 "Contextual Related Posts plugin has just been installed / upgraded. Please "
 "visit the "
-msgstr "Contextual Related Posts 插件已经安装/升级完毕。请访问"
+msgstr ""
 
 #: admin.inc.php:454
 msgid " to configure."
-msgstr "设置插件。"
+msgstr ""
 
 #: contextual-related-posts.php:136
 msgid "Powered by"
-msgstr "插件作者："
+msgstr "Powered by"
 
 #: contextual-related-posts.php:276
 msgid "Display Related Posts"
-msgstr "显示相关日志"
+msgstr "Displeja Related Posts"
 
 #: contextual-related-posts.php:289
 msgid "Title"
-msgstr "标题"
+msgstr ""
 
 #: contextual-related-posts.php:294
 msgid "No. of posts"
-msgstr "日志数量"
+msgstr ""
 
 #: contextual-related-posts.php:299
 msgid " Show excerpt?"
-msgstr "是否显示日志摘要？"
+msgstr "Rādīt izvilkumu?"
 
 #: contextual-related-posts.php:303
 msgid "Thumbnail options"
-msgstr "缩略图设置："
+msgstr "sīktēlu iespējas"
 
 #: contextual-related-posts.php:305
 msgid "Thumbnails inline, before title"
-msgstr "在标题前显示缩略图"
+msgstr "Sīktēli inline, pirms virsraksta"
 
 #: contextual-related-posts.php:306
 msgid "Thumbnails inline, after title"
-msgstr "在标题后显示缩略图"
+msgstr "Sīktēli inline, pēc nosaukuma"
 
 #: contextual-related-posts.php:307
 msgid "Only thumbnails, no text"
-msgstr "不显示文本，只显示缩略图"
+msgstr "Tikai sīktēlus, bez teksta"
 
 #: contextual-related-posts.php:308
 msgid "No thumbnails, only text."
-msgstr "不显示缩略图，只显示文本"
+msgstr "Nav sīktēlus, tikai tekstu."
 
 #: contextual-related-posts.php:313
-#, fuzzy
 msgid "Thumbnail height"
-msgstr "缩略图设置："
+msgstr "sīktēls augstums"
 
 #: contextual-related-posts.php:318
-#, fuzzy
 msgid "Thumbnail width"
-msgstr "缩略图设置："
+msgstr "Thumbnail platums"
 
 #: contextual-related-posts.php:393
 msgid "<h3>Related Posts:</h3>"
-msgstr "<h3>相关日志：</h3>"
+msgstr "<h3>saistīta posts:</h3>"
 
 #: contextual-related-posts.php:394
-#, fuzzy
 msgid "No related posts found"
-msgstr "没有发现相关日志"
+msgstr "Nr saistītus amatus atrasts"
 
 #: contextual-related-posts.php:648
 msgid "Settings"
-msgstr "设置"
+msgstr "iestatījumi"
 
 #: contextual-related-posts.php:663
 msgid "Donate"
-msgstr "捐赠"
+msgstr "ziedot"
 
 #~ msgid "Follow @ajaydsouza on Twitter"
-#~ msgstr "在推特上关注 @ajaydsouza"
+#~ msgstr "Следовать @ajaydsouza на Твиттере"
 
 #~ msgid "Display \"No Related Posts\""
-#~ msgstr "显示 \"没有相关日志\""
+#~ msgstr "Показывать \"Нет похожих постов\""
 
 #~ msgid "Exclude Categories: "
-#~ msgstr "排除的分类 ID："
-
-#~ msgid "Add related posts to the post content on single posts"
-#~ msgstr "添加相关日志到文章里"
+#~ msgstr "Исключить категории:"
 
 #~ msgid "plugin page"
-#~ msgstr "插件页面"
+#~ msgstr "Страница плагина"
 
 #~ msgid "Exclude Pages in Related Posts"
-#~ msgstr "在相关日志中排除页面"
+#~ msgstr "Исключить страницы в Похожих постах"
+
+#~ msgid ""
+#~ "Add related posts to the post content on single posts. <br />If you "
+#~ "choose to disable this, please add <code>&lt;?php if(function_exists"
+#~ "('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file "
+#~ "where you want it displayed"
+#~ msgstr ""
+#~ "Добавить связанные посты в содержание поста. Если вы захотите отключить "
+#~ "это, пожалуйста, добавьте код: <code>&lt;?php if(function_exists"
+#~ "('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>, в файл шаблона вашего "
+#~ "сайта"
+
+#~ msgid ""
+#~ "Append link to this plugin as item. Optional, but would be nice to give "
+#~ "me some link love"
+#~ msgstr ""
+#~ "Добавить ссылку на этот плагин в качестве пункта. Необязательно, но было "
+#~ "бы неплохо, чтобы поддержать разработчика."
+
+#~ msgid ""
+#~ "Post thumbnail meta field (the meta should point contain the image "
+#~ "source): "
+#~ msgstr ""
+#~ "Мета-данные изображения поста (они должны содержать источник изображения):"
+
+#~ msgid "Thumbnail dimensions:"
+#~ msgstr "Размеры уменьшенного изображения:"
+
+#~ msgid "Max width: "
+#~ msgstr "Максимальная ширина:"
+
+#~ msgid "Max height: "
+#~ msgstr "Максимальная высота:"
+
+#~ msgid "Support forum"
+#~ msgstr "Форум поддержки"

@@ -17,12 +17,12 @@ function crp_options() {
 	$posts_types_inc = array_intersect($wp_post_types, $post_types);
 
 
-	if (isset($_POST['crp_save'])) {
-		$crp_settings['title'] = ($_POST['title']);
+	if ( (isset($_POST['crp_save']) ) && (check_admin_referer('crp-plugin') ) ) {
+		$crp_settings['title'] = wp_kses_post($_POST['title']);
 		$crp_settings['limit'] = intval($_POST['limit']);
 		$crp_settings['daily_range'] = intval($_POST['daily_range']);
-		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'];
-		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'];
+		$crp_settings['exclude_on_post_ids'] = wp_kses_post($_POST['exclude_on_post_ids']);
+		$crp_settings['exclude_post_ids'] = wp_kses_post($_POST['exclude_post_ids']);
 		$crp_settings['match_content'] = (isset($_POST['match_content']) ? true : false);
 		$crp_settings['cache'] = (isset($_POST['cache']) ? true : false);
 
@@ -36,15 +36,15 @@ function crp_options() {
 
 		$crp_settings['title_length'] = intval($_POST['title_length']);
 		$crp_settings['blank_output'] = (($_POST['blank_output'] == 'blank' ) ? true : false);
-		$crp_settings['blank_output_text'] = $_POST['blank_output_text'];
-		$crp_settings['post_thumb_op'] = $_POST['post_thumb_op'];
-		$crp_settings['before_list'] = $_POST['before_list'];
-		$crp_settings['after_list'] = $_POST['after_list'];
-		$crp_settings['before_list_item'] = $_POST['before_list_item'];
-		$crp_settings['after_list_item'] = $_POST['after_list_item'];
+		$crp_settings['blank_output_text'] = wp_kses_post($_POST['blank_output_text']);
+		$crp_settings['post_thumb_op'] = wp_kses_post($_POST['post_thumb_op']);
+		$crp_settings['before_list'] = wp_kses_post($_POST['before_list']);
+		$crp_settings['after_list'] = wp_kses_post($_POST['after_list']);
+		$crp_settings['before_list_item'] = wp_kses_post($_POST['before_list_item']);
+		$crp_settings['after_list_item'] = wp_kses_post($_POST['after_list_item']);
 
-		$crp_settings['thumb_meta'] = $_POST['thumb_meta'];
-		$crp_settings['thumb_default'] = $_POST['thumb_default'];
+		$crp_settings['thumb_meta'] = wp_kses_post($_POST['thumb_meta']);
+		$crp_settings['thumb_default'] = wp_kses_post($_POST['thumb_default']);
 		$crp_settings['thumb_height'] = intval($_POST['thumb_height']);
 		$crp_settings['thumb_width'] = intval($_POST['thumb_width']);
 		$crp_settings['thumb_default_show'] = (isset($_POST['thumb_default_show']) ? true : false);
@@ -56,19 +56,19 @@ function crp_options() {
 		$crp_settings['show_excerpt'] = (isset($_POST['show_excerpt']) ? true : false);
 		$crp_settings['excerpt_length'] = intval($_POST['excerpt_length']);
 		$crp_settings['show_credit'] = (isset($_POST['show_credit']) ? true : false);
-		$crp_settings['custom_CSS'] = $_POST['custom_CSS'];
+		$crp_settings['custom_CSS'] = wp_kses_post($_POST['custom_CSS']);
 
 		$crp_settings['link_new_window'] = (isset($_POST['link_new_window']) ? true : false);
 		$crp_settings['link_nofollow'] = (isset($_POST['link_nofollow']) ? true : false);
 		
 		$crp_settings['limit_feed'] = intval($_POST['limit_feed']);
-		$crp_settings['post_thumb_op_feed'] = $_POST['post_thumb_op_feed'];
+		$crp_settings['post_thumb_op_feed'] = wp_kses_post($_POST['post_thumb_op_feed']);
 		$crp_settings['thumb_height_feed'] = intval($_POST['thumb_height_feed']);
 		$crp_settings['thumb_width_feed'] = intval($_POST['thumb_width_feed']);
 		$crp_settings['show_excerpt_feed'] = (isset($_POST['show_excerpt_feed']) ? true : false);
 
 
-		$crp_settings['exclude_cat_slugs'] = ($_POST['exclude_cat_slugs']);
+		$crp_settings['exclude_cat_slugs'] = wp_kses_post($_POST['exclude_cat_slugs']);
 		$exclude_categories_slugs = explode(", ",$crp_settings['exclude_cat_slugs']);
 		
 		//$exclude_categories = array();
@@ -97,7 +97,7 @@ function crp_options() {
 		echo $str;
 	}
 	
-	if (isset($_POST['crp_default'])) {
+	if ( (isset($_POST['crp_default']) ) && (check_admin_referer('crp-plugin') ) ) {
 		delete_option('ald_crp_settings');
 		$crp_settings = crp_default_options();
 		update_option('ald_crp_settings', $crp_settings);
@@ -112,7 +112,8 @@ function crp_options() {
 		$str = '<div id="message" class="updated fade"><p>'. __('Options set to Default.',CRP_LOCAL_NAME) .'</p></div>';
 		echo $str;
 	}
-	if (isset($_POST['crp_recreate'])) {
+
+	if ( (isset($_POST['crp_recreate']) ) && (check_admin_referer('crp-plugin') ) ) {
 		$sql = "ALTER TABLE $poststable DROP INDEX crp_related";
 		$wpdb->query($sql);
 		
@@ -182,18 +183,18 @@ function crp_options() {
 		<div class="tabbertab" id="crp_genoptions">
 		<h3><?php _e('General options',CRP_LOCAL_NAME); ?></h3>
 			<table class="form-table">
-			<tr style="vertical-align: top;"><th scope="row"><label for="cache"><?php _e('Cache output?',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="cache"><?php _e('Cache output?',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="cache" id="cache" <?php if ($crp_settings['cache']) echo 'checked="checked"' ?> />
-				<br /><?php _e('Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.',CRP_LOCAL_NAME); ?>
+				<p class="description"><?php _e('Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.',CRP_LOCAL_NAME); ?></p>
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="limit"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="limit"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="limit" id="limit" value="<?php echo esc_attr(stripslashes($crp_settings['limit'])); ?>"></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="daily_range"><?php _e('Related posts should be newer than:',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="daily_range"><?php _e('Related posts should be newer than:',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="daily_range" id="daily_range" value="<?php echo esc_attr(stripslashes($crp_settings['daily_range'])); ?>"><?php _e('days',CRP_LOCAL_NAME); ?></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><?php _e('Post types to include in results (including custom post types)',CRP_LOCAL_NAME); ?></th>
+			<tr><th scope="row"><?php _e('Post types to include in results (including custom post types)',CRP_LOCAL_NAME); ?></th>
 			<td>
 				<select name="post_types[]" multiple="multiple" size="<?php echo min(20,count($wp_post_types)); ?>">
 					<?php foreach ($wp_post_types as $wp_post_type) {
@@ -204,16 +205,18 @@ function crp_options() {
 					}
 					?>
 				</select>
-				<br /><?php _e('Use CTRL on Windows and COMMAND on Mac to select multiple items',CRP_LOCAL_NAME); ?>
+				<p class="description"><?php _e('Use CTRL on Windows and COMMAND on Mac to select multiple items',CRP_LOCAL_NAME); ?></p>
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="match_content"><?php _e('Find related posts based on content as well as title',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="checkbox" name="match_content" id="match_content" <?php if ($crp_settings['match_content']) echo 'checked="checked"' ?> /> <br /><?php _e('If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)',CRP_LOCAL_NAME); ?></td>
+			<tr><th scope="row"><label for="match_content"><?php _e('Find related posts based on content as well as title',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="match_content" id="match_content" <?php if ($crp_settings['match_content']) echo 'checked="checked"' ?> /> 
+				<p class="description"><?php _e('If unchecked, only posts titles are used. (I recommend using a caching plugin if you enable this)',CRP_LOCAL_NAME); ?></p>
+			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_post_ids"><?php _e('List of post or page IDs to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="exclude_post_ids"><?php _e('List of post or page IDs to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="exclude_post_ids" id="exclude_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_post_ids'])); ?>"  style="width:250px"></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_cat_slugs"><?php _e('Categories to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="exclude_cat_slugs"><?php _e('Categories to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
 			<td>
 				<div style="position:relative;text-align:left">
 					<table id="MYCUSTOMFLOATER" class="myCustomFloater" style="position:absolute;top:50px;left:0;background-color:#cecece;display:none;visibility:hidden">
@@ -229,10 +232,10 @@ function crp_options() {
 					</table>
 					<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo (stripslashes($crp_settings['exclude_cat_slugs'])); ?></textarea>
 				</div>
-				<?php _e('Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the starting letters and it will prompt you with options',CRP_LOCAL_NAME); ?>
+				<p class="description"><?php _e('Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the starting letters and it will prompt you with options',CRP_LOCAL_NAME); ?></p>
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><?php _e('Add related posts to:',CRP_LOCAL_NAME); ?></th>
+			<tr><th scope="row"><?php _e('Add related posts to:',CRP_LOCAL_NAME); ?></th>
 			<td>
 				<label><input type="checkbox" name="add_to_content" id="add_to_content" <?php if ($crp_settings['add_to_content']) echo 'checked="checked"' ?> /> <?php _e('Posts',CRP_LOCAL_NAME); ?></label><br />
 				<label><input type="checkbox" name="add_to_page" id="add_to_page" <?php if ($crp_settings['add_to_page']) echo 'checked="checked"' ?> /> <?php _e('Pages',CRP_LOCAL_NAME); ?></label><br />
@@ -240,11 +243,11 @@ function crp_options() {
 				<label><input type="checkbox" name="add_to_feed" id="add_to_feed" <?php if ($crp_settings['add_to_feed']) echo 'checked="checked"' ?> /> <?php _e('Feeds',CRP_LOCAL_NAME); ?></label></label><br />
 				<label><input type="checkbox" name="add_to_category_archives" id="add_to_category_archives" <?php if ($crp_settings['add_to_category_archives']) echo 'checked="checked"' ?> /> <?php _e('Category archives',CRP_LOCAL_NAME); ?></label><br />
 				<label><input type="checkbox" name="add_to_tag_archives" id="add_to_tag_archives" <?php if ($crp_settings['add_to_tag_archives']) echo 'checked="checked"' ?> /> <?php _e('Tag archives',CRP_LOCAL_NAME); ?></label></label><br />
-				<label><input type="checkbox" name="add_to_archives" id="add_to_archives" <?php if ($crp_settings['add_to_archives']) echo 'checked="checked"' ?> /> <?php _e('Other archives',CRP_LOCAL_NAME); ?></label></label><br />
-				<?php _e('If you choose to disable this, please add <code>&lt;?php if(function_exists(\'echo_ald_crp\')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed',CRP_LOCAL_NAME); ?>
+				<label><input type="checkbox" name="add_to_archives" id="add_to_archives" <?php if ($crp_settings['add_to_archives']) echo 'checked="checked"' ?> /> <?php _e('Other archives',CRP_LOCAL_NAME); ?></label></label>
+				<p class="description"><?php _e('If you choose to disable this, please add <code>&lt;?php if(function_exists(\'echo_ald_crp\')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed',CRP_LOCAL_NAME); ?></p>
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="show_credit"><?php _e('Add a link to the plugin page as a final item in the list',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="show_credit"><?php _e('Add a link to the plugin page as a final item in the list',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="show_credit" id="show_credit" <?php if ($crp_settings['show_credit']) echo 'checked="checked"' ?> /> <?php _e(' <em>Optional</em>',CRP_LOCAL_NAME); ?></td>
 			</tr>
 
@@ -254,10 +257,10 @@ function crp_options() {
 		<div class="tabbertab" id="crp_outputoptions">
 		<h3><?php _e('Output options',CRP_LOCAL_NAME); ?></h3>
 			<table class="form-table">
-			<tr style="vertical-align: top;"><th scope="row"><label for="title"><?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="title"><?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="title" id="title" value="<?php echo esc_attr(stripslashes($crp_settings['title'])); ?>"  style="width:250px" /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="blank_output"><?php _e('When there are no posts, what should be shown?',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="blank_output"><?php _e('When there are no posts, what should be shown?',CRP_LOCAL_NAME); ?></label></th>
 			<td>
 				<label>
 				<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ($crp_settings['blank_output']) echo 'checked="checked"' ?> />
@@ -269,44 +272,44 @@ function crp_options() {
 				<input type="textbox" name="blank_output_text" id="blank_output_text" value="<?php echo esc_attr(stripslashes($crp_settings['blank_output_text'])); ?>"  style="width:250px" />
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="show_excerpt"><?php _e('Show post excerpt in list?',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="show_excerpt"><?php _e('Show post excerpt in list?',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="show_excerpt" id="show_excerpt" <?php if ($crp_settings['show_excerpt']) echo 'checked="checked"' ?> /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="excerpt_length"><?php _e('Length of excerpt (in words): ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="excerpt_length"><?php _e('Length of excerpt (in words): ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="excerpt_length" id="excerpt_length" value="<?php echo stripslashes($crp_settings['excerpt_length']); ?>" /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="title_length"><?php _e('Limit post title length (in characters)',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="title_length"><?php _e('Limit post title length (in characters)',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="title_length" id="title_length" value="<?php echo stripslashes($crp_settings['title_length']); ?>" /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="link_new_window"><?php _e('Open links in new window',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="link_new_window"><?php _e('Open links in new window',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="link_new_window" id="link_new_window" <?php if ($crp_settings['link_new_window']) echo 'checked="checked"' ?> /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="link_nofollow"><?php _e('Add nofollow attribute to links in the list',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="link_nofollow"><?php _e('Add nofollow attribute to links in the list',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="link_nofollow" id="link_nofollow" <?php if ($crp_settings['link_nofollow']) echo 'checked="checked"' ?> /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="exclude_on_post_ids"><?php _e('Exclude display of related posts on these posts / pages',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="exclude_on_post_ids"><?php _e('Exclude display of related posts on these posts / pages',CRP_LOCAL_NAME); ?></label></th>
 			<td>
 				<input type="textbox" name="exclude_on_post_ids" id="exclude_on_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_on_post_ids'])); ?>"  style="width:250px">
-				<br /><?php _e('Enter comma separated list of IDs. e.g. 188,320,500',CRP_LOCAL_NAME); ?>
+				<p class="description"><?php _e('Enter comma separated list of IDs. e.g. 188,320,500',CRP_LOCAL_NAME); ?></p>
 			</td>
 			</tr>
 			<tr style="vertical-align: top; background: #eee"><th scope="row" colspan="2"><?php _e('Customize the output:',CRP_LOCAL_NAME); ?></th>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="before_list"><?php _e('HTML to display before the list of posts: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="before_list"><?php _e('HTML to display before the list of posts: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="before_list" id="before_list" value="<?php echo esc_attr(stripslashes($crp_settings['before_list'])); ?>" style="width:250px" /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="before_list_item"><?php _e('HTML to display before each list item: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="before_list_item"><?php _e('HTML to display before each list item: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="before_list_item" id="before_list_item" value="<?php echo esc_attr(stripslashes($crp_settings['before_list_item'])); ?>" style="width:250px" /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="after_list_item"><?php _e('HTML to display after each list item: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="after_list_item"><?php _e('HTML to display after each list item: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="after_list_item" id="after_list_item" value="<?php echo esc_attr(stripslashes($crp_settings['after_list_item'])); ?>" style="width:250px" /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="after_list"><?php _e('HTML to display after the list of posts: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="after_list"><?php _e('HTML to display after the list of posts: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="after_list" id="after_list" value="<?php echo esc_attr(stripslashes($crp_settings['after_list'])); ?>" style="width:250px" /></td>
 			</tr>
 			<tr style="vertical-align: top; background: #eee"><th scope="row" colspan="2"><?php _e('Post thumbnail options:',CRP_LOCAL_NAME); ?></th>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="post_thumb_op"><?php _e('Location of post thumbnail:',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="post_thumb_op"><?php _e('Location of post thumbnail:',CRP_LOCAL_NAME); ?></label></th>
 			<td>
 				<label>
 				<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php if ($crp_settings['post_thumb_op']=='inline') echo 'checked="checked"' ?> />
@@ -326,32 +329,42 @@ function crp_options() {
 				<br />
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_width"><?php _e('Maximum width of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="thumb_width"><?php _e('Maximum width of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="thumb_width" id="thumb_width" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_width'])); ?>" style="width:30px" />px</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_height"><?php _e('Maximum height of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="thumb_height"><?php _e('Maximum height of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_height'])); ?>" style="width:30px" />px</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_timthumb"><?php _e('Use timthumb to generate thumbnails? ',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="checkbox" name="thumb_timthumb" id="thumb_timthumb" <?php if ($crp_settings['thumb_timthumb']) echo 'checked="checked"' ?> /> <br /><?php _e('If checked, <a href="http://www.binarymoon.co.uk/projects/timthumb/">timthumb</a> will be used to generate thumbnails',CRP_LOCAL_NAME); ?></td>
-			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_timthumb_q"><?php _e('Quality of thumbnails generated by timthumb',CRP_LOCAL_NAME); ?></label></th>
-			<td>
-				<input type="textbox" name="thumb_timthumb_q" id="thumb_timthumb_q" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_timthumb_q'])); ?>" style="width:30px" /><br />
-				<?php _e('Enter values between 0 and 100 only. 100 is highest quality, however, it is also the highest file size. Suggested maximum value is 95. CRP default is 75.',CRP_LOCAL_NAME); ?>
+			<tr><th scope="row"><label for="thumb_timthumb"><?php _e('Use timthumb to generate thumbnails? ',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="thumb_timthumb" id="thumb_timthumb" <?php if ($crp_settings['thumb_timthumb']) echo 'checked="checked"' ?> /> 
+				<p class="description"><?php _e('If checked, <a href="http://www.binarymoon.co.uk/projects/timthumb/">timthumb</a> will be used to generate thumbnails',CRP_LOCAL_NAME); ?></p>
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_meta"><?php _e('Post thumbnail meta field name: ',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_meta'])); ?>"> <br /><?php _e('The value of this field should contain the image source and is set in the <em>Add New Post</em> screen',CRP_LOCAL_NAME); ?></td>
+			<tr><th scope="row"><label for="thumb_timthumb_q"><?php _e('Quality of thumbnails generated by timthumb',CRP_LOCAL_NAME); ?></label></th>
+			<td>
+				<input type="textbox" name="thumb_timthumb_q" id="thumb_timthumb_q" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_timthumb_q'])); ?>" style="width:30px" />
+				<p class="description"><?php _e('Enter values between 0 and 100 only. 100 is highest quality, however, it is also the highest file size. Suggested maximum value is 95. CRP default is 75.',CRP_LOCAL_NAME); ?></p>
+			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="scan_images"><?php _e('If the postmeta is not set, then should the plugin extract the first image from the post?',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="checkbox" name="scan_images" id="scan_images" <?php if ($crp_settings['scan_images']) echo 'checked="checked"' ?> /> <br /><?php _e('This can slow down the loading of your page if the first image in the related posts is large in file-size',CRP_LOCAL_NAME); ?></td>
+			<tr><th scope="row"><label for="thumb_meta"><?php _e('Post thumbnail meta field name: ',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_meta'])); ?>"> 
+				<p class="description"><?php _e('The value of this field should contain the image source and is set in the <em>Add New Post</em> screen',CRP_LOCAL_NAME); ?></p>
+			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_default_show"><?php _e('Use default thumbnail? ',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="checkbox" name="thumb_default_show" id="thumb_default_show" <?php if ($crp_settings['thumb_default_show']) echo 'checked="checked"' ?> /> <br /><?php _e('If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown.',CRP_LOCAL_NAME); ?></td>
+			<tr><th scope="row"><label for="scan_images"><?php _e('If the postmeta is not set, then should the plugin extract the first image from the post?',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="scan_images" id="scan_images" <?php if ($crp_settings['scan_images']) echo 'checked="checked"' ?> /> 
+				<p class="description"><?php _e('This can slow down the loading of your page if the first image in the related posts is large in file-size',CRP_LOCAL_NAME); ?></p>
+			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_default"><?php _e('Default thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
-			<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_default'])); ?>" style="width:500px"> <br /><?php _e('The plugin will first check if the post contains a thumbnail. If it doesn\'t then it will check the meta field. If this is not available, then it will show the default image as specified above',CRP_LOCAL_NAME); ?></td>
+			<tr><th scope="row"><label for="thumb_default_show"><?php _e('Use default thumbnail? ',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="thumb_default_show" id="thumb_default_show" <?php if ($crp_settings['thumb_default_show']) echo 'checked="checked"' ?> /> 
+				<p class="description"><?php _e('If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown.',CRP_LOCAL_NAME); ?></p>
+			</td>
+			</tr>
+			<tr><th scope="row"><label for="thumb_default"><?php _e('Default thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_default'])); ?>" style="width:500px"> 
+				<p class="description"><?php _e('The plugin will first check if the post contains a thumbnail. If it doesn\'t then it will check the meta field. If this is not available, then it will show the default image as specified above',CRP_LOCAL_NAME); ?></p>
+			</td>
 			</tr>
 			</table>
 		</div>
@@ -360,13 +373,13 @@ function crp_options() {
 			<table class="form-table">
 			<tr style="vertical-align: top; "><th scope="row" colspan="2"><?php _e('Below options override the related posts settings for your blog feed. These only apply if you have selected to add related posts to Feeds in the General Options tab.',CRP_LOCAL_NAME); ?></th>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="limit_feed"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="limit_feed"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="limit_feed" id="limit_feed" value="<?php echo esc_attr(stripslashes($crp_settings['limit_feed'])); ?>"></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="show_excerpt_feed"><?php _e('Show post excerpt in list?',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="show_excerpt_feed"><?php _e('Show post excerpt in list?',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="show_excerpt_feed" id="show_excerpt_feed" <?php if ($crp_settings['show_excerpt_feed']) echo 'checked="checked"' ?> /></td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="post_thumb_op_feed"><?php _e('Location of post thumbnail:',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="post_thumb_op_feed"><?php _e('Location of post thumbnail:',CRP_LOCAL_NAME); ?></label></th>
 			<td>
 				<label>
 				<input type="radio" name="post_thumb_op_feed" value="inline" id="post_thumb_op_feed_0" <?php if ($crp_settings['post_thumb_op_feed']=='inline') echo 'checked="checked"' ?> />
@@ -386,10 +399,10 @@ function crp_options() {
 				<br />
 			</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_width_feed"><?php _e('Maximum width of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="thumb_width_feed"><?php _e('Maximum width of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="thumb_width_feed" id="thumb_width_feed" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_width_feed'])); ?>" style="width:30px" />px</td>
 			</tr>
-			<tr style="vertical-align: top;"><th scope="row"><label for="thumb_height_feed"><?php _e('Maximum height of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
+			<tr><th scope="row"><label for="thumb_height_feed"><?php _e('Maximum height of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="thumb_height_feed" id="thumb_height_feed" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_height_feed'])); ?>" style="width:30px" />px</td>
 			</tr>
 			</table>		
@@ -400,15 +413,17 @@ function crp_options() {
 			<tr style="vertical-align: top; "><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',CRP_LOCAL_NAME); ?></th>
 			</tr>
 			<tr style="vertical-align: top; "><td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80"><?php echo stripslashes($crp_settings['custom_CSS']); ?></textarea>
-			<br /><em><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.',CRP_LOCAL_NAME); ?></em></td></tr>
+			<p class="description"><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.',CRP_LOCAL_NAME); ?></p>
+			</td></tr>
 			</table>		
 		</div>
 		<p>
-		  <input type="submit" name="crp_save" id="crp_save" value="<?php _e('Save Options',CRP_LOCAL_NAME); ?>" style="border:#0C0 1px solid" />
-		  <input name="crp_default" type="submit" id="crp_default" value="<?php _e('Default Options',CRP_LOCAL_NAME); ?>" style="border:#F00 1px solid" onclick="if (!confirm('<?php _e('Do you want to set options to Default?',CRP_LOCAL_NAME); ?>')) return false;" />
-		  <input name="crp_recreate" type="submit" id="crp_recreate" value="<?php _e('Recreate Index',CRP_LOCAL_NAME); ?>" style="border:#00c 1px solid" onclick="if (!confirm('<?php _e('Are you sure you want to recreate the index?',CRP_LOCAL_NAME); ?>')) return false;" />
+		  <input type="submit" name="crp_save" id="crp_save" value="<?php _e('Save Options',CRP_LOCAL_NAME); ?>" class="button button-primary" />
+		  <input name="crp_default" type="submit" id="crp_default" value="<?php _e('Default Options',CRP_LOCAL_NAME); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e('Do you want to set options to Default?',CRP_LOCAL_NAME); ?>')) return false;" />
+		  <input name="crp_recreate" type="submit" id="crp_recreate" value="<?php _e('Recreate Index',CRP_LOCAL_NAME); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e('Are you sure you want to recreate the index?',CRP_LOCAL_NAME); ?>')) return false;" />
 		</p>
 		</fieldset>
+		<?php wp_nonce_field('crp-plugin'); ?>
 	  </form>
 	</div>
 

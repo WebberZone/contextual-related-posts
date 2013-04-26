@@ -40,12 +40,15 @@ Contextual Related Posts is one of the most feature rich related posts plugins f
 
 == Upgrade Notice ==
 
-= 1.8.6 =
-* New caching option; new function to return related posts; New shortcode; bug fixes and performance improvements
-Refer to Changelog for more information
+= 1.8.7 =
+* IMPORTANT security update: Potential XSS vulnerability fixed. Thanks to Charlie Eriksen via Secunia SVCRP for reporting this
 
 
 == Changelog ==
+
+= 1.8.7 =
+* Important security update: Potential XSS vulnerability fixed. Thanks to Charlie Eriksen via Secunia SVCRP for reporting this
+* Added Latvian translation
 
 = 1.8.6 =
 * New: Related posts are now cached
@@ -306,7 +309,6 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 Below are a few features that I plan on implementing in future versions of the plugin. However, there is no fixed time-frame for this and largely depends on how much time I can contribute to development.
 
 * Select random posts if there are no similar posts
-* Shortcode support
 * Exclude display on select categories and tags
 * Restrict related posts to same category
 * Better relevance tweaking
