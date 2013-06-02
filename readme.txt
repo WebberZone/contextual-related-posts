@@ -40,15 +40,18 @@ Contextual Related Posts is one of the most feature rich related posts plugins f
 
 == Upgrade Notice ==
 
-= 1.8.7 =
-* IMPORTANT security update: Potential XSS vulnerability fixed. Thanks to Charlie Eriksen via Secunia SVCRP for reporting this
-
+= 1.8.8 =
+* New: Clear cache button and option to add the date before the post title
 
 == Changelog ==
 
+= 1.8.8 =
+* New: Clear cache button
+* New: Option to add the date before the post title 
+
 = 1.8.7 =
 * Important security update: Potential XSS vulnerability fixed. Thanks to Charlie Eriksen via Secunia SVCRP for reporting this
-* Added Latvian translation 
+* Added Latvian translation
 
 = 1.8.6 =
 * New: Related posts are now cached

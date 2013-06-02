@@ -4,6 +4,12 @@
 *********************************************************************/
 if (!defined('ABSPATH')) die("Aren't you supposed to come here via WP-Admin?");
 
+/**
+ * Plugin settings page.
+ * 
+ * @access public
+ * @return void
+ */
 function crp_options() {
 	
 	global $wpdb;
@@ -55,6 +61,7 @@ function crp_options() {
 		$crp_settings['scan_images'] = (isset($_POST['scan_images']) ? true : false);
 		$crp_settings['show_excerpt'] = (isset($_POST['show_excerpt']) ? true : false);
 		$crp_settings['excerpt_length'] = intval($_POST['excerpt_length']);
+		$crp_settings['show_date'] = (isset($_POST['show_date']) ? true : false);
 		$crp_settings['show_credit'] = (isset($_POST['show_credit']) ? true : false);
 		$crp_settings['custom_CSS'] = wp_kses_post($_POST['custom_CSS']);
 
@@ -81,7 +88,7 @@ function crp_options() {
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
-		$post_types_arr = (is_array($_POST['post_types'])) ? $_POST['post_types'] : array('post' => 'post');
+		$post_types_arr = (isset($_POST['post_types']) && is_array($_POST['post_types'])) ? $_POST['post_types'] : array('post' => 'post');
 		$post_types = array_intersect($wp_post_types, $post_types_arr);
 		$crp_settings['post_types'] = http_build_query($post_types, '', '&');
 
@@ -186,6 +193,7 @@ function crp_options() {
 			<tr><th scope="row"><label for="cache"><?php _e('Cache output?',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="cache" id="cache" <?php if ($crp_settings['cache']) echo 'checked="checked"' ?> />
 				<p class="description"><?php _e('Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.',CRP_LOCAL_NAME); ?></p>
+				<p><input type="button" value="<?php _e('Clear cache',CRP_LOCAL_NAME) ?>" onclick="return clearCache();" class="button-secondary" /></p>
 			</td>
 			</tr>
 			<tr><th scope="row"><label for="limit"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
@@ -195,18 +203,15 @@ function crp_options() {
 			<td><input type="textbox" name="daily_range" id="daily_range" value="<?php echo esc_attr(stripslashes($crp_settings['daily_range'])); ?>"><?php _e('days',CRP_LOCAL_NAME); ?></td>
 			</tr>
 			<tr><th scope="row"><?php _e('Post types to include in results (including custom post types)',CRP_LOCAL_NAME); ?></th>
-			<td>
-				<select name="post_types[]" multiple="multiple" size="<?php echo min(20,count($wp_post_types)); ?>">
+				<td>
 					<?php foreach ($wp_post_types as $wp_post_type) {
-						$post_type_op = '<option value="'.$wp_post_type.'"';
-						if (in_array($wp_post_type, $posts_types_inc)) $post_type_op .= 'selected="selected"';
-						$post_type_op .= '>'.$wp_post_type.'</option>'; 
+						$post_type_op = '<input type="checkbox" name="post_types[]" value="'.$wp_post_type.'" ';
+						if (in_array($wp_post_type, $posts_types_inc)) $post_type_op .= ' checked="checked" ';
+						$post_type_op .= ' />'.$wp_post_type.'&nbsp;&nbsp;';
 						echo $post_type_op;
 					}
 					?>
-				</select>
-				<p class="description"><?php _e('Use CTRL on Windows and COMMAND on Mac to select multiple items',CRP_LOCAL_NAME); ?></p>
-			</td>
+				</td>
 			</tr>
 			<tr><th scope="row"><label for="match_content"><?php _e('Find related posts based on content as well as title',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="checkbox" name="match_content" id="match_content" <?php if ($crp_settings['match_content']) echo 'checked="checked"' ?> /> 
@@ -277,6 +282,9 @@ function crp_options() {
 			</tr>
 			<tr><th scope="row"><label for="excerpt_length"><?php _e('Length of excerpt (in words): ',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="excerpt_length" id="excerpt_length" value="<?php echo stripslashes($crp_settings['excerpt_length']); ?>" /></td>
+			</tr>
+			<tr><th scope="row"><label for="show_date"><?php _e('Show post date in list?',CRP_LOCAL_NAME); ?></label></th>
+			<td><input type="checkbox" name="show_date" id="show_date" <?php if ($crp_settings['show_date']) echo 'checked="checked"' ?> /></td>
 			</tr>
 			<tr><th scope="row"><label for="title_length"><?php _e('Limit post title length (in characters)',CRP_LOCAL_NAME); ?></label></th>
 			<td><input type="textbox" name="title_length" id="title_length" value="<?php echo stripslashes($crp_settings['title_length']); ?>" /></td>
@@ -436,6 +444,12 @@ function crp_options() {
 }
 
 
+/**
+ * Add a link under Settings to the plugins settings page.
+ * 
+ * @access public
+ * @return void
+ */
 function crp_adminmenu() {
 	if ((function_exists('add_options_page'))) {
 		$plugin_page = add_options_page(__("Contextual Related Posts", CRP_LOCAL_NAME), __("Related Posts", CRP_LOCAL_NAME), 'manage_options', 'crp_options', 'crp_options');
@@ -444,7 +458,12 @@ function crp_adminmenu() {
 }
 add_action('admin_menu', 'crp_adminmenu');
 
-// Admin notices
+/**
+ * Function to add a notice to the admin page.
+ * 
+ * @access public
+ * @return string Echoed string
+ */
 function crp_admin_notice() {
 	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('plugin settings page', CRP_LOCAL_NAME ) . '</a>';
 
@@ -456,6 +475,12 @@ function crp_admin_notice() {
 }
 // add_action('admin_notices', 'crp_admin_notice');
 
+/**
+ * Function to add CSS and JS to the Admin header.
+ * 
+ * @access public
+ * @return void
+ */
 function crp_adminhead() {
 	global $crp_url;
 
@@ -464,16 +489,56 @@ function crp_adminhead() {
 <link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/admin-styles.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/tabber/tabber.css" />
 <script type="text/javascript" language="JavaScript">
+//<![CDATA[
+function clearCache() {
+	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+	jQuery.post(ajaxurl, {action: 'crp_clear_cache'}, function(response, textStatus, jqXHR) {
+		alert( response.message );
+	}, 'json');
+}
+
 function checkForm() {
 answer = true;
 if (siw && siw.selectingSomething)
 	answer = false;
 return answer;
 }//
+//]]>
 </script>
 <script type="text/javascript" src="<?php echo $crp_url ?>/wick/sample_data.js.php"></script>
 <script type="text/javascript" src="<?php echo $crp_url ?>/wick/wick.js"></script>
 <script type="text/javascript" src="<?php echo $crp_url ?>/tabber/tabber-minimized.js"></script>
 <?php }
+
+
+/**
+ * Function to clear the CRP Cache with Ajax.
+ * 
+ * @access public
+ * @return void
+ */
+function crp_ajax_clearcache() {
+	global $wpdb; // this is how you get access to the database
+
+	$rows = $wpdb->query("
+		DELETE FROM " . $wpdb->postmeta . "
+		WHERE meta_key='crp_related_posts'
+	");
+
+	// Did an error occur?
+	if ( $rows === false )
+		exit(json_encode(array(
+			'success' => 0,
+			'message' => __('An error occurred clearing the cache. Please contact your site administrator.\n\nError message:\n', CRP_LOCAL_NAME) . $wpdb->print_error(),
+		)));
+	// No error, return the number of
+	else
+		exit(json_encode(array(
+			'success' => 1,
+			'message' => $rows . __(' cached row(s) cleared', CRP_LOCAL_NAME),
+		)));
+}
+add_action('wp_ajax_crp_clear_cache', 'crp_ajax_clearcache');
+
 
 ?>

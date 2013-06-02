@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.7
+Version:     1.8.8
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -45,8 +45,15 @@ add_action('init', 'ald_crp_init');
 global 	$crp_settings; 
 $crp_settings = crp_read_options();
 
-// Main function, accepts parameters in a query string format
+/**
+ * Main function to generate the related posts output
+ * 
+ * @access public
+ * @param mixed $args Parameters in a query string format
+ * @return string HTML formatted list of related posts
+ */
 function ald_crp( $args ) {
+	global $wpdb, $post, $single;
 	global $crp_settings;
 
 	$defaults = array(
@@ -61,26 +68,11 @@ function ald_crp( $args ) {
 	// OPTIONAL: Declare each item in $args as its own variable i.e. $type, $before.
 	extract( $args, EXTR_SKIP );
 
-	return get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_height, $thumb_width);
-}
-
-// Main function that returns the posts
-function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_height, $thumb_width) {
-	global $wpdb, $post, $single;
-
-	global $crp_settings;
-
 	//Support caching to speed up retrieval
 	if ( !empty($crp_settings['cache']) ) {
 		$output = get_post_meta($post->ID, 'crp_related_posts', true);
 		if ( $output ) return $output;
 	}
-
-	if (empty($limit)) $limit = stripslashes($crp_settings['limit']);
-	if (!isset($show_excerpt)) $show_excerpt = $crp_settings['show_excerpt'];
-	if (empty($post_thumb_op)) $post_thumb_op = stripslashes($crp_settings['post_thumb_op']);
-	if (empty($thumb_height)) $thumb_height = stripslashes($crp_settings['thumb_height']);
-	if (empty($thumb_width)) $thumb_width = stripslashes($crp_settings['thumb_width']);
 
 	$exclude_categories = explode(',',$crp_settings['exclude_categories']);
 	
@@ -99,6 +91,7 @@ function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_heigh
 		$output .= $crp_settings['before_list'];
 
 		foreach($results as $result) {
+			$result = get_post($result->ID);	// Let's get the Post using the ID
 			$categorys = get_the_category($result->ID);	//Fetch categories of the plugin
 			$p_in_c = false;	// Variable to check if post exists in a particular category
 			$title = crp_max_formatted_content(get_the_title($result->ID),$crp_settings['title_length']);
@@ -122,7 +115,9 @@ function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_heigh
 				if ($post_thumb_op=='inline' || $post_thumb_op=='text_only') {
 					$output .= '<a href="'.get_permalink($result->ID).'" '.$rel_attribute.' '.$target_attribute.' class="crp_title">'.$title.'</a>'; // Add title when required by settings
 				}
-				//$output .= '</a>'; // Close the link
+				if ($show_date) {
+					$output .= '<span class="crp_date"> '.mysql2date(get_option('date_format','d/m/y'), $result->post_date).'</span> ';
+				}
 				if ($show_excerpt) {
 					$output .= '<span class="crp_excerpt"> '.crp_excerpt($result->ID,$crp_settings['excerpt_length']).'</span>';
 				}
@@ -154,7 +149,16 @@ function get_crp($is_widget, $limit, $show_excerpt, $post_thumb_op, $thumb_heigh
 	return $output;
 }
 
-// Fetch related posts as an array
+
+/**
+ * Fetch related posts as an array.
+ * 
+ * @access public
+ * @param int $postid (default: FALSE) The post ID for which you want the posts for
+ * @param int $limit (default: FALSE) Maximum posts to retreive
+ * @param boolean $strict_limit (default: TRUE) Setting to true will fetch exactly as per limit above
+ * @return array Array of Post IDs
+ */
 function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 	global $wpdb, $post, $single;
 
@@ -212,7 +216,14 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 	return $results;
 }
 
-// Filter for 'the_content' to add the related posts
+
+/**
+ * Filter for 'the_content' to add the related posts.
+ * 
+ * @access public
+ * @param string $content
+ * @return string After the filter has been processed
+ */
 function ald_crp_content($content) {
 	
 	global $single, $post;
@@ -242,7 +253,14 @@ function ald_crp_content($content) {
 }
 add_filter('the_content', 'ald_crp_content');
 
-// Filter to add related posts to feeds
+
+/**
+ * Filter to add related posts to feeds.
+ * 
+ * @access public
+ * @param string $content
+ * @return string
+ */
 function ald_crp_rss($content) {
 	global $post;
 	global $crp_settings;
@@ -260,7 +278,12 @@ add_filter('the_excerpt_rss', 'ald_crp_rss');
 add_filter('the_content_feed', 'ald_crp_rss');
 
 
-// Manual install
+/**
+ * Manual install of the related posts.
+ * 
+ * @access public
+ * @return string echoed output of related posts
+ */
 function echo_ald_crp() {
 	echo ald_crp('is_widget=0');
 }
@@ -268,7 +291,11 @@ function echo_ald_crp() {
 /*********************************************************************
 *				WordPress Widgets									*
 ********************************************************************/
-// Create a Wordpress Widget for CRP
+/**
+ * Create a Wordpress Widget for CRP.
+ * 
+ * @extends WP_Widget
+ */
 class WidgetCRP extends WP_Widget
 {
 	function WidgetCRP()
@@ -371,7 +398,14 @@ add_action('init', 'init_ald_crp', 1);
 /*********************************************************************
 *				Shortcode functions									*
 ********************************************************************/
-// Creates a shortcode [crp limit="5" heading="1"]
+/**
+ * Creates a shortcode [crp limit="5" heading="1"].
+ * 
+ * @access public
+ * @param array $atts
+ * @param string $content (default: null)
+ * @return void
+ */
 function crp_shortcode( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 	  'limit' => '5',
@@ -387,7 +421,12 @@ add_shortcode( 'crp', 'crp_shortcode' );
 /*********************************************************************
 *				Default options										*
 ********************************************************************/
-// Default Options
+/**
+ * Default options.
+ * 
+ * @access public
+ * @return array
+ */
 function crp_default_options() {
 	global $crp_url;
 	$title = __('<h3>Related Posts:</h3>',CRP_LOCAL_NAME);
@@ -433,7 +472,8 @@ function crp_default_options() {
 						'thumb_timthumb' => true,	// Use timthumb
 						'thumb_timthumb_q' => '75',	// Quality attribute for timthumb
 						'scan_images' => false,			// Scan post for images
-						'show_excerpt' => false,			// Show description in list item
+						'show_excerpt' => false,			// Show post excerpt in list item
+						'show_date' => false,			// Show date in list item
 						'excerpt_length' => '10',		// Length of characters
 						'title_length' => '60',		// Limit length of post title
 						'post_types' => $post_types,		// WordPress custom post types
@@ -449,7 +489,12 @@ function crp_default_options() {
 	return $crp_settings;
 }
 
-// Function to read options from the database
+/**
+ * Function to read options from the database.
+ * 
+ * @access public
+ * @return array
+ */
 function crp_read_options() 
 {
 	$crp_settings_changed = false;
@@ -471,8 +516,12 @@ function crp_read_options()
 
 }
 
-// Header function
-add_action('wp_head','crp_header');
+/**
+ * Header function.
+ * 
+ * @access public
+ * @return etring Echoed string with the CSS output in the Header
+ */
 function crp_header() {
 	global $wpdb, $post, $single;
 
@@ -498,8 +547,15 @@ function crp_header() {
 	    }
 	}
 }
+add_action('wp_head','crp_header');
 	
-// Create full text index
+
+/**
+ * Create full text index on activation.
+ * 
+ * @access public
+ * @return void
+ */
 function ald_crp_activate() {
 	global $wpdb;
 
@@ -522,7 +578,17 @@ if (function_exists('register_activation_hook')) {
 /*********************************************************************
 *				Utility Functions									*
 ********************************************************************/
-// Filter function to resize post thumbnail. Filters: crp_postimage
+/**
+ * Filter function to resize post thumbnail. Filters: crp_postimage.
+ * 
+ * @access public
+ * @param string $postimage
+ * @param strint|int $thumb_width
+ * @param strint|int $thumb_height
+ * @param boolean $thumb_timthumb
+ * @param strint|int $thumb_timthumb_q
+ * @return string Post image output
+ */
 function crp_scale_thumbs($postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q) {
 	global $crp_url;
 	
@@ -535,7 +601,14 @@ function crp_scale_thumbs($postimage, $thumb_width, $thumb_height, $thumb_timthu
 }
 add_filter('crp_postimage', 'crp_scale_thumbs', 10, 5);
 
-// Function to get the post thumbnail
+
+/**
+ * Function to get the post thumbnail.
+ * 
+ * @access public
+ * @param array|string $args (default: array()) Array / Query string with arguments post thumbnails
+ * @return string Output with the post thumbnail
+ */
 function crp_get_the_post_thumbnail($args = array()) {
 
 	$defaults = array(
@@ -591,7 +664,15 @@ function crp_get_the_post_thumbnail($args = array()) {
 	return $output;
 }
 
-// Function to create an excerpt for the post
+
+/**
+ * Function to create an excerpt for the post.
+ * 
+ * @access public
+ * @param int $id Post ID
+ * @param int|string $excerpt_length Length of the excerpt in words
+ * @return string Excerpt
+ */
 function crp_excerpt($id,$excerpt_length){
 	$content = get_post($id)->post_excerpt;
 	if ($content=='') $content = get_post($id)->post_content;
@@ -614,7 +695,15 @@ function crp_excerpt($id,$excerpt_length){
 	return $out;
 }
 
-// Function to limit content by characters
+
+/**
+ * Function to limit content by characters.
+ * 
+ * @access public
+ * @param string $content Content to be used to make an excerpt
+ * @param int $MaxLength (default: -1) Maximum length of excerpt in characters
+ * @return string Formatted content
+ */
 function crp_max_formatted_content($content, $MaxLength = -1) {
   $content = strip_tags($content);  // Remove CRLFs, leaving space in their wake
 
@@ -635,12 +724,16 @@ function crp_max_formatted_content($content, $MaxLength = -1) {
 /*********************************************************************
 *				Admin Functions									*
 ********************************************************************/
-// This function adds an Options page in WP Admin
 if (is_admin() || strstr($_SERVER['PHP_SELF'], 'wp-admin/')) {
 	require_once(ALD_CRP_DIR . "/admin.inc.php");
 	
-	// Adding WordPress plugin action links
-	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'crp_plugin_actions_links' );
+	/**
+	 * Filter to add link to WordPress plugin action links.
+	 * 
+	 * @access public
+	 * @param array $links
+	 * @return array
+	 */
 	function crp_plugin_actions_links( $links ) {
 	
 		return array_merge(
@@ -651,8 +744,16 @@ if (is_admin() || strstr($_SERVER['PHP_SELF'], 'wp-admin/')) {
 		);
 	
 	}
+	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'crp_plugin_actions_links' );
 
-	// Add meta links
+	/**
+	 * Filter to add links to the plugin action row.
+	 * 
+	 * @access public
+	 * @param array $links
+	 * @param array $file
+	 * @return void
+	 */
 	function crp_plugin_actions( $links, $file ) {
 		static $plugin;
 		if (!$plugin) $plugin = plugin_basename(__FILE__);
