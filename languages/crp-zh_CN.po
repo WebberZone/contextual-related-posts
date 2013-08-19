@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-02 10:43-0000\n"
+"POT-Creation-Date: 2013-08-19 23:29-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: \n"
@@ -12,157 +12,158 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
 "X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin.inc.php:103
+#: admin.inc.php:106
 msgid "Options saved successfully."
 msgstr "成功保存设置。"
 
-#: admin.inc.php:119
+#: admin.inc.php:122
 msgid "Options set to Default."
 msgstr "已重置设置。"
 
-#: admin.inc.php:135
+#: admin.inc.php:138
 msgid "Index recreated"
 msgstr "已重新创建索引"
 
-#: admin.inc.php:148
+#: admin.inc.php:151
 msgid "Support the development"
 msgstr "支持开发"
 
-#: admin.inc.php:156
+#: admin.inc.php:159
 msgid "Enter amount in USD: "
 msgstr "输入美元金额："
 
-#: admin.inc.php:160
+#: admin.inc.php:163
 msgid "Send your donation to the author of"
 msgstr "捐赠给作者"
 
-#: admin.inc.php:171
+#: admin.inc.php:174
 #, fuzzy
 msgid "Quick Links"
 msgstr "快捷链接"
 
-#: admin.inc.php:173
+#: admin.inc.php:176
 #, fuzzy
 msgid "Contextual Related Posts plugin page"
 msgstr "相关日志"
 
-#: admin.inc.php:174
+#: admin.inc.php:177
 msgid "Other plugins"
 msgstr "其他插件"
 
-#: admin.inc.php:175
+#: admin.inc.php:178
 msgid "Ajay's blog"
 msgstr "Ajay 的博客"
 
-#: admin.inc.php:176 contextual-related-posts.php:763
+#: admin.inc.php:179 contextual-related-posts.php:829
 msgid "Support"
 msgstr "技术支持"
 
-#: admin.inc.php:177
+#: admin.inc.php:180
 msgid "Reviews"
 msgstr ""
 
-#: admin.inc.php:181
+#: admin.inc.php:184
 msgid "Recent developments"
 msgstr "最新开发"
 
-#: admin.inc.php:191
+#: admin.inc.php:194
 msgid "General options"
 msgstr "一般设置"
 
-#: admin.inc.php:193
+#: admin.inc.php:196
 msgid "Cache output?"
 msgstr ""
 
-#: admin.inc.php:195
+#: admin.inc.php:198
 msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
 msgstr ""
 
-#: admin.inc.php:196
+#: admin.inc.php:199
 msgid "Clear cache"
 msgstr ""
 
-#: admin.inc.php:199 admin.inc.php:384
+#: admin.inc.php:202 admin.inc.php:402
 msgid "Number of related posts to display: "
 msgstr "相关日志数量："
 
-#: admin.inc.php:202
+#: admin.inc.php:205
 msgid "Related posts should be newer than:"
 msgstr ""
 
-#: admin.inc.php:203
+#: admin.inc.php:206
 msgid "days"
 msgstr ""
 
-#: admin.inc.php:205
+#: admin.inc.php:208
 msgid "Post types to include in results (including custom post types)"
 msgstr "被索引的日志类型（包含自定义日志类型）"
 
-#: admin.inc.php:216
+#: admin.inc.php:219
 msgid "Find related posts based on content as well as title"
 msgstr "根据标题和正文内容索引"
 
-#: admin.inc.php:218
+#: admin.inc.php:221
+#, fuzzy
 msgid ""
-"If unchecked, only posts titles are used. (I recommend using a caching "
-"plugin if you enable this)"
+"If unchecked, only posts titles are used. I recommend using a caching plugin "
+"or enabling \"Cache output\" above if you enable this."
 msgstr "假如没有勾选此项，则只从标题索引。（推荐已经开启缓存的用户勾选使用）"
 
-#: admin.inc.php:221
+#: admin.inc.php:224
 msgid "List of post or page IDs to exclude from the results: "
 msgstr "排除的文章或页面 ID："
 
-#: admin.inc.php:224
+#: admin.inc.php:227
 #, fuzzy
 msgid "Categories to exclude from the results: "
 msgstr "排除的文章或页面 ID："
 
-#: admin.inc.php:240
+#: admin.inc.php:243
 msgid ""
 "Comma separated list of category slugs. The field above has an autocomplete "
 "so simply start typing in the starting letters and it will prompt you with "
 "options"
 msgstr ""
 
-#: admin.inc.php:243
+#: admin.inc.php:246
 #, fuzzy
 msgid "Add related posts to:"
 msgstr "添加相关日志到 feed 里"
 
-#: admin.inc.php:245
+#: admin.inc.php:248
 msgid "Posts"
 msgstr ""
 
-#: admin.inc.php:246
+#: admin.inc.php:249
 msgid "Pages"
 msgstr ""
 
-#: admin.inc.php:247
+#: admin.inc.php:250
 msgid "Home page"
 msgstr ""
 
-#: admin.inc.php:248
+#: admin.inc.php:251
 msgid "Feeds"
 msgstr ""
 
-#: admin.inc.php:249
+#: admin.inc.php:252
 msgid "Category archives"
 msgstr ""
 
-#: admin.inc.php:250
+#: admin.inc.php:253
 msgid "Tag archives"
 msgstr ""
 
-#: admin.inc.php:251
+#: admin.inc.php:254
 msgid "Other archives"
 msgstr ""
 
-#: admin.inc.php:252
+#: admin.inc.php:255
 msgid ""
 "If you choose to disable this, please add <code>&lt;?php if(function_exists"
 "('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where "
@@ -171,126 +172,146 @@ msgstr ""
 "假如没有勾选此项，请在模板文件中找到需要显示的地方，添加代码 <code>&lt;?php "
 "if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>"
 
-#: admin.inc.php:255
+#: admin.inc.php:258
 msgid "Add a link to the plugin page as a final item in the list"
 msgstr "在相关日志后添加插件页面的链接"
 
-#: admin.inc.php:256
+#: admin.inc.php:259
 msgid " <em>Optional</em>"
 msgstr " <em>可选</em>"
 
-#: admin.inc.php:263
+#: admin.inc.php:266
 #, fuzzy
 msgid "Output options"
 msgstr "显示设置"
 
-#: admin.inc.php:265
+#: admin.inc.php:268
 msgid "Title of related posts: "
 msgstr "相关日志的标题："
 
-#: admin.inc.php:268
+#: admin.inc.php:271
 msgid "When there are no posts, what should be shown?"
 msgstr "当不存在相关日志时，显示什么？"
 
-#: admin.inc.php:272
+#: admin.inc.php:275
 msgid "Blank Output"
 msgstr "不显示"
 
-#: admin.inc.php:276
+#: admin.inc.php:279
 msgid "Display:"
 msgstr ""
 
-#: admin.inc.php:280 admin.inc.php:387
+#: admin.inc.php:283 admin.inc.php:405
 msgid "Show post excerpt in list?"
 msgstr "是否显示日志摘要？"
 
-#: admin.inc.php:283
+#: admin.inc.php:286
 msgid "Length of excerpt (in words): "
 msgstr "摘要长度（词数）："
 
-#: admin.inc.php:286
+#: admin.inc.php:289
+#, fuzzy
+msgid "Show post author in list?"
+msgstr "是否显示日志摘要？"
+
+#: admin.inc.php:292
 #, fuzzy
 msgid "Show post date in list?"
 msgstr "是否显示日志摘要？"
 
-#: admin.inc.php:289
+#: admin.inc.php:295
 msgid "Limit post title length (in characters)"
 msgstr ""
 
-#: admin.inc.php:292
+#: admin.inc.php:298
 msgid "Open links in new window"
 msgstr ""
 
-#: admin.inc.php:295
+#: admin.inc.php:301
 msgid "Add nofollow attribute to links in the list"
 msgstr ""
 
-#: admin.inc.php:298
+#: admin.inc.php:304
 #, fuzzy
 msgid "Exclude display of related posts on these posts / pages"
 msgstr "添加相关日志到页面里"
 
-#: admin.inc.php:301
+#: admin.inc.php:307
 msgid "Enter comma separated list of IDs. e.g. 188,320,500"
 msgstr ""
 
-#: admin.inc.php:304
+#: admin.inc.php:310
 msgid "Customize the output:"
 msgstr "自定义显示："
 
-#: admin.inc.php:306
+#: admin.inc.php:312
 msgid "HTML to display before the list of posts: "
 msgstr "显示在每篇日志后面的 HTML 标签："
 
-#: admin.inc.php:309
+#: admin.inc.php:315
 msgid "HTML to display before each list item: "
 msgstr "显示在每篇日志后面的 HTML 标签："
 
-#: admin.inc.php:312
+#: admin.inc.php:318
 msgid "HTML to display after each list item: "
 msgstr "显示在日志列表前面的 HTML 标签："
 
-#: admin.inc.php:315
+#: admin.inc.php:321
 msgid "HTML to display after the list of posts: "
 msgstr "显示在日志列表后面的 HTML 标签："
 
-#: admin.inc.php:318
+#: admin.inc.php:324
 msgid "Post thumbnail options:"
 msgstr "日志缩略图设置："
 
-#: admin.inc.php:320 admin.inc.php:390
+#: admin.inc.php:326 admin.inc.php:408
 msgid "Location of post thumbnail:"
 msgstr "日志缩略图位置："
 
-#: admin.inc.php:324 admin.inc.php:394
+#: admin.inc.php:330 admin.inc.php:412
 msgid "Display thumbnails inline with posts, before title"
 msgstr "在标题前显示缩略图"
 
-#: admin.inc.php:328 admin.inc.php:398
+#: admin.inc.php:334 admin.inc.php:416
 msgid "Display thumbnails inline with posts, after title"
 msgstr "在标题后显示缩略图"
 
-#: admin.inc.php:332 admin.inc.php:402
+#: admin.inc.php:338 admin.inc.php:420
 msgid "Display only thumbnails, no text"
 msgstr "不显示文本，只显示缩略图"
 
-#: admin.inc.php:336 admin.inc.php:406
+#: admin.inc.php:342 admin.inc.php:424
 msgid "Do not display thumbnails, only text."
 msgstr "不显示缩略图，只显示文本"
 
-#: admin.inc.php:340 admin.inc.php:410
+#: admin.inc.php:346 admin.inc.php:428
 msgid "Maximum width of the thumbnail: "
 msgstr "缩略图最大宽度"
 
-#: admin.inc.php:343 admin.inc.php:413
+#: admin.inc.php:349 admin.inc.php:431
 msgid "Maximum height of the thumbnail: "
 msgstr "缩略图最大高度"
 
-#: admin.inc.php:346
+#: admin.inc.php:352
+msgid "Style attributes / Width and Height HTML attributes:"
+msgstr ""
+
+#: admin.inc.php:356
+msgid ""
+"Style attributes are used for width and height. <code>style=\"max-width:"
+msgstr ""
+
+#: admin.inc.php:360
+msgid ""
+"HTML width and height attributes are used for width and height. <code>width="
+"\""
+msgstr ""
+
+#: admin.inc.php:364
 msgid "Use timthumb to generate thumbnails? "
 msgstr "是否使用 timthumb 生成缩略图？"
 
-#: admin.inc.php:348
+#: admin.inc.php:366
 msgid ""
 "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
 "\">timthumb</a> will be used to generate thumbnails"
@@ -298,54 +319,54 @@ msgstr ""
 "勾选此项，将使用 <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
 "\">timthumb</a> 生成缩略图"
 
-#: admin.inc.php:351
+#: admin.inc.php:369
 msgid "Quality of thumbnails generated by timthumb"
 msgstr ""
 
-#: admin.inc.php:354
+#: admin.inc.php:372
 msgid ""
 "Enter values between 0 and 100 only. 100 is highest quality, however, it is "
 "also the highest file size. Suggested maximum value is 95. CRP default is 75."
 msgstr ""
 
-#: admin.inc.php:357
+#: admin.inc.php:375
 msgid "Post thumbnail meta field name: "
 msgstr "日志缩略图自定义栏目的名称："
 
-#: admin.inc.php:359
+#: admin.inc.php:377
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
 msgstr "该栏目的值在 <em>文章编辑 » 自定义栏目</em> 填写，需填写图像地址"
 
-#: admin.inc.php:362
+#: admin.inc.php:380
 msgid ""
 "If the postmeta is not set, then should the plugin extract the first image "
 "from the post?"
 msgstr "假如缩略图自定义栏目没有填写，是否使用日志的第一张图片？"
 
-#: admin.inc.php:364
+#: admin.inc.php:382
 msgid ""
 "This can slow down the loading of your page if the first image in the "
 "related posts is large in file-size"
 msgstr "勾选此项，若相关的日志中第一张图片过大，则页面载入速度会减慢。"
 
-#: admin.inc.php:367
+#: admin.inc.php:385
 msgid "Use default thumbnail? "
 msgstr "是否使用默认缩略图？"
 
-#: admin.inc.php:369
+#: admin.inc.php:387
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 "勾选此项，当不存在缩略图时，显示以下默认缩略图，不勾选则不显示任何图像。"
 
-#: admin.inc.php:372
+#: admin.inc.php:390
 msgid "Default thumbnail: "
 msgstr "默认缩略图："
 
-#: admin.inc.php:374
+#: admin.inc.php:392
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
 "then it will check the meta field. If this is not available, then it will "
@@ -354,27 +375,27 @@ msgstr ""
 "本插件按先后顺序检测日志本身、缩略图自定义栏目是否含有缩略图，若不存在，则显"
 "示上面默认图像"
 
-#: admin.inc.php:380
+#: admin.inc.php:398
 #, fuzzy
 msgid "Feed options"
 msgstr "一般设置"
 
-#: admin.inc.php:382
+#: admin.inc.php:400
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
 "Options tab."
 msgstr ""
 
-#: admin.inc.php:419
+#: admin.inc.php:437
 msgid "Custom Styles"
 msgstr "自定义样式"
 
-#: admin.inc.php:421
+#: admin.inc.php:439
 msgid "Custom CSS to add to header:"
 msgstr "添加自定义 CSS 到 header："
 
-#: admin.inc.php:424
+#: admin.inc.php:442
 #, fuzzy
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a href=\"http://"
@@ -384,122 +405,136 @@ msgstr ""
 "不要使用 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/"
 "extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
 
-#: admin.inc.php:429
+#: admin.inc.php:447
 msgid "Save Options"
 msgstr "保存设置"
 
-#: admin.inc.php:430
+#: admin.inc.php:448
 msgid "Default Options"
 msgstr "默认设置"
 
-#: admin.inc.php:430
+#: admin.inc.php:448
 msgid "Do you want to set options to Default?"
 msgstr "是否要重置设置？"
 
-#: admin.inc.php:431
+#: admin.inc.php:449
 msgid "Recreate Index"
 msgstr "重建索引"
 
-#: admin.inc.php:431
+#: admin.inc.php:449
 msgid "Are you sure you want to recreate the index?"
 msgstr "是否要重建索引？"
 
-#: admin.inc.php:455
+#: admin.inc.php:473
 msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin.inc.php:455 contextual-related-posts.php:304
+#: admin.inc.php:473 contextual-related-posts.php:314
 msgid "Related Posts"
 msgstr "相关日志"
 
-#: admin.inc.php:468
+#: admin.inc.php:486
 msgid "plugin settings page"
 msgstr "插件设置页面"
 
-#: admin.inc.php:473
+#: admin.inc.php:491
 msgid ""
 "Contextual Related Posts plugin has just been installed / upgraded. Please "
 "visit the "
 msgstr "Contextual Related Posts 插件已经安装/升级完毕。请访问"
 
-#: admin.inc.php:473
+#: admin.inc.php:491
 msgid " to configure."
 msgstr "设置插件。"
 
-#: admin.inc.php:532
+#: admin.inc.php:555
 msgid ""
 "An error occurred clearing the cache. Please contact your site administrator."
 "\\n\\nError message:\\n"
 msgstr ""
 
-#: admin.inc.php:538
+#: admin.inc.php:561
 msgid " cached row(s) cleared"
 msgstr ""
 
-#: contextual-related-posts.php:131
+#: contextual-related-posts.php:123
+#, fuzzy
+msgid " Posted by "
+msgstr "插件作者："
+
+#: contextual-related-posts.php:138
 msgid "Powered by"
 msgstr "插件作者："
 
-#: contextual-related-posts.php:303
+#: contextual-related-posts.php:313
 msgid "Display Related Posts"
 msgstr "显示相关日志"
 
-#: contextual-related-posts.php:316
+#: contextual-related-posts.php:328
 msgid "Title"
 msgstr "标题"
 
-#: contextual-related-posts.php:321
+#: contextual-related-posts.php:333
 msgid "No. of posts"
 msgstr "日志数量"
 
-#: contextual-related-posts.php:326
+#: contextual-related-posts.php:338
 msgid " Show excerpt?"
 msgstr "是否显示日志摘要？"
 
-#: contextual-related-posts.php:330
+#: contextual-related-posts.php:343
+msgid " Show author?"
+msgstr ""
+
+#: contextual-related-posts.php:348
+#, fuzzy
+msgid " Show date?"
+msgstr "是否显示日志摘要？"
+
+#: contextual-related-posts.php:352
 msgid "Thumbnail options"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:332
+#: contextual-related-posts.php:354
 msgid "Thumbnails inline, before title"
 msgstr "在标题前显示缩略图"
 
-#: contextual-related-posts.php:333
+#: contextual-related-posts.php:355
 msgid "Thumbnails inline, after title"
 msgstr "在标题后显示缩略图"
 
-#: contextual-related-posts.php:334
+#: contextual-related-posts.php:356
 msgid "Only thumbnails, no text"
 msgstr "不显示文本，只显示缩略图"
 
-#: contextual-related-posts.php:335
+#: contextual-related-posts.php:357
 msgid "No thumbnails, only text."
 msgstr "不显示缩略图，只显示文本"
 
-#: contextual-related-posts.php:340
+#: contextual-related-posts.php:362
 #, fuzzy
 msgid "Thumbnail height"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:345
+#: contextual-related-posts.php:367
 #, fuzzy
 msgid "Thumbnail width"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:432
+#: contextual-related-posts.php:463
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>相关日志：</h3>"
 
-#: contextual-related-posts.php:433
+#: contextual-related-posts.php:464
 #, fuzzy
 msgid "No related posts found"
 msgstr "没有发现相关日志"
 
-#: contextual-related-posts.php:741
+#: contextual-related-posts.php:807
 msgid "Settings"
 msgstr "设置"
 
-#: contextual-related-posts.php:764
+#: contextual-related-posts.php:830
 msgid "Donate"
 msgstr "捐赠"
 

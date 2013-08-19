@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.8
+Version:     1.8.9
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -69,8 +69,8 @@ function ald_crp( $args ) {
 	extract( $args, EXTR_SKIP );
 
 	//Support caching to speed up retrieval
-	if ( !empty($crp_settings['cache']) ) {
-		$output = get_post_meta($post->ID, 'crp_related_posts', true);
+	if ( !empty($cache) ) {
+		$output = ($is_widget) ? get_post_meta($post->ID, 'crp_related_posts_widget', true) : get_post_meta($post->ID, 'crp_related_posts', true);
 		if ( $output ) return $output;
 	}
 
@@ -81,20 +81,20 @@ function ald_crp( $args ) {
 	
 	// Retrieve the list of posts
 	$results = get_crp_posts($post->ID, $limit, TRUE);
-		
+
 	$output = (is_singular()) ? '<div id="crp_related" class="crp_related">' : '<div class="crp_related">';
 	
 	if($results){
 		$loop_counter = 0;
 
-		if(!$is_widget) $output .= (stripslashes($crp_settings['title']));
+		if(!$is_widget) $output .= apply_filters('crp_heading_title',$title);
 		$output .= $crp_settings['before_list'];
 
 		foreach($results as $result) {
 			$result = get_post($result->ID);	// Let's get the Post using the ID
 			$categorys = get_the_category($result->ID);	//Fetch categories of the plugin
 			$p_in_c = false;	// Variable to check if post exists in a particular category
-			$title = crp_max_formatted_content(get_the_title($result->ID),$crp_settings['title_length']);
+			$title = apply_filters('crp_title', crp_max_formatted_content(get_the_title($result->ID),$title_length) );
 			foreach ($categorys as $cat) {	// Loop to check if post exists in excluded category
 				$p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
 				if ($p_in_c) break;	// End loop if post found in category
@@ -109,11 +109,18 @@ function ald_crp( $args ) {
 				}
 				if ($post_thumb_op=='inline' || $post_thumb_op=='after' || $post_thumb_op=='thumbs_only') {
 					$output .= '<a href="'.get_permalink($result->ID).'" '.$rel_attribute.' '.$target_attribute.'>';
-					$output .= crp_get_the_post_thumbnail('postid='.$result->ID.'&thumb_height='.$thumb_height.'&thumb_width='.$thumb_width.'&thumb_meta='.$crp_settings['thumb_meta'].'&thumb_default='.$crp_settings['thumb_default'].'&thumb_default_show='.$crp_settings['thumb_default_show'].'&thumb_timthumb='.$crp_settings['thumb_timthumb'].'&thumb_timthumb_q='.$crp_settings['thumb_timthumb_q'].'&scan_images='.$crp_settings['scan_images'].'&class=crp_thumb&filter=crp_postimage');
+					$output .= crp_get_the_post_thumbnail('postid='.$result->ID.'&thumb_height='.$thumb_height.'&thumb_width='.$thumb_width.'&thumb_meta='.$crp_settings['thumb_meta'].'&thumb_html='.$crp_settings['thumb_html'].'&thumb_default='.$crp_settings['thumb_default'].'&thumb_default_show='.$crp_settings['thumb_default_show'].'&thumb_timthumb='.$crp_settings['thumb_timthumb'].'&thumb_timthumb_q='.$crp_settings['thumb_timthumb_q'].'&scan_images='.$crp_settings['scan_images'].'&class=crp_thumb&filter=crp_postimage');
 					$output .= '</a>';
 				}
 				if ($post_thumb_op=='inline' || $post_thumb_op=='text_only') {
 					$output .= '<a href="'.get_permalink($result->ID).'" '.$rel_attribute.' '.$target_attribute.' class="crp_title">'.$title.'</a>'; // Add title when required by settings
+				}
+				if ($show_author) {
+					$author_info = get_userdata($result->post_author);
+					$author_name = ucwords(trim(stripslashes($author_info->user_nicename)));
+					$author_link = get_author_posts_url( $author_info->ID );
+					
+					$output .= '<span class="crp_author"> '.__(' Posted by ', CRP_LOCAL_NAME ).'<a href="'.$author_link.'">'.$author_name.'</a></span> ';
 				}
 				if ($show_date) {
 					$output .= '<span class="crp_date"> '.mysql2date(get_option('date_format','d/m/y'), $result->post_date).'</span> ';
@@ -143,9 +150,12 @@ function ald_crp( $args ) {
 	
 
 	//Support caching to speed up retrieval
-	if ( !empty($crp_settings['cache']) )
-		update_post_meta($post->ID, 'crp_related_posts', $output, '');
-
+	if ( !empty($cache) ) {
+		if ($is_widget) 
+			update_post_meta($post->ID, 'crp_related_posts_widget', $output, '');
+		else
+			update_post_meta($post->ID, 'crp_related_posts', $output, '');
+	}
 	return $output;
 }
 
@@ -284,8 +294,8 @@ add_filter('the_content_feed', 'ald_crp_rss');
  * @access public
  * @return string echoed output of related posts
  */
-function echo_ald_crp() {
-	echo ald_crp('is_widget=0');
+function echo_ald_crp($cache = 0) {
+	echo ald_crp('is_widget=0&cache='.$cache);
 }
 
 /*********************************************************************
@@ -304,12 +314,14 @@ class WidgetCRP extends WP_Widget
 		$this->WP_Widget('widget_crp',__('Related Posts',CRP_LOCAL_NAME), $widget_ops);
 	}
 	function form($instance) {
-		$title = esc_attr($instance['title']);
-		$limit = esc_attr($instance['limit']);
-		$show_excerpt = esc_attr($instance['show_excerpt']);
-		$post_thumb_op = esc_attr($instance['post_thumb_op']);
-		$thumb_height = esc_attr($instance['thumb_height']);
-		$thumb_width = esc_attr($instance['thumb_width']);
+		$title = isset($instance['title']) ? esc_attr($instance['title']) : '';
+		$limit = isset($instance['limit']) ? esc_attr($instance['limit']) : '';
+		$show_excerpt = isset($instance['show_excerpt']) ? esc_attr($instance['show_excerpt']) : '';
+		$show_author = isset($instance['show_author']) ? esc_attr($instance['show_author']) : '';
+		$show_date = isset($instance['show_date']) ? esc_attr($instance['show_date']) : '';
+		$post_thumb_op = isset($instance['post_thumb_op']) ? esc_attr($instance['post_thumb_op']) : '';
+		$thumb_height = isset($instance['thumb_height']) ? esc_attr($instance['thumb_height']) : '';
+		$thumb_width = isset($instance['thumb_width']) ? esc_attr($instance['thumb_width']) : '';
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>">
@@ -324,6 +336,16 @@ class WidgetCRP extends WP_Widget
 		<p>
 			<label for="<?php echo $this->get_field_id('show_excerpt'); ?>">
 			<input id="<?php echo $this->get_field_id('show_excerpt'); ?>" name="<?php echo $this->get_field_name('show_excerpt'); ?>" type="checkbox" <?php if ($show_excerpt) echo 'checked="checked"' ?> /> <?php _e(' Show excerpt?', CRP_LOCAL_NAME); ?>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('show_author'); ?>">
+			<input id="<?php echo $this->get_field_id('show_author'); ?>" name="<?php echo $this->get_field_name('show_author'); ?>" type="checkbox" <?php if ($show_author) echo 'checked="checked"' ?> /> <?php _e(' Show author?', CRP_LOCAL_NAME); ?>
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('show_date'); ?>">
+			<input id="<?php echo $this->get_field_id('show_date'); ?>" name="<?php echo $this->get_field_name('show_date'); ?>" type="checkbox" <?php if ($show_date) echo 'checked="checked"' ?> /> <?php _e(' Show date?', CRP_LOCAL_NAME); ?>
 			</label>
 		</p>
 		<p>
@@ -352,9 +374,12 @@ class WidgetCRP extends WP_Widget
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['limit'] = ($new_instance['limit']);
 		$instance['show_excerpt'] = ($new_instance['show_excerpt']);
+		$instance['show_author'] = ($new_instance['show_author']);
+		$instance['show_date'] = ($new_instance['show_date']);
 		$instance['post_thumb_op'] = ($new_instance['post_thumb_op']);
 		$instance['thumb_height'] = ($new_instance['thumb_height']);
 		$instance['thumb_width'] = ($new_instance['thumb_width']);
+		delete_post_meta_by_key('crp_related_posts_widget'); // Delete the cache
 		return $instance;
 	} //ending update
 	function widget($args, $instance) {
@@ -372,14 +397,19 @@ class WidgetCRP extends WP_Widget
 			$limit = $instance['limit'];
 			if (empty($limit)) $limit = $crp_settings['limit'];
 	
-			$show_excerpt = $instance['show_excerpt'];
-			$post_thumb_op = $instance['post_thumb_op'];
-			$thumb_height = $instance['thumb_height'];
-			$thumb_width = $instance['thumb_width'];
-			
 			$output = $before_widget;
 			$output .= $before_title . $title . $after_title;
-			$output .= ald_crp('is_widget=1&limit='.$limit.'&show_excerpt='.$show_excerpt.'&post_thumb_op='.$post_thumb_op.'&thumb_height='.$thumb_height.'&thumb_width='.$thumb_width);
+			$output .= ald_crp( array(
+				'is_widget' => 1,
+				'limit' => $limit,
+				'show_excerpt' => $instance['show_excerpt'],
+				'show_author' => $instance['show_author'],
+				'show_date' => $instance['show_date'],
+				'post_thumb_op' => $instance['post_thumb_op'],
+				'thumb_height' => $instance['thumb_height'],
+				'thumb_width' => $instance['thumb_width'],
+			) );
+			
 			$output .= $after_widget;
 	
 			echo $output;
@@ -399,7 +429,7 @@ add_action('init', 'init_ald_crp', 1);
 *				Shortcode functions									*
 ********************************************************************/
 /**
- * Creates a shortcode [crp limit="5" heading="1"].
+ * Creates a shortcode [crp limit="5" heading="1" cache="1"].
  * 
  * @access public
  * @param array $atts
@@ -410,10 +440,11 @@ function crp_shortcode( $atts, $content = null ) {
 	extract( shortcode_atts( array(
 	  'limit' => '5',
 	  'heading' => '1',
+	  'cache' => '1',
 	  ), $atts ) );
 	
 	$heading = 1 - $heading;	  
-	return ald_crp('is_widget='.$heading.'&limit='.$limit);
+	return ald_crp('is_widget='.$heading.'&limit='.$limit.'&cache='.$cache);
 }
 add_shortcode( 'crp', 'crp_shortcode' );
 
@@ -466,6 +497,7 @@ function crp_default_options() {
 						'post_thumb_op' => 'text_only',	// Default option to display text and no thumbnails in posts
 						'thumb_height' => '50',	// Height of thumbnails
 						'thumb_width' => '50',	// Width of thumbnails
+						'thumb_html' => 'html',		// Use HTML or CSS for width and height of the thumbnail?
 						'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image
 						'thumb_default' => $thumb_default,	// Default thumbnail image
 						'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
@@ -474,6 +506,7 @@ function crp_default_options() {
 						'scan_images' => false,			// Scan post for images
 						'show_excerpt' => false,			// Show post excerpt in list item
 						'show_date' => false,			// Show date in list item
+						'show_author' => false,			// Show author in list item
 						'excerpt_length' => '10',		// Length of characters
 						'title_length' => '60',		// Limit length of post title
 						'post_types' => $post_types,		// WordPress custom post types
@@ -616,6 +649,7 @@ function crp_get_the_post_thumbnail($args = array()) {
 		'thumb_height' => '50',			// Max height of thumbnails
 		'thumb_width' => '50',			// Max width of thumbnails
 		'thumb_meta' => 'post-image',		// Meta field that is used to store the location of default thumbnail image
+		'thumb_html' => 'html',		// HTML / CSS for width and height attributes
 		'thumb_default' => '',	// Default thumbnail image
 		'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
 		'thumb_timthumb' => true,	// Use timthumb
@@ -635,13 +669,14 @@ function crp_get_the_post_thumbnail($args = array()) {
 
 	$output = '';
 	$title = get_the_title($postid);
+	$thumb_html = ($thumb_html=='css') ? 'style="max-width:'.$thumb_width.'px;max-height:'.$thumb_height.'px;"' : 'width="'.$thumb_width.'" height="'.$thumb_height.'"';
 	
 	if (function_exists('has_post_thumbnail') && ( (wp_get_attachment_image_src( get_post_thumbnail_id($result->ID) )!='') || (wp_get_attachment_image_src( get_post_thumbnail_id($result->ID) )!= false) ) ) {
 		$postimage = wp_get_attachment_image_src( get_post_thumbnail_id($result->ID) );
 		
 		if ( ($postimage[1] < $thumb_width) || ($postimage[2] < $thumb_height) ) $postimage = wp_get_attachment_image_src( get_post_thumbnail_id($result->ID) , 'full' ); 
 		$postimage = apply_filters( $filter, $postimage[0], $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q );
-		$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" style="max-width:'.$thumb_width.'px;max-height:'.$thumb_height.'px;" border="0" class="'.$class.'" />';
+		$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' border="0" class="'.$class.'" />';
 	} else {
 		$postimage = get_post_meta($result->ID, $thumb_meta, true);	// Check the post meta first
 		if (!$postimage && $scan_images) {
@@ -653,17 +688,48 @@ function crp_get_the_post_thumbnail($args = array()) {
 				}
 			}
 		}
+		if (!$postimage) $postimage = tptn_get_first_image($result->ID);	// Get the first image
 		if (!$postimage) $postimage = get_post_meta($result->ID, '_video_thumbnail', true); // If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin
 		if ($thumb_default_show && !$postimage) $postimage = $thumb_default; // If no thumb found and settings permit, use default thumb
 		if ($postimage) {
 			$postimage = apply_filters( $filter, $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q );
-			$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" style="max-width:'.$thumb_width.'px;max-height:'.$thumb_height.'px;" border="0" class="'.$class.'" />';
+			$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' border="0" class="'.$class.'" />';
 		}
 	}
 	
 	return $output;
 }
 
+
+/**
+ * Get the first image in the post.
+ * 
+ * @access public
+ * @param mixed $postID	Post ID
+ * @return string
+ */
+function crp_get_first_image( $postID ) {
+	$args = array(
+		'numberposts' => 1,
+		'order' => 'ASC',
+		'post_mime_type' => 'image',
+		'post_parent' => $postID,
+		'post_status' => null,
+		'post_type' => 'attachment',
+	);
+
+	$attachments = get_children( $args );
+
+	if ( $attachments ) {
+		foreach ( $attachments as $attachment ) {
+			$image_attributes = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' )  ? wp_get_attachment_image_src( $attachment->ID, 'thumbnail' ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
+
+			return $image_attributes[0];
+		}
+	} else {
+		return false;
+	}
+}
 
 /**
  * Function to create an excerpt for the post.
@@ -676,7 +742,7 @@ function crp_get_the_post_thumbnail($args = array()) {
 function crp_excerpt($id,$excerpt_length){
 	$content = get_post($id)->post_excerpt;
 	if ($content=='') $content = get_post($id)->post_content;
-	$out = strip_tags($content);
+	$out = strip_tags(strip_shortcodes($content));
 	$blah = explode(' ',$out);
 	if (!$excerpt_length) $excerpt_length = 10;
 	if(count($blah) > $excerpt_length){

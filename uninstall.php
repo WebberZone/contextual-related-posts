@@ -14,5 +14,13 @@ if ( !defined('ABSPATH') && !defined('WP_UNINSTALL_PLUGIN') ) {
 	$sql = "ALTER TABLE $poststable DROP INDEX crp_related_content";
 	$wpdb->query($sql);
 	
+	$sql = "ALTER TABLE $poststable DROP INDEX crp_related_content";
+	$wpdb->query($sql);
+	
+	$wpdb->query("
+		DELETE FROM " . $wpdb->postmeta . "
+		WHERE meta_key='crp_related_posts'
+	");
+
 	delete_option('ald_crp_settings');
 ?>
