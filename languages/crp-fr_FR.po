@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-08-19 23:28-0000\n"
-"PO-Revision-Date: \n"
+"PO-Revision-Date: 2013-08-20 22:30-0000\n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Olivier Copetto <olivier@copetto.com>\n"
 "Language: fr\n"
@@ -113,13 +113,13 @@ msgstr ""
 "titre"
 
 #: admin.inc.php:221
-#, fuzzy
 msgid ""
 "If unchecked, only posts titles are used. I recommend using a caching plugin "
 "or enabling \"Cache output\" above if you enable this."
 msgstr ""
-"Si non cochée, les titres des articles seront uniquement utilisés. (Nous "
-"recommandons d'utiliser un plugin de mise en cache si vous l'activez)"
+"Nous recommandons d'utiliser un plugin de mise en cache ou d'activer "
+"l'option \"Cache de l'affichage\" ci-dessus. Si non cochée, les titres des "
+"articles seront uniquement utilisés."
 
 #: admin.inc.php:224
 msgid "List of post or page IDs to exclude from the results: "
@@ -218,9 +218,8 @@ msgid "Length of excerpt (in words): "
 msgstr "Longueur de l'extrait (en mots) :"
 
 #: admin.inc.php:289
-#, fuzzy
 msgid "Show post author in list?"
-msgstr "Afficher la date de l'article dans la liste ?"
+msgstr "Afficher les articles auteur dans la liste ?"
 
 #: admin.inc.php:292
 msgid "Show post date in list?"
@@ -301,18 +300,22 @@ msgstr "Hauteur maximale de la vignette :"
 
 #: admin.inc.php:352
 msgid "Style attributes / Width and Height HTML attributes:"
-msgstr ""
+msgstr "Attributs de style / attributs HTML width et height :"
 
 #: admin.inc.php:356
 msgid ""
 "Style attributes are used for width and height. <code>style=\"max-width:"
 msgstr ""
+"Les attributs de style sont utilisés pour la largeur et la hauteur. "
+"<code>style=\"max-width:"
 
 #: admin.inc.php:360
 msgid ""
 "HTML width and height attributes are used for width and height. <code>width="
 "\""
 msgstr ""
+"Les attributs HTML width et height sont utilisés pour la largeur et la "
+"hauteur. <code>width=\""
 
 #: admin.inc.php:364
 msgid "Use timthumb to generate thumbnails? "
@@ -396,7 +399,7 @@ msgstr ""
 
 #: admin.inc.php:398
 msgid "Feed options"
-msgstr "Options RSS"
+msgstr "Options Flux RSS"
 
 #: admin.inc.php:400
 msgid ""
@@ -483,9 +486,8 @@ msgid " cached row(s) cleared"
 msgstr "Ligne(s) en cache nettoyée(s)."
 
 #: contextual-related-posts.php:123
-#, fuzzy
 msgid " Posted by "
-msgstr "Propulsé par"
+msgstr " Publié par"
 
 #: contextual-related-posts.php:138
 msgid "Powered by"
@@ -509,12 +511,11 @@ msgstr " Voir l'extrait ?"
 
 #: contextual-related-posts.php:343
 msgid " Show author?"
-msgstr ""
+msgstr " Afficher l'auteur ?"
 
 #: contextual-related-posts.php:348
-#, fuzzy
 msgid " Show date?"
-msgstr " Voir l'extrait ?"
+msgstr " Afficher la date ?"
 
 #: contextual-related-posts.php:352
 msgid "Thumbnail options"

@@ -45,11 +45,14 @@ If you have been using this plugin and find this useful, do consider making a do
 
 == Upgrade Notice ==
 
-= 1.8.9 =
+= 1.8.9.1 =
 * New: Select between CSS or HTML attributes for thumbnail width and height; Add author to posts; More options in the widget; More cache control; 
 Check the Changelog for more information
 
 == Changelog ==
+
+= 1.8.9.1 =
+* Fixed: PHP error when fetching thumbnail for gallery posts
 
 = 1.8.9 =
 * New: Option to choose between using CSS styles or HTML attributes for thumbnail width and height. *HTML width and height attributes are default* 
