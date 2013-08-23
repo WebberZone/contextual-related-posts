@@ -249,6 +249,7 @@ Check the Changelog for more information
 2. CRP options in WP-Admin - Output options
 3. CRP options in WP-Admin - Feed options
 4. CRP options in WP-Admin - Custom styles
+5. CRP Widget
 
 
 == Frequently Asked Questions ==
