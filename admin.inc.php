@@ -30,6 +30,7 @@ function crp_options() {
 		$crp_settings['exclude_on_post_ids'] = wp_kses_post($_POST['exclude_on_post_ids']);
 		$crp_settings['exclude_post_ids'] = wp_kses_post($_POST['exclude_post_ids']);
 		$crp_settings['match_content'] = (isset($_POST['match_content']) ? true : false);
+		$crp_settings['match_content_words'] = intval($_POST['match_content_words']);
 		$crp_settings['cache'] = (isset($_POST['cache']) ? true : false);
 
 		$crp_settings['add_to_content'] = (isset($_POST['add_to_content']) ? true : false);
@@ -49,7 +50,7 @@ function crp_options() {
 		$crp_settings['before_list_item'] = wp_kses_post($_POST['before_list_item']);
 		$crp_settings['after_list_item'] = wp_kses_post($_POST['after_list_item']);
 
-		$crp_settings['thumb_meta'] = wp_kses_post($_POST['thumb_meta']);
+		$crp_settings['thumb_meta'] = (''==$_POST['thumb_meta'] ? 'post-image' : wp_kses_post($_POST['thumb_meta']));
 		$crp_settings['thumb_default'] = wp_kses_post($_POST['thumb_default']);
 		$crp_settings['thumb_height'] = intval($_POST['thumb_height']);
 		$crp_settings['thumb_width'] = intval($_POST['thumb_width']);
@@ -176,8 +177,9 @@ function crp_options() {
 				<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e('Contextual Related Posts plugin page',CRP_LOCAL_NAME) ?></a></li>
 				<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',CRP_LOCAL_NAME) ?></a></li>
 				<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',CRP_LOCAL_NAME) ?></a></li>
-				<li><a href="http://wordpress.org/support/plugin/contextual-related-posts"><?php _e('Support',CRP_LOCAL_NAME) ?></a></li>
-				<li><a href="http://wordpress.org/support/view/plugin-reviews/contextual-related-posts"><?php _e('Reviews',CRP_LOCAL_NAME) ?></a></li>
+				<li><a href="https://wordpress.org/plugins/contextual-related-posts/faq/"><?php _e('FAQ',CRP_LOCAL_NAME) ?></a></li>
+				<li><a href="https://wordpress.org/support/plugin/contextual-related-posts"><?php _e('Support',CRP_LOCAL_NAME) ?></a></li>
+				<li><a href="https://wordpress.org/support/view/plugin-reviews/contextual-related-posts"><?php _e('Reviews',CRP_LOCAL_NAME) ?></a></li>
 			</ul>
 		</div>
 		<div class="side-widget">
@@ -200,12 +202,18 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="limit"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="limit" id="limit" value="<?php echo esc_attr(stripslashes($crp_settings['limit'])); ?>"></td>
+				<td>
+					<input type="textbox" name="limit" id="limit" value="<?php echo esc_attr(stripslashes($crp_settings['limit'])); ?>">
+					<p class="description"><?php _e('Maximum number of posts that will be displayed. The actual number may be smaller if less related posts are found.',CRP_LOCAL_NAME); ?></p>
+				</td>
 			</tr>
 			<tr><th scope="row"><label for="daily_range"><?php _e('Related posts should be newer than:',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="daily_range" id="daily_range" value="<?php echo esc_attr(stripslashes($crp_settings['daily_range'])); ?>"><?php _e('days',CRP_LOCAL_NAME); ?></td>
+				<td>
+					<input type="textbox" name="daily_range" id="daily_range" value="<?php echo esc_attr(stripslashes($crp_settings['daily_range'])); ?>"><?php _e('days',CRP_LOCAL_NAME); ?>
+					<p class="description"><?php _e('This sets the cutoff period for which posts will be displayed. e.g. setting it to 365 will show related posts from the last year only.',CRP_LOCAL_NAME); ?></p>
+				</td>
 			</tr>
-			<tr><th scope="row"><?php _e('Post types to include in results (including custom post types)',CRP_LOCAL_NAME); ?></th>
+			<tr><th scope="row"><?php _e('Post types to include in results.',CRP_LOCAL_NAME); ?></th>
 				<td>
 					<?php foreach ($wp_post_types as $wp_post_type) {
 						$post_type_op = '<input type="checkbox" name="post_types[]" value="'.$wp_post_type.'" ';
@@ -214,6 +222,7 @@ function crp_options() {
 						echo $post_type_op;
 					}
 					?>
+					<p class="description"><?php _e('These post types will be displayed in the list. Includes custom post types.',CRP_LOCAL_NAME); ?></p>
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="match_content"><?php _e('Find related posts based on content as well as title',CRP_LOCAL_NAME); ?></label></th>
@@ -221,8 +230,15 @@ function crp_options() {
 					<p class="description"><?php _e('If unchecked, only posts titles are used. I recommend using a caching plugin or enabling "Cache output" above if you enable this.',CRP_LOCAL_NAME); ?></p>
 				</td>
 			</tr>
+			<tr><th scope="row"><label for="match_content_words"><?php _e('Limit content to be compared',CRP_LOCAL_NAME); ?></label></th>
+				<td><input type="textbox" name="match_content_words" id="match_content_words" value="<?php echo esc_attr(stripslashes($crp_settings['match_content_words'])); ?>">
+					<p class="description"><?php _e('This sets the maximum words of the content that will be matched. 0 means no limit.',CRP_LOCAL_NAME); ?></p>
+				</td>
+			</tr>
 			<tr><th scope="row"><label for="exclude_post_ids"><?php _e('List of post or page IDs to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="exclude_post_ids" id="exclude_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_post_ids'])); ?>"  style="width:250px"></td>
+				<td><input type="textbox" name="exclude_post_ids" id="exclude_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_post_ids'])); ?>"  style="width:250px">
+					<p class="description"><?php _e('Comma separated list of post, page or custom post type IDs. e.g. 188,320,500',CRP_LOCAL_NAME); ?></p>
+				</td>
 			</tr>
 			<tr><th scope="row"><label for="exclude_cat_slugs"><?php _e('Categories to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
 				<td>
@@ -256,17 +272,21 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="show_credit"><?php _e('Add a link to the plugin page as a final item in the list',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="checkbox" name="show_credit" id="show_credit" <?php if ($crp_settings['show_credit']) echo 'checked="checked"' ?> /> <?php _e(' <em>Optional</em>',CRP_LOCAL_NAME); ?></td>
+				<td>
+					<input type="checkbox" name="show_credit" id="show_credit" <?php if ($crp_settings['show_credit']) echo 'checked="checked"' ?> /> <?php _e(' <em>Optional</em>',CRP_LOCAL_NAME); ?>
+					<p class="description"><?php _e('Adds a nofollow link to Contextual Related Posts homepage.',CRP_LOCAL_NAME); ?></p>
+				</td>
 			</tr>
-
 			</table>		
-
 		</div>
 		<div class="tabbertab" id="crp_outputoptions">
 		<h3><?php _e('Output options',CRP_LOCAL_NAME); ?></h3>
 			<table class="form-table">
 			<tr><th scope="row"><label for="title"><?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="title" id="title" value="<?php echo esc_attr(stripslashes($crp_settings['title'])); ?>"  style="width:250px" /></td>
+				<td>
+					<input type="textbox" name="title" id="title" value="<?php echo esc_attr(stripslashes($crp_settings['title'])); ?>"  style="width:250px" />
+					<p class="description"><?php _e('This is the main heading of the related posts. You can also display the current post title by using <code>%postname%</code>. e.g. <code>Related Posts to %postname%</code>',CRP_LOCAL_NAME); ?></p>
+				</td>
 			</tr>
 			<tr><th scope="row"><label for="blank_output"><?php _e('When there are no posts, what should be shown?',CRP_LOCAL_NAME); ?></label></th>
 				<td>
@@ -304,7 +324,7 @@ function crp_options() {
 			<tr><th scope="row"><label for="exclude_on_post_ids"><?php _e('Exclude display of related posts on these posts / pages',CRP_LOCAL_NAME); ?></label></th>
 				<td>
 					<input type="textbox" name="exclude_on_post_ids" id="exclude_on_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_on_post_ids'])); ?>"  style="width:250px">
-					<p class="description"><?php _e('Enter comma separated list of IDs. e.g. 188,320,500',CRP_LOCAL_NAME); ?></p>
+					<p class="description"><?php _e('Comma separated list of post, page or custom post type IDs. e.g. 188,320,500',CRP_LOCAL_NAME); ?></p>
 				</td>
 			</tr>
 			<tr style="vertical-align: top; background: #eee"><th scope="row" colspan="2"><?php _e('Customize the output:',CRP_LOCAL_NAME); ?></th>

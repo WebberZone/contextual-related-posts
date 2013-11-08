@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.9.1
+Version:     1.8.10
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -82,17 +82,17 @@ function ald_crp( $args ) {
 	// Retrieve the list of posts
 	$results = get_crp_posts($post->ID, $limit, TRUE);
 
-	$output = (is_singular()) ? '<div id="crp_related" class="crp_related">' : '<div class="crp_related">';
+	$output = (is_singular()) ? '<div id="crp_related" class="crp_related'.($is_widget ? '_widget':'').'">' : '<div class="crp_related'.($is_widget ? '_widget':'').'">';
 	
 	if($results){
 		$loop_counter = 0;
 
-		if(!$is_widget) $output .= apply_filters('crp_heading_title',$title);
+		if(!$is_widget) $output .= apply_filters('crp_heading_title',str_replace("%postname%",$post->post_title,$title));
 		$output .= $crp_settings['before_list'];
 
 		foreach($results as $result) {
-			$result = get_post($result->ID);	// Let's get the Post using the ID
-			$categorys = get_the_category($result->ID);	//Fetch categories of the plugin
+			$result = get_post(apply_filters('crp_post_id',$result->ID));	// Let's get the Post using the ID
+			$categorys = get_the_category(apply_filters('crp_post_cat_id',$result->ID));	//Fetch categories of the plugin
 			$p_in_c = false;	// Variable to check if post exists in a particular category
 			$title = apply_filters('crp_title', crp_max_formatted_content(get_the_title($result->ID),$title_length) );
 			foreach ($categorys as $cat) {	// Loop to check if post exists in excluded category
@@ -117,16 +117,16 @@ function ald_crp( $args ) {
 				}
 				if ($show_author) {
 					$author_info = get_userdata($result->post_author);
-					$author_name = ucwords(trim(stripslashes($author_info->user_nicename)));
+					$author_name = ucwords(trim(stripslashes($author_info->display_name)));
 					$author_link = get_author_posts_url( $author_info->ID );
 					
-					$output .= '<span class="crp_author"> '.__(' Posted by ', CRP_LOCAL_NAME ).'<a href="'.$author_link.'">'.$author_name.'</a></span> ';
+					$output .= '<span class="crp_author"> '.__(' by ', TPTN_LOCAL_NAME ).'<a href="'.$author_link.'">'.$author_name.'</a></span> ';
 				}
 				if ($show_date) {
 					$output .= '<span class="crp_date"> '.mysql2date(get_option('date_format','d/m/y'), $result->post_date).'</span> ';
 				}
 				if ($show_excerpt) {
-					$output .= '<span class="crp_excerpt"> '.crp_excerpt($result->ID,$crp_settings['excerpt_length']).'</span>';
+					$output .= '<span class="crp_excerpt"> '.crp_excerpt($result->ID,$excerpt_length).'</span>';
 				}
 				$output .= $crp_settings['after_list_item'];
 				$loop_counter++; 
@@ -156,7 +156,7 @@ function ald_crp( $args ) {
 		else
 			update_post_meta($post->ID, 'crp_related_posts', $output, '');
 	}
-	return $output;
+	return apply_filters('ald_crp',$output);
 }
 
 
@@ -187,7 +187,7 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 
 	// Are we matching only the title or the post content as well?
 	if($crp_settings['match_content']) {
-		$stuff = addslashes($post->post_title. ' ' . $post->post_content);
+		$stuff = addslashes($post->post_title. ' ' . crp_excerpt($post->ID,$crp_settings['match_content_words'],false) );
 	}
 	else {
 		$stuff = addslashes($post->post_title);
@@ -223,7 +223,7 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 		$results = false;
 	}
 	
-	return $results;
+	return apply_filters('get_crp_posts',$results);
 }
 
 
@@ -294,8 +294,8 @@ add_filter('the_content_feed', 'ald_crp_rss');
  * @access public
  * @return string echoed output of related posts
  */
-function echo_ald_crp($cache = 0) {
-	echo ald_crp('is_widget=0&cache='.$cache);
+function echo_ald_crp( $args ) {
+	echo ald_crp( $args );
 }
 
 /*********************************************************************
@@ -472,28 +472,35 @@ function crp_default_options() {
 
 	$crp_settings = 	Array (
 						'title' => $title,			// Add before the content
+						'cache' => false,			// Cache output for faster page load
+						'daily_range' => '1095',				// How old posts should be displayed?
+						'limit' => '5',				// How many posts to display?
+						'show_credit' => false,		// Link to this plugin's page?
+						'match_content' => true,		// Match against post content as well as title
+						'match_content_words' => '0',	// How many characters of content should be matched? 0 for all chars 
+						'post_types' => $post_types,		// WordPress custom post types
+
 						'add_to_content' => true,		// Add related posts to content (only on single posts)
-						'add_to_page' => false,		// Add related posts to content (only on single pages)
-						'add_to_feed' => true,		// Add related posts to feed (full)
+						'add_to_page' => true,		// Add related posts to content (only on single pages)
+						'add_to_feed' => false,		// Add related posts to feed (full)
 						'add_to_home' => false,		// Add related posts to home page
 						'add_to_category_archives' => false,		// Add related posts to category archives
 						'add_to_tag_archives' => false,		// Add related posts to tag archives
 						'add_to_archives' => false,		// Add related posts to other archives
-						'cache' => false,			// Cache output for faster page load
-						'limit' => '5',				// How many posts to display?
-						'daily_range' => '1095',				// How old posts should be displayed?
-						'show_credit' => false,		// Link to this plugin's page?
-						'match_content' => true,		// Match against post content as well as title
+
 						'blank_output' => true,		// Blank output?
 						'blank_output_text' => $blank_output_text,		// Blank output text
+
 						'exclude_categories' => '',	// Exclude these categories
 						'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
 						'exclude_post_ids' => '',	// Comma separated list of page / post IDs that are to be excluded in the results
 						'exclude_on_post_ids' => '', 	// Comma separate list of page/post IDs to not display related posts on
+
 						'before_list' => '<ul>',	// Before the entire list
 						'after_list' => '</ul>',	// After the entire list
 						'before_list_item' => '<li>',	// Before each list item
 						'after_list_item' => '</li>',	// After each list item
+
 						'post_thumb_op' => 'text_only',	// Default option to display text and no thumbnails in posts
 						'thumb_height' => '50',	// Height of thumbnails
 						'thumb_width' => '50',	// Width of thumbnails
@@ -504,12 +511,14 @@ function crp_default_options() {
 						'thumb_timthumb' => true,	// Use timthumb
 						'thumb_timthumb_q' => '75',	// Quality attribute for timthumb
 						'scan_images' => false,			// Scan post for images
+
 						'show_excerpt' => false,			// Show post excerpt in list item
 						'show_date' => false,			// Show date in list item
 						'show_author' => false,			// Show author in list item
+
 						'excerpt_length' => '10',		// Length of characters
 						'title_length' => '60',		// Limit length of post title
-						'post_types' => $post_types,		// WordPress custom post types
+
 						'custom_CSS' => '',			// Custom CSS to style the output
 						'limit_feed' => '5',				// How many posts to display in feeds
 						'post_thumb_op_feed' => 'text_only',	// Default option to display text and no thumbnails in Feeds
@@ -739,26 +748,18 @@ function crp_get_first_image( $postID ) {
  * @param int|string $excerpt_length Length of the excerpt in words
  * @return string Excerpt
  */
-function crp_excerpt($id,$excerpt_length){
-	$content = get_post($id)->post_excerpt;
-	if ($content=='') $content = get_post($id)->post_content;
-	$out = strip_tags(strip_shortcodes($content));
-	$blah = explode(' ',$out);
-	if (!$excerpt_length) $excerpt_length = 10;
-	if(count($blah) > $excerpt_length){
-		$k = $excerpt_length;
-		$use_dotdotdot = 1;
-	}else{
-		$k = count($blah);
-		$use_dotdotdot = 0;
+function crp_excerpt($id,$excerpt_length=0,$use_excerpt = true) {
+	$content = $excerpt = '';
+	if ($use_excerpt) $content = get_post($id)->post_excerpt;
+	if (''==$content) $content = get_post($id)->post_content;
+
+	$output = strip_tags(strip_shortcodes($content));
+
+	if ($excerpt_length>0) {
+		$output = wp_trim_words($output,$excerpt_length);
 	}
-	$excerpt = '';
-	for($i=0; $i<$k; $i++){
-		$excerpt .= $blah[$i].' ';
-	}
-	$excerpt .= ($use_dotdotdot) ? '...' : '';
-	$out = $excerpt;
-	return $out;
+	
+	return apply_filters('crp_excerpt',$output,$id,$excerpt_length,$use_excerpt);
 }
 
 
@@ -784,7 +785,7 @@ function crp_max_formatted_content($content, $MaxLength = -1) {
     }
   }
 
-  return $content;
+  return apply_filters('crp_max_formatted_content',$content,$MaxLength);
 }
 
 /*********************************************************************
@@ -828,6 +829,7 @@ if (is_admin() || strstr($_SERVER['PHP_SELF'], 'wp-admin/')) {
 		if ($file == $plugin) {
 			$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __('Support', CRP_LOCAL_NAME ) . '</a>';
 			$links[] = '<a href="http://ajaydsouza.com/donate/">' . __('Donate', CRP_LOCAL_NAME ) . '</a>';
+		//	$links[] = '<a href="http://ajaydsouza.org/contextual-related-posts/">' . __('Get PRO', CRP_LOCAL_NAME ) . '</a>';
 		}
 		return $links;
 	}

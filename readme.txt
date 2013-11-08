@@ -4,7 +4,7 @@ Contributors: Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 3.0
-Tested up to: 3.7
+Tested up to: 3.8
 License: GPLv2 or later
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -45,11 +45,21 @@ If you have been using this plugin and find this useful, do consider making a do
 
 == Upgrade Notice ==
 
-= 1.8.9.1 =
-* New: Select between CSS or HTML attributes for thumbnail width and height; Add author to posts; More options in the widget; More cache control; 
+= 1.8.9.2 =
+* New features; Modified widget class to `crp_related_widget`; Updated timthumb; Modified format of author name that is displayed;
 Check the Changelog for more information
 
 == Changelog ==
+
+= 1.8.9.2 =
+* New: Limit the numbers of characters of the content being compared. This can give a marginal boost to performance
+* New: You can now choose to display the Post title in the Title of the Related posts, by using %postname%
+* Modified: Widget class has been changed to `crp_related_widget`
+* Modified: Including the author in the list will now use the Display Name which is set under “Display name publicly as” in the User Profile page
+* Modified: Updated timthumb
+* Modified: Better handling of `echo_ald_crp` - Thanks to <a href="http://www.flynsarmy.com/">flynsarmy</a> for this patch
+* Fixed: If the Thumbnail meta field is omitted under Output Options, the plugin will automatically revert to its default value i.e. "post-image"
+* Modified: More descriptions for the various options
 
 = 1.8.9.1 =
 * Fixed: PHP error when fetching thumbnail for gallery posts
