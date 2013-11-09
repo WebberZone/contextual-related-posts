@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.10
+Version:     1.8.10.1
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -294,7 +294,7 @@ add_filter('the_content_feed', 'ald_crp_rss');
  * @access public
  * @return string echoed output of related posts
  */
-function echo_ald_crp( $args ) {
+function echo_ald_crp( $args = array() ) {
 	echo ald_crp( $args );
 }
 

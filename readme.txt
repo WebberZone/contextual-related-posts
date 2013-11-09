@@ -45,13 +45,16 @@ If you have been using this plugin and find this useful, do consider making a do
 
 == Upgrade Notice ==
 
-= 1.8.9.2 =
+= 1.8.10.1 =
+* Fixed: Manual install caused a PHP error
+
+= 1.8.10 =
 * New features; Modified widget class to `crp_related_widget`; Updated timthumb; Modified format of author name that is displayed;
 Check the Changelog for more information
 
 == Changelog ==
 
-= 1.8.9.2 =
+= 1.8.10 =
 * New: Limit the numbers of characters of the content being compared. This can give a marginal boost to performance
 * New: You can now choose to display the Post title in the Title of the Related posts, by using %postname%
 * Modified: Widget class has been changed to `crp_related_widget`
