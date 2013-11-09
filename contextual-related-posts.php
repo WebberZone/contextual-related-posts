@@ -383,7 +383,7 @@ class WidgetCRP extends WP_Widget
 		return $instance;
 	} //ending update
 	function widget($args, $instance) {
-		global $wpdb;
+		global $wpdb,$post;
 		
 		extract($args, EXTR_SKIP);
 		
@@ -393,7 +393,7 @@ class WidgetCRP extends WP_Widget
 		
 		if( ( (is_single()) && (!is_single($exclude_on_post_ids)) ) || ( (is_page()) && (!is_page($exclude_on_post_ids)) ) ) {
 
-			$title = apply_filters('widget_title', empty($instance['title']) ? strip_tags($crp_settings['title']) : $instance['title']);
+			$title = apply_filters('widget_title', empty($instance['title']) ? strip_tags(str_replace("%postname%",$post->post_title,$crp_settings['title'])) : $instance['title']);
 			$limit = $instance['limit'];
 			if (empty($limit)) $limit = $crp_settings['limit'];
 	

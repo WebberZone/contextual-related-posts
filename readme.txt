@@ -46,7 +46,7 @@ If you have been using this plugin and find this useful, do consider making a do
 == Upgrade Notice ==
 
 = 1.8.10.1 =
-* Fixed: Manual install caused a PHP error in 1.8.10
+* Fixed bugs in 1.8.10: Manual install caused a PHP error; Widget title showed %postname% instead of the Title;
 Refer the Changelog for more information
 
 = 1.8.10 =
