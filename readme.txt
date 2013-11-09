@@ -46,13 +46,17 @@ If you have been using this plugin and find this useful, do consider making a do
 == Upgrade Notice ==
 
 = 1.8.10.1 =
-* Fixed: Manual install caused a PHP error
+* Fixed: Manual install caused a PHP error in 1.8.10
+Refer the Changelog for more information
 
 = 1.8.10 =
 * New features; Modified widget class to `crp_related_widget`; Updated timthumb; Modified format of author name that is displayed;
-Check the Changelog for more information
+Refer the Changelog for more information
 
 == Changelog ==
+
+= 1.8.10.1 =
+* Fixed: Manual install caused a PHP error in 1.8.10
 
 = 1.8.10 =
 * New: Limit the numbers of characters of the content being compared. This can give a marginal boost to performance
