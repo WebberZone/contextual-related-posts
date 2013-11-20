@@ -27,8 +27,8 @@ function crp_options() {
 		$crp_settings['title'] = wp_kses_post($_POST['title']);
 		$crp_settings['limit'] = intval($_POST['limit']);
 		$crp_settings['daily_range'] = intval($_POST['daily_range']);
-		$crp_settings['exclude_on_post_ids'] = wp_kses_post($_POST['exclude_on_post_ids']);
-		$crp_settings['exclude_post_ids'] = wp_kses_post($_POST['exclude_post_ids']);
+		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode(',', array_map('intval', explode(",", $_POST['exclude_on_post_ids']))); // wp_kses_post($_POST['exclude_on_post_ids']);
+		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode(',', array_map('intval', explode(",", $_POST['exclude_post_ids']))); // wp_kses_post($_POST['exclude_post_ids']);
 		$crp_settings['match_content'] = (isset($_POST['match_content']) ? true : false);
 		$crp_settings['match_content_words'] = intval($_POST['match_content_words']);
 		$crp_settings['cache'] = (isset($_POST['cache']) ? true : false);

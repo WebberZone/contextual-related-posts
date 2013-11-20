@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.10.1
+Version:     1.8.10.2
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -200,25 +200,34 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 	
 	// Create the SQL query to fetch the related posts from the database
 	if ((is_int($post->ID))&&($stuff != '')) {
-		$sql = "SELECT DISTINCT ID "
-		. " FROM ".$wpdb->posts." WHERE "
-		. "MATCH (post_title,post_content) AGAINST ('".$stuff."') "
-		. "AND post_date <= '".$now."' "
-		. "AND post_date >= '".$current_date."' "
-		. "AND post_status = 'publish' "
-		. "AND ID != ".$post->ID." ";
+		$args = array(
+			$stuff,
+			$now,
+			$current_date,
+			$post->ID,
+		);
+		$sql = "
+			SELECT DISTINCT ID
+			FROM ".$wpdb->posts."
+			WHERE MATCH (post_title,post_content) AGAINST ('%s')
+			AND post_date < '%s'
+			AND post_date >= '%s'
+			AND post_status = 'publish'
+			AND ID != %d
+		";
 		if ($crp_settings['exclude_post_ids']!='') $sql .= "AND ID NOT IN (".$crp_settings['exclude_post_ids'].") ";
-		$sql .= "AND ( ";
+		$sql .= " AND ( ";
 		$multiple = false;
 		foreach ($post_types as $post_type) {
 			if ( $multiple ) $sql .= ' OR ';
-			$sql .= " post_type = '".$post_type."' ";
+			$sql .= " post_type = '%s'";
 			$multiple = true;
+			$args[] = $post_type;	// Add the post types to the $args array
 		}
-		$sql .=" ) ";
-		$sql .= "LIMIT ".$limit;
+		$args[] = $limit;
+		$sql .= " ) LIMIT %d";
 		
-		$results = $wpdb->get_results($sql);
+		$results = $wpdb->get_results($wpdb->prepare($sql, $args));
 	} else {
 		$results = false;
 	}
@@ -243,7 +252,7 @@ function ald_crp_content($content) {
 	$exclude_on_post_ids = explode(',',$crp_settings['exclude_on_post_ids']);
 	//$p_in_c = (in_array($post->ID, $exclude_on_post_ids)) ? true : false;
 	if (in_array($post->ID, $exclude_on_post_ids)) return $content;	// Exit without adding related posts
-	
+	if ( !in_the_loop() ) return $content;
 	
     if((is_single())&&($crp_settings['add_to_content'])) {
         return $content.ald_crp('is_widget=0');
@@ -422,8 +431,8 @@ function init_ald_crp(){
 		register_widget('WidgetCRP');
 	} 
 }
-add_action('init', 'init_ald_crp', 1); 
- 
+add_action('widgets_init', 'init_ald_crp'); 
+
 
 /*********************************************************************
 *				Shortcode functions									*
@@ -706,7 +715,7 @@ function crp_get_the_post_thumbnail($args = array()) {
 		}
 	}
 	
-	return $output;
+	return apply_filters('crp_get_the_post_thumbnail',$output);
 }
 
 
@@ -733,7 +742,7 @@ function crp_get_first_image( $postID ) {
 		foreach ( $attachments as $attachment ) {
 			$image_attributes = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' )  ? wp_get_attachment_image_src( $attachment->ID, 'thumbnail' ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
 
-			return $image_attributes[0];
+			return apply_filters('crp_get_first_image',$image_attributes[0],$postID);
 		}
 	} else {
 		return false;

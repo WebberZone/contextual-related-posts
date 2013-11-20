@@ -45,15 +45,16 @@ If you have been using this plugin and find this useful, do consider making a do
 
 == Upgrade Notice ==
 
-= 1.8.10.1 =
-* Fixed bugs in 1.8.10: Manual install caused a PHP error; Widget title showed %postname% instead of the Title;
-Refer the Changelog for more information
+= 1.8.10.2 =
+* Minor performance improvements + a fix for potential SQL vulnerability
 
-= 1.8.10 =
-* New features; Modified widget class to `crp_related_widget`; Updated timthumb; Modified format of author name that is displayed;
-Refer the Changelog for more information
 
 == Changelog ==
+
+= 1.8.10.2 =
+* Fixed: Potential SQL vulnerability - Thanks to <a href="http://www.flynsarmy.com/">flynsarmy</a> for highlighting this
+* Modified: Minor performance improvements in initialisation of the widget
+* Modified: Plugin now checks if it is within the loop when any option under "Add related posts to:" is selected. Minor performance increase to avoid the plugin being called unnecessarily in secondary loops.
 
 = 1.8.10.1 =
 * Fixed: Manual install caused a PHP error in 1.8.10

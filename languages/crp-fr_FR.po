@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-08 20:11-0000\n"
-"PO-Revision-Date: 2013-11-08 20:11-0000\n"
+"POT-Creation-Date: 2013-11-20 23:44-0000\n"
+"PO-Revision-Date: 2013-11-20 23:47-0000\n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Olivier Copetto <olivier@copetto.com>\n"
 "Language: fr\n"
@@ -59,7 +59,7 @@ msgstr "Blog d'Ajay"
 msgid "FAQ"
 msgstr ""
 
-#: admin.inc.php:181 contextual-related-posts.php:830
+#: admin.inc.php:181 contextual-related-posts.php:839
 msgid "Support"
 msgstr "Support"
 
@@ -502,7 +502,7 @@ msgstr "Etes vous certain de vouloir recréer l'index ?"
 msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin.inc.php:493 contextual-related-posts.php:314
+#: admin.inc.php:493 contextual-related-posts.php:323
 msgid "Related Posts"
 msgstr "Related Posts"
 
@@ -542,71 +542,71 @@ msgstr ""
 msgid "Powered by"
 msgstr "Propulsé par"
 
-#: contextual-related-posts.php:313
+#: contextual-related-posts.php:322
 msgid "Display Related Posts"
 msgstr "Afficher les articles similaires"
 
-#: contextual-related-posts.php:328
+#: contextual-related-posts.php:337
 msgid "Title"
 msgstr "Titre"
 
-#: contextual-related-posts.php:333
+#: contextual-related-posts.php:342
 msgid "No. of posts"
 msgstr "Nombre d'articles"
 
-#: contextual-related-posts.php:338
+#: contextual-related-posts.php:347
 msgid " Show excerpt?"
 msgstr " Voir l'extrait ?"
 
-#: contextual-related-posts.php:343
+#: contextual-related-posts.php:352
 msgid " Show author?"
 msgstr " Afficher l'auteur ?"
 
-#: contextual-related-posts.php:348
+#: contextual-related-posts.php:357
 msgid " Show date?"
 msgstr " Afficher la date ?"
 
-#: contextual-related-posts.php:352
+#: contextual-related-posts.php:361
 msgid "Thumbnail options"
 msgstr "Options des vignettes"
 
-#: contextual-related-posts.php:354
+#: contextual-related-posts.php:363
 msgid "Thumbnails inline, before title"
 msgstr "Vignettes en ligne, avant le titre"
 
-#: contextual-related-posts.php:355
+#: contextual-related-posts.php:364
 msgid "Thumbnails inline, after title"
 msgstr "Vignettes en ligne, après le titre"
 
-#: contextual-related-posts.php:356
+#: contextual-related-posts.php:365
 msgid "Only thumbnails, no text"
 msgstr "Seulement les vignettes, aucun texte."
 
-#: contextual-related-posts.php:357
+#: contextual-related-posts.php:366
 msgid "No thumbnails, only text."
 msgstr "Aucunes vignettes, texte seulement."
 
-#: contextual-related-posts.php:362
+#: contextual-related-posts.php:371
 msgid "Thumbnail height"
 msgstr "Hauteur de la vignette"
 
-#: contextual-related-posts.php:367
+#: contextual-related-posts.php:376
 msgid "Thumbnail width"
 msgstr "Largeur de la vignette"
 
-#: contextual-related-posts.php:463
+#: contextual-related-posts.php:472
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Articles similaires :</h3>"
 
-#: contextual-related-posts.php:464
+#: contextual-related-posts.php:473
 msgid "No related posts found"
 msgstr "Aucun article similaire trouvé."
 
-#: contextual-related-posts.php:808
+#: contextual-related-posts.php:817
 msgid "Settings"
 msgstr "Réglages"
 
-#: contextual-related-posts.php:831
+#: contextual-related-posts.php:840
 msgid "Donate"
 msgstr "Faire un don"
 

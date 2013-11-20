@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-08 20:10-0000\n"
+"POT-Creation-Date: 2013-11-20 23:44-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: \n"
@@ -61,7 +61,7 @@ msgstr ""
 msgid "FAQ"
 msgstr ""
 
-#: admin.inc.php:181 contextual-related-posts.php:830
+#: admin.inc.php:181 contextual-related-posts.php:839
 msgid "Support"
 msgstr "Soporte"
 
@@ -486,7 +486,7 @@ msgstr "¿Está seguro que quiere recrear el index?"
 msgid "Contextual Related Posts"
 msgstr "Posts Relacionados Contextualmente"
 
-#: admin.inc.php:493 contextual-related-posts.php:314
+#: admin.inc.php:493 contextual-related-posts.php:323
 msgid "Related Posts"
 msgstr "Post Relacionados"
 
@@ -523,82 +523,82 @@ msgstr ""
 msgid "Powered by"
 msgstr "Creado por"
 
-#: contextual-related-posts.php:313
+#: contextual-related-posts.php:322
 #, fuzzy
 msgid "Display Related Posts"
 msgstr "Mostrar \"Posts No Relacionados\""
 
-#: contextual-related-posts.php:328
+#: contextual-related-posts.php:337
 msgid "Title"
 msgstr ""
 
-#: contextual-related-posts.php:333
+#: contextual-related-posts.php:342
 msgid "No. of posts"
 msgstr ""
 
-#: contextual-related-posts.php:338
+#: contextual-related-posts.php:347
 #, fuzzy
 msgid " Show excerpt?"
 msgstr "¿Mostrar extracto con los items?"
 
-#: contextual-related-posts.php:343
+#: contextual-related-posts.php:352
 msgid " Show author?"
 msgstr ""
 
-#: contextual-related-posts.php:348
+#: contextual-related-posts.php:357
 #, fuzzy
 msgid " Show date?"
 msgstr "¿Mostrar extracto con los items?"
 
-#: contextual-related-posts.php:352
+#: contextual-related-posts.php:361
 #, fuzzy
 msgid "Thumbnail options"
 msgstr "Opciones de miniaturas en el post:"
 
-#: contextual-related-posts.php:354
+#: contextual-related-posts.php:363
 #, fuzzy
 msgid "Thumbnails inline, before title"
 msgstr "Miniaturas en línea con los posts"
 
-#: contextual-related-posts.php:355
+#: contextual-related-posts.php:364
 #, fuzzy
 msgid "Thumbnails inline, after title"
 msgstr "Miniaturas en línea con los posts"
 
-#: contextual-related-posts.php:356
+#: contextual-related-posts.php:365
 #, fuzzy
 msgid "Only thumbnails, no text"
 msgstr "Solo miniaturas, sin texto"
 
-#: contextual-related-posts.php:357
+#: contextual-related-posts.php:366
 #, fuzzy
 msgid "No thumbnails, only text."
 msgstr "No mostrar miniaturas, solo texto."
 
-#: contextual-related-posts.php:362
+#: contextual-related-posts.php:371
 #, fuzzy
 msgid "Thumbnail height"
 msgstr "Opciones de miniaturas en el post:"
 
-#: contextual-related-posts.php:367
+#: contextual-related-posts.php:376
 #, fuzzy
 msgid "Thumbnail width"
 msgstr "Opciones de miniaturas en el post:"
 
-#: contextual-related-posts.php:463
+#: contextual-related-posts.php:472
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Post Relacionados:</h3>"
 
-#: contextual-related-posts.php:464
+#: contextual-related-posts.php:473
 #, fuzzy
 msgid "No related posts found"
 msgstr "No hay posts relacionados"
 
-#: contextual-related-posts.php:808
+#: contextual-related-posts.php:817
 msgid "Settings"
 msgstr "Opciones"
 
-#: contextual-related-posts.php:831
+#: contextual-related-posts.php:840
 msgid "Donate"
 msgstr "Donar"
 
