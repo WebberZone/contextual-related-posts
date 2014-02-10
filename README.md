@@ -60,6 +60,7 @@ If you have been using this plugin and find this useful, do consider making a do
 
 
 ## Screenshots
+
 ![General Options](https://raw.github.com/ajaydsouza/contextual-related-posts/master/screenshot-1.png)
 _Contextual Related Posts - General Options_
 
