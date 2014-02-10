@@ -59,6 +59,9 @@ If you have been using this plugin and find this useful, do consider making a do
 5. Optionally visit the **Custom Styles** tab to add any custom CSS styles. These are added to `wp_head` on the pages where the posts are displayed
 
 
+## Screenshots
+<img src="https://github.com/ajaydsouza/contextual-related-posts/blob/master/screenshot-1.png" />
+
 ## Frequently Asked Questions
 
 If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
