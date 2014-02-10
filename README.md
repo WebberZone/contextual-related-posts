@@ -61,6 +61,8 @@ If you have been using this plugin and find this useful, do consider making a do
 
 ## Screenshots
 <img src="https://github.com/ajaydsouza/contextual-related-posts/blob/master/screenshot-1.png" />
+![General Options](https://raw.github.com/ajaydsouza/contextual-related-posts/master/screenshot-1.png)
+_Contextual Related Posts - General Options_
 
 ## Frequently Asked Questions
 
