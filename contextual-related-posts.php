@@ -188,8 +188,7 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 	// Are we matching only the title or the post content as well?
 	if($crp_settings['match_content']) {
 		$stuff = addslashes($post->post_title. ' ' . crp_excerpt($post->ID,$crp_settings['match_content_words'],false) );
-	}
-	else {
+	} else {
 		$stuff = addslashes($post->post_title);
 	}
 	
@@ -446,14 +445,15 @@ add_action('widgets_init', 'init_ald_crp');
  * @return void
  */
 function crp_shortcode( $atts, $content = null ) {
-	extract( shortcode_atts( array(
-	  'limit' => '5',
-	  'heading' => '1',
-	  'cache' => '1',
-	  ), $atts ) );
+	global $crp_settings;
+	$atts = shortcode_atts( array_merge(
+		$crp_settings,
+		array( 'heading' => 1 )
+	), $atts, 'crp' );
+
+	$atts['is_widget'] = 1 - $atts['heading'];
 	
-	$heading = 1 - $heading;	  
-	return ald_crp('is_widget='.$heading.'&limit='.$limit.'&cache='.$cache);
+	return ald_crp($atts);
 }
 add_shortcode( 'crp', 'crp_shortcode' );
 
