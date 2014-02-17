@@ -142,58 +142,14 @@ function crp_options() {
 ?>
 
 <div class="wrap">
-	<div id="page-wrap">
-	<div id="inside">
-		<div id="header">
-		<?php screen_icon(); ?> <h2>Contextual Related Posts</h2>
-		</div>
-	  <div id="side">
-		<div class="side-widget">
-			<span class="title"><?php _e('Support the development',CRP_LOCAL_NAME) ?></span>
-			<div id="donate-form">
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-				<input type="hidden" name="cmd" value="_xclick">
-				<input type="hidden" name="business" value="donate@ajaydsouza.com">
-				<input type="hidden" name="lc" value="IN">
-				<input type="hidden" name="item_name" value="Donation for Contextual Related Posts">
-				<input type="hidden" name="item_number" value="crp">
-				<strong><?php _e('Enter amount in USD: ',CRP_LOCAL_NAME) ?></strong> <input name="amount" value="10.00" size="6" type="text"><br />
-				<input type="hidden" name="currency_code" value="USD">
-				<input type="hidden" name="button_subtype" value="services">
-				<input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted">
-				<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php _e('Send your donation to the author of',CRP_LOCAL_NAME) ?> Contextual Related Posts" title="<?php _e('Send your donation to the author of',CRP_LOCAL_NAME) ?> Contextual Related Posts">
-				<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
-				</form>
-			</div>
-		</div>
-		<div class="side-widget">
-			<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fajaydsouzacom&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;appId=113175385243" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
-			<div style="text-align:center"><a href="https://twitter.com/ajaydsouza" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @ajaydsouza</a>
-			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
-		</div>
-		<div class="side-widget">
-			<span class="title"><?php _e('Quick Links',CRP_LOCAL_NAME) ?></span>				
-			<ul>
-				<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e('Contextual Related Posts plugin page',CRP_LOCAL_NAME) ?></a></li>
-				<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',CRP_LOCAL_NAME) ?></a></li>
-				<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',CRP_LOCAL_NAME) ?></a></li>
-				<li><a href="https://wordpress.org/plugins/contextual-related-posts/faq/"><?php _e('FAQ',CRP_LOCAL_NAME) ?></a></li>
-				<li><a href="https://wordpress.org/support/plugin/contextual-related-posts"><?php _e('Support',CRP_LOCAL_NAME) ?></a></li>
-				<li><a href="https://wordpress.org/support/view/plugin-reviews/contextual-related-posts"><?php _e('Reviews',CRP_LOCAL_NAME) ?></a></li>
-			</ul>
-		</div>
-		<div class="side-widget">
-			<span class="title"><?php _e('Recent developments',CRP_LOCAL_NAME) ?></span>				
-			<?php require_once(ABSPATH . WPINC . '/class-simplepie.php'); wp_widget_rss_output('http://ajaydsouza.com/archives/category/wordpress/plugins/feed/', array('items' => 5, 'show_author' => 0, 'show_date' => 1)); ?>
-		</div>
-	  </div>
-
-	  <div id="options-div">
+	<h2>Contextual Related Posts</h2>
+	<div id="poststuff">
+	<div id="post-body" class="metabox-holder columns-2">
+	<div id="post-body-content">
 	  <form method="post" id="crp_options" name="crp_options" onsubmit="return checkForm()">
-		<fieldset class="options">
-		<div class="tabber">
-		<div class="tabbertab" id="crp_genoptions">
-		<h3><?php _e('General options',CRP_LOCAL_NAME); ?></h3>
+	    <div id="genopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e('General options',CRP_LOCAL_NAME); ?></span></h3>
+	      <div class="inside">
 			<table class="form-table">
 			<tr><th scope="row"><label for="cache"><?php _e('Cache output?',CRP_LOCAL_NAME); ?></label></th>
 				<td><input type="checkbox" name="cache" id="cache" <?php if ($crp_settings['cache']) echo 'checked="checked"' ?> />
@@ -236,7 +192,7 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="exclude_post_ids"><?php _e('List of post or page IDs to exclude from the results: ',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="exclude_post_ids" id="exclude_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_post_ids'])); ?>"  style="width:250px">
+				<td><input type="textbox" name="exclude_post_ids" id="exclude_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_post_ids'])); ?>" style="width:250px">
 					<p class="description"><?php _e('Comma separated list of post, page or custom post type IDs. e.g. 188,320,500',CRP_LOCAL_NAME); ?></p>
 				</td>
 			</tr>
@@ -278,9 +234,11 @@ function crp_options() {
 				</td>
 			</tr>
 			</table>		
-		</div>
-		<div class="tabbertab" id="crp_outputoptions">
-		<h3><?php _e('Output options',CRP_LOCAL_NAME); ?></h3>
+	      </div>
+	    </div>
+	    <div id="outputopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e('Output options',CRP_LOCAL_NAME); ?></span></h3>
+	      <div class="inside">
 			<table class="form-table">
 			<tr><th scope="row"><label for="title"><?php _e('Title of related posts: ',CRP_LOCAL_NAME); ?></label></th>
 				<td>
@@ -408,16 +366,19 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_default"><?php _e('Default thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_default'])); ?>" style="width:500px"> 
+				<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_default'])); ?>" style="width:100%"> 
+				  	<?php if( $crp_settings['thumb_default'] != '' ) echo "<img src='{$crp_settings['thumb_default']}' style='max-width:200px' />"; ?>
 					<p class="description"><?php _e('The plugin will first check if the post contains a thumbnail. If it doesn\'t then it will check the meta field. If this is not available, then it will show the default image as specified above',CRP_LOCAL_NAME); ?></p>
 				</td>
 			</tr>
 			</table>
-		</div>
-		<div class="tabbertab" id="crp_feedoptions">
-		<h3><?php _e('Feed options',CRP_LOCAL_NAME); ?></h3>
+	      </div>
+	    </div>
+	    <div id="feedopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e('Feed options',CRP_LOCAL_NAME); ?></span></h3>
+	      <div class="inside">
 			<table class="form-table">
-			<tr style="vertical-align: top; "><th scope="row" colspan="2"><?php _e('Below options override the related posts settings for your blog feed. These only apply if you have selected to add related posts to Feeds in the General Options tab.',CRP_LOCAL_NAME); ?></th>
+			<tr><th scope="row" colspan="2"><?php _e('Below options override the related posts settings for your blog feed. These only apply if you have selected to add related posts to Feeds in the General Options tab.',CRP_LOCAL_NAME); ?></th>
 			</tr>
 			<tr><th scope="row"><label for="limit_feed"><?php _e('Number of related posts to display: ',CRP_LOCAL_NAME); ?></label></th>
 				<td><input type="textbox" name="limit_feed" id="limit_feed" value="<?php echo esc_attr(stripslashes($crp_settings['limit_feed'])); ?>"></td>
@@ -452,34 +413,85 @@ function crp_options() {
 				<td><input type="textbox" name="thumb_height_feed" id="thumb_height_feed" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_height_feed'])); ?>" style="width:30px" />px</td>
 			</tr>
 			</table>		
-		</div>
-		<div class="tabbertab" id="crp_customstyles">
-		<h3><?php _e('Custom Styles',CRP_LOCAL_NAME); ?></h3>
+	      </div>
+	    </div>
+	    <div id="customcssdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e('Custom styles',CRP_LOCAL_NAME); ?></span></h3>
+	      <div class="inside">
 			<table class="form-table">
-			<tr style="vertical-align: top; "><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',CRP_LOCAL_NAME); ?></th>
+			<tr><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',CRP_LOCAL_NAME); ?></th>
 			</tr>
-			<tr style="vertical-align: top; "><td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80"><?php echo stripslashes($crp_settings['custom_CSS']); ?></textarea>
+			<tr><td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%"><?php echo stripslashes($crp_settings['custom_CSS']); ?></textarea>
 				<p class="description"><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.',CRP_LOCAL_NAME); ?></p>
 			</td></tr>
 			</table>		
-		</div>
+	      </div>
+	    </div>
+
 		<p>
 		  <input type="submit" name="crp_save" id="crp_save" value="<?php _e('Save Options',CRP_LOCAL_NAME); ?>" class="button button-primary" />
 		  <input name="crp_default" type="submit" id="crp_default" value="<?php _e('Default Options',CRP_LOCAL_NAME); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e('Do you want to set options to Default?',CRP_LOCAL_NAME); ?>')) return false;" />
 		  <input name="crp_recreate" type="submit" id="crp_recreate" value="<?php _e('Recreate Index',CRP_LOCAL_NAME); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e('Are you sure you want to recreate the index?',CRP_LOCAL_NAME); ?>')) return false;" />
 		</p>
-		</fieldset>
-		<?php wp_nonce_field('crp-plugin'); ?>
+		<?php wp_nonce_field('crp-plugin') ?>
 	  </form>
-	</div>
-
-	  </div>
-	  <div style="clear: both;"></div>
-	</div>
-</div>
+	</div><!-- /post-body-content -->
+	<div id="postbox-container-1" class="postbox-container">
+	  <div id="side-sortables" class="meta-box-sortables ui-sortable">
+	    <div id="donatediv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e('Support the development',CRP_LOCAL_NAME); ?></span></h3>
+	      <div class="inside">
+			<div id="donate-form">
+				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_xclick">
+				<input type="hidden" name="business" value="donate@ajaydsouza.com">
+				<input type="hidden" name="lc" value="IN">
+				<input type="hidden" name="item_name" value="Donation for Contextual Related Posts">
+				<input type="hidden" name="item_number" value="crp">
+				<strong><?php _e('Enter amount in USD: ',CRP_LOCAL_NAME); ?></strong> <input name="amount" value="10.00" size="6" type="text"><br />
+				<input type="hidden" name="currency_code" value="USD">
+				<input type="hidden" name="button_subtype" value="services">
+				<input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted">
+				<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php _e('Send your donation to the author of',CRP_LOCAL_NAME); ?> Contextual Related Posts?">
+				<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+				</form>
+			</div>
+	      </div>
+	    </div>
+	    <div id="followdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e('Follow me',CRP_LOCAL_NAME); ?></span></h3>
+	      <div class="inside">
+			<div id="follow-us">
+				<iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fajaydsouzacom&amp;width=292&amp;height=62&amp;colorscheme=light&amp;show_faces=false&amp;border_color&amp;stream=false&amp;header=true&amp;appId=113175385243" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+				<div style="text-align:center"><a href="https://twitter.com/ajaydsouza" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @ajaydsouza</a>
+				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
+			</div>
+	      </div>
+	    </div>
+	    <div id="qlinksdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e('Quick links',CRP_LOCAL_NAME); ?></span></h3>
+	      <div class="inside">
+	        <div id="quick-links">
+				<ul>
+					<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e('Contextual Related Posts plugin page',CRP_LOCAL_NAME); ?></a></li>
+					<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e('Other plugins',CRP_LOCAL_NAME); ?></a></li>
+					<li><a href="http://ajaydsouza.com/"><?php _e('Ajay\'s blog',CRP_LOCAL_NAME); ?></a></li>
+					<li><a href="https://wordpress.org/plugins/contextual-related-posts/faq/"><?php _e('FAQ',CRP_LOCAL_NAME); ?></a></li>
+					<li><a href="http://wordpress.org/support/plugin/contextual-related-posts"><?php _e('Support',CRP_LOCAL_NAME); ?></a></li>
+					<li><a href="https://wordpress.org/support/view/plugin-reviews/contextual-related-posts"><?php _e('Reviews',CRP_LOCAL_NAME); ?></a></li>
+				</ul>
+	        </div>
+	      </div>
+	    </div>
+	  </div><!-- /side-sortables -->
+	</div><!-- /postbox-container-1 -->
+	</div><!-- /post-body -->
+	<br class="clear" />
+	</div><!-- /poststuff -->
+</div><!-- /wrap -->
 <?php
-
 }
+
 
 
 /**
@@ -497,6 +509,96 @@ function crp_adminmenu() {
 add_action('admin_menu', 'crp_adminmenu');
 
 /**
+ * Function to add CSS and JS to the Admin header.
+ * 
+ * @access public
+ * @return void
+ */
+function crp_adminhead() {
+	global $crp_url;
+	wp_enqueue_script('common');
+	wp_enqueue_script('wp-lists');
+	wp_enqueue_script('postbox');
+?>
+	<style type="text/css">
+	.postbox .handlediv:before {
+		right:12px;
+		font:400 20px/1 dashicons;
+		speak:none;
+		display:inline-block;
+		top:0;
+		position:relative;
+		-webkit-font-smoothing:antialiased;
+		-moz-osx-font-smoothing:grayscale;
+		text-decoration:none!important;
+		content:'\f142';
+		padding:8px 10px;
+	}
+	.postbox.closed .handlediv:before {
+		content: '\f140';
+	}
+	.wrap h2:before {
+	    content: "\f237";
+	    display: inline-block;
+	    -webkit-font-smoothing: antialiased;
+	    font: normal 29px/1 'dashicons';
+	    vertical-align: middle;
+	    margin-right: 0.3em;
+	}
+	</style>
+
+	<script type="text/javascript">
+		//<![CDATA[
+		jQuery(document).ready( function($) {
+			// close postboxes that should be closed
+			$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+			// postboxes setup
+			postboxes.add_postbox_toggles('tptn_options');
+		});
+		//]]>
+	</script>
+	
+	<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/wick/wick.css" />
+	<script type="text/javascript" language="JavaScript">
+		//<![CDATA[
+		function clearCache() {
+			// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+			jQuery.post(ajaxurl, {action: 'crp_clear_cache'}, function(response, textStatus, jqXHR) {
+				alert( response.message );
+			}, 'json');
+		}
+		
+		function checkForm() {
+		answer = true;
+		if (siw && siw.selectingSomething)
+			answer = false;
+		return answer;
+		}//
+	
+		<?php
+		function wick_data() {
+			global $wpdb;
+			
+			$categories = get_categories('hide_empty=0');
+			$str = 'collection = [';
+			foreach ($categories as $cat) {
+				$str .= "'".$cat->slug."',";
+			}
+			$str = substr($str, 0, -1);	// Remove trailing comma
+			$str .= '];';
+			
+			echo $str;
+		}
+		wick_data();
+		?>
+	//]]>
+	</script>
+	<script type="text/javascript" src="<?php echo $crp_url ?>/wick/wick.js"></script>
+<?php 
+}
+
+
+/**
  * Function to add a notice to the admin page.
  * 
  * @access public
@@ -512,42 +614,6 @@ function crp_admin_notice() {
     </div>';
 }
 // add_action('admin_notices', 'crp_admin_notice');
-
-/**
- * Function to add CSS and JS to the Admin header.
- * 
- * @access public
- * @return void
- */
-function crp_adminhead() {
-	global $crp_url;
-
-?>
-<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/wick/wick.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/admin-styles.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/tabber/tabber.css" />
-<script type="text/javascript" language="JavaScript">
-//<![CDATA[
-function clearCache() {
-	// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
-	jQuery.post(ajaxurl, {action: 'crp_clear_cache'}, function(response, textStatus, jqXHR) {
-		alert( response.message );
-	}, 'json');
-}
-
-function checkForm() {
-answer = true;
-if (siw && siw.selectingSomething)
-	answer = false;
-return answer;
-}//
-//]]>
-</script>
-<script type="text/javascript" src="<?php echo $crp_url ?>/wick/sample_data.js.php"></script>
-<script type="text/javascript" src="<?php echo $crp_url ?>/wick/wick.js"></script>
-<script type="text/javascript" src="<?php echo $crp_url ?>/tabber/tabber-minimized.js"></script>
-<?php }
-
 
 /**
  * Function to clear the CRP Cache with Ajax.

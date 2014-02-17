@@ -51,6 +51,11 @@ If you have been using this plugin and find this useful, do consider making a do
 
 == Changelog ==
 
+= 1.8.11 =
+* New: Redesigned settings page to be more responsive on mobile devices and better integrated in the WordPress Dashboard design
+* Modified: Modified thumbnail code. Attached image to the post is given priority over first image
+* Modified: Shortcode now considers a wider range of attributes
+
 = 1.8.10.2 =
 * Fixed: Potential SQL vulnerability - Thanks to <a href="http://www.flynsarmy.com/">flynsarmy</a> for highlighting this
 * Modified: Minor performance improvements in initialisation of the widget
