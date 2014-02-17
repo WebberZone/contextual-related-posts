@@ -147,7 +147,7 @@ function crp_options() {
 	<div id="post-body" class="metabox-holder columns-2">
 	<div id="post-body-content">
 	  <form method="post" id="crp_options" name="crp_options" onsubmit="return checkForm()">
-	    <div id="genopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	    <div id="genopdiv" class="postbox closed"><div class="handlediv" title="Click to toggle"><br /></div>
 	      <h3 class='hndle'><span><?php _e('General options',CRP_LOCAL_NAME); ?></span></h3>
 	      <div class="inside">
 			<table class="form-table">
@@ -236,7 +236,7 @@ function crp_options() {
 			</table>		
 	      </div>
 	    </div>
-	    <div id="outputopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	    <div id="outputopdiv" class="postbox closed"><div class="handlediv" title="Click to toggle"><br /></div>
 	      <h3 class='hndle'><span><?php _e('Output options',CRP_LOCAL_NAME); ?></span></h3>
 	      <div class="inside">
 			<table class="form-table">
@@ -374,7 +374,7 @@ function crp_options() {
 			</table>
 	      </div>
 	    </div>
-	    <div id="feedopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	    <div id="feedopdiv" class="postbox closed"><div class="handlediv" title="Click to toggle"><br /></div>
 	      <h3 class='hndle'><span><?php _e('Feed options',CRP_LOCAL_NAME); ?></span></h3>
 	      <div class="inside">
 			<table class="form-table">
@@ -415,7 +415,7 @@ function crp_options() {
 			</table>		
 	      </div>
 	    </div>
-	    <div id="customcssdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	    <div id="customcssdiv" class="postbox closed"><div class="handlediv" title="Click to toggle"><br /></div>
 	      <h3 class='hndle'><span><?php _e('Custom styles',CRP_LOCAL_NAME); ?></span></h3>
 	      <div class="inside">
 			<table class="form-table">

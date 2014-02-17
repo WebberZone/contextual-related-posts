@@ -187,9 +187,9 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 
 	// Are we matching only the title or the post content as well?
 	if($crp_settings['match_content']) {
-		$stuff = addslashes($post->post_title. ' ' . crp_excerpt($post->ID,$crp_settings['match_content_words'],false) );
+		$stuff = $post->post_title. ' ' . crp_excerpt( $post->ID,$crp_settings['match_content_words'],false );
 	} else {
-		$stuff = addslashes($post->post_title);
+		$stuff = $post->post_title;
 	}
 	
 	// Limit the related posts by time
