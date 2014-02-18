@@ -16,19 +16,21 @@ function crp_options() {
     $poststable = $wpdb->posts;
 
 	$crp_settings = crp_read_options();
-	parse_str($crp_settings['post_types'],$post_types);
 	$wp_post_types	= get_post_types( array(
 		'public'	=> true,
 	) );
+	parse_str($crp_settings['post_types'],$post_types);
 	$posts_types_inc = array_intersect($wp_post_types, $post_types);
 
+	parse_str($crp_settings['exclude_on_post_types'],$exclude_on_post_types);
+	$posts_types_excl = array_intersect($wp_post_types, $exclude_on_post_types);
 
 	if ( (isset($_POST['crp_save']) ) && (check_admin_referer('crp-plugin') ) ) {
 		$crp_settings['title'] = wp_kses_post($_POST['title']);
 		$crp_settings['limit'] = intval($_POST['limit']);
 		$crp_settings['daily_range'] = intval($_POST['daily_range']);
-		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode(',', array_map('intval', explode(",", $_POST['exclude_on_post_ids']))); // wp_kses_post($_POST['exclude_on_post_ids']);
-		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode(',', array_map('intval', explode(",", $_POST['exclude_post_ids']))); // wp_kses_post($_POST['exclude_post_ids']);
+		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode(',', array_map('intval', explode(",", $_POST['exclude_on_post_ids'])));
+		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode(',', array_map('intval', explode(",", $_POST['exclude_post_ids'])));
 		$crp_settings['match_content'] = (isset($_POST['match_content']) ? true : false);
 		$crp_settings['match_content_words'] = intval($_POST['match_content_words']);
 		$crp_settings['cache'] = (isset($_POST['cache']) ? true : false);
@@ -56,11 +58,10 @@ function crp_options() {
 		$crp_settings['thumb_width'] = intval($_POST['thumb_width']);
 		$crp_settings['thumb_default_show'] = (isset($_POST['thumb_default_show']) ? true : false);
 		$crp_settings['thumb_html'] = $_POST['thumb_html'];
-
 		$crp_settings['thumb_timthumb'] = (isset($_POST['thumb_timthumb']) ? true : false);
 		$crp_settings['thumb_timthumb_q'] = intval($_POST['thumb_timthumb_q']);
-
 		$crp_settings['scan_images'] = (isset($_POST['scan_images']) ? true : false);
+
 		$crp_settings['show_excerpt'] = (isset($_POST['show_excerpt']) ? true : false);
 		$crp_settings['excerpt_length'] = intval($_POST['excerpt_length']);
 		$crp_settings['show_date'] = (isset($_POST['show_date']) ? true : false);
@@ -88,6 +89,7 @@ function crp_options() {
 		}
 		$crp_settings['exclude_categories'] = (isset($exclude_categories)) ? join(',', $exclude_categories) : '';
 
+		// Post types to include
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
@@ -95,11 +97,19 @@ function crp_options() {
 		$post_types = array_intersect($wp_post_types, $post_types_arr);
 		$crp_settings['post_types'] = http_build_query($post_types, '', '&');
 
+		// Post types to exclude display on
+		$post_types_excl_arr = (isset($_POST['exclude_on_post_types']) && is_array($_POST['exclude_on_post_types'])) ? $_POST['exclude_on_post_types'] : array();
+		$exclude_on_post_types = array_intersect($wp_post_types, $post_types_excl_arr);
+		$crp_settings['exclude_on_post_types'] = http_build_query($exclude_on_post_types, '', '&');
+
 		update_option('ald_crp_settings', $crp_settings);
-		
 		$crp_settings = crp_read_options();
+		
 		parse_str($crp_settings['post_types'],$post_types);
 		$posts_types_inc = array_intersect($wp_post_types, $post_types);
+
+		parse_str($crp_settings['exclude_on_post_types'],$exclude_on_post_types);
+		$posts_types_excl = array_intersect($wp_post_types, $exclude_on_post_types);
 
 		delete_post_meta_by_key('crp_related_posts'); // Delete the cache
 		delete_post_meta_by_key('crp_related_posts_widget'); // Delete the cache
@@ -114,11 +124,15 @@ function crp_options() {
 		update_option('ald_crp_settings', $crp_settings);
 		
 		$crp_settings = crp_read_options();
-		parse_str($crp_settings['post_types'],$post_types);
+
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
+		parse_str($crp_settings['post_types'],$post_types);
 		$posts_types_inc = array_intersect($wp_post_types, $post_types);
+
+		parse_str($crp_settings['exclude_on_post_types'],$exclude_on_post_types);
+		$posts_types_excl = array_intersect($wp_post_types, $exclude_on_post_types);
 
 		$str = '<div id="message" class="updated fade"><p>'. __('Options set to Default.',CRP_LOCAL_NAME) .'</p></div>';
 		echo $str;
@@ -172,9 +186,9 @@ function crp_options() {
 			<tr><th scope="row"><?php _e('Post types to include in results.',CRP_LOCAL_NAME); ?></th>
 				<td>
 					<?php foreach ($wp_post_types as $wp_post_type) {
-						$post_type_op = '<input type="checkbox" name="post_types[]" value="'.$wp_post_type.'" ';
+						$post_type_op = '<label><input type="checkbox" name="post_types[]" value="'.$wp_post_type.'" ';
 						if (in_array($wp_post_type, $posts_types_inc)) $post_type_op .= ' checked="checked" ';
-						$post_type_op .= ' />'.$wp_post_type.'&nbsp;&nbsp;';
+						$post_type_op .= ' />'.$wp_post_type.'</label>&nbsp;&nbsp;';
 						echo $post_type_op;
 					}
 					?>
@@ -283,6 +297,18 @@ function crp_options() {
 				<td>
 					<input type="textbox" name="exclude_on_post_ids" id="exclude_on_post_ids" value="<?php echo esc_attr(stripslashes($crp_settings['exclude_on_post_ids'])); ?>"  style="width:250px">
 					<p class="description"><?php _e('Comma separated list of post, page or custom post type IDs. e.g. 188,320,500',CRP_LOCAL_NAME); ?></p>
+				</td>
+			</tr>
+			<tr><th scope="row"><?php _e('Exclude display of related posts on these post types.',CRP_LOCAL_NAME); ?></th>
+				<td>
+					<?php foreach ($wp_post_types as $wp_post_type) {
+						$post_type_op = '<label><input type="checkbox" name="exclude_on_post_types[]" value="'.$wp_post_type.'" ';
+						if (in_array($wp_post_type, $posts_types_excl)) $post_type_op .= ' checked="checked" ';
+						$post_type_op .= ' />'.$wp_post_type.'</label>&nbsp;&nbsp;';
+						echo $post_type_op;
+					}
+					?>
+					<p class="description"><?php _e('The related posts will not display on any of the above selected post types',CRP_LOCAL_NAME); ?></p>
 				</td>
 			</tr>
 			<tr style="vertical-align: top; background: #eee"><th scope="row" colspan="2"><?php _e('Customize the output:',CRP_LOCAL_NAME); ?></th>

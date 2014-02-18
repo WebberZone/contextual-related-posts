@@ -247,12 +247,14 @@ function ald_crp_content($content) {
 	global $single, $post;
 	global $crp_settings;
 	
-	
-	$exclude_on_post_ids = explode(',',$crp_settings['exclude_on_post_ids']);
-
-	if (in_array($post->ID, $exclude_on_post_ids)) return $content;	// Exit without adding related posts
 	if ( !in_the_loop() ) return $content;
 	
+	$exclude_on_post_ids = explode(',',$crp_settings['exclude_on_post_ids']);
+	if (in_array($post->ID, $exclude_on_post_ids)) return $content;	// Exit without adding related posts
+
+	parse_str($crp_settings['exclude_on_post_types'],$exclude_on_post_types);	// Save post types in $exclude_on_post_types variable
+	if (in_array($post->post_type, $exclude_on_post_types)) return $content;	// Exit without adding related posts
+
     if((is_single())&&($crp_settings['add_to_content'])) {
         return $content.ald_crp('is_widget=0');
     } elseif((is_page())&&($crp_settings['add_to_page'])) {
@@ -397,9 +399,12 @@ class WidgetCRP extends WP_Widget
 		
 		global $crp_settings;
 
+		parse_str($crp_settings['exclude_on_post_types'],$exclude_on_post_types);	// Save post types in $exclude_on_post_types variable
+		if (in_array($post->post_type, $exclude_on_post_types)) return 0;	// Exit without adding related posts
+
 		$exclude_on_post_ids = explode(',',$crp_settings['exclude_on_post_ids']);
 		
-		if( ( (is_single()) && (!is_single($exclude_on_post_ids)) ) || ( (is_page()) && (!is_page($exclude_on_post_ids)) ) ) {
+		if ( ( (is_single()) && (!is_single($exclude_on_post_ids)) ) || ( (is_page()) && (!is_page($exclude_on_post_ids)) ) ) {
 
 			$title = apply_filters('widget_title', empty($instance['title']) ? strip_tags(str_replace("%postname%",$post->post_title,$crp_settings['title'])) : $instance['title']);
 			$limit = $instance['limit'];
@@ -425,6 +430,13 @@ class WidgetCRP extends WP_Widget
 
 	} //ending function widget
 }
+
+/**
+ * Initialise the widgets.
+ * 
+ * @access public
+ * @return void
+ */
 function init_ald_crp(){
 	if (function_exists('register_widget')) { 
 		register_widget('WidgetCRP');
@@ -504,6 +516,7 @@ function crp_default_options() {
 						'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
 						'exclude_post_ids' => '',	// Comma separated list of page / post IDs that are to be excluded in the results
 						'exclude_on_post_ids' => '', 	// Comma separate list of page/post IDs to not display related posts on
+						'exclude_on_post_types' => '',		// WordPress custom post types
 
 						'before_list' => '<ul>',	// Before the entire list
 						'after_list' => '</ul>',	// After the entire list

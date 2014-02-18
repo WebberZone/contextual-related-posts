@@ -52,6 +52,7 @@ If you have been using this plugin and find this useful, do consider making a do
 == Changelog ==
 
 = 1.8.11 =
+* New: Option to exclude the display on custom post types. Find this under Output Options
 * New: Redesigned settings page to be more responsive on mobile devices and better integrated in the WordPress Dashboard design
 * Modified: Modified thumbnail code. Attached image to the post is given priority over first image
 * Modified: Shortcode now considers a wider range of attributes
