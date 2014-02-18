@@ -22,5 +22,10 @@ if ( !defined('ABSPATH') && !defined('WP_UNINSTALL_PLUGIN') ) {
 		WHERE meta_key='crp_related_posts'
 	");
 
+	$wpdb->query("
+		DELETE FROM " . $wpdb->postmeta . "
+		WHERE meta_key='crp_related_posts_widget'
+	");
+
 	delete_option('ald_crp_settings');
 ?>
