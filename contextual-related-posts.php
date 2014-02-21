@@ -13,19 +13,9 @@ if (!defined('ABSPATH')) die("Aren't you supposed to come here via WP-Admin?");
 define('ALD_CRP_DIR', dirname(__FILE__));
 define('CRP_LOCAL_NAME', 'crp');
 
-// Pre-2.6 compatibility
-if ( ! defined( 'WP_CONTENT_URL' ) )
-      define( 'WP_CONTENT_URL', get_option( 'siteurl' ) . '/wp-content' );
-if ( ! defined( 'WP_CONTENT_DIR' ) )
-      define( 'WP_CONTENT_DIR', ABSPATH . 'wp-content' );
-if ( ! defined( 'WP_PLUGIN_URL' ) )
-      define( 'WP_PLUGIN_URL', WP_CONTENT_URL. '/plugins' );
-if ( ! defined( 'WP_PLUGIN_DIR' ) )
-      define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
-
 // Guess the location
-$crp_path = WP_PLUGIN_DIR.'/'.plugin_basename(dirname(__FILE__));
-$crp_url = WP_PLUGIN_URL.'/'.plugin_basename(dirname(__FILE__));
+$crp_path = plugin_dir_path(__FILE__);
+$crp_url = plugins_url().'/'.plugin_basename(dirname(__FILE__));
 
 function ald_crp_init() {
 	//* Begin Localization Code */
@@ -236,6 +226,22 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 
 
 /**
+ * Content function with user defined filter.
+ * 
+ * @access public
+ * @return void
+ */
+function crp_content_prepare_filter() {
+	global $crp_settings;
+
+    $priority = isset ( $crp_settings['content_filter_priority'] ) ? $crp_settings['content_filter_priority'] : 10;
+
+    add_filter( 'the_content', 'ald_crp_content', $priority );
+}
+add_action( 'template_redirect', 'crp_content_prepare_filter' );
+
+
+/**
  * Filter for 'the_content' to add the related posts.
  * 
  * @access public
@@ -271,7 +277,6 @@ function ald_crp_content($content) {
         return $content;
     }
 }
-add_filter('the_content', 'ald_crp_content');
 
 
 /**
@@ -549,6 +554,7 @@ function crp_default_options() {
 						'show_excerpt_feed' => false,			// Show description in list item in feed
 						'link_new_window' => false,			// Open link in new window - Includes target="_blank" to links
 						'link_nofollow' => false,			// Includes rel="nofollow" to links
+						'content_filter_priority' => 10,	// Content priority
 						);
 	return $crp_settings;
 }

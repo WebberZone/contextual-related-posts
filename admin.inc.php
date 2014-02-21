@@ -34,6 +34,7 @@ function crp_options() {
 		$crp_settings['match_content'] = (isset($_POST['match_content']) ? true : false);
 		$crp_settings['match_content_words'] = intval($_POST['match_content_words']);
 		$crp_settings['cache'] = (isset($_POST['cache']) ? true : false);
+		$crp_settings['content_filter_priority'] = intval( $_POST['content_filter_priority'] );
 
 		$crp_settings['add_to_content'] = (isset($_POST['add_to_content']) ? true : false);
 		$crp_settings['add_to_page'] = (isset($_POST['add_to_page']) ? true : false);
@@ -239,6 +240,12 @@ function crp_options() {
 					<label><input type="checkbox" name="add_to_tag_archives" id="add_to_tag_archives" <?php if ($crp_settings['add_to_tag_archives']) echo 'checked="checked"' ?> /> <?php _e('Tag archives',CRP_LOCAL_NAME); ?></label></label><br />
 					<label><input type="checkbox" name="add_to_archives" id="add_to_archives" <?php if ($crp_settings['add_to_archives']) echo 'checked="checked"' ?> /> <?php _e('Other archives',CRP_LOCAL_NAME); ?></label></label>
 					<p class="description"><?php _e('If you choose to disable this, please add <code>&lt;?php if(function_exists(\'echo_ald_crp\')) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed',CRP_LOCAL_NAME); ?></p>
+				</td>
+			</tr>
+			<tr><th scope="row"><label for="content_filter_priority"><?php _e('Content filter priority:',CRP_LOCAL_NAME); ?></label></th>
+				<td>
+					<input type="textbox" name="content_filter_priority" id="content_filter_priority" value="<?php echo esc_attr(stripslashes($crp_settings['content_filter_priority'])); ?>" />
+					<p class="description"><?php _e('A higher number will cause the content above to be processed after other filters. Number below 10 is not recommended',CRP_LOCAL_NAME); ?></p>
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="show_credit"><?php _e('Add a link to the plugin page as a final item in the list',CRP_LOCAL_NAME); ?></label></th>
