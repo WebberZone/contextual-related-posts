@@ -77,8 +77,9 @@ function ald_crp( $args ) {
 	if($results){
 		$loop_counter = 0;
 
-		if(!$is_widget) $output .= apply_filters('crp_heading_title',str_replace("%postname%",$post->post_title,$title));
-		$output .= $crp_settings['before_list'];
+		if(!$is_widget) $output .= apply_filters( 'crp_heading_title',str_replace( "%postname%",$post->post_title,$title ) );
+
+		$output .= apply_filters( 'crp_before_list', $crp_settings['before_list'] );
 
 		foreach($results as $result) {
 			$result = get_post(apply_filters('crp_post_id',$result->ID));	// Let's get the Post using the ID
@@ -91,7 +92,7 @@ function ald_crp( $args ) {
 			}
 
 			if (!$p_in_c) {
-				$output .= $crp_settings['before_list_item'];
+				$output .= apply_filters( 'crp_before_list_item', $crp_settings['before_list_item'] );
 
 				//$output .= '<a href="'.get_permalink($result->ID).'" class="crp_link">'; // Add beginning of link
 				if ($post_thumb_op=='after') {
@@ -118,17 +119,18 @@ function ald_crp( $args ) {
 				if ($show_excerpt) {
 					$output .= '<span class="crp_excerpt"> '.crp_excerpt($result->ID,$excerpt_length).'</span>';
 				}
-				$output .= $crp_settings['after_list_item'];
+				$output .= apply_filters( 'crp_after_list_item', $crp_settings['after_list_item'] );
 				$loop_counter++; 
 			}
 			if ($loop_counter == $limit) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
 		if ($crp_settings['show_credit']) {
-			$output .= $crp_settings['before_list_item'];
+			$output .= apply_filters( 'crp_before_list_item', $crp_settings['before_list_item'] );
 			$output .= __('Powered by',CRP_LOCAL_NAME);
-			$output .= ' <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/" rel="nofollow">Contextual Related Posts</a>'.$crp_settings['after_list_item'];
+			$output .= ' <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/" rel="nofollow">Contextual Related Posts</a>';
+			$output .= apply_filters( 'crp_after_list_item', $crp_settings['after_list_item'] );
 		}
-		$output .= $crp_settings['after_list'];
+		$output .= apply_filters( 'crp_after_list', $crp_settings['after_list'] );
 	}else{
 		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.$crp_settings['blank_output_text'].'</p>'; 
 	}
