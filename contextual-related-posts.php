@@ -111,7 +111,7 @@ function ald_crp( $args ) {
 					$author_name = ucwords(trim(stripslashes($author_info->display_name)));
 					$author_link = get_author_posts_url( $author_info->ID );
 					
-					$output .= '<span class="crp_author"> '.__(' by ', TPTN_LOCAL_NAME ).'<a href="'.$author_link.'">'.$author_name.'</a></span> ';
+					$output .= '<span class="crp_author"> '.__(' by ', crp_LOCAL_NAME ).'<a href="'.$author_link.'">'.$author_name.'</a></span> ';
 				}
 				if ($show_date) {
 					$output .= '<span class="crp_date"> '.mysql2date(get_option('date_format','d/m/y'), $result->post_date).'</span> ';
@@ -452,6 +452,23 @@ function init_ald_crp(){
 add_action('widgets_init', 'init_ald_crp'); 
 
 
+/**
+ * Enqueue styles.
+ * 
+ * @access public
+ * @return void
+ */
+function crp_heading_styles() {
+	global $crp_settings;
+	
+	if ($crp_settings['include_default_style']) {
+		wp_register_style('crp_list_style', plugins_url('css/default-style.css', __FILE__));
+		wp_enqueue_style('crp_list_style');
+	}
+}
+add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );  
+
+
 /*********************************************************************
 *				Shortcode functions									*
 ********************************************************************/
@@ -549,6 +566,7 @@ function crp_default_options() {
 						'title_length' => '60',		// Limit length of post title
 
 						'custom_CSS' => '',			// Custom CSS to style the output
+						'include_default_style' => false,	// Include without VAT
 						'limit_feed' => '5',				// How many posts to display in feeds
 						'post_thumb_op_feed' => 'text_only',	// Default option to display text and no thumbnails in Feeds
 						'thumb_height_feed' => '50',	// Height of thumbnails in feed

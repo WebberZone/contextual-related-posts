@@ -17,6 +17,8 @@ The list is based on the content of the title and/or content of the posts which 
 
 Contextual Related Posts is one of the most feature rich related posts plugins for WordPress with support for thumbnails, shortcodes, widgets, custom post types, caching and CSS styles.
 
+The plugin also comes with it's very own inbuilt stylesheet that let's your related posts look awesome!
+
 = Key features =
 
 * **Automatic**: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
@@ -32,7 +34,7 @@ Contextual Related Posts is one of the most feature rich related posts plugins f
 	* Auto-extract the first image in your post to be displayed as a thumbnail
 	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>
 	* Use timthumb to resize images or use your own filter function to resize post images
-* **Styles**: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area
+* **Styles**: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area or use the style included.
 * **Customisable output**:
 	* Display excerpts in post. You can select the length of the excerpt in words
 	* Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
@@ -52,6 +54,7 @@ If you have been using this plugin and find this useful, do consider making a do
 == Changelog ==
 
 = 1.8.11 =
+* New: Default style to make those related posts look awesome! You can find this option in the Custom styles section
 * New: Option to change the priority of the content filter. Now you can choose at what stage after the content the related posts are added.
 * New: Option to exclude the display on custom post types. Find this under Output Options
 * New: Redesigned settings page to be more responsive on mobile devices and better integrated in the WordPress Dashboard design

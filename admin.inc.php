@@ -47,12 +47,12 @@ function crp_options() {
 		$crp_settings['title_length'] = intval($_POST['title_length']);
 		$crp_settings['blank_output'] = (($_POST['blank_output'] == 'blank' ) ? true : false);
 		$crp_settings['blank_output_text'] = wp_kses_post($_POST['blank_output_text']);
-		$crp_settings['post_thumb_op'] = wp_kses_post($_POST['post_thumb_op']);
 		$crp_settings['before_list'] = wp_kses_post($_POST['before_list']);
 		$crp_settings['after_list'] = wp_kses_post($_POST['after_list']);
 		$crp_settings['before_list_item'] = wp_kses_post($_POST['before_list_item']);
 		$crp_settings['after_list_item'] = wp_kses_post($_POST['after_list_item']);
 
+		$crp_settings['post_thumb_op'] = wp_kses_post($_POST['post_thumb_op']);
 		$crp_settings['thumb_meta'] = (''==$_POST['thumb_meta'] ? 'post-image' : wp_kses_post($_POST['thumb_meta']));
 		$crp_settings['thumb_default'] = wp_kses_post($_POST['thumb_default']);
 		$crp_settings['thumb_height'] = intval($_POST['thumb_height']);
@@ -68,7 +68,17 @@ function crp_options() {
 		$crp_settings['show_date'] = (isset($_POST['show_date']) ? true : false);
 		$crp_settings['show_author'] = (isset($_POST['show_author']) ? true : false);
 		$crp_settings['show_credit'] = (isset($_POST['show_credit']) ? true : false);
+
 		$crp_settings['custom_CSS'] = wp_kses_post($_POST['custom_CSS']);
+		
+		if (isset($_POST['include_default_style'])) {
+			$crp_settings['include_default_style'] = true;
+			$crp_settings['post_thumb_op'] = 'inline';
+			$crp_settings['thumb_height'] = 150;
+			$crp_settings['thumb_width'] = 150;
+		} else {
+			$crp_settings['include_default_style'] = false;
+		}
 
 		$crp_settings['link_new_window'] = (isset($_POST['link_new_window']) ? true : false);
 		$crp_settings['link_nofollow'] = (isset($_POST['link_nofollow']) ? true : false);
@@ -355,10 +365,10 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_width"><?php _e('Maximum width of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="thumb_width" id="thumb_width" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_width'])); ?>" style="width:30px" />px</td>
+				<td><input type="textbox" name="thumb_width" id="thumb_width" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_width'])); ?>" style="width:50px" />px</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_height"><?php _e('Maximum height of the thumbnail: ',CRP_LOCAL_NAME); ?></label></th>
-				<td><input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_height'])); ?>" style="width:30px" />px</td>
+				<td><input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_height'])); ?>" style="width:50px" />px</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_html"><?php _e('Style attributes / Width and Height HTML attributes:',CRP_LOCAL_NAME); ?></label></th>
 				<td>
@@ -452,11 +462,19 @@ function crp_options() {
 	      <h3 class='hndle'><span><?php _e('Custom styles',CRP_LOCAL_NAME); ?></span></h3>
 	      <div class="inside">
 			<table class="form-table">
-			<tr><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',CRP_LOCAL_NAME); ?></th>
-			</tr>
-			<tr><td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%"><?php echo stripslashes($crp_settings['custom_CSS']); ?></textarea>
-				<p class="description"><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.',CRP_LOCAL_NAME); ?></p>
-			</td></tr>
+				<tr><th scope="row"><label for="include_default_style"><?php _e('Use default style included in the plugin?',CRP_LOCAL_NAME); ?></label></th>
+				  <td>
+				  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ($crp_settings['include_default_style']) echo 'checked="checked"' ?> /> 
+				  	<p class="description"><?php _e('Contextual Related Posts includes a default style that makes your popular posts list to look pretty. Check the box above if you want to use this.',CRP_LOCAL_NAME); ?></p>
+				  	<p class="description"><?php _e('Enabling this option will automatically turn on the thumbnails and set their width and height to 150px. Disabling this will not turn off thumbnails or change their dimensions.',CRP_LOCAL_NAME); ?></p>
+				  </td>
+				</tr>
+				<tr><th scope="row" colspan="2"><?php _e('Custom CSS to add to header:',CRP_LOCAL_NAME); ?></th>
+				</tr>
+				<tr>
+				  <td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%"><?php echo stripslashes($crp_settings['custom_CSS']); ?></textarea>
+				  <p class="description"><?php _e('Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.',CRP_LOCAL_NAME); ?></p>
+				</td></tr>
 			</table>		
 	      </div>
 	    </div>
@@ -586,7 +604,7 @@ function crp_adminhead() {
 			// close postboxes that should be closed
 			$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
 			// postboxes setup
-			postboxes.add_postbox_toggles('tptn_options');
+			postboxes.add_postbox_toggles('crp_options');
 		});
 		//]]>
 	</script>
