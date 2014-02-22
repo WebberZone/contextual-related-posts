@@ -64,10 +64,10 @@ function ald_crp( $args ) {
 		if ( $output ) return $output;
 	}
 
-	$exclude_categories = explode(',',$crp_settings['exclude_categories']);
+	$exclude_categories = explode(',',$exclude_categories);
 	
-	$rel_attribute = (($crp_settings['link_nofollow']) ? ' rel="nofollow" ' : ' ' );
-	$target_attribute = (($crp_settings['link_new_window']) ? ' target="_blank" ' : ' ' );
+	$rel_attribute = (($link_nofollow) ? ' rel="nofollow" ' : ' ' );
+	$target_attribute = (($link_new_window) ? ' target="_blank" ' : ' ' );
 	
 	// Retrieve the list of posts
 	$results = get_crp_posts($post->ID, $limit, TRUE);
@@ -79,7 +79,7 @@ function ald_crp( $args ) {
 
 		if(!$is_widget) $output .= apply_filters( 'crp_heading_title',str_replace( "%postname%",$post->post_title,$title ) );
 
-		$output .= apply_filters( 'crp_before_list', $crp_settings['before_list'] );
+		$output .= apply_filters( 'crp_before_list', $before_list );
 
 		foreach($results as $result) {
 			$result = get_post(apply_filters('crp_post_id',$result->ID));	// Let's get the Post using the ID
@@ -92,7 +92,7 @@ function ald_crp( $args ) {
 			}
 
 			if (!$p_in_c) {
-				$output .= apply_filters( 'crp_before_list_item', $crp_settings['before_list_item'] );
+				$output .= apply_filters( 'crp_before_list_item', $before_list_item );
 
 				//$output .= '<a href="'.get_permalink($result->ID).'" class="crp_link">'; // Add beginning of link
 				if ($post_thumb_op=='after') {
@@ -100,7 +100,7 @@ function ald_crp( $args ) {
 				}
 				if ($post_thumb_op=='inline' || $post_thumb_op=='after' || $post_thumb_op=='thumbs_only') {
 					$output .= '<a href="'.get_permalink($result->ID).'" '.$rel_attribute.' '.$target_attribute.'>';
-					$output .= crp_get_the_post_thumbnail('postid='.$result->ID.'&thumb_height='.$thumb_height.'&thumb_width='.$thumb_width.'&thumb_meta='.$crp_settings['thumb_meta'].'&thumb_html='.$crp_settings['thumb_html'].'&thumb_default='.$crp_settings['thumb_default'].'&thumb_default_show='.$crp_settings['thumb_default_show'].'&thumb_timthumb='.$crp_settings['thumb_timthumb'].'&thumb_timthumb_q='.$crp_settings['thumb_timthumb_q'].'&scan_images='.$crp_settings['scan_images'].'&class=crp_thumb&filter=crp_postimage');
+					$output .= crp_get_the_post_thumbnail('postid='.$result->ID.'&thumb_height='.$thumb_height.'&thumb_width='.$thumb_width.'&thumb_meta='.$thumb_meta.'&thumb_html='.$thumb_html.'&thumb_default='.$thumb_default.'&thumb_default_show='.$thumb_default_show.'&thumb_timthumb='.$thumb_timthumb.'&thumb_timthumb_q='.$thumb_timthumb_q.'&scan_images='.$scan_images.'&class=crp_thumb&filter=crp_postimage');
 					$output .= '</a>';
 				}
 				if ($post_thumb_op=='inline' || $post_thumb_op=='text_only') {
@@ -119,24 +119,24 @@ function ald_crp( $args ) {
 				if ($show_excerpt) {
 					$output .= '<span class="crp_excerpt"> '.crp_excerpt($result->ID,$excerpt_length).'</span>';
 				}
-				$output .= apply_filters( 'crp_after_list_item', $crp_settings['after_list_item'] );
+				$output .= apply_filters( 'crp_after_list_item', $after_list_item );
 				$loop_counter++; 
 			}
 			if ($loop_counter == $limit) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
-		if ($crp_settings['show_credit']) {
-			$output .= apply_filters( 'crp_before_list_item', $crp_settings['before_list_item'] );
+		if ($show_credit) {
+			$output .= apply_filters( 'crp_before_list_item', $before_list_item );
 			$output .= __('Powered by',CRP_LOCAL_NAME);
 			$output .= ' <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/" rel="nofollow">Contextual Related Posts</a>';
-			$output .= apply_filters( 'crp_after_list_item', $crp_settings['after_list_item'] );
+			$output .= apply_filters( 'crp_after_list_item', $after_list_item );
 		}
-		$output .= apply_filters( 'crp_after_list', $crp_settings['after_list'] );
+		$output .= apply_filters( 'crp_after_list', $after_list );
 	}else{
-		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.$crp_settings['blank_output_text'].'</p>'; 
+		$output .= ($blank_output) ? ' ' : '<p>'.$blank_output_text.'</p>'; 
 	}
-	if ((strpos($output, $crp_settings['before_list_item'])) === false) {
+	if ((strpos($output, $before_list_item)) === false) {
 		$output = '<div id="crp_related">';
-		$output .= ($crp_settings['blank_output']) ? ' ' : '<p>'.$crp_settings['blank_output_text'].'</p>'; 
+		$output .= ($blank_output) ? ' ' : '<p>'.$blank_output_text.'</p>'; 
 	}
 	$output .= '</div>';
 	
