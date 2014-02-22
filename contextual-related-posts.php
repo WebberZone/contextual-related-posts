@@ -111,7 +111,7 @@ function ald_crp( $args ) {
 					$author_name = ucwords(trim(stripslashes($author_info->display_name)));
 					$author_link = get_author_posts_url( $author_info->ID );
 					
-					$output .= '<span class="crp_author"> '.__(' by ', crp_LOCAL_NAME ).'<a href="'.$author_link.'">'.$author_name.'</a></span> ';
+					$output .= '<span class="crp_author"> '.__(' by ', CRP_LOCAL_NAME ).'<a href="'.$author_link.'">'.$author_name.'</a></span> ';
 				}
 				if ($show_date) {
 					$output .= '<span class="crp_date"> '.mysql2date(get_option('date_format','d/m/y'), $result->post_date).'</span> ';
