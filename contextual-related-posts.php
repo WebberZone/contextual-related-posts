@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.10.2.3
+Version:     1.8.10.2.4
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -17,15 +17,10 @@ define('CRP_LOCAL_NAME', 'crp');
 $crp_path = plugin_dir_path(__FILE__);
 $crp_url = plugins_url().'/'.plugin_basename(dirname(__FILE__));
 
-function ald_crp_init() {
-	//* Begin Localization Code */
-	$crp_localizationName = CRP_LOCAL_NAME;
-	$crp_comments_locale = get_locale();
-	$crp_comments_mofile = ALD_CRP_DIR . "/languages/" . $crp_localizationName . "-". $crp_comments_locale.".mo";
-	load_textdomain($crp_localizationName, $crp_comments_mofile);
-	//* End Localization Code */
+function ald_crp_lang_init() {
+	load_plugin_textdomain( CRP_LOCAL_NAME, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
-add_action('init', 'ald_crp_init');
+add_action('plugins_loaded', 'ald_crp_lang_init');
 
 
 /*********************************************************************
