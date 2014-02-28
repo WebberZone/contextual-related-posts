@@ -731,13 +731,13 @@ function crp_get_the_post_thumbnail($args = array()) {
 		$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' border="0" class="'.$class.'" />';
 	} else {
 		$postimage = get_post_meta($result->ID, $thumb_meta, true);	// Check the post meta first
-		if (!$postimage) $postimage = crp_get_first_image($result->ID);	// Get the first image
 		if (!$postimage && $scan_images) {
 			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $result->post_content, $matches );
 			if (isset($matches[1][0]) && $matches[1][0]) { 			// any image there?
 					$postimage = $matches[1][0]; // we need the first one only!
 			}
 		}
+		if (!$postimage) $postimage = crp_get_first_image($result->ID);	// Get the first image
 		if (!$postimage) $postimage = get_post_meta($result->ID, '_video_thumbnail', true); // If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin
 		if ($thumb_default_show && !$postimage) $postimage = $thumb_default; // If no thumb found and settings permit, use default thumb
 		if ($postimage) {
