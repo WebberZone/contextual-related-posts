@@ -58,7 +58,7 @@ If you have been using this plugin and find this useful, do consider making a do
 * New: Option to change the priority of the content filter. Now you can choose at what stage after the content the related posts are added.
 * New: Option to exclude the display on custom post types. Find this under Output Options
 * New: Redesigned settings page to be more responsive on mobile devices and better integrated in the WordPress Dashboard design
-* Modified: Modified thumbnail code. Attached image to the post is given priority over first image
+* New: Function `get_crp_posts_id` can be used to fetch the IDs of related posts. Check out the FAQ on details of this
 * Modified: Shortcode now considers a wider range of attributes
 
 = 1.8.10.2 =
@@ -331,17 +331,18 @@ Echoes the list of posts wherever you add the this function. You can also use th
 Usage: `<?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?>` to your template file where you want the related posts to be displayed.
 
 
-**get_crp_posts()**
+**get_crp_posts_id()**
 
-Takes a post ID and returns an array of related post IDs. 
+Takes a post ID and returns the related post IDs as an object. 
 
-Usage: `<?php if(function_exists('get_crp_posts')) get_crp_posts($postid, $limit) ?>`
+Usage: `<?php if(function_exists('get_crp_posts_id')) get_crp_posts_id( array( 'postid' => $postid, 'limit' => $limit ) ); ?>`
 
 Parameters:
 
 *$postid* : The ID of the post you'd like to fetch. By default the current post is fetched. Use within the Loop for best results.
 
 *$limit* : Maximum number of posts to return. The actual number displayed may be lower depending on the matching algorithm and the category / post exclusion settings.
+
 
 = Shortcodes =
 

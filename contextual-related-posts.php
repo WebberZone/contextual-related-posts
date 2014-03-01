@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Contextual Related Posts
-Version:     1.8.10.2.4
+Version:     1.8.10.2.5
 Plugin URI:  http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
 Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
 Author:      Ajay D'Souza
@@ -65,7 +65,10 @@ function ald_crp( $args ) {
 	$target_attribute = (($link_new_window) ? ' target="_blank" ' : ' ' );
 	
 	// Retrieve the list of posts
-	$results = get_crp_posts($post->ID, $limit, TRUE);
+	$results = get_crp_posts_id( array_merge($args, array(
+		'postid' => $post->ID, 
+		'strict_limit' => TRUE,  
+	) ) );
 
 	$output = (is_singular()) ? '<div id="crp_related" class="crp_related'.($is_widget ? '_widget':'').'">' : '<div class="crp_related'.($is_widget ? '_widget':'').'">';
 	
@@ -80,7 +83,7 @@ function ald_crp( $args ) {
 			$result = get_post(apply_filters('crp_post_id',$result->ID));	// Let's get the Post using the ID
 			$categorys = get_the_category(apply_filters('crp_post_cat_id',$result->ID));	//Fetch categories of the plugin
 			$p_in_c = false;	// Variable to check if post exists in a particular category
-			$title = apply_filters('crp_title', crp_max_formatted_content(get_the_title($result->ID),$title_length) );
+			$title = apply_filters( 'crp_title', crp_max_formatted_content( get_the_title( $result->ID ), $title_length ), $result->ID );
 			foreach ($categorys as $cat) {	// Loop to check if post exists in excluded category
 				$p_in_c = (in_array($cat->cat_ID, $exclude_categories)) ? true : false;
 				if ($p_in_c) break;	// End loop if post found in category
@@ -156,31 +159,57 @@ function ald_crp( $args ) {
  * @param boolean $strict_limit (default: TRUE) Setting to true will fetch exactly as per limit above
  * @return array Array of Post IDs
  */
-function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
-	global $wpdb, $post, $single;
+function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) {
 
-	global $crp_settings;
+	return apply_filters( 'get_crp_posts', get_crp_posts_id( array( 
+		'postid' => $postid, 
+		'limit' => $limit, 
+		'strict_limit' => $strict_limit 
+	) ) );
+}
+
+
+/**
+ * Fetch related posts IDs.
+ * 
+ * @access public
+ * @param array $args (default: array())
+ * @return object $results
+ */
+function get_crp_posts_id( $args = array() ) {
+	global $wpdb, $post, $single, $crp_settings;
+
+	$defaults = array(
+		'postid' => FALSE,
+		'strict_limit' => FALSE,
+	);
+	$defaults = array_merge($defaults, $crp_settings);
 	
-	$post = (empty($postid)) ? get_post($postid) : $post;
+	// Parse incomming $args into an array and merge it with $defaults
+	$args = wp_parse_args( $args, $defaults );
+	
+	// OPTIONAL: Declare each item in $args as its own variable i.e. $type, $before.
+	extract( $args, EXTR_SKIP );
 
-	if (empty($limit)) $limit = stripslashes($crp_settings['limit']);
+	$post = (empty($postid)) ? $post : get_post($postid);
+
 	$limit = ($strict_limit) ? $limit : ($limit*3);	
 
-	parse_str($crp_settings['post_types'],$post_types);	// Save post types in $post_types variable
+	parse_str($post_types,$post_types);	// Save post types in $post_types variable
 
 	// Make sure the post is not from the future
 	$time_difference = get_option('gmt_offset');
 	$now = gmdate("Y-m-d H:i:s",(time()+($time_difference*3600)));
 
 	// Are we matching only the title or the post content as well?
-	if($crp_settings['match_content']) {
-		$stuff = $post->post_title. ' ' . crp_excerpt( $post->ID,$crp_settings['match_content_words'],false );
+	if($match_content) {
+		$stuff = $post->post_title. ' ' . crp_excerpt( $post->ID,$match_content_words,false );
 	} else {
 		$stuff = $post->post_title;
 	}
 	
 	// Limit the related posts by time
-	$daily_range = $crp_settings['daily_range'] - 1;
+	$daily_range = $daily_range - 1;
 	$current_date = strtotime ( '-'.$daily_range. ' DAY' , strtotime ( $now ) );
 	$current_date = date ( 'Y-m-d H:i:s' , $current_date );
 	
@@ -201,7 +230,7 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 			AND post_status = 'publish'
 			AND ID != %d
 		";
-		if ($crp_settings['exclude_post_ids']!='') $sql .= "AND ID NOT IN (".$crp_settings['exclude_post_ids'].") ";
+		if ('' != $exclude_post_ids) $sql .= "AND ID NOT IN (".$exclude_post_ids.") ";
 		$sql .= " AND ( ";
 		$multiple = false;
 		foreach ($post_types as $post_type) {
@@ -218,7 +247,7 @@ function get_crp_posts($postid = FALSE, $limit = FALSE, $strict_limit = TRUE) {
 		$results = false;
 	}
 	
-	return apply_filters('get_crp_posts',$results);
+	return apply_filters('get_crp_posts_id',$results);
 }
 
 
