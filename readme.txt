@@ -47,8 +47,9 @@ If you have been using this plugin and find this useful, do consider making a do
 
 == Upgrade Notice ==
 
-= 1.8.10.2 =
-* Minor performance improvements + a fix for potential SQL vulnerability
+= 1.8.11 =
+* New default style, new option to prioritise the posts, exclude related posts on Custom Post types and more...
+Check out the Changelog for more details.
 
 
 == Changelog ==
