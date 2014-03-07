@@ -4,7 +4,7 @@ Contributors: Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 3.0
-Tested up to: 3.8
+Tested up to: 3.9
 License: GPLv2 or later
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -44,17 +44,22 @@ The plugin also comes with it's very own inbuilt stylesheet that let's your rela
 I spend a significant amount of my free time maintaing, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done by best to answer your question and solve your problem.
 If you have been using this plugin and find this useful, do consider making a donation. This helps me pay for my hosting and domains.
 
+= Contribute =
+
+Contextual Related Posts is also available on Github at https://github.com/ajaydsouza/contextual-related-posts
+So, if you've got some cool feature that you'd like to implement into the plugin or a bug you've been able to fix, consider forking the project and sending me a pull request.
+
 
 == Upgrade Notice ==
 
-= 1.8.11 =
+= 1.9 =
 * New default style, new option to prioritise the posts, exclude related posts on Custom Post types and more...
 Check out the Changelog for more details.
 
 
 == Changelog ==
 
-= 1.8.11 =
+= 1.9 =
 * New: Default style to make those related posts look awesome! You can find this option in the Custom styles section
 * New: Option to change the priority of the content filter. Now you can choose at what stage after the content the related posts are added.
 * New: Option to exclude the display on custom post types. Find this under Output Options
@@ -370,21 +375,4 @@ The plugin includes the following filters that allows you to customise the outpu
 *crp_title* : Filter for the post title for each of the related posts
 
 I'll be adding more filters eventually. If you are looking for any particular filter do raise a post in the <a href="http://wordpress.org/support/plugin/contextual-related-posts">support forum</a> requesting the same.
-
-== Wishlist ==
-
-Below are a few features that I plan on implementing in future versions of the plugin. However, there is no fixed time-frame for this and largely depends on how much time I can contribute to development.
-
-* Select random posts if there are no similar posts
-* Exclude display on select categories and tags
-* Restrict related posts to same category
-* Better relevance tweaking
-* Limit characters in content that is compared
-* Improved Custom post support
-* Multi-site support
-* Ready-made styles
-* Upload your own default thumbnail
-    
-
-If you would like a feature to be added, or if you already have the code for the feature, you can let me know by <a href="http://wordpress.org/support/plugin/contextual-related-posts">posting in this forum</a>.
 
