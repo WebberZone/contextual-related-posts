@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-20 23:44-0000\n"
+"POT-Creation-Date: 2014-03-08 00:51-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -12,264 +12,239 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
 "X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin.inc.php:107
+#: admin.inc.php:127
 msgid "Options saved successfully."
 msgstr ""
 
-#: admin.inc.php:123
+#: admin.inc.php:147
 msgid "Options set to Default."
 msgstr ""
 
-#: admin.inc.php:139
+#: admin.inc.php:163
 msgid "Index recreated"
 msgstr ""
 
-#: admin.inc.php:152
-msgid "Support the development"
-msgstr ""
-
-#: admin.inc.php:160
-msgid "Enter amount in USD: "
-msgstr ""
-
-#: admin.inc.php:164
-msgid "Send your donation to the author of"
-msgstr ""
-
 #: admin.inc.php:175
-msgid "Quick Links"
-msgstr ""
-
-#: admin.inc.php:177
-msgid "Contextual Related Posts plugin page"
-msgstr ""
-
-#: admin.inc.php:178
-msgid "Other plugins"
-msgstr ""
-
-#: admin.inc.php:179
-msgid "Ajay's blog"
-msgstr ""
-
-#: admin.inc.php:180
-msgid "FAQ"
-msgstr ""
-
-#: admin.inc.php:181 contextual-related-posts.php:839
-msgid "Support"
-msgstr ""
-
-#: admin.inc.php:182
-msgid "Reviews"
-msgstr ""
-
-#: admin.inc.php:186
-msgid "Recent developments"
-msgstr ""
-
-#: admin.inc.php:196
 msgid "General options"
 msgstr ""
 
-#: admin.inc.php:198
+#: admin.inc.php:178
 msgid "Cache output?"
 msgstr ""
 
-#: admin.inc.php:200
+#: admin.inc.php:180
 msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
 msgstr ""
 
-#: admin.inc.php:201
+#: admin.inc.php:181
 msgid "Clear cache"
 msgstr ""
 
-#: admin.inc.php:204 admin.inc.php:422
+#: admin.inc.php:184 admin.inc.php:425
 msgid "Number of related posts to display: "
 msgstr ""
 
-#: admin.inc.php:207
+#: admin.inc.php:187
 msgid ""
 "Maximum number of posts that will be displayed. The actual number may be "
 "smaller if less related posts are found."
 msgstr ""
 
-#: admin.inc.php:210
+#: admin.inc.php:190
 msgid "Related posts should be newer than:"
 msgstr ""
 
-#: admin.inc.php:212
+#: admin.inc.php:192
 msgid "days"
 msgstr ""
 
-#: admin.inc.php:213
+#: admin.inc.php:193
 msgid ""
 "This sets the cutoff period for which posts will be displayed. e.g. setting "
 "it to 365 will show related posts from the last year only."
 msgstr ""
 
-#: admin.inc.php:216
+#: admin.inc.php:196
 msgid "Post types to include in results."
 msgstr ""
 
-#: admin.inc.php:225
+#: admin.inc.php:205
 msgid ""
 "These post types will be displayed in the list. Includes custom post types."
 msgstr ""
 
-#: admin.inc.php:228
+#: admin.inc.php:208
 msgid "Find related posts based on content as well as title"
 msgstr ""
 
-#: admin.inc.php:230
+#: admin.inc.php:210
 msgid ""
 "If unchecked, only posts titles are used. I recommend using a caching plugin "
 "or enabling \"Cache output\" above if you enable this."
 msgstr ""
 
-#: admin.inc.php:233
+#: admin.inc.php:213
 msgid "Limit content to be compared"
 msgstr ""
 
-#: admin.inc.php:235
+#: admin.inc.php:215
 msgid ""
 "This sets the maximum words of the content that will be matched. 0 means no "
 "limit."
 msgstr ""
 
-#: admin.inc.php:238
+#: admin.inc.php:218
 msgid "List of post or page IDs to exclude from the results: "
 msgstr ""
 
-#: admin.inc.php:240 admin.inc.php:327
+#: admin.inc.php:220 admin.inc.php:315
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
 msgstr ""
 
-#: admin.inc.php:243
+#: admin.inc.php:223
 msgid "Categories to exclude from the results: "
 msgstr ""
 
-#: admin.inc.php:259
+#: admin.inc.php:239
 msgid ""
 "Comma separated list of category slugs. The field above has an autocomplete "
 "so simply start typing in the starting letters and it will prompt you with "
 "options"
 msgstr ""
 
-#: admin.inc.php:262
+#: admin.inc.php:242
 msgid "Add related posts to:"
 msgstr ""
 
-#: admin.inc.php:264
+#: admin.inc.php:244
 msgid "Posts"
 msgstr ""
 
-#: admin.inc.php:265
+#: admin.inc.php:245
 msgid "Pages"
 msgstr ""
 
-#: admin.inc.php:266
+#: admin.inc.php:246
 msgid "Home page"
 msgstr ""
 
-#: admin.inc.php:267
+#: admin.inc.php:247
 msgid "Feeds"
 msgstr ""
 
-#: admin.inc.php:268
+#: admin.inc.php:248
 msgid "Category archives"
 msgstr ""
 
-#: admin.inc.php:269
+#: admin.inc.php:249
 msgid "Tag archives"
 msgstr ""
 
-#: admin.inc.php:270
+#: admin.inc.php:250
 msgid "Other archives"
 msgstr ""
 
-#: admin.inc.php:271
+#: admin.inc.php:251
 msgid ""
-"If you choose to disable this, please add <code>&lt;?php if(function_exists"
-"('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your template file where "
-"you want it displayed"
+"If you choose to disable this, please add <code>&lt;?php if "
+"( function_exists( 'echo_ald_crp' ) ) echo_ald_crp(); ?&gt;</code> to your "
+"template file where you want it displayed"
 msgstr ""
 
-#: admin.inc.php:274
+#: admin.inc.php:254
+msgid "Content filter priority:"
+msgstr ""
+
+#: admin.inc.php:257
+msgid ""
+"A higher number will cause the content above to be processed after other "
+"filters. Number below 10 is not recommended"
+msgstr ""
+
+#: admin.inc.php:260
 msgid "Add a link to the plugin page as a final item in the list"
 msgstr ""
 
-#: admin.inc.php:276
+#: admin.inc.php:262
 msgid " <em>Optional</em>"
 msgstr ""
 
-#: admin.inc.php:277
+#: admin.inc.php:263
 msgid "Adds a nofollow link to Contextual Related Posts homepage."
 msgstr ""
 
-#: admin.inc.php:283
+#: admin.inc.php:270
 msgid "Output options"
 msgstr ""
 
-#: admin.inc.php:285
+#: admin.inc.php:273
 msgid "Title of related posts: "
 msgstr ""
 
-#: admin.inc.php:288
+#: admin.inc.php:276
 msgid ""
 "This is the main heading of the related posts. You can also display the "
 "current post title by using <code>%postname%</code>. e.g. <code>Related "
 "Posts to %postname%</code>"
 msgstr ""
 
-#: admin.inc.php:291
+#: admin.inc.php:279
 msgid "When there are no posts, what should be shown?"
 msgstr ""
 
-#: admin.inc.php:295
+#: admin.inc.php:283
 msgid "Blank Output"
 msgstr ""
 
-#: admin.inc.php:299
+#: admin.inc.php:287
 msgid "Display:"
 msgstr ""
 
-#: admin.inc.php:303 admin.inc.php:425
+#: admin.inc.php:291 admin.inc.php:428
 msgid "Show post excerpt in list?"
 msgstr ""
 
-#: admin.inc.php:306
+#: admin.inc.php:294
 msgid "Length of excerpt (in words): "
 msgstr ""
 
-#: admin.inc.php:309
+#: admin.inc.php:297
 msgid "Show post author in list?"
 msgstr ""
 
-#: admin.inc.php:312
+#: admin.inc.php:300
 msgid "Show post date in list?"
 msgstr ""
 
-#: admin.inc.php:315
+#: admin.inc.php:303
 msgid "Limit post title length (in characters)"
 msgstr ""
 
-#: admin.inc.php:318
+#: admin.inc.php:306
 msgid "Open links in new window"
 msgstr ""
 
-#: admin.inc.php:321
+#: admin.inc.php:309
 msgid "Add nofollow attribute to links in the list"
 msgstr ""
 
-#: admin.inc.php:324
+#: admin.inc.php:312
 msgid "Exclude display of related posts on these posts / pages"
+msgstr ""
+
+#: admin.inc.php:318
+msgid "Exclude display of related posts on these post types."
+msgstr ""
+
+#: admin.inc.php:327
+msgid ""
+"The related posts will not display on any of the above selected post types"
 msgstr ""
 
 #: admin.inc.php:330
@@ -296,31 +271,31 @@ msgstr ""
 msgid "Post thumbnail options:"
 msgstr ""
 
-#: admin.inc.php:346 admin.inc.php:428
+#: admin.inc.php:346 admin.inc.php:431
 msgid "Location of post thumbnail:"
 msgstr ""
 
-#: admin.inc.php:350 admin.inc.php:432
+#: admin.inc.php:350 admin.inc.php:435
 msgid "Display thumbnails inline with posts, before title"
 msgstr ""
 
-#: admin.inc.php:354 admin.inc.php:436
+#: admin.inc.php:354 admin.inc.php:439
 msgid "Display thumbnails inline with posts, after title"
 msgstr ""
 
-#: admin.inc.php:358 admin.inc.php:440
+#: admin.inc.php:358 admin.inc.php:443
 msgid "Display only thumbnails, no text"
 msgstr ""
 
-#: admin.inc.php:362 admin.inc.php:444
+#: admin.inc.php:362 admin.inc.php:447
 msgid "Do not display thumbnails, only text."
 msgstr ""
 
-#: admin.inc.php:366 admin.inc.php:448
+#: admin.inc.php:366 admin.inc.php:451
 msgid "Maximum width of the thumbnail: "
 msgstr ""
 
-#: admin.inc.php:369 admin.inc.php:451
+#: admin.inc.php:369 admin.inc.php:454
 msgid "Maximum height of the thumbnail: "
 msgstr ""
 
@@ -395,163 +370,214 @@ msgstr ""
 msgid "Default thumbnail: "
 msgstr ""
 
-#: admin.inc.php:412
+#: admin.inc.php:413
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
 "then it will check the meta field. If this is not available, then it will "
 "show the default image as specified above"
 msgstr ""
 
-#: admin.inc.php:418
+#: admin.inc.php:420
 msgid "Feed options"
 msgstr ""
 
-#: admin.inc.php:420
+#: admin.inc.php:423
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
 "Options tab."
 msgstr ""
 
-#: admin.inc.php:457
-msgid "Custom Styles"
+#: admin.inc.php:461
+msgid "Custom styles"
 msgstr ""
 
-#: admin.inc.php:459
+#: admin.inc.php:464
+msgid "Use default style included in the plugin?"
+msgstr ""
+
+#: admin.inc.php:467
+msgid ""
+"Contextual Related Posts includes a default style that makes your popular "
+"posts list to look pretty. Check the box above if you want to use this."
+msgstr ""
+
+#: admin.inc.php:468
+msgid ""
+"Enabling this option will automatically turn on the thumbnails and set their "
+"width and height to 150px. Disabling this will not turn off thumbnails or "
+"change their dimensions."
+msgstr ""
+
+#: admin.inc.php:471
 msgid "Custom CSS to add to header:"
 msgstr ""
 
-#: admin.inc.php:462
+#: admin.inc.php:475
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a href=\"http://"
 "wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
 "\">FAQ</a> for available CSS classes to style."
 msgstr ""
 
-#: admin.inc.php:467
+#: admin.inc.php:482
 msgid "Save Options"
 msgstr ""
 
-#: admin.inc.php:468
+#: admin.inc.php:483
 msgid "Default Options"
 msgstr ""
 
-#: admin.inc.php:468
+#: admin.inc.php:483
 msgid "Do you want to set options to Default?"
 msgstr ""
 
-#: admin.inc.php:469
+#: admin.inc.php:484
 msgid "Recreate Index"
 msgstr ""
 
-#: admin.inc.php:469
+#: admin.inc.php:484
 msgid "Are you sure you want to recreate the index?"
 msgstr ""
 
-#: admin.inc.php:493
+#: admin.inc.php:492
+msgid "Support the development"
+msgstr ""
+
+#: admin.inc.php:501
+msgid "Enter amount in USD: "
+msgstr ""
+
+#: admin.inc.php:505
+msgid "Send your donation to the author of"
+msgstr ""
+
+#: admin.inc.php:512
+msgid "Follow me"
+msgstr ""
+
+#: admin.inc.php:522
+msgid "Quick links"
+msgstr ""
+
+#: admin.inc.php:526
+msgid "Contextual Related Posts plugin page"
+msgstr ""
+
+#: admin.inc.php:527
+msgid "Other plugins"
+msgstr ""
+
+#: admin.inc.php:528
+msgid "Ajay's blog"
+msgstr ""
+
+#: admin.inc.php:529
+msgid "FAQ"
+msgstr ""
+
+#: admin.inc.php:530 contextual-related-posts.php:921
+msgid "Support"
+msgstr ""
+
+#: admin.inc.php:531
+msgid "Reviews"
+msgstr ""
+
+#: admin.inc.php:554
 msgid "Contextual Related Posts"
 msgstr ""
 
-#: admin.inc.php:493 contextual-related-posts.php:323
+#: admin.inc.php:554 contextual-related-posts.php:366
 msgid "Related Posts"
 msgstr ""
 
-#: admin.inc.php:506
+#: admin.inc.php:658
 msgid "plugin settings page"
 msgstr ""
 
-#: admin.inc.php:511
-msgid ""
-"Contextual Related Posts plugin has just been installed / upgraded. Please "
-"visit the "
-msgstr ""
-
-#: admin.inc.php:511
-msgid " to configure."
-msgstr ""
-
-#: admin.inc.php:575
+#: admin.inc.php:692
 msgid ""
 "An error occurred clearing the cache. Please contact your site administrator."
 "\\n\\nError message:\\n"
 msgstr ""
 
-#: admin.inc.php:581
+#: admin.inc.php:697
 msgid " cached row(s) cleared"
 msgstr ""
 
-#: contextual-related-posts.php:123
+#: contextual-related-posts.php:128
 msgid " by "
 msgstr ""
 
-#: contextual-related-posts.php:138
+#: contextual-related-posts.php:143
 msgid "Powered by"
 msgstr ""
 
-#: contextual-related-posts.php:322
+#: contextual-related-posts.php:365
 msgid "Display Related Posts"
 msgstr ""
 
-#: contextual-related-posts.php:337
+#: contextual-related-posts.php:380
 msgid "Title"
 msgstr ""
 
-#: contextual-related-posts.php:342
+#: contextual-related-posts.php:385
 msgid "No. of posts"
 msgstr ""
 
-#: contextual-related-posts.php:347
+#: contextual-related-posts.php:390
 msgid " Show excerpt?"
 msgstr ""
 
-#: contextual-related-posts.php:352
+#: contextual-related-posts.php:395
 msgid " Show author?"
 msgstr ""
 
-#: contextual-related-posts.php:357
+#: contextual-related-posts.php:400
 msgid " Show date?"
 msgstr ""
 
-#: contextual-related-posts.php:361
+#: contextual-related-posts.php:404
 msgid "Thumbnail options"
 msgstr ""
 
-#: contextual-related-posts.php:363
+#: contextual-related-posts.php:406
 msgid "Thumbnails inline, before title"
 msgstr ""
 
-#: contextual-related-posts.php:364
+#: contextual-related-posts.php:407
 msgid "Thumbnails inline, after title"
 msgstr ""
 
-#: contextual-related-posts.php:365
+#: contextual-related-posts.php:408
 msgid "Only thumbnails, no text"
 msgstr ""
 
-#: contextual-related-posts.php:366
+#: contextual-related-posts.php:409
 msgid "No thumbnails, only text."
 msgstr ""
 
-#: contextual-related-posts.php:371
+#: contextual-related-posts.php:414
 msgid "Thumbnail height"
 msgstr ""
 
-#: contextual-related-posts.php:376
+#: contextual-related-posts.php:419
 msgid "Thumbnail width"
 msgstr ""
 
-#: contextual-related-posts.php:472
+#: contextual-related-posts.php:542
 msgid "<h3>Related Posts:</h3>"
 msgstr ""
 
-#: contextual-related-posts.php:473
+#: contextual-related-posts.php:543
 msgid "No related posts found"
 msgstr ""
 
-#: contextual-related-posts.php:817
+#: contextual-related-posts.php:901
 msgid "Settings"
 msgstr ""
 
-#: contextual-related-posts.php:840
+#: contextual-related-posts.php:922
 msgid "Donate"
 msgstr ""
