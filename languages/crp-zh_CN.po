@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-08 00:34-0000\n"
+"POT-Creation-Date: 2014-03-12 23:24-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: \n"
@@ -503,7 +503,7 @@ msgstr "Ajay 的博客"
 msgid "FAQ"
 msgstr ""
 
-#: admin.inc.php:530 contextual-related-posts.php:921
+#: admin.inc.php:530 contextual-related-posts.php:927
 msgid "Support"
 msgstr "技术支持"
 
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin.inc.php:554 contextual-related-posts.php:366
+#: admin.inc.php:554 contextual-related-posts.php:372
 msgid "Related Posts"
 msgstr "相关日志"
 
@@ -541,75 +541,75 @@ msgstr ""
 msgid "Powered by"
 msgstr "插件作者："
 
-#: contextual-related-posts.php:365
+#: contextual-related-posts.php:371
 msgid "Display Related Posts"
 msgstr "显示相关日志"
 
-#: contextual-related-posts.php:380
+#: contextual-related-posts.php:386
 msgid "Title"
 msgstr "标题"
 
-#: contextual-related-posts.php:385
+#: contextual-related-posts.php:391
 msgid "No. of posts"
 msgstr "日志数量"
 
-#: contextual-related-posts.php:390
+#: contextual-related-posts.php:396
 msgid " Show excerpt?"
 msgstr "是否显示日志摘要？"
 
-#: contextual-related-posts.php:395
+#: contextual-related-posts.php:401
 msgid " Show author?"
 msgstr ""
 
-#: contextual-related-posts.php:400
+#: contextual-related-posts.php:406
 #, fuzzy
 msgid " Show date?"
 msgstr "是否显示日志摘要？"
 
-#: contextual-related-posts.php:404
+#: contextual-related-posts.php:410
 msgid "Thumbnail options"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:406
+#: contextual-related-posts.php:412
 msgid "Thumbnails inline, before title"
 msgstr "在标题前显示缩略图"
 
-#: contextual-related-posts.php:407
+#: contextual-related-posts.php:413
 msgid "Thumbnails inline, after title"
 msgstr "在标题后显示缩略图"
 
-#: contextual-related-posts.php:408
+#: contextual-related-posts.php:414
 msgid "Only thumbnails, no text"
 msgstr "不显示文本，只显示缩略图"
 
-#: contextual-related-posts.php:409
+#: contextual-related-posts.php:415
 msgid "No thumbnails, only text."
 msgstr "不显示缩略图，只显示文本"
 
-#: contextual-related-posts.php:414
+#: contextual-related-posts.php:420
 #, fuzzy
 msgid "Thumbnail height"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:419
+#: contextual-related-posts.php:425
 #, fuzzy
 msgid "Thumbnail width"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:542
+#: contextual-related-posts.php:548
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>相关日志：</h3>"
 
-#: contextual-related-posts.php:543
+#: contextual-related-posts.php:549
 #, fuzzy
 msgid "No related posts found"
 msgstr "没有发现相关日志"
 
-#: contextual-related-posts.php:901
+#: contextual-related-posts.php:907
 msgid "Settings"
 msgstr "设置"
 
-#: contextual-related-posts.php:922
+#: contextual-related-posts.php:928
 msgid "Donate"
 msgstr "捐赠"
 

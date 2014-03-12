@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-08 00:34-0000\n"
+"POT-Creation-Date: 2014-03-12 23:24-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -528,7 +528,7 @@ msgstr "Блог автора (Ajay, английский язык)"
 msgid "FAQ"
 msgstr ""
 
-#: admin.inc.php:530 contextual-related-posts.php:921
+#: admin.inc.php:530 contextual-related-posts.php:927
 msgid "Support"
 msgstr "Поддержка"
 
@@ -540,7 +540,7 @@ msgstr ""
 msgid "Contextual Related Posts"
 msgstr "Контекстные похожие посты"
 
-#: admin.inc.php:554 contextual-related-posts.php:366
+#: admin.inc.php:554 contextual-related-posts.php:372
 msgid "Related Posts"
 msgstr "Похожие посты"
 
@@ -567,85 +567,85 @@ msgstr ""
 msgid "Powered by"
 msgstr "Автор:"
 
-#: contextual-related-posts.php:365
+#: contextual-related-posts.php:371
 #, fuzzy
 msgid "Display Related Posts"
 msgstr "Displeja Related Posts"
 
-#: contextual-related-posts.php:380
+#: contextual-related-posts.php:386
 #, fuzzy
 msgid "Title"
 msgstr "Заголовок списка Популярных записей:"
 
-#: contextual-related-posts.php:385
+#: contextual-related-posts.php:391
 #, fuzzy
 msgid "No. of posts"
 msgstr "Популярные записи"
 
-#: contextual-related-posts.php:390
+#: contextual-related-posts.php:396
 #, fuzzy
 msgid " Show excerpt?"
 msgstr "Rādīt izvilkumu?"
 
-#: contextual-related-posts.php:395
+#: contextual-related-posts.php:401
 #, fuzzy
 msgid " Show author?"
 msgstr "Отправьте пожертвование автору"
 
-#: contextual-related-posts.php:400
+#: contextual-related-posts.php:406
 #, fuzzy
 msgid " Show date?"
 msgstr "Rādīt izvilkumu?"
 
-#: contextual-related-posts.php:404
+#: contextual-related-posts.php:410
 #, fuzzy
 msgid "Thumbnail options"
 msgstr "sīktēlu iespējas"
 
-#: contextual-related-posts.php:406
+#: contextual-related-posts.php:412
 #, fuzzy
 msgid "Thumbnails inline, before title"
 msgstr "Sīktēli inline, pirms virsraksta"
 
-#: contextual-related-posts.php:407
+#: contextual-related-posts.php:413
 #, fuzzy
 msgid "Thumbnails inline, after title"
 msgstr "Sīktēli inline, pēc nosaukuma"
 
-#: contextual-related-posts.php:408
+#: contextual-related-posts.php:414
 #, fuzzy
 msgid "Only thumbnails, no text"
 msgstr "Отображать только превью, без текста"
 
-#: contextual-related-posts.php:409
+#: contextual-related-posts.php:415
 #, fuzzy
 msgid "No thumbnails, only text."
 msgstr "Nav sīktēlus, tikai tekstu."
 
-#: contextual-related-posts.php:414
+#: contextual-related-posts.php:420
 #, fuzzy
 msgid "Thumbnail height"
 msgstr "sīktēls augstums"
 
-#: contextual-related-posts.php:419
+#: contextual-related-posts.php:425
 #, fuzzy
 msgid "Thumbnail width"
 msgstr "Thumbnail platums"
 
-#: contextual-related-posts.php:542
+#: contextual-related-posts.php:548
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Похожие посты:</h3>"
 
-#: contextual-related-posts.php:543
+#: contextual-related-posts.php:549
 #, fuzzy
 msgid "No related posts found"
 msgstr "Nr saistītus amatus atrasts"
 
-#: contextual-related-posts.php:901
+#: contextual-related-posts.php:907
 msgid "Settings"
 msgstr "Настройки"
 
-#: contextual-related-posts.php:922
+#: contextual-related-posts.php:928
 msgid "Donate"
 msgstr "Пожертвование"
 

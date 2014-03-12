@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-08 00:51-0000\n"
+"POT-Creation-Date: 2014-03-12 23:23-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -476,7 +476,7 @@ msgstr ""
 msgid "FAQ"
 msgstr ""
 
-#: admin.inc.php:530 contextual-related-posts.php:921
+#: admin.inc.php:530 contextual-related-posts.php:927
 msgid "Support"
 msgstr ""
 
@@ -488,7 +488,7 @@ msgstr ""
 msgid "Contextual Related Posts"
 msgstr ""
 
-#: admin.inc.php:554 contextual-related-posts.php:366
+#: admin.inc.php:554 contextual-related-posts.php:372
 msgid "Related Posts"
 msgstr ""
 
@@ -514,70 +514,70 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: contextual-related-posts.php:365
+#: contextual-related-posts.php:371
 msgid "Display Related Posts"
 msgstr ""
 
-#: contextual-related-posts.php:380
+#: contextual-related-posts.php:386
 msgid "Title"
 msgstr ""
 
-#: contextual-related-posts.php:385
+#: contextual-related-posts.php:391
 msgid "No. of posts"
 msgstr ""
 
-#: contextual-related-posts.php:390
+#: contextual-related-posts.php:396
 msgid " Show excerpt?"
 msgstr ""
 
-#: contextual-related-posts.php:395
+#: contextual-related-posts.php:401
 msgid " Show author?"
 msgstr ""
 
-#: contextual-related-posts.php:400
+#: contextual-related-posts.php:406
 msgid " Show date?"
 msgstr ""
 
-#: contextual-related-posts.php:404
+#: contextual-related-posts.php:410
 msgid "Thumbnail options"
 msgstr ""
 
-#: contextual-related-posts.php:406
+#: contextual-related-posts.php:412
 msgid "Thumbnails inline, before title"
 msgstr ""
 
-#: contextual-related-posts.php:407
+#: contextual-related-posts.php:413
 msgid "Thumbnails inline, after title"
 msgstr ""
 
-#: contextual-related-posts.php:408
+#: contextual-related-posts.php:414
 msgid "Only thumbnails, no text"
 msgstr ""
 
-#: contextual-related-posts.php:409
+#: contextual-related-posts.php:415
 msgid "No thumbnails, only text."
 msgstr ""
 
-#: contextual-related-posts.php:414
+#: contextual-related-posts.php:420
 msgid "Thumbnail height"
 msgstr ""
 
-#: contextual-related-posts.php:419
+#: contextual-related-posts.php:425
 msgid "Thumbnail width"
 msgstr ""
 
-#: contextual-related-posts.php:542
+#: contextual-related-posts.php:548
 msgid "<h3>Related Posts:</h3>"
 msgstr ""
 
-#: contextual-related-posts.php:543
+#: contextual-related-posts.php:549
 msgid "No related posts found"
 msgstr ""
 
-#: contextual-related-posts.php:901
+#: contextual-related-posts.php:907
 msgid "Settings"
 msgstr ""
 
-#: contextual-related-posts.php:922
+#: contextual-related-posts.php:928
 msgid "Donate"
 msgstr ""
