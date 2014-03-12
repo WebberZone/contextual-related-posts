@@ -52,12 +52,14 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 
 == Upgrade Notice ==
 
-= 1.9 =
-* New default style, new option to prioritise the posts, exclude related posts on Custom Post types and more...
-Check out the Changelog for more details.
+= 1.9.0.1 =
+* Fixed: Add to feeds was broken in v1.9
 
 
 == Changelog ==
+
+= 1.9.0.1 =
+* Fixed: Add to feeds was broken in v1.9
 
 = 1.9 =
 * New: Default style to make those related posts look awesome! You can find this option in the Custom styles section
