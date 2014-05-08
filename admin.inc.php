@@ -701,4 +701,98 @@ function crp_ajax_clearcache() {
 add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
 
 
+/**
+ * Function to add meta box in Write screens.
+ * 
+ * @access public
+ * @param text $post_type
+ * @param object $post
+ * @return void
+ */
+function crp_add_meta_box( $post_type, $post ) {
+
+    	add_meta_box( 
+    		'crp_metabox', 
+    		__( 'Contextual Related Posts', CRP_LOCAL_NAME ), 
+    		'crp_call_meta_box', 
+    		$post_type, 
+    		'advanced', 
+    		'default' 
+    	);
+
+}
+add_action( 'add_meta_boxes', 'crp_add_meta_box' , 10, 2 );
+
+
+/**
+ * Function to call the meta box.
+ * 
+ * @access public
+ * @return void
+ */
+function crp_call_meta_box() {
+	global $post, $crp_settings;
+	
+	// Add an nonce field so we can check for it later.
+	wp_nonce_field( 'crp_meta_box', 'crp_meta_box_nonce' );
+	
+	$results = get_post_meta( $post->ID, $crp_settings['thumb_meta'], true );
+	$value = ( $results ) ? $results : '';
+?>
+	<p>
+		<label for="thumb_meta"><?php _e( "Location of thumbnail:", CRP_LOCAL_NAME ); ?></label>
+		<input type="text" id="thumb_meta" name="thumb_meta" value="<?php echo esc_attr( $value ) ?>" style="width:100%" />
+		<em><?php _e( "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This image will be used if a Featured Image (post thumbnail) isn't set above.", CRP_LOCAL_NAME ); ?></em>
+		<em><?php _e( "The URL above is saved in the meta field: ", CRP_LOCAL_NAME ); ?></em><strong><?php echo $crp_settings['thumb_meta']; ?></strong>
+	</p>
+
+	<?php 
+	if ( $results ) {
+		echo '<img src="' . $value . '" style="max-width:100%" />';
+	}
+}
+
+
+/**
+ * Function to save the meta box.
+ * 
+ * @access public
+ * @param mixed $post_id
+ * @return void
+ */
+function crp_save_meta_box( $post_id ) {
+	global $crp_settings;
+
+    // Bail if we're doing an auto save
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+     
+    // if our nonce isn't there, or we can't verify it, bail
+    if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['crp_meta_box_nonce'], 'crp_meta_box' ) ) return;
+     
+    // if our current user can't edit this post, bail
+    if ( ! current_user_can( 'edit_post' ) ) return;
+    
+    if ( isset( $_POST['thumb_meta'] ) ) {
+    	$thumb_meta = $_POST['thumb_meta'] == '' ? '' : $_POST['thumb_meta'];
+    }
+    
+	$crp_post_meta = get_post_meta( $post_id, $crp_settings['thumb_meta'], true );
+	if ( $crp_post_meta && '' != $crp_post_meta ) {
+		$gotmeta = true;
+	} else {
+		$gotmeta = false;
+	}
+
+	if ( $gotmeta && '' != $thumb_meta ) {
+		update_post_meta( $post_id, $crp_settings['thumb_meta'], $thumb_meta );
+	} elseif ( ! $gotmeta && '' != $thumb_meta ) {
+		add_post_meta( $post_id, $crp_settings['thumb_meta'], $thumb_meta );
+	} else {
+		delete_post_meta( $post_id, $crp_settings['thumb_meta'] );
+	}
+
+}
+add_action( 'save_post', 'crp_save_meta_box' );
+
+
 ?>
