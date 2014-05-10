@@ -54,6 +54,7 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 
 = 1.9.1 =
 * New Meta box on the Edit screens; Modifed match title algorithm; code cleanup and bug fixes;
+Check the Changelog for a full list of changes.
 
 
 == Changelog ==
@@ -63,6 +64,7 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 * Modified: Refined match title algorithm. Previously this would match the post title with both the title and content
 * Modified: Widget initialisation
 * Modified: Massive code cleanup and more documentation in the WordPress settings page
+* New: Added w.org and github.com to list of allowed sites for timthumb
 
 = 1.9.0.1 =
 * Fixed: Add to feeds was broken in v1.9

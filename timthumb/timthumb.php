@@ -143,6 +143,8 @@ if(! isset($ALLOWED_SITES)){
 		'wordpress.org',
 		'wp.com',
 		's3.amazonaws.com',
+		'w.org',
+		'github.com',
 	);
 }
 // -------------------------------------------------------------
