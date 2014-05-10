@@ -778,7 +778,7 @@ function crp_call_meta_box() {
 	<p>
 		<label for="thumb_meta"><?php _e( "Location of thumbnail:", CRP_LOCAL_NAME ); ?></label>
 		<input type="text" id="thumb_meta" name="thumb_meta" value="<?php echo esc_attr( $value ) ?>" style="width:100%" />
-		<em><?php _e( "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This image will be used if a Featured Image (post thumbnail) isn't set above.", CRP_LOCAL_NAME ); ?></em>
+		<em><?php _e( "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This image will be used for the post. It will be resized to the thumbnail size set under Settings &raquo; Related Posts &raquo; Output Options", CRP_LOCAL_NAME ); ?></em>
 		<em><?php _e( "The URL above is saved in the meta field: ", CRP_LOCAL_NAME ); ?></em><strong><?php echo $crp_settings['thumb_meta']; ?></strong>
 	</p>
 
