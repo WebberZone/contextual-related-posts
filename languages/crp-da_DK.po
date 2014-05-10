@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts 1.5.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-12 23:25-0000\n"
+"POT-Creation-Date: 2014-05-10 21:36-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Team Blogos <wordpress@blogos.dk>\n"
@@ -18,74 +18,74 @@ msgstr ""
 "X-Generator: Poedit 1.6.4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin.inc.php:127
+#: admin.inc.php:141
 msgid "Options saved successfully."
 msgstr "Indstillingerne blev gemt."
 
-#: admin.inc.php:147
+#: admin.inc.php:161
 msgid "Options set to Default."
 msgstr "Indstillingerne sat til standardværdier."
 
-#: admin.inc.php:163
+#: admin.inc.php:177
 msgid "Index recreated"
 msgstr "Indeks blev gendannet"
 
-#: admin.inc.php:175
+#: admin.inc.php:189
 msgid "General options"
 msgstr ""
 
-#: admin.inc.php:178
+#: admin.inc.php:192
 msgid "Cache output?"
 msgstr ""
 
-#: admin.inc.php:180
+#: admin.inc.php:194
 msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
 msgstr ""
 
-#: admin.inc.php:181
+#: admin.inc.php:195
 msgid "Clear cache"
 msgstr ""
 
-#: admin.inc.php:184 admin.inc.php:425
+#: admin.inc.php:198 admin.inc.php:462
 msgid "Number of related posts to display: "
 msgstr "Antal Lignende indlæg, der skal vises: "
 
-#: admin.inc.php:187
+#: admin.inc.php:201
 msgid ""
 "Maximum number of posts that will be displayed. The actual number may be "
 "smaller if less related posts are found."
 msgstr ""
 
-#: admin.inc.php:190
+#: admin.inc.php:204
 msgid "Related posts should be newer than:"
 msgstr ""
 
-#: admin.inc.php:192
+#: admin.inc.php:206
 msgid "days"
 msgstr ""
 
-#: admin.inc.php:193
+#: admin.inc.php:207
 msgid ""
 "This sets the cutoff period for which posts will be displayed. e.g. setting "
 "it to 365 will show related posts from the last year only."
 msgstr ""
 
-#: admin.inc.php:196
-msgid "Post types to include in results."
+#: admin.inc.php:210
+msgid "Post types to include in results:"
 msgstr ""
 
-#: admin.inc.php:205
+#: admin.inc.php:221
 msgid ""
 "These post types will be displayed in the list. Includes custom post types."
 msgstr ""
 
-#: admin.inc.php:208
-msgid "Find related posts based on content as well as title"
+#: admin.inc.php:224
+msgid "Find related posts based on content as well as title:"
 msgstr ""
 
-#: admin.inc.php:210
+#: admin.inc.php:226
 #, fuzzy
 msgid ""
 "If unchecked, only posts titles are used. I recommend using a caching plugin "
@@ -95,70 +95,50 @@ msgstr ""
 "kun indlæggenes titler (jeg anbefaler et cache-plugin, hvis du aktiverer "
 "dette)"
 
-#: admin.inc.php:213
+#: admin.inc.php:229
 msgid "Limit content to be compared"
 msgstr ""
 
-#: admin.inc.php:215
+#: admin.inc.php:231
 msgid ""
 "This sets the maximum words of the content that will be matched. 0 means no "
 "limit."
 msgstr ""
 
-#: admin.inc.php:218
-msgid "List of post or page IDs to exclude from the results: "
-msgstr ""
-
-#: admin.inc.php:220 admin.inc.php:315
-msgid ""
-"Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
-msgstr ""
-
-#: admin.inc.php:223
-msgid "Categories to exclude from the results: "
-msgstr ""
-
-#: admin.inc.php:239
-msgid ""
-"Comma separated list of category slugs. The field above has an autocomplete "
-"so simply start typing in the starting letters and it will prompt you with "
-"options"
-msgstr ""
-
-#: admin.inc.php:242
+#: admin.inc.php:234
 #, fuzzy
 msgid "Add related posts to:"
 msgstr "Tilføj Lignende indlæg til feeds"
 
-#: admin.inc.php:244
+#: admin.inc.php:236
 msgid "Posts"
 msgstr ""
 
-#: admin.inc.php:245
+#: admin.inc.php:237
 msgid "Pages"
 msgstr ""
 
-#: admin.inc.php:246
+#: admin.inc.php:238
 msgid "Home page"
 msgstr ""
 
-#: admin.inc.php:247
+#: admin.inc.php:239
 msgid "Feeds"
 msgstr ""
 
-#: admin.inc.php:248
+#: admin.inc.php:240
 msgid "Category archives"
 msgstr ""
 
-#: admin.inc.php:249
+#: admin.inc.php:241
 msgid "Tag archives"
 msgstr ""
 
-#: admin.inc.php:250
+#: admin.inc.php:242
 msgid "Other archives"
 msgstr ""
 
-#: admin.inc.php:251
+#: admin.inc.php:243
 #, fuzzy
 msgid ""
 "If you choose to disable this, please add <code>&lt;?php if "
@@ -170,67 +150,82 @@ msgstr ""
 "if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> til din "
 "skabelonfil, hvor du ønsker de lignende indlæg vist"
 
-#: admin.inc.php:254
+#: admin.inc.php:246
 msgid "Content filter priority:"
 msgstr ""
 
-#: admin.inc.php:257
+#: admin.inc.php:249
 msgid ""
 "A higher number will cause the content above to be processed after other "
-"filters. Number below 10 is not recommended"
+"filters. Number below 10 is not recommended."
 msgstr ""
 
-#: admin.inc.php:260
-msgid "Add a link to the plugin page as a final item in the list"
-msgstr ""
+#: admin.inc.php:252
+#, fuzzy
+msgid "Tell the world you're using Contextual Related Posts:"
+msgstr "Related Posts (Lignende indlæg)"
 
-#: admin.inc.php:262
+#: admin.inc.php:254
 msgid " <em>Optional</em>"
 msgstr ""
 
-#: admin.inc.php:263
+#: admin.inc.php:255
 #, fuzzy
-msgid "Adds a nofollow link to Contextual Related Posts homepage."
+msgid ""
+"Adds a nofollow link to Contextual Related Posts homepage as the last time "
+"in the list."
 msgstr "Related Posts (Lignende indlæg)"
 
-#: admin.inc.php:270
+#: admin.inc.php:262
 #, fuzzy
 msgid "Output options"
 msgstr "Indstillinger for output:"
 
-#: admin.inc.php:273
+#: admin.inc.php:265
 msgid "Title of related posts: "
 msgstr "Titel på Lignende indlæg: "
 
-#: admin.inc.php:276
+#: admin.inc.php:268
 msgid ""
 "This is the main heading of the related posts. You can also display the "
 "current post title by using <code>%postname%</code>. e.g. <code>Related "
 "Posts to %postname%</code>"
 msgstr ""
 
-#: admin.inc.php:279
+#: admin.inc.php:271
 msgid "When there are no posts, what should be shown?"
 msgstr "Hvad skal der vises, hvis der ingen indlæg er?"
 
-#: admin.inc.php:283
+#: admin.inc.php:275
 msgid "Blank Output"
 msgstr "Intet"
 
-#: admin.inc.php:287
+#: admin.inc.php:279
 msgid "Display:"
 msgstr ""
 
-#: admin.inc.php:291 admin.inc.php:428
+#: admin.inc.php:283 admin.inc.php:465
 msgid "Show post excerpt in list?"
 msgstr ""
 
-#: admin.inc.php:294
+#: admin.inc.php:286
+#, php-format
+msgid ""
+"Displays the excerpt of the post. If you do not provide an explicit excerpt "
+"to a post (in the post editor's optional excerpt field), it will display an "
+"automatic excerpt which refers to the first %d words of the post's content"
+msgstr ""
+
+#: admin.inc.php:289
 msgid "Length of excerpt (in words): "
 msgstr ""
 
-#: admin.inc.php:297
+#: admin.inc.php:294
 msgid "Show post author in list?"
+msgstr ""
+
+#: admin.inc.php:297
+msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
 msgstr ""
 
 #: admin.inc.php:300
@@ -238,386 +233,453 @@ msgid "Show post date in list?"
 msgstr ""
 
 #: admin.inc.php:303
-msgid "Limit post title length (in characters)"
+msgid ""
+"Displays the date of the post. Uses the same date format set in General "
+"Options"
 msgstr ""
 
 #: admin.inc.php:306
-msgid "Open links in new window"
+msgid "Limit post title length (in characters)"
 msgstr ""
 
 #: admin.inc.php:309
-msgid "Add nofollow attribute to links in the list"
+msgid ""
+"Any title longer than the number of characters set above will be cut and "
+"appended with a &helip;"
 msgstr ""
 
 #: admin.inc.php:312
+msgid "Open links in new window"
+msgstr ""
+
+#: admin.inc.php:315
+msgid "Add nofollow attribute to links in the list"
+msgstr ""
+
+#: admin.inc.php:318
+msgid "Exclusion settings:"
+msgstr ""
+
+#: admin.inc.php:320
+msgid "List of post or page IDs to exclude from the results:"
+msgstr ""
+
+#: admin.inc.php:322 admin.inc.php:328
+msgid ""
+"Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
+msgstr ""
+
+#: admin.inc.php:325
 #, fuzzy
 msgid "Exclude display of related posts on these posts / pages"
 msgstr "Tilføj Lignende indlæg til feeds"
 
-#: admin.inc.php:318
+#: admin.inc.php:331
+msgid "Categories to exclude from the results: "
+msgstr ""
+
+#: admin.inc.php:347
+msgid ""
+"Comma separated list of category slugs. The field above has an autocomplete "
+"so simply start typing in the beginning of your category name and it will "
+"prompt you with options."
+msgstr ""
+
+#: admin.inc.php:350
 #, fuzzy
 msgid "Exclude display of related posts on these post types."
 msgstr "Tilføj Lignende indlæg til feeds"
 
-#: admin.inc.php:327
+#: admin.inc.php:359
 msgid ""
 "The related posts will not display on any of the above selected post types"
 msgstr ""
 
-#: admin.inc.php:330
+#: admin.inc.php:362
 msgid "Customize the output:"
 msgstr "Tilpas outputtet:"
 
-#: admin.inc.php:332
+#: admin.inc.php:364
 msgid "HTML to display before the list of posts: "
 msgstr "HTML, der skal vises før listen med indlæg: "
 
-#: admin.inc.php:335
+#: admin.inc.php:367
 msgid "HTML to display before each list item: "
 msgstr "HTML, der skal vises før hvert punkt på listen: "
 
-#: admin.inc.php:338
+#: admin.inc.php:370
 msgid "HTML to display after each list item: "
 msgstr "HTML, der skal vises efter hvert punkt på listen: "
 
-#: admin.inc.php:341
+#: admin.inc.php:373
 msgid "HTML to display after the list of posts: "
 msgstr "HTML, der skal vises efter listen med indlæg: "
 
-#: admin.inc.php:344
+#: admin.inc.php:376
 msgid "Post thumbnail options:"
 msgstr "Indstillinger for indlægsminiaturer:"
 
-#: admin.inc.php:346 admin.inc.php:431
+#: admin.inc.php:378 admin.inc.php:468
 msgid "Location of post thumbnail:"
 msgstr ""
 
-#: admin.inc.php:350 admin.inc.php:435
+#: admin.inc.php:382 admin.inc.php:472
 #, fuzzy
 msgid "Display thumbnails inline with posts, before title"
 msgstr "Vis miniaturer inline med indlæg"
 
-#: admin.inc.php:354 admin.inc.php:439
+#: admin.inc.php:386 admin.inc.php:476
 #, fuzzy
 msgid "Display thumbnails inline with posts, after title"
 msgstr "Vis miniaturer inline med indlæg"
 
-#: admin.inc.php:358 admin.inc.php:443
+#: admin.inc.php:390 admin.inc.php:480
 msgid "Display only thumbnails, no text"
 msgstr "Vis kun miniaturer, ingen tekst"
 
-#: admin.inc.php:362 admin.inc.php:447
+#: admin.inc.php:394 admin.inc.php:484
 msgid "Do not display thumbnails, only text."
 msgstr "Vis ikke miniaturer, kun tekst."
 
-#: admin.inc.php:366 admin.inc.php:451
+#: admin.inc.php:398 admin.inc.php:488
 msgid "Maximum width of the thumbnail: "
 msgstr ""
 
-#: admin.inc.php:369 admin.inc.php:454
+#: admin.inc.php:401 admin.inc.php:491
 msgid "Maximum height of the thumbnail: "
 msgstr ""
 
-#: admin.inc.php:372
+#: admin.inc.php:405
+msgid ""
+"Since you're using the default styles set under the Custom Styles section, "
+"the width and height is fixed at 150px"
+msgstr ""
+
+#: admin.inc.php:409
 msgid "Style attributes / Width and Height HTML attributes:"
 msgstr ""
 
-#: admin.inc.php:376
-msgid ""
-"Style attributes are used for width and height. <code>style=\"max-width:"
+#: admin.inc.php:413
+msgid "Style attributes are used for width and height."
 msgstr ""
 
-#: admin.inc.php:380
-msgid ""
-"HTML width and height attributes are used for width and height. <code>width="
-"\""
+#: admin.inc.php:417
+msgid "HTML width and height attributes are used for width and height."
 msgstr ""
 
-#: admin.inc.php:384
+#: admin.inc.php:421
 msgid "Use timthumb to generate thumbnails? "
 msgstr ""
 
-#: admin.inc.php:386
+#: admin.inc.php:423
 msgid ""
-"If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
-"\">timthumb</a> will be used to generate thumbnails"
+"If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" "
+"target=\"_blank\">timthumb</a> will be used to generate thumbnails"
 msgstr ""
 
-#: admin.inc.php:389
-msgid "Quality of thumbnails generated by timthumb"
+#: admin.inc.php:426
+msgid "Quality of thumbnails generated by timthumb:"
 msgstr ""
 
-#: admin.inc.php:392
+#: admin.inc.php:429
 msgid ""
-"Enter values between 0 and 100 only. 100 is highest quality, however, it is "
-"also the highest file size. Suggested maximum value is 95. CRP default is 75."
+"Enter values between 0 and 100 only. 100 is highest quality and the highest "
+"file size. Suggested maximum value is 95. CRP default is 75."
 msgstr ""
 
-#: admin.inc.php:395
+#: admin.inc.php:432
 #, fuzzy
-msgid "Post thumbnail meta field name: "
+msgid "Post thumbnail meta field name:"
 msgstr "Indstillinger for indlægsminiaturer:"
 
-#: admin.inc.php:397
+#: admin.inc.php:434
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
 msgstr ""
 
-#: admin.inc.php:400
+#: admin.inc.php:437
+msgid "Extract the first image from the post?"
+msgstr ""
+
+#: admin.inc.php:439
 msgid ""
-"If the postmeta is not set, then should the plugin extract the first image "
-"from the post?"
+"This will only happen if there is no post thumbnail set and no image URL is "
+"specified in the meta field."
 msgstr ""
 
-#: admin.inc.php:402
-msgid ""
-"This can slow down the loading of your page if the first image in the "
-"related posts is large in file-size"
+#: admin.inc.php:442
+msgid "Use default thumbnail?"
 msgstr ""
 
-#: admin.inc.php:405
-msgid "Use default thumbnail? "
-msgstr ""
-
-#: admin.inc.php:407
+#: admin.inc.php:444
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 
-#: admin.inc.php:410
-msgid "Default thumbnail: "
-msgstr ""
+#: admin.inc.php:447
+#, fuzzy
+msgid "Default thumbnail:"
+msgstr "Indstillinger for output:"
 
-#: admin.inc.php:413
+#: admin.inc.php:450
 #, fuzzy
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
 "then it will check the meta field. If this is not available, then it will "
-"show the default image as specified above"
+"show the default image as specified above."
 msgstr ""
 "Pluginnet tjekker først, om indlægget indeholder en miniature. Hvis "
 "indlægget ikke gør det, tjekker pluginnet metafeltet. Hvis dette ikke "
 "findes, vil det vise standardbilledet specificeret nedenfor:"
 
-#: admin.inc.php:420
+#: admin.inc.php:457
 #, fuzzy
 msgid "Feed options"
 msgstr "Indstillinger:"
 
-#: admin.inc.php:423
+#: admin.inc.php:460
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
 "Options tab."
 msgstr ""
 
-#: admin.inc.php:461
+#: admin.inc.php:498
 msgid "Custom styles"
 msgstr ""
 
-#: admin.inc.php:464
+#: admin.inc.php:501
 msgid "Use default style included in the plugin?"
 msgstr ""
 
-#: admin.inc.php:467
+#: admin.inc.php:504
 msgid ""
 "Contextual Related Posts includes a default style that makes your popular "
 "posts list to look pretty. Check the box above if you want to use this."
 msgstr ""
 
-#: admin.inc.php:468
+#: admin.inc.php:505
 msgid ""
 "Enabling this option will automatically turn on the thumbnails and set their "
 "width and height to 150px. Disabling this will not turn off thumbnails or "
 "change their dimensions."
 msgstr ""
 
-#: admin.inc.php:471
+#: admin.inc.php:508
 msgid "Custom CSS to add to header:"
 msgstr ""
 
-#: admin.inc.php:475
+#: admin.inc.php:512
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a href=\"http://"
 "wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
 "\">FAQ</a> for available CSS classes to style."
 msgstr ""
 
-#: admin.inc.php:482
+#: admin.inc.php:519
 #, fuzzy
 msgid "Save Options"
 msgstr "Indstillinger:"
 
-#: admin.inc.php:483
+#: admin.inc.php:520
 #, fuzzy
 msgid "Default Options"
 msgstr "Indstillinger for output:"
 
-#: admin.inc.php:483
+#: admin.inc.php:520
 msgid "Do you want to set options to Default?"
 msgstr "Ønsker du at sætte indstillingerne til standardværdierne?"
 
-#: admin.inc.php:484
+#: admin.inc.php:521
 msgid "Recreate Index"
 msgstr ""
 
-#: admin.inc.php:484
+#: admin.inc.php:521
 msgid "Are you sure you want to recreate the index?"
 msgstr "Er du sikker på, du ønsker at gendanne indekset?"
 
-#: admin.inc.php:492
+#: admin.inc.php:529
 #, fuzzy
 msgid "Support the development"
 msgstr "Støt udviklingen"
 
-#: admin.inc.php:501
-msgid "Enter amount in USD: "
+#: admin.inc.php:536
+#, fuzzy
+msgid "Donation for Contextual Related Posts"
+msgstr "Related Posts (Lignende indlæg)"
+
+#: admin.inc.php:538
+msgid "Enter amount in USD:"
 msgstr ""
 
-#: admin.inc.php:505
+#: admin.inc.php:542
 msgid "Send your donation to the author of"
 msgstr ""
 
-#: admin.inc.php:512
+#: admin.inc.php:549
 msgid "Follow me"
 msgstr ""
 
-#: admin.inc.php:522
+#: admin.inc.php:559
 msgid "Quick links"
 msgstr ""
 
-#: admin.inc.php:526
+#: admin.inc.php:563
 #, fuzzy
 msgid "Contextual Related Posts plugin page"
 msgstr "Related Posts (Lignende indlæg)"
 
-#: admin.inc.php:527
-msgid "Other plugins"
-msgstr ""
-
-#: admin.inc.php:528
-msgid "Ajay's blog"
-msgstr ""
-
-#: admin.inc.php:529
+#: admin.inc.php:564
 msgid "FAQ"
 msgstr ""
 
-#: admin.inc.php:530 contextual-related-posts.php:927
+#: admin.inc.php:565 contextual-related-posts.php:964
 msgid "Support"
 msgstr "Support"
 
-#: admin.inc.php:531
+#: admin.inc.php:566
 msgid "Reviews"
 msgstr ""
 
-#: admin.inc.php:554
+#: admin.inc.php:567
+msgid "Github repository"
+msgstr ""
+
+#: admin.inc.php:568
+msgid "Other plugins"
+msgstr ""
+
+#: admin.inc.php:569
+msgid "Ajay's blog"
+msgstr ""
+
+#: admin.inc.php:591 admin.inc.php:752
 #, fuzzy
 msgid "Contextual Related Posts"
 msgstr "Related Posts (Lignende indlæg)"
 
-#: admin.inc.php:554 contextual-related-posts.php:372
+#: admin.inc.php:591
 msgid "Related Posts"
 msgstr "Related Posts (Lignende indlæg)"
 
-#: admin.inc.php:658
+#: admin.inc.php:694
 msgid "plugin settings page"
 msgstr ""
 
-#: admin.inc.php:692
+#: admin.inc.php:728
 msgid ""
 "An error occurred clearing the cache. Please contact your site administrator."
 "\\n\\nError message:\\n"
 msgstr ""
 
-#: admin.inc.php:697
+#: admin.inc.php:733
 msgid " cached row(s) cleared"
 msgstr ""
 
-#: contextual-related-posts.php:128
+#: admin.inc.php:779
+msgid "Location of thumbnail:"
+msgstr ""
+
+#: admin.inc.php:781
+msgid ""
+"Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
+"image will be used for the post. It will be resized to the thumbnail size "
+"set under Settings &raquo; Related Posts &raquo; Output Options"
+msgstr ""
+
+#: admin.inc.php:782
+msgid "The URL above is saved in the meta field: "
+msgstr ""
+
+#: contextual-related-posts.php:127
 msgid " by "
 msgstr ""
 
-#: contextual-related-posts.php:143
+#: contextual-related-posts.php:142
 msgid "Powered by"
 msgstr ""
 
-#: contextual-related-posts.php:371
+#: contextual-related-posts.php:376
+#, fuzzy
+msgid "Related Posts [CRP]"
+msgstr "Related Posts (Lignende indlæg)"
+
+#: contextual-related-posts.php:377
 #, fuzzy
 msgid "Display Related Posts"
 msgstr "Vis \"Ingen lignende indlæg\""
 
-#: contextual-related-posts.php:386
+#: contextual-related-posts.php:400
 msgid "Title"
 msgstr ""
 
-#: contextual-related-posts.php:391
+#: contextual-related-posts.php:405
 msgid "No. of posts"
 msgstr ""
 
-#: contextual-related-posts.php:396
+#: contextual-related-posts.php:410
 msgid " Show excerpt?"
 msgstr ""
 
-#: contextual-related-posts.php:401
+#: contextual-related-posts.php:415
 msgid " Show author?"
 msgstr ""
 
-#: contextual-related-posts.php:406
+#: contextual-related-posts.php:420
 msgid " Show date?"
 msgstr ""
 
-#: contextual-related-posts.php:410
+#: contextual-related-posts.php:424
 #, fuzzy
 msgid "Thumbnail options"
 msgstr "Indstillinger for indlægsminiaturer:"
 
-#: contextual-related-posts.php:412
+#: contextual-related-posts.php:426
 #, fuzzy
 msgid "Thumbnails inline, before title"
 msgstr "Vis miniaturer inline med indlæg"
 
-#: contextual-related-posts.php:413
+#: contextual-related-posts.php:427
 #, fuzzy
 msgid "Thumbnails inline, after title"
 msgstr "Vis miniaturer inline med indlæg"
 
-#: contextual-related-posts.php:414
+#: contextual-related-posts.php:428
 #, fuzzy
 msgid "Only thumbnails, no text"
 msgstr "Vis kun miniaturer, ingen tekst"
 
-#: contextual-related-posts.php:415
+#: contextual-related-posts.php:429
 #, fuzzy
 msgid "No thumbnails, only text."
 msgstr "Vis ikke miniaturer, kun tekst."
 
-#: contextual-related-posts.php:420
+#: contextual-related-posts.php:434
 #, fuzzy
 msgid "Thumbnail height"
 msgstr "Indstillinger for indlægsminiaturer:"
 
-#: contextual-related-posts.php:425
+#: contextual-related-posts.php:439
 #, fuzzy
 msgid "Thumbnail width"
 msgstr "Indstillinger for indlægsminiaturer:"
 
-#: contextual-related-posts.php:548
+#: contextual-related-posts.php:581
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Lignende indlæg:</h3>"
 
-#: contextual-related-posts.php:549
+#: contextual-related-posts.php:582
 #, fuzzy
 msgid "No related posts found"
 msgstr "Ingen lignende indlæg fundet"
 
-#: contextual-related-posts.php:907
+#: contextual-related-posts.php:944
 msgid "Settings"
 msgstr "Opsætning"
 
-#: contextual-related-posts.php:928
+#: contextual-related-posts.php:965
 msgid "Donate"
 msgstr "Donation"
 
