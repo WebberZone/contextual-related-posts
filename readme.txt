@@ -294,7 +294,7 @@ Check the Changelog for a full list of changes.
 3. CRP options in WP-Admin - Feed options
 4. CRP options in WP-Admin - Custom styles
 5. CRP Widget
-
+6. Contextual Related Post metabox in the Edit Posts screen
 
 == Frequently Asked Questions ==
 
