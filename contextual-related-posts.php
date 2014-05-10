@@ -219,8 +219,10 @@ function get_crp_posts_id( $args ) {
 	// Are we matching only the title or the post content as well?
 	if( $match_content ) {
 		$stuff = $post->post_title . ' ' . crp_excerpt( $post->ID, $match_content_words, false );
+		$fields = "post_title,post_content";
 	} else {
 		$stuff = $post->post_title;
+		$fields = "post_title";
 	}
 	
 	// Limit the related posts by time
@@ -239,7 +241,7 @@ function get_crp_posts_id( $args ) {
 		$sql = "
 			SELECT DISTINCT ID
 			FROM ".$wpdb->posts."
-			WHERE MATCH (post_title,post_content) AGAINST ('%s')
+			WHERE MATCH (" . $fields . ") AGAINST ('%s')
 			AND post_date < '%s'
 			AND post_date >= '%s'
 			AND post_status = 'publish'

@@ -53,13 +53,14 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 == Upgrade Notice ==
 
 = 1.9.1 =
-* New Meta box on the Edit screens; code cleanup and bug fixes;
+* New Meta box on the Edit screens; Modifed match title algorithm; code cleanup and bug fixes;
 
 
 == Changelog ==
 
 = 1.9.1 =
 * New: Meta box on the Edit Posts, Pages and custom post type pages to easily add the location of the URL of the thumbnail image
+* Modified: Refined match title algorithm. Previously this would match the post title with both the title and content
 * Modified: Widget initialisation
 * Modified: Massive code cleanup and more documentation in the WordPress settings page
 
