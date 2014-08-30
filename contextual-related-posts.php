@@ -601,7 +601,6 @@ add_shortcode( 'crp', 'crp_shortcode' );
  * @return array
  */
 function crp_default_options() {
-	$crp_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
 
 	$title = __( '<h3>Related Posts:</h3>', CRP_LOCAL_NAME );
 
@@ -892,6 +891,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 			$postimage = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) , 'full' );
 		}
 		$postimage = apply_filters( $filter, $postimage[0], $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
+		if ( is_ssl() ) {
+		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
+		}
 		$output .= '<img src="' . $postimage . '" alt="' . $title . '" title="' . $title . '" ' . $thumb_html . ' border="0" class="' . $class . '" />';
 	} else {
 		$postimage = get_post_meta( $result->ID, $thumb_meta, true );	// Check the post meta first
@@ -912,6 +914,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		}
 		if ( $postimage ) {
 			$postimage = apply_filters( $filter, $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
+			if ( is_ssl() ) {
+			    $postimage = preg_replace( '~http://~', 'https://', $postimage );
+			}
 			$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' border="0" class="'.$class.'" />';
 		}
 	}

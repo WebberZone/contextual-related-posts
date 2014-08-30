@@ -53,7 +53,7 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 == Upgrade Notice ==
 
 = 2.0 =
-* New multisite support;
+* New multisite support; HTTPS support for thumbnails;
 Check the Changelog for a full list of changes.
 
 
@@ -61,6 +61,7 @@ Check the Changelog for a full list of changes.
 
 = 2.0.0 =
 * New: Multi-site support. Now you can Network Activate the plugin and all users will see related posts!
+* Fixed: Post image will now be loaded over https if the visitor is blogging on https
 
 = 1.9.1 =
 * New: Meta box on the Edit Posts, Pages and custom post type pages to easily add the location of the URL of the thumbnail image
