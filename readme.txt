@@ -11,7 +11,7 @@ Display related posts on your WordPress blog and feed. Supports thumbnails, shor
 
 == Description ==
 
-<a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed. 
+<a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed.
 
 The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
 
@@ -52,12 +52,15 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 
 == Upgrade Notice ==
 
-= 1.9.1 =
-* New Meta box on the Edit screens; Modifed match title algorithm; code cleanup and bug fixes;
+= 2.0 =
+* New multisite support;
 Check the Changelog for a full list of changes.
 
 
 == Changelog ==
+
+= 2.0.0 =
+* New: Multi-site support. Now you can Network Activate the plugin and all users will see related posts!
 
 = 1.9.1 =
 * New: Meta box on the Edit Posts, Pages and custom post type pages to easily add the location of the URL of the thumbnail image
@@ -99,7 +102,7 @@ Check the Changelog for a full list of changes.
 * Fixed: PHP error when fetching thumbnail for gallery posts
 
 = 1.8.9 =
-* New: Option to choose between using CSS styles or HTML attributes for thumbnail width and height. *HTML width and height attributes are default* 
+* New: Option to choose between using CSS styles or HTML attributes for thumbnail width and height. *HTML width and height attributes are default*
 * New: Filters `crp_title` and `crp_heading_title` can be used to customise the Title of the posts and Heading Title of posts list respectively. Check out the FAQ for further information
 * New: Option to add the author to the list of posts
 * New: Options in the widget to show author and date
@@ -112,7 +115,7 @@ Check the Changelog for a full list of changes.
 
 = 1.8.8 =
 * New: Clear cache button
-* New: Option to add the date before the post title 
+* New: Option to add the date before the post title
 
 = 1.8.7 =
 * Important security update: Potential XSS vulnerability fixed. Thanks to Charlie Eriksen via Secunia SVCRP for reporting this
@@ -242,7 +245,7 @@ Check the Changelog for a full list of changes.
 * Fixed bug that didn't blank out posts even when option was selected
 
 = 1.3 =
-* Better optimization in WP-Admin area. 
+* Better optimization in WP-Admin area.
 * Fixed compatibility problems with Simple Tags plugin
 * Fixed large number of queries being generated
 
@@ -281,7 +284,7 @@ Check the Changelog for a full list of changes.
 
 2. Extract the contents of contextual-related-posts.zip to wp-content/plugins/ folder. You should get a folder called contextual-related-posts.
 
-3. Activate the Plugin in WP-Admin. 
+3. Activate the Plugin in WP-Admin.
 
 4. Goto **Settings &raquo; Related Posts** to configure
 
@@ -349,7 +352,7 @@ Usage: `<?php if(function_exists('echo_ald_crp')) echo_ald_crp(); ?>` to your te
 
 **get_crp_posts_id()**
 
-Takes a post ID and returns the related post IDs as an object. 
+Takes a post ID and returns the related post IDs as an object.
 
 Usage: `<?php if(function_exists('get_crp_posts_id')) get_crp_posts_id( array( 'postid' => $postid, 'limit' => $limit ) ); ?>`
 
@@ -372,7 +375,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 `
 <h3>Similar posts</h3>
-[crp limit="2" heading="0"] 
+[crp limit="2" heading="0"]
 `
 *cache* : Cache the output or not? By default the output will be cached for the post you add the shortcode in. You can override this by specifying `cache=0`
 

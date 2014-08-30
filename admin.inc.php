@@ -11,17 +11,16 @@ if ( ! defined( 'ABSPATH' ) ) die( "Aren't you supposed to come here via WP-Admi
 
 /**
  * Function generates the plugin settings page.
- * 
+ *
  * @access public
  * @return void
  */
 function crp_options() {
-	
+
 	global $wpdb;
-    $poststable = $wpdb->posts;
 
 	$crp_settings = crp_read_options();
-	
+
 	$wp_post_types	= get_post_types( array(
 		'public'	=> true,
 	) );
@@ -32,7 +31,7 @@ function crp_options() {
 	$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
 	if ( ( isset( $_POST['crp_save'] ) ) && ( check_admin_referer( 'crp-plugin' ) ) ) {
-	
+
 		// General options
 		$crp_settings['cache'] = ( isset( $_POST['cache'] ) ? true : false );
 		$crp_settings['limit'] = intval( $_POST['limit'] );
@@ -64,7 +63,7 @@ function crp_options() {
 
 		$crp_settings['link_new_window'] = ( isset( $_POST['link_new_window'] ) ? true : false );
 		$crp_settings['link_nofollow'] = ( isset( $_POST['link_nofollow'] ) ? true : false );
-		
+
 		$crp_settings['before_list'] = wp_kses_post( $_POST['before_list'] );
 		$crp_settings['after_list'] = wp_kses_post( $_POST['after_list'] );
 		$crp_settings['before_list_item'] = wp_kses_post( $_POST['before_list_item'] );
@@ -93,7 +92,7 @@ function crp_options() {
 
 		// Custom styles
 		$crp_settings['custom_CSS'] = wp_kses_post( $_POST['custom_CSS'] );
-		
+
 		if ( isset( $_POST['include_default_style'] ) ) {
 			$crp_settings['include_default_style'] = true;
 			$crp_settings['post_thumb_op'] = 'inline';
@@ -106,7 +105,7 @@ function crp_options() {
 		// Exclude categories
 		$crp_settings['exclude_cat_slugs'] = wp_kses_post( $_POST['exclude_cat_slugs'] );
 		$exclude_categories_slugs = explode( ", ", $crp_settings['exclude_cat_slugs'] );
-		
+
 		foreach ( $exclude_categories_slugs as $exclude_categories_slug ) {
 			$catObj = get_category_by_slug( $exclude_categories_slug );
 			if ( isset( $catObj->term_id ) ) $exclude_categories[] = $catObj->term_id;
@@ -128,7 +127,7 @@ function crp_options() {
 
 		update_option( 'ald_crp_settings', $crp_settings );
 		$crp_settings = crp_read_options();
-		
+
 		parse_str( $crp_settings['post_types'], $post_types );
 		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
 
@@ -137,16 +136,16 @@ function crp_options() {
 
 		delete_post_meta_by_key( 'crp_related_posts' ); // Delete the cache
 		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache
-		
+
 		$str = '<div id="message" class="updated fade"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) .'</p></div>';
 		echo $str;
 	}
-	
+
 	if ( ( isset($_POST['crp_default'] ) ) && ( check_admin_referer( 'crp-plugin' ) ) ) {
 		delete_option( 'ald_crp_settings' );
 		$crp_settings = crp_default_options();
 		update_option( 'ald_crp_settings', $crp_settings );
-		
+
 		$crp_settings = crp_read_options();
 
 		$wp_post_types	= get_post_types( array(
@@ -163,17 +162,12 @@ function crp_options() {
 	}
 
 	if ( ( isset( $_POST['crp_recreate'] ) ) && ( check_admin_referer( 'crp-plugin' ) ) ) {
-		$sql = "ALTER TABLE $poststable DROP INDEX crp_related";
-		$wpdb->query( $sql );
-		
-		$sql = "ALTER TABLE $poststable DROP INDEX crp_related_title";
-		$wpdb->query( $sql );
-		
-		$sql = "ALTER TABLE $poststable DROP INDEX crp_related_content";
-		$wpdb->query( $sql );
-		
-		ald_crp_activate();
-		
+		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related" );
+		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_title" );
+		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_content" );
+
+		crp_single_activate();
+
 		$str = '<div id="message" class="updated fade"><p>'. __( 'Index recreated', CRP_LOCAL_NAME ) .'</p></div>';
 		echo $str;
 	}
@@ -222,7 +216,7 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="match_content"><?php _e( 'Find related posts based on content as well as title:', CRP_LOCAL_NAME ); ?></label></th>
-				<td><input type="checkbox" name="match_content" id="match_content" <?php if ( $crp_settings['match_content'] ) echo 'checked="checked"' ?> /> 
+				<td><input type="checkbox" name="match_content" id="match_content" <?php if ( $crp_settings['match_content'] ) echo 'checked="checked"' ?> />
 					<p class="description"><?php _e( 'If unchecked, only posts titles are used. I recommend using a caching plugin or enabling "Cache output" above if you enable this.', CRP_LOCAL_NAME ); ?></p>
 				</td>
 			</tr>
@@ -255,7 +249,7 @@ function crp_options() {
 					<p class="description"><?php _e( 'Adds a nofollow link to Contextual Related Posts homepage as the last time in the list.', CRP_LOCAL_NAME ); ?></p>
 				</td>
 			</tr>
-			</table>		
+			</table>
 	      </div>
 	    </div>
 	    <div id="outputopdiv" class="postbox closed"><div class="handlediv" title="Click to toggle"><br /></div>
@@ -419,7 +413,7 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_timthumb"><?php _e( 'Use timthumb to generate thumbnails? ', CRP_LOCAL_NAME ); ?></label></th>
-				<td><input type="checkbox" name="thumb_timthumb" id="thumb_timthumb" <?php if ( $crp_settings['thumb_timthumb'] ) echo 'checked="checked"' ?> /> 
+				<td><input type="checkbox" name="thumb_timthumb" id="thumb_timthumb" <?php if ( $crp_settings['thumb_timthumb'] ) echo 'checked="checked"' ?> />
 					<p class="description"><?php _e( 'If checked, <a href="http://www.binarymoon.co.uk/projects/timthumb/" target="_blank">timthumb</a> will be used to generate thumbnails', CRP_LOCAL_NAME ); ?></p>
 				</td>
 			</tr>
@@ -430,12 +424,12 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_meta"><?php _e( 'Post thumbnail meta field name:', CRP_LOCAL_NAME ); ?></label></th>
-				<td><input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_meta'] ) ); ?>"> 
+				<td><input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_meta'] ) ); ?>">
 					<p class="description"><?php _e( 'The value of this field should contain the image source and is set in the <em>Add New Post</em> screen', CRP_LOCAL_NAME ); ?></p>
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="scan_images"><?php _e( 'Extract the first image from the post?', CRP_LOCAL_NAME ); ?></label></th>
-				<td><input type="checkbox" name="scan_images" id="scan_images" <?php if ( $crp_settings['scan_images'] ) echo 'checked="checked"' ?> /> 
+				<td><input type="checkbox" name="scan_images" id="scan_images" <?php if ( $crp_settings['scan_images'] ) echo 'checked="checked"' ?> />
 					<p class="description"><?php _e( 'This will only happen if there is no post thumbnail set and no image URL is specified in the meta field.', CRP_LOCAL_NAME ); ?></p>
 				</td>
 			</tr>
@@ -445,7 +439,7 @@ function crp_options() {
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_default"><?php _e( 'Default thumbnail:', CRP_LOCAL_NAME ); ?></label></th>
-				<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_default'] ) ); ?>" style="width:100%"> 
+				<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_default'] ) ); ?>" style="width:100%">
 				  	<?php if( '' != $crp_settings['thumb_default'] ) echo "<img src='{$crp_settings['thumb_default']}' style='max-width:200px' />"; ?>
 					<p class="description"><?php _e( "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified above.", CRP_LOCAL_NAME ); ?></p>
 				</td>
@@ -491,7 +485,7 @@ function crp_options() {
 			<tr><th scope="row"><label for="thumb_height_feed"><?php _e( 'Maximum height of the thumbnail: ', CRP_LOCAL_NAME ); ?></label></th>
 				<td><input type="textbox" name="thumb_height_feed" id="thumb_height_feed" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_height_feed'] ) ); ?>" style="width:50px" />px</td>
 			</tr>
-			</table>		
+			</table>
 	      </div>
 	    </div>
 	    <div id="customcssdiv" class="postbox closed"><div class="handlediv" title="Click to toggle"><br /></div>
@@ -500,7 +494,7 @@ function crp_options() {
 			<table class="form-table">
 				<tr><th scope="row"><label for="include_default_style"><?php _e( 'Use default style included in the plugin?', CRP_LOCAL_NAME ); ?></label></th>
 				  <td>
-				  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ( $crp_settings['include_default_style'] ) echo 'checked="checked"' ?> /> 
+				  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ( $crp_settings['include_default_style'] ) echo 'checked="checked"' ?> />
 				  	<p class="description"><?php _e( 'Contextual Related Posts includes a default style that makes your popular posts list to look pretty. Check the box above if you want to use this.', CRP_LOCAL_NAME ); ?></p>
 				  	<p class="description"><?php _e( 'Enabling this option will automatically turn on the thumbnails and set their width and height to 150px. Disabling this will not turn off thumbnails or change their dimensions.', CRP_LOCAL_NAME ); ?></p>
 				  </td>
@@ -511,7 +505,7 @@ function crp_options() {
 				  <td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%"><?php echo stripslashes( $crp_settings['custom_CSS'] ); ?></textarea>
 				  <p class="description"><?php _e( 'Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.', CRP_LOCAL_NAME ); ?></p>
 				</td></tr>
-			</table>		
+			</table>
 	      </div>
 	    </div>
 
@@ -583,7 +577,7 @@ function crp_options() {
 
 /**
  * Add a link under Settings to the plugins settings page.
- * 
+ *
  * @access public
  * @return void
  */
@@ -596,7 +590,7 @@ add_action( 'admin_menu', 'crp_adminmenu' );
 
 /**
  * Function to add CSS and JS to the Admin header.
- * 
+ *
  * @access public
  * @return void
  */
@@ -643,7 +637,7 @@ function crp_adminhead() {
 		});
 		//]]>
 	</script>
-	
+
 	<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/wick/wick.css" />
 	<script type="text/javascript" language="JavaScript">
 		//<![CDATA[
@@ -653,18 +647,18 @@ function crp_adminhead() {
 				alert( response.message );
 			}, 'json');
 		}
-		
+
 		function checkForm() {
 		answer = true;
 		if (siw && siw.selectingSomething)
 			answer = false;
 		return answer;
 		}//
-	
+
 		<?php
 		function wick_data() {
 			global $wpdb;
-			
+
 			$categories = get_categories( 'hide_empty=0' );
 			$str = 'collection = [';
 			foreach ( $categories as $cat ) {
@@ -672,7 +666,7 @@ function crp_adminhead() {
 			}
 			$str = substr( $str, 0, -1 );	// Remove trailing comma
 			$str .= '];';
-			
+
 			echo $str;
 		}
 		wick_data();
@@ -680,13 +674,13 @@ function crp_adminhead() {
 	//]]>
 	</script>
 	<script type="text/javascript" src="<?php echo $crp_url ?>/wick/wick.js"></script>
-<?php 
+<?php
 }
 
 
 /**
  * Function to add a notice to the admin page.
- * 
+ *
  * @access public
  * @return string Echoed string
  */
@@ -704,7 +698,7 @@ function crp_admin_notice() {
 
 /**
  * Function to clear the CRP Cache with Ajax.
- * 
+ *
  * @access public
  * @return void
  */
@@ -739,7 +733,7 @@ add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
 
 /**
  * Function to add meta box in Write screens.
- * 
+ *
  * @access public
  * @param text $post_type
  * @param object $post
@@ -747,13 +741,13 @@ add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
  */
 function crp_add_meta_box( $post_type, $post ) {
 
-    	add_meta_box( 
-    		'crp_metabox', 
-    		__( 'Contextual Related Posts', CRP_LOCAL_NAME ), 
-    		'crp_call_meta_box', 
-    		$post_type, 
-    		'advanced', 
-    		'default' 
+    	add_meta_box(
+    		'crp_metabox',
+    		__( 'Contextual Related Posts', CRP_LOCAL_NAME ),
+    		'crp_call_meta_box',
+    		$post_type,
+    		'advanced',
+    		'default'
     	);
 
 }
@@ -762,16 +756,16 @@ add_action( 'add_meta_boxes', 'crp_add_meta_box' , 10, 2 );
 
 /**
  * Function to call the meta box.
- * 
+ *
  * @access public
  * @return void
  */
 function crp_call_meta_box() {
 	global $post, $crp_settings;
-	
+
 	// Add an nonce field so we can check for it later.
 	wp_nonce_field( 'crp_meta_box', 'crp_meta_box_nonce' );
-	
+
 	$results = get_post_meta( $post->ID, $crp_settings['thumb_meta'], true );
 	$value = ( $results ) ? $results : '';
 ?>
@@ -782,7 +776,7 @@ function crp_call_meta_box() {
 		<em><?php _e( "The URL above is saved in the meta field: ", CRP_LOCAL_NAME ); ?></em><strong><?php echo $crp_settings['thumb_meta']; ?></strong>
 	</p>
 
-	<?php 
+	<?php
 	if ( $results ) {
 		echo '<img src="' . $value . '" style="max-width:100%" />';
 	}
@@ -791,7 +785,7 @@ function crp_call_meta_box() {
 
 /**
  * Function to save the meta box.
- * 
+ *
  * @access public
  * @param mixed $post_id
  * @return void
@@ -801,17 +795,17 @@ function crp_save_meta_box( $post_id ) {
 
     // Bail if we're doing an auto save
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
-     
+
     // if our nonce isn't there, or we can't verify it, bail
     if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['crp_meta_box_nonce'], 'crp_meta_box' ) ) return;
-     
+
     // if our current user can't edit this post, bail
     if ( ! current_user_can( 'edit_post' ) ) return;
-    
+
     if ( isset( $_POST['thumb_meta'] ) ) {
     	$thumb_meta = $_POST['thumb_meta'] == '' ? '' : $_POST['thumb_meta'];
     }
-    
+
 	$crp_post_meta = get_post_meta( $post_id, $crp_settings['thumb_meta'], true );
 	if ( $crp_post_meta && '' != $crp_post_meta ) {
 		$gotmeta = true;
