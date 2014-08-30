@@ -789,7 +789,7 @@ function crp_save_meta_box( $post_id ) {
     if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['crp_meta_box_nonce'], 'crp_meta_box' ) ) return;
 
     // if our current user can't edit this post, bail
-    if ( ! current_user_can( 'edit_post' ) ) return;
+    if ( ! current_user_can( 'edit_posts' ) ) return;
 
     if ( isset( $_POST['thumb_meta'] ) ) {
     	$thumb_meta = $_POST['thumb_meta'] == '' ? '' : $_POST['thumb_meta'];
