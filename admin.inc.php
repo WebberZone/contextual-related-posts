@@ -4,16 +4,18 @@
  *
  * This page is accessible via Settings > Contextual Related Posts
  *
- * @package   Contextual Related Posts
+ * @package   Contextual_Related_Posts
  */
 
-if ( ! defined( 'ABSPATH' ) ) die( "Aren't you supposed to come here via WP-Admin?" );
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 
 /**
  * Function generates the plugin settings page.
  *
- * @access public
- * @return void
  */
 function crp_options() {
 
@@ -578,8 +580,6 @@ function crp_options() {
 /**
  * Add a link under Settings to the plugins settings page.
  *
- * @access public
- * @return void
  */
 function crp_adminmenu() {
 	$plugin_page = add_options_page( __( "Contextual Related Posts", CRP_LOCAL_NAME ), __( "Related Posts", CRP_LOCAL_NAME ), 'manage_options', 'crp_options', 'crp_options' );
@@ -591,8 +591,6 @@ add_action( 'admin_menu', 'crp_adminmenu' );
 /**
  * Function to add CSS and JS to the Admin header.
  *
- * @access public
- * @return void
  */
 function crp_adminhead() {
 	global $crp_url;
@@ -681,7 +679,6 @@ function crp_adminhead() {
 /**
  * Function to add a notice to the admin page.
  *
- * @access public
  * @return string Echoed string
  */
 function crp_admin_notice() {
@@ -699,8 +696,6 @@ function crp_admin_notice() {
 /**
  * Function to clear the CRP Cache with Ajax.
  *
- * @access public
- * @return void
  */
 function crp_ajax_clearcache() {
 	global $wpdb; // this is how you get access to the database
@@ -734,10 +729,8 @@ add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
 /**
  * Function to add meta box in Write screens.
  *
- * @access public
  * @param text $post_type
  * @param object $post
- * @return void
  */
 function crp_add_meta_box( $post_type, $post ) {
 
@@ -757,8 +750,6 @@ add_action( 'add_meta_boxes', 'crp_add_meta_box' , 10, 2 );
 /**
  * Function to call the meta box.
  *
- * @access public
- * @return void
  */
 function crp_call_meta_box() {
 	global $post, $crp_settings;
@@ -786,9 +777,7 @@ function crp_call_meta_box() {
 /**
  * Function to save the meta box.
  *
- * @access public
  * @param mixed $post_id
- * @return void
  */
 function crp_save_meta_box( $post_id ) {
 	global $crp_settings;

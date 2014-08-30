@@ -195,7 +195,6 @@ function ald_crp( $args = array() ) {
 /**
  * Fetch related posts.
  *
- * @access public
  * @param int $postid (default: FALSE) The post ID for which you want the posts for
  * @param int $limit (default: FALSE) Maximum posts to retreive
  * @param boolean $strict_limit (default: TRUE) Setting to true will fetch exactly as per limit above
@@ -214,7 +213,6 @@ function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) 
 /**
  * Fetch related posts IDs.
  *
- * @access public
  * @param array $args
  * @return object $results
  */
@@ -298,8 +296,6 @@ function get_crp_posts_id( $args = array() ) {
 /**
  * Content function with user defined filter.
  *
- * @access public
- * @return void
  */
 function crp_content_prepare_filter() {
 	global $crp_settings;
@@ -314,7 +310,6 @@ add_action( 'template_redirect', 'crp_content_prepare_filter' );
 /**
  * Filter for 'the_content' to add the related posts.
  *
- * @access public
  * @param string $content
  * @return string After the filter has been processed
  */
@@ -351,7 +346,6 @@ function ald_crp_content( $content ) {
 /**
  * Filter to add related posts to feeds.
  *
- * @access public
  * @param string $content
  * @return string
  */
@@ -377,16 +371,13 @@ add_filter( 'the_content_feed', 'ald_crp_rss' );
 /**
  * Manual install of the related posts.
  *
- * @access public
  * @return string echoed output of related posts
  */
 function echo_ald_crp( $args = array() ) {
 	echo ald_crp( $args );
 }
 
-/*********************************************************************
-*				WordPress Widgets									*
-********************************************************************/
+
 /**
  * Create a Wordpress Widget for CRP.
  *
@@ -555,8 +546,6 @@ add_action( 'widgets_init', 'register_crp_widget' );
 /**
  * Enqueue styles.
  *
- * @access public
- * @return void
  */
 function crp_heading_styles() {
 	global $crp_settings;
@@ -569,16 +558,12 @@ function crp_heading_styles() {
 add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
 
 
-/*********************************************************************
-*				Shortcode functions									*
-********************************************************************/
 /**
  * Creates a shortcode [crp limit="5" heading="1" cache="1"].
  *
- * @access public
  * @param array $atts
  * @param string $content (default: null)
- * @return void
+ * @return Related Posts
  */
 function crp_shortcode( $atts, $content = null ) {
 	global $crp_settings;
@@ -597,8 +582,7 @@ add_shortcode( 'crp', 'crp_shortcode' );
 /**
  * Default options.
  *
- * @access public
- * @return array
+ * @return array Default options
  */
 function crp_default_options() {
 
@@ -689,8 +673,7 @@ function crp_default_options() {
 /**
  * Function to read options from the database.
  *
- * @access public
- * @return array
+ * @return array Contextual Related Posts options
  */
 function crp_read_options() {
 	$crp_settings_changed = false;
@@ -717,7 +700,6 @@ function crp_read_options() {
 /**
  * Filter for wp_head to include the custom CSS.
  *
- * @access public
  * @return string Echoed string with the CSS output in the Header
  */
 function crp_header() {
@@ -851,7 +833,6 @@ add_filter( 'crp_postimage', 'crp_scale_thumbs', 10, 6 );
 /**
  * Function to get the post thumbnail.
  *
- * @access public
  * @param array|string $args (default: array()) Array / Query string with arguments post thumbnails
  * @return string Output with the post thumbnail
  */
@@ -928,7 +909,6 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 /**
  * Get the first image in the post.
  *
- * @access public
  * @param mixed $postID	Post ID
  * @return string
  */
@@ -959,7 +939,6 @@ function crp_get_first_image( $postID ) {
 /**
  * Function to create an excerpt for the post.
  *
- * @access public
  * @param int $id Post ID
  * @param int|string $excerpt_length Length of the excerpt in words
  * @return string Excerpt
@@ -986,7 +965,6 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 /**
  * Function to limit content by characters.
  *
- * @access public
  * @param string $content Content to be used to make an excerpt
  * @param int $MaxLength (default: -1) Maximum length of excerpt in characters
  * @return string Formatted content
@@ -1009,11 +987,12 @@ function crp_max_formatted_content( $content, $MaxLength = -1 ) {
 }
 
 
-/*********************************************************************
-*				Admin Functions									*
-********************************************************************/
+/*----------------------------------------------------------------------------*
+ * Dashboard and Administrative Functionality
+ *----------------------------------------------------------------------------*/
+
 if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
-	require_once(ALD_CRP_DIR . "/admin.inc.php");
+	require_once( ALD_CRP_DIR . "/admin.inc.php" );
 
 	/**
 	 * Filter to add link to WordPress plugin action links.
