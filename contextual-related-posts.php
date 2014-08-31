@@ -645,14 +645,15 @@ function crp_default_options() {
 		'exclude_on_post_types' => '',		// WordPress custom post types
 
 		'post_thumb_op' => 'text_only',	// Default option to display text and no thumbnails in posts
-		'thumb_height' => '50',	// Height of thumbnails
-		'thumb_width' => '50',	// Width of thumbnails
+		'thumb_height' => '150',	// Height of thumbnails
+		'thumb_width' => '150',	// Width of thumbnails
+		'thumb_crop' => false,		// Crop mode. default is soft proportional
 		'thumb_html' => 'html',		// Use HTML or CSS for width and height of the thumbnail?
 		'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image
 		'scan_images' => false,			// Scan post for images
 		'thumb_default' => $thumb_default,	// Default thumbnail image
 		'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
-		'thumb_timthumb' => true,	// Use timthumb
+		'thumb_timthumb' => false,	// Use timthumb
 		'thumb_timthumb_q' => '75',	// Quality attribute for timthumb
 
 		// Feed options
@@ -808,6 +809,22 @@ add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
 
 
 /**
+ * Add custom image size of thumbnail. Filters `init`.
+ *
+ */
+function crp_add_image_sizes() {
+	global $crp_settings;
+
+	$width = empty( $crp_settings['thumb_width'] ) ? 150 : $crp_settings['thumb_width'];
+	$height = empty( $crp_settings['thumb_height'] ) ? 150 : $crp_settings['thumb_height'];
+	$crop = isset( $crp_settings['thumb_crop'] ) ? $crp_settings['thumb_crop'] : false;
+
+	add_image_size( 'crp_thumbnail', $width, $height, $crop );
+}
+add_action( 'init', 'crp_add_image_sizes' );
+
+
+/**
  * Filter function to resize post thumbnail. Filters: crp_postimage.
  *
  * @param string $postimage
@@ -856,7 +873,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	// Parse incomming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
 
-	// OPTIONAL: Declare each item in $args as its own variable i.e. $type, $before.
+	// Declare each item in $args as its own variable i.e. $type, $before.
 	extract( $args, EXTR_SKIP );
 
 	$result = get_post( $postid );
@@ -866,11 +883,8 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	$thumb_html = ( 'css' == $thumb_html ) ? 'style="max-width:' . $thumb_width . 'px;max-height:' . $thumb_height . 'px;"' : 'width="' . $thumb_width . '" height="' .$thumb_height . '"';
 
 	if ( function_exists( 'has_post_thumbnail' ) && ( ( '' != wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) ) ) || ( false != wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) ) ) ) ) {
-		$postimage = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) );
+		$postimage = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), 'crp_thumbnail' );
 
-		if ( ( $postimage[1] < $thumb_width ) || ( $postimage[2] < $thumb_height ) ) {
-			$postimage = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) , 'full' );
-		}
 		$postimage = apply_filters( $filter, $postimage[0], $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
 		if ( is_ssl() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );

@@ -31,10 +31,10 @@ The plugin also comes with it's very own inbuilt stylesheet that let's your rela
 * **Exclusions**: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
 * **Custom post types**: The related posts list lets you include posts, pages, attachments or any other custom post type!
 * **Thumbnail support**:
-	* Support for WordPress post thumbnails
+	* Support for WordPress post thumbnails. CRP will create a custom image size (`crp_thumbnail`) with the dimensions specified in the Settings page
 	* Auto-extract the first image in your post to be displayed as a thumbnail
 	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>. Specify this using the meta box in your Edit screens.
-	* Use timthumb to resize images or use your own filter function to resize post images
+	* Optionally, use timthumb to resize images or use your own filter function to resize post images
 * **Styles**: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area or use the style included.
 * **Customisable output**:
 	* Display excerpts in post. You can select the length of the excerpt in words

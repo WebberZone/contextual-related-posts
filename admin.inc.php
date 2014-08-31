@@ -77,6 +77,7 @@ function crp_options() {
 		$crp_settings['post_thumb_op'] = wp_kses_post( $_POST['post_thumb_op'] );
 		$crp_settings['thumb_height'] = intval( $_POST['thumb_height'] );
 		$crp_settings['thumb_width'] = intval( $_POST['thumb_width'] );
+		$crp_settings['thumb_crop'] = ( isset( $_POST['thumb_crop'] ) ? true : false );
 		$crp_settings['thumb_html'] = $_POST['thumb_html'];
 		$crp_settings['thumb_meta'] = ( '' == $_POST['thumb_meta'] ? 'post-image' : wp_kses_post( $_POST['thumb_meta'] ) );
 		$crp_settings['scan_images'] = ( isset( $_POST['scan_images'] ) ? true : false );
@@ -391,15 +392,32 @@ function crp_options() {
 					<br />
 				</td>
 			</tr>
-			<tr><th scope="row"><label for="thumb_width"><?php _e( 'Maximum width of the thumbnail: ', CRP_LOCAL_NAME ); ?></label></th>
-				<td><input type="textbox" name="thumb_width" id="thumb_width" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_width'])); ?>" style="width:50px" />px</td>
+			<tr><td scope="row" colspan="2">
+					<p class="description">
+						<?php _e( "Contextual Related Posts adds a new image size with the below dimensions.", CRP_LOCAL_NAME ); ?>
+						<?php _e( "If you change the width and/or height below, existing images will not be automatically resized.", CRP_LOCAL_NAME ); ?>
+						<?php printf( __( "I recommend using <a href='%s' target='_blank'>Force Regenerate Thumbnails</a> to regenerate all image sizes.", CRP_LOCAL_NAME ), 'https://wordpress.org/plugins/force-regenerate-thumbnails/' ); ?>
+					</p>
+				</th>
+			</tr>
+			<tr><th scope="row"><label for="thumb_width"><?php _e( 'Maximum width of the thumbnail:', CRP_LOCAL_NAME ); ?></label></th>
+				<td><input type="textbox" name="thumb_width" id="thumb_width" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_width'] ) ); ?>" style="width:50px" />px</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_height"><?php _e( 'Maximum height of the thumbnail: ', CRP_LOCAL_NAME ); ?></label></th>
 				<td>
-					<input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo esc_attr(stripslashes($crp_settings['thumb_height'])); ?>" style="width:50px" />px
+					<input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_height'] ) ); ?>" style="width:50px" />px
 					<?php if ( $crp_settings['include_default_style'] ) { ?>
 						<p class="description"><?php _e( "Since you're using the default styles set under the Custom Styles section, the width and height is fixed at 150px", CRP_LOCAL_NAME ); ?></p>
 					<?php } ?>
+				</td>
+			</tr>
+			<tr><th scope="row"><label for="thumb_crop"><?php _e( 'Crop mode:', CRP_LOCAL_NAME ); ?></label></th>
+				<td>
+					<input type="checkbox" name="thumb_crop" id="thumb_crop" <?php if ( $crp_settings['thumb_crop'] ) echo 'checked="checked"' ?> />
+					<p class="description">
+						<?php _e( "By default, thumbnails will be proportionately cropped. Check this box to hard crop the thumbnails.", CRP_LOCAL_NAME ); ?>
+						<?php printf( __( "<a href='%s' target='_blank'>Difference between soft and hard crop</a>", CRP_LOCAL_NAME ), 'http://www.davidtan.org/wordpress-hard-crop-vs-soft-crop-difference-comparison-example/' ); ?>
+					</p>
 				</td>
 			</tr>
 			<tr><th scope="row"><label for="thumb_html"><?php _e( 'Style attributes / Width and Height HTML attributes:', CRP_LOCAL_NAME ); ?></label></th>
