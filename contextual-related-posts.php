@@ -875,7 +875,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( is_ssl() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
-		$output .= '<img src="' . $postimage . '" alt="' . $title . '" title="' . $title . '" ' . $thumb_html . ' border="0" class="' . $class . '" />';
+		$output .= '<img src="' . $postimage . '" alt="' . $title . '" title="' . $title . '" ' . $thumb_html . ' class="' . $class . '" />';
 	} else {
 		$postimage = get_post_meta( $result->ID, $thumb_meta, true );	// Check the post meta first
 		if ( ! $postimage && $scan_images ) {
@@ -898,7 +898,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 			if ( is_ssl() ) {
 			    $postimage = preg_replace( '~http://~', 'https://', $postimage );
 			}
-			$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' border="0" class="'.$class.'" />';
+			$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' class="'.$class.'" />';
 		}
 	}
 
