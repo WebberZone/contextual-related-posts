@@ -882,38 +882,47 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	$output = '';
 	$thumb_html = ( 'css' == $thumb_html ) ? 'style="max-width:' . $thumb_width . 'px;max-height:' . $thumb_height . 'px;"' : 'width="' . $thumb_width . '" height="' .$thumb_height . '"';
 
-	if ( function_exists( 'has_post_thumbnail' ) && ( ( '' != wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) ) ) || ( false != wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) ) ) ) ) {
-		$postimage = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), 'crp_thumbnail' );
+	// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page
+	$postimage = get_post_meta( $result->ID, $thumb_meta, true );	// Check the post meta first
 
-		$postimage = apply_filters( $filter, $postimage[0], $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
+	// If there is no thumbnail found, check the post thumbnail
+	if ( ! $postimage ) {
+		if ( function_exists( 'has_post_thumbnail' ) && ( ( '' != wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) ) ) || ( false != wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) ) ) ) ) {
+			$postthumb = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), 'crp_thumbnail' );
+			$postimage = $postthumb[0];
+		}
+	}
+
+	// If there is no thumbnail found, fetch the first image in the post, if enabled
+	if ( ! $postimage && $scan_images ) {
+		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $result->post_content, $matches );
+		if ( isset( $matches[1][0] ) && $matches[1][0] ) { 			// any image there?
+			$postimage = $matches[1][0]; // we need the first one only!
+		}
+	}
+
+	// If there is no thumbnail found, fetch the first child image
+	if ( ! $postimage ) {
+		$postimage = crp_get_first_image($result->ID);	// Get the first image
+	}
+
+	// If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin
+	if ( ! $postimage ) {
+		$postimage = get_post_meta( $result->ID, '_video_thumbnail', true );
+	}
+
+	// If no thumb found and settings permit, use default thumb
+	if ( $thumb_default_show && ! $postimage ) {
+		$postimage = $thumb_default;
+	}
+
+	// Hopefully, we've found a thumbnail by now. If so, run it through the custom filter, check for SSL and create the image tag
+	if ( $postimage ) {
+		$postimage = apply_filters( $filter, $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
 		if ( is_ssl() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
-		$output .= '<img src="' . $postimage . '" alt="' . $title . '" title="' . $title . '" ' . $thumb_html . ' class="' . $class . '" />';
-	} else {
-		$postimage = get_post_meta( $result->ID, $thumb_meta, true );	// Check the post meta first
-		if ( ! $postimage && $scan_images ) {
-			preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $result->post_content, $matches );
-			if ( isset( $matches[1][0] ) && $matches[1][0] ) { 			// any image there?
-				$postimage = $matches[1][0]; // we need the first one only!
-			}
-		}
-		if ( ! $postimage ) {
-			$postimage = crp_get_first_image($result->ID);	// Get the first image
-		}
-		if ( ! $postimage ) {
-			$postimage = get_post_meta( $result->ID, '_video_thumbnail', true ); // If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin
-		}
-		if ( $thumb_default_show && ! $postimage ) {
-			$postimage = $thumb_default; // If no thumb found and settings permit, use default thumb
-		}
-		if ( $postimage ) {
-			$postimage = apply_filters( $filter, $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
-			if ( is_ssl() ) {
-			    $postimage = preg_replace( '~http://~', 'https://', $postimage );
-			}
-			$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' class="'.$class.'" />';
-		}
+		$output .= '<img src="'.$postimage.'" alt="'.$title.'" title="'.$title.'" '.$thumb_html.' class="'.$class.'" />';
 	}
 
 	return apply_filters( 'crp_get_the_post_thumbnail', $output );
@@ -940,7 +949,7 @@ function crp_get_first_image( $postID ) {
 
 	if ( $attachments ) {
 		foreach ( $attachments as $attachment ) {
-			$image_attributes = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' )  ? wp_get_attachment_image_src( $attachment->ID, 'thumbnail' ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
+			$image_attributes = wp_get_attachment_image_src( $attachment->ID, 'crp_thumbnail' );
 
 			return apply_filters(  'crp_get_first_image', $image_attributes[0], $postID );
 		}
