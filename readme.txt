@@ -53,7 +53,7 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 == Upgrade Notice ==
 
 = 2.0.0 =
-* New multisite support; Thumbnails no longer need timthumb; HTTPS support for thumbnails;
+* New multisite support; Thumbnails no longer need timthumb; HTTPS support for thumbnails; filter mySQL query;
 Check the Changelog for a full list of changes.
 
 
@@ -62,6 +62,7 @@ Check the Changelog for a full list of changes.
 = 2.0.0 =
 * New: Multi-site support. Now you can Network Activate the plugin and all users will see related posts!
 * New: Thumbnails will be registered as an image size in WordPress. This means WordPress will create a copy of the image with the specified dimensions when a new image is uploaded. For your existing images, I recommend using <a href="https://wordpress.org/plugins/force-regenerate-thumbnails/">Force Regenerate Thumbnails</a>
+* New: Completely filterable mySQL query to fetch the posts. You can write your own functions to filter the fields, orderby, groupby, join and limits clauses
 * Modified: Lookup priority for thumbnails. The thumbnail URL set in the Contextual Related Posts meta box is given first priority
 * Modified: Removed `border=0` attribute from `img` tag for HTML5 validation support
 * Modified: Default option for timthumb is disabled

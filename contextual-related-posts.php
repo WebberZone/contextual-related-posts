@@ -2,7 +2,7 @@
 /**
  * Contextual Related Posts.
  *
- * Contextual Related Posts is a powerful plugin for WordPress that
+ * Contextual Related Posts is the best related posts plugin for WordPress that
  * allows you to display a list of related posts on your website and in your feed.
  *
  * @package   Contextual_Related_Posts
@@ -14,8 +14,8 @@
  * @wordpress-plugin
  * Plugin Name: Contextual Related Posts
  * Plugin URI: http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
- * Description: Displaying a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 1.9.2
+ * Description: Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
+ * Version: 1.9.3
  * Author: Ajay D'Souza
  * Author URI: http://ajaydsouza.com
  * Text Domain: crp
@@ -219,6 +219,15 @@ function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) 
 function get_crp_posts_id( $args = array() ) {
 	global $wpdb, $post, $single, $crp_settings;
 
+	// Initialise some variables
+	$fields = '';
+	$where = '';
+	$join = '';
+	$groupby = '';
+	$orderby = '';
+	$limits = '';
+	$match_fields = '';
+
 	$defaults = array(
 		'postid' => FALSE,
 		'strict_limit' => FALSE,
@@ -237,54 +246,100 @@ function get_crp_posts_id( $args = array() ) {
 
 	parse_str( $post_types, $post_types );	// Save post types in $post_types variable
 
+	// Are we matching only the title or the post content as well?
+	if( $match_content ) {
+		$stuff = $post->post_title . ' ' . crp_excerpt( $post->ID, $match_content_words, false );
+		$match_fields = "post_title,post_content";
+	} else {
+		$stuff = $post->post_title;
+		$match_fields = "post_title";
+	}
+
 	// Make sure the post is not from the future
 	$time_difference = get_option( 'gmt_offset' );
 	$now = gmdate( "Y-m-d H:i:s", ( time() + ( $time_difference * 3600 ) ) );
 
-	// Are we matching only the title or the post content as well?
-	if( $match_content ) {
-		$stuff = $post->post_title . ' ' . crp_excerpt( $post->ID, $match_content_words, false );
-		$fields = "post_title,post_content";
-	} else {
-		$stuff = $post->post_title;
-		$fields = "post_title";
-	}
-
 	// Limit the related posts by time
 	$daily_range = $daily_range - 1;
-	$current_date = strtotime( '-' . $daily_range . ' DAY' , strtotime( $now ) );
-	$current_date = date ( 'Y-m-d H:i:s' , $current_date );
+	$from_date = strtotime( '-' . $daily_range . ' DAY' , strtotime( $now ) );
+	$from_date = date ( 'Y-m-d H:i:s' , $from_date );
 
 	// Create the SQL query to fetch the related posts from the database
 	if ( ( is_int( $post->ID ) ) && ( '' != $stuff ) ) {
-		$args = array(
-			$stuff,
-			$now,
-			$current_date,
-			$post->ID,
-		);
-		$sql = "
-			SELECT DISTINCT ID
-			FROM ".$wpdb->posts."
-			WHERE MATCH (" . $fields . ") AGAINST ('%s')
-			AND post_date < '%s'
-			AND post_date >= '%s'
-			AND post_status = 'publish'
-			AND ID != %d
-		";
-		if ( '' != $exclude_post_ids ) $sql .= "AND ID NOT IN (" . $exclude_post_ids . ") ";
-		$sql .= " AND ( ";
-		$multiple = false;
-		foreach ( $post_types as $post_type ) {
-			if ( $multiple ) $sql .= ' OR ';
-			$sql .= " post_type = '%s'";
-			$multiple = true;
-			$args[] = $post_type;	// Add the post types to the $args array
-		}
-		$args[] = $limit;
-		$sql .= " ) LIMIT %d";
 
-		$results = $wpdb->get_results( $wpdb->prepare( $sql, $args ) );
+		// Fields to return
+		$fields = " $wpdb->posts.ID ";
+
+		// Create the base WHERE clause
+		$where .= $wpdb->prepare( " AND MATCH (" . $match_fields . ") AGAINST ('%s') ", $stuff );	// FULLTEXT matching algorithm
+		$where .= $wpdb->prepare( " AND $wpdb->posts.post_date < '%s' ", $now );		// Show posts before today
+		$where .= $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );	// Show posts after the date specified
+		$where .= " AND $wpdb->posts.post_status = 'publish' ";					// Only show published posts
+		$where .= $wpdb->prepare( " AND $wpdb->posts.ID != %d ", $post->ID );	// Show posts after the date specified
+		if ( '' != $exclude_post_ids ) {
+			$where .= " AND $wpdb->posts.ID NOT IN (" . $exclude_post_ids . ") ";
+		}
+		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";	// Array of post types
+
+		// Create the base LIMITS clause
+		$limits .= $wpdb->prepare( " LIMIT %d ", $limit );
+
+		/**
+		 * Filter the SELECT clause of the query.
+		 *
+		 * @param string   $fields  The SELECT clause of the query.
+		 */
+		$fields = apply_filters( 'crp_posts_fields', $fields, $post->ID );
+
+		/**
+		 * Filter the JOIN clause of the query.
+		 *
+		 * @param string   $join  The JOIN clause of the query.
+		 */
+ 		$join = apply_filters( 'crp_posts_join', $join, $post->ID );
+
+		/**
+		 * Filter the WHERE clause of the query.
+		 *
+		 * @param string   $where  The WHERE clause of the query.
+		 */
+		$where = apply_filters( 'crp_posts_where', $where, $post->ID );
+
+		/**
+		 * Filter the GROUP BY clause of the query.
+		 *
+		 * @param string   $groupby  The GROUP BY clause of the query.
+		 */
+		$groupby = apply_filters( 'crp_posts_groupby', $groupby, $post->ID );
+
+
+		/**
+		 * Filter the ORDER BY clause of the query.
+		 *
+		 * @param string   $orderby  The ORDER BY clause of the query.
+		 */
+		$orderby = apply_filters( 'crp_posts_orderby', $orderby, $post->ID );
+
+		/**
+		 * Filter the LIMIT clause of the query.
+		 *
+		 * @param string   $limits  The LIMIT clause of the query.
+		 */
+		$limits = apply_filters( 'crp_posts_limits', $limits, $post->ID );
+
+		if ( ! empty( $groupby ) ) {
+			$groupby = 'GROUP BY ' . $groupby;
+		}
+		if ( !empty( $orderby ) ) {
+			$orderby = 'ORDER BY ' . $orderby;
+		}
+		if ( ! empty( $limits ) ) {
+			$found_rows = 'SQL_CALC_FOUND_ROWS';
+		}
+
+		$sql = "SELECT $found_rows DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $orderby $limits";
+
+		$results = $wpdb->get_results( $sql );
 	} else {
 		$results = false;
 	}
