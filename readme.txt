@@ -38,10 +38,11 @@ The plugin also comes with it's very own inbuilt stylesheet that let's your rela
 * **Customisable output**:
 	* Display excerpts in post. You can select the length of the excerpt in words
 	* Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
+* **Extensible code**: Several actions and filters to modify the output, add more options, etc.
 
 = Donations =
 
-I spend a significant amount of my free time maintaing, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done by best to answer your question and solve your problem.
+I spend a significant amount of my free time maintaing, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done my best to answer your question and solve your problem.
 If you have been using this plugin and find this useful, do consider making a donation. This helps me pay for my hosting and domains.
 
 = Contribute =
@@ -53,7 +54,7 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 == Upgrade Notice ==
 
 = 2.0.0 =
-* New multisite support; Thumbnails no longer need timthumb; HTTPS support for thumbnails; filter mySQL query;
+* New multisite support; Thumbnails no longer need timthumb; HTTPS support for thumbnails; filters for mySQL query;
 Check the Changelog for a full list of changes.
 
 
@@ -66,6 +67,7 @@ Check the Changelog for a full list of changes.
 * Modified: Lookup priority for thumbnails. The thumbnail URL set in the Contextual Related Posts meta box is given first priority
 * Modified: Removed `border=0` attribute from `img` tag for HTML5 validation support
 * Modified: Default option for timthumb is disabled
+* Modified: Default option for post types to include is post and page
 * Fixed: Post image will now be loaded over https if the visitor is blogging on https
 
 = 1.9.1 =

@@ -39,6 +39,7 @@ The plugin also comes with it's very own inbuilt stylesheet that let's your rela
 * **Customisable output**:
 	* Display excerpts in post. You can select the length of the excerpt in words
 	* Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
+* **Extensible code**: Several actions and filters to modify the output, add more options, etc.
 
 ### Donations
 
@@ -47,7 +48,7 @@ If you have been using this plugin and find this useful, do consider making a do
 
 
 ## Screenshots
-![General Options](https://raw.github.com/ajaydsouza/contextual-related-posts/master/screenshot-1.png)
+![General Options](https://raw.github.com/ajaydsouza/contextual-related-posts/master/assets/screenshot-1.png)
 
 _Contextual Related Posts - General Options_
 
