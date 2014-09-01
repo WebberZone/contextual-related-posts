@@ -1069,52 +1069,9 @@ function crp_max_formatted_content( $content, $MaxLength = -1 ) {
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
-if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
-	require_once( ALD_CRP_DIR . "/admin.inc.php" );
+if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 
-	/**
-	 * Filter to add link to WordPress plugin action links.
-	 *
-	 * @access public
-	 * @param array $links
-	 * @return array
-	 */
-	function crp_plugin_actions_links( $links ) {
-
-		return array_merge( array(
-				'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('Settings', CRP_LOCAL_NAME ) . '</a>'
-			), $links );
-
-	}
-	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'crp_plugin_actions_links' );
-
-	/**
-	 * Filter to add links to the plugin action row.
-	 *
-	 * @access public
-	 * @param array $links
-	 * @param array $file
-	 * @return void
-	 */
-	function crp_plugin_actions( $links, $file ) {
-		static $plugin;
-		if ( ! $plugin ) $plugin = plugin_basename(__FILE__);
-
-		// create link
-		if ( $file == $plugin ) {
-			$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __( 'Support', CRP_LOCAL_NAME ) . '</a>';
-			$links[] = '<a href="http://ajaydsouza.com/donate/">' . __( 'Donate', CRP_LOCAL_NAME ) . '</a>';
-		//	$links[] = '<a href="http://ajaydsouza.org/contextual-related-posts/">' . __( 'Get PRO', CRP_LOCAL_NAME ) . '</a>';
-		}
-		return $links;
-	}
-
-	global $wp_version;
-	if ( version_compare( $wp_version, '2.8alpha', '>' ) ) {
-		add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and higher
-	} else {
-		add_filter( 'plugin_action_links', 'crp_plugin_actions', 10, 2 );
-	}
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
 
 } // End admin.inc
 
