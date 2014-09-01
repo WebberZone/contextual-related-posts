@@ -18,7 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
 
 <table class="form-table">
 
-	<?php do_action( 'crp_admin_general_options_before', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires before General options block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_general_options_before', $crp_settings );
+	?>
 
 	<tr><th scope="row"><label for="cache"><?php _e( 'Cache output?', CRP_LOCAL_NAME ); ?></label></th>
 		<td><input type="checkbox" name="cache" id="cache" <?php if ( $crp_settings['cache'] ) echo 'checked="checked"' ?> />
@@ -95,6 +104,15 @@ if ( ! defined( 'WPINC' ) ) {
 		</td>
 	</tr>
 
-	<?php do_action( 'crp_admin_general_options_after', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires after General options block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_general_options_after', $crp_settings );
+	?>
 
 </table>

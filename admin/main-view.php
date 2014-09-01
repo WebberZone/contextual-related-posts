@@ -20,12 +20,27 @@ if ( ! defined( 'WPINC' ) ) {
 	<h2><?php _e( 'Contextual Related Posts', CRP_LOCAL_NAME ); ?></h2>
 
 	<ul class="subsubsub">
-		<?php do_action( 'crp_admin_nav_bar_before' ) ?>
+		<?php
+			/**
+			 * Fires before the navigation bar in the Settings page
+			 *
+			 * @since 2.0.0
+			 */
+			do_action( 'crp_admin_nav_bar_before' )
+		?>
+
 	  	<li><a href="#genopdiv"><?php _e( 'General options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#outputopdiv"><?php _e( 'Output options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#feedopdiv"><?php _e( 'Feed options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#customcssdiv"><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></a></li>
-		<?php do_action( 'crp_admin_nav_bar_after' ) ?>
+		<?php
+			/**
+			 * Fires after the navigation bar in the Settings page
+			 *
+			 * @since 2.0.0
+			 */
+			do_action( 'crp_admin_nav_bar_after' )
+		?>
 	</ul>
 
 	<div id="poststuff">
@@ -67,7 +82,14 @@ if ( ! defined( 'WPINC' ) ) {
 	      </div>
 	    </div>
 
-		<?php do_action( 'crp_admin_more_options' ) ?>
+		<?php
+			/**
+			 * Fires after all the options are displayed. Allows a custom function to add a new option block.
+			 *
+			 * @since 2.0.0
+			 */
+			do_action( 'crp_admin_more_options' )
+		?>
 
 		<p>
 		  <input type="submit" name="crp_save" id="crp_save" value="<?php _e( 'Save Options', CRP_LOCAL_NAME ); ?>" class="button button-primary" />

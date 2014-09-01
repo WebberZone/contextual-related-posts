@@ -18,7 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
 
 <table class="form-table">
 
-	<?php do_action( 'crp_admin_custom_styles_before', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires before Custom styles options block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_custom_styles_before', $crp_settings );
+	?>
 
 	<tr><th scope="row"><label for="include_default_style"><?php _e( 'Use default style included in the plugin?', CRP_LOCAL_NAME ); ?></label></th>
 	  <td>
@@ -34,6 +43,15 @@ if ( ! defined( 'WPINC' ) ) {
 	  <p class="description"><?php _e( 'Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.', CRP_LOCAL_NAME ); ?></p>
 	</td></tr>
 
-	<?php do_action( 'crp_admin_custom_styles_after', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires after Custom styles options block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_custom_styles_after', $crp_settings );
+	?>
 
 </table>

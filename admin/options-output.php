@@ -18,7 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
 
 <table class="form-table">
 
-	<?php do_action( 'crp_admin_output_options_before', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires before output options main block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_output_options_before', $crp_settings );
+	?>
 
 	<tr><th scope="row"><label for="title"><?php _e( 'Title of related posts: ', CRP_LOCAL_NAME ); ?></label></th>
 		<td>
@@ -86,13 +95,31 @@ if ( ! defined( 'WPINC' ) ) {
 		</td>
 	</tr>
 
-	<?php do_action( 'crp_admin_output_options_after', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires after Output options main block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_output_options_after', $crp_settings );
+	?>
 
 </table>
 <hr />
 <table class="form-table">
 
-	<?php do_action( 'crp_admin_exclusion_options_before', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires before Exclusion options block under Output options.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_exclusion_options_before', $crp_settings );
+	?>
 
 	<tr>
 		<th scope="row" colspan="2" style="background: #eee; padding-left: 5px;"><?php _e( 'Exclusion settings:', CRP_LOCAL_NAME ); ?></th>
@@ -140,13 +167,31 @@ if ( ! defined( 'WPINC' ) ) {
 		</td>
 	</tr>
 
-	<?php do_action( 'crp_admin_exclusion_options_after', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires after Exclusion options block under Output options.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_exclusion_options_after', $crp_settings );
+	?>
 
 </table>
 <hr />
 <table class="form-table">
 
-	<?php do_action( 'crp_admin_customize_options_before', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires before Customize options block under Output options.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_customize_options_before', $crp_settings );
+	?>
 
 	<tr><th scope="row" colspan="2" style="background: #eee; padding-left: 5px;"><?php _e( 'Customize the output:', CRP_LOCAL_NAME ); ?></th>
 	</tr>
@@ -163,13 +208,31 @@ if ( ! defined( 'WPINC' ) ) {
 		<td><input type="textbox" name="after_list" id="after_list" value="<?php echo esc_attr( stripslashes( $crp_settings['after_list'] ) ); ?>" style="width:250px" /></td>
 	</tr>
 
-	<?php do_action( 'crp_admin_customize_options_after', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires after Customize options block under Output options.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_customize_options_after', $crp_settings );
+	?>
 
 </table>
 <hr />
 <table class="form-table">
 
-	<?php do_action( 'crp_admin_thumb_options_before', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires before Thumbnail options block under Output options.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_thumb_options_before', $crp_settings );
+	?>
 
 	<tr><th scope="row" colspan="2" style="background: #eee; padding-left: 5px;"><?php _e( 'Post thumbnail options:', CRP_LOCAL_NAME ); ?></th>
 	</tr>
@@ -266,6 +329,15 @@ if ( ! defined( 'WPINC' ) ) {
 		</td>
 	</tr>
 
-	<?php do_action( 'crp_admin_thumb_options_after', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires after Thumbnail options block under Output options.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_thumb_options_after', $crp_settings );
+	?>
 
 </table>

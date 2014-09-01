@@ -132,9 +132,13 @@ function crp_options() {
 		$exclude_on_post_types = array_intersect( $wp_post_types, $post_types_excl_arr );
 		$crp_settings['exclude_on_post_types'] = http_build_query( $exclude_on_post_types, '', '&' );
 
-		// do_action let's a function add more options
+		/**
+		 * Filters $crp_settings before it is saved into the database
+		 *
+		 * @param	array	$crp_settings	CRP settings
+		 * @param	array	$_POST			POST array that consists of the saved settings
+		 */
 		$crp_settings = apply_filters( 'crp_save_options', $crp_settings, $_POST );
-		do_action( 'crp_save_options', $crp_settings, $_POST );
 
 		// Update CRP options into the database
 		update_option( 'ald_crp_settings', $crp_settings );

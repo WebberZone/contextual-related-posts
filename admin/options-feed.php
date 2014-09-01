@@ -18,7 +18,16 @@ if ( ! defined( 'WPINC' ) ) {
 
 <table class="form-table">
 
-	<?php do_action( 'crp_admin_feed_options_before', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires before Feed options block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_feed_options_before', $crp_settings );
+	?>
 
 	<tr><th scope="row" colspan="2"><?php _e( 'Below options override the related posts settings for your blog feed. These only apply if you have selected to add related posts to Feeds in the General Options tab.', CRP_LOCAL_NAME ); ?></th>
 	</tr>
@@ -55,6 +64,15 @@ if ( ! defined( 'WPINC' ) ) {
 		<td><input type="textbox" name="thumb_height_feed" id="thumb_height_feed" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_height_feed'] ) ); ?>" style="width:50px" />px</td>
 	</tr>
 
-	<?php do_action( 'crp_admin_feed_options_after', $crp_settings ); ?>
+	<?php
+		/**
+		 * Fires after Feed options block.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$crp_settings	Contextual Related Posts settings array
+		 */
+		do_action( 'crp_admin_feed_options_after', $crp_settings );
+	?>
 
 </table>
