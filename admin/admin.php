@@ -311,7 +311,7 @@ function crp_plugin_actions_links( $links ) {
 		), $links );
 
 }
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'crp_plugin_actions_links' );
+add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' ), 'crp_plugin_actions_links' );
 
 
 /**
@@ -323,7 +323,9 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'crp_plugin_ac
  */
 function crp_plugin_actions( $links, $file ) {
 	static $plugin;
-	if ( ! $plugin ) $plugin = plugin_basename(__FILE__);
+	if ( ! $plugin ) {
+		$plugin = plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' );
+	}
 
 	// create link
 	if ( $file == $plugin ) {
