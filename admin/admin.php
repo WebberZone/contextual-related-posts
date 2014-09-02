@@ -258,7 +258,7 @@ function crp_adminhead() {
 		//]]>
 	</script>
 
-	<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/wick/wick.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/admin/wick/wick.css" />
 	<script type="text/javascript" language="JavaScript">
 		//<![CDATA[
 		function clearCache() {
@@ -293,7 +293,7 @@ function crp_adminhead() {
 		?>
 	//]]>
 	</script>
-	<script type="text/javascript" src="<?php echo $crp_url ?>/wick/wick.js"></script>
+	<script type="text/javascript" src="<?php echo $crp_url ?>/admin/wick/wick.js"></script>
 <?php
 }
 
