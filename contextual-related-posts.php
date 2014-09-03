@@ -12,16 +12,16 @@
  * @copyright 2009-2014 Ajay D'Souza
  *
  * @wordpress-plugin
- * Plugin Name: Contextual Related Posts
- * Plugin URI: http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
- * Description: Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 1.9.3
- * Author: Ajay D'Souza
- * Author URI: http://ajaydsouza.com
- * Text Domain: crp
- * License: GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Domain Path: /languages
+ * Plugin Name:	Contextual Related Posts
+ * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
+ * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
+ * Version: 	1.9.3
+ * Author: 		Ajay D'Souza
+ * Author URI: 	http://ajaydsouza.com
+ * Text Domain:	crp
+ * License: 	GPL-2.0+
+ * License URI:	http://www.gnu.org/licenses/gpl-2.0.txt
+ * Domain Path:	/languages
  * GitHub Plugin URI: https://github.com/ajaydsouza/contextual-related-posts/
  */
 
@@ -332,37 +332,6 @@ function ald_crp( $args = array() ) {
 
 
 /**
- * Fetch related posts.
- *
- * @since 1.8.6
- *
- * @deprecated v2.0.0
- *
- * @param int $postid (default: FALSE) The post ID for which you want the posts for
- * @param int $limit (default: FALSE) Maximum posts to retreive
- * @param boolean $strict_limit (default: TRUE) Setting to true will fetch exactly as per limit above
- * @return object Object with Post IDs
- */
-function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) {
-
-	$results = get_crp_posts_id( array(
-		'postid' => $postid,
-		'limit' => $limit,
-		'strict_limit' => $strict_limit
-	) );
-
-	/**
-	 * Filter object containing the post IDs.
-	 *
-	 * @since	1.9
-	 *
-	 * @param	object   $results  Object containing the related post IDs
-	 */
-	return apply_filters( 'get_crp_posts', $results );
-}
-
-
-/**
  * Fetch related posts IDs.
  *
  * @since 1.9
@@ -487,11 +456,7 @@ function get_crp_posts_id( $args = array() ) {
 		if ( !empty( $orderby ) ) {
 			$orderby = 'ORDER BY ' . $orderby;
 		}
-		if ( ! empty( $limits ) ) {
-			$found_rows = 'SQL_CALC_FOUND_ROWS';
-		}
-
-		$sql = "SELECT $found_rows DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $orderby $limits";
+		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $orderby $limits";
 
 		$results = $wpdb->get_results( $sql );
 	} else {
@@ -1338,5 +1303,12 @@ if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
 
 } // End admin.inc
+
+
+/*----------------------------------------------------------------------------*
+ * Deprecated functions
+ *----------------------------------------------------------------------------*/
+
+	require_once( plugin_dir_path( __FILE__ ) . 'deprecated.php' );
 
 ?>
