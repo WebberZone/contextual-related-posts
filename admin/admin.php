@@ -20,6 +20,8 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Function generates the plugin settings page.
  *
+ * @since	1.0.1
+ *
  */
 function crp_options() {
 
@@ -196,6 +198,8 @@ function crp_options() {
 /**
  * Add a link under Settings to the plugins settings page.
  *
+ * @version 1.0.1
+ *
  */
 function crp_adminmenu() {
 	$plugin_page = add_options_page(
@@ -212,6 +216,8 @@ add_action( 'admin_menu', 'crp_adminmenu' );
 
 /**
  * Function to add CSS and JS to the Admin header.
+ *
+ * @since 1.2
  *
  */
 function crp_adminhead() {
@@ -299,10 +305,12 @@ function crp_adminhead() {
 
 
 /**
- * Filter to add link to WordPress plugin action links.
+ * Add link to WordPress plugin action links.
  *
- * @param array $links
- * @return array
+ * @version	1.8.10
+ *
+ * @param	array	$links
+ * @return	array	Links array with our settings link added
  */
 function crp_plugin_actions_links( $links ) {
 
@@ -315,23 +323,23 @@ add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __DIR__ )
 
 
 /**
- * Filter to add links to the plugin action row.
+ * Add links to the plugin action row.
  *
- * @param array $links
- * @param array $file
- * @return array
+ * @since	1.4
+ *
+ * @param	array	$links
+ * @param	array	$file
+ * @return	array	Links array with our links added
  */
 function crp_plugin_actions( $links, $file ) {
-	static $plugin;
-	if ( ! $plugin ) {
-		$plugin = plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' );
-	}
 
-	// create link
+	$plugin = plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' );
+
+	// Add links
 	if ( $file == $plugin ) {
 		$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __( 'Support', CRP_LOCAL_NAME ) . '</a>';
 		$links[] = '<a href="http://ajaydsouza.com/donate/">' . __( 'Donate', CRP_LOCAL_NAME ) . '</a>';
-	//	$links[] = '<a href="http://ajaydsouza.org/contextual-related-posts/">' . __( 'Get PRO', CRP_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="http://github.com/ajaydsouza/contextual-related-posts">' . __( 'Contribute', CRP_LOCAL_NAME ) . '</a>';
 	}
 	return $links;
 }
@@ -342,7 +350,9 @@ add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and hi
 /**
  * Function to add a notice to the admin page.
  *
- * @return string Echoed string
+ * @since	1.8
+ *
+ * @return	string	Echoed string
  */
 function crp_admin_notice() {
 	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'plugin settings page', CRP_LOCAL_NAME ) . '</a>';
@@ -358,6 +368,8 @@ function crp_admin_notice() {
 
 /**
  * Function to clear the CRP Cache with Ajax.
+ *
+ * @since	1.8.10
  *
  */
 function crp_ajax_clearcache() {
@@ -390,10 +402,12 @@ add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
 
 
 /**
- * Function to add meta box in Write screens.
+ * Function to add meta box in Write screens of Post, Page and Custom Post Types.
  *
- * @param text $post_type
- * @param object $post
+ * @since	1.9.1
+ *
+ * @param	text	$post_type
+ * @param	object	$post
  */
 function crp_add_meta_box( $post_type, $post ) {
 
@@ -412,6 +426,8 @@ add_action( 'add_meta_boxes', 'crp_add_meta_box' , 10, 2 );
 
 /**
  * Function to call the meta box.
+ *
+ * @since	1.9.1
  *
  */
 function crp_call_meta_box() {
@@ -439,6 +455,8 @@ function crp_call_meta_box() {
 
 /**
  * Function to save the meta box.
+ *
+ * @since	1.9.1
  *
  * @param mixed $post_id
  */

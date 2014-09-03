@@ -30,24 +30,38 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-/**
- * Holds the filesystem directory path.
- */
-define( 'ALD_CRP_DIR', dirname( __FILE__ ) );
 
 /**
  * Holds the text domain.
+ *
+ * @since	1.4
  */
 define( 'CRP_LOCAL_NAME', 'crp' );
 
 /**
- * Set the global variables for CRP path and URL.
+ * Holds the filesystem directory path (with trailing slash) for CRP
+ *
+ * @since	1.2
+ *
+ * @var string
  */
 $crp_path = plugin_dir_path( __FILE__ );
+
+/**
+ * Holds the URL for CRP
+ *
+ * @since	1.2
+ *
+ * @var string
+ */
 $crp_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
 
 /**
  * Global variable holding the current settings for Contextual Related Posts
+ *
+ * @since	1.8.10
+ *
+ * @var array
  */
 global $crp_settings;
 $crp_settings = crp_read_options();
@@ -55,6 +69,8 @@ $crp_settings = crp_read_options();
 
 /**
  * Initialises text domain for l10n.
+ *
+ * @since 1.9
  */
 function ald_crp_lang_init() {
 	load_plugin_textdomain( CRP_LOCAL_NAME, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -64,6 +80,8 @@ add_action( 'plugins_loaded', 'ald_crp_lang_init' );
 
 /**
  * Main function to generate the related posts output
+ *
+ * @since 1.0.1
  *
  * @param	array	$args	Parameters in a query string format
  * @return	string			HTML formatted list of related posts
@@ -113,6 +131,8 @@ function ald_crp( $args = array() ) {
 			/**
 			 * Filter the title of the Related Posts list
 			 *
+			 * @since	1.9
+			 *
 			 * @param	string	$title	Title/heading of the Related Posts list
 			 */
 			$output .= apply_filters( 'crp_heading_title', $title );
@@ -120,6 +140,8 @@ function ald_crp( $args = array() ) {
 
 		/**
 		 * Filter the opening tag of the related posts list
+		 *
+		 * @since	1.9
 		 *
 		 * @param	string	$before_list	Opening tag set in the Settings Page
 		 */
@@ -129,6 +151,8 @@ function ald_crp( $args = array() ) {
 
 			/**
 			 * Filter the post ID for each result. Allows a custom function to hook in and change the ID if needed.
+			 *
+			 * @since	1.9
 			 *
 			 * @param	int	$result->ID	ID of the post
 			 */
@@ -141,6 +165,8 @@ function ald_crp( $args = array() ) {
 			 *
 			 * This is useful since you might want to fetch a different set of categories for a linked post ID,
 			 * typically in the case of plugins that let you set mutiple languages
+			 *
+			 * @since	1.9
 			 *
 			 * @param	int	$result->ID	ID of the post
 			 */
@@ -159,6 +185,8 @@ function ald_crp( $args = array() ) {
 				/**
 				 * Filter the opening tag of each list item.
 				 *
+				 * @since	1.9
+				 *
 				 * @param	string	$before_list_item	Tag before each list item. Can be defined in the Settings page.
 				 * @param	object	$result	Object of the current post result
 				 */
@@ -168,6 +196,8 @@ function ald_crp( $args = array() ) {
 
 				/**
 				 * Filter the title of each list item.
+				 *
+				 * @since	1.9
 				 *
 				 * @param	string	$title	Title of the post.
 				 * @param	object	$result	Object of the current post result
@@ -206,6 +236,8 @@ function ald_crp( $args = array() ) {
 					/**
 					 * Filter the author name.
 					 *
+					 * @since	1.9.1
+					 *
 					 * @param	string	$author_name	Proper name of the post author.
 					 * @param	object	$author_info	WP_User object of the post author
 					 */
@@ -215,6 +247,8 @@ function ald_crp( $args = array() ) {
 
 					/**
 					 * Filter the text with the author details.
+					 *
+					 * @since	2.0.0
 					 *
 					 * @param	string	$crp_author	Formatted string with author details and link
 					 * @param	object	$author_info	WP_User object of the post author
@@ -234,6 +268,8 @@ function ald_crp( $args = array() ) {
 				/**
 				 * Filter the closing tag of each list item.
 				 *
+				 * @since	1.9
+				 *
 				 * @param	string	$after_list_item	Tag after each list item. Can be defined in the Settings page.
 				 * @param	object	$result	Object of the current post result
 				 */
@@ -243,28 +279,20 @@ function ald_crp( $args = array() ) {
 		} //end of foreach loop
 		if ( $show_credit ) {
 
-			/**
-			 * Filter the opening tag of each list item.
-			 *
-			 * @param	string	$before_list_item	Tag before each list item. Can be defined in the Settings page.
-			 * @param	object	$result	Object of the current post result
-			 */
+			/** This filter is documented in contextual-related-posts.php */
 			$output .= apply_filters( 'crp_before_list_item', $before_list_item, $result );	// Pass the post object to the filter
 
 			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', CRP_LOCAL_NAME ), esc_url( 'http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/' ) );
 
-			/**
-			 * Filter the closing tag of each list item.
-			 *
-			 * @param	string	$after_list_item	Tag after each list item. Can be defined in the Settings page.
-			 * @param	object	$result	Object of the current post result
-			 */
+			/** This filter is documented in contextual-related-posts.php */
 			$output .= apply_filters( 'crp_after_list_item', $after_list_item, $result );
 
 		}
 
 		/**
 		 * Filter the closing tag of the related posts list
+		 *
+		 * @since	1.9
 		 *
 		 * @param	string	$after_list	Closing tag set in the Settings Page
 		 */
@@ -294,6 +322,8 @@ function ald_crp( $args = array() ) {
 	/**
 	 * Filter the output
 	 *
+	 * @since	1.9.1
+	 *
 	 * @param	string	$output	Formatted list of related posts
 	 * @param	array	$args	Complete set of arguments
 	 */
@@ -303,6 +333,8 @@ function ald_crp( $args = array() ) {
 
 /**
  * Fetch related posts.
+ *
+ * @since 1.8.6
  *
  * @deprecated v2.0.0
  *
@@ -322,7 +354,9 @@ function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) 
 	/**
 	 * Filter object containing the post IDs.
 	 *
-	 * @param object   $results  Object containing the related post IDs
+	 * @since	1.9
+	 *
+	 * @param	object   $results  Object containing the related post IDs
 	 */
 	return apply_filters( 'get_crp_posts', $results );
 }
@@ -330,6 +364,8 @@ function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) 
 
 /**
  * Fetch related posts IDs.
+ *
+ * @since 1.9
  *
  * @param array $args
  * @return object $results
@@ -465,7 +501,9 @@ function get_crp_posts_id( $args = array() ) {
 	/**
 	 * Filter object containing the post IDs.
 	 *
-	 * @param object   $results  Object containing the related post IDs
+	 * @since	1.9
+	 *
+	 * @param 	object   $results  Object containing the related post IDs
 	 */
 	return apply_filters( 'get_crp_posts_id', $results );
 }
@@ -473,6 +511,8 @@ function get_crp_posts_id( $args = array() ) {
 
 /**
  * Content function with user defined filter.
+ *
+ * @since 1.9
  *
  */
 function crp_content_prepare_filter() {
@@ -487,6 +527,8 @@ add_action( 'template_redirect', 'crp_content_prepare_filter' );
 
 /**
  * Filter for 'the_content' to add the related posts.
+ *
+ * @since 1.0.1
  *
  * @param string $content
  * @return string After the filter has been processed
@@ -524,6 +566,8 @@ function ald_crp_content( $content ) {
 /**
  * Filter to add related posts to feeds.
  *
+ * @since 1.8.4
+ *
  * @param	string	$content
  * @return	string	Formatted content
  */
@@ -549,8 +593,9 @@ add_filter( 'the_content_feed', 'ald_crp_rss' );
 /**
  * Manual install of the related posts.
  *
+ * @since 1.0.1
+ *
  * @param	string	List of arguments to control the output
- * @return	string	Echoed output of related posts
  */
 function echo_ald_crp( $args = array() ) {
 	echo ald_crp( $args );
@@ -559,6 +604,8 @@ function echo_ald_crp( $args = array() ) {
 
 /**
  * Create a Wordpress Widget for CRP.
+ *
+ * @since 1.9
  *
  * @extends WP_Widget
  */
@@ -713,6 +760,8 @@ class CRP_Widget extends WP_Widget {
 /**
  * Initialise the widgets.
  *
+ * @since 1.9.1
+ *
  * @access public
  * @return void
  */
@@ -724,6 +773,8 @@ add_action( 'widgets_init', 'register_crp_widget' );
 
 /**
  * Enqueue styles.
+ *
+ * @since 1.9
  *
  */
 function crp_heading_styles() {
@@ -739,6 +790,8 @@ add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
 
 /**
  * Creates a shortcode [crp limit="5" heading="1" cache="1"].
+ *
+ * @since 1.8.6
  *
  * @param array $atts
  * @param string $content (default: null)
@@ -760,6 +813,8 @@ add_shortcode( 'crp', 'crp_shortcode' );
 
 /**
  * Default options.
+ *
+ * @since 1.0.1
  *
  * @return array Default options
  */
@@ -856,6 +911,8 @@ function crp_default_options() {
 	/**
 	 * Filters the default options array.
 	 *
+	 * @since	1.9.1
+	 *
 	 * @param	array	$crp_settings	Default options
 	 */
 	return apply_filters( 'crp_default_options', $crp_settings );
@@ -864,6 +921,8 @@ function crp_default_options() {
 
 /**
  * Function to read options from the database.
+ *
+ * @since 1.0.1
  *
  * @return array Contextual Related Posts options
  */
@@ -888,6 +947,8 @@ function crp_read_options() {
 	/**
 	 * Filters the options array.
 	 *
+	 * @since	1.9.1
+	 *
 	 * @param	array	$crp_settings	Options read from the database
 	 */
 	return apply_filters( 'crp_read_options', $crp_settings );
@@ -896,6 +957,8 @@ function crp_read_options() {
 
 /**
  * Filter for wp_head to include the custom CSS.
+ *
+ * @since 1.8.4
  *
  * @return	string	Echoed string with the CSS output in the Header
  */
@@ -928,6 +991,8 @@ add_action( 'wp_head', 'crp_header' );
 
 /**
  * Fired for each blog when the plugin is activated.
+ *
+ * @since 1.0.1
  *
  * @param    boolean    $network_wide    True if WPMU superadmin uses
  *                                       "Network Activate" action, false if
@@ -962,6 +1027,8 @@ register_activation_hook( __FILE__, 'crp_activate' );
 /**
  * Fired for each blog when the plugin is activated.
  *
+ * @since 2.0.0
+ *
  */
 function crp_single_activate() {
 	global $wpdb;
@@ -988,6 +1055,8 @@ function crp_single_activate() {
 /**
  * Fired when a new site is activated with a WPMU environment.
  *
+ * @since 2.0.0
+ *
  * @param    int    $blog_id    ID of the new blog.
  */
 function crp_activate_new_site( $blog_id ) {
@@ -1007,6 +1076,8 @@ add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
 /**
  * Add custom image size of thumbnail. Filters `init`.
  *
+ * @since 2.0.0
+ *
  */
 function crp_add_image_sizes() {
 	global $crp_settings;
@@ -1023,11 +1094,13 @@ add_action( 'init', 'crp_add_image_sizes' );
 /**
  * Filter function to resize post thumbnail. Filters: crp_postimage.
  *
- * @param 	tring		$postimage
- * @param	strint|int	$thumb_width
- * @param	strint|int	$thumb_height
+ * @since 1.8.4
+ *
+ * @param 	string		$postimage
+ * @param	string|int	$thumb_width
+ * @param	string|int	$thumb_height
  * @param	boolean		$thumb_timthumb
- * @param	strint|int	$thumb_timthumb_q
+ * @param	string|int	$thumb_timthumb_q
  * @return	string 		Post image output
  */
 function crp_scale_thumbs( $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $post ) {
@@ -1045,6 +1118,8 @@ add_filter( 'crp_postimage', 'crp_scale_thumbs', 10, 6 );
 
 /**
  * Function to get the post thumbnail.
+ *
+ * @since 1.7
  *
  * @param 	array|string 	$args	Array / Query string with arguments post thumbnails
  * @return 	string 					Output with the post thumbnail
@@ -1114,6 +1189,14 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	// Hopefully, we've found a thumbnail by now. If so, run it through the custom filter, check for SSL and create the image tag
 	if ( $postimage ) {
+
+		/**
+		 * Get the first image in the post.
+		 *
+		 * @since 1.8.10
+		 *
+		 * @param mixed $postID	Post ID
+		 */
 		$postimage = apply_filters( $filter, $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
 		if ( is_ssl() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
@@ -1124,6 +1207,8 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	/**
 	 * Filters post thumbnail created for CRP.
 	 *
+	 * @since	1.9
+	 *
 	 * @param	array	$output	Formatted output
 	 */
 	return apply_filters( 'crp_get_the_post_thumbnail', $output );
@@ -1132,6 +1217,8 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 /**
  * Get the first image in the post.
+ *
+ * @since 1.8.9
  *
  * @param mixed $postID	Post ID
  * @return string
@@ -1155,10 +1242,12 @@ function crp_get_first_image( $postID ) {
 			/**
 			 * Filters first child attachment from the post.
 			 *
+			 * @since	2.0.0
+			 *
 			 * @param	array	$image_attributes[0]	URL of the image
 			 * @param	int		$postID					Post ID
 			 */
-			return apply_filters(  'crp_get_first_image', $image_attributes[0], $postID );
+			return apply_filters( 'crp_get_first_image', $image_attributes[0], $postID );
 		}
 	} else {
 		return false;
@@ -1169,12 +1258,15 @@ function crp_get_first_image( $postID ) {
 /**
  * Function to create an excerpt for the post.
  *
+ * @since 1.6
+ *
  * @param int $id Post ID
  * @param int|string $excerpt_length Length of the excerpt in words
  * @return string Excerpt
  */
 function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 	$content = $excerpt = '';
+
 	if ( $use_excerpt ) {
 		$content = get_post( $id )->post_excerpt;
 	}
@@ -1191,6 +1283,8 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 	/**
 	 * Filters excerpt generated by CRP.
 	 *
+	 * @since	1.9
+	 *
 	 * @param	array	$output			Formatted excerpt
 	 * @param	int		$id				Post ID
 	 * @param	int		$excerpt_length	Length of the excerpt
@@ -1203,18 +1297,20 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 /**
  * Function to limit content by characters.
  *
+ * @since 1.8.4
+ *
  * @param	string 	$content 	Content to be used to make an excerpt
- * @param	int 	$MaxLength	Maximum length of excerpt in characters
- * @return 	string	Formatted content
+ * @param	int 	$no_of_char	Maximum length of excerpt in characters
+ * @return 	string				Formatted content
  */
-function crp_max_formatted_content( $content, $MaxLength = -1 ) {
+function crp_max_formatted_content( $content, $no_of_char = -1 ) {
 	$content = strip_tags( $content );  // Remove CRLFs, leaving space in their wake
 
-	if ( ( $MaxLength > 0 ) && ( strlen( $content ) > $MaxLength ) ) {
-		$aWords = preg_split( "/[\s]+/", substr( $content, 0, $MaxLength ) );
+	if ( ( $no_of_char > 0 ) && ( strlen( $content ) > $no_of_char ) ) {
+		$aWords = preg_split( "/[\s]+/", substr( $content, 0, $no_of_char ) );
 
 		// Break back down into a string of words, but drop the last one if it's chopped off
-		if ( substr( $content, $MaxLength, 1 ) == " " ) {
+		if ( substr( $content, $no_of_char, 1 ) == " " ) {
 		  $content = implode( " ", $aWords );
 		} else {
 		  $content = implode( " ", array_slice( $aWords, 0, -1 ) ) .'&hellip;';
@@ -1222,12 +1318,14 @@ function crp_max_formatted_content( $content, $MaxLength = -1 ) {
 	}
 
 	/**
-	 * Filters formatted .
+	 * Filters formatted content after cropping.
+	 *
+	 * @since	1.9
 	 *
 	 * @param	string	$content	Formatted content
-	 * @param	int		$MaxLength	Maximum length of excerpt in characters
+	 * @param	int		$no_of_char	Maximum length of excerpt in characters
 	 */
-	return apply_filters( 'crp_max_formatted_content' , $content, $MaxLength );
+	return apply_filters( 'crp_max_formatted_content' , $content, $no_of_char );
 }
 
 
