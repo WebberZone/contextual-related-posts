@@ -50,6 +50,12 @@ If you have been using this plugin and find this useful, do consider making a do
 Contextual Related Posts is also available on Github at https://github.com/ajaydsouza/contextual-related-posts
 So, if you've got some cool feature that you'd like to implement into the plugin or a bug you've been able to fix, consider forking the project and sending me a pull request.
 
+= Translations =
+Contextual Related Posts is now on Transifex ready for translation courtesy the <a href="http://wp-translations.org/translators-wp-translations/">WP Translations</a>. WP-Translations is the place where you will find a number of WordPress amazing Plugins and Themes to make them available in your home language. In exchange you will receive credit for your work and will certainly make part of the WP community history in your country.
+
+If you're a translator, do consider joining the Wp Translations team.
+
+Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">Contextual Related Posts on Transifex</a>.
 
 == Upgrade Notice ==
 

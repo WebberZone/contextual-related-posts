@@ -46,6 +46,13 @@ The plugin also comes with it's very own inbuilt stylesheet that let's your rela
 I spend a significant amount of my free time maintaing, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done by best to answer your question and solve your problem.
 If you have been using this plugin and find this useful, do consider making a donation. This helps me pay for my hosting and domains.
 
+### Translations
+Contextual Related Posts is now on Transifex ready for translation courtesy the <a href="http://wp-translations.org/translators-wp-translations/">WP Translations</a>. WP-Translations is the place where you will find a number of WordPress amazing Plugins and Themes to make them available in your home language. In exchange you will receive credit for your work and will certainly make part of the WP community history in your country.
+
+If you're a translator, do consider joining the Wp Translations team.
+
+Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">Contextual Related Posts on Transifex</a>.
+
 
 ## Screenshots
 ![General Options](https://raw.github.com/ajaydsouza/contextual-related-posts/master/assets/screenshot-1.png)
