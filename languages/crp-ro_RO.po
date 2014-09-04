@@ -1,19 +1,19 @@
 # 
 # Translators:
-# FxB <fxb@wp-translations.org>, 2014
+# Alex Cristache <alex@qbkl.net>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-09-04 20:40-0000\n"
-"PO-Revision-Date: 2014-09-04 20:11+0000\n"
+"PO-Revision-Date: 2014-09-04 19:53+0000\n"
 "Last-Translator: Ajay D'Souza\n"
-"Language-Team: French (France) (http://www.transifex.com/projects/p/contextual-related-posts/language/fr_FR/)\n"
+"Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/contextual-related-posts/language/ro_RO/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: ro_RO\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 "X-Generator: Poedit 1.6.9\n"
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
@@ -21,108 +21,108 @@ msgstr ""
 
 #: admin/admin.php:161
 msgid "Options saved successfully."
-msgstr "Options sauvegardées avec succès."
+msgstr "Opțiuni salvate cu succes."
 
 #: admin/admin.php:181
 msgid "Options set to Default."
-msgstr "Options remises à la valeur par défaut."
+msgstr "Opțiuni setate ca predefinite."
 
 #: admin/admin.php:192
 msgid "Index recreated"
-msgstr "Index recrée"
+msgstr "Index recreat"
 
 #: admin/admin.php:209 admin/admin.php:419 admin/main-view.php:20
 msgid "Contextual Related Posts"
-msgstr "Articles relatifs contextuels"
+msgstr "Contextual Related Posts"
 
 #: admin/admin.php:210
 msgid "Related Posts"
-msgstr "Articles relatifs"
+msgstr "Articole asociate"
 
 #: admin/admin.php:321
 msgid "Settings"
-msgstr "Réglages"
+msgstr "Setări"
 
 #: admin/admin.php:343 admin/sidebar-view.php:58
 msgid "Support"
-msgstr "Aide"
+msgstr "Asistenţă"
 
 #: admin/admin.php:344
 msgid "Donate"
-msgstr "Don"
+msgstr "Donați"
 
 #: admin/admin.php:345
 msgid "Contribute"
-msgstr "Contribuer"
+msgstr ""
 
 #: admin/admin.php:361
 msgid "plugin settings page"
-msgstr "Page des réglages de l'extension"
+msgstr "pagina de setări ale modulului"
 
 #: admin/admin.php:395
 msgid ""
 "An error occurred clearing the cache. Please contact your site "
 "administrator.\\n\\nError message:\\n"
-msgstr "Une erreur s'est produite lors du nettoyage du cache. Veuillez contacter l'administrateur de votre site.\\n\\nMessage d'erreur :\\n"
+msgstr "A apărut o eroare în timpul golirii cache-ului. Vă rugăm să contactați administratorul site-ului.\\n\\nMesaj de eroare:\\n"
 
 #: admin/admin.php:400
 msgid " cached row(s) cleared"
-msgstr "rang(s) en cache nettoyé(s)"
+msgstr "rând(uri) cache golit(e)"
 
 #: admin/admin.php:446
 msgid "Location of thumbnail:"
-msgstr "Emplacement de la miniature :"
+msgstr "Poziția imaginii miniatură:"
 
 #: admin/admin.php:448
 msgid ""
 "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
 "image will be used for the post. It will be resized to the thumbnail size "
 "set under Settings &raquo; Related Posts &raquo; Output Options"
-msgstr "Entrer l'URL complète vers l'image (JPG, PNG ou GIF) que vous souhaitez utiliser. Cette image sera utilisée pour l'article. Elle sera redimensionnée en fonction des dimensions réglées dans les réglages des options de sortie"
+msgstr "Introduceți adresa URL completa a imaginii (JPG, PNG sau GIF) pe care dorițti sa o utilizați. Această imagine va fi folosită pentru articol. Va fi redimensionată la dimensiunile imaginii miniatura, setate in sectiunea \"Setări &raquo; Articole asociate &raquo; Opțiuni afișaj\"."
 
 #: admin/admin.php:449
 msgid "The URL above is saved in the meta field: "
-msgstr "L'URL ci-dessus est sauvegardée dans les champs méta :"
+msgstr "Adresa URL de mai sus este salvată în câmpul meta:"
 
 #: admin/main-view.php:32 admin/main-view.php:51
 msgid "General options"
-msgstr "Options générales"
+msgstr "Opțiuni generale"
 
 #: admin/main-view.php:33 admin/main-view.php:60
 msgid "Output options"
-msgstr "Options de sortie"
+msgstr "Opțiuni de afișare"
 
 #: admin/main-view.php:34 admin/main-view.php:69
 msgid "Feed options"
-msgstr "Options du flux"
+msgstr "Opțiuni flux"
 
 #: admin/main-view.php:35 admin/main-view.php:77
 msgid "Custom styles"
-msgstr "Styles personnalisés"
+msgstr "Stiluri personalizate"
 
 #: admin/main-view.php:95
 msgid "Save Options"
-msgstr "Sauvegarder les options"
+msgstr "Salvați opțiunile"
 
 #: admin/main-view.php:96
 msgid "Default Options"
-msgstr "options par défaut"
+msgstr "Opțiuni predefinite"
 
 #: admin/main-view.php:96
 msgid "Do you want to set options to Default?"
-msgstr "Voulez-vous réinitialiser les options à leurs valeurs par défaut ?"
+msgstr "Doriți încărcarea opțiunilor predefinite?"
 
 #: admin/main-view.php:97
 msgid "Recreate Index"
-msgstr "Recréer l'index"
+msgstr "Recreare index"
 
 #: admin/main-view.php:97
 msgid "Are you sure you want to recreate the index?"
-msgstr "Voulez-vous vraiment recréer l'index ?"
+msgstr "Sunteți sigur că doriți recrearea indexului?"
 
 #: admin/options-custom-styles.php:32
 msgid "Use default style included in the plugin?"
-msgstr "Utiliser les styles par défaut inclus dans l'extension ?"
+msgstr "Utilizați stilurile predefinite incluse în modul?"
 
 #: admin/options-custom-styles.php:35
 msgid ""
@@ -140,206 +140,206 @@ msgstr ""
 
 #: admin/options-custom-styles.php:39
 msgid "Custom CSS to add to header:"
-msgstr "CSS personnalisé a ajouter dans l'en-tête :"
+msgstr "Cod CSS personalizat de adăugat în header:"
 
 #: admin/options-custom-styles.php:43
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a "
 "href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\" "
 "target=\"_blank\">FAQ</a> for available CSS classes to style."
-msgstr "Ne pas inclure de mots-clefs de <code>style</code>. Consultez la <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank\">FAQ</a> pour connaitre les classes de style CSS disponibles."
+msgstr "Nu includeți etichete de <code>stil</code>. Verificați secțiunea de <a href=\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank\">Întrebări / Răspunsuri</a> pentru clasele disponibile stilizării."
 
 #: admin/options-feed.php:32
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General"
 " Options tab."
-msgstr "Les options ci-dessous remplacent les réglages des articles relatifs pour les flux de votre blog. Celles-ci ne s'appliquent si vous avez choisi d'ajouter des articles relatifs à vos flux dans l'onglet Options générales."
+msgstr "Opțiunile de mai jos suprascriu setările de articole asociate pentru fluxul blogului. Acestea se aplică doar dacă ați selectat adăugarea articolelor asociatele la Flux in sectiunea de Setări Generale."
 
 #: admin/options-feed.php:34 admin/options-genops.php:39
 msgid "Number of related posts to display: "
-msgstr "Nombre d'articles relatifs à afficher :"
+msgstr "Numărul de articole asociate de afișat."
 
 #: admin/options-feed.php:37 admin/options-output.php:52
 msgid "Show post excerpt in list?"
-msgstr "Afficher l'extrait de l'article en liste ?"
+msgstr "Arată extrasul articolului in listă?"
 
 #: admin/options-feed.php:40 admin/options-output.php:239
 msgid "Location of post thumbnail:"
-msgstr "Emplacement de la miniature de l'article :"
+msgstr "Poziția imaginii miniatură:"
 
 #: admin/options-feed.php:44 admin/options-output.php:243
 msgid "Display thumbnails inline with posts, before title"
-msgstr "Afficher les miniatures avec l'article, avant le titre"
+msgstr "Afișează imagini miniatură în linie cu articolele, înaintea titlului"
 
 #: admin/options-feed.php:48 admin/options-output.php:247
 msgid "Display thumbnails inline with posts, after title"
-msgstr "Afficher les miniatures avec l'article, après le titre"
+msgstr "Afișează imagini miniatură în linie cu articolele, după titlu"
 
 #: admin/options-feed.php:52 admin/options-output.php:251
 msgid "Display only thumbnails, no text"
-msgstr "Que les miniatures, pas de texte"
+msgstr "Afișează doar imagini miniatură, fără text"
 
 #: admin/options-feed.php:56 admin/options-output.php:255
 msgid "Do not display thumbnails, only text."
-msgstr "Pas de miniature, que le texte"
+msgstr "Nu afișează imagini miniatură, doar text."
 
 #: admin/options-feed.php:60
 msgid "Maximum width of the thumbnail: "
-msgstr "Largeur maximale de la miniature :"
+msgstr "Lățimea maximă a imaginii miniatură:"
 
 #: admin/options-feed.php:63 admin/options-output.php:270
 msgid "Maximum height of the thumbnail: "
-msgstr "Hauteur maximale de la miniature :"
+msgstr "Înălțimea maximăa a imaginii miniatură:"
 
 #: admin/options-genops.php:32
 msgid "Cache output?"
-msgstr "Mettre en cache la sortie ?"
+msgstr "Afișare Cache?"
 
 #: admin/options-genops.php:34
 msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
-msgstr "L'activation de cette option met en cache la sortie des articles relatifs lorsque l'article est lu la première fois. Le cache est vidé lorsque vous enregistrez cette page."
+msgstr "Activarea acestei opțiuni va memora afișarea articolelor asociate cand articolul va fi vizitat pentru prima dată. Cache-ul este golit când salvați această pagină."
 
 #: admin/options-genops.php:35
 msgid "Clear cache"
-msgstr "Vider le cache"
+msgstr "Golire Cache"
 
 #: admin/options-genops.php:42
 msgid ""
 "Maximum number of posts that will be displayed. The actual number may be "
 "smaller if less related posts are found."
-msgstr "Nombre maximal d'articles à afficher. Le nombre réel peut être plus petit si moins d'articles relatifs sont trouvés."
+msgstr "Numărul maxim de articole de afișat. Numărul real poate fi mai mic daca se vor găsi mai puține articole asociate."
 
 #: admin/options-genops.php:46
 msgid "Related posts should be newer than:"
-msgstr "Les articles relatifs doivent être plus récents que :"
+msgstr "Articolele asociate trebuie să fie mai noi decât:"
 
 #: admin/options-genops.php:48
 msgid "days"
-msgstr "jours"
+msgstr "zile"
 
 #: admin/options-genops.php:49
 msgid ""
 "This sets the cutoff period for which posts will be displayed. e.g. setting "
 "it to 365 will show related posts from the last year only."
-msgstr "Ceci définit la période pour laquelle les articles seront affichés, par exemple 365 n'affichera uniquement que les articles de l'année dernière."
+msgstr "Setează perioada limită pentru care articolele vor fi afisate. De exemplu, setând 365 va afișa articole asociate doar din ultimul an."
 
 #: admin/options-genops.php:53
 msgid "Post types to include in results:"
-msgstr "Types d'articles à inclure dans les résultats :"
+msgstr "Tipuri de articole incluse în rezultate:"
 
 #: admin/options-genops.php:64
 msgid ""
 "These post types will be displayed in the list. Includes custom post types."
-msgstr "Ces types d'articles seront affichés en liste. Cela inclut les types d'articles personnalisés."
+msgstr "Aceste tipuri de articole vor fi afișate în listă. Include tipurile de articole personalizate."
 
 #: admin/options-genops.php:68
 msgid "Find related posts based on content as well as title:"
-msgstr "Trouver des articles relatifs en se servant du contenu et du titre :"
+msgstr "Gasește articole asociate pe baza conținutului și titlului:"
 
 #: admin/options-genops.php:70
 msgid ""
 "If unchecked, only posts titles are used. I recommend using a caching plugin"
 " or enabling \"Cache output\" above if you enable this."
-msgstr "Si décoché, seuls les titres des articles sont utilisés. Je recommande d'utiliser une extension de mise en cache ou d'activer le « Cache de sortie » ci-dessus si vous l'activez."
+msgstr "Dacă nu bifați, doar titlurile articolelor vor fi folosite. Recomandăm utilizarea unui modul de Cache sau activarea \"Ieșirii Cache\" de mai sus dacă alegeti să bifați aici."
 
 #: admin/options-genops.php:74
 msgid "Limit content to be compared"
-msgstr "Limiter le contenu à comparer"
+msgstr "Limitare conținut pentru comparație"
 
 #: admin/options-genops.php:76
 msgid ""
 "This sets the maximum words of the content that will be matched. 0 means no "
 "limit."
-msgstr "Ceci définit le maximum de mots du contenu qui seront mis en correspondance. Mettre 0 pour aucune limite."
+msgstr "Setează numărul maxim de cuvinte din conținut pentru comparare. 0 inseamnă 'fară limită'."
 
 #: admin/options-genops.php:80
 msgid "Add related posts to:"
-msgstr "Ajouter les articles relatifs aux :"
+msgstr "Adaugă articolele asociate la:"
 
 #: admin/options-genops.php:82
 msgid "Posts"
-msgstr "Articles"
+msgstr "Articole"
 
 #: admin/options-genops.php:83
 msgid "Pages"
-msgstr "Pages"
+msgstr "Pagini"
 
 #: admin/options-genops.php:84
 msgid "Home page"
-msgstr "Page d'accueil"
+msgstr "Pagina principală"
 
 #: admin/options-genops.php:85
 msgid "Feeds"
-msgstr "Flux"
+msgstr "Fluxuri"
 
 #: admin/options-genops.php:86
 msgid "Category archives"
-msgstr "Archives de catégorie"
+msgstr "Arhive de categorii"
 
 #: admin/options-genops.php:87
 msgid "Tag archives"
-msgstr "Archives de mot-clef"
+msgstr "Arhive de etichete"
 
 #: admin/options-genops.php:88
 msgid "Other archives"
-msgstr "Autres archives"
+msgstr "Alte arhive"
 
 #: admin/options-genops.php:89
 msgid ""
 "If you choose to disable this, please add <code>&lt;?php if ( "
 "function_exists( 'echo_ald_crp' ) ) echo_ald_crp(); ?&gt;</code> to your "
 "template file where you want it displayed"
-msgstr "Si vous décidez de le désactiver, s'il vous plaît veuillez ajouter <code>&lt;?php if ( function_exists( 'echo_ald_crp' ) ) echo_ald_crp(); ?&gt;</code> dans votre modèle où vous voulez l'afficher."
+msgstr "Daca alegeți sa afișați asta, vă rugăm să adaugati <code>&lt;?php if ( function_exists( 'echo_ald_crp' ) ) echo_ald_crp(); ?&gt;</code> în șablonul dumneavoastră în locul în care doriți afișarea"
 
 #: admin/options-genops.php:93
 msgid "Content filter priority:"
-msgstr "Priorité du filtrage du contenu :"
+msgstr "Prioritate filtru de conținut:"
 
 #: admin/options-genops.php:96
 msgid ""
 "A higher number will cause the content above to be processed after other "
 "filters. Number below 10 is not recommended."
-msgstr "Un nombre plus élevé fera que le contenu ci-dessus sera traité après les autres filtres. Un nombre inférieur à 10 n'est pas recommandé."
+msgstr "Un număr mare va determina procesarea conținutului de deasupra după alte filtre. Nu recomandăm un numar sub 10."
 
 #: admin/options-genops.php:100
 msgid "Tell the world you're using Contextual Related Posts:"
-msgstr "Annoncer au monde que vous utilisez Contextual Related Posts :"
+msgstr "Spuneți lumii că folosiți \"Contextual Related Posts / Articole Asociate Contextual\":"
 
 #: admin/options-genops.php:102
 msgid " <em>Optional</em>"
-msgstr " <em>Facultatif</em>"
+msgstr "<em>Opțional</em>"
 
 #: admin/options-genops.php:103
 msgid ""
 "Adds a nofollow link to Contextual Related Posts homepage as the last time "
 "in the list."
-msgstr "Ajoute un lien nofollow vers la page d'accueil de Contextual Related Posts comme la dernière fois dans la liste."
+msgstr "Adaugă ca ultima in listă o legatură nofollow catre pagina principală a Contextual Related Posts."
 
 #: admin/options-output.php:32
 msgid "Title of related posts: "
-msgstr "Titre des articles relatifs :"
+msgstr "Titlul articolelor asociate:"
 
 #: admin/options-output.php:35
 msgid ""
 "This is the main heading of the related posts. You can also display the "
 "current post title by using <code>%postname%</code>. e.g. <code>Related "
 "Posts to %postname%</code>"
-msgstr "C'est le titre principal des articles relatifs. Vous pouvez également afficher le titre de l'article en utilisant <code>%postname%</code>. p.ex. <code>Articles relatifs à %postname%</code>"
+msgstr "Acesta este titlul principal al articolelor asociate. Puteti afișa de asemenea titlul articolului curent folosind <code>%postname%</code>. Exemplu: <code>Articole asociate cu %postname%</code>"
 
 #: admin/options-output.php:39
 msgid "When there are no posts, what should be shown?"
-msgstr "Quand il n'y a aucun article, qu'est-ce qui doit être affiché ?"
+msgstr "Ce se va afișa cănd nu există articole?"
 
 #: admin/options-output.php:43
 msgid "Blank Output"
-msgstr "Sortie vide"
+msgstr "Afișaj gol"
 
 #: admin/options-output.php:47
 msgid "Display:"
-msgstr "Affichage :"
+msgstr "Afișare:"
 
 #: admin/options-output.php:55
 #, php-format
@@ -347,108 +347,108 @@ msgid ""
 "Displays the excerpt of the post. If you do not provide an explicit excerpt "
 "to a post (in the post editor's optional excerpt field), it will display an "
 "automatic excerpt which refers to the first %d words of the post's content"
-msgstr "Affiche l'extrait de l'article. Si vous ne fournissez pas un extrait d'un article (dans le champ d'extrait en option de l'éditeur d'article), un extrait automatique sera affiché qui prendra en compte les premiers %d mots du contenu de celui-ci."
+msgstr "Afișează extrasul articolului. Dacă nu oferiți un extras ( în câmpul opțional al editorului ), va fi generat un extras automat ce va conține primele %d cuvinte din conținutul articolului."
 
 #: admin/options-output.php:59
 msgid "Length of excerpt (in words): "
-msgstr "Longueur de l'extrait (en mots) :"
+msgstr "Lungimea extrasului (în cuvinte):"
 
 #: admin/options-output.php:65
 msgid "Show post author in list?"
-msgstr "Afficher l'auteur de l'article en liste ?"
+msgstr "Afișați autorul articolului în listă?"
 
 #: admin/options-output.php:68
 msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
-msgstr "Affiche le nom de l'auteur préfixé avec \"de\". p.ex. de Pierre Paul Jacques"
+msgstr "Afișează numele autorului cu prefixul \"de\". Exemplu: de John Doe"
 
 #: admin/options-output.php:72
 msgid "Show post date in list?"
-msgstr "Afficher la date de l'article en liste ?"
+msgstr "Afișați data articolului în listă?"
 
 #: admin/options-output.php:75
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options"
-msgstr "Affiche la date de l'article. Utilise le même format que celui de vos options générales"
+msgstr "Afișează data articolului. Utilizează formatul setat in Opțiuni Generale."
 
 #: admin/options-output.php:79
 msgid "Limit post title length (in characters)"
-msgstr "Limiter la longueur du titre de l'article (en caractères)"
+msgstr "Limita titlului articolului (în caractere)"
 
 #: admin/options-output.php:82
 msgid ""
 "Any title longer than the number of characters set above will be cut and "
 "appended with a &helip;"
-msgstr "Tous les titres plus long que le nombre de caractères seront coupés et un &helip; sera ajouté."
+msgstr "Orice titlu mai lung decât numarul de caractere setat deasupra va fi truncheat și se va încheia cu &helip;"
 
 #: admin/options-output.php:86
 msgid "Open links in new window"
-msgstr "Ouvrir les liens dans une nouvelle fenêtre"
+msgstr "Se deschide într-o fereastră nouă"
 
 #: admin/options-output.php:92
 msgid "Add nofollow attribute to links in the list"
-msgstr "Ajouter un attribut de nofollow aux liens de la liste"
+msgstr "Adaugă atribut nofollow legăturilor din listă"
 
 #: admin/options-output.php:125
 msgid "Exclusion settings:"
-msgstr "Réglages d'exclusion :"
+msgstr "Setări de excludere:"
 
 #: admin/options-output.php:127
 msgid "List of post or page IDs to exclude from the results:"
-msgstr "La liste des IDs d'articles ou de pages à exclure des résultats :"
+msgstr "Listă de ID-uri de articol sau pagină de exclus din rezultate:"
 
 #: admin/options-output.php:129 admin/options-output.php:135
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
-msgstr "Une liste séparée par des virgules d'IDs d'articles, pages ou types d'articles personnalisés. P.ex. 188,320,500"
+msgstr "Listă separată prin virgulă a ID-urilor de articol, pagină sau tip de articol personalizat. Exemplu: 188,320,500"
 
 #: admin/options-output.php:132
 msgid "Exclude display of related posts on these posts / pages"
-msgstr "Exclure l'affichage des articles relatifs sur ces articles / pages"
+msgstr "Exclude afișarea articolelor asociate pentru aceste articole / pagini"
 
 #: admin/options-output.php:138
 msgid "Categories to exclude from the results: "
-msgstr "Les catégories à exclure des résultats :"
+msgstr "Categorii de exclus din rezultate:"
 
 #: admin/options-output.php:154
 msgid ""
 "Comma separated list of category slugs. The field above has an autocomplete "
 "so simply start typing in the beginning of your category name and it will "
 "prompt you with options."
-msgstr "Une liste séparée par des virgules d'identifiant de catégories. Le champ possède l'auto-remplissage, commencez à remplir le début du nom de la catégorie pour voir des résultats s'afficher."
+msgstr "Listă separata prin virgulă de slug-uri de categorie. Câmpul de deasupra utilizează autocompletare, asa că începeți să tastați numele categoriei dorite și vi se vor afișa opțiunile."
 
 #: admin/options-output.php:157
 msgid "Exclude display of related posts on these post types."
-msgstr "Exclure l'affichage des articles relatifs sur ces types d'articles."
+msgstr "Exclude afișarea articolelor asociate pentru aceste tipuri de articole."
 
 #: admin/options-output.php:166
 msgid ""
 "The related posts will not display on any of the above selected post types"
-msgstr "Les articles relatifs ne seront pas affichés sur aucun des types d'articles ci-dessus "
+msgstr "Articolele asociate nu vor fi afișate pentru niciunul dintre tipurile de articole selectate mai sus"
 
 #: admin/options-output.php:196
 msgid "Customize the output:"
-msgstr "Personnaliser la sortie :"
+msgstr "Personalizați afișajul:"
 
 #: admin/options-output.php:198
 msgid "HTML to display before the list of posts: "
-msgstr "HTML à afficher avant la liste des articles :"
+msgstr "Cod HTML de afișat înaintea listei de articole:"
 
 #: admin/options-output.php:201
 msgid "HTML to display before each list item: "
-msgstr "HTML à afficher avant chaque élément de la liste :"
+msgstr "Cod HTML de afișat înaintea fiecarei intrari din listă:"
 
 #: admin/options-output.php:204
 msgid "HTML to display after each list item: "
-msgstr "HTML à afficher après chaque élément de la liste :"
+msgstr "Cod HTML de afișat după fiecare intrare din listă:"
 
 #: admin/options-output.php:207
 msgid "HTML to display after the list of posts: "
-msgstr "HTML à afficher après la liste d'articles :"
+msgstr "Cod HTML de afișat după lista de articole:"
 
 #: admin/options-output.php:237
 msgid "Post thumbnail options:"
-msgstr "Options de la miniature de l'article :"
+msgstr "Opțiuni imagine miniatură:"
 
 #: admin/options-output.php:261
 msgid ""
@@ -476,7 +476,7 @@ msgstr ""
 msgid ""
 "Since you're using the default styles set under the Custom Styles section, "
 "the width and height is fixed at 150px"
-msgstr "Puisque vous utilisez les styles par défaut défini dans la section Styles personnalisés, la largeur et la hauteur sont fixées à 150px"
+msgstr "Deoarece utilizați stilurile predefinite setate în secțiunea Stiluri Personalizate, lățimea și înalțimea sunt fixe, de 150px"
 
 #: admin/options-output.php:278
 msgid "Crop mode:"
@@ -495,128 +495,128 @@ msgstr ""
 
 #: admin/options-output.php:287
 msgid "Style attributes / Width and Height HTML attributes:"
-msgstr "Attributs de style / Attributs HTML de largeur et de hauteur :"
+msgstr "Atribute de stil / Atribute HTML de lățime și înălțime:"
 
 #: admin/options-output.php:291
 msgid "Style attributes are used for width and height."
-msgstr "Les attributs de style sont utilisés pour la hauteur et la largeur."
+msgstr "Atributele de stil sunt folosite pentru lățime și înălțime."
 
 #: admin/options-output.php:295
 msgid "HTML width and height attributes are used for width and height."
-msgstr "Les attributs HTML de hauteur et largeur sont utilisés pour la hauteur et la largeur."
+msgstr "Atributele HTML de lătime și înălțime sunt folosite pentru lățime și înălțime."
 
 #: admin/options-output.php:299
 msgid "Use timthumb to generate thumbnails? "
-msgstr "Utiliser timthumb pour générer les miniatures ?"
+msgstr "Folosiți timthumb pentru a genera imaginile miniatură?"
 
 #: admin/options-output.php:301
 msgid ""
 "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" "
 "target=\"_blank\">timthumb</a> will be used to generate thumbnails"
-msgstr "Si coché, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" target=\"_blank\">timthumb</a> sera utilisé pour générer les miniatures"
+msgstr "Dacă bifați, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" target=\"_blank\">timthumb</a> va fi folosit pentru a genera imaginile miniatură"
 
 #: admin/options-output.php:304
 msgid "Quality of thumbnails generated by timthumb:"
-msgstr "Qualité des miniatures générées par timthumb :"
+msgstr "Calitatea imaginilor miniatură generate de timthumb:"
 
 #: admin/options-output.php:307
 msgid ""
 "Enter values between 0 and 100 only. 100 is highest quality and the highest "
 "file size. Suggested maximum value is 95. CRP default is 75."
-msgstr "Entrez des valeurs entre 0 et 100 uniquement. 100 est la plus haute qualité et la plus grande taille de fichier. La valeur maximale suggérée est de 95. La valeur par défaut de CRP est de 75."
+msgstr "Introduceți doar valori cuprinse între 0 și 100. 100 este cea mai mare calitate și cea mai mare dimensiune de fișier. Sugerăm 95, predefinit este 75."
 
 #: admin/options-output.php:310
 msgid "Post thumbnail meta field name:"
-msgstr "Nom du champ méta de la miniature de l'article"
+msgstr "Numele câmpului meta al imaginii miniatură a articolului:"
 
 #: admin/options-output.php:312
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
-msgstr "La valeur de ce champ doit contenir la source de l'image et se trouve dans l'écran <em>Ajouter un nouvel article</em>"
+msgstr "Valoarea acestui câmp ar trebui să conțină sursa imaginii și este setată in ecranul de <em>Adaugare articol nou</em>"
 
 #: admin/options-output.php:315
 msgid "Extract the first image from the post?"
-msgstr "Extraire la première image de l'article ?"
+msgstr "Extrageți prima imagine din articol?"
 
 #: admin/options-output.php:317
 msgid ""
 "This will only happen if there is no post thumbnail set and no image URL is "
 "specified in the meta field."
-msgstr "Cela se produit uniquement que s'il n'y a aucune miniature d'article et qu'aucune URL d'image n'est spécifiée dans le champ des métadonnées."
+msgstr "Asta se va întâmpla doar daca nu exista o imagine miniatură setata și nu a fost specificată adresa URL a unei imagini in câmpul meta."
 
 #: admin/options-output.php:320
 msgid "Use default thumbnail?"
-msgstr "Utiliser la miniature par défaut ?"
+msgstr "Folosiți imaginea miniatură predefinită?"
 
 #: admin/options-output.php:322
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
-msgstr "Si coché, quand aucune miniature n'est trouvée, celle par défaut à l'URL ci-dessous est utilisée. Si décoché et qu'aucune miniature n'est trouvée, aucune image ne sera affichée."
+msgstr "Daca bifați, cand nu se găsește o imagine miniatură, va fi afișată una de la adresa URL de mai jos. Daca nu bifați și nu se găsește o imagine miniatură, nicio imagine nu va fi afișată."
 
 #: admin/options-output.php:325
 msgid "Default thumbnail:"
-msgstr "Miniature par défaut"
+msgstr "Imagine miniatură predefinită:"
 
 #: admin/options-output.php:328
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
 "then it will check the meta field. If this is not available, then it will "
 "show the default image as specified above."
-msgstr "L'extension va d'abord vérifier si l'article contient une miniature. Si ce n'est pas le cas alors elle vérifie les métadonnées. Si aucune n'est toujours disponible, alors elle affichera l'image par défaut comme indiquée ci-dessus."
+msgstr "Modului va verifica întâi dacă articolul conține o imagine miniatură. Dacă nu, va verifica câmpul meta. Dacă acesta nu este disponibil, va afișa imaginea predefinită specificată mai deasupra."
 
 #: admin/sidebar-view.php:20
 msgid "Support the development"
-msgstr "Aidez le développement"
+msgstr "Susțineți dezvoltarea"
 
 #: admin/sidebar-view.php:27
 msgid "Donation for Contextual Related Posts"
-msgstr "Don pour Contextual Related Posts"
+msgstr "Donatii pentru Contextual Related Posts"
 
 #: admin/sidebar-view.php:29
 msgid "Enter amount in USD:"
-msgstr "Entrez le montant en USD :"
+msgstr "Introduceți suma în USD:"
 
 #: admin/sidebar-view.php:33
 msgid "Send your donation to the author of"
-msgstr "Envoyez votre don à l'auteur de"
+msgstr "Trimiteți donația dumneavoastră autorului"
 
 #: admin/sidebar-view.php:41
 msgid "Follow me"
-msgstr "Suivez-moi"
+msgstr "Urmăriți-mă"
 
 #: admin/sidebar-view.php:52
 msgid "Quick links"
-msgstr "Liens rapides"
+msgstr "Legături rapide"
 
 #: admin/sidebar-view.php:56
 msgid "Contextual Related Posts plugin page"
-msgstr "Page de l'extension Contextual Related Posts"
+msgstr "Pagina modulului Contextual Related Posts"
 
 #: admin/sidebar-view.php:57
 msgid "FAQ"
-msgstr "FAQ"
+msgstr "Întrebări/Răspunsuri"
 
 #: admin/sidebar-view.php:59
 msgid "Reviews"
-msgstr "Avis"
+msgstr "Recenzii"
 
 #: admin/sidebar-view.php:60
 msgid "Github repository"
-msgstr "Dépot Github"
+msgstr "Depozit Github"
 
 #: admin/sidebar-view.php:61
 msgid "Other plugins"
-msgstr "Autres extensions"
+msgstr "Alte module"
 
 #: admin/sidebar-view.php:62
 msgid "Ajay's blog"
-msgstr "Blog de Ajay"
+msgstr "Blogul lui Ajay"
 
 #: contextual-related-posts.php:246
 msgid " by "
-msgstr " par"
+msgstr "de"
 
 #: contextual-related-posts.php:285
 #, php-format
@@ -625,64 +625,64 @@ msgstr ""
 
 #: contextual-related-posts.php:596
 msgid "Related Posts [CRP]"
-msgstr "Articles relatifs [CRP]"
+msgstr "Articole asociate [AAC]"
 
 #: contextual-related-posts.php:597
 msgid "Display Related Posts"
-msgstr "Afficher les articles relatifs"
+msgstr "Afișați articolele asociate"
 
 #: contextual-related-posts.php:620
 msgid "Title"
-msgstr "Titre"
+msgstr "Titlu"
 
 #: contextual-related-posts.php:625
 msgid "No. of posts"
-msgstr "No. de l'articles"
+msgstr "Numărul de articole"
 
 #: contextual-related-posts.php:630
 msgid " Show excerpt?"
-msgstr "Afficher l'extrait ?"
+msgstr "Afișați extrasul?"
 
 #: contextual-related-posts.php:635
 msgid " Show author?"
-msgstr "Afficher l'auteur ?"
+msgstr "Afișați autorul?"
 
 #: contextual-related-posts.php:640
 msgid " Show date?"
-msgstr "Afficher la date ?"
+msgstr "Afișați data?"
 
 #: contextual-related-posts.php:644
 msgid "Thumbnail options"
-msgstr "Options de la miniature"
+msgstr "Opțiuni imagini miniatură"
 
 #: contextual-related-posts.php:646
 msgid "Thumbnails inline, before title"
-msgstr "Miniature avant le titre"
+msgstr "Imagini miniatură în linie, înaintea titlului"
 
 #: contextual-related-posts.php:647
 msgid "Thumbnails inline, after title"
-msgstr "Miniatures après le titre"
+msgstr "Imagini miniatură în linie, după titlu"
 
 #: contextual-related-posts.php:648
 msgid "Only thumbnails, no text"
-msgstr "Que les miniatures, pas de texte"
+msgstr "Doar imagini miniatură, fară text"
 
 #: contextual-related-posts.php:649
 msgid "No thumbnails, only text."
-msgstr "Pas de miniature, que le texte"
+msgstr "Fară imagini miniatură, doar text"
 
 #: contextual-related-posts.php:654
 msgid "Thumbnail height"
-msgstr "Hauteur de la vignette"
+msgstr "Inălțime imagine miniatură"
 
 #: contextual-related-posts.php:659
 msgid "Thumbnail width"
-msgstr "Largeur des vignettes"
+msgstr "Lățime imagine miniatură"
 
 #: contextual-related-posts.php:799
 msgid "<h3>Related Posts:</h3>"
-msgstr "<h3>Articles relatifs :</h3>"
+msgstr "<h3>Articole asociate:</h3>"
 
 #: contextual-related-posts.php:801
 msgid "No related posts found"
-msgstr "Aucun article relatif trouvé."
+msgstr "Nu au fost găsite articole asociate"
