@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-10 21:36-0000\n"
+"POT-Creation-Date: 2014-09-04 20:42-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team:  <me@ajaydsouza.com>\n"
@@ -12,31 +12,199 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
 "X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.9\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin.inc.php:141
+#: admin/admin.php:161
 msgid "Options saved successfully."
 msgstr "Optionen erfolgreich gespeichert."
 
-#: admin.inc.php:161
+#: admin/admin.php:181
 msgid "Options set to Default."
 msgstr "Optionen auf die Voreinstellungen gesetzt."
 
-#: admin.inc.php:177
+#: admin/admin.php:192
 msgid "Index recreated"
 msgstr "Index neu aufgebaut"
 
-#: admin.inc.php:189
+#: admin/admin.php:209 admin/admin.php:419 admin/main-view.php:20
+msgid "Contextual Related Posts"
+msgstr "Contextual Related Posts"
+
+#: admin/admin.php:210
+msgid "Related Posts"
+msgstr "Ähnliche Beiträge"
+
+#: admin/admin.php:321
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: admin/admin.php:343 admin/sidebar-view.php:58
+msgid "Support"
+msgstr "Support"
+
+#: admin/admin.php:344
+msgid "Donate"
+msgstr "Spende"
+
+#: admin/admin.php:345
+msgid "Contribute"
+msgstr ""
+
+#: admin/admin.php:361
+msgid "plugin settings page"
+msgstr "Einstellungen des Plugins"
+
+#: admin/admin.php:395
+msgid ""
+"An error occurred clearing the cache. Please contact your site administrator."
+"\\n\\nError message:\\n"
+msgstr ""
+"Ein Fehler trat beim Löschen des Caches auf. Bitte kontaktiere den "
+"Administrator der Seite.\\n\\nError message:\\n"
+
+#: admin/admin.php:400
+msgid " cached row(s) cleared"
+msgstr "Die Reihe(n) im Cache wurde(n) gelöscht"
+
+#: admin/admin.php:446
+#, fuzzy
+msgid "Location of thumbnail:"
+msgstr "Ort der Beitragsvorschaubilder"
+
+#: admin/admin.php:448
+msgid ""
+"Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
+"image will be used for the post. It will be resized to the thumbnail size "
+"set under Settings &raquo; Related Posts &raquo; Output Options"
+msgstr ""
+
+#: admin/admin.php:449
+msgid "The URL above is saved in the meta field: "
+msgstr ""
+
+#: admin/main-view.php:32 admin/main-view.php:51
 msgid "General options"
 msgstr "Allgemeine Optionen"
 
-#: admin.inc.php:192
+#: admin/main-view.php:33 admin/main-view.php:60
+msgid "Output options"
+msgstr "Ausgabe Einstellungen"
+
+#: admin/main-view.php:34 admin/main-view.php:69
+msgid "Feed options"
+msgstr "Feed Einstellungen"
+
+#: admin/main-view.php:35 admin/main-view.php:77
+#, fuzzy
+msgid "Custom styles"
+msgstr "Eigenes CSS"
+
+#: admin/main-view.php:95
+msgid "Save Options"
+msgstr "Optionen speichern"
+
+#: admin/main-view.php:96
+msgid "Default Options"
+msgstr "Standardoptionen"
+
+#: admin/main-view.php:96
+msgid "Do you want to set options to Default?"
+msgstr "Möchtest du Einstellungen zurücksetzen?"
+
+#: admin/main-view.php:97
+msgid "Recreate Index"
+msgstr "Erstelle den Index neu"
+
+#: admin/main-view.php:97
+msgid "Are you sure you want to recreate the index?"
+msgstr "Bist du sicher, den Index neu zu erstellen?"
+
+#: admin/options-custom-styles.php:32
+msgid "Use default style included in the plugin?"
+msgstr ""
+
+#: admin/options-custom-styles.php:35
+msgid ""
+"Contextual Related Posts includes a default style that makes your popular "
+"posts list to look beautiful. Check the box above if you want to use this."
+msgstr ""
+
+#: admin/options-custom-styles.php:36
+msgid ""
+"Enabling this option will turn on the thumbnails and set their width and "
+"height to 150px. It will also turn off the display of the author, excerpt "
+"and date if already enabled. Disabling this option will not revert any "
+"settings."
+msgstr ""
+
+#: admin/options-custom-styles.php:39
+msgid "Custom CSS to add to header:"
+msgstr "Eigenes CSS, das im Header-Bereich hinzugefügt werden soll:"
+
+#: admin/options-custom-styles.php:43
+msgid ""
+"Do not include <code>style</code> tags. Check out the <a href=\"http://"
+"wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
+"\">FAQ</a> for available CSS classes to style."
+msgstr ""
+"Benutze nicht den <code>style</code> Tag. Siehe dir die <a href=\"http://"
+"wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
+"\">FAQ</a> (en) für benutzbare CSS Klassen an."
+
+#: admin/options-feed.php:32
+msgid ""
+"Below options override the related posts settings for your blog feed. These "
+"only apply if you have selected to add related posts to Feeds in the General "
+"Options tab."
+msgstr ""
+"Die Optionen unterhalb überschreiben die Einstellung der ähnlichen Beiträge "
+"für den Feed deines Blogs. Diese werden nur übernommen, wenn du bei den "
+"allgemeinen Einstellungen ausgewählt hast, dass ähnliche Beiträge auch in "
+"den Feeds angezeigt werden sollen. "
+
+#: admin/options-feed.php:34 admin/options-genops.php:39
+msgid "Number of related posts to display: "
+msgstr "Anzahl der ähnlichen Beiträge, die angezeigt werden sollen:"
+
+#: admin/options-feed.php:37 admin/options-output.php:52
+msgid "Show post excerpt in list?"
+msgstr "Soll ein Auszug in der Liste angezeigt werden?"
+
+#: admin/options-feed.php:40 admin/options-output.php:239
+msgid "Location of post thumbnail:"
+msgstr "Ort der Beitragsvorschaubilder"
+
+#: admin/options-feed.php:44 admin/options-output.php:243
+msgid "Display thumbnails inline with posts, before title"
+msgstr "Zeige die Vorschaubilder inline mit den Beiträgen an; vor dem Titel"
+
+#: admin/options-feed.php:48 admin/options-output.php:247
+msgid "Display thumbnails inline with posts, after title"
+msgstr "Zeige die Vorschaubilder inline mit den Beiträgen an; nach dem Titel"
+
+#: admin/options-feed.php:52 admin/options-output.php:251
+msgid "Display only thumbnails, no text"
+msgstr "Zeige nur die Vorschaubilder an; keinen Text"
+
+#: admin/options-feed.php:56 admin/options-output.php:255
+msgid "Do not display thumbnails, only text."
+msgstr "Zeige keine Vorschaubilder an; nur Text"
+
+#: admin/options-feed.php:60
+msgid "Maximum width of the thumbnail: "
+msgstr "Maximale Breite der Vorschaubilder:"
+
+#: admin/options-feed.php:63 admin/options-output.php:270
+msgid "Maximum height of the thumbnail: "
+msgstr "Maximale Höhe der Vorschaubilder:"
+
+#: admin/options-genops.php:32
 msgid "Cache output?"
 msgstr "Cache Ausgabe?"
 
-#: admin.inc.php:194
+#: admin/options-genops.php:34
 msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
@@ -45,15 +213,11 @@ msgstr ""
 "gespeichert, sobald ein Beitrag das erste Mal aufgerufen wird. Der Cache "
 "wird geleert, wenn diese Seite gespeichert wird."
 
-#: admin.inc.php:195
+#: admin/options-genops.php:35
 msgid "Clear cache"
 msgstr "Lösche den Cache"
 
-#: admin.inc.php:198 admin.inc.php:462
-msgid "Number of related posts to display: "
-msgstr "Anzahl der ähnlichen Beiträge, die angezeigt werden sollen:"
-
-#: admin.inc.php:201
+#: admin/options-genops.php:42
 msgid ""
 "Maximum number of posts that will be displayed. The actual number may be "
 "smaller if less related posts are found."
@@ -61,15 +225,15 @@ msgstr ""
 "Maximale Anzahl an ähnlichen Beiträgen, die angezeigt werden soll. Diese "
 "kann auch geringer sein, wenn weniger ähnliche Beiträge gefunden werden."
 
-#: admin.inc.php:204
+#: admin/options-genops.php:46
 msgid "Related posts should be newer than:"
 msgstr "Ähnliche Beiträge sollen neuer sein als:"
 
-#: admin.inc.php:206
+#: admin/options-genops.php:48
 msgid "days"
 msgstr "Tage"
 
-#: admin.inc.php:207
+#: admin/options-genops.php:49
 msgid ""
 "This sets the cutoff period for which posts will be displayed. e.g. setting "
 "it to 365 will show related posts from the last year only."
@@ -78,25 +242,25 @@ msgstr ""
 "werden. Zum Beispiel 365 eintragen, damit nur Beiträge aus dem letzten Jahr "
 "angezeigt werden."
 
-#: admin.inc.php:210
+#: admin/options-genops.php:53
 #, fuzzy
 msgid "Post types to include in results:"
 msgstr "Beitragsarten, die einbezogen werden sollen."
 
-#: admin.inc.php:221
+#: admin/options-genops.php:64
 msgid ""
 "These post types will be displayed in the list. Includes custom post types."
 msgstr ""
 "Diese Beitragsarten werden in der Liste angezeigt. Einschließlich "
 "benutzerdefinierter Beitragsarten (custom post types)."
 
-#: admin.inc.php:224
+#: admin/options-genops.php:68
 #, fuzzy
 msgid "Find related posts based on content as well as title:"
 msgstr ""
 "Finde ähnliche Beiträge basierend auf dem Inhalt als auch auf dem Titel"
 
-#: admin.inc.php:226
+#: admin/options-genops.php:70
 msgid ""
 "If unchecked, only posts titles are used. I recommend using a caching plugin "
 "or enabling \"Cache output\" above if you enable this."
@@ -105,11 +269,11 @@ msgstr ""
 "empfehle ein Caching Plugin oder das Anschalten der Cache Ausgabe, wenn "
 "diese Einstellung ausgewählt ist."
 
-#: admin.inc.php:229
+#: admin/options-genops.php:74
 msgid "Limit content to be compared"
 msgstr "Begrenze den Inhalt, der verglichen werden soll"
 
-#: admin.inc.php:231
+#: admin/options-genops.php:76
 msgid ""
 "This sets the maximum words of the content that will be matched. 0 means no "
 "limit."
@@ -117,39 +281,39 @@ msgstr ""
 "Dies setzt die maximale Anzahl an Worten aus dem Inhalt, die benutzt wird. 0 "
 "bedeutet keine Begrenzung."
 
-#: admin.inc.php:234
+#: admin/options-genops.php:80
 msgid "Add related posts to:"
 msgstr "Füge ähnliche Beiträge hinzu:"
 
-#: admin.inc.php:236
+#: admin/options-genops.php:82
 msgid "Posts"
 msgstr "Beiträge"
 
-#: admin.inc.php:237
+#: admin/options-genops.php:83
 msgid "Pages"
 msgstr "Seiten"
 
-#: admin.inc.php:238
+#: admin/options-genops.php:84
 msgid "Home page"
 msgstr "Homepage"
 
-#: admin.inc.php:239
+#: admin/options-genops.php:85
 msgid "Feeds"
 msgstr "Feeds"
 
-#: admin.inc.php:240
+#: admin/options-genops.php:86
 msgid "Category archives"
 msgstr "Kategorie Archive"
 
-#: admin.inc.php:241
+#: admin/options-genops.php:87
 msgid "Tag archives"
 msgstr "Schlagwort Archive"
 
-#: admin.inc.php:242
+#: admin/options-genops.php:88
 msgid "Other archives"
 msgstr "Andere Archive"
 
-#: admin.inc.php:243
+#: admin/options-genops.php:89
 #, fuzzy
 msgid ""
 "If you choose to disable this, please add <code>&lt;?php if "
@@ -160,26 +324,26 @@ msgstr ""
 "if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> zu deinen "
 "Theme-Templates, wo die ähnlichen Beiträge angezeigt werden sollen"
 
-#: admin.inc.php:246
+#: admin/options-genops.php:93
 msgid "Content filter priority:"
 msgstr ""
 
-#: admin.inc.php:249
+#: admin/options-genops.php:96
 msgid ""
 "A higher number will cause the content above to be processed after other "
 "filters. Number below 10 is not recommended."
 msgstr ""
 
-#: admin.inc.php:252
+#: admin/options-genops.php:100
 #, fuzzy
 msgid "Tell the world you're using Contextual Related Posts:"
 msgstr "Contextual Related Posts"
 
-#: admin.inc.php:254
+#: admin/options-genops.php:102
 msgid " <em>Optional</em>"
 msgstr "<em>Optional</em>"
 
-#: admin.inc.php:255
+#: admin/options-genops.php:103
 #, fuzzy
 msgid ""
 "Adds a nofollow link to Contextual Related Posts homepage as the last time "
@@ -187,15 +351,11 @@ msgid ""
 msgstr ""
 "Fügt einen nofollow Link zu Homepage von Contextual Related Posts hinzu."
 
-#: admin.inc.php:262
-msgid "Output options"
-msgstr "Ausgabe Einstellungen"
-
-#: admin.inc.php:265
+#: admin/options-output.php:32
 msgid "Title of related posts: "
 msgstr "Überschrift der ähnlichen Beiträge:"
 
-#: admin.inc.php:268
+#: admin/options-output.php:35
 msgid ""
 "This is the main heading of the related posts. You can also display the "
 "current post title by using <code>%postname%</code>. e.g. <code>Related "
@@ -205,24 +365,20 @@ msgstr ""
 "aktuellen Beitragstitel anzeigen lassen mit <code>%postname%</code>. "
 "Beispielsweise: <code>Ähnliche Beiträge zu %postname%</code>"
 
-#: admin.inc.php:271
+#: admin/options-output.php:39
 msgid "When there are no posts, what should be shown?"
 msgstr ""
 "Wenn keine ähnlichen Beiträge gefunden wurden, was soll angezeigt werden?"
 
-#: admin.inc.php:275
+#: admin/options-output.php:43
 msgid "Blank Output"
 msgstr "Gar nichts"
 
-#: admin.inc.php:279
+#: admin/options-output.php:47
 msgid "Display:"
 msgstr "Zeige an:"
 
-#: admin.inc.php:283 admin.inc.php:465
-msgid "Show post excerpt in list?"
-msgstr "Soll ein Auszug in der Liste angezeigt werden?"
-
-#: admin.inc.php:286
+#: admin/options-output.php:55
 #, php-format
 msgid ""
 "Displays the excerpt of the post. If you do not provide an explicit excerpt "
@@ -230,75 +386,75 @@ msgid ""
 "automatic excerpt which refers to the first %d words of the post's content"
 msgstr ""
 
-#: admin.inc.php:289
+#: admin/options-output.php:59
 msgid "Length of excerpt (in words): "
 msgstr "Länge des Auszugs (in Worten):"
 
-#: admin.inc.php:294
+#: admin/options-output.php:65
 msgid "Show post author in list?"
 msgstr "Zeige den Autor des Beitrags an in der Liste?"
 
-#: admin.inc.php:297
+#: admin/options-output.php:68
 msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
 msgstr ""
 
-#: admin.inc.php:300
+#: admin/options-output.php:72
 msgid "Show post date in list?"
 msgstr "Zeige das Datum des Beitrags in der Liste an?"
 
-#: admin.inc.php:303
+#: admin/options-output.php:75
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options"
 msgstr ""
 
-#: admin.inc.php:306
+#: admin/options-output.php:79
 msgid "Limit post title length (in characters)"
 msgstr "Begrenze den Titel des Beitrags (in Zeichen)"
 
-#: admin.inc.php:309
+#: admin/options-output.php:82
 msgid ""
 "Any title longer than the number of characters set above will be cut and "
 "appended with a &helip;"
 msgstr ""
 
-#: admin.inc.php:312
+#: admin/options-output.php:86
 msgid "Open links in new window"
 msgstr "Öffne die Links in einem neuen Fenster"
 
-#: admin.inc.php:315
+#: admin/options-output.php:92
 msgid "Add nofollow attribute to links in the list"
 msgstr "Füge nofollow zu den Links aus der Liste hinzu"
 
-#: admin.inc.php:318
+#: admin/options-output.php:125
 #, fuzzy
 msgid "Exclusion settings:"
 msgstr "Einstellungen des Plugins"
 
-#: admin.inc.php:320
+#: admin/options-output.php:127
 #, fuzzy
 msgid "List of post or page IDs to exclude from the results:"
 msgstr ""
 "Liste deine Beitrags- oder Seiten-IDs auf, die aus den Ergebnissen "
 "ausgeschlossen werden sollen:"
 
-#: admin.inc.php:322 admin.inc.php:328
+#: admin/options-output.php:129 admin/options-output.php:135
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
 msgstr ""
 "Mit Komma getrennte Liste der IDs von Beiträgen, Seiten oder "
 "benutzerdefinierter Beitragsarten (custom post types). Beispiel: 188,320,500"
 
-#: admin.inc.php:325
+#: admin/options-output.php:132
 msgid "Exclude display of related posts on these posts / pages"
 msgstr ""
 "Schließe auf diesen Beiträgen / Seiten die Anzeige der ähnliche Beiträge aus"
 
-#: admin.inc.php:331
+#: admin/options-output.php:138
 msgid "Categories to exclude from the results: "
 msgstr "Kategorien, die von den Ergebnissen ausgeschlossen werden sollen:"
 
-#: admin.inc.php:347
+#: admin/options-output.php:154
 #, fuzzy
 msgid ""
 "Comma separated list of category slugs. The field above has an autocomplete "
@@ -309,13 +465,13 @@ msgstr ""
 "Autovervollständigung, beginne einfach zu tippen und du bekommst Kategorien "
 "vorgeschlagen."
 
-#: admin.inc.php:350
+#: admin/options-output.php:157
 #, fuzzy
 msgid "Exclude display of related posts on these post types."
 msgstr ""
 "Schließe auf diesen Beiträgen / Seiten die Anzeige der ähnliche Beiträge aus"
 
-#: admin.inc.php:359
+#: admin/options-output.php:166
 #, fuzzy
 msgid ""
 "The related posts will not display on any of the above selected post types"
@@ -323,84 +479,94 @@ msgstr ""
 "Diese Beitragsarten werden in der Liste angezeigt. Einschließlich "
 "benutzerdefinierter Beitragsarten (custom post types)."
 
-#: admin.inc.php:362
+#: admin/options-output.php:196
 msgid "Customize the output:"
 msgstr "Passe die Ausgabe an:"
 
-#: admin.inc.php:364
+#: admin/options-output.php:198
 msgid "HTML to display before the list of posts: "
 msgstr "HTML vor der Liste ähnlicher Beiträge:"
 
-#: admin.inc.php:367
+#: admin/options-output.php:201
 msgid "HTML to display before each list item: "
 msgstr "HTML-Code vor jedem Listenelement:"
 
-#: admin.inc.php:370
+#: admin/options-output.php:204
 msgid "HTML to display after each list item: "
 msgstr "HTML-Code nach jedem Listenelement:"
 
-#: admin.inc.php:373
+#: admin/options-output.php:207
 msgid "HTML to display after the list of posts: "
 msgstr "HTML-Code nach der Liste ähnlicher Beiträge:"
 
-#: admin.inc.php:376
+#: admin/options-output.php:237
 msgid "Post thumbnail options:"
 msgstr "Einstellungen der Beitragsvorschaubilder:"
 
-#: admin.inc.php:378 admin.inc.php:468
-msgid "Location of post thumbnail:"
-msgstr "Ort der Beitragsvorschaubilder"
+#: admin/options-output.php:261
+msgid ""
+"Contextual Related Posts adds a new image size with the below dimensions."
+msgstr ""
 
-#: admin.inc.php:382 admin.inc.php:472
-msgid "Display thumbnails inline with posts, before title"
-msgstr "Zeige die Vorschaubilder inline mit den Beiträgen an; vor dem Titel"
+#: admin/options-output.php:262
+msgid ""
+"If you change the width and/or height below, existing images will not be "
+"automatically resized."
+msgstr ""
 
-#: admin.inc.php:386 admin.inc.php:476
-msgid "Display thumbnails inline with posts, after title"
-msgstr "Zeige die Vorschaubilder inline mit den Beiträgen an; nach dem Titel"
+#: admin/options-output.php:263
+#, php-format
+msgid ""
+"I recommend using <a href='%s' target='_blank'>Force Regenerate Thumbnails</"
+"a> to regenerate all image sizes."
+msgstr ""
 
-#: admin.inc.php:390 admin.inc.php:480
-msgid "Display only thumbnails, no text"
-msgstr "Zeige nur die Vorschaubilder an; keinen Text"
-
-#: admin.inc.php:394 admin.inc.php:484
-msgid "Do not display thumbnails, only text."
-msgstr "Zeige keine Vorschaubilder an; nur Text"
-
-#: admin.inc.php:398 admin.inc.php:488
-msgid "Maximum width of the thumbnail: "
+#: admin/options-output.php:267
+#, fuzzy
+msgid "Maximum width of the thumbnail:"
 msgstr "Maximale Breite der Vorschaubilder:"
 
-#: admin.inc.php:401 admin.inc.php:491
-msgid "Maximum height of the thumbnail: "
-msgstr "Maximale Höhe der Vorschaubilder:"
-
-#: admin.inc.php:405
+#: admin/options-output.php:274
 msgid ""
 "Since you're using the default styles set under the Custom Styles section, "
 "the width and height is fixed at 150px"
 msgstr ""
 
-#: admin.inc.php:409
+#: admin/options-output.php:278
+msgid "Crop mode:"
+msgstr ""
+
+#: admin/options-output.php:282
+msgid ""
+"By default, thumbnails will be proportionately cropped. Check this box to "
+"hard crop the thumbnails."
+msgstr ""
+
+#: admin/options-output.php:283
+#, php-format
+msgid "<a href='%s' target='_blank'>Difference between soft and hard crop</a>"
+msgstr ""
+
+#: admin/options-output.php:287
 msgid "Style attributes / Width and Height HTML attributes:"
 msgstr "Breite und Höhe mit CSS oder HTML festlegen:"
 
-#: admin.inc.php:413
+#: admin/options-output.php:291
 #, fuzzy
 msgid "Style attributes are used for width and height."
 msgstr ""
 "CSS Attribute werden für Breite und Höhe benutzt. <code>style=\"max-width:"
 
-#: admin.inc.php:417
+#: admin/options-output.php:295
 #, fuzzy
 msgid "HTML width and height attributes are used for width and height."
 msgstr "HTML Attribute werden für Breite und Höhe benutzt. <code>width=\""
 
-#: admin.inc.php:421
+#: admin/options-output.php:299
 msgid "Use timthumb to generate thumbnails? "
 msgstr "Benutze timthumb um die Vorschaubilder zu erstellen?"
 
-#: admin.inc.php:423
+#: admin/options-output.php:301
 #, fuzzy
 msgid ""
 "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" "
@@ -409,12 +575,12 @@ msgstr ""
 "Wenn ausgewählt wird <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
 "\">timthumb</a> zur Erstellung der Vorschaubilder benutzt"
 
-#: admin.inc.php:426
+#: admin/options-output.php:304
 #, fuzzy
 msgid "Quality of thumbnails generated by timthumb:"
 msgstr "Qualität der Vorschaubilder von timthumb"
 
-#: admin.inc.php:429
+#: admin/options-output.php:307
 #, fuzzy
 msgid ""
 "Enter values between 0 and 100 only. 100 is highest quality and the highest "
@@ -424,12 +590,12 @@ msgstr ""
 "bedeutet aber auch die größte Dateigröße. 95 ist der empfohlene Wert. Die "
 "Voreinstellung ist 75."
 
-#: admin.inc.php:432
+#: admin/options-output.php:310
 #, fuzzy
 msgid "Post thumbnail meta field name:"
 msgstr "Name des benutzerdefiniertes Feld des Vorschaubildes:"
 
-#: admin.inc.php:434
+#: admin/options-output.php:312
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
@@ -437,22 +603,22 @@ msgstr ""
 "Der Wert dieses Feldes sollte die Bildquelle enthalten. Sie wird unter "
 "<em>Neuen Beitrag erstellen</em> gesetzt"
 
-#: admin.inc.php:437
+#: admin/options-output.php:315
 msgid "Extract the first image from the post?"
 msgstr ""
 
-#: admin.inc.php:439
+#: admin/options-output.php:317
 msgid ""
 "This will only happen if there is no post thumbnail set and no image URL is "
 "specified in the meta field."
 msgstr ""
 
-#: admin.inc.php:442
+#: admin/options-output.php:320
 #, fuzzy
 msgid "Use default thumbnail?"
 msgstr "Benutze das Standard-Vorschaubild?"
 
-#: admin.inc.php:444
+#: admin/options-output.php:322
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
@@ -461,12 +627,12 @@ msgstr ""
 "unterhalb geladen. Wenn es nicht ausgewählt ist und kein Vorschaubild "
 "gefunden wird, wird kein Vorschaubild angezeigt."
 
-#: admin.inc.php:447
+#: admin/options-output.php:325
 #, fuzzy
 msgid "Default thumbnail:"
 msgstr "Standard-Vorschaubild: "
 
-#: admin.inc.php:450
+#: admin/options-output.php:328
 #, fuzzy
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
@@ -478,252 +644,133 @@ msgstr ""
 "eingetragen ist, wird das Standard-Vorschaubild benutzt, das oben definiert "
 "wurde"
 
-#: admin.inc.php:457
-msgid "Feed options"
-msgstr "Feed Einstellungen"
-
-#: admin.inc.php:460
-msgid ""
-"Below options override the related posts settings for your blog feed. These "
-"only apply if you have selected to add related posts to Feeds in the General "
-"Options tab."
-msgstr ""
-"Die Optionen unterhalb überschreiben die Einstellung der ähnlichen Beiträge "
-"für den Feed deines Blogs. Diese werden nur übernommen, wenn du bei den "
-"allgemeinen Einstellungen ausgewählt hast, dass ähnliche Beiträge auch in "
-"den Feeds angezeigt werden sollen. "
-
-#: admin.inc.php:498
-#, fuzzy
-msgid "Custom styles"
-msgstr "Eigenes CSS"
-
-#: admin.inc.php:501
-msgid "Use default style included in the plugin?"
-msgstr ""
-
-#: admin.inc.php:504
-msgid ""
-"Contextual Related Posts includes a default style that makes your popular "
-"posts list to look pretty. Check the box above if you want to use this."
-msgstr ""
-
-#: admin.inc.php:505
-msgid ""
-"Enabling this option will automatically turn on the thumbnails and set their "
-"width and height to 150px. Disabling this will not turn off thumbnails or "
-"change their dimensions."
-msgstr ""
-
-#: admin.inc.php:508
-msgid "Custom CSS to add to header:"
-msgstr "Eigenes CSS, das im Header-Bereich hinzugefügt werden soll:"
-
-#: admin.inc.php:512
-msgid ""
-"Do not include <code>style</code> tags. Check out the <a href=\"http://"
-"wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
-"\">FAQ</a> for available CSS classes to style."
-msgstr ""
-"Benutze nicht den <code>style</code> Tag. Siehe dir die <a href=\"http://"
-"wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
-"\">FAQ</a> (en) für benutzbare CSS Klassen an."
-
-#: admin.inc.php:519
-msgid "Save Options"
-msgstr "Optionen speichern"
-
-#: admin.inc.php:520
-msgid "Default Options"
-msgstr "Standardoptionen"
-
-#: admin.inc.php:520
-msgid "Do you want to set options to Default?"
-msgstr "Möchtest du Einstellungen zurücksetzen?"
-
-#: admin.inc.php:521
-msgid "Recreate Index"
-msgstr "Erstelle den Index neu"
-
-#: admin.inc.php:521
-msgid "Are you sure you want to recreate the index?"
-msgstr "Bist du sicher, den Index neu zu erstellen?"
-
-#: admin.inc.php:529
+#: admin/sidebar-view.php:20
 msgid "Support the development"
 msgstr "Unterstütze die Entwicklung"
 
-#: admin.inc.php:536
+#: admin/sidebar-view.php:27
 #, fuzzy
 msgid "Donation for Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin.inc.php:538
+#: admin/sidebar-view.php:29
 #, fuzzy
 msgid "Enter amount in USD:"
 msgstr "Trage einen Betrag in USD ein:"
 
-#: admin.inc.php:542
+#: admin/sidebar-view.php:33
 msgid "Send your donation to the author of"
 msgstr "Schicke dein Geschenk an den Entwickler von"
 
-#: admin.inc.php:549
+#: admin/sidebar-view.php:41
 msgid "Follow me"
 msgstr ""
 
-#: admin.inc.php:559
+#: admin/sidebar-view.php:52
 #, fuzzy
 msgid "Quick links"
 msgstr "Quick Links"
 
-#: admin.inc.php:563
+#: admin/sidebar-view.php:56
 msgid "Contextual Related Posts plugin page"
 msgstr "Contextual Related Posts Pluginseite"
 
-#: admin.inc.php:564
+#: admin/sidebar-view.php:57
 msgid "FAQ"
 msgstr "FAQ"
 
-#: admin.inc.php:565 contextual-related-posts.php:964
-msgid "Support"
-msgstr "Support"
-
-#: admin.inc.php:566
+#: admin/sidebar-view.php:59
 msgid "Reviews"
 msgstr "Rezensionen"
 
-#: admin.inc.php:567
+#: admin/sidebar-view.php:60
 msgid "Github repository"
 msgstr ""
 
-#: admin.inc.php:568
+#: admin/sidebar-view.php:61
 msgid "Other plugins"
 msgstr "Andere Plugins"
 
-#: admin.inc.php:569
+#: admin/sidebar-view.php:62
 msgid "Ajay's blog"
 msgstr "Ajay's Blog"
 
-#: admin.inc.php:591 admin.inc.php:752
-msgid "Contextual Related Posts"
-msgstr "Contextual Related Posts"
-
-#: admin.inc.php:591
-msgid "Related Posts"
-msgstr "Ähnliche Beiträge"
-
-#: admin.inc.php:694
-msgid "plugin settings page"
-msgstr "Einstellungen des Plugins"
-
-#: admin.inc.php:728
-msgid ""
-"An error occurred clearing the cache. Please contact your site administrator."
-"\\n\\nError message:\\n"
-msgstr ""
-"Ein Fehler trat beim Löschen des Caches auf. Bitte kontaktiere den "
-"Administrator der Seite.\\n\\nError message:\\n"
-
-#: admin.inc.php:733
-msgid " cached row(s) cleared"
-msgstr "Die Reihe(n) im Cache wurde(n) gelöscht"
-
-#: admin.inc.php:779
-#, fuzzy
-msgid "Location of thumbnail:"
-msgstr "Ort der Beitragsvorschaubilder"
-
-#: admin.inc.php:781
-msgid ""
-"Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
-"image will be used for the post. It will be resized to the thumbnail size "
-"set under Settings &raquo; Related Posts &raquo; Output Options"
-msgstr ""
-
-#: admin.inc.php:782
-msgid "The URL above is saved in the meta field: "
-msgstr ""
-
-#: contextual-related-posts.php:127
+#: contextual-related-posts.php:246
 msgid " by "
 msgstr "von"
 
-#: contextual-related-posts.php:142
-msgid "Powered by"
-msgstr "Powered by"
+#: contextual-related-posts.php:285
+#, php-format
+msgid "Powered by <a href=\"%s\" rel=\"nofollow\">Contextual Related Posts</a>"
+msgstr ""
 
-#: contextual-related-posts.php:376
+#: contextual-related-posts.php:596
 #, fuzzy
 msgid "Related Posts [CRP]"
 msgstr "Ähnliche Beiträge"
 
-#: contextual-related-posts.php:377
+#: contextual-related-posts.php:597
 msgid "Display Related Posts"
 msgstr "Zeige ähnliche Beiträge an"
 
-#: contextual-related-posts.php:400
+#: contextual-related-posts.php:620
 msgid "Title"
 msgstr "Titel"
 
-#: contextual-related-posts.php:405
+#: contextual-related-posts.php:625
 msgid "No. of posts"
 msgstr ""
 
-#: contextual-related-posts.php:410
+#: contextual-related-posts.php:630
 msgid " Show excerpt?"
 msgstr "Zeige einen Textauszug?"
 
-#: contextual-related-posts.php:415
+#: contextual-related-posts.php:635
 msgid " Show author?"
 msgstr "Zeige den Autor?"
 
-#: contextual-related-posts.php:420
+#: contextual-related-posts.php:640
 msgid " Show date?"
 msgstr "Zeige das Datum?"
 
-#: contextual-related-posts.php:424
+#: contextual-related-posts.php:644
 msgid "Thumbnail options"
 msgstr "Optionen des Vorschaubildes"
 
-#: contextual-related-posts.php:426
+#: contextual-related-posts.php:646
 msgid "Thumbnails inline, before title"
 msgstr "Vorschaubilder inline, vor dem Titel"
 
-#: contextual-related-posts.php:427
+#: contextual-related-posts.php:647
 msgid "Thumbnails inline, after title"
 msgstr "Vorschaubilder inline, hinter dem Titel"
 
-#: contextual-related-posts.php:428
+#: contextual-related-posts.php:648
 msgid "Only thumbnails, no text"
 msgstr "Nur Vorschaubilder, kein Text"
 
-#: contextual-related-posts.php:429
+#: contextual-related-posts.php:649
 msgid "No thumbnails, only text."
 msgstr "Keine Vorschaubilder, nur Text"
 
-#: contextual-related-posts.php:434
+#: contextual-related-posts.php:654
 msgid "Thumbnail height"
 msgstr "Höhe des Vorschaubildes"
 
-#: contextual-related-posts.php:439
+#: contextual-related-posts.php:659
 msgid "Thumbnail width"
 msgstr "Breite des Vorschaubildes"
 
-#: contextual-related-posts.php:581
+#: contextual-related-posts.php:799
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>Ähnliche Beiträge:</h3>"
 
-#: contextual-related-posts.php:582
+#: contextual-related-posts.php:801
 msgid "No related posts found"
 msgstr "Es wurden keine ähnlichen Beiträge gefunden"
 
-#: contextual-related-posts.php:944
-msgid "Settings"
-msgstr "Einstellungen"
-
-#: contextual-related-posts.php:965
-msgid "Donate"
-msgstr "Spende"
+#~ msgid "Powered by"
+#~ msgstr "Powered by"
 
 #~ msgid "Add a link to the plugin page as a final item in the list"
 #~ msgstr ""
