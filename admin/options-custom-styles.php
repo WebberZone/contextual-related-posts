@@ -32,8 +32,8 @@ if ( ! defined( 'WPINC' ) ) {
 	<tr><th scope="row"><label for="include_default_style"><?php _e( 'Use default style included in the plugin?', CRP_LOCAL_NAME ); ?></label></th>
 	  <td>
 	  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ( $crp_settings['include_default_style'] ) echo 'checked="checked"' ?> />
-	  	<p class="description"><?php _e( 'Contextual Related Posts includes a default style that makes your popular posts list to look pretty. Check the box above if you want to use this.', CRP_LOCAL_NAME ); ?></p>
-	  	<p class="description"><?php _e( 'Enabling this option will automatically turn on the thumbnails and set their width and height to 150px. Disabling this will not turn off thumbnails or change their dimensions.', CRP_LOCAL_NAME ); ?></p>
+	  	<p class="description"><?php _e( 'Contextual Related Posts includes a default style that makes your popular posts list to look beautiful. Check the box above if you want to use this.', CRP_LOCAL_NAME ); ?></p>
+	  	<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>
 	  </td>
 	</tr>
 	<tr><th scope="row" colspan="2"><?php _e( 'Custom CSS to add to header:', CRP_LOCAL_NAME ); ?></th>

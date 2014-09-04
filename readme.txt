@@ -69,6 +69,7 @@ Check the Changelog for a full list of changes.
 * Modified: Default option for timthumb is disabled
 * Modified: Default option for post types to include is post and page
 * Modified: `get_crp_posts` has been deprecated. See `get_crp_posts_id` instead
+* Modified: Turning on the Default style will switch on thumbnails, correctly resize them and will also hide authors, excerpts and the post date
 * Fixed: Post image will now be loaded over https if the visitor visits your site on https
 
 = 1.9.1 =

@@ -11,7 +11,7 @@
  * @copyright 2009-2014 Ajay D'Souza
  */
 
-// If this file is called directly, abort.
+/**** If this file is called directly, abort. ****/
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -40,7 +40,7 @@ function crp_options() {
 
 	if ( ( isset( $_POST['crp_save'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
 
-		// General options
+		/**** General options ***/
 		$crp_settings['cache'] = ( isset( $_POST['cache'] ) ? true : false );
 		$crp_settings['limit'] = intval( $_POST['limit'] );
 		$crp_settings['daily_range'] = intval( $_POST['daily_range'] );
@@ -58,7 +58,7 @@ function crp_options() {
 		$crp_settings['content_filter_priority'] = intval( $_POST['content_filter_priority'] );
 		$crp_settings['show_credit'] = ( isset( $_POST['show_credit'] ) ? true : false );
 
-		// Output options
+		/**** Output options ****/
 		$crp_settings['title'] = wp_kses_post( $_POST['title'] );
 		$crp_settings['blank_output'] = ( ( $_POST['blank_output'] == 'blank' ) ? true : false );
 		$crp_settings['blank_output_text'] = wp_kses_post( $_POST['blank_output_text'] );
@@ -92,14 +92,14 @@ function crp_options() {
 		$crp_settings['thumb_timthumb'] = ( isset( $_POST['thumb_timthumb'] ) ? true : false );
 		$crp_settings['thumb_timthumb_q'] = intval( $_POST['thumb_timthumb_q'] );
 
-		// Feed options
+		/**** Feed options ****/
 		$crp_settings['limit_feed'] = intval( $_POST['limit_feed'] );
 		$crp_settings['post_thumb_op_feed'] = wp_kses_post( $_POST['post_thumb_op_feed'] );
 		$crp_settings['thumb_height_feed'] = intval( $_POST['thumb_height_feed'] );
 		$crp_settings['thumb_width_feed'] = intval( $_POST['thumb_width_feed'] );
 		$crp_settings['show_excerpt_feed'] = ( isset( $_POST['show_excerpt_feed'] ) ? true : false );
 
-		// Custom styles
+		/**** Custom styles ****/
 		$crp_settings['custom_CSS'] = wp_kses_post( $_POST['custom_CSS'] );
 
 		if ( isset( $_POST['include_default_style'] ) ) {
@@ -107,11 +107,14 @@ function crp_options() {
 			$crp_settings['post_thumb_op'] = 'inline';
 			$crp_settings['thumb_height'] = 150;
 			$crp_settings['thumb_width'] = 150;
+			$crp_settings['show_excerpt'] = false;
+			$crp_settings['show_author'] = false;
+			$crp_settings['show_date'] = false;
 		} else {
 			$crp_settings['include_default_style'] = false;
 		}
 
-		// Exclude categories
+		/**** Exclude categories ****/
 		$crp_settings['exclude_cat_slugs'] = wp_kses_post( $_POST['exclude_cat_slugs'] );
 		$exclude_categories_slugs = explode( ", ", $crp_settings['exclude_cat_slugs'] );
 
@@ -121,7 +124,7 @@ function crp_options() {
 		}
 		$crp_settings['exclude_categories'] = ( isset( $exclude_categories ) ) ? join( ',', $exclude_categories ) : '';
 
-		// Post types to include
+		/**** Post types to include ****/
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
@@ -129,7 +132,7 @@ function crp_options() {
 		$post_types = array_intersect( $wp_post_types, $post_types_arr );
 		$crp_settings['post_types'] = http_build_query( $post_types, '', '&' );
 
-		// Post types to exclude display on
+		/**** Post types to exclude display on ****/
 		$post_types_excl_arr = ( isset( $_POST['exclude_on_post_types'] ) && is_array( $_POST['exclude_on_post_types'] ) ) ? $_POST['exclude_on_post_types'] : array();
 		$exclude_on_post_types = array_intersect( $wp_post_types, $post_types_excl_arr );
 		$crp_settings['exclude_on_post_types'] = http_build_query( $exclude_on_post_types, '', '&' );
@@ -142,7 +145,7 @@ function crp_options() {
 		 */
 		$crp_settings = apply_filters( 'crp_save_options', $crp_settings, $_POST );
 
-		// Update CRP options into the database
+		/**** Update CRP options into the database ****/
 		update_option( 'ald_crp_settings', $crp_settings );
 		$crp_settings = crp_read_options();
 
@@ -190,7 +193,7 @@ function crp_options() {
 		echo $str;
 	}
 
-	// Include the views page
+	/**** Include the views page ****/
 	include_once( 'main-view.php' );
 }
 
@@ -256,9 +259,9 @@ function crp_adminhead() {
 	<script type="text/javascript">
 		//<![CDATA[
 		jQuery(document).ready( function($) {
-			// close postboxes that should be closed
+			/**** close postboxes that should be closed ****/
 			$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
-			// postboxes setup
+			/**** postboxes setup ****/
 			postboxes.add_postbox_toggles('crp_options');
 		});
 		//]]>
@@ -268,7 +271,7 @@ function crp_adminhead() {
 	<script type="text/javascript" language="JavaScript">
 		//<![CDATA[
 		function clearCache() {
-			// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+			/**** since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php ****/
 			jQuery.post(ajaxurl, {action: 'crp_clear_cache'}, function(response, textStatus, jqXHR) {
 				alert( response.message );
 			}, 'json');
@@ -335,7 +338,7 @@ function crp_plugin_actions( $links, $file ) {
 
 	$plugin = plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' );
 
-	// Add links
+	/**** Add links ****/
 	if ( $file == $plugin ) {
 		$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __( 'Support', CRP_LOCAL_NAME ) . '</a>';
 		$links[] = '<a href="http://ajaydsouza.com/donate/">' . __( 'Donate', CRP_LOCAL_NAME ) . '</a>';
@@ -373,7 +376,7 @@ function crp_admin_notice() {
  *
  */
 function crp_ajax_clearcache() {
-	global $wpdb; // this is how you get access to the database
+	global $wpdb;
 
 	$rows = $wpdb->query( "
 		DELETE FROM " . $wpdb->postmeta . "
@@ -385,7 +388,7 @@ function crp_ajax_clearcache() {
 		WHERE meta_key='crp_related_posts_widget'
 	" );
 
-	// Did an error occur?
+	/**** Did an error occur? ****/
 	if ( ( $rows === false ) && ( $rows2 === false ) ) {
 		exit( json_encode( array(
 			'success' => 0,
@@ -433,7 +436,7 @@ add_action( 'add_meta_boxes', 'crp_add_meta_box' , 10, 2 );
 function crp_call_meta_box() {
 	global $post, $crp_settings;
 
-	// Add an nonce field so we can check for it later.
+	/**** Add an nonce field so we can check for it later. ****/
 	wp_nonce_field( 'crp_meta_box', 'crp_meta_box_nonce' );
 
 	$results = get_post_meta( $post->ID, $crp_settings['thumb_meta'], true );
@@ -463,13 +466,13 @@ function crp_call_meta_box() {
 function crp_save_meta_box( $post_id ) {
 	global $crp_settings;
 
-    // Bail if we're doing an auto save
+    /**** Bail if we're doing an auto save ****/
     if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 
-    // if our nonce isn't there, or we can't verify it, bail
+    /**** if our nonce isn't there, or we can't verify it, bail ****/
     if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( $_POST['crp_meta_box_nonce'], 'crp_meta_box' ) ) return;
 
-    // if our current user can't edit this post, bail
+    /**** if our current user can't edit this post, bail ****/
     if ( ! current_user_can( 'edit_posts' ) ) return;
 
     if ( isset( $_POST['thumb_meta'] ) ) {
