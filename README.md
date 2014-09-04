@@ -1,6 +1,6 @@
 ﻿# Contextual Related Posts
 
-__Requires:__ 3.0
+__Requires:__ 3.5
 
 __Tested up to:__ 4.0
 
