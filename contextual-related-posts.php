@@ -298,6 +298,17 @@ function ald_crp( $args = array() ) {
 		 */
 		$output .= apply_filters( 'crp_after_list', $after_list );
 
+		$clearfix = '<div style="clear:both"></div>';
+
+		/**
+		 * Filter the clearfix div tag. This is included after the closing tag to clear any miscellaneous floating elements;
+		 *
+		 * @since	2.0.0
+		 *
+		 * @param	string	$clearfix	Contains: <div style="clear:both"></div>
+		 */
+		$output .= apply_filters( 'crp_clearfix', $clearfix );
+
 	} else {
 		$output .= ( $blank_output ) ? ' ' : '<p>' . $blank_output_text . '</p>';
 	}

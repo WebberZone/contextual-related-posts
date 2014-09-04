@@ -68,7 +68,8 @@ Check the Changelog for a full list of changes.
 * Modified: Removed `border=0` attribute from `img` tag for HTML5 validation support
 * Modified: Default option for timthumb is disabled
 * Modified: Default option for post types to include is post and page
-* Fixed: Post image will now be loaded over https if the visitor is blogging on https
+* Modified: `get_crp_posts` has been deprecated. See `get_crp_posts_id` instead
+* Fixed: Post image will now be loaded over https if the visitor visits your site on https
 
 = 1.9.1 =
 * New: Meta box on the Edit Posts, Pages and custom post type pages to easily add the location of the URL of the thumbnail image
