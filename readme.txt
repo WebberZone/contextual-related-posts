@@ -59,12 +59,15 @@ Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">C
 
 == Upgrade Notice ==
 
-= 2.0.0 =
+= 2.0.1 =
 * New multisite support; Thumbnails no longer need timthumb; HTTPS support for thumbnails; filters for mySQL query;
 Check the Changelog for a full list of changes.
 
 
 == Changelog ==
+
+= 2.0.1 =
+* Fixed: Clear Cache button which broke in 2.0.0
 
 = 2.0.0 =
 * New: Multi-site support. Now you can Network Activate the plugin and all users will see related posts!
