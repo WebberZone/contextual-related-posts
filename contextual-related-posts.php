@@ -1309,7 +1309,7 @@ function crp_max_formatted_content( $content, $no_of_char = -1 ) {
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
-if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
 
