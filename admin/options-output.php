@@ -95,6 +95,13 @@ if ( ! defined( 'WPINC' ) ) {
 		</td>
 	</tr>
 
+	<tr><th scope="row"><label for="insert_after_paragraph"><?php _e( 'Insert after paragraph', CRP_LOCAL_NAME ); ?></label></th>
+		<td>
+			<input type="textbox" name="insert_after_paragraph" id="insert_after_paragraph" value="<?php echo stripslashes( $crp_settings['insert_after_paragraph'] ); ?>" />
+				<p class="description"><?php _e( "Inserts code after nth paragraph. Leave empty for end of content or 0 for before content", CRP_LOCAL_NAME ); ?></p>
+		</td>
+	</tr>
+
 	<?php
 		/**
 		 * Fires after Output options main block.
