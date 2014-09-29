@@ -78,6 +78,7 @@ function crp_options() {
 		$crp_settings['after_list'] = wp_kses_post( $_POST['after_list'] );
 		$crp_settings['before_list_item'] = wp_kses_post( $_POST['before_list_item'] );
 		$crp_settings['after_list_item'] = wp_kses_post( $_POST['after_list_item'] );
+		$crp_settings['after_link'] =  $_POST['after_link'];
 
 		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_on_post_ids'] ) ) );
 		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_post_ids'] ) ) );

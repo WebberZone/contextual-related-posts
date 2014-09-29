@@ -205,10 +205,10 @@ function ald_crp( $args = array() ) {
 				$title = apply_filters( 'crp_title', $title, $result );
 
 				if ( 'after' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . 'class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
+					$output .= '<a href="' . get_permalink( $result->ID ) . $after_link . '" ' . $rel_attribute . ' ' . $target_attribute . 'class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
 				}
 				if ( 'inline' == $post_thumb_op || 'after' == $post_thumb_op || 'thumbs_only' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . '>';
+					$output .= '<a href="' . get_permalink( $result->ID ) . $after_link . '" ' . $rel_attribute . ' ' . $target_attribute . '>';
 					$output .= crp_get_the_post_thumbnail( array(
 						'postid' => $result->ID,
 						'thumb_height' => $thumb_height,
@@ -226,7 +226,7 @@ function ald_crp( $args = array() ) {
 					$output .= '</a>';
 				}
 				if ( 'inline' == $post_thumb_op || 'text_only' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
+					$output .= '<a href="' . get_permalink( $result->ID ) . $after_link . '" ' . $rel_attribute . ' ' . $target_attribute . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
 				}
 				if ( $show_author ) {
 					$author_info = get_userdata( $result->post_author );
@@ -889,6 +889,7 @@ function crp_default_options() {
 		'after_list' => '</ul>',	// After the entire list
 		'before_list_item' => '<li>',	// Before each list item
 		'after_list_item' => '</li>',	// After each list item
+		'after_link' => '',	// After each link
 
 		'exclude_categories' => '',	// Exclude these categories
 		'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
