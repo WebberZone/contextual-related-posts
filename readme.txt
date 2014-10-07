@@ -59,12 +59,15 @@ Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">C
 
 == Upgrade Notice ==
 
-= 2.0.1 =
-* New multisite support; Thumbnails no longer need timthumb; HTTPS support for thumbnails; filters for mySQL query;
+= 2.0.2 =
+* Author link bug fix;
 Check the Changelog for a full list of changes.
 
 
 == Changelog ==
+
+= 2.0.2 =
+* Fixed: Author link was incorrectly displayed multiple times in the list when Show Author was enabled
 
 = 2.0.1 =
 * Fixed: Clear Cache button which broke in 2.0.0

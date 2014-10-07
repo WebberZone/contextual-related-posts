@@ -243,7 +243,7 @@ function ald_crp( $args = array() ) {
 					 */
 					$author_name = apply_filters( 'crp_author_name', $author_name, $author_info );
 
-					$crp_author .= '<span class="crp_author"> ' . __( ' by ', CRP_LOCAL_NAME ).'<a href="' . $author_link . '">' . $author_name . '</a></span> ';
+					$crp_author = '<span class="crp_author"> ' . __( ' by ', CRP_LOCAL_NAME ).'<a href="' . $author_link . '">' . $author_name . '</a></span> ';
 
 					/**
 					 * Filter the text with the author details.
