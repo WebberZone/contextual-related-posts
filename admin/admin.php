@@ -72,10 +72,13 @@ function crp_options() {
 		$crp_settings['link_new_window'] = ( isset( $_POST['link_new_window'] ) ? true : false );
 		$crp_settings['link_nofollow'] = ( isset( $_POST['link_nofollow'] ) ? true : false );
 
+		$crp_settings['insert_after_paragraph'] = $_POST['insert_after_paragraph'] == '' ? '' : intval( $_POST['insert_after_paragraph'] );
+		
 		$crp_settings['before_list'] = wp_kses_post( $_POST['before_list'] );
 		$crp_settings['after_list'] = wp_kses_post( $_POST['after_list'] );
 		$crp_settings['before_list_item'] = wp_kses_post( $_POST['before_list_item'] );
 		$crp_settings['after_list_item'] = wp_kses_post( $_POST['after_list_item'] );
+		$crp_settings['after_link'] =  $_POST['after_link'];
 
 		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_on_post_ids'] ) ) );
 		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_post_ids'] ) ) );

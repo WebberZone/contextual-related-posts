@@ -95,6 +95,13 @@ if ( ! defined( 'WPINC' ) ) {
 		</td>
 	</tr>
 
+	<tr><th scope="row"><label for="insert_after_paragraph"><?php _e( 'Insert after paragraph', CRP_LOCAL_NAME ); ?></label></th>
+		<td>
+			<input type="textbox" name="insert_after_paragraph" id="insert_after_paragraph" value="<?php echo stripslashes( $crp_settings['insert_after_paragraph'] ); ?>" />
+				<p class="description"><?php _e( "Inserts code after nth paragraph. Leave empty for end of content or 0 for before content", CRP_LOCAL_NAME ); ?></p>
+		</td>
+	</tr>
+
 	<?php
 		/**
 		 * Fires after Output options main block.
@@ -206,6 +213,12 @@ if ( ! defined( 'WPINC' ) ) {
 	</tr>
 	<tr><th scope="row"><label for="after_list"><?php _e( 'HTML to display after the list of posts: ', CRP_LOCAL_NAME ); ?></label></th>
 		<td><input type="textbox" name="after_list" id="after_list" value="<?php echo esc_attr( stripslashes( $crp_settings['after_list'] ) ); ?>" style="width:250px" /></td>
+	</tr>
+	<tr><th scope="row"><label for="after_link"><?php _e( 'Text to display after the post permalink: ', CRP_LOCAL_NAME ); ?></label></th>
+		<td>
+			<input type="textbox" name="after_link" id="after_link" value="<?php echo esc_attr( stripslashes( $crp_settings['after_link'] ) ); ?>" style="width:250px" />
+			<p class="description"><?php _e( 'Tracking code for example: ?utm_source=internal-link&utm_medium=related-top&utm_campaign=contextual-related', CRP_LOCAL_NAME ); ?></p>
+		</td>
 	</tr>
 
 	<?php

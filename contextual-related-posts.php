@@ -205,10 +205,10 @@ function ald_crp( $args = array() ) {
 				$title = apply_filters( 'crp_title', $title, $result );
 
 				if ( 'after' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . 'class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
+					$output .= '<a href="' . get_permalink( $result->ID ) . $after_link . '" ' . $rel_attribute . ' ' . $target_attribute . 'class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
 				}
 				if ( 'inline' == $post_thumb_op || 'after' == $post_thumb_op || 'thumbs_only' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . '>';
+					$output .= '<a href="' . get_permalink( $result->ID ) . $after_link . '" ' . $rel_attribute . ' ' . $target_attribute . '>';
 					$output .= crp_get_the_post_thumbnail( array(
 						'postid' => $result->ID,
 						'thumb_height' => $thumb_height,
@@ -226,7 +226,7 @@ function ald_crp( $args = array() ) {
 					$output .= '</a>';
 				}
 				if ( 'inline' == $post_thumb_op || 'text_only' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
+					$output .= '<a href="' . get_permalink( $result->ID ) . $after_link . '" ' . $rel_attribute . ' ' . $target_attribute . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
 				}
 				if ( $show_author ) {
 					$author_info = get_userdata( $result->post_author );
@@ -521,23 +521,58 @@ function ald_crp_content( $content ) {
 	parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable
 	if ( in_array( $post->post_type, $exclude_on_post_types ) ) return $content;	// Exit without adding related posts
 
-    if ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
-    } elseif ( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
-    } elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
-    } elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
-    } elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
-    } elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
-    } else {
-        return $content;
-    }
+	$crp_code = ald_crp( 'is_widget=0' );
+	return ald_crp_generate_content( $content, $crp_code );
 }
 
+/**
+ * Helper for inserting crp code into or alongside content
+ *
+ * @since 2.0.1
+ *
+ * @param string $content
+ * @param string $crp_code
+ * @return string After the filter has been processed
+ */
+function ald_crp_generate_content( $content, $crp_code ) {
+	global $crp_settings;
+
+	if ( ! is_numeric($crp_settings['insert_after_paragraph']) ) {
+		return $content.$crp_code;
+	} else if ( $crp_settings['insert_after_paragraph'] == '0' ) {
+		return $crp_code.$content;
+	} else {
+		return ald_crp_insert_after_paragraph( $content, $crp_code, $crp_settings['insert_after_paragraph'] );
+	}
+
+}
+
+/**
+ * Helper for inserting code after a closing paragraph tag
+ *
+ * @since 2.0.1
+ *
+ * @param string $content
+ * @param string $crp_code
+ * @param string $paragraph_id
+ * @return string After the filter has been processed
+ */
+function ald_crp_insert_after_paragraph( $content, $crp_code, $paragraph_id ) {
+	$closing_p = '</p>';
+	$paragraphs = explode( $closing_p, $content );
+	foreach ($paragraphs as $index => $paragraph) {
+
+		if ( trim( $paragraph ) ) {
+			$paragraphs[$index] .= $closing_p;
+		}
+
+		if ( $paragraph_id == $index + 1 ) {
+			$paragraphs[$index] .= $crp_code;
+		}
+	}
+	
+	return implode( '', $paragraphs );
+}
 
 /**
  * Filter to add related posts to feeds.
@@ -848,10 +883,13 @@ function crp_default_options() {
 		'link_new_window' => false,			// Open link in new window - Includes target="_blank" to links
 		'link_nofollow' => false,			// Includes rel="nofollow" to links
 
+		'insert_after_paragraph' => false,			// Inserts code after nth paragraph
+
 		'before_list' => '<ul>',	// Before the entire list
 		'after_list' => '</ul>',	// After the entire list
 		'before_list_item' => '<li>',	// Before each list item
 		'after_list_item' => '</li>',	// After each list item
+		'after_link' => '',	// After each link
 
 		'exclude_categories' => '',	// Exclude these categories
 		'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
