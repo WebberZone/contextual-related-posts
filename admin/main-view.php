@@ -30,7 +30,9 @@ if ( ! defined( 'WPINC' ) ) {
 		?>
 
 	  	<li><a href="#genopdiv"><?php _e( 'General options', CRP_LOCAL_NAME ); ?></a> | </li>
+		  	<li><a href="#tuneopdiv"><?php _e( 'List tuning options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#outputopdiv"><?php _e( 'Output options', CRP_LOCAL_NAME ); ?></a> | </li>
+	  	<li><a href="#thumbopdiv"><?php _e( 'Thumbnail options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#feedopdiv"><?php _e( 'Feed options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#customcssdiv"><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></a></li>
 		<?php
@@ -111,6 +113,10 @@ if ( ! defined( 'WPINC' ) ) {
 				?>
 
 			</table>
+
+			<p>
+			  <input type="submit" name="crp_save" id="crp_genop_save" value="<?php _e( 'Save Options', CRP_LOCAL_NAME ); ?>" class="button button-primary" />
+			</p>
 
 	      </div> <!-- // inside -->
 	    </div> <!-- // genopdiv -->
@@ -212,8 +218,12 @@ if ( ! defined( 'WPINC' ) ) {
 
 			</table>
 
+			<p>
+			  <input type="submit" name="crp_save" id="crp_tuneop_save" value="<?php _e( 'Save Options', CRP_LOCAL_NAME ); ?>" class="button button-primary" />
+			</p>
+
 	      </div> <!-- // inside -->
-	    </div> <!-- // genopdiv -->
+	    </div> <!-- // tuneopdiv -->
 
 	    <div id="outputopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
 	      <h3 class='hndle'><span><?php _e( 'Output options', CRP_LOCAL_NAME ); ?></span></h3>
@@ -400,6 +410,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 			</table>
 
+			<p>
+			  <input type="submit" name="crp_save" id="crp_outputop_save" value="<?php _e( 'Save Options', CRP_LOCAL_NAME ); ?>" class="button button-primary" />
+			</p>
+
 	      </div> <!-- // inside -->
 	    </div> <!-- // outputopdiv -->
 
@@ -551,6 +565,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 			</table>
 
+			<p>
+			  <input type="submit" name="crp_save" id="crp_thumbop_save" value="<?php _e( 'Save Options', CRP_LOCAL_NAME ); ?>" class="button button-primary" />
+			</p>
+
 	      </div> <!-- // inside -->
 	    </div> <!-- // outputopdiv -->
 
@@ -619,8 +637,13 @@ if ( ! defined( 'WPINC' ) ) {
 
 			</table>
 
-	      </div>
-	    </div>
+			<p>
+			  <input type="submit" name="crp_save" id="crp_feedop_save" value="<?php _e( 'Save Options', CRP_LOCAL_NAME ); ?>" class="button button-primary" />
+			</p>
+
+	      </div> <!-- // inside -->
+	    </div> <!-- // feedopdiv -->
+
 	    <div id="customcssdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
 	      <h3 class='hndle'><span><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></span></h3>
 	      <div class="inside">
@@ -665,8 +688,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 			</table>
 
-	      </div>
-	    </div>
+	      </div> <!-- // inside -->
+	    </div> <!-- // customcssdiv -->
 
 		<?php
 			/**
