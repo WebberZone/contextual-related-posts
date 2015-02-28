@@ -80,15 +80,19 @@ function crp_options() {
 		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_on_post_ids'] ) ) );
 		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_post_ids'] ) ) );
 
+		/**** Thumbnail options ****/
 		$crp_settings['post_thumb_op'] = wp_kses_post( $_POST['post_thumb_op'] );
+		$crp_settings['thumb_size'] = $_POST['thumb_size'];
 		$crp_settings['thumb_height'] = intval( $_POST['thumb_height'] );
 		$crp_settings['thumb_width'] = intval( $_POST['thumb_width'] );
 		$crp_settings['thumb_crop'] = ( isset( $_POST['thumb_crop'] ) ? true : false );
 		$crp_settings['thumb_html'] = $_POST['thumb_html'];
+
 		$crp_settings['thumb_meta'] = ( '' == $_POST['thumb_meta'] ? 'post-image' : wp_kses_post( $_POST['thumb_meta'] ) );
 		$crp_settings['scan_images'] = ( isset( $_POST['scan_images'] ) ? true : false );
 		$crp_settings['thumb_default'] = ( ( '' == $_POST['thumb_default'] ) || ( "/default.png" == $_POST['thumb_default'] ) ) ? $crp_url . '/default.png' : $_POST['thumb_default'];
 		$crp_settings['thumb_default_show'] = ( isset( $_POST['thumb_default_show'] ) ? true : false );
+
 		$crp_settings['thumb_timthumb'] = ( isset( $_POST['thumb_timthumb'] ) ? true : false );
 		$crp_settings['thumb_timthumb_q'] = intval( $_POST['thumb_timthumb_q'] );
 
