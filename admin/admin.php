@@ -8,7 +8,7 @@
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
  * @link      http://ajaydsouza.com
- * @copyright 2009-2014 Ajay D'Souza
+ * @copyright 2009-2015 Ajay D'Souza
  */
 
 /**** If this file is called directly, abort. ****/

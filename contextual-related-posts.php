@@ -9,13 +9,13 @@
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
  * @link      http://ajaydsouza.com
- * @copyright 2009-2014 Ajay D'Souza
+ * @copyright 2009-2015 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.0.1
+ * Version: 	2.0.2
  * Author: 		Ajay D'Souza
  * Author URI: 	http://ajaydsouza.com
  * Text Domain:	crp
@@ -817,11 +817,6 @@ function crp_default_options() {
 	$crp_settings = array(
 		// General options
 		'cache' => false,			// Cache output for faster page load
-		'limit' => '5',				// How many posts to display?
-		'daily_range' => '1095',				// How old posts should be displayed?
-		'post_types' => $post_types,		// WordPress custom post types
-		'match_content' => true,		// Match against post content as well as title
-		'match_content_words' => '0',	// How many characters of content should be matched? 0 for all chars
 
 		'add_to_content' => true,		// Add related posts to content (only on single posts)
 		'add_to_page' => true,		// Add related posts to content (only on single pages)
@@ -833,6 +828,19 @@ function crp_default_options() {
 
 		'content_filter_priority' => 10,	// Content priority
 		'show_credit' => false,		// Link to this plugin's page?
+
+		// List tuning options
+		'limit' => '5',				// How many posts to display?
+		'daily_range' => '1095',				// How old posts should be displayed?
+
+		'match_content' => true,		// Match against post content as well as title
+		'match_content_words' => '0',	// How many characters of content should be matched? 0 for all chars
+
+		'post_types' => $post_types,		// WordPress custom post types
+
+		'exclude_categories' => '',	// Exclude these categories
+		'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
+		'exclude_post_ids' => '',	// Comma separated list of page / post IDs that are to be excluded in the results
 
 		// Output options
 		'title' => $title,			// Add before the content
@@ -853,16 +861,15 @@ function crp_default_options() {
 		'before_list_item' => '<li>',	// Before each list item
 		'after_list_item' => '</li>',	// After each list item
 
-		'exclude_categories' => '',	// Exclude these categories
-		'exclude_cat_slugs' => '',	// Exclude these categories (slugs)
-		'exclude_post_ids' => '',	// Comma separated list of page / post IDs that are to be excluded in the results
 		'exclude_on_post_ids' => '', 	// Comma separate list of page/post IDs to not display related posts on
 		'exclude_on_post_types' => '',		// WordPress custom post types
 
+		// Thumbnail options
 		'post_thumb_op' => 'text_only',	// Default option to display text and no thumbnails in posts
+		'thumb_size' => 'crp_thumbnail',	// Default thumbnail size
 		'thumb_height' => '150',	// Height of thumbnails
 		'thumb_width' => '150',	// Width of thumbnails
-		'thumb_crop' => false,		// Crop mode. default is soft proportional
+		'thumb_crop' => true,		// Crop mode. default is hard crop
 		'thumb_html' => 'html',		// Use HTML or CSS for width and height of the thumbnail?
 		'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image
 		'scan_images' => false,			// Scan post for images
@@ -1302,6 +1309,54 @@ function crp_max_formatted_content( $content, $no_of_char = -1 ) {
 	 * @param	int		$no_of_char	Maximum length of excerpt in characters
 	 */
 	return apply_filters( 'crp_max_formatted_content' , $content, $no_of_char );
+}
+
+
+/**
+ * Get all image sizes.
+ *
+ * @since	2.0.0
+ * @param	string	$size	Get specific image size
+ * @return	array	Image size names along with width, height and crop setting
+ */
+function crp_get_all_image_sizes( $size = '' ) {
+	global $_wp_additional_image_sizes;
+
+	/* Get the intermediate image sizes and add the full size to the array. */
+	$intermediate_image_sizes = get_intermediate_image_sizes();
+
+	foreach( $intermediate_image_sizes as $_size ) {
+        if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+
+            $sizes[ $_size ]['name'] = $_size;
+            $sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
+            $sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
+            $sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
+
+	        if ( ( 0 == $sizes[ $_size ]['width'] ) && ( 0 == $sizes[ $_size ]['height'] ) ) {
+	            unset( $sizes[ $_size ] );
+	        }
+
+        } elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
+
+            $sizes[ $_size ] = array(
+	            'name' => $_size,
+                'width' => $_wp_additional_image_sizes[ $_size ]['width'],
+                'height' => $_wp_additional_image_sizes[ $_size ]['height'],
+                'crop' => (bool) $_wp_additional_image_sizes[ $_size ]['crop'],
+            );
+		}
+	}
+
+	/* Get only 1 size if found */
+    if ( $size ) {
+        if ( isset( $sizes[ $size ] ) ) {
+			return $sizes[ $size ];
+        } else {
+			return false;
+        }
+    }
+	return apply_filters( 'crp_get_all_image_sizes', $sizes );
 }
 
 

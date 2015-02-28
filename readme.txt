@@ -59,14 +59,14 @@ Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">C
 
 == Upgrade Notice ==
 
-= 2.1 =
+= 2.1.0 =
 * Bug fixes;
 Check the Changelog for a full list of changes.
 
 
 == Changelog ==
 
-= 2.1 =
+= 2.1.0 =
 * Modified: Reset default thumbnail URL location to plugin default if the field is blank or only contains `/default.png`
 * Fixed: Author link was incorrectly displayed multiple times in the list when Show Author was enabled
 
