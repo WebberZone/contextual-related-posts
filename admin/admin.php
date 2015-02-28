@@ -25,7 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function crp_options() {
 
-	global $wpdb;
+	global $wpdb, $crp_url;
 
 	$crp_settings = crp_read_options();
 
@@ -87,7 +87,7 @@ function crp_options() {
 		$crp_settings['thumb_html'] = $_POST['thumb_html'];
 		$crp_settings['thumb_meta'] = ( '' == $_POST['thumb_meta'] ? 'post-image' : wp_kses_post( $_POST['thumb_meta'] ) );
 		$crp_settings['scan_images'] = ( isset( $_POST['scan_images'] ) ? true : false );
-		$crp_settings['thumb_default'] = wp_kses_post( $_POST['thumb_default'] );
+		$crp_settings['thumb_default'] = ( ( '' == $_POST['thumb_default'] ) || ( "/default.png" == $_POST['thumb_default'] ) ) ? $crp_url . '/default.png' : $_POST['thumb_default'];
 		$crp_settings['thumb_default_show'] = ( isset( $_POST['thumb_default_show'] ) ? true : false );
 		$crp_settings['thumb_timthumb'] = ( isset( $_POST['thumb_timthumb'] ) ? true : false );
 		$crp_settings['thumb_timthumb_q'] = intval( $_POST['thumb_timthumb_q'] );
