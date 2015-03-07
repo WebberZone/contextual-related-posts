@@ -103,7 +103,14 @@ function ald_crp( $args = array() ) {
 
 	//Support caching to speed up retrieval
 	if ( ! empty( $cache ) ) {
-		$output = ( $is_widget ) ? get_post_meta( $post->ID, 'crp_related_posts_widget', true ) : get_post_meta( $post->ID, 'crp_related_posts', true );
+		$meta_key = 'crp_related_posts';
+		if ( $is_widget ) {
+			$meta_key .= '_widget';
+		}
+		if ( is_feed() ) {
+			$meta_key .= '_feed';
+		}
+		$output = get_post_meta( $post->ID, $meta_key, true );
 		if ( $output ) {
 			return $output;
 		}
@@ -323,11 +330,7 @@ function ald_crp( $args = array() ) {
 
 	//Support caching to speed up retrieval
 	if ( ! empty( $cache ) ) {
-		if ( $is_widget ) {
-			update_post_meta( $post->ID, 'crp_related_posts_widget', $output, '' );
-		} else {
-			update_post_meta( $post->ID, 'crp_related_posts', $output, '' );
-		}
+		update_post_meta( $post->ID, $meta_key, $output, '' );
 	}
 
 	/**

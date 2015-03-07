@@ -42,7 +42,7 @@ The plugin also comes with it's very own inbuilt stylesheet that let's your rela
 
 = Donations =
 
-I spend a significant amount of my free time maintaing, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done my best to answer your question and solve your problem.
+I spend a significant amount of my free time maintaining, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done my best to answer your question and solve your problem.
 If you have been using this plugin and find this useful, do consider making a donation. This helps me pay for my hosting and domains.
 
 = Contribute =
@@ -60,13 +60,14 @@ Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">C
 == Upgrade Notice ==
 
 = 2.1.0 =
-* Bug fixes;
+* Separate cache for feeds; Bug fixes;
 Check the Changelog for a full list of changes.
 
 
 == Changelog ==
 
 = 2.1.0 =
+* New: Separate cache for related posts added to feeds. Prevents conflict with the cache for normal related posts
 * Modified: Reset default thumbnail URL location to plugin default if the field is blank or only contains `/default.png`
 * Fixed: Author link was incorrectly displayed multiple times in the list when Show Author was enabled
 

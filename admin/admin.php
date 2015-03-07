@@ -159,8 +159,11 @@ function crp_options() {
 		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );
 		$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
-		delete_post_meta_by_key( 'crp_related_posts' ); // Delete the cache
-		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache
+		// Delete the cache
+		delete_post_meta_by_key( 'crp_related_posts' );
+		delete_post_meta_by_key( 'crp_related_posts_widget' );
+		delete_post_meta_by_key( 'crp_related_posts_feed' );
+		delete_post_meta_by_key( 'crp_related_posts_widget_feed' );
 
 		$str = '<div id="message" class="updated fade"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) .'</p></div>';
 		echo $str;
@@ -382,7 +385,7 @@ function crp_admin_notice() {
 function crp_ajax_clearcache() {
 	global $wpdb;
 
-	$rows = $wpdb->query( "
+	$rows1 = $wpdb->query( "
 		DELETE FROM " . $wpdb->postmeta . "
 		WHERE meta_key='crp_related_posts'
 	" );
@@ -392,8 +395,18 @@ function crp_ajax_clearcache() {
 		WHERE meta_key='crp_related_posts_widget'
 	" );
 
+	$rows3 = $wpdb->query( "
+		DELETE FROM " . $wpdb->postmeta . "
+		WHERE meta_key='crp_related_posts_feed'
+	" );
+
+	$rows4 = $wpdb->query( "
+		DELETE FROM " . $wpdb->postmeta . "
+		WHERE meta_key='crp_related_posts_widget_feed'
+	" );
+
 	/**** Did an error occur? ****/
-	if ( ( $rows === false ) && ( $rows2 === false ) ) {
+	if ( ( $rows1 === false ) && ( $rows2 === false ) && ( $rows3 === false ) && ( $rows4 === false ) ) {
 		exit( json_encode( array(
 			'success' => 0,
 			'message' => __('An error occurred clearing the cache. Please contact your site administrator.\n\nError message:\n', CRP_LOCAL_NAME) . $wpdb->print_error(),
@@ -401,7 +414,7 @@ function crp_ajax_clearcache() {
 	} else {	// No error, return the number of
 		exit( json_encode( array(
 			'success' => 1,
-			'message' => ($rows+$rows2) . __(' cached row(s) cleared', CRP_LOCAL_NAME),
+			'message' => ($rows1+$rows2+$rows3+$rows4) . __(' cached row(s) cleared', CRP_LOCAL_NAME),
 		) ) );
 	}
 }
