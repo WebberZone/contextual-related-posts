@@ -93,9 +93,6 @@ function crp_options() {
 		$crp_settings['thumb_default'] = ( ( '' == $_POST['thumb_default'] ) || ( "/default.png" == $_POST['thumb_default'] ) ) ? $crp_url . '/default.png' : $_POST['thumb_default'];
 		$crp_settings['thumb_default_show'] = ( isset( $_POST['thumb_default_show'] ) ? true : false );
 
-		$crp_settings['thumb_timthumb'] = ( isset( $_POST['thumb_timthumb'] ) ? true : false );
-		$crp_settings['thumb_timthumb_q'] = intval( $_POST['thumb_timthumb_q'] );
-
 		/**** Feed options ****/
 		$crp_settings['limit_feed'] = intval( $_POST['limit_feed'] );
 		$crp_settings['post_thumb_op_feed'] = wp_kses_post( $_POST['post_thumb_op_feed'] );

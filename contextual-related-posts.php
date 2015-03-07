@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.0.2
+ * Version: 	2.0.3
  * Author: 		Ajay D'Souza
  * Author URI: 	http://ajaydsouza.com
  * Text Domain:	crp
@@ -224,8 +224,6 @@ function ald_crp( $args = array() ) {
 						'thumb_html' => $thumb_html,
 						'thumb_default' => $thumb_default,
 						'thumb_default_show' => $thumb_default_show,
-						'thumb_timthumb' => $thumb_timthumb,
-						'thumb_timthumb_q' => $thumb_timthumb_q,
 						'scan_images' => $scan_images,
 						'class' => 'crp_thumb',
 						'filter' => 'crp_postimage',
@@ -895,8 +893,6 @@ function crp_default_options() {
 		'scan_images' => false,			// Scan post for images
 		'thumb_default' => $thumb_default,	// Default thumbnail image
 		'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
-		'thumb_timthumb' => false,	// Use timthumb
-		'thumb_timthumb_q' => '75',	// Quality attribute for timthumb
 
 		// Feed options
 		'limit_feed' => '5',				// How many posts to display in feeds
@@ -1103,31 +1099,6 @@ add_action( 'init', 'crp_add_image_sizes' );
 
 
 /**
- * Filter function to resize post thumbnail. Filters: crp_postimage.
- *
- * @since 1.8.4
- *
- * @param 	string		$postimage
- * @param	string|int	$thumb_width
- * @param	string|int	$thumb_height
- * @param	boolean		$thumb_timthumb
- * @param	string|int	$thumb_timthumb_q
- * @return	string 		Post image output
- */
-function crp_scale_thumbs( $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $post ) {
-	global $crp_url;
-
-	if ( $thumb_timthumb ) {
-		$new_pi = $crp_url . '/timthumb/timthumb.php?src=' . urlencode( $postimage ) . '&amp;w=' . $thumb_width . '&amp;h=' . $thumb_height . '&amp;zc=1&amp;q=' . $thumb_timthumb_q;
-	} else {
-		$new_pi = $postimage;
-	}
-	return $new_pi;
-}
-add_filter( 'crp_postimage', 'crp_scale_thumbs', 10, 6 );
-
-
-/**
  * Function to get the post thumbnail.
  *
  * @since 1.7
@@ -1147,15 +1118,25 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		'thumb_html' => 'html',		// HTML / CSS for width and height attributes
 		'thumb_default' => '',	// Default thumbnail image
 		'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
-		'thumb_timthumb' => true,	// Use timthumb
-		'thumb_timthumb_q' => '75',	// Quality attribute for timthumb
 		'scan_images' => false,			// Scan post for images
 		'class' => 'crp_thumb',			// Class of the thumbnail
-		'filter' => 'crp_postimage',			// Class of the thumbnail
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
+
+	// Issue notice for deprecated arguments
+	if ( isset( $args['thumb_timthumb'] ) ) {
+		_deprecated_argument( __FUNCTION__, '2.1', __( 'thumb_timthumb argument has been deprecated', CRP_LOCAL_NAME ) );
+	}
+
+	if ( isset( $args['thumb_timthumb_q'] ) ) {
+		_deprecated_argument( __FUNCTION__, '2.1', __( 'thumb_timthumb_q argument has been deprecated', CRP_LOCAL_NAME ) );
+	}
+
+	if ( isset( $args['filter'] ) ) {
+		_deprecated_argument( __FUNCTION__, '2.1', __( 'filter argument has been deprecated', CRP_LOCAL_NAME ) );
+	}
 
 	// Declare each item in $args as its own variable i.e. $type, $before.
 	extract( $args, EXTR_SKIP );
@@ -1210,13 +1191,38 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	if ( $postimage ) {
 
 		/**
-		 * Get the first image in the post.
+		 * Filters the thumbnail image URL.
 		 *
-		 * @since 1.8.10
+		 * Use this filter to modify the thumbnail URL that is automatically created
+		 * Before v2.1 this was used for cropping the post image using timthumb
 		 *
-		 * @param mixed $postID	Post ID
+		 * @since	1.8.10
+		 *
+		 * @param	string	$postimage		URL of the thumbnail image
+		 * @param	int		$thumb_width	Thumbnail width
+		 * @param	int		$thumb_height	Thumbnail height
+		 * @param	object	$result			Post Object
 		 */
-		$postimage = apply_filters( $filter, $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
+			$postimage = apply_filters( 'crp_thumb_url', $postimage, $thumb_width, $thumb_height, $result );
+
+		/* Backward compatibility */
+		$thumb_timthumb = false;
+		$thumb_timthumb_q = 75;
+
+		/**
+		 * Filters the thumbnail image URL.
+		 *
+		 * @since	1.8.10
+		 * @deprecated	2.1	Use crp_thumb_url instead.
+		 *
+		 * @param	string	$postimage		URL of the thumbnail image
+		 * @param	int		$thumb_width	Thumbnail width
+		 * @param	int		$thumb_height	Thumbnail height
+		 * @param	boolean	$thumb_timthumb	Enable timthumb?
+		 * @param	int		$thumb_timthumb_q	Quality of timthumb thumbnail.
+		 * @param	object	$result			Post Object
+		 */
+			$postimage = apply_filters( 'crp_postimage', $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
 
 		if ( is_ssl() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
