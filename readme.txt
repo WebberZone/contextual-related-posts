@@ -69,6 +69,7 @@ Check the Changelog for a full list of changes.
 = 2.1.0 =
 * New: Separate cache for related posts added to feeds. Prevents conflict with the cache for normal related posts
 * New: Timthumb has been deprecated
+* Modified: `thumb_timthumb`, `thumb_timthumb_q` and `filter` attributes for the function `crp_get_the_post_thumbnail` have been deprecated. If you're using this function, an entry will be created for the deprecated log
 * Modified: Reset default thumbnail URL location to plugin default if the field is blank or only contains `/default.png`
 * Fixed: Author link was incorrectly displayed multiple times in the list when Show Author was enabled
 

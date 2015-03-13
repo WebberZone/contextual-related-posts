@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.0.3
+ * Version: 	2.0.4
  * Author: 		Ajay D'Souza
  * Author URI: 	http://ajaydsouza.com
  * Text Domain:	crp
@@ -226,7 +226,6 @@ function ald_crp( $args = array() ) {
 						'thumb_default_show' => $thumb_default_show,
 						'scan_images' => $scan_images,
 						'class' => 'crp_thumb',
-						'filter' => 'crp_postimage',
 					) );
 					$output .= '</a>';
 				}
@@ -1196,14 +1195,14 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * Use this filter to modify the thumbnail URL that is automatically created
 		 * Before v2.1 this was used for cropping the post image using timthumb
 		 *
-		 * @since	1.8.10
+		 * @since	2.1.0
 		 *
 		 * @param	string	$postimage		URL of the thumbnail image
 		 * @param	int		$thumb_width	Thumbnail width
 		 * @param	int		$thumb_height	Thumbnail height
 		 * @param	object	$result			Post Object
 		 */
-			$postimage = apply_filters( 'crp_thumb_url', $postimage, $thumb_width, $thumb_height, $result );
+		$postimage = apply_filters( 'crp_thumb_url', $postimage, $thumb_width, $thumb_height, $result );
 
 		/* Backward compatibility */
 		$thumb_timthumb = false;
@@ -1222,7 +1221,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @param	int		$thumb_timthumb_q	Quality of timthumb thumbnail.
 		 * @param	object	$result			Post Object
 		 */
-			$postimage = apply_filters( 'crp_postimage', $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
+		$postimage = apply_filters( 'crp_postimage', $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
 
 		if ( is_ssl() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
