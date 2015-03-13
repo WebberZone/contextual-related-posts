@@ -428,6 +428,13 @@ add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
  */
 function crp_add_meta_box( $post_type, $post ) {
 
+	$args = array(
+	   'public'   => true,
+	);
+	$post_types = get_post_types( $args );
+
+	if ( in_array( $post_type, $post_types ) ) {
+
     	add_meta_box(
     		'crp_metabox',
     		__( 'Contextual Related Posts', CRP_LOCAL_NAME ),
@@ -436,7 +443,7 @@ function crp_add_meta_box( $post_type, $post ) {
     		'advanced',
     		'default'
     	);
-
+	}
 }
 add_action( 'add_meta_boxes', 'crp_add_meta_box' , 10, 2 );
 
