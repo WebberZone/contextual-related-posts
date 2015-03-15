@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.0.4
+ * Version: 	2.0.5
  * Author: 		Ajay D'Souza
  * Author URI: 	http://ajaydsouza.com
  * Text Domain:	crp
@@ -420,10 +420,50 @@ function get_crp_posts_id( $args = array() ) {
 		// Fields to return
 		$fields = " $wpdb->posts.ID ";
 
+		// Create the base MATCH clause
+		$match = $wpdb->prepare( " AND MATCH (" . $match_fields . ") AGAINST ('%s') ", $stuff );	// FULLTEXT matching algorithm
+
+		/**
+		 * Filter the MATCH clause of the query.
+		 *
+		 * @since	2.1.0
+		 *
+		 * @param string   $match  		The MATCH section of the WHERE clause of the query
+		 * @param string   $stuff  		String to match fulltext with
+		 * @param int	   $post->ID	Post ID
+		 */
+		$match = apply_filters( 'crp_posts_match', $match, $stuff, $post->ID );
+
+		// Create the maximum date limit
+		$now_clause = $wpdb->prepare( " AND $wpdb->posts.post_date < '%s' ", $now );		// Show posts before today
+
+		/**
+		 * Filter the Maximum date clause of the query.
+		 *
+		 * @since	2.1.0
+		 *
+		 * @param string   $now_clause  The Maximum date of the WHERE clause of the query.
+		 * @param int	   $post->ID	Post ID
+		 */
+		$now_clause = apply_filters( 'crp_posts_now_date', $now_clause, $post->ID );
+
+		// Create the minimum date limit
+		$from_clause = $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );	// Show posts after the date specified
+
+		/**
+		 * Filter the Maximum date clause of the query.
+		 *
+		 * @since	2.1.0
+		 *
+		 * @param string   $from_clause  The Minimum date of the WHERE clause of the query.
+		 * @param int	   $post->ID	Post ID
+		 */
+		$from_clause = apply_filters( 'crp_posts_from_date', $from_clause, $post->ID );
+
 		// Create the base WHERE clause
-		$where .= $wpdb->prepare( " AND MATCH (" . $match_fields . ") AGAINST ('%s') ", $stuff );	// FULLTEXT matching algorithm
-		$where .= $wpdb->prepare( " AND $wpdb->posts.post_date < '%s' ", $now );		// Show posts before today
-		$where .= $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );	// Show posts after the date specified
+		$where = $match;
+		$where .= $now_clause;
+		$where .= $from_clause;
 		$where .= " AND $wpdb->posts.post_status = 'publish' ";					// Only show published posts
 		$where .= $wpdb->prepare( " AND $wpdb->posts.ID != %d ", $post->ID );	// Show posts after the date specified
 		if ( '' != $exclude_post_ids ) {
@@ -437,28 +477,40 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the SELECT clause of the query.
 		 *
+		 * @since	2.0.0
+		 *
 		 * @param string   $fields  The SELECT clause of the query.
+		 * @param int	   $post->ID	Post ID
 		 */
 		$fields = apply_filters( 'crp_posts_fields', $fields, $post->ID );
 
 		/**
 		 * Filter the JOIN clause of the query.
 		 *
+		 * @since	2.0.0
+		 *
 		 * @param string   $join  The JOIN clause of the query.
+		 * @param int	   $post->ID	Post ID
 		 */
  		$join = apply_filters( 'crp_posts_join', $join, $post->ID );
 
 		/**
 		 * Filter the WHERE clause of the query.
 		 *
+		 * @since	2.0.0
+		 *
 		 * @param string   $where  The WHERE clause of the query.
+		 * @param int	   $post->ID	Post ID
 		 */
 		$where = apply_filters( 'crp_posts_where', $where, $post->ID );
 
 		/**
 		 * Filter the GROUP BY clause of the query.
 		 *
+		 * @since	2.0.0
+		 *
 		 * @param string   $groupby  The GROUP BY clause of the query.
+		 * @param int	   $post->ID	Post ID
 		 */
 		$groupby = apply_filters( 'crp_posts_groupby', $groupby, $post->ID );
 
@@ -466,14 +518,20 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the ORDER BY clause of the query.
 		 *
+		 * @since	2.0.0
+		 *
 		 * @param string   $orderby  The ORDER BY clause of the query.
+		 * @param int	   $post->ID	Post ID
 		 */
 		$orderby = apply_filters( 'crp_posts_orderby', $orderby, $post->ID );
 
 		/**
 		 * Filter the LIMIT clause of the query.
 		 *
+		 * @since	2.0.0
+		 *
 		 * @param string   $limits  The LIMIT clause of the query.
+		 * @param int	   $post->ID	Post ID
 		 */
 		$limits = apply_filters( 'crp_posts_limits', $limits, $post->ID );
 
