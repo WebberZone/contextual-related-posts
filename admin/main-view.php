@@ -148,7 +148,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="daily_range"><?php _e( 'Related posts should be newer than:', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="daily_range" id="daily_range" value="<?php echo esc_attr( stripslashes( $crp_settings['daily_range'] ) ); ?>"><?php _e( 'days', CRP_LOCAL_NAME ); ?>
-						<p class="description"><?php _e( 'This sets the cutoff period for which posts will be displayed. e.g. setting it to 365 will show related posts from the last year only.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'This sets the cutoff period for which posts will be displayed. e.g. setting it to 365 will show related posts from the last year only. Set it to 0 to disable limiting posts.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
 

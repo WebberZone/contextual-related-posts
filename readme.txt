@@ -60,7 +60,7 @@ Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">C
 == Upgrade Notice ==
 
 = 2.1.0 =
-* Separate cache for feeds; Deprecated timthumb; Bug fixes;
+* Separate cache for feeds; Deprecated timthumb; Bug fixes and new features;
 Check the Changelog for a full list of changes.
 
 
@@ -69,6 +69,7 @@ Check the Changelog for a full list of changes.
 = 2.1.0 =
 * New: Separate cache for related posts added to feeds. Prevents conflict with the cache for normal related posts
 * New: Timthumb has been deprecated
+* New: Setting "Related posts should be newer than:" to 0 to disable limiting posts by age
 * New: Filters `crp_posts_match`, `crp_posts_now_date`, `crp_posts_from_date` to modify the WHERE clause
 * Modified: `thumb_timthumb`, `thumb_timthumb_q` and `filter` attributes for the function `crp_get_the_post_thumbnail` have been deprecated. If you're using this function, an entry will be created for the deprecated log
 * Modified: Reset default thumbnail URL location to plugin default if the field is blank or only contains `/default.png`

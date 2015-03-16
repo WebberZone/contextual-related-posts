@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.0.5
+ * Version: 	2.0.6
  * Author: 		Ajay D'Souza
  * Author URI: 	http://ajaydsouza.com
  * Text Domain:	crp
@@ -410,9 +410,9 @@ function get_crp_posts_id( $args = array() ) {
 	$now = gmdate( "Y-m-d H:i:s", ( time() + ( $time_difference * 3600 ) ) );
 
 	// Limit the related posts by time
-	$daily_range = $daily_range - 1;
-	$from_date = strtotime( '-' . $daily_range . ' DAY' , strtotime( $now ) );
-	$from_date = date ( 'Y-m-d H:i:s' , $from_date );
+	$current_time = current_time( 'timestamp', 0 );
+	$from_date = $current_time - ( $daily_range * DAY_IN_SECONDS );
+	$from_date = gmdate( 'Y-m-d H:i:s' , $from_date );
 
 	// Create the SQL query to fetch the related posts from the database
 	if ( ( is_int( $post->ID ) ) && ( '' != $stuff ) ) {
@@ -448,7 +448,7 @@ function get_crp_posts_id( $args = array() ) {
 		$now_clause = apply_filters( 'crp_posts_now_date', $now_clause, $post->ID );
 
 		// Create the minimum date limit
-		$from_clause = $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );	// Show posts after the date specified
+		$from_clause = ( 0 == $daily_range ) ? '' : $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );	// Show posts after the date specified
 
 		/**
 		 * Filter the Maximum date clause of the query.
