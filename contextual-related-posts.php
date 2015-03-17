@@ -733,6 +733,18 @@ class CRP_Widget extends WP_Widget {
 			<?php _e( 'Thumbnail width', CRP_LOCAL_NAME ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'thumb_width' ); ?>" name="<?php echo $this->get_field_name( 'thumb_width' ); ?>" type="text" value="<?php echo esc_attr( $thumb_width ); ?>" />
 			</label>
 		</p>
+
+		<?php
+			/**
+			 * Fires after Contextual Related Posts widget options.
+			 *
+			 * @since 2.1.0
+			 *
+			 * @param	array	$instance	Widget options array
+			 */
+			do_action( 'crp_widget_options_after', $instance );
+		?>
+
 		<?php
 	} //ending form creation
 
@@ -783,20 +795,30 @@ class CRP_Widget extends WP_Widget {
 		if ( ( ( is_single() ) && ( ! is_single( $exclude_on_post_ids ) ) ) || ( ( is_page() ) && ( ! is_page( $exclude_on_post_ids ) ) ) ) {
 
 			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? strip_tags( str_replace( "%postname%", $post->post_title, $crp_settings['title'] ) ) : $instance['title'] );
-			$limit = $instance['limit'];
-			if ( empty( $limit ) ) $limit = $crp_settings['limit'];
+
+			$limit = isset( $instance['limit'] ) ? $instance['limit'] : $crp_settings['limit'];
+			if ( empty( $limit ) ) {
+				$limit = $crp_settings['limit'];
+			}
+
+			$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : 'text_only';
+			$thumb_height = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : $crp_settings['thumb_height'];
+			$thumb_width = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : $crp_settings['thumb_width'];
+			$show_excerpt = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
+			$show_author = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
+			$show_date = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
 
 			$output = $before_widget;
 			$output .= $before_title . $title . $after_title;
 			$output .= ald_crp( array(
 				'is_widget' => 1,
 				'limit' => $limit,
-				'show_excerpt' => $instance['show_excerpt'],
-				'show_author' => $instance['show_author'],
-				'show_date' => $instance['show_date'],
-				'post_thumb_op' => $instance['post_thumb_op'],
-				'thumb_height' => $instance['thumb_height'],
-				'thumb_width' => $instance['thumb_width'],
+				'show_excerpt' => $show_excerpt,
+				'show_author' => $show_author,
+				'show_date' => $show_date,
+				'post_thumb_op' => $post_thumb_op,
+				'thumb_height' => $thumb_height,
+				'thumb_width' => $thumb_width,
 			) );
 
 			$output .= $after_widget;

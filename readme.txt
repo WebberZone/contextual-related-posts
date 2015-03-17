@@ -75,7 +75,7 @@ Check the Changelog for a full list of changes.
 * Modified: Reset default thumbnail URL location to plugin default if the field is blank or only contains `/default.png`
 * Modified: Meta-box will no longer be displayed on non-public post types
 * Fixed: Author link was incorrectly displayed multiple times in the list when Show Author was enabled
-
+* Fixed: WP Notice Errors when using the Widget via the Customizer menu in WordPress
 
 = 2.0.1 =
 * Fixed: Clear Cache button which broke in 2.0.0
