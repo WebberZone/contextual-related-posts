@@ -482,8 +482,8 @@ if ( ! defined( 'WPINC' ) ) {
 							</label>
 							<p class="description">
 								<?php _e( 'You can choose from existing image sizes above or create a custom size. If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image.', CRP_LOCAL_NAME ); ?><br />
-								<?php _e( "If you change the width and/or height below, existing images will not be automatically resized.", CRP_LOCAL_NAME ); ?>
-								<?php printf( __( "I recommend using <a href='%s' target='_blank'>Force Regenerate Thumbnails</a> or <a href='%s' target='_blank'>Regenerate Thumbnails</a> to regenerate all image sizes.", CRP_LOCAL_NAME ), 'https://wordpress.org/plugins/force-regenerate-thumbnails/', 'https://wordpress.org/plugins/regenerate-thumbnails/' ); ?>
+								<?php _e( "If you change the width, height or crop mode below, existing images will not be automatically resized.", CRP_LOCAL_NAME ); ?>
+								<?php printf( __( "I recommend using <a href='%s' target='_blank'>OTF Regenerate Thumbnails</a> or <a href='%s' target='_blank'>Regenerate Thumbnails</a> to regenerate all image sizes.", CRP_LOCAL_NAME ), 'https://wordpress.org/plugins/otf-regenerate-thumbnails/', 'https://wordpress.org/plugins/regenerate-thumbnails/' ); ?>
 							</p>
 					</td>
 				</tr>
