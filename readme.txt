@@ -321,14 +321,19 @@ Check the Changelog for a full list of changes.
 
 5. Optionally visit the **Custom Styles** tab to add any custom CSS styles. These are added to `wp_head` on the pages where the posts are displayed
 
+
 == Screenshots ==
 
 1. CRP options in WP-Admin - General options
-2. CRP options in WP-Admin - Output options
-3. CRP options in WP-Admin - Feed options
-4. CRP options in WP-Admin - Custom styles
-5. CRP Widget
-6. Contextual Related Post metabox in the Edit Posts screen
+2. CRP options in WP-Admin - List tuning options
+3. CRP options in WP-Admin - Output options
+4. CRP options in WP-Admin - Thumbnail options
+5. CRP options in WP-Admin - Feed options
+6. CRP options in WP-Admin - Custom styles
+7. Default style of Related Posts
+8. Contextual Related Post metabox in the Edit Posts screen
+9. CRP Widget
+
 
 == Frequently Asked Questions ==
 
