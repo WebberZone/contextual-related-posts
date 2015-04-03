@@ -929,7 +929,7 @@ function crp_default_options() {
 		'show_credit' => false,		// Link to this plugin's page?
 
 		// List tuning options
-		'limit' => '5',				// How many posts to display?
+		'limit' => '6',				// How many posts to display?
 		'daily_range' => '1095',				// How old posts should be displayed?
 
 		'match_content' => true,		// Match against post content as well as title
@@ -964,14 +964,14 @@ function crp_default_options() {
 		'exclude_on_post_types' => '',		// WordPress custom post types
 
 		// Thumbnail options
-		'post_thumb_op' => 'text_only',	// Default option to display text and no thumbnails in posts
+		'post_thumb_op' => 'inline',	// Default option to display text and no thumbnails in posts
 		'thumb_size' => 'crp_thumbnail',	// Default thumbnail size
 		'thumb_height' => '150',	// Height of thumbnails
 		'thumb_width' => '150',	// Width of thumbnails
 		'thumb_crop' => true,		// Crop mode. default is hard crop
 		'thumb_html' => 'html',		// Use HTML or CSS for width and height of the thumbnail?
 		'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image
-		'scan_images' => false,			// Scan post for images
+		'scan_images' => true,			// Scan post for images
 		'thumb_default' => $thumb_default,	// Default thumbnail image
 		'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all)
 
@@ -984,7 +984,7 @@ function crp_default_options() {
 
 		// Custom styles
 		'custom_CSS' => '',			// Custom CSS to style the output
-		'include_default_style' => false,	// Include without VAT
+		'include_default_style' => true,	// Include default style
 	);
 
 
