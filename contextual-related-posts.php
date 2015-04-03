@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.0.6
+ * Version: 	2.0.7
  * Author: 		Ajay D'Souza
  * Author URI: 	http://ajaydsouza.com
  * Text Domain:	crp
@@ -788,7 +788,9 @@ class CRP_Widget extends WP_Widget {
 		global $crp_settings;
 
 		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable
-		if ( in_array( $post->post_type, $exclude_on_post_types ) ) return 0;	// Exit without adding related posts
+		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types ) ) ) {
+			return 0;	// Exit without adding related posts
+		}
 
 		$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
 
@@ -1247,7 +1249,16 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( isset( $matches[1][0] ) && $matches[1][0] ) { 			// any image there?
 			$postimage = $matches[1][0]; // we need the first one only!
 		}
-		$pick = 'first';
+		if ( $postimage ) {
+			$postimage_id = crp_get_attachment_id_from_url( $postimage );
+
+			if ( false != wp_get_attachment_image_src( $postimage_id, $crp_settings['thumb_size'] ) ) {
+				$postthumb = wp_get_attachment_image_src( $postimage_id, $crp_settings['thumb_size'] );
+				$postimage = $postthumb[0];
+			}
+			$pick = 'correct';
+		}
+		$pick .= 'first';
 	}
 
 	// If there is no thumbnail found, fetch the first child image
@@ -1362,6 +1373,45 @@ function crp_get_first_image( $postID ) {
 	} else {
 		return false;
 	}
+}
+
+
+/**
+ * Function to get the attachment ID from the attachment URL.
+ *
+ * @since 2.1
+ *
+ * @param	string	$attachment_url	Attachment URL
+ * @return	int		Attachment ID
+ */
+function crp_get_attachment_id_from_url( $attachment_url = '' ) {
+
+	global $wpdb;
+	$attachment_id = false;
+
+	// If there is no url, return.
+	if ( '' == $attachment_url ) {
+		return;
+	}
+
+	// Get the upload directory paths
+	$upload_dir_paths = wp_upload_dir();
+
+	// Make sure the upload path base directory exists in the attachment URL, to verify that we're working with a media library image
+	if ( false !== strpos( $attachment_url, $upload_dir_paths['baseurl'] ) ) {
+
+		// If this is the URL of an auto-generated thumbnail, get the URL of the original image
+		$attachment_url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $attachment_url );
+
+		// Remove the upload path base directory from the attachment URL
+		$attachment_url = str_replace( $upload_dir_paths['baseurl'] . '/', '', $attachment_url );
+
+		// Finally, run a custom database query to get the attachment ID from the modified attachment URL
+		$attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = '%s' AND wposts.post_type = 'attachment'", $attachment_url ) );
+
+	}
+
+	return apply_filters( 'crp_get_attachment_id_from_url', $attachment_id, $attachment_url );
 }
 
 
