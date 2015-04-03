@@ -1236,7 +1236,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	// If there is no thumbnail found, check the post thumbnail
 	if ( ! $postimage ) {
-		if ( ( false != wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ) ) ) ) {
+		if ( false != get_post_thumbnail_id( $result->ID ) )  {
 			$postthumb = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), $crp_settings['thumb_size'] );
 			$postimage = $postthumb[0];
 		}

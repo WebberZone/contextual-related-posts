@@ -77,6 +77,7 @@ Check the Changelog for a full list of changes.
 * Modified: For first image, the plugin will attempt to seek the correct thumbnail size if available
 * Fixed: Author link was incorrectly displayed multiple times in the list when Show Author was enabled
 * Fixed: WP Notice Errors when using the Widget via the Customizer menu in WordPress
+* Fixed: Incorrect thumbnail was pulled on attachment pages
 
 = 2.0.1 =
 * Fixed: Clear Cache button which broke in 2.0.0
