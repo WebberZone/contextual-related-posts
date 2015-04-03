@@ -53,9 +53,8 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 = Translations =
 Contextual Related Posts is now on Transifex ready for translation courtesy the <a href="http://wp-translations.org/translators-wp-translations/">WP Translations</a>. WP-Translations is the place where you will find a number of WordPress amazing Plugins and Themes to make them available in your home language. In exchange you will receive credit for your work and will certainly make part of the WP community history in your country.
 
-If you're a translator, do consider joining the Wp Translations team.
+If you're a translator, do consider joining the Wp Translations team and translate <a href="https://www.transifex.com/projects/p/contextual-related-posts/">Contextual Related Posts on Transifex</a>.
 
-Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">Contextual Related Posts on Transifex</a>.
 
 == Upgrade Notice ==
 

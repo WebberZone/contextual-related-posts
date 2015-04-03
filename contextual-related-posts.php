@@ -1411,6 +1411,14 @@ function crp_get_attachment_id_from_url( $attachment_url = '' ) {
 
 	}
 
+	/**
+	 * Filters attachment ID generated from URL.
+	 *
+	 * @since	2.1
+	 *
+	 * @param	int		$attachment_id	Attachment ID
+	 * @param	string	$attachment_url	Attachment URL
+	 */
 	return apply_filters( 'crp_get_attachment_id_from_url', $attachment_id, $attachment_url );
 }
 
@@ -1533,6 +1541,14 @@ function crp_get_all_image_sizes( $size = '' ) {
 			return false;
         }
     }
+
+	/**
+	 * Filters array of image sizes.
+	 *
+	 * @since	2.0
+	 *
+	 * @param	array	$sizes	Image sizes
+	 */
 	return apply_filters( 'crp_get_all_image_sizes', $sizes );
 }
 
