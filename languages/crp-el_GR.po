@@ -1,77 +1,81 @@
+#
+# Translators:
+# evigiannakou <evigian@in.gr>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: Contextual Related Posts 1.5.1\n"
+"Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 20:33-0000\n"
-"PO-Revision-Date: \n"
+"POT-Creation-Date: 2015-04-03 20:39-0000\n"
+"PO-Revision-Date: 2015-04-03 20:39-0000\n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
-"Language-Team: Team Blogos <wordpress@blogos.dk>\n"
-"Language: da_DK\n"
+"Language-Team: Greek (http://www.transifex.com/projects/p/contextual-related-"
+"posts/language/el/)\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2;plural=n != 1;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_c;_e;__ngettext:1,2;__ngettext_noop:1,2;_n:1,2;"
-"_nc:1,2;_n_noop:1,2\n"
-"X-Poedit-Basepath: ../\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.1\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: admin/admin.php:165
 msgid "Options saved successfully."
-msgstr "Indstillingerne blev gemt."
+msgstr "Οι επιλογές αποθηκεύτηκαν επιτυχώς."
 
 #: admin/admin.php:185
 msgid "Options set to Default."
-msgstr "Indstillingerne sat til standardværdier."
+msgstr "Οι επιλογές ορίστηκαν ως Προεπιλογή."
 
 #: admin/admin.php:196
 msgid "Index recreated"
-msgstr "Indeks blev gendannet"
+msgstr ""
 
 #: admin/admin.php:213 admin/admin.php:440 admin/main-view.php:20
-#, fuzzy
 msgid "Contextual Related Posts"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr "Άρθρα Σχετικά με το Περιεχόμενο"
 
 #: admin/admin.php:214
 msgid "Related Posts"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr "Σχετικά Άρθρα"
 
 #: admin/admin.php:325
 msgid "Settings"
-msgstr "Opsætning"
+msgstr "Ρυθμίσεις"
 
 #: admin/admin.php:347 admin/sidebar-view.php:59
 msgid "Support"
-msgstr "Support"
+msgstr "Υποστήριξη"
 
 #: admin/admin.php:348
 msgid "Donate"
-msgstr "Donation"
+msgstr "Δωρεά"
 
 #: admin/admin.php:349
 msgid "Contribute"
-msgstr ""
+msgstr "Συνεισφορά"
 
 #: admin/admin.php:365
 msgid "plugin settings page"
-msgstr ""
+msgstr "σελίδα ρυθμίσεων προσθέτου"
 
 #: admin/admin.php:409
 msgid ""
 "An error occurred clearing the cache. Please contact your site administrator."
 "\\n\\nError message:\\n"
 msgstr ""
+"Προέκυψε σφάλμα κατά τον καθαρισμό των προσωρινών αρχείων. Παρακαλώ "
+"επικοινωνήστε με το διαχειριστή του ιστότοπου σας.\\n\\nΜήνυμα σφάλματος:\\n"
 
 #: admin/admin.php:414
 msgid " cached row(s) cleared"
-msgstr ""
+msgstr "οι σειρά(ές) προσωρινών δεδομένων καθαρίστηκαν"
 
 #: admin/admin.php:467
 msgid "Location of thumbnail:"
-msgstr ""
+msgstr "Τοποθεσία μικρογραφίας:"
 
 #: admin/admin.php:469
 msgid ""
@@ -86,31 +90,28 @@ msgstr ""
 
 #: admin/main-view.php:32 admin/main-view.php:54
 msgid "General options"
-msgstr ""
+msgstr "Γενικές επιλογές"
 
 #: admin/main-view.php:33 admin/main-view.php:125
 msgid "List tuning options"
 msgstr ""
 
 #: admin/main-view.php:34 admin/main-view.php:229
-#, fuzzy
 msgid "Output options"
-msgstr "Indstillinger for output:"
+msgstr ""
 
 #: admin/main-view.php:35 admin/main-view.php:421
 #: contextual-related-posts.php:718
-#, fuzzy
 msgid "Thumbnail options"
-msgstr "Indstillinger for indlægsminiaturer:"
+msgstr "Επιλογές μικρογραφιών"
 
 #: admin/main-view.php:36 admin/main-view.php:565
-#, fuzzy
 msgid "Feed options"
-msgstr "Indstillinger:"
+msgstr "Επιλογές καναλιού"
 
 #: admin/main-view.php:37 admin/main-view.php:637
 msgid "Custom styles"
-msgstr ""
+msgstr "Στυλ συνδέσμου"
 
 #: admin/main-view.php:70
 msgid "Cache output?"
@@ -121,55 +122,52 @@ msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
 msgstr ""
+"Ενεργοποιώντας αυτή την επιλογή θα αποθηκεύσετε προσωρινά τα δεδομένα των "
+"σχετικών άρθρων όταν το άρθρο επισκέπτεται για πρώτη φορά. Τα προσωρινά "
+"δεδομένα καθαρίζονται όταν αποθηκεύετε αυτή τη σελίδα."
 
 #: admin/main-view.php:73
 msgid "Clear cache"
-msgstr ""
+msgstr "Καθαρισμός προσωρινών αρχείων"
 
 #: admin/main-view.php:77
-#, fuzzy
 msgid "Add related posts to:"
-msgstr "Tilføj Lignende indlæg til feeds"
+msgstr "Προσθήκη σχετικών άρθρων σε:"
 
 #: admin/main-view.php:79
 msgid "Posts"
-msgstr ""
+msgstr "Άρθρα"
 
 #: admin/main-view.php:80
 msgid "Pages"
-msgstr ""
+msgstr "Σελίδες"
 
 #: admin/main-view.php:81
 msgid "Home page"
-msgstr ""
+msgstr "Αρχική σελίδα"
 
 #: admin/main-view.php:82
 msgid "Feeds"
-msgstr ""
+msgstr "Κανάλια"
 
 #: admin/main-view.php:83
 msgid "Category archives"
-msgstr ""
+msgstr "Αρχεία κατηγορίας"
 
 #: admin/main-view.php:84
 msgid "Tag archives"
-msgstr ""
+msgstr "Αρχεία ετικέτας"
 
 #: admin/main-view.php:85
 msgid "Other archives"
-msgstr ""
+msgstr "Άλλα αρχεία"
 
 #: admin/main-view.php:86
-#, fuzzy
 msgid ""
 "If you choose to disable this, please add <code>&lt;?php if "
 "( function_exists( 'echo_ald_crp' ) ) echo_ald_crp(); ?&gt;</code> to your "
 "template file where you want it displayed"
 msgstr ""
-"Tilføj Lignende indlæg til statiske sider. <br />Hvis du vælger at "
-"deaktivere dette, skal du tilføje <code>&lt;?php "
-"if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> til din "
-"skabelonfil, hvor du ønsker de lignende indlæg vist"
 
 #: admin/main-view.php:90
 msgid "Content filter priority:"
@@ -182,44 +180,43 @@ msgid ""
 msgstr ""
 
 #: admin/main-view.php:97
-#, fuzzy
 msgid "Tell the world you're using Contextual Related Posts:"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr ""
 
 #: admin/main-view.php:99
 msgid " <em>Optional</em>"
-msgstr ""
+msgstr "<em>Προαιρετικό</em>"
 
 #: admin/main-view.php:100
-#, fuzzy
 msgid ""
 "Adds a nofollow link to Contextual Related Posts homepage as the last time "
 "in the list."
-msgstr "Related Posts (Lignende indlæg)"
+msgstr ""
 
 #: admin/main-view.php:118 admin/main-view.php:222 admin/main-view.php:414
 #: admin/main-view.php:558 admin/main-view.php:630 admin/main-view.php:693
-#, fuzzy
 msgid "Save Options"
-msgstr "Indstillinger:"
+msgstr "Αποθήκευση επιλογών"
 
 #: admin/main-view.php:141 admin/main-view.php:583
 msgid "Number of related posts to display: "
-msgstr "Antal Lignende indlæg, der skal vises: "
+msgstr "Αριθμός σχετικών άρθρων για προβολή:"
 
 #: admin/main-view.php:144
 msgid ""
 "Maximum number of posts that will be displayed. The actual number may be "
 "smaller if less related posts are found."
 msgstr ""
+"Ο μέγιστος αριθμός άρθρων που θα προβάλλονται. Ο πραγματικός αριθμός ίσως "
+"είναι μικρότερος αν βρεθούν λιγότερα σχετικά άρθρα."
 
 #: admin/main-view.php:148
 msgid "Related posts should be newer than:"
-msgstr ""
+msgstr "Τα σχετικά άρθρα να είναι νεότερα από:"
 
 #: admin/main-view.php:150
 msgid "days"
-msgstr ""
+msgstr "ημέρες "
 
 #: admin/main-view.php:151
 msgid ""
@@ -230,49 +227,51 @@ msgstr ""
 
 #: admin/main-view.php:155
 msgid "Find related posts based on content as well as title:"
-msgstr ""
+msgstr "Εύρεση σχετικών άρθρων με βάσει το περιεχόμενο καθώς και τον τίτλο:"
 
 #: admin/main-view.php:157
-#, fuzzy
 msgid ""
 "If unchecked, only posts titles are used. I recommend using a caching plugin "
 "or enabling \"Cache output\" above if you enable this."
 msgstr ""
-"Find Lignende indlæg ud fra såvel indhold som titel. Hvis umarkeret, bruges "
-"kun indlæggenes titler (jeg anbefaler et cache-plugin, hvis du aktiverer "
-"dette)"
 
 #: admin/main-view.php:161
 msgid "Limit content to be compared"
-msgstr ""
+msgstr "Όριο περιεχομένου για σύγκριση"
 
 #: admin/main-view.php:163
 msgid ""
 "This sets the maximum words of the content that will be matched. 0 means no "
 "limit."
 msgstr ""
+"Αυτό ορίζει το μέγιστο αριθμό λέξεων του περιεχομένου που θα αντιστοιχηθούν. "
+"Το 0 σημαίνει χωρίς όριο."
 
 #: admin/main-view.php:167
 msgid "Post types to include in results:"
-msgstr ""
+msgstr "Τύποι άρθρων που θα περιληφθούν στα αποτελέσματα:"
 
 #: admin/main-view.php:178
 msgid ""
 "These post types will be displayed in the list. Includes custom post types."
 msgstr ""
+"Αυτοί οι τύποι άρθρων θα προβάλλονται στον κατάλογο. Περιλαμβάνει "
+"προσαρμοσμένους τύπους άρθρων."
 
 #: admin/main-view.php:182
 msgid "List of post or page IDs to exclude from the results:"
-msgstr ""
+msgstr "Κατάλογος ID άρθρων ή σελίδων για να αποκλείσετε από τα αποτελέσματα:"
 
 #: admin/main-view.php:184 admin/main-view.php:343
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
 msgstr ""
+"Διαχωρισμένος με κόμμα κατάλογος ID άρθρων, σελίδων ή προσαρμοσμένου τύπου "
+"άρθρων. π.χ. 188,320,500"
 
 #: admin/main-view.php:188
 msgid "Categories to exclude from the results: "
-msgstr ""
+msgstr "Κατηγορίες για να αποκλειστούν από τα αποτελέσματα:"
 
 #: admin/main-view.php:204
 msgid ""
@@ -283,7 +282,7 @@ msgstr ""
 
 #: admin/main-view.php:245
 msgid "Title of related posts: "
-msgstr "Titel på Lignende indlæg: "
+msgstr ""
 
 #: admin/main-view.php:248
 msgid ""
@@ -294,19 +293,19 @@ msgstr ""
 
 #: admin/main-view.php:252
 msgid "When there are no posts, what should be shown?"
-msgstr "Hvad skal der vises, hvis der ingen indlæg er?"
+msgstr ""
 
 #: admin/main-view.php:256
 msgid "Blank Output"
-msgstr "Intet"
+msgstr ""
 
 #: admin/main-view.php:260
 msgid "Display:"
-msgstr ""
+msgstr "Προβολή:"
 
 #: admin/main-view.php:265 admin/main-view.php:586
 msgid "Show post excerpt in list?"
-msgstr ""
+msgstr "Προβολή αποσπασμάτων άρθρων σε κατάλογο;"
 
 #: admin/main-view.php:268
 #, php-format
@@ -322,7 +321,7 @@ msgstr ""
 
 #: admin/main-view.php:278
 msgid "Show post author in list?"
-msgstr ""
+msgstr "Προβολή συντάκτη άρθρου σε κατάλογο;"
 
 #: admin/main-view.php:281
 msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
@@ -330,17 +329,19 @@ msgstr ""
 
 #: admin/main-view.php:285
 msgid "Show post date in list?"
-msgstr ""
+msgstr "Προβολή ημερομηνίας άρθρου σε κατάλογο;"
 
 #: admin/main-view.php:288
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options"
 msgstr ""
+"Προβάλλει την ημερομηνία του άρθρου. Χρησιμοποιεί την ίδια μορφοποίηση "
+"ημερομηνίας που ορίστηκε στις Γενικές Επιλογές"
 
 #: admin/main-view.php:292
 msgid "Limit post title length (in characters)"
-msgstr ""
+msgstr "Όριο μήκους τίτλου άρθρου (σε χαρακτήρες)"
 
 #: admin/main-view.php:295
 msgid ""
@@ -350,7 +351,7 @@ msgstr ""
 
 #: admin/main-view.php:299
 msgid "Open links in new window"
-msgstr ""
+msgstr "Άνοιγμα συνδέσμων σε νέο παράθυρο"
 
 #: admin/main-view.php:305
 msgid "Add nofollow attribute to links in the list"
@@ -358,64 +359,62 @@ msgstr ""
 
 #: admin/main-view.php:338
 msgid "Exclusion settings:"
-msgstr ""
+msgstr "Ρυθμίσεις αποκλεισμού:"
 
 #: admin/main-view.php:340
-#, fuzzy
 msgid "Exclude display of related posts on these posts / pages"
-msgstr "Tilføj Lignende indlæg til feeds"
+msgstr "Αποκλεισμός προβολής σχετικών άρθρων σε αυτά τα άρθρα / σελίδες"
 
 #: admin/main-view.php:346
-#, fuzzy
 msgid "Exclude display of related posts on these post types."
-msgstr "Tilføj Lignende indlæg til feeds"
+msgstr "Αποκλεισμός προβολής σχετικών άρθρων σε αυτούς τους τύπους άρθρων."
 
 #: admin/main-view.php:355
 msgid ""
 "The related posts will not display on any of the above selected post types"
 msgstr ""
+"Τα σχετικά άρθρα δε θα προβάλλονται σε κανέναν από τους παραπάνω "
+"επιλεγμένους τύπους άρθρων"
 
 #: admin/main-view.php:385
 msgid "Customize the output:"
-msgstr "Tilpas outputtet:"
+msgstr ""
 
 #: admin/main-view.php:387
 msgid "HTML to display before the list of posts: "
-msgstr "HTML, der skal vises før listen med indlæg: "
+msgstr "HTML για προβολή πριν τον κατάλογο άρθρων:"
 
 #: admin/main-view.php:390
 msgid "HTML to display before each list item: "
-msgstr "HTML, der skal vises før hvert punkt på listen: "
+msgstr "HTML για προβολή πριν από κάθε στοιχείο καταλόγου:"
 
 #: admin/main-view.php:393
 msgid "HTML to display after each list item: "
-msgstr "HTML, der skal vises efter hvert punkt på listen: "
+msgstr "HTML για προβολή μετά από κάθε στοιχείο καταλόγου:"
 
 #: admin/main-view.php:396
 msgid "HTML to display after the list of posts: "
-msgstr "HTML, der skal vises efter listen med indlæg: "
+msgstr "HTML για προβολή μετά τον κατάλογο άρθρων:"
 
 #: admin/main-view.php:437 admin/main-view.php:589
 msgid "Location of post thumbnail:"
-msgstr ""
+msgstr "Τοποθεσία μικρογραφίας άρθρου:"
 
 #: admin/main-view.php:441 admin/main-view.php:593
-#, fuzzy
 msgid "Display thumbnails inline with posts, before title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "Προβολή μικρογραφιών σε σειρά με τα άρθρα, πριν τον τίτλο"
 
 #: admin/main-view.php:445 admin/main-view.php:597
-#, fuzzy
 msgid "Display thumbnails inline with posts, after title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "Προβολή μικρογραφιών σε σειρά με τα άρθρα, μετά τον τίτλο"
 
 #: admin/main-view.php:449 admin/main-view.php:601
 msgid "Display only thumbnails, no text"
-msgstr "Vis kun miniaturer, ingen tekst"
+msgstr "Προβολή μόνο μικρογραφιών, όχι κείμενο"
 
 #: admin/main-view.php:453 admin/main-view.php:605
 msgid "Do not display thumbnails, only text."
-msgstr "Vis ikke miniaturer, kun tekst."
+msgstr "Όχι προβολή μικρογραφιών, μόνο κείμενο."
 
 #: admin/main-view.php:457
 msgid "Thumbnail size:"
@@ -462,7 +461,7 @@ msgstr ""
 
 #: admin/main-view.php:501
 msgid "Crop mode:"
-msgstr ""
+msgstr "Περικοπή:"
 
 #: admin/main-view.php:505
 msgid ""
@@ -488,9 +487,8 @@ msgid "HTML width and height attributes are used for width and height."
 msgstr ""
 
 #: admin/main-view.php:522
-#, fuzzy
 msgid "Post thumbnail meta field name:"
-msgstr "Indstillinger for indlægsminiaturer:"
+msgstr ""
 
 #: admin/main-view.php:524
 msgid ""
@@ -510,7 +508,7 @@ msgstr ""
 
 #: admin/main-view.php:532
 msgid "Use default thumbnail?"
-msgstr ""
+msgstr "Χρήση προεπιλεγμένης μικρογραφίας;"
 
 #: admin/main-view.php:534
 msgid ""
@@ -519,20 +517,15 @@ msgid ""
 msgstr ""
 
 #: admin/main-view.php:537
-#, fuzzy
 msgid "Default thumbnail:"
-msgstr "Indstillinger for output:"
+msgstr ""
 
 #: admin/main-view.php:540
-#, fuzzy
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
 "then it will check the meta field. If this is not available, then it will "
 "show the default image as specified above."
 msgstr ""
-"Pluginnet tjekker først, om indlægget indeholder en miniature. Hvis "
-"indlægget ikke gør det, tjekker pluginnet metafeltet. Hvis dette ikke "
-"findes, vil det vise standardbilledet specificeret nedenfor:"
 
 #: admin/main-view.php:581
 msgid ""
@@ -543,15 +536,15 @@ msgstr ""
 
 #: admin/main-view.php:609
 msgid "Maximum width of the thumbnail: "
-msgstr ""
+msgstr "Μέγιστο πλάτος της μικρογραφίας:"
 
 #: admin/main-view.php:612
 msgid "Maximum height of the thumbnail: "
-msgstr ""
+msgstr "Μέγιστο ύψος της μικρογραφίας:"
 
 #: admin/main-view.php:653
 msgid "Use default style included in the plugin?"
-msgstr ""
+msgstr "Χρήση του προεπιλεγμένου στυλ που περιλαμβάνεται στο πρόσθετο;"
 
 #: admin/main-view.php:656
 msgid ""
@@ -569,7 +562,7 @@ msgstr ""
 
 #: admin/main-view.php:660
 msgid "Custom CSS to add to header:"
-msgstr ""
+msgstr "Σύνδεσμος CSS για προσθήκη στην επικεφαλίδα:"
 
 #: admin/main-view.php:664
 msgid ""
@@ -579,13 +572,12 @@ msgid ""
 msgstr ""
 
 #: admin/main-view.php:694
-#, fuzzy
 msgid "Default Options"
-msgstr "Indstillinger for output:"
+msgstr "Προεπιλεγμένες Επιλογές "
 
 #: admin/main-view.php:694
 msgid "Do you want to set options to Default?"
-msgstr "Ønsker du at sætte indstillingerne til standardværdierne?"
+msgstr "Θέλετε να ορίσετε τις επιλογές ως Προεπιλογές;"
 
 #: admin/main-view.php:695
 msgid "Recreate Index"
@@ -593,17 +585,15 @@ msgstr ""
 
 #: admin/main-view.php:695
 msgid "Are you sure you want to recreate the index?"
-msgstr "Er du sikker på, du ønsker at gendanne indekset?"
+msgstr ""
 
 #: admin/sidebar-view.php:20
-#, fuzzy
 msgid "Support the development"
-msgstr "Støt udviklingen"
+msgstr ""
 
 #: admin/sidebar-view.php:27
-#, fuzzy
 msgid "Donation for Contextual Related Posts"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr ""
 
 #: admin/sidebar-view.php:29
 msgid "Enter amount in USD:"
@@ -611,7 +601,7 @@ msgstr ""
 
 #: admin/sidebar-view.php:33
 msgid "Send your donation to the author of"
-msgstr ""
+msgstr "Αποστολή της δωρεάς σας στον συντάκτη του"
 
 #: admin/sidebar-view.php:41
 msgid "Follow me"
@@ -622,25 +612,24 @@ msgid "Quick links"
 msgstr ""
 
 #: admin/sidebar-view.php:57
-#, fuzzy
 msgid "Contextual Related Posts plugin page"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr ""
 
 #: admin/sidebar-view.php:58
 msgid "FAQ"
-msgstr ""
+msgstr "Κοινές απορίες"
 
 #: admin/sidebar-view.php:60
 msgid "Reviews"
-msgstr ""
+msgstr "Κριτικές"
 
 #: admin/sidebar-view.php:61
 msgid "Github repository"
-msgstr ""
+msgstr "Αποθετήριο Github"
 
 #: admin/sidebar-view.php:62
 msgid "Other plugins"
-msgstr ""
+msgstr "Άλλα πρόσθετα"
 
 #: admin/sidebar-view.php:63
 msgid "Ajay's blog"
@@ -656,73 +645,64 @@ msgid "Powered by <a href=\"%s\" rel=\"nofollow\">Contextual Related Posts</a>"
 msgstr ""
 
 #: contextual-related-posts.php:670
-#, fuzzy
 msgid "Related Posts [CRP]"
-msgstr "Related Posts (Lignende indlæg)"
+msgstr "Σχετικά Άρθρα [CRP]"
 
 #: contextual-related-posts.php:671
-#, fuzzy
 msgid "Display Related Posts"
-msgstr "Vis \"Ingen lignende indlæg\""
+msgstr "Προβολή Σχετικών Άρθρων"
 
 #: contextual-related-posts.php:694
 msgid "Title"
-msgstr ""
+msgstr "Τίτλος:"
 
 #: contextual-related-posts.php:699
 msgid "No. of posts"
-msgstr ""
+msgstr "Αρ. άρθρων"
 
 #: contextual-related-posts.php:704
 msgid " Show excerpt?"
-msgstr ""
+msgstr "Προβολή αποσπασμάτων;"
 
 #: contextual-related-posts.php:709
 msgid " Show author?"
-msgstr ""
+msgstr "Προβολή συντάκτη;"
 
 #: contextual-related-posts.php:714
 msgid " Show date?"
-msgstr ""
+msgstr "Προβολή ημερομηνίας;"
 
 #: contextual-related-posts.php:720
-#, fuzzy
 msgid "Thumbnails inline, before title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "Μικρογραφίες σε σειρά, πριν τον τίτλο"
 
 #: contextual-related-posts.php:721
-#, fuzzy
 msgid "Thumbnails inline, after title"
-msgstr "Vis miniaturer inline med indlæg"
+msgstr "Μικρογραφίες σε σειρά, μετά τον τίτλο"
 
 #: contextual-related-posts.php:722
-#, fuzzy
 msgid "Only thumbnails, no text"
-msgstr "Vis kun miniaturer, ingen tekst"
+msgstr "Μόνο μικρογραφίες, όχι κείμενο."
 
 #: contextual-related-posts.php:723
-#, fuzzy
 msgid "No thumbnails, only text."
-msgstr "Vis ikke miniaturer, kun tekst."
+msgstr "Όχι μικρογραφίες, μόνο κείμενο."
 
 #: contextual-related-posts.php:728
-#, fuzzy
 msgid "Thumbnail height"
-msgstr "Indstillinger for indlægsminiaturer:"
+msgstr "Ύψος μικρογραφίας "
 
 #: contextual-related-posts.php:733
-#, fuzzy
 msgid "Thumbnail width"
-msgstr "Indstillinger for indlægsminiaturer:"
+msgstr "Πλάτος μικρογραφίας "
 
 #: contextual-related-posts.php:897
 msgid "<h3>Related Posts:</h3>"
-msgstr "<h3>Lignende indlæg:</h3>"
+msgstr "<h3>Σχετικά Άρθρα:</h3>"
 
 #: contextual-related-posts.php:899
-#, fuzzy
 msgid "No related posts found"
-msgstr "Ingen lignende indlæg fundet"
+msgstr "Δεν βρέθηκαν σχετικά άρθρα."
 
 #: contextual-related-posts.php:1211
 msgid "thumb_timthumb argument has been deprecated"
@@ -737,44 +717,21 @@ msgid "filter argument has been deprecated"
 msgstr ""
 
 #~ msgid "Post thumbnail options:"
-#~ msgstr "Indstillinger for indlægsminiaturer:"
-
-#~ msgid "Display \"No Related Posts\""
-#~ msgstr "Vis \"Ingen lignende indlæg\""
-
-#~ msgid "Exclude Categories: "
-#~ msgstr "Udelad kategorier: "
-
-#~ msgid "Exclude Pages in Related Posts"
-#~ msgstr "Udelad sider i Lignende indlæg"
+#~ msgstr "Επιλογές μικρογραφιών άρθρου:"
 
 #~ msgid ""
-#~ "Add related posts to the post content on single posts. <br />If you "
-#~ "choose to disable this, please add <code>&lt;?php "
-#~ "if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> to your "
-#~ "template file where you want it displayed"
+#~ "If you change the width and/or height below, existing images will not be "
+#~ "automatically resized."
 #~ msgstr ""
-#~ "Tilføj Lignende indlæg til indlæggenes indhold i enkelt-indlæg. <br /"
-#~ ">Hvis du vælger at deaktivere dette, skal du tilføje <code>&lt;?php "
-#~ "if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code> til din "
-#~ "skabelonfil, hvor du ønsker de lignende indlæg vist"
+#~ "Αν αλλάξετε το πλάτος και/ή το ύψος παρακάτω, δε θα αλλάξει αυτόματα το "
+#~ "μέγεθος των υπάρχουσων εικόνων."
 
 #~ msgid ""
-#~ "Post thumbnail meta field (the meta should point contain the image "
-#~ "source): "
+#~ "I recommend using <a href='%s' target='_blank'>Force Regenerate "
+#~ "Thumbnails</a> to regenerate all image sizes."
 #~ msgstr ""
-#~ "Metafelt for indlægsminiaturer (metafeltet skal indeholde URL&#39;en til "
-#~ "billedet): "
+#~ "Συστήνω τη χρήση <a href='%s' target='_blank'>Force Regenerate "
+#~ "Thumbnails</a> για να ανανεώσετε όλα τα μεγέθη εικόνων."
 
-#~ msgid "Thumbnail dimensions:"
-#~ msgstr "Miniaturedimensioner:"
-
-#~ msgid "Max width: "
-#~ msgstr "Max bredde: "
-
-#~ msgid "Max height: "
-#~ msgstr "Max højde: "
-
-#, fuzzy
-#~ msgid "Support forum"
-#~ msgstr "Support"
+#~ msgid "Maximum width of the thumbnail:"
+#~ msgstr "Μέγιστο πλάτος μικρογραφίας:"

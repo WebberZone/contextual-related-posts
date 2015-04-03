@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-09-04 20:42-0000\n"
+"POT-Creation-Date: 2015-04-03 20:31-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: \n"
@@ -12,290 +12,152 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext\n"
 "X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.6.9\n"
+"X-Generator: Poedit 1.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/admin.php:161
+#: admin/admin.php:165
 msgid "Options saved successfully."
 msgstr "成功保存设置。"
 
-#: admin/admin.php:181
+#: admin/admin.php:185
 msgid "Options set to Default."
 msgstr "已重置设置。"
 
-#: admin/admin.php:192
+#: admin/admin.php:196
 msgid "Index recreated"
 msgstr "已重新创建索引"
 
-#: admin/admin.php:209 admin/admin.php:419 admin/main-view.php:20
+#: admin/admin.php:213 admin/admin.php:440 admin/main-view.php:20
 msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin/admin.php:210
+#: admin/admin.php:214
 msgid "Related Posts"
 msgstr "相关日志"
 
-#: admin/admin.php:321
+#: admin/admin.php:325
 msgid "Settings"
 msgstr "设置"
 
-#: admin/admin.php:343 admin/sidebar-view.php:58
+#: admin/admin.php:347 admin/sidebar-view.php:59
 msgid "Support"
 msgstr "技术支持"
 
-#: admin/admin.php:344
+#: admin/admin.php:348
 msgid "Donate"
 msgstr "捐赠"
 
-#: admin/admin.php:345
+#: admin/admin.php:349
 msgid "Contribute"
 msgstr ""
 
-#: admin/admin.php:361
+#: admin/admin.php:365
 msgid "plugin settings page"
 msgstr "插件设置页面"
 
-#: admin/admin.php:395
+#: admin/admin.php:409
 msgid ""
 "An error occurred clearing the cache. Please contact your site administrator."
 "\\n\\nError message:\\n"
 msgstr ""
 
-#: admin/admin.php:400
+#: admin/admin.php:414
 msgid " cached row(s) cleared"
 msgstr ""
 
-#: admin/admin.php:446
+#: admin/admin.php:467
 #, fuzzy
 msgid "Location of thumbnail:"
 msgstr "日志缩略图位置："
 
-#: admin/admin.php:448
+#: admin/admin.php:469
 msgid ""
 "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
 "image will be used for the post. It will be resized to the thumbnail size "
 "set under Settings &raquo; Related Posts &raquo; Output Options"
 msgstr ""
 
-#: admin/admin.php:449
+#: admin/admin.php:470
 msgid "The URL above is saved in the meta field: "
 msgstr ""
 
-#: admin/main-view.php:32 admin/main-view.php:51
+#: admin/main-view.php:32 admin/main-view.php:54
 msgid "General options"
 msgstr "一般设置"
 
-#: admin/main-view.php:33 admin/main-view.php:60
+#: admin/main-view.php:33 admin/main-view.php:125
+msgid "List tuning options"
+msgstr ""
+
+#: admin/main-view.php:34 admin/main-view.php:229
 #, fuzzy
 msgid "Output options"
 msgstr "显示设置"
 
-#: admin/main-view.php:34 admin/main-view.php:69
+#: admin/main-view.php:35 admin/main-view.php:421
+#: contextual-related-posts.php:718
+msgid "Thumbnail options"
+msgstr "缩略图设置："
+
+#: admin/main-view.php:36 admin/main-view.php:565
 #, fuzzy
 msgid "Feed options"
 msgstr "一般设置"
 
-#: admin/main-view.php:35 admin/main-view.php:77
+#: admin/main-view.php:37 admin/main-view.php:637
 #, fuzzy
 msgid "Custom styles"
 msgstr "自定义样式"
 
-#: admin/main-view.php:95
-msgid "Save Options"
-msgstr "保存设置"
-
-#: admin/main-view.php:96
-msgid "Default Options"
-msgstr "默认设置"
-
-#: admin/main-view.php:96
-msgid "Do you want to set options to Default?"
-msgstr "是否要重置设置？"
-
-#: admin/main-view.php:97
-msgid "Recreate Index"
-msgstr "重建索引"
-
-#: admin/main-view.php:97
-msgid "Are you sure you want to recreate the index?"
-msgstr "是否要重建索引？"
-
-#: admin/options-custom-styles.php:32
-msgid "Use default style included in the plugin?"
-msgstr ""
-
-#: admin/options-custom-styles.php:35
-msgid ""
-"Contextual Related Posts includes a default style that makes your popular "
-"posts list to look beautiful. Check the box above if you want to use this."
-msgstr ""
-
-#: admin/options-custom-styles.php:36
-msgid ""
-"Enabling this option will turn on the thumbnails and set their width and "
-"height to 150px. It will also turn off the display of the author, excerpt "
-"and date if already enabled. Disabling this option will not revert any "
-"settings."
-msgstr ""
-
-#: admin/options-custom-styles.php:39
-msgid "Custom CSS to add to header:"
-msgstr "添加自定义 CSS 到 header："
-
-#: admin/options-custom-styles.php:43
-#, fuzzy
-msgid ""
-"Do not include <code>style</code> tags. Check out the <a href=\"http://"
-"wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
-"\">FAQ</a> for available CSS classes to style."
-msgstr ""
-"不要使用 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/"
-"extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
-
-#: admin/options-feed.php:32
-msgid ""
-"Below options override the related posts settings for your blog feed. These "
-"only apply if you have selected to add related posts to Feeds in the General "
-"Options tab."
-msgstr ""
-
-#: admin/options-feed.php:34 admin/options-genops.php:39
-msgid "Number of related posts to display: "
-msgstr "相关日志数量："
-
-#: admin/options-feed.php:37 admin/options-output.php:52
-msgid "Show post excerpt in list?"
-msgstr "是否显示日志摘要？"
-
-#: admin/options-feed.php:40 admin/options-output.php:239
-msgid "Location of post thumbnail:"
-msgstr "日志缩略图位置："
-
-#: admin/options-feed.php:44 admin/options-output.php:243
-msgid "Display thumbnails inline with posts, before title"
-msgstr "在标题前显示缩略图"
-
-#: admin/options-feed.php:48 admin/options-output.php:247
-msgid "Display thumbnails inline with posts, after title"
-msgstr "在标题后显示缩略图"
-
-#: admin/options-feed.php:52 admin/options-output.php:251
-msgid "Display only thumbnails, no text"
-msgstr "不显示文本，只显示缩略图"
-
-#: admin/options-feed.php:56 admin/options-output.php:255
-msgid "Do not display thumbnails, only text."
-msgstr "不显示缩略图，只显示文本"
-
-#: admin/options-feed.php:60
-msgid "Maximum width of the thumbnail: "
-msgstr "缩略图最大宽度"
-
-#: admin/options-feed.php:63 admin/options-output.php:270
-msgid "Maximum height of the thumbnail: "
-msgstr "缩略图最大高度"
-
-#: admin/options-genops.php:32
+#: admin/main-view.php:70
 msgid "Cache output?"
 msgstr ""
 
-#: admin/options-genops.php:34
+#: admin/main-view.php:72
 msgid ""
 "Enabling this option will cache the related posts output when the post is "
 "visited the first time. The cache is cleaned when you save this page."
 msgstr ""
 
-#: admin/options-genops.php:35
+#: admin/main-view.php:73
 msgid "Clear cache"
 msgstr ""
 
-#: admin/options-genops.php:42
-msgid ""
-"Maximum number of posts that will be displayed. The actual number may be "
-"smaller if less related posts are found."
-msgstr ""
-
-#: admin/options-genops.php:46
-msgid "Related posts should be newer than:"
-msgstr ""
-
-#: admin/options-genops.php:48
-msgid "days"
-msgstr ""
-
-#: admin/options-genops.php:49
-msgid ""
-"This sets the cutoff period for which posts will be displayed. e.g. setting "
-"it to 365 will show related posts from the last year only."
-msgstr ""
-
-#: admin/options-genops.php:53
-#, fuzzy
-msgid "Post types to include in results:"
-msgstr "被索引的日志类型（包含自定义日志类型）"
-
-#: admin/options-genops.php:64
-#, fuzzy
-msgid ""
-"These post types will be displayed in the list. Includes custom post types."
-msgstr "被索引的日志类型（包含自定义日志类型）"
-
-#: admin/options-genops.php:68
-#, fuzzy
-msgid "Find related posts based on content as well as title:"
-msgstr "根据标题和正文内容索引"
-
-#: admin/options-genops.php:70
-#, fuzzy
-msgid ""
-"If unchecked, only posts titles are used. I recommend using a caching plugin "
-"or enabling \"Cache output\" above if you enable this."
-msgstr "假如没有勾选此项，则只从标题索引。（推荐已经开启缓存的用户勾选使用）"
-
-#: admin/options-genops.php:74
-msgid "Limit content to be compared"
-msgstr ""
-
-#: admin/options-genops.php:76
-msgid ""
-"This sets the maximum words of the content that will be matched. 0 means no "
-"limit."
-msgstr ""
-
-#: admin/options-genops.php:80
+#: admin/main-view.php:77
 #, fuzzy
 msgid "Add related posts to:"
 msgstr "添加相关日志到 feed 里"
 
-#: admin/options-genops.php:82
+#: admin/main-view.php:79
 msgid "Posts"
 msgstr ""
 
-#: admin/options-genops.php:83
+#: admin/main-view.php:80
 msgid "Pages"
 msgstr ""
 
-#: admin/options-genops.php:84
+#: admin/main-view.php:81
 msgid "Home page"
 msgstr ""
 
-#: admin/options-genops.php:85
+#: admin/main-view.php:82
 msgid "Feeds"
 msgstr ""
 
-#: admin/options-genops.php:86
+#: admin/main-view.php:83
 msgid "Category archives"
 msgstr ""
 
-#: admin/options-genops.php:87
+#: admin/main-view.php:84
 msgid "Tag archives"
 msgstr ""
 
-#: admin/options-genops.php:88
+#: admin/main-view.php:85
 msgid "Other archives"
 msgstr ""
 
-#: admin/options-genops.php:89
+#: admin/main-view.php:86
 #, fuzzy
 msgid ""
 "If you choose to disable this, please add <code>&lt;?php if "
@@ -305,56 +167,145 @@ msgstr ""
 "假如没有勾选此项，请在模板文件中找到需要显示的地方，添加代码 <code>&lt;?php "
 "if(function_exists('echo_ald_crp')) echo_ald_crp(); ?&gt;</code>"
 
-#: admin/options-genops.php:93
+#: admin/main-view.php:90
 msgid "Content filter priority:"
 msgstr ""
 
-#: admin/options-genops.php:96
+#: admin/main-view.php:93
 msgid ""
 "A higher number will cause the content above to be processed after other "
 "filters. Number below 10 is not recommended."
 msgstr ""
 
-#: admin/options-genops.php:100
+#: admin/main-view.php:97
 #, fuzzy
 msgid "Tell the world you're using Contextual Related Posts:"
 msgstr "Contextual Related Posts"
 
-#: admin/options-genops.php:102
+#: admin/main-view.php:99
 msgid " <em>Optional</em>"
 msgstr " <em>可选</em>"
 
-#: admin/options-genops.php:103
+#: admin/main-view.php:100
 #, fuzzy
 msgid ""
 "Adds a nofollow link to Contextual Related Posts homepage as the last time "
 "in the list."
 msgstr "相关日志"
 
-#: admin/options-output.php:32
+#: admin/main-view.php:118 admin/main-view.php:222 admin/main-view.php:414
+#: admin/main-view.php:558 admin/main-view.php:630 admin/main-view.php:693
+msgid "Save Options"
+msgstr "保存设置"
+
+#: admin/main-view.php:141 admin/main-view.php:583
+msgid "Number of related posts to display: "
+msgstr "相关日志数量："
+
+#: admin/main-view.php:144
+msgid ""
+"Maximum number of posts that will be displayed. The actual number may be "
+"smaller if less related posts are found."
+msgstr ""
+
+#: admin/main-view.php:148
+msgid "Related posts should be newer than:"
+msgstr ""
+
+#: admin/main-view.php:150
+msgid "days"
+msgstr ""
+
+#: admin/main-view.php:151
+msgid ""
+"This sets the cutoff period for which posts will be displayed. e.g. setting "
+"it to 365 will show related posts from the last year only. Set it to 0 to "
+"disable limiting posts."
+msgstr ""
+
+#: admin/main-view.php:155
+#, fuzzy
+msgid "Find related posts based on content as well as title:"
+msgstr "根据标题和正文内容索引"
+
+#: admin/main-view.php:157
+#, fuzzy
+msgid ""
+"If unchecked, only posts titles are used. I recommend using a caching plugin "
+"or enabling \"Cache output\" above if you enable this."
+msgstr "假如没有勾选此项，则只从标题索引。（推荐已经开启缓存的用户勾选使用）"
+
+#: admin/main-view.php:161
+msgid "Limit content to be compared"
+msgstr ""
+
+#: admin/main-view.php:163
+msgid ""
+"This sets the maximum words of the content that will be matched. 0 means no "
+"limit."
+msgstr ""
+
+#: admin/main-view.php:167
+#, fuzzy
+msgid "Post types to include in results:"
+msgstr "被索引的日志类型（包含自定义日志类型）"
+
+#: admin/main-view.php:178
+#, fuzzy
+msgid ""
+"These post types will be displayed in the list. Includes custom post types."
+msgstr "被索引的日志类型（包含自定义日志类型）"
+
+#: admin/main-view.php:182
+#, fuzzy
+msgid "List of post or page IDs to exclude from the results:"
+msgstr "排除的文章或页面 ID："
+
+#: admin/main-view.php:184 admin/main-view.php:343
+msgid ""
+"Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
+msgstr ""
+
+#: admin/main-view.php:188
+#, fuzzy
+msgid "Categories to exclude from the results: "
+msgstr "排除的文章或页面 ID："
+
+#: admin/main-view.php:204
+msgid ""
+"Comma separated list of category slugs. The field above has an autocomplete "
+"so simply start typing in the beginning of your category name and it will "
+"prompt you with options."
+msgstr ""
+
+#: admin/main-view.php:245
 msgid "Title of related posts: "
 msgstr "相关日志的标题："
 
-#: admin/options-output.php:35
+#: admin/main-view.php:248
 msgid ""
 "This is the main heading of the related posts. You can also display the "
 "current post title by using <code>%postname%</code>. e.g. <code>Related "
 "Posts to %postname%</code>"
 msgstr ""
 
-#: admin/options-output.php:39
+#: admin/main-view.php:252
 msgid "When there are no posts, what should be shown?"
 msgstr "当不存在相关日志时，显示什么？"
 
-#: admin/options-output.php:43
+#: admin/main-view.php:256
 msgid "Blank Output"
 msgstr "不显示"
 
-#: admin/options-output.php:47
+#: admin/main-view.php:260
 msgid "Display:"
 msgstr ""
 
-#: admin/options-output.php:55
+#: admin/main-view.php:265 admin/main-view.php:586
+msgid "Show post excerpt in list?"
+msgstr "是否显示日志摘要？"
+
+#: admin/main-view.php:268
 #, php-format
 msgid ""
 "Displays the excerpt of the post. If you do not provide an explicit excerpt "
@@ -362,233 +313,218 @@ msgid ""
 "automatic excerpt which refers to the first %d words of the post's content"
 msgstr ""
 
-#: admin/options-output.php:59
+#: admin/main-view.php:272
 msgid "Length of excerpt (in words): "
 msgstr "摘要长度（词数）："
 
-#: admin/options-output.php:65
+#: admin/main-view.php:278
 #, fuzzy
 msgid "Show post author in list?"
 msgstr "是否显示日志摘要？"
 
-#: admin/options-output.php:68
+#: admin/main-view.php:281
 msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
 msgstr ""
 
-#: admin/options-output.php:72
+#: admin/main-view.php:285
 #, fuzzy
 msgid "Show post date in list?"
 msgstr "是否显示日志摘要？"
 
-#: admin/options-output.php:75
+#: admin/main-view.php:288
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options"
 msgstr ""
 
-#: admin/options-output.php:79
+#: admin/main-view.php:292
 msgid "Limit post title length (in characters)"
 msgstr ""
 
-#: admin/options-output.php:82
+#: admin/main-view.php:295
 msgid ""
 "Any title longer than the number of characters set above will be cut and "
 "appended with a &helip;"
 msgstr ""
 
-#: admin/options-output.php:86
+#: admin/main-view.php:299
 msgid "Open links in new window"
 msgstr ""
 
-#: admin/options-output.php:92
+#: admin/main-view.php:305
 msgid "Add nofollow attribute to links in the list"
 msgstr ""
 
-#: admin/options-output.php:125
+#: admin/main-view.php:338
 #, fuzzy
 msgid "Exclusion settings:"
 msgstr "插件设置页面"
 
-#: admin/options-output.php:127
-#, fuzzy
-msgid "List of post or page IDs to exclude from the results:"
-msgstr "排除的文章或页面 ID："
-
-#: admin/options-output.php:129 admin/options-output.php:135
-msgid ""
-"Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
-msgstr ""
-
-#: admin/options-output.php:132
+#: admin/main-view.php:340
 #, fuzzy
 msgid "Exclude display of related posts on these posts / pages"
 msgstr "添加相关日志到页面里"
 
-#: admin/options-output.php:138
-#, fuzzy
-msgid "Categories to exclude from the results: "
-msgstr "排除的文章或页面 ID："
-
-#: admin/options-output.php:154
-msgid ""
-"Comma separated list of category slugs. The field above has an autocomplete "
-"so simply start typing in the beginning of your category name and it will "
-"prompt you with options."
-msgstr ""
-
-#: admin/options-output.php:157
+#: admin/main-view.php:346
 #, fuzzy
 msgid "Exclude display of related posts on these post types."
 msgstr "添加相关日志到页面里"
 
-#: admin/options-output.php:166
+#: admin/main-view.php:355
 #, fuzzy
 msgid ""
 "The related posts will not display on any of the above selected post types"
 msgstr "被索引的日志类型（包含自定义日志类型）"
 
-#: admin/options-output.php:196
+#: admin/main-view.php:385
 msgid "Customize the output:"
 msgstr "自定义显示："
 
-#: admin/options-output.php:198
+#: admin/main-view.php:387
 msgid "HTML to display before the list of posts: "
 msgstr "显示在每篇日志后面的 HTML 标签："
 
-#: admin/options-output.php:201
+#: admin/main-view.php:390
 msgid "HTML to display before each list item: "
 msgstr "显示在每篇日志后面的 HTML 标签："
 
-#: admin/options-output.php:204
+#: admin/main-view.php:393
 msgid "HTML to display after each list item: "
 msgstr "显示在日志列表前面的 HTML 标签："
 
-#: admin/options-output.php:207
+#: admin/main-view.php:396
 msgid "HTML to display after the list of posts: "
 msgstr "显示在日志列表后面的 HTML 标签："
 
-#: admin/options-output.php:237
-msgid "Post thumbnail options:"
-msgstr "日志缩略图设置："
+#: admin/main-view.php:437 admin/main-view.php:589
+msgid "Location of post thumbnail:"
+msgstr "日志缩略图位置："
 
-#: admin/options-output.php:261
-msgid ""
-"Contextual Related Posts adds a new image size with the below dimensions."
+#: admin/main-view.php:441 admin/main-view.php:593
+msgid "Display thumbnails inline with posts, before title"
+msgstr "在标题前显示缩略图"
+
+#: admin/main-view.php:445 admin/main-view.php:597
+msgid "Display thumbnails inline with posts, after title"
+msgstr "在标题后显示缩略图"
+
+#: admin/main-view.php:449 admin/main-view.php:601
+msgid "Display only thumbnails, no text"
+msgstr "不显示文本，只显示缩略图"
+
+#: admin/main-view.php:453 admin/main-view.php:605
+msgid "Do not display thumbnails, only text."
+msgstr "不显示缩略图，只显示文本"
+
+#: admin/main-view.php:457
+msgid "Thumbnail size:"
 msgstr ""
 
-#: admin/options-output.php:262
-msgid ""
-"If you change the width and/or height below, existing images will not be "
-"automatically resized."
+#: admin/main-view.php:481
+msgid "Custom size"
 msgstr ""
 
-#: admin/options-output.php:263
+#: admin/main-view.php:484
+msgid ""
+"You can choose from existing image sizes above or create a custom size. If "
+"you have chosen Custom size above, then enter the width, height and crop "
+"settings below. For best results, use a cropped image."
+msgstr ""
+
+#: admin/main-view.php:485
+msgid ""
+"If you change the width, height or crop mode below, existing images will not "
+"be automatically resized."
+msgstr ""
+
+#: admin/main-view.php:486
 #, php-format
 msgid ""
-"I recommend using <a href='%s' target='_blank'>Force Regenerate Thumbnails</"
-"a> to regenerate all image sizes."
+"I recommend using <a href='%s' target='_blank'>OTF Regenerate Thumbnails</a> "
+"or <a href='%s' target='_blank'>Regenerate Thumbnails</a> to regenerate all "
+"image sizes."
 msgstr ""
 
-#: admin/options-output.php:267
-#, fuzzy
-msgid "Maximum width of the thumbnail:"
-msgstr "缩略图最大宽度"
+#: admin/main-view.php:490
+msgid "Width of the thumbnail:"
+msgstr ""
 
-#: admin/options-output.php:274
+#: admin/main-view.php:493
+msgid "Height of the thumbnail: "
+msgstr ""
+
+#: admin/main-view.php:497
 msgid ""
 "Since you're using the default styles set under the Custom Styles section, "
 "the width and height is fixed at 150px"
 msgstr ""
 
-#: admin/options-output.php:278
+#: admin/main-view.php:501
 msgid "Crop mode:"
 msgstr ""
 
-#: admin/options-output.php:282
+#: admin/main-view.php:505
 msgid ""
-"By default, thumbnails will be proportionately cropped. Check this box to "
-"hard crop the thumbnails."
+"By default, thumbnails will be hard cropped. Uncheck this box to "
+"proportionately/soft crop the thumbnails."
 msgstr ""
 
-#: admin/options-output.php:283
+#: admin/main-view.php:506
 #, php-format
 msgid "<a href='%s' target='_blank'>Difference between soft and hard crop</a>"
 msgstr ""
 
-#: admin/options-output.php:287
+#: admin/main-view.php:510
 msgid "Style attributes / Width and Height HTML attributes:"
 msgstr ""
 
-#: admin/options-output.php:291
+#: admin/main-view.php:514
 msgid "Style attributes are used for width and height."
 msgstr ""
 
-#: admin/options-output.php:295
+#: admin/main-view.php:518
 msgid "HTML width and height attributes are used for width and height."
 msgstr ""
 
-#: admin/options-output.php:299
-msgid "Use timthumb to generate thumbnails? "
-msgstr "是否使用 timthumb 生成缩略图？"
-
-#: admin/options-output.php:301
-#, fuzzy
-msgid ""
-"If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" "
-"target=\"_blank\">timthumb</a> will be used to generate thumbnails"
-msgstr ""
-"勾选此项，将使用 <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
-"\">timthumb</a> 生成缩略图"
-
-#: admin/options-output.php:304
-msgid "Quality of thumbnails generated by timthumb:"
-msgstr ""
-
-#: admin/options-output.php:307
-msgid ""
-"Enter values between 0 and 100 only. 100 is highest quality and the highest "
-"file size. Suggested maximum value is 95. CRP default is 75."
-msgstr ""
-
-#: admin/options-output.php:310
+#: admin/main-view.php:522
 #, fuzzy
 msgid "Post thumbnail meta field name:"
 msgstr "日志缩略图自定义栏目的名称："
 
-#: admin/options-output.php:312
+#: admin/main-view.php:524
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
 msgstr "该栏目的值在 <em>文章编辑 » 自定义栏目</em> 填写，需填写图像地址"
 
-#: admin/options-output.php:315
+#: admin/main-view.php:527
 msgid "Extract the first image from the post?"
 msgstr ""
 
-#: admin/options-output.php:317
+#: admin/main-view.php:529
 msgid ""
 "This will only happen if there is no post thumbnail set and no image URL is "
 "specified in the meta field."
 msgstr ""
 
-#: admin/options-output.php:320
+#: admin/main-view.php:532
 #, fuzzy
 msgid "Use default thumbnail?"
 msgstr "是否使用默认缩略图？"
 
-#: admin/options-output.php:322
+#: admin/main-view.php:534
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 "勾选此项，当不存在缩略图时，显示以下默认缩略图，不勾选则不显示任何图像。"
 
-#: admin/options-output.php:325
+#: admin/main-view.php:537
 #, fuzzy
 msgid "Default thumbnail:"
 msgstr "默认缩略图："
 
-#: admin/options-output.php:328
+#: admin/main-view.php:540
 #, fuzzy
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
@@ -597,6 +533,69 @@ msgid ""
 msgstr ""
 "本插件按先后顺序检测日志本身、缩略图自定义栏目是否含有缩略图，若不存在，则显"
 "示上面默认图像"
+
+#: admin/main-view.php:581
+msgid ""
+"Below options override the related posts settings for your blog feed. These "
+"only apply if you have selected to add related posts to Feeds in the General "
+"Options tab."
+msgstr ""
+
+#: admin/main-view.php:609
+msgid "Maximum width of the thumbnail: "
+msgstr "缩略图最大宽度"
+
+#: admin/main-view.php:612
+msgid "Maximum height of the thumbnail: "
+msgstr "缩略图最大高度"
+
+#: admin/main-view.php:653
+msgid "Use default style included in the plugin?"
+msgstr ""
+
+#: admin/main-view.php:656
+msgid ""
+"Contextual Related Posts includes a default style that makes your popular "
+"posts list to look beautiful. Check the box above if you want to use this."
+msgstr ""
+
+#: admin/main-view.php:657
+msgid ""
+"Enabling this option will turn on the thumbnails and set their width and "
+"height to 150px. It will also turn off the display of the author, excerpt "
+"and date if already enabled. Disabling this option will not revert any "
+"settings."
+msgstr ""
+
+#: admin/main-view.php:660
+msgid "Custom CSS to add to header:"
+msgstr "添加自定义 CSS 到 header："
+
+#: admin/main-view.php:664
+#, fuzzy
+msgid ""
+"Do not include <code>style</code> tags. Check out the <a href=\"http://"
+"wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
+"\">FAQ</a> for available CSS classes to style."
+msgstr ""
+"不要使用 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/"
+"extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
+
+#: admin/main-view.php:694
+msgid "Default Options"
+msgstr "默认设置"
+
+#: admin/main-view.php:694
+msgid "Do you want to set options to Default?"
+msgstr "是否要重置设置？"
+
+#: admin/main-view.php:695
+msgid "Recreate Index"
+msgstr "重建索引"
+
+#: admin/main-view.php:695
+msgid "Are you sure you want to recreate the index?"
+msgstr "是否要重建索引？"
 
 #: admin/sidebar-view.php:20
 msgid "Support the development"
@@ -620,113 +619,139 @@ msgstr "捐赠给作者"
 msgid "Follow me"
 msgstr ""
 
-#: admin/sidebar-view.php:52
+#: admin/sidebar-view.php:53
 #, fuzzy
 msgid "Quick links"
 msgstr "快捷链接"
 
-#: admin/sidebar-view.php:56
+#: admin/sidebar-view.php:57
 #, fuzzy
 msgid "Contextual Related Posts plugin page"
 msgstr "相关日志"
 
-#: admin/sidebar-view.php:57
+#: admin/sidebar-view.php:58
 msgid "FAQ"
 msgstr ""
 
-#: admin/sidebar-view.php:59
+#: admin/sidebar-view.php:60
 msgid "Reviews"
 msgstr ""
 
-#: admin/sidebar-view.php:60
+#: admin/sidebar-view.php:61
 msgid "Github repository"
 msgstr ""
 
-#: admin/sidebar-view.php:61
+#: admin/sidebar-view.php:62
 msgid "Other plugins"
 msgstr "其他插件"
 
-#: admin/sidebar-view.php:62
+#: admin/sidebar-view.php:63
 msgid "Ajay's blog"
 msgstr "Ajay 的博客"
 
-#: contextual-related-posts.php:246
+#: contextual-related-posts.php:250
 msgid " by "
 msgstr ""
 
-#: contextual-related-posts.php:285
+#: contextual-related-posts.php:289
 #, php-format
 msgid "Powered by <a href=\"%s\" rel=\"nofollow\">Contextual Related Posts</a>"
 msgstr ""
 
-#: contextual-related-posts.php:596
+#: contextual-related-posts.php:670
 #, fuzzy
 msgid "Related Posts [CRP]"
 msgstr "相关日志"
 
-#: contextual-related-posts.php:597
+#: contextual-related-posts.php:671
 msgid "Display Related Posts"
 msgstr "显示相关日志"
 
-#: contextual-related-posts.php:620
+#: contextual-related-posts.php:694
 msgid "Title"
 msgstr "标题"
 
-#: contextual-related-posts.php:625
+#: contextual-related-posts.php:699
 msgid "No. of posts"
 msgstr "日志数量"
 
-#: contextual-related-posts.php:630
+#: contextual-related-posts.php:704
 msgid " Show excerpt?"
 msgstr "是否显示日志摘要？"
 
-#: contextual-related-posts.php:635
+#: contextual-related-posts.php:709
 msgid " Show author?"
 msgstr ""
 
-#: contextual-related-posts.php:640
+#: contextual-related-posts.php:714
 #, fuzzy
 msgid " Show date?"
 msgstr "是否显示日志摘要？"
 
-#: contextual-related-posts.php:644
-msgid "Thumbnail options"
-msgstr "缩略图设置："
-
-#: contextual-related-posts.php:646
+#: contextual-related-posts.php:720
 msgid "Thumbnails inline, before title"
 msgstr "在标题前显示缩略图"
 
-#: contextual-related-posts.php:647
+#: contextual-related-posts.php:721
 msgid "Thumbnails inline, after title"
 msgstr "在标题后显示缩略图"
 
-#: contextual-related-posts.php:648
+#: contextual-related-posts.php:722
 msgid "Only thumbnails, no text"
 msgstr "不显示文本，只显示缩略图"
 
-#: contextual-related-posts.php:649
+#: contextual-related-posts.php:723
 msgid "No thumbnails, only text."
 msgstr "不显示缩略图，只显示文本"
 
-#: contextual-related-posts.php:654
+#: contextual-related-posts.php:728
 #, fuzzy
 msgid "Thumbnail height"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:659
+#: contextual-related-posts.php:733
 #, fuzzy
 msgid "Thumbnail width"
 msgstr "缩略图设置："
 
-#: contextual-related-posts.php:799
+#: contextual-related-posts.php:897
 msgid "<h3>Related Posts:</h3>"
 msgstr "<h3>相关日志：</h3>"
 
-#: contextual-related-posts.php:801
+#: contextual-related-posts.php:899
 #, fuzzy
 msgid "No related posts found"
 msgstr "没有发现相关日志"
+
+#: contextual-related-posts.php:1211
+msgid "thumb_timthumb argument has been deprecated"
+msgstr ""
+
+#: contextual-related-posts.php:1215
+msgid "thumb_timthumb_q argument has been deprecated"
+msgstr ""
+
+#: contextual-related-posts.php:1219
+msgid "filter argument has been deprecated"
+msgstr ""
+
+#~ msgid "Post thumbnail options:"
+#~ msgstr "日志缩略图设置："
+
+#, fuzzy
+#~ msgid "Maximum width of the thumbnail:"
+#~ msgstr "缩略图最大宽度"
+
+#~ msgid "Use timthumb to generate thumbnails? "
+#~ msgstr "是否使用 timthumb 生成缩略图？"
+
+#, fuzzy
+#~ msgid ""
+#~ "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" "
+#~ "target=\"_blank\">timthumb</a> will be used to generate thumbnails"
+#~ msgstr ""
+#~ "勾选此项，将使用 <a href=\"http://www.binarymoon.co.uk/projects/timthumb/"
+#~ "\">timthumb</a> 生成缩略图"
 
 #~ msgid "Powered by"
 #~ msgstr "插件作者："
