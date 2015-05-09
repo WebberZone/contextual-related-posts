@@ -266,6 +266,10 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<input type="checkbox" name="show_excerpt" id="show_excerpt" <?php if ( $crp_settings['show_excerpt'] ) echo 'checked="checked"' ?> />
 						<p class="description"><?php printf( __( "Displays the excerpt of the post. If you do not provide an explicit excerpt to a post (in the post editor's optional excerpt field), it will display an automatic excerpt which refers to the first %d words of the post's content", CRP_LOCAL_NAME ), $crp_settings['excerpt_length'] ); ?></p>
+
+						<?php if ( $crp_settings['include_default_style'] ) { ?>
+							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Excerpt display is disabled.", CRP_LOCAL_NAME ); ?></p>
+						<?php } ?>
 					</td>
 				</tr>
 
@@ -279,6 +283,10 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<input type="checkbox" name="show_author" id="show_author" <?php if ( $crp_settings['show_author'] ) echo 'checked="checked"' ?> />
 						<p class="description"><?php _e( 'Displays the author name prefixed with "by". e.g. by John Doe', CRP_LOCAL_NAME ); ?></p>
+
+						<?php if ( $crp_settings['include_default_style'] ) { ?>
+							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Author display is disabled.", CRP_LOCAL_NAME ); ?></p>
+						<?php } ?>
 					</td>
 				</tr>
 
@@ -286,6 +294,10 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<input type="checkbox" name="show_date" id="show_date" <?php if ( $crp_settings['show_date'] ) echo 'checked="checked"' ?> />
 						<p class="description"><?php _e( "Displays the date of the post. Uses the same date format set in General Options", CRP_LOCAL_NAME ); ?></p>
+
+						<?php if ( $crp_settings['include_default_style'] ) { ?>
+							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Date display is disabled.", CRP_LOCAL_NAME ); ?></p>
+						<?php } ?>
 					</td>
 				</tr>
 
@@ -451,7 +463,10 @@ if ( ! defined( 'WPINC' ) ) {
 						<label>
 						<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php if ( 'text_only' == $crp_settings['post_thumb_op'] ) echo 'checked="checked"' ?> />
 						<?php _e( 'Do not display thumbnails, only text.', CRP_LOCAL_NAME ); ?></label>
-						<br />
+
+						<?php if ( $crp_settings['include_default_style'] ) { ?>
+							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Location of thumbnail forced to be inline before title", CRP_LOCAL_NAME ); ?></p>
+						<?php } ?>
 					</td>
 				</tr>
 				<tr><th scope="row"><?php _e( 'Thumbnail size:', CRP_LOCAL_NAME ); ?></th>
@@ -483,7 +498,7 @@ if ( ! defined( 'WPINC' ) ) {
 							<p class="description">
 								<?php _e( 'You can choose from existing image sizes above or create a custom size. If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image.', CRP_LOCAL_NAME ); ?><br />
 								<?php _e( "If you change the width, height or crop mode below, existing images will not be automatically resized.", CRP_LOCAL_NAME ); ?>
-								<?php printf( __( "I recommend using <a href='%s' target='_blank'>OTF Regenerate Thumbnails</a> or <a href='%s' target='_blank'>Regenerate Thumbnails</a> to regenerate all image sizes.", CRP_LOCAL_NAME ), 'https://wordpress.org/plugins/otf-regenerate-thumbnails/', 'https://wordpress.org/plugins/regenerate-thumbnails/' ); ?>
+								<?php printf( __( "I recommend using <a href='%s' class='thickbox'>OTF Regenerate Thumbnails</a> or <a href='%s' class='thickbox'>Regenerate Thumbnails</a> to regenerate all image sizes.", CRP_LOCAL_NAME ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=otf-regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ); ?>
 							</p>
 					</td>
 				</tr>
@@ -493,9 +508,6 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="thumb_height"><?php _e( 'Height of the thumbnail: ', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="thumb_height" id="thumb_height" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_height'] ) ); ?>" style="width:50px" />px
-						<?php if ( $crp_settings['include_default_style'] ) { ?>
-							<p class="description"><?php _e( "Since you're using the default styles set under the Custom Styles section, the width and height is fixed at 150px", CRP_LOCAL_NAME ); ?></p>
-						<?php } ?>
 					</td>
 				</tr>
 				<tr><th scope="row"><label for="thumb_crop"><?php _e( 'Crop mode:', CRP_LOCAL_NAME ); ?></label></th>
@@ -505,6 +517,9 @@ if ( ! defined( 'WPINC' ) ) {
 							<?php _e( "By default, thumbnails will be hard cropped. Uncheck this box to proportionately/soft crop the thumbnails.", CRP_LOCAL_NAME ); ?>
 							<?php printf( __( "<a href='%s' target='_blank'>Difference between soft and hard crop</a>", CRP_LOCAL_NAME ), 'http://www.davidtan.org/wordpress-hard-crop-vs-soft-crop-difference-comparison-example/' ); ?>
 						</p>
+						<?php if ( $crp_settings['include_default_style'] ) { ?>
+							<p class="description"><?php _e( "Default style selected under the Custom Styles. Thumbnail width and height is fixed at 150px and crop mode is enabled.", CRP_LOCAL_NAME ); ?></p>
+						<?php } ?>
 					</td>
 				</tr>
 				<tr><th scope="row"><label for="thumb_html"><?php _e( 'Style attributes / Width and Height HTML attributes:', CRP_LOCAL_NAME ); ?></label></th>
@@ -655,6 +670,7 @@ if ( ! defined( 'WPINC' ) ) {
 				  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ( $crp_settings['include_default_style'] ) echo 'checked="checked"' ?> />
 				  	<p class="description"><?php _e( 'Contextual Related Posts includes a default style that makes your popular posts list to look beautiful. Check the box above if you want to use this.', CRP_LOCAL_NAME ); ?></p>
 				  	<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>
+					<p class="description"><?php printf( __( 'You can view the default style at <a href="%1$s" target="_blank">%1$s</a>', CRP_LOCAL_NAME ), esc_url( 'https://github.com/ajaydsouza/contextual-related-posts/blob/master/css/default-style.css' ) ); ?></p>
 				  </td>
 				</tr>
 				<tr><th scope="row" colspan="2"><?php _e( 'Custom CSS to add to header:', CRP_LOCAL_NAME ); ?></th>

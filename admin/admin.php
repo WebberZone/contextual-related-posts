@@ -162,7 +162,16 @@ function crp_options() {
 		delete_post_meta_by_key( 'crp_related_posts_feed' );
 		delete_post_meta_by_key( 'crp_related_posts_widget_feed' );
 
-		$str = '<div id="message" class="updated fade"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) .'</p></div>';
+		/* Echo a success message */
+		$str = '<div id="message" class="updated fade"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) . '</p>';
+
+		if ( isset( $_POST['include_default_style'] ) ) {
+			$str .= '<p>'. __( 'Default styles selected. Thumbnail width, height and crop settings have been fixed. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
+
+		}
+
+		$str .= '</div>';
+
 		echo $str;
 	}
 
@@ -232,6 +241,10 @@ function crp_adminhead() {
 	wp_enqueue_script( 'common' );
 	wp_enqueue_script( 'wp-lists' );
 	wp_enqueue_script( 'postbox' );
+	wp_enqueue_script( 'plugin-install' );
+
+	add_thickbox();
+
 ?>
 	<style type="text/css">
 	.postbox .handlediv:before {

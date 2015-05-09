@@ -59,11 +59,13 @@ If you're a translator, do consider joining the Wp Translations team and transla
 == Upgrade Notice ==
 
 = 2.1.0 =
-* Separate cache for feeds; Deprecated timthumb; Bug fixes and new features;
-Check the Changelog for a full list of changes.
+* Modified: Settings page now clearly highlights what options cannot be changed if the default styles are enabled, i.e. thumbnail settings and no excerpt, author or date
 
 
 == Changelog ==
+
+= 2.1.1 =
+* Modified: Settings page now clearly highlights what options cannot be changed if the default styles are enabled, i.e. thumbnail settings and no excerpt, author or date
 
 = 2.1.0 =
 * New: Separate cache for related posts added to feeds. Prevents conflict with the cache for normal related posts
