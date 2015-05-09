@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 20:31-0000\n"
+"POT-Creation-Date: 2015-05-09 22:20-0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: \n"
@@ -16,69 +16,75 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/admin.php:165
+#: admin/admin.php:166
 msgid "Options saved successfully."
 msgstr "成功保存设置。"
 
-#: admin/admin.php:185
+#: admin/admin.php:169
+msgid ""
+"Default styles selected. Thumbnail width, height and crop settings have been "
+"fixed. Author, Excerpt and Date will not be displayed."
+msgstr ""
+
+#: admin/admin.php:194
 msgid "Options set to Default."
 msgstr "已重置设置。"
 
-#: admin/admin.php:196
+#: admin/admin.php:205
 msgid "Index recreated"
 msgstr "已重新创建索引"
 
-#: admin/admin.php:213 admin/admin.php:440 admin/main-view.php:20
+#: admin/admin.php:222 admin/admin.php:453 admin/main-view.php:20
 msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin/admin.php:214
+#: admin/admin.php:223
 msgid "Related Posts"
 msgstr "相关日志"
 
-#: admin/admin.php:325
+#: admin/admin.php:338
 msgid "Settings"
 msgstr "设置"
 
-#: admin/admin.php:347 admin/sidebar-view.php:59
+#: admin/admin.php:360 admin/sidebar-view.php:59
 msgid "Support"
 msgstr "技术支持"
 
-#: admin/admin.php:348
+#: admin/admin.php:361
 msgid "Donate"
 msgstr "捐赠"
 
-#: admin/admin.php:349
+#: admin/admin.php:362
 msgid "Contribute"
 msgstr ""
 
-#: admin/admin.php:365
+#: admin/admin.php:378
 msgid "plugin settings page"
 msgstr "插件设置页面"
 
-#: admin/admin.php:409
+#: admin/admin.php:422
 msgid ""
 "An error occurred clearing the cache. Please contact your site administrator."
 "\\n\\nError message:\\n"
 msgstr ""
 
-#: admin/admin.php:414
+#: admin/admin.php:427
 msgid " cached row(s) cleared"
 msgstr ""
 
-#: admin/admin.php:467
+#: admin/admin.php:480
 #, fuzzy
 msgid "Location of thumbnail:"
 msgstr "日志缩略图位置："
 
-#: admin/admin.php:469
+#: admin/admin.php:482
 msgid ""
 "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
 "image will be used for the post. It will be resized to the thumbnail size "
 "set under Settings &raquo; Related Posts &raquo; Output Options"
 msgstr ""
 
-#: admin/admin.php:470
+#: admin/admin.php:483
 msgid "The URL above is saved in the meta field: "
 msgstr ""
 
@@ -95,17 +101,17 @@ msgstr ""
 msgid "Output options"
 msgstr "显示设置"
 
-#: admin/main-view.php:35 admin/main-view.php:421
+#: admin/main-view.php:35 admin/main-view.php:433
 #: contextual-related-posts.php:718
 msgid "Thumbnail options"
 msgstr "缩略图设置："
 
-#: admin/main-view.php:36 admin/main-view.php:565
+#: admin/main-view.php:36 admin/main-view.php:580
 #, fuzzy
 msgid "Feed options"
 msgstr "一般设置"
 
-#: admin/main-view.php:37 admin/main-view.php:637
+#: admin/main-view.php:37 admin/main-view.php:652
 #, fuzzy
 msgid "Custom styles"
 msgstr "自定义样式"
@@ -193,12 +199,12 @@ msgid ""
 "in the list."
 msgstr "相关日志"
 
-#: admin/main-view.php:118 admin/main-view.php:222 admin/main-view.php:414
-#: admin/main-view.php:558 admin/main-view.php:630 admin/main-view.php:693
+#: admin/main-view.php:118 admin/main-view.php:222 admin/main-view.php:426
+#: admin/main-view.php:573 admin/main-view.php:645 admin/main-view.php:709
 msgid "Save Options"
 msgstr "保存设置"
 
-#: admin/main-view.php:141 admin/main-view.php:583
+#: admin/main-view.php:141 admin/main-view.php:598
 msgid "Number of related posts to display: "
 msgstr "相关日志数量："
 
@@ -261,7 +267,7 @@ msgstr "被索引的日志类型（包含自定义日志类型）"
 msgid "List of post or page IDs to exclude from the results:"
 msgstr "排除的文章或页面 ID："
 
-#: admin/main-view.php:184 admin/main-view.php:343
+#: admin/main-view.php:184 admin/main-view.php:355
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
 msgstr ""
@@ -301,7 +307,7 @@ msgstr "不显示"
 msgid "Display:"
 msgstr ""
 
-#: admin/main-view.php:265 admin/main-view.php:586
+#: admin/main-view.php:265 admin/main-view.php:601
 msgid "Show post excerpt in list?"
 msgstr "是否显示日志摘要？"
 
@@ -313,218 +319,239 @@ msgid ""
 "automatic excerpt which refers to the first %d words of the post's content"
 msgstr ""
 
-#: admin/main-view.php:272
+#: admin/main-view.php:271
+msgid ""
+"Default style selected under the Custom Styles. Excerpt display is disabled."
+msgstr ""
+
+#: admin/main-view.php:276
 msgid "Length of excerpt (in words): "
 msgstr "摘要长度（词数）："
 
-#: admin/main-view.php:278
+#: admin/main-view.php:282
 #, fuzzy
 msgid "Show post author in list?"
 msgstr "是否显示日志摘要？"
 
-#: admin/main-view.php:281
+#: admin/main-view.php:285
 msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
 msgstr ""
 
-#: admin/main-view.php:285
+#: admin/main-view.php:288
+msgid ""
+"Default style selected under the Custom Styles. Author display is disabled."
+msgstr ""
+
+#: admin/main-view.php:293
 #, fuzzy
 msgid "Show post date in list?"
 msgstr "是否显示日志摘要？"
 
-#: admin/main-view.php:288
+#: admin/main-view.php:296
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options"
 msgstr ""
 
-#: admin/main-view.php:292
+#: admin/main-view.php:299
+msgid ""
+"Default style selected under the Custom Styles. Date display is disabled."
+msgstr ""
+
+#: admin/main-view.php:304
 msgid "Limit post title length (in characters)"
 msgstr ""
 
-#: admin/main-view.php:295
+#: admin/main-view.php:307
 msgid ""
 "Any title longer than the number of characters set above will be cut and "
 "appended with a &helip;"
 msgstr ""
 
-#: admin/main-view.php:299
+#: admin/main-view.php:311
 msgid "Open links in new window"
 msgstr ""
 
-#: admin/main-view.php:305
+#: admin/main-view.php:317
 msgid "Add nofollow attribute to links in the list"
 msgstr ""
 
-#: admin/main-view.php:338
+#: admin/main-view.php:350
 #, fuzzy
 msgid "Exclusion settings:"
 msgstr "插件设置页面"
 
-#: admin/main-view.php:340
+#: admin/main-view.php:352
 #, fuzzy
 msgid "Exclude display of related posts on these posts / pages"
 msgstr "添加相关日志到页面里"
 
-#: admin/main-view.php:346
+#: admin/main-view.php:358
 #, fuzzy
 msgid "Exclude display of related posts on these post types."
 msgstr "添加相关日志到页面里"
 
-#: admin/main-view.php:355
+#: admin/main-view.php:367
 #, fuzzy
 msgid ""
 "The related posts will not display on any of the above selected post types"
 msgstr "被索引的日志类型（包含自定义日志类型）"
 
-#: admin/main-view.php:385
+#: admin/main-view.php:397
 msgid "Customize the output:"
 msgstr "自定义显示："
 
-#: admin/main-view.php:387
+#: admin/main-view.php:399
 msgid "HTML to display before the list of posts: "
 msgstr "显示在每篇日志后面的 HTML 标签："
 
-#: admin/main-view.php:390
+#: admin/main-view.php:402
 msgid "HTML to display before each list item: "
 msgstr "显示在每篇日志后面的 HTML 标签："
 
-#: admin/main-view.php:393
+#: admin/main-view.php:405
 msgid "HTML to display after each list item: "
 msgstr "显示在日志列表前面的 HTML 标签："
 
-#: admin/main-view.php:396
+#: admin/main-view.php:408
 msgid "HTML to display after the list of posts: "
 msgstr "显示在日志列表后面的 HTML 标签："
 
-#: admin/main-view.php:437 admin/main-view.php:589
+#: admin/main-view.php:449 admin/main-view.php:604
 msgid "Location of post thumbnail:"
 msgstr "日志缩略图位置："
 
-#: admin/main-view.php:441 admin/main-view.php:593
+#: admin/main-view.php:453 admin/main-view.php:608
 msgid "Display thumbnails inline with posts, before title"
 msgstr "在标题前显示缩略图"
 
-#: admin/main-view.php:445 admin/main-view.php:597
+#: admin/main-view.php:457 admin/main-view.php:612
 msgid "Display thumbnails inline with posts, after title"
 msgstr "在标题后显示缩略图"
 
-#: admin/main-view.php:449 admin/main-view.php:601
+#: admin/main-view.php:461 admin/main-view.php:616
 msgid "Display only thumbnails, no text"
 msgstr "不显示文本，只显示缩略图"
 
-#: admin/main-view.php:453 admin/main-view.php:605
+#: admin/main-view.php:465 admin/main-view.php:620
 msgid "Do not display thumbnails, only text."
 msgstr "不显示缩略图，只显示文本"
 
-#: admin/main-view.php:457
+#: admin/main-view.php:468
+msgid ""
+"Default style selected under the Custom Styles. Location of thumbnail forced "
+"to be inline before title"
+msgstr ""
+
+#: admin/main-view.php:472
 msgid "Thumbnail size:"
 msgstr ""
 
-#: admin/main-view.php:481
+#: admin/main-view.php:496
 msgid "Custom size"
 msgstr ""
 
-#: admin/main-view.php:484
+#: admin/main-view.php:499
 msgid ""
 "You can choose from existing image sizes above or create a custom size. If "
 "you have chosen Custom size above, then enter the width, height and crop "
 "settings below. For best results, use a cropped image."
 msgstr ""
 
-#: admin/main-view.php:485
+#: admin/main-view.php:500
 msgid ""
 "If you change the width, height or crop mode below, existing images will not "
 "be automatically resized."
 msgstr ""
 
-#: admin/main-view.php:486
+#: admin/main-view.php:501
 #, php-format
 msgid ""
-"I recommend using <a href='%s' target='_blank'>OTF Regenerate Thumbnails</a> "
-"or <a href='%s' target='_blank'>Regenerate Thumbnails</a> to regenerate all "
-"image sizes."
-msgstr ""
-
-#: admin/main-view.php:490
-msgid "Width of the thumbnail:"
-msgstr ""
-
-#: admin/main-view.php:493
-msgid "Height of the thumbnail: "
-msgstr ""
-
-#: admin/main-view.php:497
-msgid ""
-"Since you're using the default styles set under the Custom Styles section, "
-"the width and height is fixed at 150px"
-msgstr ""
-
-#: admin/main-view.php:501
-msgid "Crop mode:"
+"I recommend using <a href='%s' class='thickbox'>OTF Regenerate Thumbnails</"
+"a> or <a href='%s' class='thickbox'>Regenerate Thumbnails</a> to regenerate "
+"all image sizes."
 msgstr ""
 
 #: admin/main-view.php:505
+msgid "Width of the thumbnail:"
+msgstr ""
+
+#: admin/main-view.php:508
+msgid "Height of the thumbnail: "
+msgstr ""
+
+#: admin/main-view.php:513
+msgid "Crop mode:"
+msgstr ""
+
+#: admin/main-view.php:517
 msgid ""
 "By default, thumbnails will be hard cropped. Uncheck this box to "
 "proportionately/soft crop the thumbnails."
 msgstr ""
 
-#: admin/main-view.php:506
+#: admin/main-view.php:518
 #, php-format
 msgid "<a href='%s' target='_blank'>Difference between soft and hard crop</a>"
 msgstr ""
 
-#: admin/main-view.php:510
+#: admin/main-view.php:521
+msgid ""
+"Default style selected under the Custom Styles. Thumbnail width and height "
+"is fixed at 150px and crop mode is enabled."
+msgstr ""
+
+#: admin/main-view.php:525
 msgid "Style attributes / Width and Height HTML attributes:"
 msgstr ""
 
-#: admin/main-view.php:514
+#: admin/main-view.php:529
 msgid "Style attributes are used for width and height."
 msgstr ""
 
-#: admin/main-view.php:518
+#: admin/main-view.php:533
 msgid "HTML width and height attributes are used for width and height."
 msgstr ""
 
-#: admin/main-view.php:522
+#: admin/main-view.php:537
 #, fuzzy
 msgid "Post thumbnail meta field name:"
 msgstr "日志缩略图自定义栏目的名称："
 
-#: admin/main-view.php:524
+#: admin/main-view.php:539
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
 msgstr "该栏目的值在 <em>文章编辑 » 自定义栏目</em> 填写，需填写图像地址"
 
-#: admin/main-view.php:527
+#: admin/main-view.php:542
 msgid "Extract the first image from the post?"
 msgstr ""
 
-#: admin/main-view.php:529
+#: admin/main-view.php:544
 msgid ""
 "This will only happen if there is no post thumbnail set and no image URL is "
 "specified in the meta field."
 msgstr ""
 
-#: admin/main-view.php:532
+#: admin/main-view.php:547
 #, fuzzy
 msgid "Use default thumbnail?"
 msgstr "是否使用默认缩略图？"
 
-#: admin/main-view.php:534
+#: admin/main-view.php:549
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 "勾选此项，当不存在缩略图时，显示以下默认缩略图，不勾选则不显示任何图像。"
 
-#: admin/main-view.php:537
+#: admin/main-view.php:552
 #, fuzzy
 msgid "Default thumbnail:"
 msgstr "默认缩略图："
 
-#: admin/main-view.php:540
+#: admin/main-view.php:555
 #, fuzzy
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
@@ -534,32 +561,32 @@ msgstr ""
 "本插件按先后顺序检测日志本身、缩略图自定义栏目是否含有缩略图，若不存在，则显"
 "示上面默认图像"
 
-#: admin/main-view.php:581
+#: admin/main-view.php:596
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
 "Options tab."
 msgstr ""
 
-#: admin/main-view.php:609
+#: admin/main-view.php:624
 msgid "Maximum width of the thumbnail: "
 msgstr "缩略图最大宽度"
 
-#: admin/main-view.php:612
+#: admin/main-view.php:627
 msgid "Maximum height of the thumbnail: "
 msgstr "缩略图最大高度"
 
-#: admin/main-view.php:653
+#: admin/main-view.php:668
 msgid "Use default style included in the plugin?"
 msgstr ""
 
-#: admin/main-view.php:656
+#: admin/main-view.php:671
 msgid ""
 "Contextual Related Posts includes a default style that makes your popular "
 "posts list to look beautiful. Check the box above if you want to use this."
 msgstr ""
 
-#: admin/main-view.php:657
+#: admin/main-view.php:672
 msgid ""
 "Enabling this option will turn on the thumbnails and set their width and "
 "height to 150px. It will also turn off the display of the author, excerpt "
@@ -567,11 +594,17 @@ msgid ""
 "settings."
 msgstr ""
 
-#: admin/main-view.php:660
+#: admin/main-view.php:673
+#, php-format
+msgid ""
+"You can view the default style at <a href=\"%1$s\" target=\"_blank\">%1$s</a>"
+msgstr ""
+
+#: admin/main-view.php:676
 msgid "Custom CSS to add to header:"
 msgstr "添加自定义 CSS 到 header："
 
-#: admin/main-view.php:664
+#: admin/main-view.php:680
 #, fuzzy
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a href=\"http://"
@@ -581,19 +614,19 @@ msgstr ""
 "不要使用 <code>style</code> 标签。请查看 <a href=\"http://wordpress.org/"
 "extend/plugins/contextual-related-posts/faq/\">FAQ</a> 中可用的 CSS classes。"
 
-#: admin/main-view.php:694
+#: admin/main-view.php:710
 msgid "Default Options"
 msgstr "默认设置"
 
-#: admin/main-view.php:694
+#: admin/main-view.php:710
 msgid "Do you want to set options to Default?"
 msgstr "是否要重置设置？"
 
-#: admin/main-view.php:695
+#: admin/main-view.php:711
 msgid "Recreate Index"
 msgstr "重建索引"
 
-#: admin/main-view.php:695
+#: admin/main-view.php:711
 msgid "Are you sure you want to recreate the index?"
 msgstr "是否要重建索引？"
 

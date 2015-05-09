@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 20:39-0000\n"
-"PO-Revision-Date: 2015-04-03 20:39-0000\n"
+"POT-Creation-Date: 2015-05-09 22:24-0000\n"
+"PO-Revision-Date: 2015-05-09 22:24-0000\n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: Romanian (Romania) (http://www.transifex.com/projects/p/"
 "contextual-related-posts/language/ro_RO/)\n"
@@ -22,47 +22,53 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/admin.php:165
+#: admin/admin.php:166
 msgid "Options saved successfully."
 msgstr "Opțiuni salvate cu succes."
 
-#: admin/admin.php:185
+#: admin/admin.php:169
+msgid ""
+"Default styles selected. Thumbnail width, height and crop settings have been "
+"fixed. Author, Excerpt and Date will not be displayed."
+msgstr ""
+
+#: admin/admin.php:194
 msgid "Options set to Default."
 msgstr "Opțiuni setate ca predefinite."
 
-#: admin/admin.php:196
+#: admin/admin.php:205
 msgid "Index recreated"
 msgstr "Index recreat"
 
-#: admin/admin.php:213 admin/admin.php:440 admin/main-view.php:20
+#: admin/admin.php:222 admin/admin.php:453 admin/main-view.php:20
 msgid "Contextual Related Posts"
 msgstr "Contextual Related Posts"
 
-#: admin/admin.php:214
+#: admin/admin.php:223
 msgid "Related Posts"
 msgstr "Articole asociate"
 
-#: admin/admin.php:325
+#: admin/admin.php:338
 msgid "Settings"
 msgstr "Setări"
 
-#: admin/admin.php:347 admin/sidebar-view.php:59
+#: admin/admin.php:360 admin/sidebar-view.php:59
 msgid "Support"
 msgstr "Asistenţă"
 
-#: admin/admin.php:348
+#: admin/admin.php:361
 msgid "Donate"
 msgstr "Donați"
 
-#: admin/admin.php:349
+#: admin/admin.php:362
 msgid "Contribute"
 msgstr ""
 
-#: admin/admin.php:365
+#: admin/admin.php:378
 msgid "plugin settings page"
 msgstr "pagina de setări ale modulului"
 
-#: admin/admin.php:409
+#: admin/admin.php:422
 msgid ""
 "An error occurred clearing the cache. Please contact your site administrator."
 "\\n\\nError message:\\n"
@@ -70,15 +76,15 @@ msgstr ""
 "A apărut o eroare în timpul golirii cache-ului. Vă rugăm să contactați "
 "administratorul site-ului.\\n\\nMesaj de eroare:\\n"
 
-#: admin/admin.php:414
+#: admin/admin.php:427
 msgid " cached row(s) cleared"
 msgstr "rând(uri) cache golit(e)"
 
-#: admin/admin.php:467
+#: admin/admin.php:480
 msgid "Location of thumbnail:"
 msgstr "Poziția imaginii miniatură:"
 
-#: admin/admin.php:469
+#: admin/admin.php:482
 msgid ""
 "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
 "image will be used for the post. It will be resized to the thumbnail size "
@@ -89,7 +95,7 @@ msgstr ""
 "redimensionată la dimensiunile imaginii miniatura, setate in sectiunea "
 "\"Setări &raquo; Articole asociate &raquo; Opțiuni afișaj\"."
 
-#: admin/admin.php:470
+#: admin/admin.php:483
 msgid "The URL above is saved in the meta field: "
 msgstr "Adresa URL de mai sus este salvată în câmpul meta:"
 
@@ -105,16 +111,16 @@ msgstr ""
 msgid "Output options"
 msgstr "Opțiuni de afișare"
 
-#: admin/main-view.php:35 admin/main-view.php:421
+#: admin/main-view.php:35 admin/main-view.php:433
 #: contextual-related-posts.php:718
 msgid "Thumbnail options"
 msgstr "Opțiuni imagini miniatură"
 
-#: admin/main-view.php:36 admin/main-view.php:565
+#: admin/main-view.php:36 admin/main-view.php:580
 msgid "Feed options"
 msgstr "Opțiuni flux"
 
-#: admin/main-view.php:37 admin/main-view.php:637
+#: admin/main-view.php:37 admin/main-view.php:652
 msgid "Custom styles"
 msgstr "Stiluri personalizate"
 
@@ -207,12 +213,12 @@ msgstr ""
 "Adaugă ca ultima in listă o legatură nofollow catre pagina principală a "
 "Contextual Related Posts."
 
-#: admin/main-view.php:118 admin/main-view.php:222 admin/main-view.php:414
-#: admin/main-view.php:558 admin/main-view.php:630 admin/main-view.php:693
+#: admin/main-view.php:118 admin/main-view.php:222 admin/main-view.php:426
+#: admin/main-view.php:573 admin/main-view.php:645 admin/main-view.php:709
 msgid "Save Options"
 msgstr "Salvați opțiunile"
 
-#: admin/main-view.php:141 admin/main-view.php:583
+#: admin/main-view.php:141 admin/main-view.php:598
 msgid "Number of related posts to display: "
 msgstr "Numărul de articole asociate de afișat."
 
@@ -279,7 +285,7 @@ msgstr ""
 msgid "List of post or page IDs to exclude from the results:"
 msgstr "Listă de ID-uri de articol sau pagină de exclus din rezultate:"
 
-#: admin/main-view.php:184 admin/main-view.php:343
+#: admin/main-view.php:184 admin/main-view.php:355
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
 msgstr ""
@@ -326,7 +332,7 @@ msgstr "Afișaj gol"
 msgid "Display:"
 msgstr "Afișare:"
 
-#: admin/main-view.php:265 admin/main-view.php:586
+#: admin/main-view.php:265 admin/main-view.php:601
 msgid "Show post excerpt in list?"
 msgstr "Arată extrasul articolului in listă?"
 
@@ -341,34 +347,49 @@ msgstr ""
 "opțional al editorului ), va fi generat un extras automat ce va conține "
 "primele %d cuvinte din conținutul articolului."
 
-#: admin/main-view.php:272
+#: admin/main-view.php:271
+msgid ""
+"Default style selected under the Custom Styles. Excerpt display is disabled."
+msgstr ""
+
+#: admin/main-view.php:276
 msgid "Length of excerpt (in words): "
 msgstr "Lungimea extrasului (în cuvinte):"
 
-#: admin/main-view.php:278
+#: admin/main-view.php:282
 msgid "Show post author in list?"
 msgstr "Afișați autorul articolului în listă?"
 
-#: admin/main-view.php:281
+#: admin/main-view.php:285
 msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
 msgstr "Afișează numele autorului cu prefixul \"de\". Exemplu: de John Doe"
 
-#: admin/main-view.php:285
+#: admin/main-view.php:288
+msgid ""
+"Default style selected under the Custom Styles. Author display is disabled."
+msgstr ""
+
+#: admin/main-view.php:293
 msgid "Show post date in list?"
 msgstr "Afișați data articolului în listă?"
 
-#: admin/main-view.php:288
+#: admin/main-view.php:296
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options"
 msgstr ""
 "Afișează data articolului. Utilizează formatul setat in Opțiuni Generale."
 
-#: admin/main-view.php:292
+#: admin/main-view.php:299
+msgid ""
+"Default style selected under the Custom Styles. Date display is disabled."
+msgstr ""
+
+#: admin/main-view.php:304
 msgid "Limit post title length (in characters)"
 msgstr "Limita titlului articolului (în caractere)"
 
-#: admin/main-view.php:295
+#: admin/main-view.php:307
 msgid ""
 "Any title longer than the number of characters set above will be cut and "
 "appended with a &helip;"
@@ -376,153 +397,157 @@ msgstr ""
 "Orice titlu mai lung decât numarul de caractere setat deasupra va fi "
 "truncheat și se va încheia cu &helip;"
 
-#: admin/main-view.php:299
+#: admin/main-view.php:311
 msgid "Open links in new window"
 msgstr "Se deschide într-o fereastră nouă"
 
-#: admin/main-view.php:305
+#: admin/main-view.php:317
 msgid "Add nofollow attribute to links in the list"
 msgstr "Adaugă atribut nofollow legăturilor din listă"
 
-#: admin/main-view.php:338
+#: admin/main-view.php:350
 msgid "Exclusion settings:"
 msgstr "Setări de excludere:"
 
-#: admin/main-view.php:340
+#: admin/main-view.php:352
 msgid "Exclude display of related posts on these posts / pages"
 msgstr "Exclude afișarea articolelor asociate pentru aceste articole / pagini"
 
-#: admin/main-view.php:346
+#: admin/main-view.php:358
 msgid "Exclude display of related posts on these post types."
 msgstr ""
 "Exclude afișarea articolelor asociate pentru aceste tipuri de articole."
 
-#: admin/main-view.php:355
+#: admin/main-view.php:367
 msgid ""
 "The related posts will not display on any of the above selected post types"
 msgstr ""
 "Articolele asociate nu vor fi afișate pentru niciunul dintre tipurile de "
 "articole selectate mai sus"
 
-#: admin/main-view.php:385
+#: admin/main-view.php:397
 msgid "Customize the output:"
 msgstr "Personalizați afișajul:"
 
-#: admin/main-view.php:387
+#: admin/main-view.php:399
 msgid "HTML to display before the list of posts: "
 msgstr "Cod HTML de afișat înaintea listei de articole:"
 
-#: admin/main-view.php:390
+#: admin/main-view.php:402
 msgid "HTML to display before each list item: "
 msgstr "Cod HTML de afișat înaintea fiecarei intrari din listă:"
 
-#: admin/main-view.php:393
+#: admin/main-view.php:405
 msgid "HTML to display after each list item: "
 msgstr "Cod HTML de afișat după fiecare intrare din listă:"
 
-#: admin/main-view.php:396
+#: admin/main-view.php:408
 msgid "HTML to display after the list of posts: "
 msgstr "Cod HTML de afișat după lista de articole:"
 
-#: admin/main-view.php:437 admin/main-view.php:589
+#: admin/main-view.php:449 admin/main-view.php:604
 msgid "Location of post thumbnail:"
 msgstr "Poziția imaginii miniatură:"
 
-#: admin/main-view.php:441 admin/main-view.php:593
+#: admin/main-view.php:453 admin/main-view.php:608
 msgid "Display thumbnails inline with posts, before title"
 msgstr "Afișează imagini miniatură în linie cu articolele, înaintea titlului"
 
-#: admin/main-view.php:445 admin/main-view.php:597
+#: admin/main-view.php:457 admin/main-view.php:612
 msgid "Display thumbnails inline with posts, after title"
 msgstr "Afișează imagini miniatură în linie cu articolele, după titlu"
 
-#: admin/main-view.php:449 admin/main-view.php:601
+#: admin/main-view.php:461 admin/main-view.php:616
 msgid "Display only thumbnails, no text"
 msgstr "Afișează doar imagini miniatură, fără text"
 
-#: admin/main-view.php:453 admin/main-view.php:605
+#: admin/main-view.php:465 admin/main-view.php:620
 msgid "Do not display thumbnails, only text."
 msgstr "Nu afișează imagini miniatură, doar text."
 
-#: admin/main-view.php:457
+#: admin/main-view.php:468
+msgid ""
+"Default style selected under the Custom Styles. Location of thumbnail forced "
+"to be inline before title"
+msgstr ""
+
+#: admin/main-view.php:472
 msgid "Thumbnail size:"
 msgstr ""
 
-#: admin/main-view.php:481
+#: admin/main-view.php:496
 msgid "Custom size"
 msgstr ""
 
-#: admin/main-view.php:484
+#: admin/main-view.php:499
 msgid ""
 "You can choose from existing image sizes above or create a custom size. If "
 "you have chosen Custom size above, then enter the width, height and crop "
 "settings below. For best results, use a cropped image."
 msgstr ""
 
-#: admin/main-view.php:485
+#: admin/main-view.php:500
 msgid ""
 "If you change the width, height or crop mode below, existing images will not "
 "be automatically resized."
 msgstr ""
 
-#: admin/main-view.php:486
+#: admin/main-view.php:501
 #, php-format
 msgid ""
-"I recommend using <a href='%s' target='_blank'>OTF Regenerate Thumbnails</a> "
-"or <a href='%s' target='_blank'>Regenerate Thumbnails</a> to regenerate all "
-"image sizes."
-msgstr ""
-
-#: admin/main-view.php:490
-msgid "Width of the thumbnail:"
-msgstr ""
-
-#: admin/main-view.php:493
-msgid "Height of the thumbnail: "
-msgstr ""
-
-#: admin/main-view.php:497
-msgid ""
-"Since you're using the default styles set under the Custom Styles section, "
-"the width and height is fixed at 150px"
-msgstr ""
-"Deoarece utilizați stilurile predefinite setate în secțiunea Stiluri "
-"Personalizate, lățimea și înalțimea sunt fixe, de 150px"
-
-#: admin/main-view.php:501
-msgid "Crop mode:"
+"I recommend using <a href='%s' class='thickbox'>OTF Regenerate Thumbnails</"
+"a> or <a href='%s' class='thickbox'>Regenerate Thumbnails</a> to regenerate "
+"all image sizes."
 msgstr ""
 
 #: admin/main-view.php:505
+msgid "Width of the thumbnail:"
+msgstr ""
+
+#: admin/main-view.php:508
+msgid "Height of the thumbnail: "
+msgstr ""
+
+#: admin/main-view.php:513
+msgid "Crop mode:"
+msgstr ""
+
+#: admin/main-view.php:517
 msgid ""
 "By default, thumbnails will be hard cropped. Uncheck this box to "
 "proportionately/soft crop the thumbnails."
 msgstr ""
 
-#: admin/main-view.php:506
+#: admin/main-view.php:518
 #, php-format
 msgid "<a href='%s' target='_blank'>Difference between soft and hard crop</a>"
 msgstr ""
 
-#: admin/main-view.php:510
+#: admin/main-view.php:521
+msgid ""
+"Default style selected under the Custom Styles. Thumbnail width and height "
+"is fixed at 150px and crop mode is enabled."
+msgstr ""
+
+#: admin/main-view.php:525
 msgid "Style attributes / Width and Height HTML attributes:"
 msgstr "Atribute de stil / Atribute HTML de lățime și înălțime:"
 
-#: admin/main-view.php:514
+#: admin/main-view.php:529
 msgid "Style attributes are used for width and height."
 msgstr "Atributele de stil sunt folosite pentru lățime și înălțime."
 
-#: admin/main-view.php:518
+#: admin/main-view.php:533
 msgid "HTML width and height attributes are used for width and height."
 msgstr ""
 "Atributele HTML de lătime și înălțime sunt folosite pentru lățime și "
 "înălțime."
 
-#: admin/main-view.php:522
+#: admin/main-view.php:537
 msgid "Post thumbnail meta field name:"
 msgstr "Numele câmpului meta al imaginii miniatură a articolului:"
 
-#: admin/main-view.php:524
+#: admin/main-view.php:539
 msgid ""
 "The value of this field should contain the image source and is set in the "
 "<em>Add New Post</em> screen"
@@ -530,11 +555,11 @@ msgstr ""
 "Valoarea acestui câmp ar trebui să conțină sursa imaginii și este setată in "
 "ecranul de <em>Adaugare articol nou</em>"
 
-#: admin/main-view.php:527
+#: admin/main-view.php:542
 msgid "Extract the first image from the post?"
 msgstr "Extrageți prima imagine din articol?"
 
-#: admin/main-view.php:529
+#: admin/main-view.php:544
 msgid ""
 "This will only happen if there is no post thumbnail set and no image URL is "
 "specified in the meta field."
@@ -542,11 +567,11 @@ msgstr ""
 "Asta se va întâmpla doar daca nu exista o imagine miniatură setata și nu a "
 "fost specificată adresa URL a unei imagini in câmpul meta."
 
-#: admin/main-view.php:532
+#: admin/main-view.php:547
 msgid "Use default thumbnail?"
 msgstr "Folosiți imaginea miniatură predefinită?"
 
-#: admin/main-view.php:534
+#: admin/main-view.php:549
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
@@ -555,11 +580,11 @@ msgstr ""
 "adresa URL de mai jos. Daca nu bifați și nu se găsește o imagine miniatură, "
 "nicio imagine nu va fi afișată."
 
-#: admin/main-view.php:537
+#: admin/main-view.php:552
 msgid "Default thumbnail:"
 msgstr "Imagine miniatură predefinită:"
 
-#: admin/main-view.php:540
+#: admin/main-view.php:555
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
 "then it will check the meta field. If this is not available, then it will "
@@ -569,7 +594,7 @@ msgstr ""
 "nu, va verifica câmpul meta. Dacă acesta nu este disponibil, va afișa "
 "imaginea predefinită specificată mai deasupra."
 
-#: admin/main-view.php:581
+#: admin/main-view.php:596
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
@@ -579,25 +604,25 @@ msgstr ""
 "blogului. Acestea se aplică doar dacă ați selectat adăugarea articolelor "
 "asociatele la Flux in sectiunea de Setări Generale."
 
-#: admin/main-view.php:609
+#: admin/main-view.php:624
 msgid "Maximum width of the thumbnail: "
 msgstr "Lățimea maximă a imaginii miniatură:"
 
-#: admin/main-view.php:612
+#: admin/main-view.php:627
 msgid "Maximum height of the thumbnail: "
 msgstr "Înălțimea maximăa a imaginii miniatură:"
 
-#: admin/main-view.php:653
+#: admin/main-view.php:668
 msgid "Use default style included in the plugin?"
 msgstr "Utilizați stilurile predefinite incluse în modul?"
 
-#: admin/main-view.php:656
+#: admin/main-view.php:671
 msgid ""
 "Contextual Related Posts includes a default style that makes your popular "
 "posts list to look beautiful. Check the box above if you want to use this."
 msgstr ""
 
-#: admin/main-view.php:657
+#: admin/main-view.php:672
 msgid ""
 "Enabling this option will turn on the thumbnails and set their width and "
 "height to 150px. It will also turn off the display of the author, excerpt "
@@ -605,11 +630,17 @@ msgid ""
 "settings."
 msgstr ""
 
-#: admin/main-view.php:660
+#: admin/main-view.php:673
+#, php-format
+msgid ""
+"You can view the default style at <a href=\"%1$s\" target=\"_blank\">%1$s</a>"
+msgstr ""
+
+#: admin/main-view.php:676
 msgid "Custom CSS to add to header:"
 msgstr "Cod CSS personalizat de adăugat în header:"
 
-#: admin/main-view.php:664
+#: admin/main-view.php:680
 msgid ""
 "Do not include <code>style</code> tags. Check out the <a href=\"http://"
 "wordpress.org/extend/plugins/contextual-related-posts/faq/\" target=\"_blank"
@@ -619,19 +650,19 @@ msgstr ""
 "\"http://wordpress.org/extend/plugins/contextual-related-posts/faq/\" target="
 "\"_blank\">Întrebări / Răspunsuri</a> pentru clasele disponibile stilizării."
 
-#: admin/main-view.php:694
+#: admin/main-view.php:710
 msgid "Default Options"
 msgstr "Opțiuni predefinite"
 
-#: admin/main-view.php:694
+#: admin/main-view.php:710
 msgid "Do you want to set options to Default?"
 msgstr "Doriți încărcarea opțiunilor predefinite?"
 
-#: admin/main-view.php:695
+#: admin/main-view.php:711
 msgid "Recreate Index"
 msgstr "Recreare index"
 
-#: admin/main-view.php:695
+#: admin/main-view.php:711
 msgid "Are you sure you want to recreate the index?"
 msgstr "Sunteți sigur că doriți recrearea indexului?"
 
@@ -765,33 +796,8 @@ msgid "filter argument has been deprecated"
 msgstr ""
 
 #~ msgid ""
-#~ "This sets the cutoff period for which posts will be displayed. e.g. "
-#~ "setting it to 365 will show related posts from the last year only."
+#~ "Since you're using the default styles set under the Custom Styles "
+#~ "section, the width and height is fixed at 150px"
 #~ msgstr ""
-#~ "Setează perioada limită pentru care articolele vor fi afisate. De "
-#~ "exemplu, setând 365 va afișa articole asociate doar din ultimul an."
-
-#~ msgid "Post thumbnail options:"
-#~ msgstr "Opțiuni imagine miniatură:"
-
-#~ msgid "Use timthumb to generate thumbnails? "
-#~ msgstr "Folosiți timthumb pentru a genera imaginile miniatură?"
-
-#~ msgid ""
-#~ "If checked, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" "
-#~ "target=\"_blank\">timthumb</a> will be used to generate thumbnails"
-#~ msgstr ""
-#~ "Dacă bifați, <a href=\"http://www.binarymoon.co.uk/projects/timthumb/\" "
-#~ "target=\"_blank\">timthumb</a> va fi folosit pentru a genera imaginile "
-#~ "miniatură"
-
-#~ msgid "Quality of thumbnails generated by timthumb:"
-#~ msgstr "Calitatea imaginilor miniatură generate de timthumb:"
-
-#~ msgid ""
-#~ "Enter values between 0 and 100 only. 100 is highest quality and the "
-#~ "highest file size. Suggested maximum value is 95. CRP default is 75."
-#~ msgstr ""
-#~ "Introduceți doar valori cuprinse între 0 și 100. 100 este cea mai mare "
-#~ "calitate și cea mai mare dimensiune de fișier. Sugerăm 95, predefinit "
-#~ "este 75."
+#~ "Deoarece utilizați stilurile predefinite setate în secțiunea Stiluri "
+#~ "Personalizate, lățimea și înalțimea sunt fixe, de 150px"
