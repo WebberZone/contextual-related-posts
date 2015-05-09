@@ -4,7 +4,7 @@ Contributors: Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 3.5
-Tested up to: 4.2
+Tested up to: 4.3
 License: GPLv2 or later
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -58,7 +58,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 
 == Upgrade Notice ==
 
-= 2.1.0 =
+= 2.1.1 =
 * Modified: Settings page now clearly highlights what options cannot be changed if the default styles are enabled, i.e. thumbnail settings and no excerpt, author or date
 
 

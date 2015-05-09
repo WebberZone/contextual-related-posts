@@ -2,7 +2,7 @@
 
 __Requires:__ 3.5
 
-__Tested up to:__ 4.2
+__Tested up to:__ 4.3
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
