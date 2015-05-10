@@ -63,3 +63,6 @@
   -moz-border-radius: 7px;
   border-radius: 7px;
 }
+
+.crp_clear {
+	clear: both;
