@@ -1,6 +1,6 @@
 ﻿=== Contextual Related Posts ===
-Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail
-Contributors: Ajay
+Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail, shortcodes
+Contributors: webberzone, Ajay
 Donate link: http://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 3.5

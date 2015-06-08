@@ -16,8 +16,8 @@
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
  * Version: 	2.1.1
- * Author: 		Ajay D'Souza
- * Author URI: 	http://ajaydsouza.com
+ * Author: 		WebberZone
+ * Author URI: 	https://webberzone.com
  * Text Domain:	crp
  * License: 	GPL-2.0+
  * License URI:	http://www.gnu.org/licenses/gpl-2.0.txt
