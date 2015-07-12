@@ -64,6 +64,9 @@ If you're a translator, do consider joining the Wp Translations team and transla
 
 == Changelog ==
 
+= 2.2 =
+* Fixed: First child now gets the correct thumbnail size
+
 = 2.1.1 =
 * Modified: Settings page now clearly highlights what options cannot be changed if the default styles are enabled, i.e. thumbnail settings and no excerpt, author or date
 

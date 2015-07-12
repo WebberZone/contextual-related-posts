@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.1.1
+ * Version: 	2.2-beta20150712
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -1270,11 +1270,13 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	// If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin
 	if ( ! $postimage ) {
 		$postimage = get_post_meta( $result->ID, '_video_thumbnail', true );
+		$pick = 'video';
 	}
 
 	// If no thumb found and settings permit, use default thumb
 	if ( $thumb_default_show && ! $postimage ) {
 		$postimage = $thumb_default;
+		$pick = 'default';
 	}
 
 	// Hopefully, we've found a thumbnail by now. If so, run it through the custom filter, check for SSL and create the image tag
@@ -1345,6 +1347,8 @@ function crp_get_the_post_thumbnail( $args = array() ) {
  * @return string
  */
 function crp_get_first_image( $postID ) {
+	global $crp_settings;
+
 	$args = array(
 		'numberposts' => 1,
 		'order' => 'ASC',
@@ -1358,7 +1362,7 @@ function crp_get_first_image( $postID ) {
 
 	if ( $attachments ) {
 		foreach ( $attachments as $attachment ) {
-			$image_attributes = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' )  ? wp_get_attachment_image_src( $attachment->ID, 'thumbnail' ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
+			$image_attributes = wp_get_attachment_image_src( $attachment->ID, $crp_settings['thumb_size'] )  ? wp_get_attachment_image_src( $attachment->ID, $crp_settings['thumb_size'] ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
 
 			/**
 			 * Filters first child attachment from the post.
