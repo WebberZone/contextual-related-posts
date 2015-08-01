@@ -364,7 +364,7 @@ function get_crp_posts_id( $args = array() ) {
 
 	$defaults = array(
 		'postid' => FALSE,
-		'strict_limit' => FALSE,
+		'strict_limit' => TRUE,
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
