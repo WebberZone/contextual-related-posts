@@ -121,6 +121,23 @@ function ald_crp( $args = array() ) {
 	$rel_attribute = ( $link_nofollow ) ? ' rel="nofollow" ' : ' ';
 	$target_attribute = ( $link_new_window ) ? ' target="_blank" ' : ' ';
 
+	$link_attributes = array(
+		'rel_attribute' => $rel_attribute,
+		'target_attribute' => $target_attribute,
+	);
+
+	/**
+	 * Filter the title of the Related Posts list
+	 *
+	 * @since	2.2.0
+	 *
+	 * @param	array	$link_attributes	Array of link attributes
+	 */
+	$link_attributes = apply_filters( 'crp_link_attributes', $link_attributes );
+
+	// Convert it to a string
+	$link_attributes = implode( ' ', $link_attributes );
+
 	// Retrieve the list of posts
 	$results = get_crp_posts_id( array_merge( $args, array(
 		'postid' => $post->ID,
@@ -212,10 +229,10 @@ function ald_crp( $args = array() ) {
 				$title = apply_filters( 'crp_title', $title, $result );
 
 				if ( 'after' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . 'class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
+					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
 				}
 				if ( 'inline' == $post_thumb_op || 'after' == $post_thumb_op || 'thumbs_only' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . '>';
+					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
 					$output .= crp_get_the_post_thumbnail( array(
 						'postid' => $result->ID,
 						'thumb_height' => $thumb_height,
@@ -230,7 +247,7 @@ function ald_crp( $args = array() ) {
 					$output .= '</a>';
 				}
 				if ( 'inline' == $post_thumb_op || 'text_only' == $post_thumb_op ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $rel_attribute . ' ' . $target_attribute . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
+					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
 				}
 				if ( $show_author ) {
 					$author_info = get_userdata( $result->post_author );
