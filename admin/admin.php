@@ -175,11 +175,13 @@ function crp_options() {
 		delete_post_meta_by_key( 'crp_related_posts_widget_feed' );
 
 		/* Echo a success message */
-		$str = '<div id="message" class="updated fade"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) . '</p>';
+		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) . '</p>';
 
 		if ( isset( $_POST['include_default_style'] ) ) {
-			$str .= '<p>'. __( 'Default styles selected. Thumbnail width, height and crop settings have been fixed. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
-
+			$str .= '<p>'. __( 'Default styles selected. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
+		}
+		if ( 'crp_thumbnail' != $crp_settings['thumb_size'] ) {
+			$str .= '<p>'. sprintf( __( 'Pre-built thumbnail size selected. Thumbnail set to %d x %d.', CRP_LOCAL_NAME ), $crp_settings['thumb_width'], $crp_settings['thumb_height'] ) . '</p>';
 		}
 
 		$str .= '</div>';

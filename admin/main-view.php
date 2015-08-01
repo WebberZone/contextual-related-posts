@@ -623,6 +623,10 @@ if ( ! defined( 'WPINC' ) ) {
 
 			</table>
 
+			<p>
+			  <input type="submit" name="crp_save" id="crp_customcss_save" value="<?php _e( 'Save Options', CRP_LOCAL_NAME ); ?>" class="button button-primary" />
+			</p>
+
 	      </div> <!-- // inside -->
 	    </div> <!-- // customcssdiv -->
 
