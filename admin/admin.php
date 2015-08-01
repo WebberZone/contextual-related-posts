@@ -82,10 +82,22 @@ function crp_options() {
 
 		/**** Thumbnail options ****/
 		$crp_settings['post_thumb_op'] = wp_kses_post( $_POST['post_thumb_op'] );
+
 		$crp_settings['thumb_size'] = $_POST['thumb_size'];
-		$crp_settings['thumb_height'] = intval( $_POST['thumb_height'] );
-		$crp_settings['thumb_width'] = intval( $_POST['thumb_width'] );
-		$crp_settings['thumb_crop'] = ( isset( $_POST['thumb_crop'] ) ? true : false );
+
+		if ( 'crp_thumbnail' != $crp_settings['thumb_size'] ) {
+			$crp_thumb_size = crp_get_all_image_sizes( $crp_settings['thumb_size'] );
+
+			$crp_settings['thumb_height'] = intval( $crp_thumb_size['height'] );
+			$crp_settings['thumb_width'] = intval( $crp_thumb_size['width'] );
+			$crp_settings['thumb_crop'] = $crp_thumb_size['crop'];
+		} else {
+			$crp_settings['thumb_height'] = intval( $_POST['thumb_height'] );
+			$crp_settings['thumb_width'] = intval( $_POST['thumb_width'] );
+			$crp_settings['thumb_crop'] = ( isset( $_POST['thumb_crop'] ) ? true : false );
+		}
+
+
 		$crp_settings['thumb_html'] = $_POST['thumb_html'];
 
 		$crp_settings['thumb_meta'] = ( '' == $_POST['thumb_meta'] ? 'post-image' : wp_kses_post( $_POST['thumb_meta'] ) );
@@ -106,8 +118,6 @@ function crp_options() {
 		if ( isset( $_POST['include_default_style'] ) ) {
 			$crp_settings['include_default_style'] = true;
 			$crp_settings['post_thumb_op'] = 'inline';
-			$crp_settings['thumb_height'] = 150;
-			$crp_settings['thumb_width'] = 150;
 			$crp_settings['show_excerpt'] = false;
 			$crp_settings['show_author'] = false;
 			$crp_settings['show_date'] = false;
@@ -140,6 +150,8 @@ function crp_options() {
 
 		/**
 		 * Filters $crp_settings before it is saved into the database
+		 *
+		 * @since	2.0.0
 		 *
 		 * @param	array	$crp_settings	CRP settings
 		 * @param	array	$_POST			POST array that consists of the saved settings

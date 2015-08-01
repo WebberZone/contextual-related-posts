@@ -8,6 +8,7 @@
   list-style: none;
   float: left;
   margin: 0 !important;
+  padding: 0 !important;
 }
 .crp_related li, .crp_related a {
   float: left;
@@ -24,25 +25,25 @@
   background: #eee;
   border-color: #bbb;
 }
-.crp_related a {
+/*.crp_related a {
   width: 150px;
   height: 150px;
   text-decoration: none;
-}
+}*/
 .crp_related a:hover {
   text-decoration: none;
 }
-.crp_related img {
+/*.crp_related img {
   max-width: 150px;
   margin: auto;
-}
+}*/
 .crp_related .crp_title {
   position: absolute;
   height: inherit;
   bottom: 6px;
   left: 6px;
   padding: 3px;
-  width: 144px;  /* = 150px - (3px * 2) */
+/*  width: 144px;   = 150px - (3px * 2) */
   color: #fff;
   font-size: .9em;
   text-shadow: #000 .1em .1em .2em;

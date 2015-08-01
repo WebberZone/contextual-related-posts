@@ -30,11 +30,12 @@ if ( ! defined( 'WPINC' ) ) {
 		?>
 
 	  	<li><a href="#genopdiv"><?php _e( 'General options', CRP_LOCAL_NAME ); ?></a> | </li>
-		  	<li><a href="#tuneopdiv"><?php _e( 'List tuning options', CRP_LOCAL_NAME ); ?></a> | </li>
+		<li><a href="#tuneopdiv"><?php _e( 'List tuning options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#outputopdiv"><?php _e( 'Output options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#thumbopdiv"><?php _e( 'Thumbnail options', CRP_LOCAL_NAME ); ?></a> | </li>
-	  	<li><a href="#feedopdiv"><?php _e( 'Feed options', CRP_LOCAL_NAME ); ?></a> | </li>
-	  	<li><a href="#customcssdiv"><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></a></li>
+	  	<li><a href="#customcssdiv"><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></a> | </li>
+	  	<li><a href="#feedopdiv"><?php _e( 'Feed options', CRP_LOCAL_NAME ); ?></a></li>
+
 		<?php
 			/**
 			 * Fires after the navigation bar in the Settings page
@@ -70,6 +71,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="cache"><?php _e( 'Cache output?', CRP_LOCAL_NAME ); ?></label></th>
 					<td><input type="checkbox" name="cache" id="cache" <?php if ( $crp_settings['cache'] ) echo 'checked="checked"' ?> />
 						<p class="description"><?php _e( 'Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'The CRP cache works independently and in addition to any of your caching plugins like WP Super Cache or W3 Total Cache. It is recommended that you enable this on your blog.', CRP_LOCAL_NAME ); ?></p>
 						<p><input type="button" value="<?php _e( 'Clear cache', CRP_LOCAL_NAME ) ?>" onclick="return clearCache();" class="button-secondary" /></p>
 					</td>
 				</tr>
@@ -87,10 +89,11 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
-				<tr><th scope="row"><label for="content_filter_priority"><?php _e( 'Content filter priority:', CRP_LOCAL_NAME ); ?></label></th>
+				<tr><th scope="row"><label for="content_filter_priority"><?php _e( 'Post end display location:', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="content_filter_priority" id="content_filter_priority" value="<?php echo esc_attr( stripslashes( $crp_settings['content_filter_priority'] ) ); ?>" />
-						<p class="description"><?php _e( 'A higher number will cause the content above to be processed after other filters. Number below 10 is not recommended.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'If you select any option above, CRP will hook into the Content Filter at a priority as specified in this option.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'A higher number will cause the related posts to be processed later and move their display further down after the post content. Any number below 10 is not recommended.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
 
@@ -148,33 +151,29 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="daily_range"><?php _e( 'Related posts should be newer than:', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="daily_range" id="daily_range" value="<?php echo esc_attr( stripslashes( $crp_settings['daily_range'] ) ); ?>"><?php _e( 'days', CRP_LOCAL_NAME ); ?>
-						<p class="description"><?php _e( 'This sets the cutoff period for which posts will be displayed. e.g. setting it to 365 will show related posts from the last year only. Set it to 0 to disable limiting posts.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'This sets the cutoff period for which posts will be displayed. e.g. setting it to 365 will show related posts from the last year only. Set to 0 to disable limiting posts by date.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
 
 				<tr><th scope="row"><label for="match_content"><?php _e( 'Find related posts based on content as well as title:', CRP_LOCAL_NAME ); ?></label></th>
 					<td><input type="checkbox" name="match_content" id="match_content" <?php if ( $crp_settings['match_content'] ) echo 'checked="checked"' ?> />
-						<p class="description"><?php _e( 'If unchecked, only posts titles are used. I recommend using a caching plugin or enabling "Cache output" above if you enable this.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'If unchecked, only posts titles are used. I recommend using a caching plugin or enabling "Cache output" above if you enable this. Each site is different, so toggle this option to see which setting gives you better quality related posts.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
 
-				<tr><th scope="row"><label for="match_content_words"><?php _e( 'Limit content to be compared', CRP_LOCAL_NAME ); ?></label></th>
+				<tr><th scope="row"><label for="match_content_words"><?php _e( 'Limit content to be compared:', CRP_LOCAL_NAME ); ?></label></th>
 					<td><input type="textbox" name="match_content_words" id="match_content_words" value="<?php echo esc_attr(stripslashes($crp_settings['match_content_words'])); ?>">
-						<p class="description"><?php _e( 'This sets the maximum words of the content that will be matched. 0 means no limit.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'This sets the maximum words of the content that will be matched. Set to 0 for no limit. Only applies if you active the above option.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
 
 				<tr><th scope="row"><?php _e( 'Post types to include in results:', CRP_LOCAL_NAME ); ?></th>
 					<td>
-						<?php foreach ( $wp_post_types as $wp_post_type ) {
-							$post_type_op = '<label><input type="checkbox" name="post_types[]" value="' . $wp_post_type . '" ';
-							if ( in_array( $wp_post_type, $posts_types_inc ) ) {
-								$post_type_op .= ' checked="checked" ';
-							}
-							$post_type_op .= ' />'.$wp_post_type.'</label>&nbsp;&nbsp;';
-							echo $post_type_op;
-						}
-						?>
+						<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
+							<label>
+								<input type="checkbox" name="post_types[]" value="<?php echo $wp_post_type; ?>" <?php if ( in_array( $wp_post_type, $posts_types_inc ) ) { echo ' checked="checked" '; } ?> /><?php echo $wp_post_type; ?>
+							</label>&nbsp;&nbsp;
+						<?php } ?>
 						<p class="description"><?php _e( 'These post types will be displayed in the list. Includes custom post types.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
@@ -189,11 +188,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<div style="position:relative;text-align:left">
 							<table id="MYCUSTOMFLOATER" class="myCustomFloater" style="position:absolute;top:50px;left:0;background-color:#cecece;display:none;visibility:hidden">
-							<tr><td><!--
-									please see: http://chrisholland.blogspot.com/2004/09/geekstuff-css-display-inline-block.html
-									to explain why i'm using a table here.
-									You could replace the table/tr/td with a DIV, but you'd have to specify it's width and height
-									-->
+							<tr><td>
 								<div class="myCustomFloaterContent">
 								you should never be seeing this
 								</div>
@@ -242,7 +237,7 @@ if ( ! defined( 'WPINC' ) ) {
 					do_action( 'crp_admin_output_options_before', $crp_settings );
 				?>
 
-				<tr><th scope="row"><label for="title"><?php _e( 'Title of related posts: ', CRP_LOCAL_NAME ); ?></label></th>
+				<tr><th scope="row"><label for="title"><?php _e( 'Title of related posts:', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="title" id="title" value="<?php echo esc_attr( stripslashes( $crp_settings['title'] ) ); ?>"  style="width:250px" />
 						<p class="description"><?php _e( 'This is the main heading of the related posts. You can also display the current post title by using <code>%postname%</code>. e.g. <code>Related Posts to %postname%</code>', CRP_LOCAL_NAME ); ?></p>
@@ -252,12 +247,14 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="blank_output"><?php _e( 'When there are no posts, what should be shown?', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<label>
-						<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ( $crp_settings['blank_output'] ) echo 'checked="checked"' ?> />
-						<?php _e( 'Blank Output', CRP_LOCAL_NAME ); ?></label>
+							<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ( $crp_settings['blank_output'] ) echo 'checked="checked"' ?> />
+							<?php _e( 'Blank Output', CRP_LOCAL_NAME ); ?>
+						</label>
 						<br />
 						<label>
-						<input type="radio" name="blank_output" value="customs" id="blank_output_1" <?php if ( ! $crp_settings['blank_output'] ) echo 'checked="checked"' ?> />
-						<?php _e( 'Display:', CRP_LOCAL_NAME ); ?></label>
+							<input type="radio" name="blank_output" value="customs" id="blank_output_1" <?php if ( ! $crp_settings['blank_output'] ) echo 'checked="checked"' ?> />
+							<?php _e( 'Display:', CRP_LOCAL_NAME ); ?>
+						</label>
 						<input type="textbox" name="blank_output_text" id="blank_output_text" value="<?php echo esc_attr( stripslashes( $crp_settings['blank_output_text'] ) ); ?>"  style="width:250px" />
 					</td>
 				</tr>
@@ -273,7 +270,7 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
-				<tr><th scope="row"><label for="excerpt_length"><?php _e( 'Length of excerpt (in words): ', CRP_LOCAL_NAME ); ?></label></th>
+				<tr><th scope="row"><label for="excerpt_length"><?php _e( 'Length of excerpt (in words):', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="excerpt_length" id="excerpt_length" value="<?php echo stripslashes( $crp_settings['excerpt_length'] ); ?>" />
 					</td>
@@ -304,7 +301,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="title_length"><?php _e( 'Limit post title length (in characters)', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="title_length" id="title_length" value="<?php echo stripslashes( $crp_settings['title_length'] ); ?>" />
-							<p class="description"><?php _e( "Any title longer than the number of characters set above will be cut and appended with a &helip;", CRP_LOCAL_NAME ); ?></p>
+							<p class="description"><?php _e( "Any title longer than the number of characters set above will be cut and appended with an ellipsis (&hellip;)", CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
 
@@ -357,13 +354,11 @@ if ( ! defined( 'WPINC' ) ) {
 				</tr>
 				<tr><th scope="row"><?php _e( 'Exclude display of related posts on these post types.', CRP_LOCAL_NAME ); ?></th>
 					<td>
-						<?php foreach ( $wp_post_types as $wp_post_type ) {
-							$post_type_op = '<label><input type="checkbox" name="exclude_on_post_types[]" value="' . $wp_post_type . '" ';
-							if ( in_array( $wp_post_type, $posts_types_excl ) ) $post_type_op .= ' checked="checked" ';
-							$post_type_op .= ' />' . $wp_post_type . '</label>&nbsp;&nbsp;';
-							echo $post_type_op;
-						}
-						?>
+						<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
+							<label>
+								<input type="checkbox" name="exclude_on_post_types[]" value="<?php echo $wp_post_type; ?>" <?php if ( in_array( $wp_post_type, $posts_types_excl ) ) { echo ' checked="checked" '; } ?> /><?php echo $wp_post_type; ?>
+							</label>&nbsp;&nbsp;
+						<?php } ?>
 						<p class="description"><?php _e( 'The related posts will not display on any of the above selected post types', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
@@ -465,7 +460,8 @@ if ( ! defined( 'WPINC' ) ) {
 						<?php _e( 'Do not display thumbnails, only text.', CRP_LOCAL_NAME ); ?></label>
 
 						<?php if ( $crp_settings['include_default_style'] ) { ?>
-							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Location of thumbnail forced to be inline before title", CRP_LOCAL_NAME ); ?></p>
+							<p style="color: #F00"><?php _e( "This setting cannot be changed because the default style has been selected under the Custom Styles section.", CRP_LOCAL_NAME ); ?></p>
+							<p style="color: #F00"><?php _e( "If you would like to change this option, please disable the default style option.", CRP_LOCAL_NAME ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -496,8 +492,10 @@ if ( ! defined( 'WPINC' ) ) {
 								<input type="radio" name="thumb_size" value="crp_thumbnail" id="crp_thumbnail" <?php if ( $crp_settings['thumb_size'] == 'crp_thumbnail' ) echo 'checked="checked"' ?> /> <?php _e( 'Custom size', CRP_LOCAL_NAME ); ?>
 							</label>
 							<p class="description">
-								<?php _e( 'You can choose from existing image sizes above or create a custom size. If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image.', CRP_LOCAL_NAME ); ?><br />
-								<?php _e( "If you change the width, height or crop mode below, existing images will not be automatically resized.", CRP_LOCAL_NAME ); ?>
+								<?php _e( 'You can choose from existing image sizes above or create a custom size.', CRP_LOCAL_NAME ); ?><br /><br />
+								<?php _e( 'If you choose an existing size, then the width, height and crop mode settings in the three options below will be automatically updated to reflect the correct dimensions of the setting.', CRP_LOCAL_NAME ); ?><br />
+								<?php _e( "If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image with the same width and height. The default setting is 150x150 cropped image.", CRP_LOCAL_NAME ); ?><br /><br />
+								<?php _e( "Any changes to the thumbnail settings doesn't automatically resize existing images.", CRP_LOCAL_NAME ); ?>
 								<?php printf( __( "I recommend using <a href='%s' class='thickbox'>OTF Regenerate Thumbnails</a> or <a href='%s' class='thickbox'>Regenerate Thumbnails</a> to regenerate all image sizes.", CRP_LOCAL_NAME ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=otf-regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ); ?>
 							</p>
 					</td>
@@ -517,26 +515,30 @@ if ( ! defined( 'WPINC' ) ) {
 							<?php _e( "By default, thumbnails will be hard cropped. Uncheck this box to proportionately/soft crop the thumbnails.", CRP_LOCAL_NAME ); ?>
 							<?php printf( __( "<a href='%s' target='_blank'>Difference between soft and hard crop</a>", CRP_LOCAL_NAME ), 'http://www.davidtan.org/wordpress-hard-crop-vs-soft-crop-difference-comparison-example/' ); ?>
 						</p>
-						<?php if ( $crp_settings['include_default_style'] ) { ?>
-							<p class="description"><?php _e( "Default style selected under the Custom Styles. Thumbnail width and height is fixed at 150px and crop mode is enabled.", CRP_LOCAL_NAME ); ?></p>
-						<?php } ?>
 					</td>
 				</tr>
-				<tr><th scope="row"><label for="thumb_html"><?php _e( 'Style attributes / Width and Height HTML attributes:', CRP_LOCAL_NAME ); ?></label></th>
+				<tr><th scope="row"><label for="thumb_html"><?php _e( 'Image size attributes:', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<label>
-						<input type="radio" name="thumb_html" value="css" id="thumb_html_0" <?php if ( 'css' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
-						<?php _e( 'Style attributes are used for width and height.', CRP_LOCAL_NAME ); echo ' <code>style="max-width:' . $crp_settings['thumb_width'] . 'px;max-height:' . $crp_settings['thumb_height'] . 'px;"</code>'; ?></label>
+							<input type="radio" name="thumb_html" value="css" id="thumb_html_0" <?php if ( 'css' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
+							<?php _e( 'Style attributes are used for width and height.', CRP_LOCAL_NAME ); echo ' <code>style="max-width:' . $crp_settings['thumb_width'] . 'px;max-height:' . $crp_settings['thumb_height'] . 'px;"</code>'; ?>
+						</label>
 						<br />
 						<label>
-						<input type="radio" name="thumb_html" value="html" id="thumb_html_1" <?php if ( 'html' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
-						<?php _e( 'HTML width and height attributes are used for width and height.', CRP_LOCAL_NAME ); echo ' <code>width="' . $crp_settings['thumb_width'] . '" height="' . $crp_settings['thumb_height'] . '"</code>'; ?></label>
+							<input type="radio" name="thumb_html" value="html" id="thumb_html_1" <?php if ( 'html' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
+							<?php _e( 'HTML width and height attributes are used for width and height.', CRP_LOCAL_NAME ); echo ' <code>width="' . $crp_settings['thumb_width'] . '" height="' . $crp_settings['thumb_height'] . '"</code>'; ?>
+						</label>
+						<br />
+						<label>
+							<input type="radio" name="thumb_html" value="none" id="thumb_html_1" <?php if ( 'none' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
+							<?php _e( 'No HTML or Style attributes set for width and height', CRP_LOCAL_NAME ); ?>
+						</label>
 						<br />
 					</td>
 				</tr>
 				<tr><th scope="row"><label for="thumb_meta"><?php _e( 'Post thumbnail meta field name:', CRP_LOCAL_NAME ); ?></label></th>
 					<td><input type="textbox" name="thumb_meta" id="thumb_meta" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_meta'] ) ); ?>">
-						<p class="description"><?php _e( 'The value of this field should contain the image source and is set in the <em>Add New Post</em> screen', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'The value of this field should contain a direct link to the image. This is set in the meta box in the <em>Add New Post</em> screen.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
 				<tr><th scope="row"><label for="scan_images"><?php _e( 'Extract the first image from the post?', CRP_LOCAL_NAME ); ?></label></th>
@@ -575,6 +577,54 @@ if ( ! defined( 'WPINC' ) ) {
 
 	      </div> <!-- // inside -->
 	    </div> <!-- // outputopdiv -->
+
+	    <div id="customcssdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
+	      <h3 class='hndle'><span><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></span></h3>
+	      <div class="inside">
+
+			<table class="form-table">
+
+				<?php
+					/**
+					 * Fires before Custom styles options block.
+					 *
+					 * @since 2.0.0
+					 *
+					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 */
+					do_action( 'crp_admin_custom_styles_before', $crp_settings );
+				?>
+
+				<tr><th scope="row"><label for="include_default_style"><?php _e( 'Use default style included in the plugin?', CRP_LOCAL_NAME ); ?></label></th>
+				  <td>
+				  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ( $crp_settings['include_default_style'] ) echo 'checked="checked"' ?> />
+				  	<p class="description"><?php _e( 'Contextual Related Posts includes a default style that makes your popular posts list to look beautiful. Check the box above if you want to use this.', CRP_LOCAL_NAME ); ?></p>
+				  	<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>
+					<p class="description"><?php printf( __( 'You can view the default style at <a href="%1$s" target="_blank">%1$s</a>', CRP_LOCAL_NAME ), esc_url( 'https://github.com/ajaydsouza/contextual-related-posts/blob/master/css/default-style.css' ) ); ?></p>
+				  </td>
+				</tr>
+				<tr><th scope="row" colspan="2"><?php _e( 'Custom CSS to add to header:', CRP_LOCAL_NAME ); ?></th>
+				</tr>
+				<tr>
+				  <td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%"><?php echo stripslashes( $crp_settings['custom_CSS'] ); ?></textarea>
+				  <p class="description"><?php _e( 'Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.', CRP_LOCAL_NAME ); ?></p>
+				</td></tr>
+
+				<?php
+					/**
+					 * Fires after Custom styles options block.
+					 *
+					 * @since 2.0.0
+					 *
+					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 */
+					do_action( 'crp_admin_custom_styles_after', $crp_settings );
+				?>
+
+			</table>
+
+	      </div> <!-- // inside -->
+	    </div> <!-- // customcssdiv -->
 
 	    <div id="feedopdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
 	      <h3 class='hndle'><span><?php _e( 'Feed options', CRP_LOCAL_NAME ); ?></span></h3>
@@ -647,54 +697,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 	      </div> <!-- // inside -->
 	    </div> <!-- // feedopdiv -->
-
-	    <div id="customcssdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-	      <h3 class='hndle'><span><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></span></h3>
-	      <div class="inside">
-
-			<table class="form-table">
-
-				<?php
-					/**
-					 * Fires before Custom styles options block.
-					 *
-					 * @since 2.0.0
-					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
-					 */
-					do_action( 'crp_admin_custom_styles_before', $crp_settings );
-				?>
-
-				<tr><th scope="row"><label for="include_default_style"><?php _e( 'Use default style included in the plugin?', CRP_LOCAL_NAME ); ?></label></th>
-				  <td>
-				  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ( $crp_settings['include_default_style'] ) echo 'checked="checked"' ?> />
-				  	<p class="description"><?php _e( 'Contextual Related Posts includes a default style that makes your popular posts list to look beautiful. Check the box above if you want to use this.', CRP_LOCAL_NAME ); ?></p>
-				  	<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>
-					<p class="description"><?php printf( __( 'You can view the default style at <a href="%1$s" target="_blank">%1$s</a>', CRP_LOCAL_NAME ), esc_url( 'https://github.com/ajaydsouza/contextual-related-posts/blob/master/css/default-style.css' ) ); ?></p>
-				  </td>
-				</tr>
-				<tr><th scope="row" colspan="2"><?php _e( 'Custom CSS to add to header:', CRP_LOCAL_NAME ); ?></th>
-				</tr>
-				<tr>
-				  <td scope="row" colspan="2"><textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%"><?php echo stripslashes( $crp_settings['custom_CSS'] ); ?></textarea>
-				  <p class="description"><?php _e( 'Do not include <code>style</code> tags. Check out the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a> for available CSS classes to style.', CRP_LOCAL_NAME ); ?></p>
-				</td></tr>
-
-				<?php
-					/**
-					 * Fires after Custom styles options block.
-					 *
-					 * @since 2.0.0
-					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
-					 */
-					do_action( 'crp_admin_custom_styles_after', $crp_settings );
-				?>
-
-			</table>
-
-	      </div> <!-- // inside -->
-	    </div> <!-- // customcssdiv -->
 
 		<?php
 			/**

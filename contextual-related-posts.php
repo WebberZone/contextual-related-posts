@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2-beta20150712
+ * Version: 	2.2-beta20150801
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -857,6 +857,22 @@ function crp_heading_styles() {
 	if ( $crp_settings['include_default_style'] ) {
 		wp_register_style( 'crp_list_style', plugins_url( 'css/default-style.css', __FILE__ ) );
 		wp_enqueue_style( 'crp_list_style' );
+
+
+        $custom_css = "
+.crp_related a {
+  width: {$crp_settings['thumb_width']}px;
+  height: {$crp_settings['thumb_height']}px;
+  text-decoration: none;
+}
+.crp_related img {
+  max-width: {$crp_settings['thumb_width']}px;
+  margin: auto;
+}
+                ";
+
+		wp_add_inline_style( 'crp_list_style', $custom_css );
+
 	}
 }
 add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
@@ -1320,7 +1336,13 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
 
-		$thumb_html = ( 'css' == $thumb_html ) ? 'style="max-width:' . $thumb_width . 'px;max-height:' . $thumb_height . 'px;"' : 'width="' . $thumb_width . '" height="' .$thumb_height . '"';
+		if ( 'css' == $thumb_html ) {
+			$thumb_html = 'style="max-width:' . $thumb_width . 'px;max-height:' . $thumb_height . 'px;"';
+		} else if ( 'html' == $thumb_html ) {
+			$thumb_html = 'width="' . $thumb_width . '" height="' .$thumb_height . '"';
+		} else {
+			$thumb_html = '';
+		}
 
 		$class .= ' crp_' . $pick;
 		$output .= '<img src="' . $postimage . '" alt="' . $post_title . '" title="' . $post_title . '" ' . $thumb_html . ' class="' . $class . '" />';

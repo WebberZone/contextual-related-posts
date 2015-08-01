@@ -65,6 +65,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 == Changelog ==
 
 = 2.2 =
+* Modified: Select a pre-built thumbnail size will automatically update the width, height and crop settings. The default style will no longer enforce the 150x150 thumbnail size.
 * Fixed: First child now gets the correct thumbnail size
 
 = 2.1.1 =
