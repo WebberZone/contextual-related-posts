@@ -97,6 +97,20 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
+				<tr><th scope="row"><label for="show_metabox"><?php _e( "Show metabox:", CRP_LOCAL_NAME ); ?></label></th>
+					<td>
+						<input type="checkbox" name="show_metabox" id="show_metabox" <?php if ( $crp_settings['show_metabox'] ) echo 'checked="checked"' ?> />
+						<p class="description"><?php _e( 'This will add the Contextual Related Posts metabox on Edit Posts or Add New Posts screens. Also applies to Pages and Custom Post Types.', CRP_LOCAL_NAME ); ?></p>
+					</td>
+				</tr>
+
+				<tr><th scope="row"><label for="show_metabox_admins"><?php _e( "Limit metabox to Admins only:", CRP_LOCAL_NAME ); ?></label></th>
+					<td>
+						<input type="checkbox" name="show_metabox_admins" id="show_metabox_admins" <?php if ( $crp_settings['show_metabox_admins'] ) echo 'checked="checked"' ?> />
+						<p class="description"><?php _e( 'If this is selected, the metabox will be hidden from anyone who is not an Admin. Otherwise, by default, Contributors and above will be able to see the metabox. This applies only if the above option is selected.', CRP_LOCAL_NAME ); ?></p>
+					</td>
+				</tr>
+
 				<tr><th scope="row"><label for="show_credit"><?php _e( "Tell the world you're using Contextual Related Posts:", CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="checkbox" name="show_credit" id="show_credit" <?php if ( $crp_settings['show_credit'] ) echo 'checked="checked"' ?> /> <?php _e( ' <em>Optional</em>', CRP_LOCAL_NAME ); ?>

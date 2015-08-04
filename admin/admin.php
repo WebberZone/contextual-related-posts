@@ -56,6 +56,8 @@ function crp_options() {
 		$crp_settings['add_to_archives'] = ( isset( $_POST['add_to_archives'] ) ? true : false );
 
 		$crp_settings['content_filter_priority'] = intval( $_POST['content_filter_priority'] );
+		$crp_settings['show_metabox'] = ( isset( $_POST['show_metabox'] ) ? true : false );
+		$crp_settings['show_metabox_admins'] = ( isset( $_POST['show_metabox_admins'] ) ? true : false );
 		$crp_settings['show_credit'] = ( isset( $_POST['show_credit'] ) ? true : false );
 
 		/**** Output options ****/
@@ -454,6 +456,13 @@ add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
  * @param	object	$post
  */
 function crp_add_meta_box( $post_type, $post ) {
+	global $crp_settings;
+
+	// If metaboxes are disabled, then exit
+    if ( ! $crp_settings['show_metabox'] ) return;
+
+	// If current user isn't an admin and we're restricting metaboxes to admins only, then exit
+	if ( ! current_user_can( 'manage_options' ) && $crp_settings['show_metabox_admins'] ) return;
 
 	$args = array(
 	   'public'   => true,

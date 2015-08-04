@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2-beta20150801
+ * Version: 	2.2-beta20150804
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -959,6 +959,9 @@ function crp_default_options() {
 		'add_to_archives' => false,		// Add related posts to other archives
 
 		'content_filter_priority' => 10,	// Content priority
+		'show_metabox'	=> true,	// Show metabox to admins
+		'show_metabox_admins'	=>	false,	// Limit to admins as well
+
 		'show_credit' => false,		// Link to this plugin's page?
 
 		// List tuning options

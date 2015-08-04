@@ -65,6 +65,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 == Changelog ==
 
 = 2.2 =
+* New: Option to turn off the Contextual Related metabox on Edit Posts screens or limit it to Admins only. Also applies to Pages and Custom Post Types
 * New: Filter `crp_link_attributes` that allows a user to add or remove attributes for the `a` tag
 * Modified: Select a pre-built thumbnail size will automatically update the width, height and crop settings. The default style will no longer enforce the 150x150 thumbnail size.
 * Modified: `strict_limit` argument in `get_crp_posts_id` is now TRUE by default
