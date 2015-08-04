@@ -1606,6 +1606,7 @@ function crp_get_all_image_sizes( $size = '' ) {
 if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/metabox.php' );
 
 } // End admin.inc
 
