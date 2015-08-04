@@ -277,7 +277,7 @@ function crp_adminhead() {
 	.postbox.closed .handlediv:before {
 		content: '\f140';
 	}
-	.wrap h2:before {
+	.wrap h1:before {
 	    content: "\f237";
 	    display: inline-block;
 	    -webkit-font-smoothing: antialiased;
