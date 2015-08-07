@@ -212,9 +212,16 @@ function crp_options() {
 	}
 
 	if ( ( isset( $_POST['crp_recreate'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
-		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related" );
-		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_title" );
-		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_content" );
+
+		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) ) {
+			$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related" );
+		}
+		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_title'" ) ) {
+			$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_title" );
+		}
+		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_content'" ) ) {
+			$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_content" );
+		}
 
 		crp_single_activate();
 

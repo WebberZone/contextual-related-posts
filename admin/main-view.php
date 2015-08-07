@@ -730,6 +730,12 @@ if ( ! defined( 'WPINC' ) ) {
 		  <input name="crp_default" type="submit" id="crp_default" value="<?php _e( 'Default Options', CRP_LOCAL_NAME ); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e( "Do you want to set options to Default?", CRP_LOCAL_NAME ); ?>')) return false;" />
 		  <input name="crp_recreate" type="submit" id="crp_recreate" value="<?php _e( 'Recreate Index', CRP_LOCAL_NAME ); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e( "Are you sure you want to recreate the index?", CRP_LOCAL_NAME ); ?>')) return false;" />
 		</p>
+
+		<?php if ( ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) || ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_title'" ) || ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_content'" ) ) { ?>
+			<div class="notice error">
+				<?php _e( 'One or more FULLTEXT indices are missing. Please hit the <a href="#crp_recreate">Recreate Index button</a> at the bottom of the page to fix this.', CRP_LOCAL_NAME ); ?>
+			</div>
+		<?php } ?>
 		<?php wp_nonce_field( 'crp-plugin-settings' ) ?>
 	  </form>
 	</div><!-- /post-body-content -->
