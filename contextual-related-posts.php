@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2-beta20150807
+ * Version: 	2.2-beta20150809
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -606,12 +606,26 @@ function ald_crp_content( $content ) {
 
 	if ( ! in_the_loop() ) return $content;
 
+	// If this post ID is in the DO NOT DISPLAY list
 	$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
 	if ( in_array( $post->ID, $exclude_on_post_ids ) ) return $content;	// Exit without adding related posts
 
+	// If this post type is in the DO NOT DISPLAY list
 	parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable
 	if ( in_array( $post->post_type, $exclude_on_post_types ) ) return $content;	// Exit without adding related posts
 
+	// If the DO NOT DISPLAY meta field is set
+	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
+
+	if ( isset( $crp_post_meta['crp_disable_here'] ) ) {
+		$crp_disable_here = $crp_post_meta['crp_disable_here'];
+	} else {
+		$crp_disable_here = 0;
+	}
+
+	if ( $crp_disable_here ) return $content;
+
+	// Else add the content
     if ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) {
         return $content.ald_crp( 'is_widget=0' );
     } elseif ( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) {
