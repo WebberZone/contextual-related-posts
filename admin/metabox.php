@@ -37,6 +37,15 @@ function crp_add_meta_box( $post_type, $post ) {
 	);
 	$post_types = get_post_types( $args );
 
+	/**
+	 * Filter post types on which the meta box is displayed
+	 *
+	 * @since	2.2.0
+	 *
+	 * @param	array	$post_types	Array of post types
+	 */
+	$post_types = apply_filters( 'crp_meta_box_post_types', $post_types );
+
 	if ( in_array( $post_type, $post_types ) ) {
 
     	add_meta_box(
@@ -71,13 +80,22 @@ function crp_call_meta_box() {
 		<label for="thumb_meta"><?php _e( "Location of thumbnail:", CRP_LOCAL_NAME ); ?></label>
 		<input type="text" id="thumb_meta" name="thumb_meta" value="<?php echo esc_attr( $value ) ?>" style="width:100%" />
 		<em><?php _e( "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This image will be used for the post. It will be resized to the thumbnail size set under Settings &raquo; Related Posts &raquo; Output Options", CRP_LOCAL_NAME ); ?></em>
-		<em><?php _e( "The URL above is saved in the meta field: ", CRP_LOCAL_NAME ); ?></em><strong><?php echo $crp_settings['thumb_meta']; ?></strong>
+		<em><?php _e( "The URL above is saved in the meta field:", CRP_LOCAL_NAME ); ?></em> <strong><?php echo $crp_settings['thumb_meta']; ?></strong>
 	</p>
 
 	<?php
 	if ( $results ) {
 		echo '<img src="' . $value . '" style="max-width:100%" />';
 	}
+
+	/**
+	 * Action triggered when displaying Contextual Related Posts meta box
+	 *
+	 * @since	2.2
+	 *
+	 * @param	object	$post	Post object
+	 */
+	do_action( 'crp_call_meta_box', $post );
 }
 
 
@@ -119,6 +137,14 @@ function crp_save_meta_box( $post_id ) {
 		delete_post_meta( $post_id, $crp_settings['thumb_meta'] );
 	}
 
+	/**
+	 * Action triggered when saving Contextual Related Posts meta box settings
+	 *
+	 * @since	2.2
+	 *
+	 * @param	object	$post	Post object
+	 */
+	do_action( 'crp_save_meta_box', $post );
 }
 add_action( 'save_post', 'crp_save_meta_box' );
 
