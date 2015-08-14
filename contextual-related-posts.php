@@ -413,6 +413,16 @@ function get_crp_posts_id( $args = array() ) {
 
 	parse_str( $post_types, $post_types );	// Save post types in $post_types variable
 
+	/**
+	 * Filter the post_types to filter by.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @param array  $post_types  Array of post types to filter by
+	 * @param int    $post->ID    Post ID
+	 */
+	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $post->ID );
+
 	// Are we matching only the title or the post content as well?
 	if( $match_content ) {
 		$stuff = $post->post_title . ' ' . crp_excerpt( $post->ID, $match_content_words, false );
