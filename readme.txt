@@ -69,6 +69,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 * New: Filter `crp_link_attributes` that allows a user to add or remove attributes for the `a` tag
 * New: Notice is displayed at the top of the Settings page if there are any missing of the FULLTEXT indices missing
 * New: Option in the Contextual Related Posts meta box to disable the related posts on the selected post
+* New: Select post type in the Related Posts Widget
 * Modified: Select a pre-built thumbnail size will automatically update the width, height and crop settings. The default style will no longer enforce the 150x150 thumbnail size.
 * Modified: `strict_limit` argument in `get_crp_posts_id` is now TRUE by default
 * Fixed: First child now gets the correct thumbnail size

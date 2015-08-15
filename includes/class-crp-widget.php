@@ -51,6 +51,18 @@ class CRP_Widget extends WP_Widget {
 		$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : '';
 		$thumb_height = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
 		$thumb_width = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
+
+		// Parse the Post types
+		$post_types = array();
+		if ( isset( $instance['post_types'] ) ) {
+			$post_types = $instance['post_types'];
+			parse_str( $post_types, $post_types );	// Save post types in $post_types variable
+		}
+		$wp_post_types	= get_post_types( array(
+			'public'	=> true,
+		) );
+		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
+
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
@@ -97,6 +109,19 @@ class CRP_Widget extends WP_Widget {
 			</label>
 		</p>
 
+		<p><?php _e( 'Post types to include:', CRP_LOCAL_NAME ); ?><br />
+
+			<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
+
+				<label>
+					<input id="<?php echo $this->get_field_id( 'post_types' ); ?>" name="<?php echo $this->get_field_name( 'post_types' ); ?>[]" type="checkbox" value="<?php echo $wp_post_type; ?>" <?php if ( in_array( $wp_post_type, $posts_types_inc ) ) echo 'checked="checked"' ?> />
+					<?php echo $wp_post_type; ?>
+				</label>
+				<br />
+
+			<?php }	?>
+		</p>
+
 		<?php
 			/**
 			 * Fires after Contextual Related Posts widget options.
@@ -131,8 +156,25 @@ class CRP_Widget extends WP_Widget {
 		$instance['post_thumb_op'] = $new_instance['post_thumb_op'];
 		$instance['thumb_height'] = $new_instance['thumb_height'];
 		$instance['thumb_width'] = $new_instance['thumb_width'];
+
+		// Process post types to be selected
+		$wp_post_types	= get_post_types( array(
+			'public'	=> true,
+		) );
+		$post_types = ( isset( $new_instance['post_types'] ) ) ? $new_instance['post_types'] : array();
+		$post_types = array_intersect( $wp_post_types, $post_types );
+		$instance['post_types'] = http_build_query( $post_types, '', '&' );
+
 		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache
-		return $instance;
+
+		/**
+		 * Filters Update widget options array.
+		 *
+		 * @since 2.0.0
+		 *
+		 * @param	array	$instance	Widget options array
+		 */
+		return apply_filters( 'crp_widget_options_update' , $instance );
 	} //ending update
 
 	/**
@@ -144,11 +186,9 @@ class CRP_Widget extends WP_Widget {
 	 * @param	array	$instance	Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		global $wpdb, $post;
+		global $wpdb, $post, $crp_settings;
 
 		extract( $args, EXTR_SKIP );
-
-		global $crp_settings;
 
 		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable
 		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types ) ) ) {
@@ -172,10 +212,9 @@ class CRP_Widget extends WP_Widget {
 			$show_excerpt = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
 			$show_author = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
 			$show_date = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
+			$post_types = isset( $instance['post_types'] ) ? $instance['post_types'] : $crp_settings['post_types'];
 
-			$output = $before_widget;
-			$output .= $before_title . $title . $after_title;
-			$output .= ald_crp( array(
+			$arguments = array(
 				'is_widget' => 1,
 				'limit' => $limit,
 				'show_excerpt' => $show_excerpt,
@@ -184,7 +223,22 @@ class CRP_Widget extends WP_Widget {
 				'post_thumb_op' => $post_thumb_op,
 				'thumb_height' => $thumb_height,
 				'thumb_width' => $thumb_width,
-			) );
+				'post_types' => $post_types,
+			);
+
+			/**
+			 * Filters arguments passed to crp_pop_posts for the widget.
+			 *
+			 * @since 2.0.0
+			 *
+			 * @param	array	$arguments	Widget options array
+			 */
+			$arguments = apply_filters( 'crp_widget_options' , $arguments );
+
+
+			$output = $before_widget;
+			$output .= $before_title . $title . $after_title;
+			$output .= ald_crp( $arguments );
 
 			$output .= $after_widget;
 
