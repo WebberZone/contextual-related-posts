@@ -376,6 +376,7 @@ function get_crp_posts_id( $args = array() ) {
 	$join = '';
 	$groupby = '';
 	$orderby = '';
+	$having = '';
 	$limits = '';
 	$match_fields = '';
 
@@ -385,7 +386,7 @@ function get_crp_posts_id( $args = array() ) {
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
-	// Parse incomming $args into an array and merge it with $defaults
+	// Parse incoming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
 
 	// Declare each item in $args as its own variable i.e. $type, $before.
@@ -413,15 +414,15 @@ function get_crp_posts_id( $args = array() ) {
 
 	parse_str( $post_types, $post_types );	// Save post types in $post_types variable
 
-	/**
-	 * Filter the post_types to filter by.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @param array  $post_types  Array of post types to filter by
-	 * @param int    $post->ID    Post ID
-	 */
-	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $post->ID );
+  /**
+   * Filter the post_type clause of the query.
+   *
+   * @since 2.2.0
+   *
+   * @param array  $post_types  Array of post types to filter by
+   * @param int    $post->ID    Post ID
+   */
+  $post_types = apply_filters( 'crp_posts_post_types', $post_types, $post->ID );
 
 	// Are we matching only the title or the post content as well?
 	if( $match_content ) {
@@ -541,6 +542,15 @@ function get_crp_posts_id( $args = array() ) {
 		 */
 		$groupby = apply_filters( 'crp_posts_groupby', $groupby, $post->ID );
 
+		/**
+		 * Filter the HAVING clause of the query.
+		 *
+		 * @since	2.2.0
+		 *
+		 * @param string  $having  The HAVING clause of the query.
+		 * @param int	    $post->ID	Post ID
+		 */
+		$having = apply_filters( 'crp_posts_having', $having, $post->ID );
 
 		/**
 		 * Filter the ORDER BY clause of the query.
@@ -565,11 +575,16 @@ function get_crp_posts_id( $args = array() ) {
 		if ( ! empty( $groupby ) ) {
 			$groupby = 'GROUP BY ' . $groupby;
 		}
+
+		if ( ! empty( $having ) ) {
+			$having = 'HAVING ' . $having;
+		}
+
 		if ( !empty( $orderby ) ) {
 			$orderby = 'ORDER BY ' . $orderby;
 		}
-		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $orderby $limits";
 
+		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $having $orderby $limits";
 		$results = $wpdb->get_results( $sql );
 	} else {
 		$results = false;
