@@ -386,11 +386,8 @@ function get_crp_posts_id( $args = array() ) {
 	// Parse incoming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
 
-	// Declare each item in $args as its own variable i.e. $type, $before.
-	extract( $args, EXTR_SKIP );
-
 	// Fix the thumb size in case it is missing
-	$crp_thumb_size = crp_get_all_image_sizes( $thumb_size );
+	$crp_thumb_size = crp_get_all_image_sizes( $args['thumb_size'] );
 
 	if ( isset( $crp_thumb_size['width'] ) ) {
 		$thumb_width = $crp_thumb_size['width'];
@@ -405,11 +402,11 @@ function get_crp_posts_id( $args = array() ) {
 		$thumb_height = $crp_settings['thumb_height'];
 	}
 
-	$post = ( empty( $postid ) ) ? $post : get_post( $postid );
+	$post = ( empty( $args['postid'] ) ) ? $post : get_post( $args['postid'] );
 
-	$limit = ( $strict_limit ) ? $limit : ( $limit * 3 );
+	$limit = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
 
-	parse_str( $post_types, $post_types );	// Save post types in $post_types variable
+	parse_str( $args['post_types'], $post_types );	// Save post types in $post_types variable
 
 	/**
 	 * Filter the post_type clause of the query.
@@ -422,8 +419,8 @@ function get_crp_posts_id( $args = array() ) {
 	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $post->ID );
 
 	// Are we matching only the title or the post content as well?
-	if( $match_content ) {
-		$stuff = $post->post_title . ' ' . crp_excerpt( $post->ID, $match_content_words, false );
+	if( $args['match_content'] ) {
+		$stuff = $post->post_title . ' ' . crp_excerpt( $post->ID, $args['match_content_words'], false );
 		$match_fields = "post_title,post_content";
 	} else {
 		$stuff = $post->post_title;
@@ -436,7 +433,7 @@ function get_crp_posts_id( $args = array() ) {
 
 	// Limit the related posts by time
 	$current_time = current_time( 'timestamp', 0 );
-	$from_date = $current_time - ( $daily_range * DAY_IN_SECONDS );
+	$from_date = $current_time - ( $args['daily_range'] * DAY_IN_SECONDS );
 	$from_date = gmdate( 'Y-m-d H:i:s' , $from_date );
 
 	// Create the SQL query to fetch the related posts from the database
@@ -473,7 +470,7 @@ function get_crp_posts_id( $args = array() ) {
 		$now_clause = apply_filters( 'crp_posts_now_date', $now_clause, $post->ID );
 
 		// Create the minimum date limit
-		$from_clause = ( 0 == $daily_range ) ? '' : $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );	// Show posts after the date specified
+		$from_clause = ( 0 == $args['daily_range'] ) ? '' : $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );	// Show posts after the date specified
 
 		/**
 		 * Filter the Maximum date clause of the query.
@@ -491,8 +488,8 @@ function get_crp_posts_id( $args = array() ) {
 		$where .= $from_clause;
 		$where .= " AND $wpdb->posts.post_status = 'publish' ";					// Only show published posts
 		$where .= $wpdb->prepare( " AND $wpdb->posts.ID != %d ", $post->ID );	// Show posts after the date specified
-		if ( '' != $exclude_post_ids ) {
-			$where .= " AND $wpdb->posts.ID NOT IN (" . $exclude_post_ids . ") ";
+		if ( '' != $args['exclude_post_ids'] ) {
+			$where .= " AND $wpdb->posts.ID NOT IN (" . $args['exclude_post_ids'] . ") ";
 		}
 		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";	// Array of post types
 
@@ -1075,18 +1072,15 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		_deprecated_argument( __FUNCTION__, '2.1', __( 'filter argument has been deprecated', CRP_LOCAL_NAME ) );
 	}
 
-	// Declare each item in $args as its own variable i.e. $type, $before.
-	extract( $args, EXTR_SKIP );
-
-	$result = get_post( $postid );
-	$post_title = get_the_title( $postid );
+	$result = get_post( $args['postid'] );
+	$post_title = get_the_title( $args['postid'] );
 
 	$output = '';
 	$postimage = '';
 
 	// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page
 	if ( ! $postimage ) {
-		$postimage = get_post_meta( $result->ID, $thumb_meta, true );	// Check the post meta first
+		$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );	// Check the post meta first
 		$pick = 'meta';
 	}
 
@@ -1100,7 +1094,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	}
 
 	// If there is no thumbnail found, fetch the first image in the post, if enabled
-	if ( ! $postimage && $scan_images ) {
+	if ( ! $postimage && $args['scan_images'] ) {
 		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $result->post_content, $matches );
 		if ( isset( $matches[1][0] ) && $matches[1][0] ) { 			// any image there?
 			$postimage = $matches[1][0]; // we need the first one only!
@@ -1130,7 +1124,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	}
 
 	// If no thumb found and settings permit, use default thumb
-	if ( $thumb_default_show && ! $postimage ) {
+	if ( ! $postimage && $args['thumb_default_show'] ) {
 		$postimage = $thumb_default;
 		$pick = 'default';
 	}
@@ -1151,7 +1145,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @param	int		$thumb_height	Thumbnail height
 		 * @param	object	$result			Post Object
 		 */
-		$postimage = apply_filters( 'crp_thumb_url', $postimage, $thumb_width, $thumb_height, $result );
+		$postimage = apply_filters( 'crp_thumb_url', $postimage, $args['thumb_width'], $args['thumb_height'], $result );
 
 		/* Backward compatibility */
 		$thumb_timthumb = false;
@@ -1170,22 +1164,22 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @param	int		$thumb_timthumb_q	Quality of timthumb thumbnail.
 		 * @param	object	$result			Post Object
 		 */
-		$postimage = apply_filters( 'crp_postimage', $postimage, $thumb_width, $thumb_height, $thumb_timthumb, $thumb_timthumb_q, $result );
+		$postimage = apply_filters( 'crp_postimage', $postimage, $args['thumb_width'], $args['thumb_height'], $thumb_timthumb, $thumb_timthumb_q, $result );
 
 		if ( is_ssl() ) {
 		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
 
-		if ( 'css' == $thumb_html ) {
+		if ( 'css' == $args['thumb_html'] ) {
 			$thumb_html = 'style="max-width:' . $thumb_width . 'px;max-height:' . $thumb_height . 'px;"';
-		} else if ( 'html' == $thumb_html ) {
+		} else if ( 'html' == $args['thumb_html'] ) {
 			$thumb_html = 'width="' . $thumb_width . '" height="' .$thumb_height . '"';
 		} else {
 			$thumb_html = '';
 		}
 
-		$class .= ' crp_' . $pick;
-		$output .= '<img src="' . $postimage . '" alt="' . $post_title . '" title="' . $post_title . '" ' . $thumb_html . ' class="' . $class . '" />';
+		$class = $args['class'] . ' crp_' . $pick;
+		$output .= '<img src="' . $postimage . '" alt="' . $post_title . '" title="' . $post_title . '" ' . $thumb_html . ' class="' . $args['class'] . '" />';
 	}
 
 	/**
