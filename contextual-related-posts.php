@@ -115,26 +115,6 @@ function ald_crp( $args = array() ) {
 
 	$exclude_categories = explode( ',', $args['exclude_categories'] );
 
-	$rel_attribute = ( $args['link_nofollow'] ) ? ' rel="nofollow" ' : ' ';
-	$target_attribute = ( $args['link_new_window'] ) ? ' target="_blank" ' : ' ';
-
-	$link_attributes = array(
-		'rel_attribute' => $rel_attribute,
-		'target_attribute' => $target_attribute,
-	);
-
-	/**
-	 * Filter the title of the Related Posts list
-	 *
-	 * @since	2.2.0
-	 *
-	 * @param	array	$link_attributes	Array of link attributes
-	 */
-	$link_attributes = apply_filters( 'crp_link_attributes', $link_attributes );
-
-	// Convert it to a string
-	$link_attributes = implode( ' ', $link_attributes );
-
 	// Retrieve the list of posts
 	$results = get_crp_posts_id( array_merge( $args, array(
 		'postid' => $post->ID,
@@ -146,27 +126,9 @@ function ald_crp( $args = array() ) {
 	if ( $results ) {
 		$loop_counter = 0;
 
-		if ( ! $args['is_widget'] ) {
-			$title = str_replace( "%postname%", $post->post_title, $args['title'] );	// Replace %postname% with the title of the current post
+		$output .= crp_heading_title( $args );
 
-			/**
-			 * Filter the title of the Related Posts list
-			 *
-			 * @since	1.9
-			 *
-			 * @param	string	$title	Title/heading of the Related Posts list
-			 */
-			$output .= apply_filters( 'crp_heading_title', $title );
-		}
-
-		/**
-		 * Filter the opening tag of the related posts list
-		 *
-		 * @since	1.9
-		 *
-		 * @param	string	$before_list	Opening tag set in the Settings Page
-		 */
-		$output .= apply_filters( 'crp_before_list', $args['before_list'] );
+		$output .= crp_before_list( $args );
 
 		foreach ( $results as $result ) {
 
@@ -203,118 +165,41 @@ function ald_crp( $args = array() ) {
 
 			if ( ! $p_in_c ) {
 
-				/**
-				 * Filter the opening tag of each list item.
-				 *
-				 * @since	1.9
-				 *
-				 * @param	string	$before_list_item	Tag before each list item. Can be defined in the Settings page.
-				 * @param	object	$result	Object of the current post result
-				 */
-				$output .= apply_filters( 'crp_before_list_item', $args['before_list_item'], $result );	// Pass the post object to the filter
+				$output .= crp_before_list_item( $args, $result );
 
-				$title = crp_max_formatted_content( get_the_title( $result->ID ), $args['title_length'] );	// Get the post title and crop it if needed
+				$output .= crp_list_link( $args, $result );
 
-				/**
-				 * Filter the title of each list item.
-				 *
-				 * @since	1.9
-				 *
-				 * @param	string	$title	Title of the post.
-				 * @param	object	$result	Object of the current post result
-				 */
-				$title = apply_filters( 'crp_title', $title, $result );
-
-				if ( 'after' == $args['post_thumb_op'] ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
-				}
-				if ( 'inline' == $args['post_thumb_op'] || 'after' == $args['post_thumb_op'] || 'thumbs_only' == $args['post_thumb_op'] ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
-					$output .= crp_get_the_post_thumbnail( array(
-						'postid' => $result->ID,
-						'thumb_height' => $args['thumb_height'],
-						'thumb_width' => $args['thumb_width'],
-						'thumb_meta' => $args['thumb_meta'],
-						'thumb_html' => $args['thumb_html'],
-						'thumb_default' => $args['thumb_default'],
-						'thumb_default_show' => $args['thumb_default_show'],
-						'scan_images' => $args['scan_images'],
-						'class' => 'crp_thumb',
-					) );
-					$output .= '</a>';
-				}
-				if ( 'inline' == $args['post_thumb_op'] || 'text_only' == $args['post_thumb_op'] ) {
-					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
-				}
 				if ( $args['show_author'] ) {
-					$author_info = get_userdata( $result->post_author );
-					$author_link = get_author_posts_url( $author_info->ID );
-					$author_name = ucwords( trim( stripslashes( $author_info->display_name ) ) );
-
-					/**
-					 * Filter the author name.
-					 *
-					 * @since	1.9.1
-					 *
-					 * @param	string	$author_name	Proper name of the post author.
-					 * @param	object	$author_info	WP_User object of the post author
-					 */
-					$author_name = apply_filters( 'crp_author_name', $author_name, $author_info );
-
-					$crp_author = '<span class="crp_author"> ' . __( ' by ', CRP_LOCAL_NAME ).'<a href="' . $author_link . '">' . $author_name . '</a></span> ';
-
-					/**
-					 * Filter the text with the author details.
-					 *
-					 * @since	2.0.0
-					 *
-					 * @param	string	$crp_author	Formatted string with author details and link
-					 * @param	object	$author_info	WP_User object of the post author
-					 */
-					$crp_author = apply_filters( 'crp_author', $crp_author, $author_info);
-
-					$output .= $crp_author;
+					$output .= crp_author( $args, $result );
 				}
+
 				if ( $args['show_date'] ) {
 					$output .= '<span class="crp_date"> ' . mysql2date( get_option( 'date_format', 'd/m/y' ), $result->post_date ) . '</span> ';
 				}
+
 				if ( $args['show_excerpt'] ) {
 					$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $excerpt_length ) . '</span>';
 				}
+
 				$loop_counter++;
 
-				/**
-				 * Filter the closing tag of each list item.
-				 *
-				 * @since	1.9
-				 *
-				 * @param	string	$after_list_item	Tag after each list item. Can be defined in the Settings page.
-				 * @param	object	$result	Object of the current post result
-				 */
-				$output .= apply_filters( 'crp_after_list_item', $args['after_list_item'], $result );
+				$output .= crp_after_list_item( $args, $result );
 			}
+
 			if ( $loop_counter == $args['limit'] ) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
+
 		if ( $args['show_credit'] ) {
 
-			/** This filter is documented in contextual-related-posts.php */
-			$output .= apply_filters( 'crp_before_list_item', $args['before_list_item'], $result );	// Pass the post object to the filter
+			$output .= crp_before_list_item( $args, $result );
 
 			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', CRP_LOCAL_NAME ), esc_url( 'http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/' ) );
 
-			/** This filter is documented in contextual-related-posts.php */
-			$output .= apply_filters( 'crp_after_list_item', $args['after_list_item'], $result );
+			$output .= crp_after_list_item( $args, $result );
 
 		}
 
-		/**
-		 * Filter the closing tag of the related posts list
-		 *
-		 * @since	1.9
-		 *
-		 * @param	string	$after_list	Closing tag set in the Settings Page
-		 */
-		$output .= apply_filters( 'crp_after_list', $args['after_list'] );
+		$output .= crp_after_list( $args );
 
 		$clearfix = '<div class="crp_clear"></div>';
 
@@ -331,6 +216,7 @@ function ald_crp( $args = array() ) {
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}
 
+	// Check if the opening list tag is missing in the output, it means all of our results were eliminated cause of the category filter
 	if ( false === ( strpos( $output, $args['before_list_item'] ) ) ) {
 		$output = '<div id="crp_related">';
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
