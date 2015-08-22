@@ -1442,8 +1442,9 @@ add_action( 'widgets_init', 'register_crp_widget' );
  * CRP modules
  *----------------------------------------------------------------------------*/
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/manual-posts.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/output-generator.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/manual-posts.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/shortcode.php' );
 
 
 /*----------------------------------------------------------------------------*
