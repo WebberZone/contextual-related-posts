@@ -98,11 +98,8 @@ function ald_crp( $args = array() ) {
 	// Parse incomming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
 
-	// Declare each item in $args as its own variable i.e. $type, $before.
-	extract( $args, EXTR_SKIP );
-
 	//Support caching to speed up retrieval
-	if ( ! empty( $cache ) ) {
+	if ( ! empty( $args['cache'] ) ) {
 		$meta_key = 'crp_related_posts';
 		if ( $is_widget ) {
 			$meta_key .= '_widget';
@@ -116,10 +113,10 @@ function ald_crp( $args = array() ) {
 		}
 	}
 
-	$exclude_categories = explode( ',', $exclude_categories );
+	$exclude_categories = explode( ',', $args['exclude_categories'] );
 
-	$rel_attribute = ( $link_nofollow ) ? ' rel="nofollow" ' : ' ';
-	$target_attribute = ( $link_new_window ) ? ' target="_blank" ' : ' ';
+	$rel_attribute = ( $args['link_nofollow'] ) ? ' rel="nofollow" ' : ' ';
+	$target_attribute = ( $args['link_new_window'] ) ? ' target="_blank" ' : ' ';
 
 	$link_attributes = array(
 		'rel_attribute' => $rel_attribute,
@@ -144,13 +141,13 @@ function ald_crp( $args = array() ) {
 		'strict_limit' => TRUE,
 	) ) );
 
-	$output = ( is_singular() ) ? '<div id="crp_related" class="crp_related' . ( $is_widget ? '_widget' : '' ) . '">' : '<div class="crp_related' . ( $is_widget ? '_widget' : '' ) . '">';
+	$output = ( is_singular() ) ? '<div id="crp_related" class="crp_related' . ( $args['is_widget'] ? '_widget' : '' ) . '">' : '<div class="crp_related' . ( $args['is_widget'] ? '_widget' : '' ) . '">';
 
 	if ( $results ) {
 		$loop_counter = 0;
 
-		if ( ! $is_widget ) {
-			$title = str_replace( "%postname%", $post->post_title, $title );	// Replace %postname% with the title of the current post
+		if ( ! $args['is_widget'] ) {
+			$title = str_replace( "%postname%", $post->post_title, $args['title'] );	// Replace %postname% with the title of the current post
 
 			/**
 			 * Filter the title of the Related Posts list
@@ -169,7 +166,7 @@ function ald_crp( $args = array() ) {
 		 *
 		 * @param	string	$before_list	Opening tag set in the Settings Page
 		 */
-		$output .= apply_filters( 'crp_before_list', $before_list );
+		$output .= apply_filters( 'crp_before_list', $args['before_list'] );
 
 		foreach ( $results as $result ) {
 
@@ -214,9 +211,9 @@ function ald_crp( $args = array() ) {
 				 * @param	string	$before_list_item	Tag before each list item. Can be defined in the Settings page.
 				 * @param	object	$result	Object of the current post result
 				 */
-				$output .= apply_filters( 'crp_before_list_item', $before_list_item, $result );	// Pass the post object to the filter
+				$output .= apply_filters( 'crp_before_list_item', $args['before_list_item'], $result );	// Pass the post object to the filter
 
-				$title = crp_max_formatted_content( get_the_title( $result->ID ), $title_length );	// Get the post title and crop it if needed
+				$title = crp_max_formatted_content( get_the_title( $result->ID ), $args['title_length'] );	// Get the post title and crop it if needed
 
 				/**
 				 * Filter the title of each list item.
@@ -228,28 +225,28 @@ function ald_crp( $args = array() ) {
 				 */
 				$title = apply_filters( 'crp_title', $title, $result );
 
-				if ( 'after' == $post_thumb_op ) {
+				if ( 'after' == $args['post_thumb_op'] ) {
 					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
 				}
-				if ( 'inline' == $post_thumb_op || 'after' == $post_thumb_op || 'thumbs_only' == $post_thumb_op ) {
+				if ( 'inline' == $args['post_thumb_op'] || 'after' == $args['post_thumb_op'] || 'thumbs_only' == $args['post_thumb_op'] ) {
 					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
 					$output .= crp_get_the_post_thumbnail( array(
 						'postid' => $result->ID,
-						'thumb_height' => $thumb_height,
-						'thumb_width' => $thumb_width,
-						'thumb_meta' => $thumb_meta,
-						'thumb_html' => $thumb_html,
-						'thumb_default' => $thumb_default,
-						'thumb_default_show' => $thumb_default_show,
-						'scan_images' => $scan_images,
+						'thumb_height' => $args['thumb_height'],
+						'thumb_width' => $args['thumb_width'],
+						'thumb_meta' => $args['thumb_meta'],
+						'thumb_html' => $args['thumb_html'],
+						'thumb_default' => $args['thumb_default'],
+						'thumb_default_show' => $args['thumb_default_show'],
+						'scan_images' => $args['scan_images'],
 						'class' => 'crp_thumb',
 					) );
 					$output .= '</a>';
 				}
-				if ( 'inline' == $post_thumb_op || 'text_only' == $post_thumb_op ) {
+				if ( 'inline' == $args['post_thumb_op'] || 'text_only' == $args['post_thumb_op'] ) {
 					$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
 				}
-				if ( $show_author ) {
+				if ( $args['show_author'] ) {
 					$author_info = get_userdata( $result->post_author );
 					$author_link = get_author_posts_url( $author_info->ID );
 					$author_name = ucwords( trim( stripslashes( $author_info->display_name ) ) );
@@ -278,10 +275,10 @@ function ald_crp( $args = array() ) {
 
 					$output .= $crp_author;
 				}
-				if ( $show_date ) {
+				if ( $args['show_date'] ) {
 					$output .= '<span class="crp_date"> ' . mysql2date( get_option( 'date_format', 'd/m/y' ), $result->post_date ) . '</span> ';
 				}
-				if ( $show_excerpt ) {
+				if ( $args['show_excerpt'] ) {
 					$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $excerpt_length ) . '</span>';
 				}
 				$loop_counter++;
@@ -294,19 +291,19 @@ function ald_crp( $args = array() ) {
 				 * @param	string	$after_list_item	Tag after each list item. Can be defined in the Settings page.
 				 * @param	object	$result	Object of the current post result
 				 */
-				$output .= apply_filters( 'crp_after_list_item', $after_list_item, $result );
+				$output .= apply_filters( 'crp_after_list_item', $args['after_list_item'], $result );
 			}
-			if ( $loop_counter == $limit ) break;	// End loop when related posts limit is reached
+			if ( $loop_counter == $args['limit'] ) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
-		if ( $show_credit ) {
+		if ( $args['show_credit'] ) {
 
 			/** This filter is documented in contextual-related-posts.php */
-			$output .= apply_filters( 'crp_before_list_item', $before_list_item, $result );	// Pass the post object to the filter
+			$output .= apply_filters( 'crp_before_list_item', $args['before_list_item'], $result );	// Pass the post object to the filter
 
 			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', CRP_LOCAL_NAME ), esc_url( 'http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/' ) );
 
 			/** This filter is documented in contextual-related-posts.php */
-			$output .= apply_filters( 'crp_after_list_item', $after_list_item, $result );
+			$output .= apply_filters( 'crp_after_list_item', $args['after_list_item'], $result );
 
 		}
 
@@ -317,7 +314,7 @@ function ald_crp( $args = array() ) {
 		 *
 		 * @param	string	$after_list	Closing tag set in the Settings Page
 		 */
-		$output .= apply_filters( 'crp_after_list', $after_list );
+		$output .= apply_filters( 'crp_after_list', $args['after_list'] );
 
 		$clearfix = '<div class="crp_clear"></div>';
 
@@ -331,19 +328,19 @@ function ald_crp( $args = array() ) {
 		$output .= apply_filters( 'crp_clearfix', $clearfix );
 
 	} else {
-		$output .= ( $blank_output ) ? ' ' : '<p>' . $blank_output_text . '</p>';
+		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}
 
-	if ( false === ( strpos( $output, $before_list_item ) ) ) {
+	if ( false === ( strpos( $output, $args['before_list_item'] ) ) ) {
 		$output = '<div id="crp_related">';
-		$output .= ($blank_output) ? ' ' : '<p>' . $blank_output_text . '</p>';
+		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}
 
 	$output .= '</div>'; // closing div of 'crp_related'
 
 
 	//Support caching to speed up retrieval
-	if ( ! empty( $cache ) ) {
+	if ( ! empty( $args['cache'] ) ) {
 		update_post_meta( $post->ID, $meta_key, $output, '' );
 	}
 
