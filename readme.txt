@@ -65,6 +65,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 == Changelog ==
 
 = 2.2 =
+* New: Manual posts can now be set in the meta box in the Edit Post screens which will be displayed before the related posts fetched by the plugin
 * New: Option to turn off the Contextual Related metabox on Edit Posts screens or limit it to Admins only. Also applies to Pages and Custom Post Types
 * New: Filter `crp_link_attributes` that allows a user to add or remove attributes for the `a` tag
 * New: Notice is displayed at the top of the Settings page if there are any missing of the FULLTEXT indices missing
