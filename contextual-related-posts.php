@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2-beta20150815
+ * Version: 	2.2-beta20150822
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -742,29 +742,6 @@ add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
 
 
 /**
- * Creates a shortcode [crp limit="5" heading="1" cache="1"].
- *
- * @since 1.8.6
- *
- * @param array $atts
- * @param string $content (default: null)
- * @return Related Posts
- */
-function crp_shortcode( $atts, $content = null ) {
-	global $crp_settings;
-	$atts = shortcode_atts( array_merge(
-		$crp_settings,
-		array( 'heading' => 1 )
-	), $atts, 'crp' );
-
-	$atts['is_widget'] = 1 - $atts['heading'];
-
-	return ald_crp( $atts );
-}
-add_shortcode( 'crp', 'crp_shortcode' );
-
-
-/**
  * Default options.
  *
  * @since 1.0.1
@@ -1471,10 +1448,11 @@ add_action( 'widgets_init', 'register_crp_widget' );
 
 
 /*----------------------------------------------------------------------------*
- * CRP moduls
+ * CRP modules
  *----------------------------------------------------------------------------*/
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/manual-posts.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
 
 
 /*----------------------------------------------------------------------------*
