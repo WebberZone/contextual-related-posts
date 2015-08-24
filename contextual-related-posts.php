@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2-beta20150822
+ * Version: 	2.2-beta20150823
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -143,48 +143,25 @@ function ald_crp( $args = array() ) {
 
 			$result = get_post( $resultid );	// Let's get the Post using the ID
 
-			/**
-			 * Filter the post ID for each result. This filtered ID is passed as a parameter to fetch categories.
-			 *
-			 * This is useful since you might want to fetch a different set of categories for a linked post ID,
-			 * typically in the case of plugins that let you set mutiple languages
-			 *
-			 * @since	1.9
-			 *
-			 * @param	int	$result->ID	ID of the post
-			 */
-			$resultid = apply_filters( 'crp_post_cat_id', $result->ID );
+			$output .= crp_before_list_item( $args, $result );
 
-			$categorys = get_the_category( $resultid );	//Fetch categories of the plugin
+			$output .= crp_list_link( $args, $result );
 
-			$p_in_c = false;	// Variable to check if post exists in a particular category
-			foreach ( $categorys as $cat ) {	// Loop to check if post exists in excluded category
-				$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories ) ) ? true : false;
-				if ( $p_in_c ) break;	// End loop if post found in category
+			if ( $args['show_author'] ) {
+				$output .= crp_author( $args, $result );
 			}
 
-			if ( ! $p_in_c ) {
-
-				$output .= crp_before_list_item( $args, $result );
-
-				$output .= crp_list_link( $args, $result );
-
-				if ( $args['show_author'] ) {
-					$output .= crp_author( $args, $result );
-				}
-
-				if ( $args['show_date'] ) {
-					$output .= '<span class="crp_date"> ' . mysql2date( get_option( 'date_format', 'd/m/y' ), $result->post_date ) . '</span> ';
-				}
-
-				if ( $args['show_excerpt'] ) {
-					$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $excerpt_length ) . '</span>';
-				}
-
-				$loop_counter++;
-
-				$output .= crp_after_list_item( $args, $result );
+			if ( $args['show_date'] ) {
+				$output .= '<span class="crp_date"> ' . mysql2date( get_option( 'date_format', 'd/m/y' ), $result->post_date ) . '</span> ';
 			}
+
+			if ( $args['show_excerpt'] ) {
+				$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $excerpt_length ) . '</span>';
+			}
+
+			$loop_counter++;
+
+			$output .= crp_after_list_item( $args, $result );
 
 			if ( $loop_counter == $args['limit'] ) break;	// End loop when related posts limit is reached
 		} //end of foreach loop
@@ -1331,6 +1308,7 @@ add_action( 'widgets_init', 'register_crp_widget' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/output-generator.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/manual-posts.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/shortcode.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/taxonomies.php' );
 
 
 /*----------------------------------------------------------------------------*
