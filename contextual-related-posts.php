@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2-beta20150823
+ * Version: 	2.2-beta20150824
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -574,9 +574,9 @@ function echo_ald_crp( $args = array() ) {
 function crp_heading_styles() {
 	global $crp_settings;
 
-	if ( $crp_settings['include_default_style'] ) {
-		wp_register_style( 'crp_list_style', plugins_url( 'css/default-style.css', __FILE__ ) );
-		wp_enqueue_style( 'crp_list_style' );
+	if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
+		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', __FILE__ ) );
+		wp_enqueue_style( 'crp-style-rounded-thumbs' );
 
 
         $custom_css = "
@@ -591,7 +591,7 @@ function crp_heading_styles() {
 }
                 ";
 
-		wp_add_inline_style( 'crp_list_style', $custom_css );
+		wp_add_inline_style( 'crp-style-rounded-thumbs', $custom_css );
 
 	}
 }
@@ -700,7 +700,8 @@ function crp_default_options() {
 
 		// Custom styles
 		'custom_CSS' => '',			// Custom CSS to style the output
-		'include_default_style' => true,	// Include default style
+		'include_default_style' => true,	// Include default style - Will be DEPRECATED in the next version
+		'crp_styles'	=> 'rounded_thumbs'	// Defaault style is rounded thubnails
 	);
 
 
@@ -988,7 +989,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	// If no thumb found and settings permit, use default thumb
 	if ( ! $postimage && $args['thumb_default_show'] ) {
-		$postimage = $thumb_default;
+		$postimage = $args['thumb_default'];
 		$pick = 'default';
 	}
 

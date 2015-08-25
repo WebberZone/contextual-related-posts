@@ -33,7 +33,7 @@ if ( ! defined( 'WPINC' ) ) {
 		<li><a href="#tuneopdiv"><?php _e( 'List tuning options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#outputopdiv"><?php _e( 'Output options', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#thumbopdiv"><?php _e( 'Thumbnail options', CRP_LOCAL_NAME ); ?></a> | </li>
-	  	<li><a href="#customcssdiv"><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></a> | </li>
+	  	<li><a href="#customcssdiv"><?php _e( 'Styles', CRP_LOCAL_NAME ); ?></a> | </li>
 	  	<li><a href="#feedopdiv"><?php _e( 'Feed options', CRP_LOCAL_NAME ); ?></a></li>
 
 		<?php
@@ -278,8 +278,8 @@ if ( ! defined( 'WPINC' ) ) {
 						<input type="checkbox" name="show_excerpt" id="show_excerpt" <?php if ( $crp_settings['show_excerpt'] ) echo 'checked="checked"' ?> />
 						<p class="description"><?php printf( __( "Displays the excerpt of the post. If you do not provide an explicit excerpt to a post (in the post editor's optional excerpt field), it will display an automatic excerpt which refers to the first %d words of the post's content", CRP_LOCAL_NAME ), $crp_settings['excerpt_length'] ); ?></p>
 
-						<?php if ( $crp_settings['include_default_style'] ) { ?>
-							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Excerpt display is disabled.", CRP_LOCAL_NAME ); ?></p>
+						<?php if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) { ?>
+							<p style="color: #F00"><?php _e( "Rounded Thumbnails style selected under the Custom Styles. Excerpt display is disabled.", CRP_LOCAL_NAME ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -295,8 +295,8 @@ if ( ! defined( 'WPINC' ) ) {
 						<input type="checkbox" name="show_author" id="show_author" <?php if ( $crp_settings['show_author'] ) echo 'checked="checked"' ?> />
 						<p class="description"><?php _e( 'Displays the author name prefixed with "by". e.g. by John Doe', CRP_LOCAL_NAME ); ?></p>
 
-						<?php if ( $crp_settings['include_default_style'] ) { ?>
-							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Author display is disabled.", CRP_LOCAL_NAME ); ?></p>
+						<?php if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) { ?>
+							<p style="color: #F00"><?php _e( "Rounded Thumbnails style selected under the Custom Styles. Author display is disabled.", CRP_LOCAL_NAME ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -306,8 +306,8 @@ if ( ! defined( 'WPINC' ) ) {
 						<input type="checkbox" name="show_date" id="show_date" <?php if ( $crp_settings['show_date'] ) echo 'checked="checked"' ?> />
 						<p class="description"><?php _e( "Displays the date of the post. Uses the same date format set in General Options", CRP_LOCAL_NAME ); ?></p>
 
-						<?php if ( $crp_settings['include_default_style'] ) { ?>
-							<p style="color: #F00"><?php _e( "Default style selected under the Custom Styles. Date display is disabled.", CRP_LOCAL_NAME ); ?></p>
+						<?php if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) { ?>
+							<p style="color: #F00"><?php _e( "Rounded Thumbnails style selected under the Custom Styles. Date display is disabled.", CRP_LOCAL_NAME ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -473,9 +473,8 @@ if ( ! defined( 'WPINC' ) ) {
 						<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php if ( 'text_only' == $crp_settings['post_thumb_op'] ) echo 'checked="checked"' ?> />
 						<?php _e( 'Do not display thumbnails, only text.', CRP_LOCAL_NAME ); ?></label>
 
-						<?php if ( $crp_settings['include_default_style'] ) { ?>
-							<p style="color: #F00"><?php _e( "This setting cannot be changed because the default style has been selected under the Custom Styles section.", CRP_LOCAL_NAME ); ?></p>
-							<p style="color: #F00"><?php _e( "If you would like to change this option, please disable the default style option.", CRP_LOCAL_NAME ); ?></p>
+						<?php if ( 'no_style' != $crp_settings['crp_styles'] ) { ?>
+							<p style="color: #F00"><?php _e( "This setting cannot be changed because an inbuilt style has been selected under the Styles section. If you would like to change this option, please select <strong>No styles</strong> under the Styles section.", CRP_LOCAL_NAME ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -593,7 +592,7 @@ if ( ! defined( 'WPINC' ) ) {
 	    </div> <!-- // outputopdiv -->
 
 	    <div id="customcssdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-	      <h3 class='hndle'><span><?php _e( 'Custom styles', CRP_LOCAL_NAME ); ?></span></h3>
+	      <h3 class='hndle'><span><?php _e( 'Styles', CRP_LOCAL_NAME ); ?></span></h3>
 	      <div class="inside">
 
 			<table class="form-table">
@@ -609,12 +608,38 @@ if ( ! defined( 'WPINC' ) ) {
 					do_action( 'crp_admin_custom_styles_before', $crp_settings );
 				?>
 
-				<tr><th scope="row"><label for="include_default_style"><?php _e( 'Use default style included in the plugin?', CRP_LOCAL_NAME ); ?></label></th>
+				<tr><th scope="row"><?php _e( 'Style of the related posts:', CRP_LOCAL_NAME ); ?></th>
 				  <td>
-				  	<input type="checkbox" name="include_default_style" id="include_default_style" <?php if ( $crp_settings['include_default_style'] ) echo 'checked="checked"' ?> />
-				  	<p class="description"><?php _e( 'Contextual Related Posts includes a default style that makes your popular posts list to look beautiful. Check the box above if you want to use this.', CRP_LOCAL_NAME ); ?></p>
-				  	<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>
+					<label>
+						<input type="radio" name="crp_styles" value="no_style" id="crp_styles_1" <?php if ( 'no_style' == $crp_settings['crp_styles'] ) echo 'checked="checked"' ?> /> <?php _e( 'No styles', CRP_LOCAL_NAME ); ?>
+					</label>
+					<p class="description"><?php _e( 'Select this option if you plan to add your own styles', CRP_LOCAL_NAME ); ?></p>
+					<br />
+
+					<label>
+						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" <?php if ( $crp_settings['include_default_style'] || ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) ) echo 'checked="checked"' ?> /> <?php _e( 'Rounded Thumbnails', CRP_LOCAL_NAME ); ?>
+					</label>
+					<p class="description"><img src="<?php echo plugins_url( 'admin/images/crp-rounded-thumbs.png', dirname( __FILE__ ) ); ?>" /></p>
+					<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>
 					<p class="description"><?php printf( __( 'You can view the default style at <a href="%1$s" target="_blank">%1$s</a>', CRP_LOCAL_NAME ), esc_url( 'https://github.com/ajaydsouza/contextual-related-posts/blob/master/css/default-style.css' ) ); ?></p>
+					<br />
+
+					<label>
+						<input type="radio" name="crp_styles" value="text_only" id="crp_styles_1" <?php if ( 'text_only' == $crp_settings['crp_styles'] ) echo 'checked="checked"' ?> /> <?php _e( 'Text only', CRP_LOCAL_NAME ); ?>
+					</label>
+					<p class="description"><?php _e( 'Enabling this option will disable thumbnails and no longer include the default style sheet included in the plugin.', CRP_LOCAL_NAME ); ?></p>
+
+					<?php
+						/**
+						 * Fires after style checkboxes which allows an addon to add more styles.
+						 *
+						 * @since 2.2.0
+						 *
+						 * @param	array	$crp_settings	Contextual Related Posts settings array
+						 */
+						do_action( 'crp_admin_crp_styles', $crp_settings );
+					?>
+
 				  </td>
 				</tr>
 				<tr><th scope="row" colspan="2"><?php _e( 'Custom CSS to add to header:', CRP_LOCAL_NAME ); ?></th>

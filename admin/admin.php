@@ -114,17 +114,20 @@ function crp_options() {
 		$crp_settings['thumb_width_feed'] = intval( $_POST['thumb_width_feed'] );
 		$crp_settings['show_excerpt_feed'] = ( isset( $_POST['show_excerpt_feed'] ) ? true : false );
 
-		/**** Custom styles ****/
+		/**** Styles ****/
 		$crp_settings['custom_CSS'] = wp_kses_post( $_POST['custom_CSS'] );
 
-		if ( isset( $_POST['include_default_style'] ) ) {
+		$crp_settings['crp_styles'] = wp_kses_post( $_POST['crp_styles'] );
+
+		if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
 			$crp_settings['include_default_style'] = true;
 			$crp_settings['post_thumb_op'] = 'inline';
 			$crp_settings['show_excerpt'] = false;
 			$crp_settings['show_author'] = false;
 			$crp_settings['show_date'] = false;
-		} else {
+		} elseif ( 'text_only' == $crp_settings['crp_styles'] ) {
 			$crp_settings['include_default_style'] = false;
+			$crp_settings['post_thumb_op'] = 'text_only';
 		}
 
 		/**** Exclude categories ****/
@@ -179,8 +182,11 @@ function crp_options() {
 		/* Echo a success message */
 		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) . '</p>';
 
-		if ( isset( $_POST['include_default_style'] ) ) {
-			$str .= '<p>'. __( 'Default styles selected. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
+		if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
+			$str .= '<p>'. __( 'Rounded Thumbnails style selected. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
+		}
+		if ( 'text_only' == $crp_settings['crp_styles'] ) {
+			$str .= '<p>'. __( 'Text Only style selected. Thumbnails will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
 		}
 		if ( 'crp_thumbnail' != $crp_settings['thumb_size'] ) {
 			$str .= '<p>'. sprintf( __( 'Pre-built thumbnail size selected. Thumbnail set to %d x %d.', CRP_LOCAL_NAME ), $crp_settings['thumb_width'], $crp_settings['thumb_height'] ) . '</p>';
