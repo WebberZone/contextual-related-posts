@@ -6,13 +6,13 @@ __Tested up to:__ 4.3
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
-__Plugin page:__ <a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a>
+__Plugin page:__ <a href="https://webberzone.com/plugins/contextual-related-posts/">Contextual Related Posts</a>
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
 
 ## Description
 
-<a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed. 
+<a href="https://webberzone.com/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed. 
 
 The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
 
@@ -55,7 +55,7 @@ Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">C
 
 
 ## Screenshots
-![General Options](https://raw.github.com/ajaydsouza/contextual-related-posts/master/assets/screenshot-1.png)
+![General Options](https://raw.github.com/WebberZone/contextual-related-posts/master/assets/screenshot-1.png)
 
 _Contextual Related Posts - General Options_
 
@@ -87,6 +87,6 @@ For more screenshots visit the <a href="http://wordpress.org/plugins/contextual-
 
 Check out the <a href="http://wordpress.org/plugins/contextual-related-posts/faq/">FAQ on the plugin page</a> for a detailed list of questions and answers
 
-If your question isn't listed there, please create a new post in the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced _paid_ support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
+If your question isn't listed there, please create a new post in the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced _paid_ support, please see <a href="https://webberzone.com/support/">details here</a>.
 
 If you would like a feature to be added, or if you already have the code for the feature, you can let me know by <a href="http://wordpress.org/support/plugin/contextual-related-posts">posting in this forum</a> or fork this Github project and let me know.

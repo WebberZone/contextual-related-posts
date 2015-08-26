@@ -5,7 +5,7 @@
  * @package   Contextual_Related_Posts
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
- * @link      http://ajaydsouza.com
+ * @link      https://webberzone.com
  * @copyright 2009-2015 Ajay D'Souza
  */
 
@@ -621,7 +621,7 @@ if ( ! defined( 'WPINC' ) ) {
 					</label>
 					<p class="description"><img src="<?php echo plugins_url( 'admin/images/crp-rounded-thumbs.png', dirname( __FILE__ ) ); ?>" /></p>
 					<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>
-					<p class="description"><?php printf( __( 'You can view the default style at <a href="%1$s" target="_blank">%1$s</a>', CRP_LOCAL_NAME ), esc_url( 'https://github.com/ajaydsouza/contextual-related-posts/blob/master/css/default-style.css' ) ); ?></p>
+					<p class="description"><?php printf( __( 'You can view the default style at <a href="%1$s" target="_blank">%1$s</a>', CRP_LOCAL_NAME ), esc_url( 'https://github.com/WebberZone/contextual-related-posts/blob/master/css/default-style.css' ) ); ?></p>
 					<br />
 
 					<label>

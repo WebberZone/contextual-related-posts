@@ -8,12 +8,12 @@
  * @package   Contextual_Related_Posts
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
- * @link      http://ajaydsouza.com
+ * @link      https://webberzone.com
  * @copyright 2009-2015 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name:	Contextual Related Posts
- * Plugin URI:	http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
+ * Plugin URI:	https://webberzone.com/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
  * Version: 	2.2-beta20150824
  * Author: 		WebberZone
@@ -22,7 +22,7 @@
  * License: 	GPL-2.0+
  * License URI:	http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:	/languages
- * GitHub Plugin URI: https://github.com/ajaydsouza/contextual-related-posts/
+ * GitHub Plugin URI: https://github.com/WebberZone/contextual-related-posts/
  */
 
 // If this file is called directly, abort.
@@ -170,7 +170,7 @@ function ald_crp( $args = array() ) {
 
 			$output .= crp_before_list_item( $args, $result );
 
-			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', CRP_LOCAL_NAME ), esc_url( 'http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/' ) );
+			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', CRP_LOCAL_NAME ), esc_url( 'https://webberzone.com/plugins/contextual-related-posts/' ) );
 
 			$output .= crp_after_list_item( $args, $result );
 

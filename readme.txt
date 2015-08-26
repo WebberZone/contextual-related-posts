@@ -1,7 +1,7 @@
 ﻿=== Contextual Related Posts ===
 Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail, shortcodes
 Contributors: webberzone, Ajay
-Donate link: http://ajaydsouza.com/donate/
+Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 3.5
 Tested up to: 4.3
@@ -11,7 +11,7 @@ Display related posts on your WordPress blog and feed. Supports thumbnails, shor
 
 == Description ==
 
-<a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed.
+<a href="https://webberzone.com/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed.
 
 The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
 
@@ -47,7 +47,7 @@ If you have been using this plugin and find this useful, do consider making a do
 
 = Contribute =
 
-Contextual Related Posts is also available on Github at https://github.com/ajaydsouza/contextual-related-posts
+Contextual Related Posts is also available on Github at https://github.com/WebberZone/contextual-related-posts
 So, if you've got some cool feature that you'd like to implement into the plugin or a bug you've been able to fix, consider forking the project and sending me a pull request.
 
 = Translations =
@@ -199,7 +199,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 
 = 1.8.3 =
 * Fixed: PHP warning errors on manual code for sites with PHP error reporting turn on in strict mode
-* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="http://ajaydsouza.com/contact/">contact me</a>.
+* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="https://webberzone.com/contact/">contact me</a>.
 
 = 1.8.2 =
 * Fixed: PHP warning errors for sites with PHP error reporting turn on in strict mode
@@ -209,7 +209,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 * New: Exclude posts and pages by ID
 * Modified: Optimised performance when automatic insertion into content is turned off
 * Modified: Plugin uses the default excerpt if it is set, else it creates one based on content. Both settings respect the excerpt length set in the plugin
-* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="http://ajaydsouza.com/contact/">contact me</a>.
+* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="https://webberzone.com/contact/">contact me</a>.
 * Deleted: Redundant option to exclude display of the related posts on pages. You can use the custom post types feature instead
 * New: Chinese language file
 
@@ -352,7 +352,7 @@ If you're a translator, do consider joining the Wp Translations team and transla
 
 == Frequently Asked Questions ==
 
-If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="http://ajaydsouza.com/support/">details here</a>.
+If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced support, please see <a href="https://webberzone.com/support/">details here</a>.
 
 = How can I customise the output? =
 
@@ -372,7 +372,7 @@ The following CSS classes / IDs are available:
 
 * **crp_thumb**: Class of the post thumbnail `img` tag
 
-For more information, please visit http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/
+For more information, please visit https://webberzone.com/plugins/contextual-related-posts/
 
 = How does the plugin select thumbnails? =
 

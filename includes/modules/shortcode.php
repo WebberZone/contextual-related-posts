@@ -6,7 +6,7 @@
  * @subpackage	Shortcode
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
- * @link      http://ajaydsouza.com
+ * @link      https://webberzone.com
  * @copyright 2009-2015 Ajay D'Souza
  */
 

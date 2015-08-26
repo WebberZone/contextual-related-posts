@@ -5,7 +5,7 @@
  * @package   Contextual_Related_Posts
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
- * @link      http://ajaydsouza.com
+ * @link      https://webberzone.com
  * @copyright 2009-2015 Ajay D'Souza
  */
 
@@ -54,13 +54,13 @@ if ( ! defined( 'WPINC' ) ) {
   <div class="inside">
     <div id="quick-links">
 		<ul>
-			<li><a href="http://ajaydsouza.com/wordpress/plugins/contextual-related-posts/"><?php _e( 'Contextual Related Posts plugin page', CRP_LOCAL_NAME ); ?></a></li>
+			<li><a href="https://webberzone.com/plugins/contextual-related-posts/"><?php _e( 'Contextual Related Posts plugin page', CRP_LOCAL_NAME ); ?></a></li>
 			<li><a href="https://wordpress.org/plugins/contextual-related-posts/faq/"><?php _e( 'FAQ', CRP_LOCAL_NAME ); ?></a></li>
 			<li><a href="http://wordpress.org/support/plugin/contextual-related-posts"><?php _e( 'Support', CRP_LOCAL_NAME ); ?></a></li>
 			<li><a href="https://wordpress.org/support/view/plugin-reviews/contextual-related-posts"><?php _e( 'Reviews', CRP_LOCAL_NAME ); ?></a></li>
-			<li><a href="https://github.com/ajaydsouza/contextual-related-posts"><?php _e( 'Github repository', CRP_LOCAL_NAME ); ?></a></li>
-			<li><a href="http://ajaydsouza.com/wordpress/plugins/"><?php _e( 'Other plugins', CRP_LOCAL_NAME ); ?></a></li>
-			<li><a href="http://ajaydsouza.com/"><?php _e( "Ajay's blog", CRP_LOCAL_NAME ); ?></a></li>
+			<li><a href="https://github.com/WebberZone/contextual-related-posts"><?php _e( 'Github repository', CRP_LOCAL_NAME ); ?></a></li>
+			<li><a href="https://webberzone.com/plugins/"><?php _e( 'Other plugins', CRP_LOCAL_NAME ); ?></a></li>
+			<li><a href="https://webberzone.com/"><?php _e( "Ajay's blog", CRP_LOCAL_NAME ); ?></a></li>
 		</ul>
     </div>
   </div>

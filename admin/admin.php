@@ -7,7 +7,7 @@
  * @package   Contextual_Related_Posts
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
- * @link      http://ajaydsouza.com
+ * @link      https://webberzone.com
  * @copyright 2009-2015 Ajay D'Souza
  */
 
@@ -387,8 +387,8 @@ function crp_plugin_actions( $links, $file ) {
 	/**** Add links ****/
 	if ( $file == $plugin ) {
 		$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __( 'Support', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="http://ajaydsouza.com/donate/">' . __( 'Donate', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="http://github.com/ajaydsouza/contextual-related-posts">' . __( 'Contribute', CRP_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="https://ajaydsouza.com/donate/">' . __( 'Donate', CRP_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="https://github.com/WebberZone/contextual-related-posts">' . __( 'Contribute', CRP_LOCAL_NAME ) . '</a>';
 	}
 	return $links;
 }
