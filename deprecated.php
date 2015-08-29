@@ -47,6 +47,7 @@ function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) 
  *
  * @since 1.0.1
  * @deprecated	2.2.0
+ * @see	get_crp
  *
  * @param	array	$args	Parameters in a query string format
  * @return	string			HTML formatted list of related posts
@@ -74,6 +75,7 @@ function ald_crp( $args = array() ) {
  *
  * @since 1.0.1
  * @deprecated	2.2.0
+ * @see	crp_content_filter
  *
  * @param string $content
  * @return string After the filter has been processed
@@ -91,6 +93,7 @@ function ald_crp_content( $content ) {
  *
  * @since 1.8.4
  * @deprecated	2.2.0
+ * @see	crp_rss_filter
  *
  * @param	string	$content
  * @return	string	Formatted content
@@ -108,6 +111,7 @@ function ald_crp_rss( $content ) {
  *
  * @since 1.0.1
  * @deprecated	2.2.0
+ * @see	echo_crp
  *
  * @param	string	List of arguments to control the output
  */
