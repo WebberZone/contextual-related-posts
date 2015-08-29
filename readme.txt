@@ -11,7 +11,7 @@ Display related posts on your WordPress blog and feed. Supports thumbnails, shor
 
 == Description ==
 
-<a href="https://webberzone.com/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed.
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed.
 
 The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
 
@@ -22,7 +22,7 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
 = Key features =
 
 * **Automatic**: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
-* **Manual install**: Want more control over placement? Check the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> on which functions are available for manual install.
+* **Manual install**: Want more control over placement? Check the [FAQ](http://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install.
 * **Widgets**: Add related posts to widgetized area of your theme. Lots of options available
 * **Shortcode**: Use `[crp]` to display the posts anywhere you want in the post content
 * **The algorithm**: Find related posts by title and/or content of the current post
@@ -32,7 +32,7 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
 * **Thumbnail support**:
 	* Support for WordPress post thumbnails. CRP will create a custom image size (`crp_thumbnail`) with the dimensions specified in the Settings page
 	* Auto-extract the first image in your post to be displayed as a thumbnail
-	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>. Specify this using the meta box in your Edit screens.
+	* Manually enter the URL of the thumbnail via [WordPress meta fields](http://codex.wordpress.org/Custom_Fields). Specify this using the meta box in your Edit screens.
 	* Optionally, use timthumb to resize images or use your own filter function to resize post images
 * **Styles**: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area or use the style included.
 * **Customisable output**:
@@ -57,9 +57,10 @@ So, if you've got some cool feature that you'd like to implement into the plugin
 Bug reports are [welcomed on GitHub](https://github.com/WebberZone/contextual-related-posts/issues). Please note GitHub is _not_ a support forum and issues that aren't properly qualified as bugs will be closed.
 
 = Translations =
-Contextual Related Posts is now on Transifex ready for translation courtesy the <a href="http://wp-translations.org/translators-wp-translations/">WP Translations</a>. WP-Translations is the place where you will find a number of WordPress amazing Plugins and Themes to make them available in your home language. In exchange you will receive credit for your work and will certainly make part of the WP community history in your country.
 
-If you're a translator, do consider joining the WP Translations team and translate <a href="https://www.transifex.com/projects/p/contextual-related-posts/">Contextual Related Posts on Transifex</a>.
+Contextual Related Posts is now on Transifex with several translations made available by the [WP Translations](http://wp-translations.org). If you're a translator, do consider joining the WP Translations team and contribute towards this and a huge number of WordPress plugins.
+
+Visit [Contextual Related Posts on Transifex](https://www.transifex.com/projects/p/contextual-related-posts/).
 
 
 == Installation ==
@@ -96,7 +97,7 @@ If you're a translator, do consider joining the WP Translations team and transla
 
 == Frequently Asked Questions ==
 
-If your question isn't listed here, please post a comment at the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
+If your question isn't listed here, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
 
 = How can I customise the output? =
 

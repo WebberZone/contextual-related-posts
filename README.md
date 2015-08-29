@@ -1,29 +1,32 @@
-﻿# Contextual Related Posts
+﻿[![Build Status](https://travis-ci.org/WebberZone/contextual-related-posts.svg?branch=master)](https://travis-ci.org/WebberZone/contextual-related-posts)
+
+# Contextual Related Posts
 
 __Requires:__ 3.5
 
-__Tested up to:__ 4.3
+__Tested up to:__ 4.4
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
-__Plugin page:__ <a href="https://webberzone.com/plugins/contextual-related-posts/">Contextual Related Posts</a>
+__Plugin page:__ [Contextual Related Posts home page](https://webberzone.com/plugins/contextual-related-posts/) | [WordPress.org listing](http://wordpress.org/extend/plugins/contextual-related-posts/)
+
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
 
 ## Description
 
-<a href="https://webberzone.com/plugins/contextual-related-posts/">Contextual Related Posts</a> is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed. 
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed.
 
 The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
 
-Contextual Related Posts is one of the most feature rich related posts plugins for WordPress with support for thumbnails, shortcodes, widgets, custom post types, caching and CSS styles.
+Although several similar plugins exist today, Contextual Related Posts is one of the most feature rich plugins with support for thumbnails, shortcodes, widgets, custom post types and CSS styles. The inbuilt cache ensures that you have related posts without excessive load on your server.
 
-The plugin also comes with it's very own inbuilt stylesheet that let's your related posts look awesome!
+And the default inbuilt styles allow you to switch between gorgeous thumbnail-rich related posts or a similar text display!
 
 ### Key features
 
 * **Automatic**: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
-* **Manual install**: Want more control over placement? Check the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> on which functions are available for manual install.
+* **Manual install**: Want more control over placement? Check the [FAQ](http://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install.
 * **Widgets**: Add related posts to widgetized area of your theme. Lots of options available
 * **Shortcode**: Use `[crp]` to display the posts anywhere you want in the post content
 * **The algorithm**: Find related posts by title and/or content of the current post
@@ -33,25 +36,27 @@ The plugin also comes with it's very own inbuilt stylesheet that let's your rela
 * **Thumbnail support**:
 	* Support for WordPress post thumbnails. CRP will create a custom image size (`crp_thumbnail`) with the dimensions specified in the Settings page
 	* Auto-extract the first image in your post to be displayed as a thumbnail
-	* Manually enter the URL of the thumbnail via <a href="http://codex.wordpress.org/Custom_Fields">WordPress meta fields</a>. Specify this using the meta box in your Edit screens.
+	* Manually enter the URL of the thumbnail via [WordPress meta fields](http://codex.wordpress.org/Custom_Fields). Specify this using the meta box in your Edit screens.
 	* Optionally, use timthumb to resize images or use your own filter function to resize post images
 * **Styles**: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area or use the style included.
 * **Customisable output**:
 	* Display excerpts in post. You can select the length of the excerpt in words
 	* Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
-* **Extensible code**: Several actions and filters to modify the output, add more options, etc.
+* **Extendable code**: CRP has tonnes of filters and actions that allow any developer to easily add features, edit outputs, etc.
+
+### Extensions
+
+* [CRP Taxonomy Extender](https://webberzone.com/plugins/crp-taxonomy/)
 
 ### Donations
 
-I spend a significant amount of my free time maintaing, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done by best to answer your question and solve your problem.
+I spend a significant amount of my free time maintaining, updating and more importantly supporting this plugin. Those who have sought support in the support forums know that I have done my best to answer your question and solve your problem.
 If you have been using this plugin and find this useful, do consider making a donation. This helps me pay for my hosting and domains.
 
 ### Translations
-Contextual Related Posts is now on Transifex ready for translation courtesy the <a href="http://wp-translations.org/translators-wp-translations/">WP Translations</a>. WP-Translations is the place where you will find a number of WordPress amazing Plugins and Themes to make them available in your home language. In exchange you will receive credit for your work and will certainly make part of the WP community history in your country.
+Contextual Related Posts is now on Transifex with several translations made available by the [WP Translations](http://wp-translations.org). If you're a translator, do consider joining the WP Translations team and contribute towards this and a huge number of WordPress plugins.
 
-If you're a translator, do consider joining the Wp Translations team.
-
-Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">Contextual Related Posts on Transifex</a>.
+Visit [Contextual Related Posts on Transifex](https://www.transifex.com/projects/p/contextual-related-posts/).
 
 
 ## Screenshots
@@ -59,34 +64,32 @@ Visit <a href="https://www.transifex.com/projects/p/contextual-related-posts/">C
 
 _Contextual Related Posts - General Options_
 
-For more screenshots visit the <a href="http://wordpress.org/plugins/contextual-related-posts/screenshots/">WordPress plugin page</a>
+More screenshots are available on the [WordPress plugin page](http://wordpress.org/plugins/contextual-related-posts/screenshots/)
 
 
 ## Installation
 
-### WordPress install
+### WordPress install (the easy way)
+
 1. Navigate to Plugins within your WordPress Admin Area
 
-2. Click "Add new" and in the search box enter "Contextual Related Posts" and select "Keyword" from the dropdown
+2. Click "Add new" and in the search box enter "Contextual Related Posts"
 
 3. Find the plugin in the list (usually the first result) and click "Install Now"
 
 ### Manual install
+
 1. Download the plugin
 
 2. Extract the contents of contextual-related-posts.zip to wp-content/plugins/ folder. You should get a folder called contextual-related-posts.
 
-3. Activate the Plugin in WP-Admin. 
+3. Activate the Plugin in WP-Admin under the Plugins screen
 
-4. Goto **Settings &raquo; Related Posts** to configure
-
-5. Optionally visit the **Custom Styles** tab to add any custom CSS styles. These are added to `wp_head` on the pages where the posts are displayed
 
 
 ## Frequently Asked Questions
 
-Check out the <a href="http://wordpress.org/plugins/contextual-related-posts/faq/">FAQ on the plugin page</a> for a detailed list of questions and answers
+Check out the [FAQ on the plugin page](http://wordpress.org/plugins/contextual-related-posts/faq/).
 
-If your question isn't listed there, please create a new post in the <a href="http://wordpress.org/support/plugin/contextual-related-posts">WordPress.org support forum</a>. I monitor the forums on an ongoing basis. If you're looking for more advanced _paid_ support, please see <a href="https://webberzone.com/support/">details here</a>.
+If your question isn't listed there, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
 
-If you would like a feature to be added, or if you already have the code for the feature, you can let me know by <a href="http://wordpress.org/support/plugin/contextual-related-posts">posting in this forum</a> or fork this Github project and let me know.
