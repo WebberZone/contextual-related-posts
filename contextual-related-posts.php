@@ -70,12 +70,12 @@ $crp_settings = crp_read_options();
 /**
  * Initialises text domain for l10n.
  *
- * @since 1.9
+ * @since	2.2.0
  */
-function ald_crp_lang_init() {
+function crp_lang_init() {
 	load_plugin_textdomain( CRP_LOCAL_NAME, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
-add_action( 'plugins_loaded', 'ald_crp_lang_init' );
+add_action( 'plugins_loaded', 'crp_lang_init' );
 
 
 /**
