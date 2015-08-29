@@ -537,7 +537,7 @@ function crp_content_filter( $content ) {
  * @param	string	$content
  * @return	string	Formatted content
  */
-function ald_crp_rss( $content ) {
+function crp_rss_filter( $content ) {
 	global $post, $crp_settings;
 
 	$limit_feed = $crp_settings['limit_feed'];
@@ -552,8 +552,8 @@ function ald_crp_rss( $content ) {
         return $content;
     }
 }
-add_filter( 'the_excerpt_rss', 'ald_crp_rss' );
-add_filter( 'the_content_feed', 'ald_crp_rss' );
+add_filter( 'the_excerpt_rss', 'crp_rss_filter' );
+add_filter( 'the_content_feed', 'crp_rss_filter' );
 
 
 /**

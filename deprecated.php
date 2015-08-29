@@ -85,3 +85,20 @@ function ald_crp_content( $content ) {
 	return crp_content_filter( $content );
 }
 
+
+/**
+ * Filter to add related posts to feeds.
+ *
+ * @since 1.8.4
+ * @deprecated	2.2.0
+ *
+ * @param	string	$content
+ * @return	string	Formatted content
+ */
+function ald_crp_rss( $content ) {
+
+	_deprecated_function( __FUNCTION__, '2.2.0', 'crp_rss_filter()' );
+
+	return crp_content_filter( $content );
+}
+
