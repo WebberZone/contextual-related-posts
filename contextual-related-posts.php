@@ -92,6 +92,7 @@ function get_crp( $args = array() ) {
 	$defaults = array(
 		'is_widget' => FALSE,
 		'echo' => TRUE,
+		'heading' => TRUE,
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 

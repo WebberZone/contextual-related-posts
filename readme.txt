@@ -193,6 +193,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* Optimised number of queries for exclude categories option. Those not using this option will see the greatest savings
 	* Select a pre-built thumbnail size will automatically update the width, height and crop settings. The default style will no longer enforce the 150x150 thumbnail size.
 	* `strict_limit` argument in `get_crp_posts_id` is now TRUE by default
+	* `get_crp` takes an additional argument: `heading` (default is TRUE) that controls the display of the main heading (**Related Posts**)
 
 * Bugfixes:
 	* First child now gets the correct thumbnail size

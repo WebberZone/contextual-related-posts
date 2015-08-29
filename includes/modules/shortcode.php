@@ -26,12 +26,11 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function crp_shortcode( $atts, $content = null ) {
 	global $crp_settings;
-	$atts = shortcode_atts( array_merge(
-		$crp_settings,
-		array( 'heading' => 1 )
-	), $atts, 'crp' );
 
-	$atts['is_widget'] = 1 - $atts['heading'];
+	$atts = shortcode_atts( array_merge(
+			$crp_settings,
+			array( 'heading' => 1 )
+		), $atts, 'crp' );
 
 	return get_crp( $atts );
 }
