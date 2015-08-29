@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	https://webberzone.com/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2-beta20150824
+ * Version: 	2.2-beta20150829
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -283,13 +283,43 @@ function get_crp_posts_id( $args = array() ) {
 	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $post->ID );
 
 	// Are we matching only the title or the post content as well?
+	$match_fields = array(
+		'post_title',
+	);
+
+	$match_fields_content = array(
+		$post->post_title,
+	);
+
 	if( $args['match_content'] ) {
-		$stuff = $post->post_title . ' ' . crp_excerpt( $post->ID, $args['match_content_words'], false );
-		$match_fields = "post_title,post_content";
-	} else {
-		$stuff = $post->post_title;
-		$match_fields = "post_title";
+
+		$match_fields[] = 'post_content';
+		$match_fields_content[] = crp_excerpt( $post->ID, $args['match_content_words'], false );
 	}
+
+	/**
+	 * Filter the fields that are to be matched.
+	 *
+	 * @since	2.2.0
+	 *
+	 * @param array   $match_fields	Array of fields to be matched
+	 * @param int	   $post->ID	Post ID
+	 */
+	$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $post->ID );
+
+	/**
+	 * Filter the content of the fields that are to be matched.
+	 *
+	 * @since	2.2.0
+	 *
+	 * @param array	$match_fields_content	Array of content of fields to be matched
+	 * @param int	$post->ID	Post ID
+	 */
+	$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $post->ID );
+
+	// Convert our arrays into their corresponding strings after they have been filtered
+	$match_fields = implode( ",", $match_fields );
+	$stuff = implode( " ", $match_fields_content );
 
 	// Make sure the post is not from the future
 	$time_difference = get_option( 'gmt_offset' );
