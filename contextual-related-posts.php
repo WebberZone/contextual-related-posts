@@ -469,7 +469,7 @@ function crp_content_prepare_filter() {
 
     $priority = isset ( $crp_settings['content_filter_priority'] ) ? $crp_settings['content_filter_priority'] : 10;
 
-	add_filter( 'the_content', 'ald_crp_content', $priority );
+	add_filter( 'the_content', 'crp_content_filter', $priority );
 }
 add_action( 'template_redirect', 'crp_content_prepare_filter' );
 
@@ -482,7 +482,7 @@ add_action( 'template_redirect', 'crp_content_prepare_filter' );
  * @param string $content
  * @return string After the filter has been processed
  */
-function ald_crp_content( $content ) {
+function crp_content_filter( $content ) {
 
 	global $single, $post, $crp_settings;
 

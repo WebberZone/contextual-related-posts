@@ -23,7 +23,7 @@
  */
 function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) {
 
-	_deprecated_function( 'get_crp_posts', '2.0.0', 'get_crp_posts_id' );
+	_deprecated_function( __FUNCTION__, '2.0.0', 'get_crp_posts_id()' );
 
 	$results = get_crp_posts_id( array(
 		'postid' => $postid,
@@ -46,14 +46,14 @@ function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) 
  * Main function to generate the related posts output
  *
  * @since 1.0.1
- * @deprecated	2.0.0
+ * @deprecated	2.2.0
  *
  * @param	array	$args	Parameters in a query string format
  * @return	string			HTML formatted list of related posts
  */
 function ald_crp( $args = array() ) {
 
-	_deprecated_function( 'ald_crp', '2.2.0', 'get_crp' );
+	_deprecated_function( __FUNCTION__, '2.2.0', 'get_crp()' );
 
 	$output = get_crp( $args );
 
@@ -66,5 +66,22 @@ function ald_crp( $args = array() ) {
 	 * @param	array	$args	Complete set of arguments
 	 */
 	return apply_filters( 'ald_crp', $output, $args );
+}
+
+
+/**
+ * Filter for 'the_content' to add the related posts.
+ *
+ * @since 1.0.1
+ * @deprecated	2.2.0
+ *
+ * @param string $content
+ * @return string After the filter has been processed
+ */
+function ald_crp_content( $content ) {
+
+	_deprecated_function( __FUNCTION__, '2.2.0', 'crp_content_filter()' );
+
+	return crp_content_filter( $content );
 }
 
