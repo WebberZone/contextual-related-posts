@@ -1,0 +1,212 @@
+= Changelog archive =
+
+This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
+
+= 1.9.1 =
+* New: Meta box on the Edit Posts, Pages and custom post type pages to easily add the location of the URL of the thumbnail image
+* Modified: Refined match title algorithm. Previously this would match the post title with both the title and content
+* Modified: Widget initialisation
+* Modified: Massive code cleanup and more documentation in the WordPress settings page
+* New: Added w.org and github.com to list of allowed sites for timthumb
+
+= 1.9.0.1 =
+* Fixed: Add to feeds was broken in v1.9
+
+= 1.9 =
+* New: Default style to make those related posts look awesome! You can find this option in the Custom styles section
+* New: Option to change the priority of the content filter. Now you can choose at what stage after the content the related posts are added.
+* New: Option to exclude the display on custom post types. Find this under Output Options
+* New: Redesigned settings page to be more responsive on mobile devices and better integrated in the WordPress Dashboard design
+* New: Function `get_crp_posts_id` can be used to fetch the IDs of related posts. Check out the FAQ on details of this
+* Modified: Shortcode now considers a wider range of attributes
+
+= 1.8.10.2 =
+* Fixed: Potential SQL vulnerability - Thanks to <a href="http://www.flynsarmy.com/">flynsarmy</a> for highlighting this
+* Modified: Minor performance improvements in initialisation of the widget
+* Modified: Plugin now checks if it is within the loop when any option under "Add related posts to:" is selected. Minor performance increase to avoid the plugin being called unnecessarily in secondary loops.
+
+= 1.8.10.1 =
+* Fixed: Manual install caused a PHP error in 1.8.10
+
+= 1.8.10 =
+* New: Limit the numbers of characters of the content being compared. This can give a marginal boost to performance
+* New: You can now choose to display the Post title in the Title of the Related posts, by using %postname%
+* Modified: Widget class has been changed to `crp_related_widget`
+* Modified: Including the author in the list will now use the Display Name which is set under “Display name publicly as” in the User Profile page
+* Modified: Updated timthumb
+* Modified: Better handling of `echo_ald_crp` - Thanks to <a href="http://www.flynsarmy.com/">flynsarmy</a> for this patch
+* Fixed: If the Thumbnail meta field is omitted under Output Options, the plugin will automatically revert to its default value i.e. "post-image"
+* Modified: More descriptions for the various options
+
+= 1.8.9.1 =
+* Fixed: PHP error when fetching thumbnail for gallery posts
+
+= 1.8.9 =
+* New: Option to choose between using CSS styles or HTML attributes for thumbnail width and height. *HTML width and height attributes are default*
+* New: Filters `crp_title` and `crp_heading_title` can be used to customise the Title of the posts and Heading Title of posts list respectively. Check out the FAQ for further information
+* New: Option to add the author to the list of posts
+* New: Options in the widget to show author and date
+* New: Bypass cache option for `echo_ald_crp`. This is the default option. You can force the cache using `echo_ald_crp($cache=true)`
+* Modified: Shortcodes are now stripped from excerpts
+* Fixed: Lists for the widget and for in-post have independent caches to prevent overlap
+* Modified: Saving widgets settings will clear the widget cache
+* Fixed: Plugin will now create thumbnails from the first image in gallery custom posts
+* Fixed: Uninstall script should now clean the cache as well
+
+= 1.8.8 =
+* New: Clear cache button
+* New: Option to add the date before the post title
+
+= 1.8.7 =
+* Important security update: Potential XSS vulnerability fixed. Thanks to Charlie Eriksen via Secunia SVCRP for reporting this
+* Added Latvian translation
+
+= 1.8.6 =
+* New: Related posts are now cached
+* New: New function <code>get_crp_posts</code> to get only the list of posts in an array. Check the <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ</a> on how to use it.
+* New: Timthumb will now resize images on wordpress.org, wordpress.com and wp.com. The latter two are useful if you're running Jetpack
+* New: Shortcode functionality. You can use the shortcode `[crp]` to display the related posts. Check the FAQ for further details.
+* Fixed: Exclude category option missed the last category in the list
+* Fixed: Open links in new window option was not working
+
+= 1.8.5 =
+* New: Option to open links in new window - Find this under Output Options
+* New: Option to add <code>rel="nofollow"</code> to links - Find this under Output Options
+* New: Option to set quality of thumbnails - Find this under Output Options
+* New: Custom text to display if no related posts are found - Find this under Output Options
+* New: Thumbnail height and width can now be configured for the widget
+* Fixed: Filter (<code>crp_postimage</code>) added for WordPress Post Thumbnails to allow you to modify your image with your own script. Plugin comes inbuilt with thumbnail resizing using timthumb
+* Fixed: PHP notices when WP_DEBUG is set to true
+
+= 1.8.4 =
+* New: Option to exclude display of related posts on certain posts/pages. This option is available under "Output Options"
+* New: Options to display related posts on home page, category archives, tag archives and other archives
+* New: Option to set how recent the related posts should be
+* New: Option to limit post title length
+* Modified: Filter (<code>crp_postimage</code>) added for WordPress Post Thumbnails to allow you to modify your image with your own script. Plugin comes inbuilt with thumbnail resizing using timthumb
+* Modified: If the option to scan for the first image in the post is set to ON, then only images from the same domain as your blog are used as thumbnails. External images are ignored.
+* Modified: Updated to latest version of timthumb
+* Fixed: Widget now displays on posts and page correctly. Previously displaying the widget resulted in duplicate display of related posts
+* Fixed: Related Posts now display correctly in feeds when feed content is set to "Summary"
+* Fixed: Fixed PHP Notices: "Use of undefined constant"
+* Fixed: Custom CSS styles will be included in the header of all posts and pages. On archives it will be included depending on the settings
+
+= 1.8.3 =
+* Fixed: PHP warning errors on manual code for sites with PHP error reporting turn on in strict mode
+* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="https://webberzone.com/contact/">contact me</a>.
+
+= 1.8.2 =
+* Fixed: PHP warning errors for sites with PHP error reporting turn on in strict mode
+
+= 1.8.1 =
+* New: Widget support. Widget display follows the same settings as having the related posts after content.
+* New: Exclude posts and pages by ID
+* Modified: Optimised performance when automatic insertion into content is turned off
+* Modified: Plugin uses the default excerpt if it is set, else it creates one based on content. Both settings respect the excerpt length set in the plugin
+* Modified: Fixed some language related issues. If you would like to translate the plugin or update a translation, please <a href="https://webberzone.com/contact/">contact me</a>.
+* Deleted: Redundant option to exclude display of the related posts on pages. You can use the custom post types feature instead
+* New: Chinese language file
+
+= 1.8 =
+* Modified: Replaced `id` attribute with `class` tag on non-singular pages. On singular pages it will display both `id` and `class`
+* New: Option to use timthumb to create thumbnail images (turned ON by default)
+* New: Support for WordPress Custom Post Types
+* New: New `Custom Styles` tab to allow you to easily style the output
+* Modified: New "default.png" file based on from KDE’s <a href="http://www.oxygen-icons.org/">Oxygen icon set</a>
+
+= 1.7.3 =
+* Fixed: Donation link
+
+= 1.7.2 =
+* Fixed: Title attribute was missing for the thumbnails
+* Modified: Reverted the output code to v1.6.5 style with `img` wrapped in its own `a` tag
+
+= 1.7.1 =
+* Fixed: Minor bug fix for location of thumbnail
+
+= 1.7 =
+* New: New function <code>related posts()</code> that allows you to manually add posts to your theme
+* New: Support for <a href="https://wordpress.org/extend/plugins/video-thumbnails/">Video Thumbnails</a> plugin
+* New: Thumbnail settings now reflect max width and max height instead of fixed width and height
+* New: Option to display thumbnails before or after the title
+* New: Option to not display thumbnails instead of the default thumbnail
+* New: Plugin now uses InnoDB instead of MyISAM if your server is running mySQL v5.6 or higher
+* Modified: Cleaner Settings page interface
+* Modified: Updated <a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/">FAQ page</a>
+
+= 1.6.5 =
+* Fixed: Few code tweaks to optimise MySQL performance
+* New: Dutch and Spanish language files
+
+= 1.6.4 =
+* Fixed: Undefined constants PHP errors
+
+= 1.6.3 =
+* Fixed: The plugin will now display a list of changes in the WordPress Admin > Plugins area whenever an update is available
+
+= 1.6.2 =
+* Turned the credit option to false by default. This setting won't effect current users.
+* Turned off borders on post thumbnails. You can customise the CSS class "crp_thumb" to style the post thumbnail
+* From the next version, the plugin will display update information in your WP-Admin
+
+= 1.6.1 =
+* Fixed: Custom output was not detecting styles properly
+* Fixed: Incorrect XHTML code was being generated when using special characters in the post title
+
+= 1.6 =
+* New: The plugin extracts the first image in the post and displays that if the post thumbnail and the post-image meta field is missing
+* New: Display excerpts in the list
+* New: Credit link to the CRP page added. You can choose to turn this off, though I would appreciate if you leave it on.
+* Updated: All parts of the list are now wrapped in classes for easy CSS customisation
+
+= 1.5.2 =
+* Fixed: Fixed display of post thumbnails using postmeta field
+
+= 1.5.1 =
+* Fixed: Numeric options were not being saved correctly
+
+= 1.5 =
+* Added an Option to display post thumbnails
+* The output can be completely customised now
+
+= 1.4.2 =
+* Fixed: Using doublequotes in the title would mess up the screen
+* Fixed: Errors when the mySQL index was being regenerated
+
+= 1.4.1 =
+* Added Italian and Danish languages
+* Minor fix for text in the admin page
+
+= 1.4 =
+* Added complete localization support
+* Added button to recreate the mySQL FULLTEXT index
+
+= 1.3.1 =
+* Fixed bug that didn't blank out posts even when option was selected
+
+= 1.3 =
+* Better optimization in WP-Admin area.
+* Fixed compatibility problems with Simple Tags plugin
+* Fixed large number of queries being generated
+
+= 1.2.2 =
+* Minor bug fixed about limit of posts
+
+= 1.2.1 =
+* Bug fixed to support PHP4
+
+= 1.2 =
+* Option to blank output in case nothing is found
+* Exclude posts from certain categories
+* Exclude pages
+* Option to choose if you want related posts to be displayed on pages
+
+= 1.1.1 =
+* Now you can optionally choose if you want to use the post content to search for related posts
+
+= 1.1 =
+* Fixed MySQL index key conflicts by using a more unique index key name.
+
+= 1.0.1 =
+* Release
+
