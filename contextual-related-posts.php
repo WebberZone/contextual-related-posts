@@ -1327,8 +1327,6 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-crp-widget.php' );
  *
  * @since 1.9.1
  *
- * @access public
- * @return void
  */
 function register_crp_widget() {
 	register_widget( 'CRP_Widget' );
@@ -1362,5 +1360,5 @@ if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
  * Deprecated functions
  *----------------------------------------------------------------------------*/
 
-	require_once( plugin_dir_path( __FILE__ ) . 'deprecated.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/deprecated.php' );
 
