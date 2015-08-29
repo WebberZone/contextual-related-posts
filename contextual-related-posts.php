@@ -469,7 +469,7 @@ function crp_content_prepare_filter() {
 
     $priority = isset ( $crp_settings['content_filter_priority'] ) ? $crp_settings['content_filter_priority'] : 10;
 
-    add_filter( 'the_content', 'ald_crp_content', $priority );
+	add_filter( 'the_content', 'ald_crp_content', $priority );
 }
 add_action( 'template_redirect', 'crp_content_prepare_filter' );
 
@@ -486,7 +486,10 @@ function ald_crp_content( $content ) {
 
 	global $single, $post, $crp_settings;
 
-	if ( ! in_the_loop() ) return $content;
+	// Return if it's not in the loop or in the main query
+	if  ( ! in_the_loop() && ! is_main_query() ) {
+		return $content;
+	}
 
 	// If this post ID is in the DO NOT DISPLAY list
 	$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
