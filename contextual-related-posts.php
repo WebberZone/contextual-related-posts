@@ -87,7 +87,7 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
  * @return	string			HTML formatted list of related posts
  */
 function get_crp( $args = array() ) {
-	global $wpdb, $post, $single, $crp_settings;
+	global $wpdb, $post, $crp_settings;
 
 	$defaults = array(
 		'is_widget' => FALSE,
@@ -229,7 +229,7 @@ function get_crp( $args = array() ) {
  * @return object $results
  */
 function get_crp_posts_id( $args = array() ) {
-	global $wpdb, $post, $single, $crp_settings;
+	global $wpdb, $post, $crp_settings;
 
 	// Initialise some variables
 	$fields = '';
@@ -515,7 +515,7 @@ add_action( 'template_redirect', 'crp_content_prepare_filter' );
  */
 function crp_content_filter( $content ) {
 
-	global $single, $post, $crp_settings;
+	global $post, $crp_settings;
 
 	// Return if it's not in the loop or in the main query
 	if  ( ! in_the_loop() && ! is_main_query() ) {
@@ -794,7 +794,7 @@ function crp_read_options() {
  * @return	string	Echoed string with the CSS output in the Header
  */
 function crp_header() {
-	global $wpdb, $post, $single, $crp_settings;
+	global $wpdb, $post, $crp_settings;
 
 	$crp_custom_CSS = stripslashes( $crp_settings['custom_CSS'] );
 
