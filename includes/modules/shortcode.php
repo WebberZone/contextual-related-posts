@@ -33,7 +33,7 @@ function crp_shortcode( $atts, $content = null ) {
 
 	$atts['is_widget'] = 1 - $atts['heading'];
 
-	return ald_crp( $atts );
+	return get_crp( $atts );
 }
 add_shortcode( 'crp', 'crp_shortcode' );
 

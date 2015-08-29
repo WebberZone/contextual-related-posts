@@ -42,4 +42,29 @@ function get_crp_posts( $postid = FALSE, $limit = FALSE, $strict_limit = TRUE ) 
 }
 
 
-?>
+/**
+ * Main function to generate the related posts output
+ *
+ * @since 1.0.1
+ * @deprecated	2.0.0
+ *
+ * @param	array	$args	Parameters in a query string format
+ * @return	string			HTML formatted list of related posts
+ */
+function ald_crp( $args = array() ) {
+
+	_deprecated_function( 'ald_crp', '2.2.0', 'get_crp' );
+
+	$output = get_crp( $args );
+
+	/**
+	 * Filter the output
+	 *
+	 * @since	1.9.1
+	 *
+	 * @param	string	$output	Formatted list of related posts
+	 * @param	array	$args	Complete set of arguments
+	 */
+	return apply_filters( 'ald_crp', $output, $args );
+}
+

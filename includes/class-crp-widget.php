@@ -238,7 +238,7 @@ class CRP_Widget extends WP_Widget {
 
 			$output = $before_widget;
 			$output .= $before_title . $title . $after_title;
-			$output .= ald_crp( $arguments );
+			$output .= get_crp( $arguments );
 
 			$output .= $after_widget;
 

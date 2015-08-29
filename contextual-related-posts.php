@@ -86,7 +86,7 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
  * @param	array	$args	Parameters in a query string format
  * @return	string			HTML formatted list of related posts
  */
-function ald_crp( $args = array() ) {
+function get_crp( $args = array() ) {
 	global $wpdb, $post, $single, $crp_settings;
 
 	$defaults = array(
@@ -215,7 +215,7 @@ function ald_crp( $args = array() ) {
 	 * @param	string	$output	Formatted list of related posts
 	 * @param	array	$args	Complete set of arguments
 	 */
-	return apply_filters( 'ald_crp', $output, $args );
+	return apply_filters( 'get_crp', $output, $args );
 }
 
 
@@ -509,17 +509,17 @@ function ald_crp_content( $content ) {
 
 	// Else add the content
     if ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
+        return $content.get_crp( 'is_widget=0' );
     } elseif ( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
+        return $content.get_crp( 'is_widget=0' );
     } elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
+        return $content.get_crp( 'is_widget=0' );
     } elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
+        return $content.get_crp( 'is_widget=0' );
     } elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
+        return $content.get_crp( 'is_widget=0' );
     } elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
-        return $content.ald_crp( 'is_widget=0' );
+        return $content.get_crp( 'is_widget=0' );
     } else {
         return $content;
     }
@@ -543,7 +543,7 @@ function ald_crp_rss( $content ) {
 
 	if ( $crp_settings['add_to_feed'] ) {
 		$output = $content;
-		$output .= ald_crp( 'is_widget=0&limit='.$limit_feed.'&show_excerpt='.$show_excerpt_feed.'&post_thumb_op='.$post_thumb_op_feed );
+		$output .= get_crp( 'is_widget=0&limit='.$limit_feed.'&show_excerpt='.$show_excerpt_feed.'&post_thumb_op='.$post_thumb_op_feed );
 		return $output;
 	} else {
         return $content;
@@ -561,7 +561,7 @@ add_filter( 'the_content_feed', 'ald_crp_rss' );
  * @param	string	List of arguments to control the output
  */
 function echo_ald_crp( $args = array() ) {
-	echo ald_crp( $args );
+	echo get_crp( $args );
 }
 
 
@@ -1330,4 +1330,3 @@ if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'deprecated.php' );
 
-?>
