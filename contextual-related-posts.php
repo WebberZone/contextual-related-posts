@@ -557,13 +557,13 @@ add_filter( 'the_content_feed', 'crp_rss_filter' );
 
 
 /**
- * Manual install of the related posts.
+ * Echos the related posts. Used for manual install
  *
  * @since 1.0.1
  *
  * @param	string	List of arguments to control the output
  */
-function echo_ald_crp( $args = array() ) {
+function echo_crp( $args = array() ) {
 	echo get_crp( $args );
 }
 

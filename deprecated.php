@@ -102,3 +102,19 @@ function ald_crp_rss( $content ) {
 	return crp_content_filter( $content );
 }
 
+
+/**
+ * Manual install of the related posts.
+ *
+ * @since 1.0.1
+ * @deprecated	2.2.0
+ *
+ * @param	string	List of arguments to control the output
+ */
+function echo_ald_crp( $args = array() ) {
+
+	_deprecated_function( __FUNCTION__, '2.2.0', 'echo_crp()' );
+
+	echo_crp( $args );
+}
+
