@@ -647,13 +647,7 @@ function crp_default_options() {
 
 	$thumb_default = plugins_url( 'default.png' , __FILE__ );
 
-	$crp_get_all_image_sizes = crp_get_all_image_sizes();
-
-	// get relevant post types
-	$args = array(
-		'public' => true,
-		'_builtin' => true
-	);
+	// Set default post types to post and page
 	$post_types = array(
 		'post' => 'post',
 		'page' => 'page',
@@ -891,62 +885,6 @@ function crp_max_formatted_content( $content, $no_of_char = -1 ) {
 	 * @param	int		$no_of_char	Maximum length of excerpt in characters
 	 */
 	return apply_filters( 'crp_max_formatted_content' , $content, $no_of_char );
-}
-
-
-/**
- * Get all image sizes.
- *
- * @since	2.0.0
- * @param	string	$size	Get specific image size
- * @return	array	Image size names along with width, height and crop setting
- */
-function crp_get_all_image_sizes( $size = '' ) {
-	global $_wp_additional_image_sizes;
-
-	/* Get the intermediate image sizes and add the full size to the array. */
-	$intermediate_image_sizes = get_intermediate_image_sizes();
-
-	foreach( $intermediate_image_sizes as $_size ) {
-        if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
-
-            $sizes[ $_size ]['name'] = $_size;
-            $sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
-            $sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
-            $sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
-
-	        if ( ( 0 == $sizes[ $_size ]['width'] ) && ( 0 == $sizes[ $_size ]['height'] ) ) {
-	            unset( $sizes[ $_size ] );
-	        }
-
-        } elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
-
-            $sizes[ $_size ] = array(
-	            'name' => $_size,
-                'width' => $_wp_additional_image_sizes[ $_size ]['width'],
-                'height' => $_wp_additional_image_sizes[ $_size ]['height'],
-                'crop' => (bool) $_wp_additional_image_sizes[ $_size ]['crop'],
-            );
-		}
-	}
-
-	/* Get only 1 size if found */
-    if ( $size ) {
-        if ( isset( $sizes[ $size ] ) ) {
-			return $sizes[ $size ];
-        } else {
-			return false;
-        }
-    }
-
-	/**
-	 * Filters array of image sizes.
-	 *
-	 * @since	2.0
-	 *
-	 * @param	array	$sizes	Image sizes
-	 */
-	return apply_filters( 'crp_get_all_image_sizes', $sizes );
 }
 
 
