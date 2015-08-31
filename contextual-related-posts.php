@@ -821,90 +821,6 @@ add_action( 'wp_head', 'crp_header' );
 
 
 /**
- * Fired for each blog when the plugin is activated.
- *
- * @since 1.0.1
- *
- * @param    boolean    $network_wide    True if WPMU superadmin uses
- *                                       "Network Activate" action, false if
- *                                       WPMU is disabled or plugin is
- *                                       activated on an individual blog.
- */
-function crp_activate( $network_wide ) {
-    global $wpdb;
-
-    if ( is_multisite() && $network_wide ) {
-
-        // Get all blogs in the network and activate plugin on each one
-        $blog_ids = $wpdb->get_col( "
-        	SELECT blog_id FROM $wpdb->blogs
-			WHERE archived = '0' AND spam = '0' AND deleted = '0'
-		" );
-        foreach ( $blog_ids as $blog_id ) {
-        	switch_to_blog( $blog_id );
-			crp_single_activate();
-        }
-
-        // Switch back to the current blog
-        restore_current_blog();
-
-    } else {
-        crp_single_activate();
-    }
-}
-register_activation_hook( __FILE__, 'crp_activate' );
-
-
-/**
- * Fired for each blog when the plugin is activated.
- *
- * @since 2.0.0
- *
- */
-function crp_single_activate() {
-	global $wpdb;
-
-	$crp_settings = crp_read_options();
-
-    $wpdb->hide_errors();
-
-	// If we're running mySQL v5.6, convert the WPDB posts table to InnoDB, since InnoDB supports FULLTEXT from v5.6 onwards
-	if ( version_compare( 5.6, $wpdb->db_version(), '<=' ) ) {
-		$wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ENGINE = InnoDB;' );
-	} else {
-		$wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ENGINE = MYISAM;' );
-	}
-
-	$wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ADD FULLTEXT crp_related (post_title, post_content);' );
-    $wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ADD FULLTEXT crp_related_title (post_title);' );
-    $wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ADD FULLTEXT crp_related_content (post_content);' );
-    $wpdb->show_errors();
-
-}
-
-
-/**
- * Fired when a new site is activated with a WPMU environment.
- *
- * @since 2.0.0
- *
- * @param    int    $blog_id    ID of the new blog.
- */
-function crp_activate_new_site( $blog_id ) {
-
-	if ( 1 !== did_action( 'wpmu_new_blog' ) ) {
-		return;
-	}
-
-	switch_to_blog( $blog_id );
-	crp_single_activate();
-	restore_current_blog();
-
-}
-add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
-
-
-/**
  * Add custom image size of thumbnail. Filters `init`.
  *
  * @since 2.0.0
@@ -1312,15 +1228,50 @@ function crp_get_all_image_sizes( $size = '' ) {
 
 
 /*----------------------------------------------------------------------------*
- * WordPress widget
+ * Activate the plugin
  *----------------------------------------------------------------------------*/
 
 /**
- * Include Widget class.
+ * The code that runs during plugin activation.
+ * This action is documented in includes/class-plugin-name-activator.php
+ *
+ * @since 2.2.0
  *
  */
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-crp-widget.php' );
+function activate_crp( $network_wide ) {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/plugin-activator.php';
+	crp_activate( $network_wide );
+}
+register_activation_hook( __FILE__, 'activate_crp' );
 
+
+/**
+ * Fired when a new site is activated with a WPMU environment.
+ *
+ * @since 2.0.0
+ *
+ * @param    int    $blog_id    ID of the new blog.
+ */
+function crp_activate_new_site( $blog_id ) {
+
+	if ( 1 !== did_action( 'wpmu_new_blog' ) ) {
+		return;
+	}
+
+	require_once plugin_dir_path( __FILE__ ) . 'includes/plugin-activator.php';
+
+	switch_to_blog( $blog_id );
+	crp_single_activate();
+	restore_current_blog();
+
+}
+add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
+
+
+
+/*----------------------------------------------------------------------------*
+ * WordPress widget
+ *----------------------------------------------------------------------------*/
 
 /**
  * Initialise the widget.
@@ -1329,6 +1280,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-crp-widget.php' );
  *
  */
 function register_crp_widget() {
+	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-crp-widget.php' );
+
 	register_widget( 'CRP_Widget' );
 }
 add_action( 'widgets_init', 'register_crp_widget' );
