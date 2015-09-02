@@ -88,8 +88,8 @@ Visit [Contextual Related Posts on Transifex](https://www.transifex.com/projects
 2. CRP options in WP-Admin - List tuning options
 3. CRP options in WP-Admin - Output options
 4. CRP options in WP-Admin - Thumbnail options
-5. CRP options in WP-Admin - Feed options
-6. CRP options in WP-Admin - Custom styles
+5. CRP options in WP-Admin - Styles
+6. CRP options in WP-Admin - Feed options
 7. Default style of Related Posts
 8. Contextual Related Post metabox in the Edit Posts screen
 9. CRP Widget
@@ -178,7 +178,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
-= 2.2 =
+= 2.2.0 =
 
 * Features:
 	* Manual posts can now be set in the meta box in the Edit Post screens which will be displayed before the related posts fetched by the plugin
@@ -194,6 +194,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* Select a pre-built thumbnail size will automatically update the width, height and crop settings. The default style will no longer enforce the 150x150 thumbnail size.
 	* `strict_limit` argument in `get_crp_posts_id` is now TRUE by default
 	* `get_crp` takes an additional argument: `heading` (default is TRUE) that controls the display of the main heading (**Related Posts**)
+	* Output of `echo_crp` will be cached in a separate meta key
 
 * Bugfixes:
 	* First child now gets the correct thumbnail size

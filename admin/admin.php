@@ -177,7 +177,7 @@ function crp_options() {
 		crp_cache_delete();
 
 		/* Echo a success message */
-		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully. Cache has been cleared.', CRP_LOCAL_NAME ) . '</p>';
+		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully. If enabled, the cache has been cleared.', CRP_LOCAL_NAME ) . '</p>';
 
 		if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
 			$str .= '<p>'. __( 'Rounded Thumbnails style selected. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
