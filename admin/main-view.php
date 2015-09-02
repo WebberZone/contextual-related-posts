@@ -76,7 +76,7 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
-				<tr><th scope="row"><?php _e( 'Add related posts to:', CRP_LOCAL_NAME ); ?></th>
+				<tr><th scope="row"><?php _e( 'Automatically add related posts to:', CRP_LOCAL_NAME ); ?></th>
 					<td>
 						<label><input type="checkbox" name="add_to_content" id="add_to_content" <?php if ( $crp_settings['add_to_content'] ) echo 'checked="checked"' ?> /> <?php _e( 'Posts', CRP_LOCAL_NAME ); ?></label><br />
 						<label><input type="checkbox" name="add_to_page" id="add_to_page" <?php if ( $crp_settings['add_to_page'] ) echo 'checked="checked"' ?> /> <?php _e( 'Pages', CRP_LOCAL_NAME ); ?></label><br />
@@ -89,10 +89,10 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
-				<tr><th scope="row"><label for="content_filter_priority"><?php _e( 'Post end display location:', CRP_LOCAL_NAME ); ?></label></th>
+				<tr><th scope="row"><label for="content_filter_priority"><?php _e( 'Display location priority:', CRP_LOCAL_NAME ); ?></label></th>
 					<td>
 						<input type="textbox" name="content_filter_priority" id="content_filter_priority" value="<?php echo esc_attr( stripslashes( $crp_settings['content_filter_priority'] ) ); ?>" />
-						<p class="description"><?php _e( 'If you select any option above, CRP will hook into the Content Filter at a priority as specified in this option.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description"><?php _e( 'If you select to automatically add the related posts, CRP will hook into the Content Filter at a priority as specified in this option.', CRP_LOCAL_NAME ); ?></p>
 						<p class="description"><?php _e( 'A higher number will cause the related posts to be processed later and move their display further down after the post content. Any number below 10 is not recommended.', CRP_LOCAL_NAME ); ?></p>
 					</td>
 				</tr>
