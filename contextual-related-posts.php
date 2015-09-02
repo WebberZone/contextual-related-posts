@@ -91,6 +91,7 @@ function get_crp( $args = array() ) {
 
 	$defaults = array(
 		'is_widget' => FALSE,
+		'is_manual' => FALSE,
 		'echo' => TRUE,
 		'heading' => TRUE,
 	);
@@ -102,8 +103,11 @@ function get_crp( $args = array() ) {
 	//Support caching to speed up retrieval
 	if ( ! empty( $args['cache'] ) ) {
 		$meta_key = 'crp_related_posts';
-		if ( $is_widget ) {
+		if ( $args['is_widget'] ) {
 			$meta_key .= '_widget';
+		}
+		if ( $args['is_manual'] ) {
+			$meta_key .= '_manual';
 		}
 		if ( is_feed() ) {
 			$meta_key .= '_feed';
@@ -595,6 +599,14 @@ add_filter( 'the_content_feed', 'crp_rss_filter' );
  * @param	string	List of arguments to control the output
  */
 function echo_crp( $args = array() ) {
+
+	$defaults = array(
+		'is_manual' => TRUE,
+	);
+
+	// Parse incomming $args into an array and merge it with $defaults
+	$args = wp_parse_args( $args, $defaults );
+
 	echo get_crp( $args );
 }
 
@@ -893,7 +905,9 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/taxonomies.php' );
 if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
 
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/loader.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/metabox.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/cache.php' );
 
 } // End admin.inc
 

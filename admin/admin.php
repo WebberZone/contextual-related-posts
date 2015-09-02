@@ -174,13 +174,10 @@ function crp_options() {
 		$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
 		// Delete the cache
-		delete_post_meta_by_key( 'crp_related_posts' );
-		delete_post_meta_by_key( 'crp_related_posts_widget' );
-		delete_post_meta_by_key( 'crp_related_posts_feed' );
-		delete_post_meta_by_key( 'crp_related_posts_widget_feed' );
+		crp_cache_delete();
 
 		/* Echo a success message */
-		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully.', CRP_LOCAL_NAME ) . '</p>';
+		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully. Cache has been cleared.', CRP_LOCAL_NAME ) . '</p>';
 
 		if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
 			$str .= '<p>'. __( 'Rounded Thumbnails style selected. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
@@ -351,112 +348,4 @@ function crp_adminhead() {
 	<script type="text/javascript" src="<?php echo $crp_url ?>/admin/wick/wick.js"></script>
 <?php
 }
-
-
-/**
- * Add link to WordPress plugin action links.
- *
- * @version	1.8.10
- *
- * @param	array	$links
- * @return	array	Links array with our settings link added
- */
-function crp_plugin_actions_links( $links ) {
-
-	return array_merge( array(
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __('Settings', CRP_LOCAL_NAME ) . '</a>'
-		), $links );
-
-}
-add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' ), 'crp_plugin_actions_links' );
-
-
-/**
- * Add links to the plugin action row.
- *
- * @since	1.4
- *
- * @param	array	$links
- * @param	array	$file
- * @return	array	Links array with our links added
- */
-function crp_plugin_actions( $links, $file ) {
-
-	$plugin = plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' );
-
-	/**** Add links ****/
-	if ( $file == $plugin ) {
-		$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __( 'Support', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="https://ajaydsouza.com/donate/">' . __( 'Donate', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="https://github.com/WebberZone/contextual-related-posts">' . __( 'Contribute', CRP_LOCAL_NAME ) . '</a>';
-	}
-	return $links;
-}
-add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and higher
-
-
-
-/**
- * Function to add a notice to the admin page.
- *
- * @since	1.8
- *
- * @return	string	Echoed string
- */
-function crp_admin_notice() {
-	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'plugin settings page', CRP_LOCAL_NAME ) . '</a>';
-
-	if ( ! current_user_can( 'manage_options' ) ) return;
-
-    echo '<div class="error">
-       <p>' . __( "Contextual Related Posts plugin has just been installed / upgraded. Please visit the {$plugin_settings_page} to configure.", CRP_LOCAL_NAME ).'</p>
-    </div>';
-}
-// add_action( 'admin_notices', 'crp_admin_notice' );
-
-
-/**
- * Function to clear the CRP Cache with Ajax.
- *
- * @since	1.8.10
- *
- */
-function crp_ajax_clearcache() {
-	global $wpdb;
-
-	$rows1 = $wpdb->query( "
-		DELETE FROM " . $wpdb->postmeta . "
-		WHERE meta_key='crp_related_posts'
-	" );
-
-	$rows2 = $wpdb->query( "
-		DELETE FROM " . $wpdb->postmeta . "
-		WHERE meta_key='crp_related_posts_widget'
-	" );
-
-	$rows3 = $wpdb->query( "
-		DELETE FROM " . $wpdb->postmeta . "
-		WHERE meta_key='crp_related_posts_feed'
-	" );
-
-	$rows4 = $wpdb->query( "
-		DELETE FROM " . $wpdb->postmeta . "
-		WHERE meta_key='crp_related_posts_widget_feed'
-	" );
-
-	/**** Did an error occur? ****/
-	if ( ( $rows1 === false ) && ( $rows2 === false ) && ( $rows3 === false ) && ( $rows4 === false ) ) {
-		exit( json_encode( array(
-			'success' => 0,
-			'message' => __('An error occurred clearing the cache. Please contact your site administrator.\n\nError message:\n', CRP_LOCAL_NAME) . $wpdb->print_error(),
-		) ) );
-	} else {	// No error, return the number of
-		exit( json_encode( array(
-			'success' => 1,
-			'message' => ($rows1+$rows2+$rows3+$rows4) . __(' cached row(s) cleared', CRP_LOCAL_NAME),
-		) ) );
-	}
-}
-add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
-
 

@@ -83,4 +83,47 @@ function crp_max_formatted_content( $content, $no_of_char = -1 ) {
 }
 
 
+/**
+ * Delete the CRP cache.
+ *
+ * @param	array	$meta_keys
+ */
+function crp_cache_delete( $meta_keys = array() ) {
+
+	$default_meta_keys = crp_cache_get_keys();
+
+	if ( ! empty( $meta_keys ) ) {
+		$meta_keys = array_intersect( $default_meta_keys, (array) $meta_keys );
+	} else {
+		$meta_keys = $default_meta_keys;
+	}
+
+	foreach ( $meta_keys as $meta_key ) {
+		delete_post_meta_by_key( $meta_key );
+	}
+}
+
+/**
+ * Get the default meta keys used for the cache
+ *
+ */
+function crp_cache_get_keys() {
+
+	$meta_keys = array(
+		'crp_related_posts',
+		'crp_related_posts_widget',
+		'crp_related_posts_feed',
+		'crp_related_posts_widget_feed',
+		'crp_related_posts_manual',
+	);
+
+	/**
+	 * Filters the array containing the various cache keys.
+	 *
+	 * @since	1.9
+	 *
+	 * @param	array	$default_meta_keys	Array of meta keys
+	 */
+	return apply_filters( 'crp_cache_keys', $meta_keys );
+}
 
