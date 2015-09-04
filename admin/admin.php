@@ -128,6 +128,8 @@ function crp_options() {
 		} elseif ( 'text_only' == $crp_settings['crp_styles'] ) {
 			$crp_settings['include_default_style'] = false;
 			$crp_settings['post_thumb_op'] = 'text_only';
+		} else {
+			$crp_settings['include_default_style'] = false;
 		}
 
 		/**** Exclude categories ****/
