@@ -161,7 +161,7 @@ function get_crp( $args = array() ) {
 			}
 
 			if ( $args['show_excerpt'] ) {
-				$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $excerpt_length ) . '</span>';
+				$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $args['excerpt_length'] ) . '</span>';
 			}
 
 			$loop_counter++;
