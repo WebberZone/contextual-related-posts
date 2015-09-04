@@ -127,3 +127,56 @@ function crp_cache_get_keys() {
 	return apply_filters( 'crp_cache_keys', $meta_keys );
 }
 
+/**
+ * Create the FULLTEXT index.
+ *
+ * @since	2.2.1
+ *
+ */
+function crp_create_index() {
+	global $wpdb;
+
+    $wpdb->hide_errors();
+
+	// If we're running mySQL v5.6, convert the WPDB posts table to InnoDB, since InnoDB supports FULLTEXT from v5.6 onwards
+	if ( version_compare( 5.6, $wpdb->db_version(), '<=' ) ) {
+		$wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ENGINE = InnoDB;' );
+	} else {
+		$wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ENGINE = MYISAM;' );
+	}
+
+	$wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ADD FULLTEXT crp_related (post_title, post_content);' );
+    $wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ADD FULLTEXT crp_related_title (post_title);' );
+    $wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ADD FULLTEXT crp_related_content (post_content);' );
+
+    $wpdb->show_errors();
+
+}
+
+
+/**
+ * Delete the FULLTEXT index.
+ *
+ * @since	2.2.1
+ *
+ */
+function crp_delete_index() {
+	global $wpdb;
+
+    $wpdb->hide_errors();
+
+	if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) ) {
+		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related" );
+	}
+	if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_title'" ) ) {
+		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_title" );
+	}
+	if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_content'" ) ) {
+		$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_content" );
+	}
+
+    $wpdb->show_errors();
+
+}
+
+

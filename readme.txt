@@ -178,10 +178,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
-= 2.2.0 =
+= 2.2.1 =
 
 * Bugfixes:
 	* "No styles" would not get selected if "Rounded thumbnails' was enabled
+	* "Recreate Index" caused a fatal error: Call to undefined function crp_single_activate()
 
 = 2.2.0 =
 
