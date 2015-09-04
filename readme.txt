@@ -184,6 +184,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* "No styles" would not get selected if "Rounded thumbnails' was enabled
 	* "Recreate Index" caused a fatal error: Call to undefined function crp_single_activate()
 	* Excerpt shortening was not working correctly
+	* Exclude categories wasn't working in some cases
 
 = 2.2.0 =
 

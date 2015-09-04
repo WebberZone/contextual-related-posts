@@ -133,12 +133,12 @@ function crp_options() {
 		}
 
 		/**** Exclude categories ****/
-		$crp_settings['exclude_cat_slugs'] = wp_kses_post( $_POST['exclude_cat_slugs'] );
-		$exclude_categories_slugs = explode( ", ", $crp_settings['exclude_cat_slugs'] );
+		$exclude_categories_slugs = array_map( 'trim', explode( ",", wp_kses_post( $_POST['exclude_cat_slugs'] ) ) );
+		$crp_settings['exclude_cat_slugs'] = implode( ", ", $exclude_categories_slugs );
 
 		foreach ( $exclude_categories_slugs as $exclude_categories_slug ) {
 			$catObj = get_category_by_slug( $exclude_categories_slug );
-			if ( isset( $catObj->term_id ) ) $exclude_categories[] = $catObj->term_id;
+			if ( isset( $catObj->term_taxonomy_id ) ) $exclude_categories[] = $catObj->term_taxonomy_id;
 		}
 		$crp_settings['exclude_categories'] = ( isset( $exclude_categories ) ) ? join( ',', $exclude_categories ) : '';
 

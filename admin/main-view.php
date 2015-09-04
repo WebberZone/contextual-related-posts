@@ -211,6 +211,7 @@ if ( ! defined( 'WPINC' ) ) {
 							<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo ( stripslashes( $crp_settings['exclude_cat_slugs'] ) ); ?></textarea>
 						</div>
 						<p class="description"><?php _e( 'Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the beginning of your category name and it will prompt you with options.', CRP_LOCAL_NAME ); ?></p>
+						<p class="description highlight"><?php _e( "Excluded category IDs are:", CRP_LOCAL_NAME ); echo " " . $crp_settings['exclude_categories']; ?></p>
 					</td>
 				</tr>
 
