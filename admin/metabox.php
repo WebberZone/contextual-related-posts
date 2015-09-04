@@ -50,7 +50,7 @@ function crp_add_meta_box( $post_type, $post ) {
 
     	add_meta_box(
     		'crp_metabox',
-    		__( 'Contextual Related Posts', CRP_LOCAL_NAME ),
+    		'Contextual Related Posts',
     		'crp_call_meta_box',
     		$post_type,
     		'advanced',

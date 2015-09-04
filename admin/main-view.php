@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 
 <div class="wrap">
-	<h1><?php _e( 'Contextual Related Posts', CRP_LOCAL_NAME ); ?></h1>
+	<h1>Contextual Related Posts</h1>
 
 	<ul class="subsubsub">
 		<?php
