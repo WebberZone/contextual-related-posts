@@ -218,17 +218,8 @@ function crp_options() {
 
 	if ( ( isset( $_POST['crp_recreate'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
 
-		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) ) {
-			$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related" );
-		}
-		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_title'" ) ) {
-			$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_title" );
-		}
-		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_content'" ) ) {
-			$wpdb->query( "ALTER TABLE " . $wpdb->posts . " DROP INDEX crp_related_content" );
-		}
-
-		crp_single_activate();
+		crp_delete_index();
+		crp_create_index();
 
 		$str = '<div id="message" class="updated fade"><p>'. __( 'Index recreated', CRP_LOCAL_NAME ) .'</p></div>';
 		echo $str;
@@ -247,7 +238,7 @@ function crp_options() {
  */
 function crp_adminmenu() {
 	$plugin_page = add_options_page(
-		__( "Contextual Related Posts", CRP_LOCAL_NAME ),
+		"Contextual Related Posts",
 		__( "Related Posts", CRP_LOCAL_NAME ),
 		'manage_options',
 		'crp_options',
