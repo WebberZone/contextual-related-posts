@@ -618,7 +618,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<br />
 
 					<label>
-						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" <?php if ( $crp_settings['include_default_style'] || ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) ) echo 'checked="checked"' ?> /> <?php _e( 'Rounded Thumbnails', CRP_LOCAL_NAME ); ?>
+						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" <?php if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) ) echo 'checked="checked"' ?> /> <?php _e( 'Rounded Thumbnails', CRP_LOCAL_NAME ); ?>
 					</label>
 					<p class="description"><img src="<?php echo plugins_url( 'admin/images/crp-rounded-thumbs.png', dirname( __FILE__ ) ); ?>" /></p>
 					<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', CRP_LOCAL_NAME ); ?></p>

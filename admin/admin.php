@@ -38,6 +38,14 @@ function crp_options() {
 	parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );
 	$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
+	// Temporary check if default styles are off and rounded thumbnails are selected - will be eventually deprecated
+	// This is a mismatch, so we force it to no style
+	if ( ( false == $crp_settings['include_default_style'] ) && ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) ) {
+		$crp_settings['crp_styles'] = 'no_style';
+		update_option( 'ald_crp_settings', $crp_settings );
+	}
+
+
 	if ( ( isset( $_POST['crp_save'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
 
 		/**** General options ***/
