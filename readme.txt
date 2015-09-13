@@ -183,9 +183,12 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Enhancements:
 	* Recreate Index and Activation will not try to alter the table engine if not needed
 
+* Bug fixes:
+	* All thumbnail classes were not properly applied + new thumbnail class filter
+
 = 2.2.1 =
 
-* Bugfixes:
+* Bug fixes:
 	* "No styles" would not get selected if "Rounded thumbnails' was enabled
 	* "Recreate Index" caused a fatal error: Call to undefined function `crp_single_activate()`
 	* Excerpt shortening was not working correctly
@@ -210,7 +213,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* `get_crp` takes an additional argument: `heading` (default is TRUE) that controls the display of the main heading (**Related Posts**)
 	* Output of `echo_crp` will be cached in a separate meta key
 
-* Bugfixes:
+* Bug fixes:
 	* First child now gets the correct thumbnail size
 
 * Deprecated:
@@ -238,14 +241,14 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* Meta-box will no longer be displayed on non-public post types
 	* For first image, the plugin will attempt to seek the correct thumbnail size if available
 
-* Bugfixes:
+* Bug fixes:
 	* Author link was incorrectly displayed multiple times in the list when Show Author was enabled
 	* WP Notice Errors when using the Widget via the Customizer menu in WordPress
 	* Incorrect thumbnail was pulled on attachment pages
 
 = 2.0.1 =
 
-* Bugfixes:
+* Bug fixes:
 	* Clear Cache button which broke in 2.0.0
 
 = 2.0.0 =
@@ -263,7 +266,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* `get_crp_posts` has been deprecated. See `get_crp_posts_id` instead
 	* Turning on the Default style will switch on thumbnails, correctly resize them and will also hide authors, excerpts and the post date
 
-* Bugfixes:
+* Bug fixes:
 	* Post image will now be loaded over https if the visitor visits your site on https
 
 = Earlier versions =

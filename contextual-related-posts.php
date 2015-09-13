@@ -118,8 +118,6 @@ function get_crp( $args = array() ) {
 		}
 	}
 
-	$exclude_categories = explode( ',', $args['exclude_categories'] );
-
 	// Retrieve the list of posts
 	$results = get_crp_posts_id( array_merge( $args, array(
 		'postid' => $post->ID,
