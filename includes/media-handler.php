@@ -192,7 +192,17 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		$thumb_html = apply_filters( 'crp_thumb_html', $thumb_html );
 
 		$class = $args['class'] . ' crp_' . $pick;
-		$output .= '<img src="' . $postimage . '" alt="' . $post_title . '" title="' . $post_title . '" ' . $thumb_html . ' class="' . $args['class'] . '" />';
+
+		/**
+		 * Filters the thumbnail classes and allows a filter function to add any more classes if needed.
+		 *
+		 * @since	2.3.0
+		 *
+		 * @param	string	$thumb_html	Thumbnail HTML
+		 */
+		$class = apply_filters( 'crp_thumb_class', $class );
+
+		$output .= '<img src="' . $postimage . '" alt="' . $post_title . '" title="' . $post_title . '" ' . $thumb_html . ' class="' . $class . '" />';
 	}
 
 	/**
