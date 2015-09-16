@@ -180,6 +180,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.3.0 =
 
+* Features:
+	* Support for WPML
+
 * Enhancements:
 	* Recreate Index and Activation will not try to alter the table engine if not needed
 

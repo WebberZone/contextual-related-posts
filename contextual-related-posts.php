@@ -133,7 +133,19 @@ function get_crp( $args = array() ) {
 
 		$output .= crp_before_list( $args );
 
+		// We need this for WPML support
+		$processed_results = array();
+
 		foreach ( $results as $result ) {
+
+			/* Support WPML */
+		    $resultid = crp_object_id_cur_lang( $result->ID );
+
+			if ( in_array( $resultid, $processed_results ) ) {
+			    continue;
+			}
+
+			array_push( $processed_results, $resultid );
 
 			/**
 			 * Filter the post ID for each result. Allows a custom function to hook in and change the ID if needed.
@@ -867,6 +879,32 @@ function crp_activate_new_site( $blog_id ) {
 }
 add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
 
+
+
+/**
+ * Returns the object identifier for the current language (WPML).
+ *
+ * @since	2.1.0
+ *
+ * @param	$post_id	Post ID
+ */
+function crp_object_id_cur_lang( $post_id ) {
+
+	if ( function_exists( 'wpml_object_id' ) ) {
+		$post_id = wpml_object_id( $post_id, 'post', TRUE );
+	} elseif ( function_exists( 'icl_object_id' ) ) {
+		$post_id = icl_object_id( $post_id, 'post', TRUE );
+	}
+
+	/**
+	 * Filters object ID for current language (WPML).
+	 *
+	 * @since	2.1.0
+	 *
+	 * @param	int	$post_id	Post ID
+	 */
+	return apply_filters( 'crp_object_id_cur_lang', $post_id );
+}
 
 
 /*----------------------------------------------------------------------------*
