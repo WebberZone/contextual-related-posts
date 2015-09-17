@@ -79,6 +79,16 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	$result = get_post( $args['postid'] );
 	$post_title = get_the_title( $args['postid'] );
 
+	/**
+	 * Filters the title and alt message for thumbnails.
+	 *
+	 * @since	2.3.0
+	 *
+	 * @param	string	$post_title		Post tile used as thumbnail alt and title
+	 * @param	object	$result			Post Object
+	 */
+	$post_title = apply_filters( 'crp_thumb_title', $post_title, $result );
+
 	$output = '';
 	$postimage = '';
 
