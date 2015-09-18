@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	https://webberzone.com/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2.2-beta20150916
+ * Version: 	2.2.2-beta20150918
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -930,7 +930,7 @@ add_action( 'widgets_init', 'register_crp_widget' );
  *----------------------------------------------------------------------------*/
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/output-generator.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/media-handler.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/media.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/tools.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/manual-posts.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/shortcode.php' );

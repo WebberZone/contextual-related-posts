@@ -109,7 +109,21 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	// If there is no thumbnail found, fetch the first image in the post, if enabled
 	if ( ! $postimage && $args['scan_images'] ) {
-		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $result->post_content, $matches );
+
+		/**
+		 * Filters the post content that is used to scan for images.
+		 *
+		 * A filter function can be tapped into this to execute shortcodes, modify content, etc.
+		 *
+		 * @since	2.3.0
+		 *
+		 * @param	string	$result->post_content	Post content
+		 * @param	object	$result		Post Object
+		 */
+		$post_content = apply_filters( 'crp_thumb_post_content', $result->post_content, $result );
+
+		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches );
+
 		if ( isset( $matches[1][0] ) && $matches[1][0] ) { 			// any image there?
 			$postimage = $matches[1][0]; // we need the first one only!
 		}
