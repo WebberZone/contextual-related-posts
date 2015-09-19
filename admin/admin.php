@@ -44,6 +44,10 @@ function crp_options() {
 		$crp_settings['crp_styles'] = 'no_style';
 		update_option( 'ald_crp_settings', $crp_settings );
 	}
+	if ( ( true == $crp_settings['include_default_style'] ) && ( 'rounded_thumbs' != $crp_settings['crp_styles'] ) ) {
+		$crp_settings['crp_styles'] = 'rounded_thumbs';
+		update_option( 'ald_crp_settings', $crp_settings );
+	}
 
 
 	if ( ( isset( $_POST['crp_save'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
