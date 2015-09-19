@@ -89,6 +89,12 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
 function get_crp( $args = array() ) {
 	global $wpdb, $post, $crp_settings;
 
+	// if set, save $exclude_categories
+	if ( isset( $args['exclude_categories'] ) && '' != $args['exclude_categories'] ) {
+		$exclude_categories = explode( ",", $args['exclude_categories'] );
+		$args['strict_limit'] = FALSE;
+	}
+
 	$defaults = array(
 		'is_widget' => FALSE,
 		'is_manual' => FALSE,
@@ -121,7 +127,7 @@ function get_crp( $args = array() ) {
 	// Retrieve the list of posts
 	$results = get_crp_posts_id( array_merge( $args, array(
 		'postid' => $post->ID,
-		'strict_limit' => TRUE,
+		'strict_limit' => ( isset( $args['strict_limit'] ) ) ? $args['strict_limit'] : TRUE,
 	) ) );
 
 	$output = ( is_singular() ) ? '<div id="crp_related" class="crp_related' . ( $args['is_widget'] ? '_widget' : '' ) . '">' : '<div class="crp_related' . ( $args['is_widget'] ? '_widget' : '' ) . '">';
@@ -157,6 +163,19 @@ function get_crp( $args = array() ) {
 			$resultid = apply_filters( 'crp_post_id', $result->ID );
 
 			$result = get_post( $resultid );	// Let's get the Post using the ID
+
+			// Process the category exclusion if passed in the shortcode
+			if ( isset( $exclude_categories ) ) {
+
+				$categorys = get_the_category( $result->ID );	//Fetch categories of the plugin
+
+				$p_in_c = false;	// Variable to check if post exists in a particular category
+				foreach ( $categorys as $cat ) {	// Loop to check if post exists in excluded category
+					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories ) ) ? true : false;
+					if ( $p_in_c ) break;	// Skip loop execution and go to the next step
+				}
+				if ( $p_in_c ) continue;	// Skip loop execution and go to the next step
+			}
 
 			$output .= crp_before_list_item( $args, $result );
 
@@ -284,7 +303,8 @@ function get_crp_posts_id( $args = array() ) {
 
 	$limit = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
 
-	parse_str( $args['post_types'], $post_types );	// Save post types in $post_types variable
+	// Save post types in $post_types variable
+	parse_str( $args['post_types'], $post_types );
 
 	/**
 	 * Filter the post_type clause of the query.
@@ -345,7 +365,7 @@ function get_crp_posts_id( $args = array() ) {
 	$from_date = gmdate( 'Y-m-d H:i:s' , $from_date );
 
 	// Create the SQL query to fetch the related posts from the database
-	if ( ( is_int( $post->ID ) ) && ( '' != $stuff ) ) {
+	if ( is_int( $post->ID ) ) {
 
 		// Fields to return
 		$fields = " $wpdb->posts.ID ";
