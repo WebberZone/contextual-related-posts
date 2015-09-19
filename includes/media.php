@@ -82,7 +82,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	/**
 	 * Filters the title and alt message for thumbnails.
 	 *
-	 * @since	2.3.0
+	 * @since	2.2.2
 	 *
 	 * @param	string	$post_title		Post tile used as thumbnail alt and title
 	 * @param	object	$result			Post Object
@@ -115,7 +115,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 *
 		 * A filter function can be tapped into this to execute shortcodes, modify content, etc.
 		 *
-		 * @since	2.3.0
+		 * @since	2.2.2
 		 *
 		 * @param	string	$result->post_content	Post content
 		 * @param	object	$result		Post Object
@@ -220,7 +220,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		/**
 		 * Filters the thumbnail classes and allows a filter function to add any more classes if needed.
 		 *
-		 * @since	2.3.0
+		 * @since	2.2.2
 		 *
 		 * @param	string	$thumb_html	Thumbnail HTML
 		 */
