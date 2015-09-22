@@ -1,4 +1,4 @@
-﻿[![Build Status](https://travis-ci.org/WebberZone/contextual-related-posts.svg?branch=master)](https://travis-ci.org/WebberZone/contextual-related-posts)
+[![Build Status](https://travis-ci.org/WebberZone/contextual-related-posts.svg)](https://travis-ci.org/WebberZone/contextual-related-posts)
 
 # Contextual Related Posts
 
