@@ -178,6 +178,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.2.3 =
+
+* Enhancements:
+	* Changed text domain to `contextual-related-posts` in advance of translate.wordpress.org translation system
+
 = 2.2.2 =
 
 * Features:
@@ -280,7 +285,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.2.2 =
+= 2.2.3 =
 * New features. Deprecated functions. Upgrade highly recommended. Please do verify your settings after the upgrade.
 Check the Changelog for more details
 

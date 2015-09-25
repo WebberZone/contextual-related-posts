@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	https://webberzone.com/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2.2
+ * Version: 	2.2.3-beta1
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -204,7 +204,7 @@ function get_crp( $args = array() ) {
 
 			$output .= crp_before_list_item( $args, $result );
 
-			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', CRP_LOCAL_NAME ), esc_url( 'https://webberzone.com/plugins/contextual-related-posts/' ) );
+			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/plugins/contextual-related-posts/' ) );
 
 			$output .= crp_after_list_item( $args, $result );
 
@@ -686,9 +686,9 @@ add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
  */
 function crp_default_options() {
 
-	$title = __( '<h3>Related Posts:</h3>', CRP_LOCAL_NAME );
+	$title = __( '<h3>Related Posts:</h3>', 'contextual-related-posts' );
 
-	$blank_output_text = __( 'No related posts found', CRP_LOCAL_NAME );
+	$blank_output_text = __( 'No related posts found', 'contextual-related-posts' );
 
 	$thumb_default = plugins_url( 'default.png' , __FILE__ );
 

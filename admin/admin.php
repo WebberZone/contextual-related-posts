@@ -191,16 +191,16 @@ function crp_options() {
 		crp_cache_delete();
 
 		/* Echo a success message */
-		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully. If enabled, the cache has been cleared.', CRP_LOCAL_NAME ) . '</p>';
+		$str = '<div id="message" class="notice is-dismissible updated"><p>'. __( 'Options saved successfully. If enabled, the cache has been cleared.', 'contextual-related-posts' ) . '</p>';
 
 		if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
-			$str .= '<p>'. __( 'Rounded Thumbnails style selected. Author, Excerpt and Date will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
+			$str .= '<p>'. __( 'Rounded Thumbnails style selected. Author, Excerpt and Date will not be displayed.', 'contextual-related-posts' ) . '</p>';
 		}
 		if ( 'text_only' == $crp_settings['crp_styles'] ) {
-			$str .= '<p>'. __( 'Text Only style selected. Thumbnails will not be displayed.', CRP_LOCAL_NAME ) . '</p>';
+			$str .= '<p>'. __( 'Text Only style selected. Thumbnails will not be displayed.', 'contextual-related-posts' ) . '</p>';
 		}
 		if ( 'crp_thumbnail' != $crp_settings['thumb_size'] ) {
-			$str .= '<p>'. sprintf( __( 'Pre-built thumbnail size selected. Thumbnail set to %d x %d.', CRP_LOCAL_NAME ), $crp_settings['thumb_width'], $crp_settings['thumb_height'] ) . '</p>';
+			$str .= '<p>'. sprintf( __( 'Pre-built thumbnail size selected. Thumbnail set to %d x %d.', 'contextual-related-posts' ), $crp_settings['thumb_width'], $crp_settings['thumb_height'] ) . '</p>';
 		}
 
 		$str .= '</div>';
@@ -224,7 +224,7 @@ function crp_options() {
 		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );
 		$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
-		$str = '<div id="message" class="updated fade"><p>'. __( 'Options set to Default.', CRP_LOCAL_NAME ) .'</p></div>';
+		$str = '<div id="message" class="updated fade"><p>'. __( 'Options set to Default.', 'contextual-related-posts' ) .'</p></div>';
 		echo $str;
 	}
 
@@ -233,7 +233,7 @@ function crp_options() {
 		crp_delete_index();
 		crp_create_index();
 
-		$str = '<div id="message" class="updated fade"><p>'. __( 'Index recreated', CRP_LOCAL_NAME ) .'</p></div>';
+		$str = '<div id="message" class="updated fade"><p>'. __( 'Index recreated', 'contextual-related-posts' ) .'</p></div>';
 		echo $str;
 	}
 
@@ -251,7 +251,7 @@ function crp_options() {
 function crp_adminmenu() {
 	$plugin_page = add_options_page(
 		"Contextual Related Posts",
-		__( "Related Posts", CRP_LOCAL_NAME ),
+		__( "Related Posts", 'contextual-related-posts' ),
 		'manage_options',
 		'crp_options',
 		'crp_options'

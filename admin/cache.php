@@ -41,12 +41,12 @@ function crp_ajax_clearcache() {
 	if ( $error ) {
 		exit( json_encode( array(
 			'success' => 0,
-			'message' => __('An error occurred clearing the cache. Please contact your site administrator.\n\nError message:\n', CRP_LOCAL_NAME) . $wpdb->print_error(),
+			'message' => __('An error occurred clearing the cache. Please contact your site administrator.\n\nError message:\n', 'contextual-related-posts' ) . $wpdb->print_error(),
 		) ) );
 	} else {	// No error, return the number of
 		exit( json_encode( array(
 			'success' => 1,
-			'message' => ( array_sum( $counter ) ) . __(' cached row(s) cleared', CRP_LOCAL_NAME),
+			'message' => ( array_sum( $counter ) ) . __(' cached row(s) cleared', 'contextual-related-posts' ),
 		) ) );
 	}
 }

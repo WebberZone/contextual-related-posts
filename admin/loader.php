@@ -21,7 +21,7 @@
 function crp_plugin_actions_links( $links ) {
 
 	return array_merge( array(
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'Settings', CRP_LOCAL_NAME ) . '</a>'
+			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'Settings', 'contextual-related-posts' ) . '</a>'
 		), $links );
 
 }
@@ -43,9 +43,9 @@ function crp_plugin_actions( $links, $file ) {
 
 	/**** Add links ****/
 	if ( $file == $plugin ) {
-		$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __( 'Support', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="https://ajaydsouza.com/donate/">' . __( 'Donate', CRP_LOCAL_NAME ) . '</a>';
-		$links[] = '<a href="https://github.com/WebberZone/contextual-related-posts">' . __( 'Contribute', CRP_LOCAL_NAME ) . '</a>';
+		$links[] = '<a href="http://wordpress.org/support/plugin/contextual-related-posts">' . __( 'Support', 'contextual-related-posts' ) . '</a>';
+		$links[] = '<a href="https://ajaydsouza.com/donate/">' . __( 'Donate', 'contextual-related-posts' ) . '</a>';
+		$links[] = '<a href="https://github.com/WebberZone/contextual-related-posts">' . __( 'Contribute', 'contextual-related-posts' ) . '</a>';
 	}
 	return $links;
 }
@@ -61,12 +61,12 @@ add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and hi
  * @return	string	Echoed string
  */
 function crp_admin_notice() {
-	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'plugin settings page', CRP_LOCAL_NAME ) . '</a>';
+	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'plugin settings page', 'contextual-related-posts' ) . '</a>';
 
 	if ( ! current_user_can( 'manage_options' ) ) return;
 
     echo '<div class="error">
-       <p>' . __( "Contextual Related Posts plugin has just been installed / upgraded. Please visit the {$plugin_settings_page} to configure.", CRP_LOCAL_NAME ).'</p>
+       <p>' . __( "Contextual Related Posts plugin has just been installed / upgraded. Please visit the {$plugin_settings_page} to configure.", 'contextual-related-posts' ).'</p>
     </div>';
 }
 // add_action( 'admin_notices', 'crp_admin_notice' );
