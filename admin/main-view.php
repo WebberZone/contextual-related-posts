@@ -69,7 +69,7 @@ if ( ! defined( 'WPINC' ) ) {
 				?>
 
 				<tr><th scope="row"><label for="cache"><?php _e( 'Cache output?', 'contextual-related-posts' ); ?></label></th>
-					<td><input type="checkbox" name="cache" id="cache" <?php if ( $crp_settings['cache'] ) echo 'checked="checked"' ?> />
+					<td><input type="checkbox" name="cache" id="cache" <?php if ( $crp_settings['cache'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php _e( 'Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.', 'contextual-related-posts' ); ?></p>
 						<p class="description"><?php _e( 'The CRP cache works independently and in addition to any of your caching plugins like WP Super Cache or W3 Total Cache. It is recommended that you enable this on your blog.', 'contextual-related-posts' ); ?></p>
 						<p><input type="button" value="<?php _e( 'Clear cache', 'contextual-related-posts' ) ?>" onclick="return clearCache();" class="button-secondary" /></p>
@@ -78,13 +78,13 @@ if ( ! defined( 'WPINC' ) ) {
 
 				<tr><th scope="row"><?php _e( 'Automatically add related posts to:', 'contextual-related-posts' ); ?></th>
 					<td>
-						<label><input type="checkbox" name="add_to_content" id="add_to_content" <?php if ( $crp_settings['add_to_content'] ) echo 'checked="checked"' ?> /> <?php _e( 'Posts', 'contextual-related-posts' ); ?></label><br />
-						<label><input type="checkbox" name="add_to_page" id="add_to_page" <?php if ( $crp_settings['add_to_page'] ) echo 'checked="checked"' ?> /> <?php _e( 'Pages', 'contextual-related-posts' ); ?></label><br />
-						<label><input type="checkbox" name="add_to_home" id="add_to_home" <?php if ( $crp_settings['add_to_home'] ) echo 'checked="checked"' ?> /> <?php _e( 'Home page', 'contextual-related-posts' ); ?></label></label><br />
-						<label><input type="checkbox" name="add_to_feed" id="add_to_feed" <?php if ( $crp_settings['add_to_feed'] ) echo 'checked="checked"' ?> /> <?php _e( 'Feeds', 'contextual-related-posts' ); ?></label></label><br />
-						<label><input type="checkbox" name="add_to_category_archives" id="add_to_category_archives" <?php if ( $crp_settings['add_to_category_archives'] ) echo 'checked="checked"' ?> /> <?php _e( 'Category archives', 'contextual-related-posts' ); ?></label><br />
-						<label><input type="checkbox" name="add_to_tag_archives" id="add_to_tag_archives" <?php if ( $crp_settings['add_to_tag_archives'] ) echo 'checked="checked"' ?> /> <?php _e( 'Tag archives', 'contextual-related-posts' ); ?></label></label><br />
-						<label><input type="checkbox" name="add_to_archives" id="add_to_archives" <?php if ( $crp_settings['add_to_archives'] ) echo 'checked="checked"' ?> /> <?php _e( 'Other archives', 'contextual-related-posts' ); ?></label></label>
+						<label><input type="checkbox" name="add_to_content" id="add_to_content" <?php if ( $crp_settings['add_to_content'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Posts', 'contextual-related-posts' ); ?></label><br />
+						<label><input type="checkbox" name="add_to_page" id="add_to_page" <?php if ( $crp_settings['add_to_page'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Pages', 'contextual-related-posts' ); ?></label><br />
+						<label><input type="checkbox" name="add_to_home" id="add_to_home" <?php if ( $crp_settings['add_to_home'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Home page', 'contextual-related-posts' ); ?></label></label><br />
+						<label><input type="checkbox" name="add_to_feed" id="add_to_feed" <?php if ( $crp_settings['add_to_feed'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Feeds', 'contextual-related-posts' ); ?></label></label><br />
+						<label><input type="checkbox" name="add_to_category_archives" id="add_to_category_archives" <?php if ( $crp_settings['add_to_category_archives'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Category archives', 'contextual-related-posts' ); ?></label><br />
+						<label><input type="checkbox" name="add_to_tag_archives" id="add_to_tag_archives" <?php if ( $crp_settings['add_to_tag_archives'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Tag archives', 'contextual-related-posts' ); ?></label></label><br />
+						<label><input type="checkbox" name="add_to_archives" id="add_to_archives" <?php if ( $crp_settings['add_to_archives'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Other archives', 'contextual-related-posts' ); ?></label></label>
 						<p class="description"><?php _e( "If you choose to disable this, please add <code>&lt;?php if ( function_exists( 'echo_ald_crp' ) ) echo_ald_crp(); ?&gt;</code> to your template file where you want it displayed", 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
@@ -97,23 +97,23 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
-				<tr><th scope="row"><label for="show_metabox"><?php _e( "Show metabox:", 'contextual-related-posts' ); ?></label></th>
+				<tr><th scope="row"><label for="show_metabox"><?php _e( 'Show metabox:', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="show_metabox" id="show_metabox" <?php if ( $crp_settings['show_metabox'] ) echo 'checked="checked"' ?> />
+						<input type="checkbox" name="show_metabox" id="show_metabox" <?php if ( $crp_settings['show_metabox'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php _e( 'This will add the Contextual Related Posts metabox on Edit Posts or Add New Posts screens. Also applies to Pages and Custom Post Types.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 
-				<tr><th scope="row"><label for="show_metabox_admins"><?php _e( "Limit metabox to Admins only:", 'contextual-related-posts' ); ?></label></th>
+				<tr><th scope="row"><label for="show_metabox_admins"><?php _e( 'Limit metabox to Admins only:', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="show_metabox_admins" id="show_metabox_admins" <?php if ( $crp_settings['show_metabox_admins'] ) echo 'checked="checked"' ?> />
+						<input type="checkbox" name="show_metabox_admins" id="show_metabox_admins" <?php if ( $crp_settings['show_metabox_admins'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php _e( 'If this is selected, the metabox will be hidden from anyone who is not an Admin. Otherwise, by default, Contributors and above will be able to see the metabox. This applies only if the above option is selected.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 
 				<tr><th scope="row"><label for="show_credit"><?php _e( "Tell the world you're using Contextual Related Posts:", 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="show_credit" id="show_credit" <?php if ( $crp_settings['show_credit'] ) echo 'checked="checked"' ?> /> <?php _e( ' <em>Optional</em>', 'contextual-related-posts' ); ?>
+						<input type="checkbox" name="show_credit" id="show_credit" <?php if ( $crp_settings['show_credit'] ) { echo 'checked="checked"'; } ?> /> <?php _e( ' <em>Optional</em>', 'contextual-related-posts' ); ?>
 						<p class="description"><?php _e( 'Adds a nofollow link to Contextual Related Posts homepage as the last time in the list.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
@@ -170,13 +170,13 @@ if ( ! defined( 'WPINC' ) ) {
 				</tr>
 
 				<tr><th scope="row"><label for="match_content"><?php _e( 'Find related posts based on content as well as title:', 'contextual-related-posts' ); ?></label></th>
-					<td><input type="checkbox" name="match_content" id="match_content" <?php if ( $crp_settings['match_content'] ) echo 'checked="checked"' ?> />
+					<td><input type="checkbox" name="match_content" id="match_content" <?php if ( $crp_settings['match_content'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php _e( 'If unchecked, only posts titles are used. I recommend using a caching plugin or enabling "Cache output" above if you enable this. Each site is different, so toggle this option to see which setting gives you better quality related posts.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 
 				<tr><th scope="row"><label for="match_content_words"><?php _e( 'Limit content to be compared:', 'contextual-related-posts' ); ?></label></th>
-					<td><input type="textbox" name="match_content_words" id="match_content_words" value="<?php echo esc_attr(stripslashes($crp_settings['match_content_words'])); ?>">
+					<td><input type="textbox" name="match_content_words" id="match_content_words" value="<?php echo esc_attr( stripslashes( $crp_settings['match_content_words'] ) ); ?>">
 						<p class="description"><?php _e( 'This sets the maximum words of the content that will be matched. Set to 0 for no limit. Only applies if you active the above option.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
@@ -211,7 +211,8 @@ if ( ! defined( 'WPINC' ) ) {
 							<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo ( stripslashes( $crp_settings['exclude_cat_slugs'] ) ); ?></textarea>
 						</div>
 						<p class="description"><?php _e( 'Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the beginning of your category name and it will prompt you with options.', 'contextual-related-posts' ); ?></p>
-						<p class="description highlight"><?php _e( "Excluded category IDs are:", 'contextual-related-posts' ); echo " " . $crp_settings['exclude_categories']; ?></p>
+						<p class="description highlight"><?php _e( 'Excluded category IDs are:', 'contextual-related-posts' );
+						echo ' ' . $crp_settings['exclude_categories']; ?></p>
 					</td>
 				</tr>
 
@@ -262,12 +263,12 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="blank_output"><?php _e( 'When there are no posts, what should be shown?', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<label>
-							<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ( $crp_settings['blank_output'] ) echo 'checked="checked"' ?> />
+							<input type="radio" name="blank_output" value="blank" id="blank_output_0" <?php if ( $crp_settings['blank_output'] ) { echo 'checked="checked"'; } ?> />
 							<?php _e( 'Blank Output', 'contextual-related-posts' ); ?>
 						</label>
 						<br />
 						<label>
-							<input type="radio" name="blank_output" value="customs" id="blank_output_1" <?php if ( ! $crp_settings['blank_output'] ) echo 'checked="checked"' ?> />
+							<input type="radio" name="blank_output" value="customs" id="blank_output_1" <?php if ( ! $crp_settings['blank_output'] ) { echo 'checked="checked"'; } ?> />
 							<?php _e( 'Display:', 'contextual-related-posts' ); ?>
 						</label>
 						<input type="textbox" name="blank_output_text" id="blank_output_text" value="<?php echo esc_attr( stripslashes( $crp_settings['blank_output_text'] ) ); ?>"  style="width:250px" />
@@ -276,11 +277,11 @@ if ( ! defined( 'WPINC' ) ) {
 
 				<tr><th scope="row"><label for="show_excerpt"><?php _e( 'Show post excerpt in list?', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="show_excerpt" id="show_excerpt" <?php if ( $crp_settings['show_excerpt'] ) echo 'checked="checked"' ?> />
+						<input type="checkbox" name="show_excerpt" id="show_excerpt" <?php if ( $crp_settings['show_excerpt'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php printf( __( "Displays the excerpt of the post. If you do not provide an explicit excerpt to a post (in the post editor's optional excerpt field), it will display an automatic excerpt which refers to the first %d words of the post's content", 'contextual-related-posts' ), $crp_settings['excerpt_length'] ); ?></p>
 
 						<?php if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) { ?>
-							<p style="color: #F00"><?php _e( "Rounded Thumbnails style selected under the Custom Styles. Excerpt display is disabled.", 'contextual-related-posts' ); ?></p>
+							<p style="color: #F00"><?php _e( 'Rounded Thumbnails style selected under the Custom Styles. Excerpt display is disabled.', 'contextual-related-posts' ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -293,22 +294,22 @@ if ( ! defined( 'WPINC' ) ) {
 
 				<tr><th scope="row"><label for="show_author"><?php _e( 'Show post author in list?', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="show_author" id="show_author" <?php if ( $crp_settings['show_author'] ) echo 'checked="checked"' ?> />
+						<input type="checkbox" name="show_author" id="show_author" <?php if ( $crp_settings['show_author'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php _e( 'Displays the author name prefixed with "by". e.g. by John Doe', 'contextual-related-posts' ); ?></p>
 
 						<?php if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) { ?>
-							<p style="color: #F00"><?php _e( "Rounded Thumbnails style selected under the Custom Styles. Author display is disabled.", 'contextual-related-posts' ); ?></p>
+							<p style="color: #F00"><?php _e( 'Rounded Thumbnails style selected under the Custom Styles. Author display is disabled.', 'contextual-related-posts' ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
 
 				<tr><th scope="row"><label for="show_date"><?php _e( 'Show post date in list?', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="show_date" id="show_date" <?php if ( $crp_settings['show_date'] ) echo 'checked="checked"' ?> />
-						<p class="description"><?php _e( "Displays the date of the post. Uses the same date format set in General Options", 'contextual-related-posts' ); ?></p>
+						<input type="checkbox" name="show_date" id="show_date" <?php if ( $crp_settings['show_date'] ) { echo 'checked="checked"'; } ?> />
+						<p class="description"><?php _e( 'Displays the date of the post. Uses the same date format set in General Options', 'contextual-related-posts' ); ?></p>
 
 						<?php if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) { ?>
-							<p style="color: #F00"><?php _e( "Rounded Thumbnails style selected under the Custom Styles. Date display is disabled.", 'contextual-related-posts' ); ?></p>
+							<p style="color: #F00"><?php _e( 'Rounded Thumbnails style selected under the Custom Styles. Date display is disabled.', 'contextual-related-posts' ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -316,19 +317,19 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="title_length"><?php _e( 'Limit post title length (in characters)', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<input type="textbox" name="title_length" id="title_length" value="<?php echo stripslashes( $crp_settings['title_length'] ); ?>" />
-							<p class="description"><?php _e( "Any title longer than the number of characters set above will be cut and appended with an ellipsis (&hellip;)", 'contextual-related-posts' ); ?></p>
+							<p class="description"><?php _e( 'Any title longer than the number of characters set above will be cut and appended with an ellipsis (&hellip;)', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 
 				<tr><th scope="row"><label for="link_new_window"><?php _e( 'Open links in new window', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="link_new_window" id="link_new_window" <?php if ( $crp_settings['link_new_window'] ) echo 'checked="checked"' ?> /
+						<input type="checkbox" name="link_new_window" id="link_new_window" <?php if ( $crp_settings['link_new_window'] ) { echo 'checked="checked"'; } ?> /
 					></td>
 				</tr>
 
 				<tr><th scope="row"><label for="link_nofollow"><?php _e( 'Add nofollow attribute to links in the list', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="link_nofollow" id="link_nofollow" <?php if ( $crp_settings['link_nofollow'] ) echo 'checked="checked"' ?> />
+						<input type="checkbox" name="link_nofollow" id="link_nofollow" <?php if ( $crp_settings['link_nofollow'] ) { echo 'checked="checked"'; } ?> />
 					</td>
 				</tr>
 
@@ -459,23 +460,23 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="post_thumb_op"><?php _e( 'Location of post thumbnail:', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<label>
-						<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php if ( 'inline' == $crp_settings['post_thumb_op'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php if ( 'inline' == $crp_settings['post_thumb_op'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Display thumbnails inline with posts, before title', 'contextual-related-posts' ); ?></label>
 						<br />
 						<label>
-						<input type="radio" name="post_thumb_op" value="after" id="post_thumb_op_1" <?php if ( 'after' == $crp_settings['post_thumb_op'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op" value="after" id="post_thumb_op_1" <?php if ( 'after' == $crp_settings['post_thumb_op'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Display thumbnails inline with posts, after title', 'contextual-related-posts' ); ?></label>
 						<br />
 						<label>
-						<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_2" <?php if ( 'thumbs_only' == $crp_settings['post_thumb_op'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_2" <?php if ( 'thumbs_only' == $crp_settings['post_thumb_op'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Display only thumbnails, no text', 'contextual-related-posts' ); ?></label>
 						<br />
 						<label>
-						<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php if ( 'text_only' == $crp_settings['post_thumb_op'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php if ( 'text_only' == $crp_settings['post_thumb_op'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Do not display thumbnails, only text.', 'contextual-related-posts' ); ?></label>
 
 						<?php if ( 'no_style' != $crp_settings['crp_styles'] ) { ?>
-							<p style="color: #F00"><?php _e( "This setting cannot be changed because an inbuilt style has been selected under the Styles section. If you would like to change this option, please select <strong>No styles</strong> under the Styles section.", 'contextual-related-posts' ); ?></p>
+							<p style="color: #F00"><?php _e( 'This setting cannot be changed because an inbuilt style has been selected under the Styles section. If you would like to change this option, please select <strong>No styles</strong> under the Styles section.', 'contextual-related-posts' ); ?></p>
 						<?php } ?>
 					</td>
 				</tr>
@@ -483,19 +484,19 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<?php
 							$crp_get_all_image_sizes = crp_get_all_image_sizes();
-							if ( isset( $crp_get_all_image_sizes['crp_thumbnail'] ) ) {
-								unset( $crp_get_all_image_sizes['crp_thumbnail'] );
-							}
+						if ( isset( $crp_get_all_image_sizes['crp_thumbnail'] ) ) {
+							unset( $crp_get_all_image_sizes['crp_thumbnail'] );
+						}
 
-							foreach( $crp_get_all_image_sizes as $size ) :
+						foreach ( $crp_get_all_image_sizes as $size ) :
 						?>
-							<label>
-								<input type="radio" name="thumb_size" value="<?php echo $size['name'] ?>" id="<?php echo $size['name'] ?>" <?php if ( $crp_settings['thumb_size'] == $size['name'] ) echo 'checked="checked"' ?> />
-								<?php echo $size['name']; ?> ( <?php echo $size['width']; ?>x<?php echo $size['height']; ?>
-								<?php
-									if ( $size['crop'] ) {
-										echo "cropped";
-									}
+						<label>
+							<input type="radio" name="thumb_size" value="<?php echo $size['name'] ?>" id="<?php echo $size['name'] ?>" <?php if ( $crp_settings['thumb_size'] == $size['name'] ) { echo 'checked="checked"'; } ?> />
+							<?php echo $size['name']; ?> ( <?php echo $size['width']; ?>x<?php echo $size['height']; ?>
+							<?php
+							if ( $size['crop'] ) {
+								echo 'cropped';
+							}
 								?>
 								)
 							</label>
@@ -503,12 +504,12 @@ if ( ! defined( 'WPINC' ) ) {
 						<?php endforeach; ?>
 
 							<label>
-								<input type="radio" name="thumb_size" value="crp_thumbnail" id="crp_thumbnail" <?php if ( $crp_settings['thumb_size'] == 'crp_thumbnail' ) echo 'checked="checked"' ?> /> <?php _e( 'Custom size', 'contextual-related-posts' ); ?>
+								<input type="radio" name="thumb_size" value="crp_thumbnail" id="crp_thumbnail" <?php if ( $crp_settings['thumb_size'] == 'crp_thumbnail' ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Custom size', 'contextual-related-posts' ); ?>
 							</label>
 							<p class="description">
 								<?php _e( 'You can choose from existing image sizes above or create a custom size.', 'contextual-related-posts' ); ?><br /><br />
 								<?php _e( 'If you choose an existing size, then the width, height and crop mode settings in the three options below will be automatically updated to reflect the correct dimensions of the setting.', 'contextual-related-posts' ); ?><br />
-								<?php _e( "If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image with the same width and height. The default setting is 150x150 cropped image.", 'contextual-related-posts' ); ?><br /><br />
+								<?php _e( 'If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image with the same width and height. The default setting is 150x150 cropped image.', 'contextual-related-posts' ); ?><br /><br />
 								<?php _e( "Any changes to the thumbnail settings doesn't automatically resize existing images.", 'contextual-related-posts' ); ?>
 								<?php printf( __( "I recommend using <a href='%s' class='thickbox'>OTF Regenerate Thumbnails</a> or <a href='%s' class='thickbox'>Regenerate Thumbnails</a> to regenerate all image sizes.", 'contextual-related-posts' ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=otf-regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ); ?>
 							</p>
@@ -524,9 +525,9 @@ if ( ! defined( 'WPINC' ) ) {
 				</tr>
 				<tr><th scope="row"><label for="thumb_crop"><?php _e( 'Crop mode:', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="checkbox" name="thumb_crop" id="thumb_crop" <?php if ( $crp_settings['thumb_crop'] ) echo 'checked="checked"' ?> />
+						<input type="checkbox" name="thumb_crop" id="thumb_crop" <?php if ( $crp_settings['thumb_crop'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description">
-							<?php _e( "By default, thumbnails will be hard cropped. Uncheck this box to proportionately/soft crop the thumbnails.", 'contextual-related-posts' ); ?>
+							<?php _e( 'By default, thumbnails will be hard cropped. Uncheck this box to proportionately/soft crop the thumbnails.', 'contextual-related-posts' ); ?>
 							<?php printf( __( "<a href='%s' target='_blank'>Difference between soft and hard crop</a>", 'contextual-related-posts' ), 'http://www.davidtan.org/wordpress-hard-crop-vs-soft-crop-difference-comparison-example/' ); ?>
 						</p>
 					</td>
@@ -534,17 +535,19 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="thumb_html"><?php _e( 'Image size attributes:', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<label>
-							<input type="radio" name="thumb_html" value="css" id="thumb_html_0" <?php if ( 'css' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
-							<?php _e( 'Style attributes are used for width and height.', 'contextual-related-posts' ); echo ' <code>style="max-width:' . $crp_settings['thumb_width'] . 'px;max-height:' . $crp_settings['thumb_height'] . 'px;"</code>'; ?>
+							<input type="radio" name="thumb_html" value="css" id="thumb_html_0" <?php if ( 'css' == $crp_settings['thumb_html'] ) { echo 'checked="checked"'; } ?> />
+							<?php _e( 'Style attributes are used for width and height.', 'contextual-related-posts' );
+							echo ' <code>style="max-width:' . $crp_settings['thumb_width'] . 'px;max-height:' . $crp_settings['thumb_height'] . 'px;"</code>'; ?>
 						</label>
 						<br />
 						<label>
-							<input type="radio" name="thumb_html" value="html" id="thumb_html_1" <?php if ( 'html' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
-							<?php _e( 'HTML width and height attributes are used for width and height.', 'contextual-related-posts' ); echo ' <code>width="' . $crp_settings['thumb_width'] . '" height="' . $crp_settings['thumb_height'] . '"</code>'; ?>
+							<input type="radio" name="thumb_html" value="html" id="thumb_html_1" <?php if ( 'html' == $crp_settings['thumb_html'] ) { echo 'checked="checked"'; } ?> />
+							<?php _e( 'HTML width and height attributes are used for width and height.', 'contextual-related-posts' );
+							echo ' <code>width="' . $crp_settings['thumb_width'] . '" height="' . $crp_settings['thumb_height'] . '"</code>'; ?>
 						</label>
 						<br />
 						<label>
-							<input type="radio" name="thumb_html" value="none" id="thumb_html_1" <?php if ( 'none' == $crp_settings['thumb_html'] ) echo 'checked="checked"' ?> />
+							<input type="radio" name="thumb_html" value="none" id="thumb_html_1" <?php if ( 'none' == $crp_settings['thumb_html'] ) { echo 'checked="checked"'; } ?> />
 							<?php _e( 'No HTML or Style attributes set for width and height', 'contextual-related-posts' ); ?>
 						</label>
 						<br />
@@ -556,18 +559,18 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 				<tr><th scope="row"><label for="scan_images"><?php _e( 'Extract the first image from the post?', 'contextual-related-posts' ); ?></label></th>
-					<td><input type="checkbox" name="scan_images" id="scan_images" <?php if ( $crp_settings['scan_images'] ) echo 'checked="checked"' ?> />
+					<td><input type="checkbox" name="scan_images" id="scan_images" <?php if ( $crp_settings['scan_images'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php _e( 'This will only happen if there is no post thumbnail set and no image URL is specified in the meta field.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 				<tr><th scope="row"><label for="thumb_default_show"><?php _e( 'Use default thumbnail?', 'contextual-related-posts' ); ?></label></th>
-					<td><input type="checkbox" name="thumb_default_show" id="thumb_default_show" <?php if ( $crp_settings['thumb_default_show'] ) echo 'checked="checked"' ?> />
+					<td><input type="checkbox" name="thumb_default_show" id="thumb_default_show" <?php if ( $crp_settings['thumb_default_show'] ) { echo 'checked="checked"'; } ?> />
 						<p class="description"><?php _e( 'If checked, when no thumbnail is found, show a default one from the URL below. If not checked and no thumbnail is found, no image will be shown.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 				<tr><th scope="row"><label for="thumb_default"><?php _e( 'Default thumbnail:', 'contextual-related-posts' ); ?></label></th>
 					<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr( stripslashes( $crp_settings['thumb_default'] ) ); ?>" style="width:100%">
-					  	<?php if( '' != $crp_settings['thumb_default'] ) echo "<img src='{$crp_settings['thumb_default']}' style='max-width:200px' />"; ?>
+					  	<?php if ( '' != $crp_settings['thumb_default'] ) { echo "<img src='{$crp_settings['thumb_default']}' style='max-width:200px' />"; } ?>
 						<p class="description"><?php _e( "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified above.", 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
@@ -612,13 +615,13 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><?php _e( 'Style of the related posts:', 'contextual-related-posts' ); ?></th>
 				  <td>
 					<label>
-						<input type="radio" name="crp_styles" value="no_style" id="crp_styles_1" <?php if ( 'no_style' == $crp_settings['crp_styles'] ) echo 'checked="checked"' ?> /> <?php _e( 'No styles', 'contextual-related-posts' ); ?>
+						<input type="radio" name="crp_styles" value="no_style" id="crp_styles_1" <?php if ( 'no_style' == $crp_settings['crp_styles'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'No styles', 'contextual-related-posts' ); ?>
 					</label>
 					<p class="description"><?php _e( 'Select this option if you plan to add your own styles', 'contextual-related-posts' ); ?></p>
 					<br />
 
 					<label>
-						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" <?php if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) ) echo 'checked="checked"' ?> /> <?php _e( 'Rounded Thumbnails', 'contextual-related-posts' ); ?>
+						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" <?php if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Rounded Thumbnails', 'contextual-related-posts' ); ?>
 					</label>
 					<p class="description"><img src="<?php echo plugins_url( 'admin/images/crp-rounded-thumbs.png', dirname( __FILE__ ) ); ?>" /></p>
 					<p class="description"><?php _e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', 'contextual-related-posts' ); ?></p>
@@ -626,7 +629,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<br />
 
 					<label>
-						<input type="radio" name="crp_styles" value="text_only" id="crp_styles_1" <?php if ( 'text_only' == $crp_settings['crp_styles'] ) echo 'checked="checked"' ?> /> <?php _e( 'Text only', 'contextual-related-posts' ); ?>
+						<input type="radio" name="crp_styles" value="text_only" id="crp_styles_1" <?php if ( 'text_only' == $crp_settings['crp_styles'] ) { echo 'checked="checked"'; } ?> /> <?php _e( 'Text only', 'contextual-related-posts' ); ?>
 					</label>
 					<p class="description"><?php _e( 'Enabling this option will disable thumbnails and no longer include the default style sheet included in the plugin.', 'contextual-related-posts' ); ?></p>
 
@@ -693,24 +696,24 @@ if ( ! defined( 'WPINC' ) ) {
 					<td><input type="textbox" name="limit_feed" id="limit_feed" value="<?php echo esc_attr( stripslashes( $crp_settings['limit_feed'] ) ); ?>"></td>
 				</tr>
 				<tr><th scope="row"><label for="show_excerpt_feed"><?php _e( 'Show post excerpt in list?', 'contextual-related-posts' ); ?></label></th>
-					<td><input type="checkbox" name="show_excerpt_feed" id="show_excerpt_feed" <?php if ( $crp_settings['show_excerpt_feed'] ) echo 'checked="checked"' ?> /></td>
+					<td><input type="checkbox" name="show_excerpt_feed" id="show_excerpt_feed" <?php if ( $crp_settings['show_excerpt_feed'] ) { echo 'checked="checked"'; } ?> /></td>
 				</tr>
 				<tr><th scope="row"><label for="post_thumb_op_feed"><?php _e( 'Location of post thumbnail:', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<label>
-						<input type="radio" name="post_thumb_op_feed" value="inline" id="post_thumb_op_feed_0" <?php if ( 'inline' == $crp_settings['post_thumb_op_feed'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op_feed" value="inline" id="post_thumb_op_feed_0" <?php if ( 'inline' == $crp_settings['post_thumb_op_feed'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Display thumbnails inline with posts, before title', 'contextual-related-posts' ); ?></label>
 						<br />
 						<label>
-						<input type="radio" name="post_thumb_op_feed" value="after" id="post_thumb_op_feed_1" <?php if ( 'after' == $crp_settings['post_thumb_op_feed'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op_feed" value="after" id="post_thumb_op_feed_1" <?php if ( 'after' == $crp_settings['post_thumb_op_feed'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Display thumbnails inline with posts, after title', 'contextual-related-posts' ); ?></label>
 						<br />
 						<label>
-						<input type="radio" name="post_thumb_op_feed" value="thumbs_only" id="post_thumb_op_feed_2" <?php if ( 'thumbs_only' == $crp_settings['post_thumb_op_feed'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op_feed" value="thumbs_only" id="post_thumb_op_feed_2" <?php if ( 'thumbs_only' == $crp_settings['post_thumb_op_feed'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Display only thumbnails, no text', 'contextual-related-posts' ); ?></label>
 						<br />
 						<label>
-						<input type="radio" name="post_thumb_op_feed" value="text_only" id="post_thumb_op_feed_3" <?php if ( 'text_only' == $crp_settings['post_thumb_op_feed'] ) echo 'checked="checked"' ?> />
+						<input type="radio" name="post_thumb_op_feed" value="text_only" id="post_thumb_op_feed_3" <?php if ( 'text_only' == $crp_settings['post_thumb_op_feed'] ) { echo 'checked="checked"'; } ?> />
 						<?php _e( 'Do not display thumbnails, only text.', 'contextual-related-posts' ); ?></label>
 						<br />
 					</td>
@@ -753,8 +756,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 		<p>
 		  <input type="submit" name="crp_save" id="crp_save" value="<?php _e( 'Save Options', 'contextual-related-posts' ); ?>" class="button button-primary" />
-		  <input name="crp_default" type="submit" id="crp_default" value="<?php _e( 'Default Options', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e( "Do you want to set options to Default?", 'contextual-related-posts' ); ?>')) return false;" />
-		  <input name="crp_recreate" type="submit" id="crp_recreate" value="<?php _e( 'Recreate Index', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e( "Are you sure you want to recreate the index?", 'contextual-related-posts' ); ?>')) return false;" />
+		  <input name="crp_default" type="submit" id="crp_default" value="<?php _e( 'Default Options', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e( 'Do you want to set options to Default?', 'contextual-related-posts' ); ?>')) return false;" />
+		  <input name="crp_recreate" type="submit" id="crp_recreate" value="<?php _e( 'Recreate Index', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="if (!confirm('<?php _e( 'Are you sure you want to recreate the index?', 'contextual-related-posts' ); ?>')) return false;" />
 		</p>
 
 		<?php if ( ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) || ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_title'" ) || ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_content'" ) ) { ?>
@@ -768,7 +771,7 @@ if ( ! defined( 'WPINC' ) ) {
 	<div id="postbox-container-1" class="postbox-container">
 	  <div id="side-sortables" class="meta-box-sortables ui-sortable">
 
-		  <?php include_once( 'sidebar-view.php' ); ?>
+			<?php include_once( 'sidebar-view.php' ); ?>
 
 	  </div><!-- /side-sortables -->
 	</div><!-- /postbox-container-1 -->

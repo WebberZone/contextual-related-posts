@@ -20,17 +20,17 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	1.8.6
  *
- * @param	array	$atts	Shortcode attributes
- * @param	string	$content (default: null)
+ * @param	array  $atts   Shortcode attributes
+ * @param	string $content (default: null)
  * @return	Related Posts
  */
 function crp_shortcode( $atts, $content = null ) {
 	global $crp_settings;
 
 	$atts = shortcode_atts( array_merge(
-			$crp_settings,
-			array( 'heading' => 1 )
-		), $atts, 'crp' );
+		$crp_settings,
+		array( 'heading' => 1 )
+	), $atts, 'crp' );
 
 	return get_crp( $atts );
 }

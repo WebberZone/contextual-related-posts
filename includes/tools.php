@@ -14,7 +14,7 @@
  *
  * @since 1.6
  *
- * @param int $id Post ID
+ * @param int        $id Post ID
  * @param int|string $excerpt_length Length of the excerpt in words
  * @return string Excerpt
  */
@@ -53,21 +53,21 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
  *
  * @since 1.8.4
  *
- * @param	string 	$content 	Content to be used to make an excerpt
- * @param	int 	$no_of_char	Maximum length of excerpt in characters
+ * @param	string $content    Content to be used to make an excerpt
+ * @param	int    $no_of_char Maximum length of excerpt in characters
  * @return 	string				Formatted content
  */
 function crp_max_formatted_content( $content, $no_of_char = -1 ) {
 	$content = strip_tags( $content );  // Remove CRLFs, leaving space in their wake
 
 	if ( ( $no_of_char > 0 ) && ( strlen( $content ) > $no_of_char ) ) {
-		$aWords = preg_split( "/[\s]+/", substr( $content, 0, $no_of_char ) );
+		$aWords = preg_split( '/[\s]+/', substr( $content, 0, $no_of_char ) );
 
 		// Break back down into a string of words, but drop the last one if it's chopped off
-		if ( substr( $content, $no_of_char, 1 ) == " " ) {
-		  $content = implode( " ", $aWords );
+		if ( substr( $content, $no_of_char, 1 ) == ' ' ) {
+			$content = implode( ' ', $aWords );
 		} else {
-		  $content = implode( " ", array_slice( $aWords, 0, -1 ) ) .'&hellip;';
+			$content = implode( ' ', array_slice( $aWords, 0, -1 ) ) .'&hellip;';
 		}
 	}
 
@@ -86,7 +86,7 @@ function crp_max_formatted_content( $content, $no_of_char = -1 ) {
 /**
  * Delete the CRP cache.
  *
- * @param	array	$meta_keys
+ * @param	array $meta_keys
  */
 function crp_cache_delete( $meta_keys = array() ) {
 
@@ -105,7 +105,6 @@ function crp_cache_delete( $meta_keys = array() ) {
 
 /**
  * Get the default meta keys used for the cache
- *
  */
 function crp_cache_get_keys() {
 
@@ -131,12 +130,11 @@ function crp_cache_get_keys() {
  * Create the FULLTEXT index.
  *
  * @since	2.2.1
- *
  */
 function crp_create_index() {
 	global $wpdb;
 
-    $wpdb->hide_errors();
+	$wpdb->hide_errors();
 
 	// If we're running mySQL v5.6, convert the WPDB posts table to InnoDB, since InnoDB supports FULLTEXT from v5.6 onwards
 	if ( version_compare( 5.6, $wpdb->db_version(), '<=' ) ) {
@@ -174,12 +172,11 @@ function crp_create_index() {
  * Delete the FULLTEXT index.
  *
  * @since	2.2.1
- *
  */
 function crp_delete_index() {
 	global $wpdb;
 
-    $wpdb->hide_errors();
+	$wpdb->hide_errors();
 
 	if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) ) {
 		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related" );
@@ -191,7 +188,7 @@ function crp_delete_index() {
 		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content" );
 	}
 
-    $wpdb->show_errors();
+	$wpdb->show_errors();
 
 }
 

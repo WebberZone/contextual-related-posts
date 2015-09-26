@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
+ * @param	array $args   Array of arguments
  * @return	string	Space separated list of link attributes
  */
 function crp_link_attributes( $args ) {
@@ -55,7 +55,7 @@ function crp_link_attributes( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
+ * @param	array $args   Array of arguments
  * @return	string	Space separated list of link attributes
  */
 function crp_heading_title( $args ) {
@@ -64,7 +64,7 @@ function crp_heading_title( $args ) {
 	$title = '';
 
 	if ( $args['heading'] && ! $args['is_widget'] ) {
-		$title = str_replace( "%postname%", $post->post_title, $args['title'] );	// Replace %postname% with the title of the current post
+		$title = str_replace( '%postname%', $post->post_title, $args['title'] );	// Replace %postname% with the title of the current post
 	}
 
 	/**
@@ -84,7 +84,7 @@ function crp_heading_title( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
+ * @param	array $args   Array of arguments
  * @return	string	Space separated list of link attributes
  */
 function crp_before_list( $args ) {
@@ -109,7 +109,7 @@ function crp_before_list( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
+ * @param	array $args   Array of arguments
  * @return	string	Space separated list of link attributes
  */
 function crp_after_list( $args ) {
@@ -134,8 +134,8 @@ function crp_after_list( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
- * @param	object	$result	Object of the current post result
+ * @param	array  $args   Array of arguments
+ * @param	object $result Object of the current post result
  * @return	string	Space separated list of link attributes
  */
 function crp_before_list_item( $args, $result ) {
@@ -161,8 +161,8 @@ function crp_before_list_item( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
- * @param	object	$result	Object of the current post result
+ * @param	array  $args   Array of arguments
+ * @param	object $result Object of the current post result
  * @return	string	Space separated list of link attributes
  */
 function crp_after_list_item( $args, $result ) {
@@ -188,8 +188,8 @@ function crp_after_list_item( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
- * @param	object	$result	Object of the current post result
+ * @param	array  $args   Array of arguments
+ * @param	object $result Object of the current post result
  * @return	string	Space separated list of link attributes
  */
 function crp_title( $args, $result ) {
@@ -215,8 +215,8 @@ function crp_title( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
- * @param	object	$result	Object of the current post result
+ * @param	array  $args   Array of arguments
+ * @param	object $result Object of the current post result
  * @return	string	Space separated list of link attributes
  */
 function crp_author( $args, $result ) {
@@ -257,8 +257,8 @@ function crp_author( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array	$args	Array of arguments
- * @param	object	$result	Object of the current post result
+ * @param	array  $args   Array of arguments
+ * @param	object $result Object of the current post result
  * @return	string	Space separated list of link attributes
  */
 function crp_list_link( $args, $result ) {

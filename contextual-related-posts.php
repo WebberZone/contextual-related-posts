@@ -83,7 +83,7 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
  *
  * @since 1.0.1
  *
- * @param	array	$args	Parameters in a query string format
+ * @param	array $args   Parameters in a query string format
  * @return	string			HTML formatted list of related posts
  */
 function get_crp( $args = array() ) {
@@ -91,14 +91,14 @@ function get_crp( $args = array() ) {
 
 	// if set, save $exclude_categories
 	if ( isset( $args['exclude_categories'] ) && '' != $args['exclude_categories'] ) {
-		$exclude_categories = explode( ",", $args['exclude_categories'] );
-		$args['strict_limit'] = FALSE;
+		$exclude_categories = explode( ',', $args['exclude_categories'] );
+		$args['strict_limit'] = false;
 	}
 	$defaults = array(
-		'is_widget' => FALSE,
-		'is_manual' => FALSE,
-		'echo' => TRUE,
-		'heading' => TRUE,
+		'is_widget' => false,
+		'is_manual' => false,
+		'echo' => true,
+		'heading' => true,
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -110,7 +110,7 @@ function get_crp( $args = array() ) {
 		$args['strict_limit'] = false;
 	}
 
-	//Support caching to speed up retrieval
+	// Support caching to speed up retrieval
 	if ( ! empty( $args['cache'] ) ) {
 		$meta_key = 'crp_related_posts';
 		if ( $args['is_widget'] ) {
@@ -131,13 +131,13 @@ function get_crp( $args = array() ) {
 	// Retrieve the list of posts
 	$results = get_crp_posts_id( array_merge( $args, array(
 		'postid' => $post->ID,
-		'strict_limit' => ( isset( $args['strict_limit'] ) ) ? $args['strict_limit'] : TRUE,
+		'strict_limit' => ( isset( $args['strict_limit'] ) ) ? $args['strict_limit'] : true,
 	) ) );
 
 	$widget_class = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
 	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
 
-	$post_classes =  $widget_class . $shortcode_class;
+	$post_classes = $widget_class . $shortcode_class;
 
 	/**
 	 * Filter the classes added to the div wrapper of the Top 10.
@@ -187,14 +187,16 @@ function get_crp( $args = array() ) {
 			// Process the category exclusion if passed in the shortcode
 			if ( isset( $exclude_categories ) ) {
 
-				$categorys = get_the_category( $result->ID );	//Fetch categories of the plugin
+				$categorys = get_the_category( $result->ID );	// Fetch categories of the plugin
 
 				$p_in_c = false;	// Variable to check if post exists in a particular category
 				foreach ( $categorys as $cat ) {	// Loop to check if post exists in excluded category
 					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories ) ) ? true : false;
-					if ( $p_in_c ) break;	// Skip loop execution and go to the next step
+					if ( $p_in_c ) { break;	// Skip loop execution and go to the next step
+					}
 				}
-				if ( $p_in_c ) continue;	// Skip loop execution and go to the next step
+				if ( $p_in_c ) { continue;	// Skip loop execution and go to the next step
+				}
 			}
 
 			$output .= crp_before_list_item( $args, $result );
@@ -217,7 +219,8 @@ function get_crp( $args = array() ) {
 
 			$output .= crp_after_list_item( $args, $result );
 
-			if ( $loop_counter == $args['limit'] ) break;	// End loop when related posts limit is reached
+			if ( $loop_counter == $args['limit'] ) { break;	// End loop when related posts limit is reached
+			}
 		} //end of foreach loop
 
 		if ( $args['show_credit'] ) {
@@ -255,8 +258,7 @@ function get_crp( $args = array() ) {
 
 	$output .= '</div>'; // closing div of 'crp_related'
 
-
-	//Support caching to speed up retrieval
+	// Support caching to speed up retrieval
 	if ( ! empty( $args['cache'] ) ) {
 		update_post_meta( $post->ID, $meta_key, $output, '' );
 	}
@@ -295,8 +297,8 @@ function get_crp_posts_id( $args = array() ) {
 	$match_fields = '';
 
 	$defaults = array(
-		'postid' => FALSE,
-		'strict_limit' => TRUE,
+		'postid' => false,
+		'strict_limit' => true,
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -345,7 +347,7 @@ function get_crp_posts_id( $args = array() ) {
 		$post->post_title,
 	);
 
-	if( $args['match_content'] ) {
+	if ( $args['match_content'] ) {
 
 		$match_fields[] = 'post_content';
 		$match_fields_content[] = crp_excerpt( $post->ID, $args['match_content_words'], false );
@@ -372,12 +374,12 @@ function get_crp_posts_id( $args = array() ) {
 	$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $post->ID );
 
 	// Convert our arrays into their corresponding strings after they have been filtered
-	$match_fields = implode( ",", $match_fields );
-	$stuff = implode( " ", $match_fields_content );
+	$match_fields = implode( ',', $match_fields );
+	$stuff = implode( ' ', $match_fields_content );
 
 	// Make sure the post is not from the future
 	$time_difference = get_option( 'gmt_offset' );
-	$now = gmdate( "Y-m-d H:i:s", ( time() + ( $time_difference * 3600 ) ) );
+	$now = gmdate( 'Y-m-d H:i:s', ( time() + ( $time_difference * 3600 ) ) );
 
 	// Limit the related posts by time
 	$current_time = current_time( 'timestamp', 0 );
@@ -391,7 +393,7 @@ function get_crp_posts_id( $args = array() ) {
 		$fields = " $wpdb->posts.ID ";
 
 		// Create the base MATCH clause
-		$match = $wpdb->prepare( " AND MATCH (" . $match_fields . ") AGAINST ('%s') ", $stuff );	// FULLTEXT matching algorithm
+		$match = $wpdb->prepare( ' AND MATCH (' . $match_fields . ") AGAINST ('%s') ", $stuff );	// FULLTEXT matching algorithm
 
 		/**
 		 * Filter the MATCH clause of the query.
@@ -437,12 +439,12 @@ function get_crp_posts_id( $args = array() ) {
 		$where .= " AND $wpdb->posts.post_status = 'publish' ";					// Only show published posts
 		$where .= $wpdb->prepare( " AND $wpdb->posts.ID != %d ", $post->ID );	// Show posts after the date specified
 		if ( '' != $args['exclude_post_ids'] ) {
-			$where .= " AND $wpdb->posts.ID NOT IN (" . $args['exclude_post_ids'] . ") ";
+			$where .= " AND $wpdb->posts.ID NOT IN (" . $args['exclude_post_ids'] . ') ';
 		}
 		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";	// Array of post types
 
 		// Create the base LIMITS clause
-		$limits .= $wpdb->prepare( " LIMIT %d ", $limit );
+		$limits .= $wpdb->prepare( ' LIMIT %d ', $limit );
 
 		/**
 		 * Filter the SELECT clause of the query.
@@ -462,7 +464,7 @@ function get_crp_posts_id( $args = array() ) {
 		 * @param string   $join  The JOIN clause of the query.
 		 * @param int	   $post->ID	Post ID
 		 */
- 		$join = apply_filters( 'crp_posts_join', $join, $post->ID );
+			$join = apply_filters( 'crp_posts_join', $join, $post->ID );
 
 		/**
 		 * Filter the WHERE clause of the query.
@@ -522,7 +524,7 @@ function get_crp_posts_id( $args = array() ) {
 			$having = 'HAVING ' . $having;
 		}
 
-		if ( !empty( $orderby ) ) {
+		if ( ! empty( $orderby ) ) {
 			$orderby = 'ORDER BY ' . $orderby;
 		}
 
@@ -547,12 +549,11 @@ function get_crp_posts_id( $args = array() ) {
  * Content function with user defined filter.
  *
  * @since 1.9
- *
  */
 function crp_content_prepare_filter() {
 	global $crp_settings;
 
-    $priority = isset ( $crp_settings['content_filter_priority'] ) ? $crp_settings['content_filter_priority'] : 10;
+	$priority = isset( $crp_settings['content_filter_priority'] ) ? $crp_settings['content_filter_priority'] : 10;
 
 	add_filter( 'the_content', 'crp_content_filter', $priority );
 }
@@ -572,18 +573,18 @@ function crp_content_filter( $content ) {
 	global $post, $crp_settings;
 
 	// Return if it's not in the loop or in the main query
-	if  ( ! in_the_loop() && ! is_main_query() ) {
+	if ( ! in_the_loop() && ! is_main_query() ) {
 		return $content;
 	}
 
 	// If this post ID is in the DO NOT DISPLAY list
 	$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
-	if ( in_array( $post->ID, $exclude_on_post_ids ) ) return $content;	// Exit without adding related posts
-
+	if ( in_array( $post->ID, $exclude_on_post_ids ) ) { return $content;	// Exit without adding related posts
+	}
 	// If this post type is in the DO NOT DISPLAY list
 	parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable
-	if ( in_array( $post->post_type, $exclude_on_post_types ) ) return $content;	// Exit without adding related posts
-
+	if ( in_array( $post->post_type, $exclude_on_post_types ) ) { return $content;	// Exit without adding related posts
+	}
 	// If the DO NOT DISPLAY meta field is set
 	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
 
@@ -593,24 +594,24 @@ function crp_content_filter( $content ) {
 		$crp_disable_here = 0;
 	}
 
-	if ( $crp_disable_here ) return $content;
+	if ( $crp_disable_here ) { return $content; }
 
 	// Else add the content
-    if ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) {
-        return $content.get_crp( 'is_widget=0' );
-    } elseif ( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) {
-        return $content.get_crp( 'is_widget=0' );
-    } elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
-        return $content.get_crp( 'is_widget=0' );
-    } elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
-        return $content.get_crp( 'is_widget=0' );
-    } elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
-        return $content.get_crp( 'is_widget=0' );
-    } elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
-        return $content.get_crp( 'is_widget=0' );
-    } else {
-        return $content;
-    }
+	if ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) {
+		return $content.get_crp( 'is_widget=0' );
+	} elseif ( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) {
+		return $content.get_crp( 'is_widget=0' );
+	} elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
+		return $content.get_crp( 'is_widget=0' );
+	} elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
+		return $content.get_crp( 'is_widget=0' );
+	} elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
+		return $content.get_crp( 'is_widget=0' );
+	} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
+		return $content.get_crp( 'is_widget=0' );
+	} else {
+		return $content;
+	}
 }
 
 
@@ -619,7 +620,7 @@ function crp_content_filter( $content ) {
  *
  * @since 1.8.4
  *
- * @param	string	$content
+ * @param	string $content
  * @return	string	Formatted content
  */
 function crp_rss_filter( $content ) {
@@ -634,8 +635,8 @@ function crp_rss_filter( $content ) {
 		$output .= get_crp( 'is_widget=0&limit='.$limit_feed.'&show_excerpt='.$show_excerpt_feed.'&post_thumb_op='.$post_thumb_op_feed );
 		return $output;
 	} else {
-        return $content;
-    }
+		return $content;
+	}
 }
 add_filter( 'the_excerpt_rss', 'crp_rss_filter' );
 add_filter( 'the_content_feed', 'crp_rss_filter' );
@@ -651,7 +652,7 @@ add_filter( 'the_content_feed', 'crp_rss_filter' );
 function echo_crp( $args = array() ) {
 
 	$defaults = array(
-		'is_manual' => TRUE,
+		'is_manual' => true,
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults
@@ -665,7 +666,6 @@ function echo_crp( $args = array() ) {
  * Enqueue styles.
  *
  * @since 1.9
- *
  */
 function crp_heading_styles() {
 	global $crp_settings;
@@ -674,8 +674,7 @@ function crp_heading_styles() {
 		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', __FILE__ ) );
 		wp_enqueue_style( 'crp-style-rounded-thumbs' );
 
-
-        $custom_css = "
+		$custom_css = "
 .crp_related a {
   width: {$crp_settings['thumb_width']}px;
   height: {$crp_settings['thumb_height']}px;
@@ -686,9 +685,9 @@ function crp_heading_styles() {
   margin: auto;
 }
 .crp_related .crp_title {
-  width: " . ( $crp_settings['thumb_width'] - 6 ) . "px;
+  width: " . ( $crp_settings['thumb_width'] - 6 ) . 'px;
 }
-                ";
+                ';
 
 		wp_add_inline_style( 'crp-style-rounded-thumbs', $custom_css );
 
@@ -733,7 +732,7 @@ function crp_default_options() {
 
 		'content_filter_priority' => 10,	// Content priority
 		'show_metabox'	=> true,	// Show metabox to admins
-		'show_metabox_admins'	=>	false,	// Limit to admins as well
+		'show_metabox_admins'	=> false,	// Limit to admins as well
 
 		'show_credit' => false,		// Link to this plugin's page?
 
@@ -794,9 +793,8 @@ function crp_default_options() {
 		// Custom styles
 		'custom_CSS' => '',			// Custom CSS to style the output
 		'include_default_style' => true,	// Include default style - Will be DEPRECATED in the next version
-		'crp_styles'	=> 'rounded_thumbs'	// Defaault style is rounded thubnails
+		'crp_styles'	=> 'rounded_thumbs',// Defaault style is rounded thubnails
 	);
-
 
 	/**
 	 * Filters the default options array.
@@ -821,17 +819,17 @@ function crp_read_options() {
 
 	$defaults = crp_default_options();
 
-	$crp_settings = array_map( 'stripslashes', (array) get_option( 'ald_crp_settings') );
+	$crp_settings = array_map( 'stripslashes', (array) get_option( 'ald_crp_settings' ) );
 	unset( $crp_settings[0] ); // produced by the (array) casting when there's nothing in the DB
 
-	foreach ( $defaults as $k=>$v ) {
+	foreach ( $defaults as $k => $v ) {
 		if ( ! isset( $crp_settings[ $k ] ) ) {
 			$crp_settings[ $k ] = $v;
 		}
 		$crp_settings_changed = true;
 	}
 	if ( true == $crp_settings_changed ) {
-		update_option('ald_crp_settings', $crp_settings);
+		update_option( 'ald_crp_settings', $crp_settings );
 	}
 
 	/**
@@ -861,7 +859,7 @@ function crp_header() {
 	if ( '' != $crp_custom_CSS ) {
 	    if ( ( is_single() ) ) {
 			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
-	    } elseif((is_page())) {
+	    } elseif ( (is_page()) ) {
 			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
 	    } elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
 			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
@@ -869,7 +867,7 @@ function crp_header() {
 			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
 	    } elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
 			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
-	    } elseif( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
+	    } elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
 			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
 	    } elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
 			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
@@ -879,7 +877,8 @@ function crp_header() {
 add_action( 'wp_head', 'crp_header' );
 
 
-/*----------------------------------------------------------------------------*
+/*
+ ----------------------------------------------------------------------------*
  * Activate the plugin
  *----------------------------------------------------------------------------*/
 
@@ -888,7 +887,6 @@ add_action( 'wp_head', 'crp_header' );
  * This action is documented in includes/class-plugin-name-activator.php
  *
  * @since 2.2.0
- *
  */
 function activate_crp( $network_wide ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/plugin-activator.php';
@@ -902,7 +900,7 @@ register_activation_hook( __FILE__, 'activate_crp' );
  *
  * @since 2.0.0
  *
- * @param    int    $blog_id    ID of the new blog.
+ * @param    int $blog_id    ID of the new blog.
  */
 function crp_activate_new_site( $blog_id ) {
 
@@ -959,7 +957,8 @@ function crp_object_id_cur_lang( $post_id ) {
 }
 
 
-/*----------------------------------------------------------------------------*
+/*
+ ----------------------------------------------------------------------------*
  * WordPress widget
  *----------------------------------------------------------------------------*/
 
@@ -967,7 +966,6 @@ function crp_object_id_cur_lang( $post_id ) {
  * Initialise the widget.
  *
  * @since 1.9.1
- *
  */
 function register_crp_widget() {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-crp-widget.php' );
@@ -977,7 +975,8 @@ function register_crp_widget() {
 add_action( 'widgets_init', 'register_crp_widget' );
 
 
-/*----------------------------------------------------------------------------*
+/*
+ ----------------------------------------------------------------------------*
  * CRP modules & includes
  *----------------------------------------------------------------------------*/
 
@@ -989,7 +988,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/shortcode.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/taxonomies.php' );
 
 
-/*----------------------------------------------------------------------------*
+/*
+ ----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
 
@@ -1003,7 +1003,8 @@ if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
 } // End admin.inc
 
 
-/*----------------------------------------------------------------------------*
+/*
+ ----------------------------------------------------------------------------*
  * Deprecated functions
  *----------------------------------------------------------------------------*/
 

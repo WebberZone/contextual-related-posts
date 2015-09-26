@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	2.2.0
  *
- * @param	object	$results	Original object array with post results
+ * @param	object $results    Original object array with post results
  * @return	object	Updated object array with post results
  */
 function crp_manual_posts( $results ) {
@@ -37,7 +37,6 @@ function crp_manual_posts( $results ) {
 		 * Defined in contextual-related-posts.php
 		 */
 		$fields = apply_filters( 'crp_posts_fields', $fields, $post->ID );
-
 
 		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts
 				WHERE 1=1

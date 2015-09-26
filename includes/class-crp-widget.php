@@ -31,7 +31,7 @@ class CRP_Widget extends WP_Widget {
 		parent::__construct(
 			'widget_crp', // Base ID
 			__( 'Related Posts [CRP]', 'contextual-related-posts' ), // Name
-			array( 'description' => __( 'Display Related Posts', 'contextual-related-posts' ), ) // Args
+			array( 'description' => __( 'Display Related Posts', 'contextual-related-posts' ) ) // Args
 		);
 	}
 
@@ -40,7 +40,7 @@ class CRP_Widget extends WP_Widget {
 	 *
 	 * @see	WP_Widget::form()
 	 *
-	 * @param	array	$instance	Previously saved values from database.
+	 * @param	array $instance   Previously saved values from database.
 	 */
 	public function form( $instance ) {
 		$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
@@ -76,26 +76,26 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_excerpt' ); ?>">
-			<input id="<?php echo $this->get_field_id( 'show_excerpt' ); ?>" name="<?php echo $this->get_field_name( 'show_excerpt' ); ?>" type="checkbox" <?php if ( $show_excerpt ) echo 'checked="checked"' ?> /> <?php _e( ' Show excerpt?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo $this->get_field_id( 'show_excerpt' ); ?>" name="<?php echo $this->get_field_name( 'show_excerpt' ); ?>" type="checkbox" <?php if ( $show_excerpt ) { echo 'checked="checked"'; } ?> /> <?php _e( ' Show excerpt?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_author' ); ?>">
-			<input id="<?php echo $this->get_field_id( 'show_author' ); ?>" name="<?php echo $this->get_field_name( 'show_author' ); ?>" type="checkbox" <?php if ( $show_author ) echo 'checked="checked"' ?> /> <?php _e( ' Show author?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo $this->get_field_id( 'show_author' ); ?>" name="<?php echo $this->get_field_name( 'show_author' ); ?>" type="checkbox" <?php if ( $show_author ) { echo 'checked="checked"'; } ?> /> <?php _e( ' Show author?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>">
-			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" <?php if ( $show_date ) echo 'checked="checked"' ?> /> <?php _e( ' Show date?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" <?php if ( $show_date ) { echo 'checked="checked"'; } ?> /> <?php _e( ' Show date?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<?php _e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
 			<select class="widefat" id="<?php echo $this->get_field_id( 'post_thumb_op' ); ?>" name="<?php echo $this->get_field_name( 'post_thumb_op' ); ?>">
-			  <option value="inline" <?php if ( 'inline' == $post_thumb_op ) echo 'selected="selected"' ?>><?php _e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
-			  <option value="after" <?php if ( 'after' == $post_thumb_op ) echo 'selected="selected"' ?>><?php _e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
-			  <option value="thumbs_only" <?php if ( 'thumbs_only' == $post_thumb_op ) echo 'selected="selected"' ?>><?php _e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
-			  <option value="text_only" <?php if ( 'text_only' == $post_thumb_op ) echo 'selected="selected"' ?>><?php _e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
+			  <option value="inline" <?php if ( 'inline' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
+			  <option value="after" <?php if ( 'after' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
+			  <option value="thumbs_only" <?php if ( 'thumbs_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
+			  <option value="text_only" <?php if ( 'text_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
 			</select>
 		</p>
 		<p>
@@ -114,7 +114,7 @@ class CRP_Widget extends WP_Widget {
 			<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
 
 				<label>
-					<input id="<?php echo $this->get_field_id( 'post_types' ); ?>" name="<?php echo $this->get_field_name( 'post_types' ); ?>[]" type="checkbox" value="<?php echo $wp_post_type; ?>" <?php if ( in_array( $wp_post_type, $posts_types_inc ) ) echo 'checked="checked"' ?> />
+					<input id="<?php echo $this->get_field_id( 'post_types' ); ?>" name="<?php echo $this->get_field_name( 'post_types' ); ?>[]" type="checkbox" value="<?php echo $wp_post_type; ?>" <?php if ( in_array( $wp_post_type, $posts_types_inc ) ) { echo 'checked="checked"'; } ?> />
 					<?php echo $wp_post_type; ?>
 				</label>
 				<br />
@@ -141,8 +141,8 @@ class CRP_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::update()
 	 *
-	 * @param 	array	$new_instance Values just sent to be saved.
-	 * @param 	array	$old_instance Previously saved values from database.
+	 * @param 	array $new_instance Values just sent to be saved.
+	 * @param 	array $old_instance Previously saved values from database.
 	 *
 	 * @return 	array	Updated safe values to be saved.
 	 */
@@ -182,8 +182,8 @@ class CRP_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::widget()
 	 *
-	 * @param	array	$args	Widget arguments.
-	 * @param	array	$instance	Saved values from database.
+	 * @param	array $args   Widget arguments.
+	 * @param	array $instance   Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
 		global $wpdb, $post, $crp_settings;
@@ -199,7 +199,7 @@ class CRP_Widget extends WP_Widget {
 
 		if ( ( ( is_single() ) && ( ! is_single( $exclude_on_post_ids ) ) ) || ( ( is_page() ) && ( ! is_page( $exclude_on_post_ids ) ) ) ) {
 
-			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? strip_tags( str_replace( "%postname%", $post->post_title, $crp_settings['title'] ) ) : $instance['title'] );
+			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? strip_tags( str_replace( '%postname%', $post->post_title, $crp_settings['title'] ) ) : $instance['title'] );
 
 			$limit = isset( $instance['limit'] ) ? $instance['limit'] : $crp_settings['limit'];
 			if ( empty( $limit ) ) {
@@ -234,7 +234,6 @@ class CRP_Widget extends WP_Widget {
 			 * @param	array	$arguments	Widget options array
 			 */
 			$arguments = apply_filters( 'crp_widget_options' , $arguments );
-
 
 			$output = $before_widget;
 			$output .= $before_title . $title . $after_title;

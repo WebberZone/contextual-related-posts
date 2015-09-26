@@ -15,13 +15,13 @@
  *
  * @version	1.8.10
  *
- * @param	array	$links
+ * @param	array $links
  * @return	array	Links array with our settings link added
  */
 function crp_plugin_actions_links( $links ) {
 
 	return array_merge( array(
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'Settings', 'contextual-related-posts' ) . '</a>'
+			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'Settings', 'contextual-related-posts' ) . '</a>',
 		), $links );
 
 }
@@ -33,8 +33,8 @@ add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __DIR__ )
  *
  * @since	1.4
  *
- * @param	array	$links
- * @param	array	$file
+ * @param	array $links
+ * @param	array $file
  * @return	array	Links array with our links added
  */
 function crp_plugin_actions( $links, $file ) {
@@ -63,9 +63,9 @@ add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 ); // only 2.8 and hi
 function crp_admin_notice() {
 	$plugin_settings_page = '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'plugin settings page', 'contextual-related-posts' ) . '</a>';
 
-	if ( ! current_user_can( 'manage_options' ) ) return;
+	if ( ! current_user_can( 'manage_options' ) ) { return; }
 
-    echo '<div class="error">
+	echo '<div class="error">
        <p>' . __( "Contextual Related Posts plugin has just been installed / upgraded. Please visit the {$plugin_settings_page} to configure.", 'contextual-related-posts' ).'</p>
     </div>';
 }

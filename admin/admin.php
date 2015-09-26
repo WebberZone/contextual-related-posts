@@ -21,7 +21,6 @@ if ( ! defined( 'WPINC' ) ) {
  * Function generates the plugin settings page.
  *
  * @since	1.0.1
- *
  */
 function crp_options() {
 
@@ -48,7 +47,6 @@ function crp_options() {
 		$crp_settings['crp_styles'] = 'rounded_thumbs';
 		update_option( 'ald_crp_settings', $crp_settings );
 	}
-
 
 	if ( ( isset( $_POST['crp_save'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
 
@@ -91,8 +89,8 @@ function crp_options() {
 		$crp_settings['before_list_item'] = wp_kses_post( $_POST['before_list_item'] );
 		$crp_settings['after_list_item'] = wp_kses_post( $_POST['after_list_item'] );
 
-		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_on_post_ids'] ) ) );
-		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ",", $_POST['exclude_post_ids'] ) ) );
+		$crp_settings['exclude_on_post_ids'] = $_POST['exclude_on_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ',', $_POST['exclude_on_post_ids'] ) ) );
+		$crp_settings['exclude_post_ids'] = $_POST['exclude_post_ids'] == '' ? '' : implode( ',', array_map( 'intval', explode( ',', $_POST['exclude_post_ids'] ) ) );
 
 		/**** Thumbnail options ****/
 		$crp_settings['post_thumb_op'] = wp_kses_post( $_POST['post_thumb_op'] );
@@ -111,12 +109,11 @@ function crp_options() {
 			$crp_settings['thumb_crop'] = ( isset( $_POST['thumb_crop'] ) ? true : false );
 		}
 
-
 		$crp_settings['thumb_html'] = $_POST['thumb_html'];
 
 		$crp_settings['thumb_meta'] = ( '' == $_POST['thumb_meta'] ? 'post-image' : wp_kses_post( $_POST['thumb_meta'] ) );
 		$crp_settings['scan_images'] = ( isset( $_POST['scan_images'] ) ? true : false );
-		$crp_settings['thumb_default'] = ( ( '' == $_POST['thumb_default'] ) || ( "/default.png" == $_POST['thumb_default'] ) ) ? $crp_url . '/default.png' : $_POST['thumb_default'];
+		$crp_settings['thumb_default'] = ( ( '' == $_POST['thumb_default'] ) || ( '/default.png' == $_POST['thumb_default'] ) ) ? $crp_url . '/default.png' : $_POST['thumb_default'];
 		$crp_settings['thumb_default_show'] = ( isset( $_POST['thumb_default_show'] ) ? true : false );
 
 		/**** Feed options ****/
@@ -145,12 +142,12 @@ function crp_options() {
 		}
 
 		/**** Exclude categories ****/
-		$exclude_categories_slugs = array_map( 'trim', explode( ",", wp_kses_post( $_POST['exclude_cat_slugs'] ) ) );
-		$crp_settings['exclude_cat_slugs'] = implode( ", ", $exclude_categories_slugs );
+		$exclude_categories_slugs = array_map( 'trim', explode( ',', wp_kses_post( $_POST['exclude_cat_slugs'] ) ) );
+		$crp_settings['exclude_cat_slugs'] = implode( ', ', $exclude_categories_slugs );
 
 		foreach ( $exclude_categories_slugs as $exclude_categories_slug ) {
 			$catObj = get_category_by_slug( $exclude_categories_slug );
-			if ( isset( $catObj->term_taxonomy_id ) ) $exclude_categories[] = $catObj->term_taxonomy_id;
+			if ( isset( $catObj->term_taxonomy_id ) ) { $exclude_categories[] = $catObj->term_taxonomy_id; }
 		}
 		$crp_settings['exclude_categories'] = ( isset( $exclude_categories ) ) ? join( ',', $exclude_categories ) : '';
 
@@ -208,7 +205,7 @@ function crp_options() {
 		echo $str;
 	}
 
-	if ( ( isset($_POST['crp_default'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
+	if ( ( isset( $_POST['crp_default'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
 		delete_option( 'ald_crp_settings' );
 		$crp_settings = crp_default_options();
 		update_option( 'ald_crp_settings', $crp_settings );
@@ -246,12 +243,11 @@ function crp_options() {
  * Add a link under Settings to the plugins settings page.
  *
  * @version 1.0.1
- *
  */
 function crp_adminmenu() {
 	$plugin_page = add_options_page(
-		"Contextual Related Posts",
-		__( "Related Posts", 'contextual-related-posts' ),
+		'Contextual Related Posts',
+		__( 'Related Posts', 'contextual-related-posts' ),
 		'manage_options',
 		'crp_options',
 		'crp_options'
@@ -265,7 +261,6 @@ add_action( 'admin_menu', 'crp_adminmenu' );
  * Function to add CSS and JS to the Admin header.
  *
  * @since 1.2
- *
  */
 function crp_adminhead() {
 	global $crp_url;

@@ -13,7 +13,6 @@
  * Function to clear the CRP Cache with Ajax.
  *
  * @since	1.8.10
- *
  */
 function crp_ajax_clearcache() {
 
@@ -34,19 +33,18 @@ function crp_ajax_clearcache() {
 		} else {
 			$counter[] = $count;
 		}
-
 	}
 
 	/**** Did an error occur? ****/
 	if ( $error ) {
 		exit( json_encode( array(
 			'success' => 0,
-			'message' => __('An error occurred clearing the cache. Please contact your site administrator.\n\nError message:\n', 'contextual-related-posts' ) . $wpdb->print_error(),
+			'message' => __( 'An error occurred clearing the cache. Please contact your site administrator.\n\nError message:\n', 'contextual-related-posts' ) . $wpdb->print_error(),
 		) ) );
 	} else {	// No error, return the number of
 		exit( json_encode( array(
 			'success' => 1,
-			'message' => ( array_sum( $counter ) ) . __(' cached row(s) cleared', 'contextual-related-posts' ),
+			'message' => ( array_sum( $counter ) ) . __( ' cached row(s) cleared', 'contextual-related-posts' ),
 		) ) );
 	}
 }
