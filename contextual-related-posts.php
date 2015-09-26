@@ -15,7 +15,7 @@
  * Plugin Name:	Contextual Related Posts
  * Plugin URI:	https://webberzone.com/plugins/contextual-related-posts/
  * Description:	Display a set of related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version: 	2.2.3-beta1
+ * Version: 	2.2.3-beta2
  * Author: 		WebberZone
  * Author URI: 	https://webberzone.com
  * Text Domain:	crp
@@ -134,7 +134,21 @@ function get_crp( $args = array() ) {
 		'strict_limit' => ( isset( $args['strict_limit'] ) ) ? $args['strict_limit'] : TRUE,
 	) ) );
 
-	$output = ( is_singular() ) ? '<div id="crp_related" class="crp_related' . ( $args['is_widget'] ? '_widget' : '' ) . '">' : '<div class="crp_related' . ( $args['is_widget'] ? '_widget' : '' ) . '">';
+	$widget_class = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
+	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
+
+	$post_classes =  $widget_class . $shortcode_class;
+
+	/**
+	 * Filter the classes added to the div wrapper of the Top 10.
+	 *
+	 * @since	2.2.3
+	 *
+	 * @param	string   $post_classes	Post classes string.
+	 */
+	$post_classes = apply_filters( 'crp_post_class', $post_classes );
+
+	$output = '<div class="' . $post_classes . '">';
 
 	if ( $results ) {
 		$loop_counter = 0;

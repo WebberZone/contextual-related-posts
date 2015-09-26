@@ -183,6 +183,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Enhancements:
 	* Changed text domain to `contextual-related-posts` in advance of translate.wordpress.org translation system
 	* Improved support for WPML. If available, same language posts will be pulled by default. To restrict to the same language [add this code](https://gist.github.com/ajaydsouza/9b1bc56cec79295e784c) to your theme's functions.php file
+	* Removed `id` tag from related posts HTML output to make it W3C compliant. If you're using the id with your custom styles, please change this to classes i.e. change `#crp_related` to `.crp_related` and it should work
 
 * Bug fixes:
 	* All cache entries were not deleted on uninstall
