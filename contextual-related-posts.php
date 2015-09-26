@@ -96,6 +96,7 @@ function get_crp( $args = array() ) {
 	}
 	$defaults = array(
 		'is_widget' => false,
+		'is_shortcode' => false,
 		'is_manual' => false,
 		'echo' => true,
 		'heading' => true,
@@ -192,7 +193,8 @@ function get_crp( $args = array() ) {
 				$p_in_c = false;	// Variable to check if post exists in a particular category
 				foreach ( $categorys as $cat ) {	// Loop to check if post exists in excluded category
 					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories ) ) ? true : false;
-					if ( $p_in_c ) { break;	// Skip loop execution and go to the next step
+					if ( $p_in_c ) {
+						break;	// Skip loop execution and go to the next step
 					}
 				}
 				if ( $p_in_c ) { continue;	// Skip loop execution and go to the next step

@@ -29,7 +29,10 @@ function crp_shortcode( $atts, $content = null ) {
 
 	$atts = shortcode_atts( array_merge(
 		$crp_settings,
-		array( 'heading' => 1 )
+		array(
+			'heading' => 1,
+			'is_shortcode' => 1
+		)
 	), $atts, 'crp' );
 
 	return get_crp( $atts );
