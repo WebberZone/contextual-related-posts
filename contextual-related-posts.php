@@ -94,7 +94,6 @@ function get_crp( $args = array() ) {
 		$exclude_categories = explode( ",", $args['exclude_categories'] );
 		$args['strict_limit'] = FALSE;
 	}
-
 	$defaults = array(
 		'is_widget' => FALSE,
 		'is_manual' => FALSE,
@@ -105,6 +104,11 @@ function get_crp( $args = array() ) {
 
 	// Parse incomming $args into an array and merge it with $defaults
 	$args = wp_parse_args( $args, $defaults );
+
+	// WPML support.
+	if ( function_exists( 'wpml_object_id_filter' ) || function_exists( 'icl_object_id' ) ) {
+		$args['strict_limit'] = false;
+	}
 
 	//Support caching to speed up retrieval
 	if ( ! empty( $args['cache'] ) ) {
@@ -147,10 +151,12 @@ function get_crp( $args = array() ) {
 			/* Support WPML */
 		    $resultid = crp_object_id_cur_lang( $result->ID );
 
-			if ( in_array( $resultid, $processed_results ) ) {
+			// If this is NULL or already processed ID or matches current post then skip processing this loop.
+			if ( ! $resultid || in_array( $resultid, $processed_results ) || intval( $resultid ) === intval( $post->ID ) ) {
 			    continue;
 			}
 
+			// Push the current ID into the array to ensure we're not repeating it
 			array_push( $processed_results, $resultid );
 
 			/**
@@ -158,9 +164,9 @@ function get_crp( $args = array() ) {
 			 *
 			 * @since	1.9
 			 *
-			 * @param	int	$result->ID	ID of the post
+			 * @param	int	$resultid	ID of the post
 			 */
-			$resultid = apply_filters( 'crp_post_id', $result->ID );
+			$resultid = apply_filters( 'crp_post_id', $resultid );
 
 			$result = get_post( $resultid );	// Let's get the Post using the ID
 
@@ -910,10 +916,22 @@ add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
  */
 function crp_object_id_cur_lang( $post_id ) {
 
-	if ( function_exists( 'wpml_object_id' ) ) {
-		$post_id = wpml_object_id( $post_id, 'post', TRUE );
+	$return_original_if_missing = true;
+
+	/**
+	 * Filter to modify if the original language ID is returned.
+	 *
+	 * @since	2.2.3
+	 *
+	 * @param	bool	$return_original_if_missing
+	 * @param	int	$post_id	Post ID
+	 */
+	$return_original_if_missing = apply_filters( 'crp_wpml_return_original', $return_original_if_missing, $post_id );
+
+	if ( function_exists( 'wpml_object_id_filter' ) ) {
+		$post_id = wpml_object_id_filter( $post_id, 'any', $return_original_if_missing );
 	} elseif ( function_exists( 'icl_object_id' ) ) {
-		$post_id = icl_object_id( $post_id, 'post', TRUE );
+		$post_id = icl_object_id( $post_id, 'any', $return_original_if_missing );
 	}
 
 	/**

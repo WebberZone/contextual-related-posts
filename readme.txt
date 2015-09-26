@@ -182,6 +182,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Enhancements:
 	* Changed text domain to `contextual-related-posts` in advance of translate.wordpress.org translation system
+	* Improved support for WPML. If available, same language posts will be pulled by default. To restrict to the same language [add this code](https://gist.github.com/ajaydsouza/9b1bc56cec79295e784c) to your theme's functions.php file
 
 = 2.2.2 =
 
