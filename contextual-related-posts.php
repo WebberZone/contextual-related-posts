@@ -135,6 +135,15 @@ function get_crp( $args = array() ) {
 		'strict_limit' => ( isset( $args['strict_limit'] ) ) ? $args['strict_limit'] : true,
 	) ) );
 
+	$custom_template = apply_filters( 'crp_custom_template', NULL, $results);
+	if (!empty($custom_template)) {
+		if ( !empty( $args['cache'] ) ) {
+			update_post_meta( $post->ID, $meta_key, $custom_template, '' );
+		}
+		return $custom_template;
+	}
+
+
 	$widget_class = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
 	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
 
