@@ -135,6 +135,25 @@ function get_crp( $args = array() ) {
 		'strict_limit' => ( isset( $args['strict_limit'] ) ) ? $args['strict_limit'] : true,
 	) ) );
 
+	/**
+	 * Filter to create a custom HTML output
+	 *
+	 * @since 2.2.3
+	 *
+	 * @param	mixed              Default return value
+	 * @param	array   $results   Array of IDs of related posts
+	 * @param	array   $args      Array of settings
+	 * @return	string             Custom HTML formatted list of related posts
+	 */
+	$custom_template = apply_filters( 'crp_custom_template', NULL, $results, $args );
+	if ( !empty( $custom_template ) ) {
+		if ( !empty( $args['cache'] ) ) {
+			update_post_meta( $post->ID, $meta_key, $custom_template, '' );
+		}
+		return $custom_template;
+	}
+
+
 	$widget_class = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
 	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
 
