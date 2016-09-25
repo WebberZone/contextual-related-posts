@@ -1,48 +1,17 @@
----
 engines:
-  csslint:
-    enabled: true
-  duplication:
+  phpcodesniffer:
     enabled: true
     config:
-      languages:
-      - javascript
-      - php
-  eslint:
-    enabled: true
-  fixme:
-    enabled: true
-  phpmd:
-    enabled: true
+      standard: "WordPress"
+      ignore_warnings: true
     checks:
-      Controversial/CamelCaseVariableName:
+      Squiz Commenting InlineComment InvalidEndChar:
         enabled: false
-      Controversial/CamelCaseParameterName:
-        enabled: false
-      Design/ExitExpression:
-        enabled: false
-      Controversial/Superglobals:
-        enabled: false
-      CleanCode/ElseExpression:
-        enabled: false
-      Design/NpathComplexity:
-        enabled: false
-      CyclomaticComplexity:
-        enabled: false
-      CleanCode/BooleanArgumentFlag:
-        enabled: false
-      Naming/ShortVariable:
+      Squiz Commenting InlineComment SpacingBefore:
         enabled: false
 ratings:
   paths:
-  - "**.css"
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
   - "**.php"
-  - "**.py"
-  - "**.rb"
 exclude_paths:
 - tests/
 - admin/wick/

@@ -12,3 +12,12 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 
+activate_plugin( 'contextual-related-posts/contextual-related-posts.php' );
+
+echo "Installing Contextual Related Posts...\n";
+
+global $crp_settings, $current_user;
+
+activate_crp( true );
+
+$crp_settings = crp_read_options();
