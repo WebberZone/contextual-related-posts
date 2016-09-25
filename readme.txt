@@ -178,6 +178,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.4.0 =
+
+* Bug fixes:
+	* Language files initialisation had the wrong text domain
+
 = 2.2.3 =
 
 * Enhancements:

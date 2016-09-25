@@ -32,13 +32,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 /**
- * Holds the text domain.
- *
- * @since	1.4
- */
-define( 'CRP_LOCAL_NAME', 'crp' );
-
-/**
  * Holds the filesystem directory path (with trailing slash) for CRP
  *
  * @since	1.2
@@ -73,7 +66,7 @@ $crp_settings = crp_read_options();
  * @since	2.2.0
  */
 function crp_lang_init() {
-	load_plugin_textdomain( CRP_LOCAL_NAME, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'contextual-related-posts', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'crp_lang_init' );
 
