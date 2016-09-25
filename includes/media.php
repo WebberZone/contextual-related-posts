@@ -20,7 +20,6 @@ function crp_add_image_sizes() {
 
 	if ( ! in_array( $crp_settings['thumb_size'], get_intermediate_image_sizes() ) ) {
 		$crp_settings['thumb_size'] = 'crp_thumbnail';
-		update_option( 'ald_crp_settings', $crp_settings );
 	}
 
 	// Add image sizes if 'crp_thumbnail' is selected or the selected thumbnail size is no longer valid

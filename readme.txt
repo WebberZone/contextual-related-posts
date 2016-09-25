@@ -182,6 +182,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Bug fixes:
 	* Language files initialisation had the wrong text domain
+	* Stop updating the thumb settings if the existing value isn't found. Caused incorrect changes in certain installations
 
 = 2.2.3 =
 
