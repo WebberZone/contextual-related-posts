@@ -520,7 +520,11 @@ if ( ! defined( 'WPINC' ) ) {
 								<?php _e( 'If you choose an existing size, then the width, height and crop mode settings in the three options below will be automatically updated to reflect the correct dimensions of the setting.', 'contextual-related-posts' ); ?><br />
 								<?php _e( 'If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image with the same width and height. The default setting is 150x150 cropped image.', 'contextual-related-posts' ); ?><br /><br />
 								<?php _e( "Any changes to the thumbnail settings doesn't automatically resize existing images.", 'contextual-related-posts' ); ?>
-								<?php printf( __( "I recommend using <a href='%s' class='thickbox'>OTF Regenerate Thumbnails</a> or <a href='%s' class='thickbox'>Regenerate Thumbnails</a> to regenerate all image sizes.", 'contextual-related-posts' ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=otf-regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ), self_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ); ?>
+									<?php printf(
+										esc_html__( 'I recommend using %1$s or %2$s to regenerate all image sizes.', 'contextual-related-posts' ),
+										'<a href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=otf-regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" class="thickbox">OTF Regenerate Thumbnails</a>',
+										'<a href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" class="thickbox">Regenerate Thumbnails</a>'
+									); ?>
 							</p>
 					</td>
 				</tr>
