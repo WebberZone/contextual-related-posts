@@ -32,6 +32,7 @@ function crp_shortcode( $atts, $content = null ) {
 		array(
 			'heading' => 1,
 			'is_shortcode' => 1,
+			'offset' => 0,
 		)
 	), $atts, 'crp' );
 

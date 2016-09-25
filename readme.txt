@@ -180,6 +180,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.4.0 =
 
+* Features:
+	* Shortcode and the widget now have an added parameter for 'offset'. This is useful if you would like to display different widgets/shortcodes but not always start from the first post
+
 * Bug fixes:
 	* Language files initialisation had the wrong text domain
 	* Stop updating the thumb settings if the existing value isn't found. Caused incorrect changes in certain installations
