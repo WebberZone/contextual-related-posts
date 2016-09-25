@@ -17,8 +17,8 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 
 <div id="donatediv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-  <h3 class='hndle'><span><?php _e( 'Support the development', 'contextual-related-posts' ); ?></span></h3>
-  <div class="inside">
+	<h3 class='hndle'><span><?php _e( 'Support the development', 'contextual-related-posts' ); ?></span></h3>
+	<div class="inside">
 	<div id="donate-form">
 		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 		<input type="hidden" name="cmd" value="_xclick">
@@ -34,12 +34,12 @@ if ( ! defined( 'WPINC' ) ) {
 		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 		</form>
 	</div>
-  </div>
+	</div>
 </div>
 
 <div id="followdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-  <h3 class='hndle'><span><?php _e( 'Follow me', 'contextual-related-posts' ); ?></span></h3>
-  <div class="inside">
+	<h3 class='hndle'><span><?php _e( 'Follow me', 'contextual-related-posts' ); ?></span></h3>
+	<div class="inside">
 	<div id="twitter">
 		<div style="text-align:center"><a href="https://twitter.com/WebberZoneWP" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @WebberZoneWP</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script></div>
@@ -59,13 +59,13 @@ if ( ! defined( 'WPINC' ) ) {
 		</script>
 		<div class="fb-page" data-href="https://www.facebook.com/WebberZone" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/WebberZone"><a href="https://www.facebook.com/WebberZone">WebberZone</a></blockquote></div></div>
 	</div>
-  </div>
+	</div>
 </div>
 
 <div id="qlinksdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-  <h3 class='hndle'><span><?php _e( 'Quick links', 'contextual-related-posts' ); ?></span></h3>
-  <div class="inside">
-    <div id="quick-links">
+	<h3 class='hndle'><span><?php _e( 'Quick links', 'contextual-related-posts' ); ?></span></h3>
+	<div class="inside">
+	<div id="quick-links">
 		<ul>
 			<li><a href="https://webberzone.com/plugins/contextual-related-posts/"><?php _e( 'Plugin homepage', 'contextual-related-posts' ); ?></a></li>
 			<li><a href="https://wordpress.org/plugins/contextual-related-posts/faq/"><?php _e( 'FAQ', 'contextual-related-posts' ); ?></a></li>
@@ -75,6 +75,6 @@ if ( ! defined( 'WPINC' ) ) {
 			<li><a href="https://webberzone.com/plugins/"><?php _e( 'Other plugins', 'contextual-related-posts' ); ?></a></li>
 			<li><a href="https://webberzone.com/"><?php _e( "Ajay's blog", 'contextual-related-posts' ); ?></a></li>
 		</ul>
-    </div>
-  </div>
+	</div>
+	</div>
 </div>

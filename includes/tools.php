@@ -67,7 +67,7 @@ function crp_max_formatted_content( $content, $no_of_char = -1 ) {
 		if ( substr( $content, $no_of_char, 1 ) == ' ' ) {
 			$content = implode( ' ', $aWords );
 		} else {
-			$content = implode( ' ', array_slice( $aWords, 0, -1 ) ) .'&hellip;';
+			$content = implode( ' ', array_slice( $aWords, 0, -1 ) ) . '&hellip;';
 		}
 	}
 

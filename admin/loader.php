@@ -22,7 +22,7 @@ function crp_plugin_actions_links( $links ) {
 
 	return array_merge( array(
 			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . __( 'Settings', 'contextual-related-posts' ) . '</a>',
-		), $links );
+	), $links );
 
 }
 add_filter( 'plugin_action_links_' . plugin_basename( plugin_dir_path( __DIR__ ) . 'contextual-related-posts.php' ), 'crp_plugin_actions_links' );
@@ -66,7 +66,7 @@ function crp_admin_notice() {
 	if ( ! current_user_can( 'manage_options' ) ) { return; }
 
 	echo '<div class="error">
-       <p>' . __( "Contextual Related Posts plugin has just been installed / upgraded. Please visit the {$plugin_settings_page} to configure.", 'contextual-related-posts' ).'</p>
+       <p>' . __( "Contextual Related Posts plugin has just been installed / upgraded. Please visit the {$plugin_settings_page} to configure.", 'contextual-related-posts' ) . '</p>
     </div>';
 }
 // add_action( 'admin_notices', 'crp_admin_notice' );

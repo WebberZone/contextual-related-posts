@@ -199,7 +199,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 		if ( 'css' == $args['thumb_html'] ) {
 			$thumb_html = 'style="max-width:' . $args['thumb_width'] . 'px;max-height:' . $args['thumb_height'] . 'px;"';
-		} else if ( 'html' == $args['thumb_html'] ) {
+		} elseif ( 'html' == $args['thumb_html'] ) {
 			$thumb_html = 'width="' . $args['thumb_width'] . '" height="' . $args['thumb_height'] . '"';
 		} else {
 			$thumb_html = '';

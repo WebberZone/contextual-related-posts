@@ -145,14 +145,13 @@ function get_crp( $args = array() ) {
 	 * @param	array   $args      Array of settings
 	 * @return	string             Custom HTML formatted list of related posts
 	 */
-	$custom_template = apply_filters( 'crp_custom_template', NULL, $results, $args );
-	if ( !empty( $custom_template ) ) {
-		if ( !empty( $args['cache'] ) ) {
+	$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
+	if ( ! empty( $custom_template ) ) {
+		if ( ! empty( $args['cache'] ) ) {
 			update_post_meta( $post->ID, $meta_key, $custom_template, '' );
 		}
 		return $custom_template;
 	}
-
 
 	$widget_class = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
 	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
@@ -619,17 +618,17 @@ function crp_content_filter( $content ) {
 
 	// Else add the content
 	if ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) {
-		return $content.get_crp( 'is_widget=0' );
+		return $content . get_crp( 'is_widget=0' );
 	} elseif ( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) {
-		return $content.get_crp( 'is_widget=0' );
+		return $content . get_crp( 'is_widget=0' );
 	} elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
-		return $content.get_crp( 'is_widget=0' );
+		return $content . get_crp( 'is_widget=0' );
 	} elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
-		return $content.get_crp( 'is_widget=0' );
+		return $content . get_crp( 'is_widget=0' );
 	} elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
-		return $content.get_crp( 'is_widget=0' );
+		return $content . get_crp( 'is_widget=0' );
 	} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
-		return $content.get_crp( 'is_widget=0' );
+		return $content . get_crp( 'is_widget=0' );
 	} else {
 		return $content;
 	}
@@ -653,7 +652,7 @@ function crp_rss_filter( $content ) {
 
 	if ( $crp_settings['add_to_feed'] ) {
 		$output = $content;
-		$output .= get_crp( 'is_widget=0&limit='.$limit_feed.'&show_excerpt='.$show_excerpt_feed.'&post_thumb_op='.$post_thumb_op_feed );
+		$output .= get_crp( 'is_widget=0&limit=' . $limit_feed . '&show_excerpt=' . $show_excerpt_feed . '&post_thumb_op=' . $post_thumb_op_feed );
 		return $output;
 	} else {
 		return $content;
@@ -879,19 +878,19 @@ function crp_header() {
 	// Add CSS to header
 	if ( '' != $crp_custom_CSS ) {
 	    if ( ( is_single() ) ) {
-			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+			echo '<style type="text/css">' . $crp_custom_CSS . '</style>';
 	    } elseif ( (is_page()) ) {
-			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+			echo '<style type="text/css">' . $crp_custom_CSS . '</style>';
 	    } elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
-			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+			echo '<style type="text/css">' . $crp_custom_CSS . '</style>';
 	    } elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
-			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+			echo '<style type="text/css">' . $crp_custom_CSS . '</style>';
 	    } elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
-			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+			echo '<style type="text/css">' . $crp_custom_CSS . '</style>';
 	    } elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
-			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+			echo '<style type="text/css">' . $crp_custom_CSS . '</style>';
 	    } elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
-			echo '<style type="text/css">'.$crp_custom_CSS.'</style>';
+			echo '<style type="text/css">' . $crp_custom_CSS . '</style>';
 	    }
 	}
 }
