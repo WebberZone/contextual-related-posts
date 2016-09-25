@@ -45,6 +45,7 @@ class CRP_Widget extends WP_Widget {
 	public function form( $instance ) {
 		$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
 		$limit = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
+		$offset = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : '';
 		$show_excerpt = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
 		$show_author = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
 		$show_date = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
@@ -72,6 +73,11 @@ class CRP_Widget extends WP_Widget {
 		<p>
 			<label for="<?php echo $this->get_field_id( 'limit' ); ?>">
 			<?php _e( 'No. of posts', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
+			</label>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'offset' ); ?>">
+			<?php _e( 'Offset', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'offset' ); ?>" name="<?php echo $this->get_field_name( 'offset' ); ?>" type="text" value="<?php echo esc_attr( $offset ); ?>" />
 			</label>
 		</p>
 		<p>
@@ -150,6 +156,7 @@ class CRP_Widget extends WP_Widget {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags( $new_instance['title'] );
 		$instance['limit'] = $new_instance['limit'];
+		$instance['offset'] = $new_instance['offset'];
 		$instance['show_excerpt'] = $new_instance['show_excerpt'];
 		$instance['show_author'] = $new_instance['show_author'];
 		$instance['show_date'] = $new_instance['show_date'];
@@ -205,6 +212,7 @@ class CRP_Widget extends WP_Widget {
 			if ( empty( $limit ) ) {
 				$limit = $crp_settings['limit'];
 			}
+			$offset = isset( $instance['offset'] ) ? $instance['offset'] : 0;
 
 			$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : 'text_only';
 			$thumb_height = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : $crp_settings['thumb_height'];
@@ -212,11 +220,12 @@ class CRP_Widget extends WP_Widget {
 			$show_excerpt = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
 			$show_author = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
 			$show_date = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
-			$post_types = isset( $instance['post_types'] ) ? $instance['post_types'] : $crp_settings['post_types'];
+			$post_types = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : $crp_settings['post_types'];
 
 			$arguments = array(
 				'is_widget' => 1,
 				'limit' => $limit,
+				'offset' => $offset,
 				'show_excerpt' => $show_excerpt,
 				'show_author' => $show_author,
 				'show_date' => $show_date,

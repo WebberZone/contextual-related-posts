@@ -93,6 +93,7 @@ function get_crp( $args = array() ) {
 		'is_manual' => false,
 		'echo' => true,
 		'heading' => true,
+		'offset' => 0,
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -125,7 +126,7 @@ function get_crp( $args = array() ) {
 	// Retrieve the list of posts
 	$results = get_crp_posts_id( array_merge( $args, array(
 		'postid' => $post->ID,
-		'strict_limit' => ( isset( $args['strict_limit'] ) ) ? $args['strict_limit'] : true,
+		'strict_limit' => isset( $args['strict_limit'] ) ? $args['strict_limit'] : true,
 	) ) );
 
 	/**
@@ -232,8 +233,10 @@ function get_crp( $args = array() ) {
 
 			$output .= crp_after_list_item( $args, $result );
 
-			if ( $loop_counter == $args['limit'] ) { break;	// End loop when related posts limit is reached
+			if ( $loop_counter == $args['limit'] ) {
+				break;	// End loop when related posts limit is reached
 			}
+
 		} //end of foreach loop
 
 		if ( $args['show_credit'] ) {
@@ -312,6 +315,7 @@ function get_crp_posts_id( $args = array() ) {
 	$defaults = array(
 		'postid' => false,
 		'strict_limit' => true,
+		'offset' => 0,
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -337,6 +341,7 @@ function get_crp_posts_id( $args = array() ) {
 	$post = ( empty( $args['postid'] ) ) ? $post : get_post( $args['postid'] );
 
 	$limit = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
+	$offset = isset( $args['offset'] ) ? $args['offset'] : 0;
 
 	// Save post types in $post_types variable
 	parse_str( $args['post_types'], $post_types );
@@ -457,7 +462,7 @@ function get_crp_posts_id( $args = array() ) {
 		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";	// Array of post types
 
 		// Create the base LIMITS clause
-		$limits .= $wpdb->prepare( ' LIMIT %d ', $limit );
+		$limits .= $wpdb->prepare( ' LIMIT %d, %d ', $offset, $limit );
 
 		/**
 		 * Filter the SELECT clause of the query.
