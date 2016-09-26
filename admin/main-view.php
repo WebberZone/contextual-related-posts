@@ -780,9 +780,22 @@ if ( ! defined( 'WPINC' ) ) {
 
 		<?php if ( ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) || ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_title'" ) || ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_content'" ) ) { ?>
 			<div class="notice error">
-				<?php esc_html_e( 'One or more FULLTEXT indices are missing. Please hit the <a href="#crp_recreate">Recreate Index button</a> at the bottom of the page to fix this.', 'contextual-related-posts' ); ?>
+				<?php printf( esc_html__( 'One or more FULLTEXT indices are missing. Please hit the %1$s at the bottom of the page to fix this.', 'contextual-related-posts' ), '<a href="#crp_recreate">' . esc_html__( 'Recreate Index button', 'contextual-related-posts' ) . '</a>' ); ?>
 			</div>
 		<?php } ?>
+
+		<div class="inside">
+			<p><?php esc_html_e( 'If the Recreate Index button fails, please run the following queries in phpMyAdmin or Adminer', 'contextual-related-posts' ); ?></p>
+			<p>
+				<code>ALTER TABLE <?php esc_attr_e( $wpdb->posts ); ?> DROP INDEX crp_related;</code><br />
+				<code>ALTER TABLE <?php esc_attr_e( $wpdb->posts ); ?> DROP INDEX crp_related_title;</code><br />
+				<code>ALTER TABLE <?php esc_attr_e( $wpdb->posts ); ?> DROP INDEX crp_related_content;</code><br />
+				<code>ALTER TABLE <?php esc_attr_e( $wpdb->posts ); ?> ADD FULLTEXT crp_related (post_title, post_content);</code><br />
+				<code>ALTER TABLE <?php esc_attr_e( $wpdb->posts ); ?> ADD FULLTEXT crp_related_title (post_title);</code><br />
+				<code>ALTER TABLE <?php esc_attr_e( $wpdb->posts ); ?> ADD FULLTEXT crp_related_content (post_content);</code><br />
+			</p>
+		</div>
+
 		<?php wp_nonce_field( 'crp-plugin-settings' ) ?>
 	  </form>
 	</div><!-- /post-body-content -->
