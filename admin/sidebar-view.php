@@ -17,20 +17,20 @@ if ( ! defined( 'WPINC' ) ) {
 ?>
 
 <div id="donatediv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-	<h3 class='hndle'><span><?php _e( 'Support the development', 'contextual-related-posts' ); ?></span></h3>
+	<h3 class='hndle'><span><?php esc_html_e( 'Support the development', 'contextual-related-posts' ); ?></span></h3>
 	<div class="inside">
 	<div id="donate-form">
 		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 		<input type="hidden" name="cmd" value="_xclick">
 		<input type="hidden" name="business" value="donate@ajaydsouza.com">
 		<input type="hidden" name="lc" value="IN">
-		<input type="hidden" name="item_name" value="<?php _e( 'Donation for Contextual Related Posts', 'contextual-related-posts' ); ?>">
+		<input type="hidden" name="item_name" value="<?php esc_attr_e( 'Donation for Contextual Related Posts', 'contextual-related-posts' ); ?>">
 		<input type="hidden" name="item_number" value="crp_plugin_settings">
-		<strong><?php _e( 'Enter amount in USD:', 'contextual-related-posts' ); ?></strong> <input name="amount" value="10.00" size="6" type="text"><br />
+		<strong><?php esc_html_e( 'Enter amount in USD:', 'contextual-related-posts' ); ?></strong> <input name="amount" value="10.00" size="6" type="text"><br />
 		<input type="hidden" name="currency_code" value="USD">
 		<input type="hidden" name="button_subtype" value="services">
 		<input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted">
-		<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php _e( 'Send your donation to the author of', 'contextual-related-posts' ); ?> Contextual Related Posts?">
+		<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php esc_attr_e( 'Send your donation to the author of', 'contextual-related-posts' ); ?> Contextual Related Posts?">
 		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 		</form>
 	</div>
@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
 </div>
 
 <div id="followdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-	<h3 class='hndle'><span><?php _e( 'Follow me', 'contextual-related-posts' ); ?></span></h3>
+	<h3 class='hndle'><span><?php esc_html_e( 'Follow me', 'contextual-related-posts' ); ?></span></h3>
 	<div class="inside">
 	<div id="twitter">
 		<div style="text-align:center"><a href="https://twitter.com/WebberZoneWP" class="twitter-follow-button" data-show-count="false" data-size="large" data-dnt="true">Follow @WebberZoneWP</a>
@@ -63,17 +63,17 @@ if ( ! defined( 'WPINC' ) ) {
 </div>
 
 <div id="qlinksdiv" class="postbox"><div class="handlediv" title="Click to toggle"><br /></div>
-	<h3 class='hndle'><span><?php _e( 'Quick links', 'contextual-related-posts' ); ?></span></h3>
+	<h3 class='hndle'><span><?php esc_html_e( 'Quick links', 'contextual-related-posts' ); ?></span></h3>
 	<div class="inside">
 	<div id="quick-links">
 		<ul>
-			<li><a href="https://webberzone.com/plugins/contextual-related-posts/"><?php _e( 'Plugin homepage', 'contextual-related-posts' ); ?></a></li>
-			<li><a href="https://wordpress.org/plugins/contextual-related-posts/faq/"><?php _e( 'FAQ', 'contextual-related-posts' ); ?></a></li>
-			<li><a href="http://wordpress.org/support/plugin/contextual-related-posts"><?php _e( 'Support', 'contextual-related-posts' ); ?></a></li>
-			<li><a href="https://wordpress.org/support/view/plugin-reviews/contextual-related-posts"><?php _e( 'Reviews', 'contextual-related-posts' ); ?></a></li>
-			<li><a href="https://github.com/WebberZone/contextual-related-posts"><?php _e( 'Github repository', 'contextual-related-posts' ); ?></a></li>
-			<li><a href="https://webberzone.com/plugins/"><?php _e( 'Other plugins', 'contextual-related-posts' ); ?></a></li>
-			<li><a href="https://webberzone.com/"><?php _e( "Ajay's blog", 'contextual-related-posts' ); ?></a></li>
+			<li><a href="https://webberzone.com/plugins/contextual-related-posts/"><?php esc_html_e( 'Plugin homepage', 'contextual-related-posts' ); ?></a></li>
+			<li><a href="https://wordpress.org/plugins/contextual-related-posts/faq/"><?php esc_html_e( 'FAQ', 'contextual-related-posts' ); ?></a></li>
+			<li><a href="http://wordpress.org/support/plugin/contextual-related-posts"><?php esc_html_e( 'Support', 'contextual-related-posts' ); ?></a></li>
+			<li><a href="https://wordpress.org/support/view/plugin-reviews/contextual-related-posts"><?php esc_html_e( 'Reviews', 'contextual-related-posts' ); ?></a></li>
+			<li><a href="https://github.com/WebberZone/contextual-related-posts"><?php esc_html_e( 'Github repository', 'contextual-related-posts' ); ?></a></li>
+			<li><a href="https://webberzone.com/plugins/"><?php esc_html_e( 'Other plugins', 'contextual-related-posts' ); ?></a></li>
+			<li><a href="https://webberzone.com/"><?php esc_html_e( "Ajay's blog", 'contextual-related-posts' ); ?></a></li>
 		</ul>
 	</div>
 	</div>
