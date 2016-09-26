@@ -665,11 +665,10 @@ if ( ! defined( 'WPINC' ) ) {
 				</tr>
 				<tr>
 				  <td scope="row" colspan="2">
-					  <textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%">
-					  	<?php esc_html_e( $crp_settings['custom_CSS'] ); ?>
-					  </textarea>
-					  <p class="description"><?php printf( esc_html__( 'Do not include $1$s tags. Check out the %2$ for available CSS classes to style.', 'contextual-related-posts' ), '<code>style</code>', '<a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a>' ); ?></p>
-				</td></tr>
+					<textarea name="custom_CSS" id="custom_CSS" rows="15" cols="80" style="width:100%"><?php esc_html_e( $crp_settings['custom_CSS'] ); ?></textarea>
+					<p class="description"><?php printf( esc_html__( 'Do not include %1$s tags. Check out the %2$s for available CSS classes to style.', 'contextual-related-posts' ), '<code>style</code>', '<a href="http://wordpress.org/extend/plugins/contextual-related-posts/faq/" target="_blank">FAQ</a>' ); ?></p>
+				  </td>
+				</tr>
 
 				<?php
 					/**

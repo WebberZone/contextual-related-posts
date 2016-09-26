@@ -126,7 +126,7 @@ function crp_options() {
 		/**** Styles ****/
 		$crp_settings['custom_CSS'] = wp_kses_post( wp_unslash( $_POST['custom_CSS'] ) );
 
-		$crp_settings['crp_styles'] = wp_kses_post( wp_unslash( $_POST['crp_styles'] ) );
+		$crp_settings['crp_styles'] = sanitize_text_field( wp_unslash( $_POST['crp_styles'] ) );
 
 		if ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) {
 			$crp_settings['include_default_style'] = true;
