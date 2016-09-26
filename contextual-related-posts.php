@@ -866,8 +866,6 @@ function crp_read_options() {
  * Filter for wp_head to include the custom CSS.
  *
  * @since 1.8.4
- *
- * @return	string	Echoed string with the CSS output in the Header
  */
 function crp_header() {
 	global $crp_settings;

@@ -20,8 +20,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	1.8.6
  *
- * @param	array  $atts   Shortcode attributes
- * @param	string $content (default: null)
+ * @param	array  $atts   Shortcode attributes.
+ * @param	string $content Post content.
  * @return	Related Posts
  */
 function crp_shortcode( $atts, $content = null ) {

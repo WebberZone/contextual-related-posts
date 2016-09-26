@@ -14,7 +14,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
 /**
  * Create a Wordpress Widget for CRP.
  *
@@ -31,7 +30,7 @@ class CRP_Widget extends WP_Widget {
 		parent::__construct(
 			'widget_crp', // Base ID
 			__( 'Related Posts [CRP]', 'contextual-related-posts' ), // Name
-			array( 'description' => __( 'Display Related Posts', 'contextual-related-posts' ) ) // Args
+			array( 'description' => __( 'Display Related Posts', 'contextual-related-posts' ) ) // Args.
 		);
 	}
 
@@ -53,11 +52,11 @@ class CRP_Widget extends WP_Widget {
 		$thumb_height = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
 		$thumb_width = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
 
-		// Parse the Post types
+		// Parse the Post types.
 		$post_types = array();
 		if ( isset( $instance['post_types'] ) ) {
 			$post_types = $instance['post_types'];
-			parse_str( $post_types, $post_types );	// Save post types in $post_types variable
+			parse_str( $post_types, $post_types );	// Save post types in $post_types variable.
 		}
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
@@ -66,62 +65,62 @@ class CRP_Widget extends WP_Widget {
 
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
-			<?php _e( 'Title', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+			<?php esc_html_e( 'Title', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'limit' ); ?>">
-			<?php _e( 'No. of posts', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'limit' ); ?>" name="<?php echo $this->get_field_name( 'limit' ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
+			<?php esc_html_e( 'No. of posts', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'offset' ); ?>">
-			<?php _e( 'Offset', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'offset' ); ?>" name="<?php echo $this->get_field_name( 'offset' ); ?>" type="text" value="<?php echo esc_attr( $offset ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>">
+			<?php esc_html_e( 'Offset', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'offset' ) ); ?>" type="text" value="<?php echo esc_attr( $offset ); ?>" />
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'show_excerpt' ); ?>">
-			<input id="<?php echo $this->get_field_id( 'show_excerpt' ); ?>" name="<?php echo $this->get_field_name( 'show_excerpt' ); ?>" type="checkbox" <?php if ( $show_excerpt ) { echo 'checked="checked"'; } ?> /> <?php _e( ' Show excerpt?', 'contextual-related-posts' ); ?>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php if ( $show_excerpt ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'show_author' ); ?>">
-			<input id="<?php echo $this->get_field_id( 'show_author' ); ?>" name="<?php echo $this->get_field_name( 'show_author' ); ?>" type="checkbox" <?php if ( $show_author ) { echo 'checked="checked"'; } ?> /> <?php _e( ' Show author?', 'contextual-related-posts' ); ?>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>">
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox" <?php if ( $show_author ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'show_date' ); ?>">
-			<input id="<?php echo $this->get_field_id( 'show_date' ); ?>" name="<?php echo $this->get_field_name( 'show_date' ); ?>" type="checkbox" <?php if ( $show_date ) { echo 'checked="checked"'; } ?> /> <?php _e( ' Show date?', 'contextual-related-posts' ); ?>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>">
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox" <?php if ( $show_date ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
-			<?php _e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
-			<select class="widefat" id="<?php echo $this->get_field_id( 'post_thumb_op' ); ?>" name="<?php echo $this->get_field_name( 'post_thumb_op' ); ?>">
-			  <option value="inline" <?php if ( 'inline' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
-			  <option value="after" <?php if ( 'after' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
-			  <option value="thumbs_only" <?php if ( 'thumbs_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
-			  <option value="text_only" <?php if ( 'text_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php _e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
+			<?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
+			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_thumb_op' ) ); ?>">
+			  <option value="inline" <?php if ( 'inline' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
+			  <option value="after" <?php if ( 'after' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
+			  <option value="thumbs_only" <?php if ( 'thumbs_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
+			  <option value="text_only" <?php if ( 'text_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'thumb_height' ); ?>">
-			<?php _e( 'Thumbnail height', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'thumb_height' ); ?>" name="<?php echo $this->get_field_name( 'thumb_height' ); ?>" type="text" value="<?php echo esc_attr( $thumb_height ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'thumb_height' ) ); ?>">
+			<?php esc_html_e( 'Thumbnail height', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumb_height' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumb_height' ) ); ?>" type="text" value="<?php echo esc_attr( $thumb_height ); ?>" />
 			</label>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'thumb_width' ); ?>">
-			<?php _e( 'Thumbnail width', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo $this->get_field_id( 'thumb_width' ); ?>" name="<?php echo $this->get_field_name( 'thumb_width' ); ?>" type="text" value="<?php echo esc_attr( $thumb_width ); ?>" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'thumb_width' ) ); ?>">
+			<?php esc_html_e( 'Thumbnail width', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumb_width' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumb_width' ) ); ?>" type="text" value="<?php echo esc_attr( $thumb_width ); ?>" />
 			</label>
 		</p>
 
-		<p><?php _e( 'Post types to include:', 'contextual-related-posts' ); ?><br />
+		<p><?php esc_html_e( 'Post types to include', 'contextual-related-posts' ); ?>:<br />
 
 			<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
 
 				<label>
-					<input id="<?php echo $this->get_field_id( 'post_types' ); ?>" name="<?php echo $this->get_field_name( 'post_types' ); ?>[]" type="checkbox" value="<?php echo $wp_post_type; ?>" <?php if ( in_array( $wp_post_type, $posts_types_inc ) ) { echo 'checked="checked"'; } ?> />
-					<?php echo $wp_post_type; ?>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'post_types' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_types' ) ); ?>[]" type="checkbox" value="<?php echo esc_attr( $wp_post_type ); ?>" <?php if ( in_array( $wp_post_type, $posts_types_inc ) ) { echo 'checked="checked"'; } ?> />
+					<?php echo esc_attr( $wp_post_type ); ?>
 				</label>
 				<br />
 
@@ -164,7 +163,7 @@ class CRP_Widget extends WP_Widget {
 		$instance['thumb_height'] = $new_instance['thumb_height'];
 		$instance['thumb_width'] = $new_instance['thumb_width'];
 
-		// Process post types to be selected
+		// Process post types to be selected.
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
@@ -172,7 +171,7 @@ class CRP_Widget extends WP_Widget {
 		$post_types = array_intersect( $wp_post_types, $post_types );
 		$instance['post_types'] = http_build_query( $post_types, '', '&' );
 
-		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache
+		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache.
 
 		/**
 		 * Filters Update widget options array.
@@ -193,13 +192,13 @@ class CRP_Widget extends WP_Widget {
 	 * @param	array $instance   Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		global $wpdb, $post, $crp_settings;
+		global $post, $crp_settings;
 
 		extract( $args, EXTR_SKIP );
 
-		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable
+		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
 		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types ) ) ) {
-			return 0;	// Exit without adding related posts
+			return 0;	// Exit without adding related posts.
 		}
 
 		$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
@@ -250,7 +249,7 @@ class CRP_Widget extends WP_Widget {
 
 			$output .= $after_widget;
 
-			echo $output;
+			echo $output; // WPCS: XSS OK.
 		}
 	} //ending function widget
 }
