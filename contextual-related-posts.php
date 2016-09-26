@@ -988,7 +988,7 @@ function crp_object_id_cur_lang( $post_id ) {
  * @since 1.9.1
  */
 function register_crp_widget() {
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-crp-widget.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/class-crp-widget.php' );
 
 	register_widget( 'CRP_Widget' );
 }

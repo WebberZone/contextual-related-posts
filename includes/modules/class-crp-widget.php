@@ -96,11 +96,11 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
-			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_thumb_op' ) ); ?>">
-			  <option value="inline" <?php if ( 'inline' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
-			  <option value="after" <?php if ( 'after' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
-			  <option value="thumbs_only" <?php if ( 'thumbs_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
-			  <option value="text_only" <?php if ( 'text_only' == $post_thumb_op ) { echo 'selected="selected"'; } ?>><?php esc_html_e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
+			<select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'post_thumb_op' ) ); ?>">
+			  <option value="inline" <?php selected( 'inline', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, before title','contextual-related-posts' ); ?></option>
+			  <option value="after" <?php selected( 'after', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, after title','contextual-related-posts' ); ?></option>
+			  <option value="thumbs_only" <?php selected( 'thumbs_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'Only thumbnails, no text','contextual-related-posts' ); ?></option>
+			  <option value="text_only" <?php selected( 'text_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'No thumbnails, only text.','contextual-related-posts' ); ?></option>
 			</select>
 		</p>
 		<p>
@@ -194,7 +194,14 @@ class CRP_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		global $post, $crp_settings;
 
-		extract( $args, EXTR_SKIP );
+		// Get the post meta.
+		if ( isset( $post ) ) {
+			$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
+
+			if ( isset( $crp_post_meta['disable_here'] ) && ( 1 == $crp_post_meta['disable_here'] ) ) {
+				return;
+			}
+		}
 
 		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
 		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types ) ) ) {
@@ -243,11 +250,11 @@ class CRP_Widget extends WP_Widget {
 			 */
 			$arguments = apply_filters( 'crp_widget_options' , $arguments );
 
-			$output = $before_widget;
-			$output .= $before_title . $title . $after_title;
+			$output = $args['before_widget'];
+			$output .= $args['before_title'] . $title . $args['after_title'];
 			$output .= get_crp( $arguments );
 
-			$output .= $after_widget;
+			$output .= $args['after_widget'];
 
 			echo $output; // WPCS: XSS OK.
 		}
