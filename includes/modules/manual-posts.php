@@ -20,17 +20,17 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	2.2.0
  *
- * @param	object $results    Original object array with post results
+ * @param	object $results    Original object array with post results.
  * @return	object	Updated object array with post results
  */
 function crp_manual_posts( $results ) {
-	global $crp_settings, $post, $wpdb;
+	global $post, $wpdb;
 
 	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
 
 	if ( isset( $crp_post_meta['manual_related'] ) && ( '' != $crp_post_meta['manual_related'] ) ) {
 
-		// Fields to return
+		// Fields to return.
 		$fields = " $wpdb->posts.ID ";
 
 		/**

@@ -7,7 +7,6 @@
  * @package Contextual_Related_Posts
  */
 
-
 /**
  * Fetch related posts.
  *
@@ -16,9 +15,9 @@
  * @deprecated v2.0.0
  * @see	get_crp_posts_id
  *
- * @param int     $postid (default: FALSE) The post ID for which you want the posts for
- * @param int     $limit (default: FALSE) Maximum posts to retreive
- * @param boolean $strict_limit (default: TRUE) Setting to true will fetch exactly as per limit above
+ * @param int     $postid (default: FALSE) The post ID for which you want the posts for.
+ * @param int     $limit (default: FALSE) Maximum posts to retreive.
+ * @param boolean $strict_limit (default: TRUE) Setting to true will fetch exactly as per limit above.
  * @return object Object with Post IDs
  */
 function get_crp_posts( $postid = false, $limit = false, $strict_limit = true ) {
@@ -49,7 +48,7 @@ function get_crp_posts( $postid = false, $limit = false, $strict_limit = true ) 
  * @deprecated	2.2.0
  * @see	get_crp
  *
- * @param	array $args   Parameters in a query string format
+ * @param	array $args   Parameters in a query string format.
  * @return	string			HTML formatted list of related posts
  */
 function ald_crp( $args = array() ) {
@@ -77,7 +76,7 @@ function ald_crp( $args = array() ) {
  * @deprecated	2.2.0
  * @see	crp_content_filter
  *
- * @param string $content
+ * @param string $content Post content.
  * @return string After the filter has been processed
  */
 function ald_crp_content( $content ) {
@@ -95,7 +94,7 @@ function ald_crp_content( $content ) {
  * @deprecated	2.2.0
  * @see	crp_rss_filter
  *
- * @param	string $content
+ * @param	string $content Post content.
  * @return	string	Formatted content
  */
 function ald_crp_rss( $content ) {
@@ -113,7 +112,7 @@ function ald_crp_rss( $content ) {
  * @deprecated	2.2.0
  * @see	echo_crp
  *
- * @param	string	List of arguments to control the output
+ * @param string $args Array of arguments.
  */
 function echo_ald_crp( $args = array() ) {
 

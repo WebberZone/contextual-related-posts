@@ -19,8 +19,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since	2.2.0
  *
- * @param	array $args   Array of arguments
- * @return	string	Space separated list of link attributes
+ * @param	array $args   Array of arguments.
+ * @return	string	Space separated list of link attributes.
  */
 function crp_link_attributes( $args ) {
 
@@ -42,7 +42,7 @@ function crp_link_attributes( $args ) {
 	 */
 	$link_attributes = apply_filters( 'crp_link_attributes', $link_attributes, $args );
 
-	// Convert it to a string
+	// Convert it to a string.
 	$link_attributes = implode( ' ', $link_attributes );
 
 	return $link_attributes;
@@ -55,7 +55,7 @@ function crp_link_attributes( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array $args   Array of arguments
+ * @param	array $args   Array of arguments.
  * @return	string	Space separated list of link attributes
  */
 function crp_heading_title( $args ) {
@@ -64,7 +64,7 @@ function crp_heading_title( $args ) {
 	$title = '';
 
 	if ( $args['heading'] && ! $args['is_widget'] ) {
-		$title = str_replace( '%postname%', $post->post_title, $args['title'] );	// Replace %postname% with the title of the current post
+		$title = str_replace( '%postname%', $post->post_title, $args['title'] );	// Replace %postname% with the title of the current post.
 	}
 
 	/**
@@ -84,7 +84,7 @@ function crp_heading_title( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array $args   Array of arguments
+ * @param	array $args   Array of arguments.
  * @return	string	Space separated list of link attributes
  */
 function crp_before_list( $args ) {
@@ -109,7 +109,7 @@ function crp_before_list( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array $args   Array of arguments
+ * @param	array $args   Array of arguments.
  * @return	string	Space separated list of link attributes
  */
 function crp_after_list( $args ) {
@@ -134,8 +134,8 @@ function crp_after_list( $args ) {
  *
  * @since	2.2.0
  *
- * @param	array  $args   Array of arguments
- * @param	object $result Object of the current post result
+ * @param	array  $args   Array of arguments.
+ * @param	object $result Object of the current post result.
  * @return	string	Space separated list of link attributes
  */
 function crp_before_list_item( $args, $result ) {
@@ -151,7 +151,7 @@ function crp_before_list_item( $args, $result ) {
 	 * @param	object	$result	Object of the current post result
 	 * @param	array	$args	Array of arguments
 	 */
-	return apply_filters( 'crp_before_list_item', $before_list_item, $result, $args );	// Pass the post object to the filter
+	return apply_filters( 'crp_before_list_item', $before_list_item, $result, $args );
 
 }
 
@@ -161,8 +161,8 @@ function crp_before_list_item( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array  $args   Array of arguments
- * @param	object $result Object of the current post result
+ * @param	array  $args   Array of arguments.
+ * @param	object $result Object of the current post result.
  * @return	string	Space separated list of link attributes
  */
 function crp_after_list_item( $args, $result ) {
@@ -178,7 +178,7 @@ function crp_after_list_item( $args, $result ) {
 	 * @param	object	$result	Object of the current post result
 	 * @param	array	$args	Array of arguments
 	 */
-	return apply_filters( 'crp_after_list_item', $after_list_item, $result, $args );	// Pass the post object to the filter
+	return apply_filters( 'crp_after_list_item', $after_list_item, $result, $args );
 
 }
 
@@ -188,13 +188,13 @@ function crp_after_list_item( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array  $args   Array of arguments
- * @param	object $result Object of the current post result
+ * @param	array  $args   Array of arguments.
+ * @param	object $result Object of the current post result.
  * @return	string	Space separated list of link attributes
  */
 function crp_title( $args, $result ) {
 
-	$title = crp_max_formatted_content( get_the_title( $result->ID ), $args['title_length'] );	// Get the post title and crop it if needed
+	$title = crp_max_formatted_content( get_the_title( $result->ID ), $args['title_length'] );	// Get the post title and crop it if needed.
 
 	/**
 	 * Filter the title of each list item.
@@ -215,8 +215,8 @@ function crp_title( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array  $args   Array of arguments
- * @param	object $result Object of the current post result
+ * @param	array  $args   Array of arguments.
+ * @param	object $result Object of the current post result.
  * @return	string	Space separated list of link attributes
  */
 function crp_author( $args, $result ) {
@@ -257,8 +257,8 @@ function crp_author( $args, $result ) {
  *
  * @since	2.2.0
  *
- * @param	array  $args   Array of arguments
- * @param	object $result Object of the current post result
+ * @param	array  $args   Array of arguments.
+ * @param	object $result Object of the current post result.
  * @return	string	Space separated list of link attributes
  */
 function crp_list_link( $args, $result ) {
@@ -267,11 +267,11 @@ function crp_list_link( $args, $result ) {
 	$title = crp_title( $args, $result );
 	$link_attributes = crp_link_attributes( $args );
 
-	if ( 'after' == $args['post_thumb_op'] ) {
-		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after
+	if ( 'after' === $args['post_thumb_op'] ) {
+		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after.
 	}
 
-	if ( 'inline' == $args['post_thumb_op'] || 'after' == $args['post_thumb_op'] || 'thumbs_only' == $args['post_thumb_op'] ) {
+	if ( 'inline' === $args['post_thumb_op'] || 'after' === $args['post_thumb_op'] || 'thumbs_only' === $args['post_thumb_op'] ) {
 		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
 
 		$output .= crp_get_the_post_thumbnail( array(
@@ -289,8 +289,8 @@ function crp_list_link( $args, $result ) {
 		$output .= '</a>';
 	}
 
-	if ( 'inline' == $args['post_thumb_op'] || 'text_only' == $args['post_thumb_op'] ) {
-		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings
+	if ( 'inline' === $args['post_thumb_op'] || 'text_only' === $args['post_thumb_op'] ) {
+		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings.
 	}
 
 	/**

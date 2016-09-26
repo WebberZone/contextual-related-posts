@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 1.0.0
  *
- * @param	mixed $join
+ * @param	mixed $join JOIN clause.
  * @return	string	Filtered CRP JOIN clause
  */
 function crp_exclude_categories_join( $join ) {
@@ -44,13 +44,11 @@ add_filter( 'crp_posts_join', 'crp_exclude_categories_join' );
  *
  * @since 1.0.0
  *
- * @param	mixed $where
+ * @param	mixed $where WHERE clause.
  * @return	string	Filtered CRP WHERE clause
  */
 function crp_exclude_categories_where( $where ) {
-	global $wpdb, $post, $crp_settings;
-
-	$term_ids = $category_ids = $tag_ids = $taxonomies = array();
+	global $wpdb, $crp_settings;
 
 	if ( '' == $crp_settings['exclude_categories'] ) {
 		return $where;

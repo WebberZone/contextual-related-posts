@@ -24,7 +24,7 @@ function crp_activate( $network_wide ) {
 
 	if ( is_multisite() && $network_wide ) {
 
-		// Get all blogs in the network and activate plugin on each one
+		// Get all blogs in the network and activate plugin on each one.
 		$blog_ids = $wpdb->get_col( "
         	SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0' AND deleted = '0'
@@ -34,7 +34,7 @@ function crp_activate( $network_wide ) {
 			crp_single_activate();
 		}
 
-		// Switch back to the current blog
+		// Switch back to the current blog.
 		restore_current_blog();
 
 	} else {
@@ -51,7 +51,7 @@ function crp_activate( $network_wide ) {
 function crp_single_activate() {
 	global $wpdb;
 
-	$crp_settings = crp_read_options();
+	crp_read_options();
 
 	$wpdb->hide_errors();
 
