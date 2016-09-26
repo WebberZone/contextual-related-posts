@@ -188,6 +188,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* Stop updating the thumb settings if the existing value isn't found. Caused incorrect changes in certain installations
 	* Force link text to white when using Rounded Thumb style
 
+* Deprecated:
+	* Removed wick for exclude categories auto-suggest. Plugin now uses jQuery Suggest that is included in WordPress. When you re-save plugin options, the field will convert the slugs to the category name
+
 = 2.2.3 =
 
 * Enhancements:

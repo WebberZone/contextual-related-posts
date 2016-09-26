@@ -143,13 +143,21 @@ function crp_options() {
 
 		/**** Exclude categories ****/
 		$exclude_categories_slugs = array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $_POST['exclude_cat_slugs'] ) ) ) );
-		$crp_settings['exclude_cat_slugs'] = implode( ', ', $exclude_categories_slugs );
 
 		foreach ( $exclude_categories_slugs as $exclude_categories_slug ) {
-			$category_obj = get_category_by_slug( $exclude_categories_slug );
-			if ( isset( $category_obj->term_taxonomy_id ) ) { $exclude_categories[] = $category_obj->term_taxonomy_id; }
+			$category_obj = get_term_by( 'name', $exclude_categories_slug, 'category' );
+
+			// Fall back to slugs since that was the default format before v2.4.0.
+			if ( false === $category_obj ) {
+				$category_obj = get_term_by( 'slug', $exclude_categories_slug, 'category' );
+			}
+			if ( isset( $category_obj->term_taxonomy_id ) ) {
+				$exclude_categories[] = $category_obj->term_taxonomy_id;
+				$exclude_cat_slugs[] = $category_obj->name;
+			}
 		}
-		$crp_settings['exclude_categories'] = ( isset( $exclude_categories ) ) ? join( ',', $exclude_categories ) : '';
+		$crp_settings['exclude_categories'] = isset( $exclude_categories ) ? join( ',', $exclude_categories ) : '';
+		$crp_settings['exclude_cat_slugs'] = isset( $exclude_cat_slugs ) ? join( ',', $exclude_cat_slugs ) : '';
 
 		/**** Post types to include ****/
 		$wp_post_types	= get_post_types( array(
@@ -268,35 +276,36 @@ function crp_adminhead() {
 	wp_enqueue_script( 'wp-lists' );
 	wp_enqueue_script( 'postbox' );
 	wp_enqueue_script( 'plugin-install' );
+	wp_enqueue_script( 'suggest' );
 
 	add_thickbox();
 
 ?>
 	<style type="text/css">
-	.postbox .handlediv:before {
-		right:12px;
-		font:400 20px/1 dashicons;
-		speak:none;
-		display:inline-block;
-		top:0;
-		position:relative;
-		-webkit-font-smoothing:antialiased;
-		-moz-osx-font-smoothing:grayscale;
-		text-decoration:none!important;
-		content:'\f142';
-		padding:8px 10px;
-	}
-	.postbox.closed .handlediv:before {
-		content: '\f140';
-	}
-	.wrap h1:before {
-	    content: "\f237";
-	    display: inline-block;
-	    -webkit-font-smoothing: antialiased;
-	    font: normal 29px/1 'dashicons';
-	    vertical-align: middle;
-	    margin-right: 0.3em;
-	}
+		.postbox .handlediv:before {
+			right:12px;
+			font:400 20px/1 dashicons;
+			speak:none;
+			display:inline-block;
+			top:0;
+			position:relative;
+			-webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;
+			text-decoration:none!important;
+			content:'\f142';
+			padding:8px 10px;
+		}
+		.postbox.closed .handlediv:before {
+			content: '\f140';
+		}
+		.wrap h1:before {
+		    content: "\f237";
+		    display: inline-block;
+		    -webkit-font-smoothing: antialiased;
+		    font: normal 29px/1 'dashicons';
+		    vertical-align: middle;
+		    margin-right: 0.3em;
+		}
 	</style>
 
 	<script type="text/javascript">
@@ -307,44 +316,27 @@ function crp_adminhead() {
 			/**** postboxes setup ****/
 			postboxes.add_postbox_toggles('crp_options');
 		});
-		//]]>
-	</script>
 
-	<link rel="stylesheet" type="text/css" href="<?php echo $crp_url ?>/admin/wick/wick.css" />
-	<script type="text/javascript" language="JavaScript">
-		//<![CDATA[
+	    // Function to add auto suggest.
+	    function setSuggest( id, taxonomy ) {
+	        jQuery('#' + id).suggest("<?php echo admin_url( 'admin-ajax.php?action=ajax-tag-search&tax=' ); ?>" + taxonomy, {multiple:true, multipleSep: ","});
+	    }
+
 		function clearCache() {
-			/**** since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php ****/
 			jQuery.post(ajaxurl, {action: 'crp_clear_cache'}, function(response, textStatus, jqXHR) {
 				alert( response.message );
 			}, 'json');
 		}
 
 		function checkForm() {
-		answer = true;
-		if (siw && siw.selectingSomething)
-			answer = false;
-		return answer;
+			answer = true;
+			if (siw && siw.selectingSomething)
+				answer = false;
+			return answer;
 		}//
 
-		<?php
-		function wick_data() {
-
-			$categories = get_categories( 'hide_empty=0' );
-			$str = 'collection = [';
-			foreach ( $categories as $cat ) {
-				$str .= "'" . $cat->slug . "',";
-			}
-			$str = substr( $str, 0, -1 );	// Remove trailing comma
-			$str .= '];';
-
-			echo $str;
-		}
-		wick_data();
-		?>
 	//]]>
 	</script>
-	<script type="text/javascript" src="<?php echo $crp_url ?>/admin/wick/wick.js"></script>
 <?php
 }
 

@@ -200,16 +200,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 				<tr><th scope="row"><label for="exclude_cat_slugs"><?php esc_html_e( 'Categories to exclude from the results: ', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<div style="position:relative;text-align:left">
-							<table id="MYCUSTOMFLOATER" class="myCustomFloater" style="position:absolute;top:50px;left:0;background-color:#cecece;display:none;visibility:hidden">
-							<tr><td>
-								<div class="myCustomFloaterContent">
-								you should never be seeing this
-								</div>
-							</td></tr>
-							</table>
-							<textarea class="wickEnabled:MYCUSTOMFLOATER" cols="50" rows="3" wrap="virtual" name="exclude_cat_slugs"><?php echo esc_attr( $crp_settings['exclude_cat_slugs'] ); ?></textarea>
-						</div>
+						<label><input type="textbox" name="exclude_cat_slugs" id="exclude_cat_slugs" value="<?php echo esc_attr( $crp_settings['exclude_cat_slugs'] ); ?>" onfocus="setSuggest('exclude_cat_slugs', 'category');" class="widefat"></label>
 						<p class="description"><?php esc_html_e( 'Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the beginning of your category name and it will prompt you with options.', 'contextual-related-posts' ); ?></p>
 						<p class="description highlight">
 							<?php
