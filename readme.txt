@@ -183,6 +183,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Features:
 	* Shortcode and the widget now have an added parameter for 'offset'. This is useful if you would like to display different widgets/shortcodes but not always start from the first post
 
+* Enhancements:
+	* The generated HTML code uses a single `a href` tag rather than two separate ones per item which is usually better for SEO. If you're not using the Rounded Thumbnail style and using your own custom style, then you might need to reconfigure this
+
 * Bug fixes:
 	* Language files initialisation had the wrong text domain
 	* Stop updating the thumb settings if the existing value isn't found. Caused incorrect changes in certain installations

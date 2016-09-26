@@ -267,13 +267,13 @@ function crp_list_link( $args, $result ) {
 	$title = crp_title( $args, $result );
 	$link_attributes = crp_link_attributes( $args );
 
+	$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
+
 	if ( 'after' === $args['post_thumb_op'] ) {
-		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title if post thumbnail is to be displayed after.
+		$output .= '<div class="crp_title">' . $title . '</div>'; // Add title when required by settings
 	}
 
 	if ( 'inline' === $args['post_thumb_op'] || 'after' === $args['post_thumb_op'] || 'thumbs_only' === $args['post_thumb_op'] ) {
-		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
-
 		$output .= crp_get_the_post_thumbnail( array(
 			'postid' => $result->ID,
 			'thumb_height' => $args['thumb_height'],
@@ -285,13 +285,13 @@ function crp_list_link( $args, $result ) {
 			'scan_images' => $args['scan_images'],
 			'class' => 'crp_thumb',
 		) );
-
-		$output .= '</a>';
 	}
 
 	if ( 'inline' === $args['post_thumb_op'] || 'text_only' === $args['post_thumb_op'] ) {
-		$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . ' class="crp_title">' . $title . '</a>'; // Add title when required by settings.
+		$output .= '<div class="crp_title">' . $title . '</div>'; // Add title when required by settings
 	}
+
+	$output .= '</a>';
 
 	/**
 	 * Filter Formatted list item with link and and thumbnail.
