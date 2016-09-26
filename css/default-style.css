@@ -26,25 +26,15 @@
 	background: #eee;
 	border-color: #bbb;
 }
-/*.crp_related a {
-  width: 150px;
-  height: 150px;
-  text-decoration: none;
-}*/
 .crp_related a:hover {
 	text-decoration: none;
 }
-/*.crp_related img {
-  max-width: 150px;
-  margin: auto;
-}*/
 .crp_related .crp_title {
 	position: absolute;
 	height: inherit;
 	bottom: 6px;
 	left: 6px;
 	padding: 3px;
-/*  width: 144px;   = 150px - (3px * 2) */
 	color: #fff;
 	font-size: .9em;
 	text-shadow: 1000 .1em .1em .2em;
@@ -55,7 +45,6 @@
 	background: rgb(0.2, 0.2, 0.2);
 	background: rgba(0, 0, 0, 0.8);
 }
-
 .crp_related .crp_thumb, .crp_related li, .crp_related .crp_title {
 	vertical-align: bottom;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4);
@@ -65,7 +54,12 @@
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 }
-
 .crp_clear {
 	clear: both;
+}
+.crp_title {
+   color: #fff !important;
+}
+.crp_title:visited {
+   color: #fff !important;
 }
