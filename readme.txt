@@ -3,8 +3,8 @@ Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widg
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
-Requires at least: 3.5
-Tested up to: 4.4
+Requires at least: 4.1
+Tested up to: 4.7
 License: GPLv2 or later
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -186,6 +186,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Bug fixes:
 	* Language files initialisation had the wrong text domain
 	* Stop updating the thumb settings if the existing value isn't found. Caused incorrect changes in certain installations
+	* Force link text to white when using Rounded Thumb style
 
 = 2.2.3 =
 
