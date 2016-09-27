@@ -630,26 +630,81 @@ function crp_content_filter( $content ) {
 		$crp_disable_here = 0;
 	}
 
-	if ( $crp_disable_here ) { return $content; }
+	if ( $crp_disable_here ) {
+		return $content;
+	}
 
 	// Else add the content.
-	if ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) {
-		return $content . get_crp( 'is_widget=0' );
-	} elseif ( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) {
-		return $content . get_crp( 'is_widget=0' );
-	} elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
-		return $content . get_crp( 'is_widget=0' );
-	} elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
-		return $content . get_crp( 'is_widget=0' );
-	} elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
-		return $content . get_crp( 'is_widget=0' );
-	} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
-		return $content . get_crp( 'is_widget=0' );
+	if ( ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) ||
+	( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) ||
+	( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) ||
+	( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) ||
+	( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) ||
+	( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) ) {
+
+		$crp_code = get_crp( 'is_widget=0' );
+
+		return crp_generate_content( $content, $crp_code );
+
 	} else {
 		return $content;
 	}
 }
 
+
+/**
+ * Helper for inserting crp code into or alongside content
+ *
+ * @since 2.3.0
+ *
+ * @param string $content Post content.
+ * @param string $crp_code	CRP generated code.
+ * @return string After the filter has been processed
+ */
+function crp_generate_content( $content, $crp_code ) {
+	global $crp_settings;
+
+	if ( -1 === (int) $crp_settings['insert_after_paragraph'] || ! is_numeric( $crp_settings['insert_after_paragraph'] ) ) {
+		return $content . $crp_code;
+	} elseif ( 0 === (int) $crp_settings['insert_after_paragraph'] ) {
+		return $crp_code . $content;
+	} else {
+		return crp_insert_after_paragraph( $content, $crp_code, $crp_settings['insert_after_paragraph'] );
+	}
+
+}
+
+/**
+ * Helper for inserting code after a closing paragraph tag
+ *
+ * @since 2.3.0
+ *
+ * @param string $content Post content.
+ * @param string $crp_code	CRP generated code.
+ * @param string $paragraph_id Paragraph number to insert after.
+ * @return string After the filter has been processed
+ */
+function crp_insert_after_paragraph( $content, $crp_code, $paragraph_id ) {
+	$closing_p = '</p>';
+	$paragraphs = explode( $closing_p, $content );
+
+	if ( count( $paragraphs ) >= $paragraph_id ) {
+		foreach ( $paragraphs as $index => $paragraph ) {
+
+			if ( trim( $paragraph ) ) {
+				$paragraphs[ $index ] .= $closing_p;
+			}
+
+			if ( (int) $paragraph_id === $index + 1 ) {
+				$paragraphs[ $index ] .= $crp_code;
+			}
+		}
+
+		return implode( '', $paragraphs );
+	}
+
+	return $content . $crp_code;
+}
 
 /**
  * Filter to add related posts to feeds.
@@ -767,6 +822,7 @@ function crp_default_options() {
 		'add_to_archives' => false,		// Add related posts to other archives.
 
 		'content_filter_priority' => 10,	// Content priority.
+		'insert_after_paragraph' => -1,	// Insert after paragraph number.
 		'show_metabox'	=> true,	// Show metabox to admins.
 		'show_metabox_admins'	=> false,	// Limit to admins as well.
 
