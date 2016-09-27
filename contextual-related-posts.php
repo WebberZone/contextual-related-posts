@@ -455,9 +455,26 @@ function get_crp_posts_id( $args = array() ) {
 		$where .= $from_clause;
 		$where .= " AND $wpdb->posts.post_status = 'publish' ";					// Only show published posts
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );	// Show posts after the date specified.
-		if ( '' != $args['exclude_post_ids'] ) {
-			$where .= " AND {$wpdb->posts}.ID NOT IN (" . $args['exclude_post_ids'] . ') ';
+
+		// Convert exclude post IDs string to array so it can be filtered
+		$exclude_post_ids = explode( ',', $args['exclude_post_ids'] );
+
+		/**
+		 * Filter exclude post IDs array.
+		 *
+		 * @since 2.3.0
+		 *
+		 * @param array   $exclude_post_ids  Array of post IDs.
+		 */
+		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids );
+
+		// Convert it back to string
+		$exclude_post_ids = implode( ',', array_filter( $exclude_post_ids ) );
+
+		if ( '' != $exclude_post_ids ) {
+			$where .= " AND $wpdb->posts.ID NOT IN ({$exclude_post_ids}) ";
 		}
+
 		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";	// Array of post types.
 
 		// Create the base LIMITS clause.
@@ -1007,6 +1024,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/tools.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/manual-posts.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/shortcode.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/taxonomies.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/exclusions.php' );
 
 
 /*

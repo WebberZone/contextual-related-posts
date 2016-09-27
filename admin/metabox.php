@@ -71,18 +71,24 @@ function crp_call_meta_box() {
 	/**** Add an nonce field so we can check for it later. ****/
 	wp_nonce_field( 'crp_meta_box', 'crp_meta_box_nonce' );
 
-	/**** Get the thumbnail settings. The name of the meta key is defined in thumb_meta parameter of the CRP Settings array ****/
+	// Get the thumbnail settings. The name of the meta key is defined in thumb_meta parameter of the CRP Settings array.
 	$crp_thumb_meta = get_post_meta( $post->ID, $crp_settings['thumb_meta'], true );
 	$value = ( $crp_thumb_meta ) ? $crp_thumb_meta : '';
 
-	/**** Get related posts specific meta ****/
+	// Get related posts specific meta.
 	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
 
-	// Disable option.
+	// Disable display option.
 	if ( isset( $crp_post_meta['crp_disable_here'] ) ) {
 		$disable_here = $crp_post_meta['crp_disable_here'];
 	} else {
 		$disable_here = 0;
+	}
+
+	if ( isset( $crp_post_meta['exclude_this_post'] ) ) {
+		$exclude_this_post = $crp_post_meta['exclude_this_post'];
+	} else {
+		$exclude_this_post = 0;
 	}
 
 	// Manual related.
@@ -101,6 +107,12 @@ function crp_call_meta_box() {
 		<em><?php esc_html_e( 'If this is checked, then Contextual Related Posts will not automatically insert the related posts at the end of post content.', 'contextual-related-posts' ); ?></em>
 	</p>
 
+	<p>
+		<label for="crp_exclude_this_post"><strong><?php esc_html_e( 'Exclude this post from the related posts list:', 'contextual-related-posts' ); ?></strong></label>
+		<input type="checkbox" id="crp_exclude_this_post" name="crp_exclude_this_post" <?php checked( 1, $exclude_this_post, true ); ?> />
+		<br />
+		<em><?php esc_html_e( 'If this is checked, then this post will be excluded from the popular posts list.', 'contextual-related-posts' ); ?></em>
+	</p>
 
 	<p>
 		<label for="thumb_meta"><strong><?php esc_html_e( 'Manual related posts:', 'contextual-related-posts' ); ?></strong></label>
@@ -209,16 +221,22 @@ function crp_save_meta_box( $post_id ) {
 	}
 
 	// Disable posts.
-	if ( isset( $_POST['crp_disable_here'] ) ) {
+	if ( isset( $_POST['crp_disable_here'] ) ) { // Input var okay.
 		$crp_post_meta['crp_disable_here'] = 1;
 	} else {
 		$crp_post_meta['crp_disable_here'] = 0;
 	}
 
+	if ( isset( $_POST['crp_exclude_this_post'] ) ) { // Input var okay.
+		$crp_post_meta['exclude_this_post'] = 1;
+	} else {
+		$crp_post_meta['exclude_this_post'] = 0;
+	}
+
 	// Save Manual related posts.
 	if ( isset( $_POST['manual_related'] ) ) {
 
-		$manual_related_array = array_map( 'intval', explode( ',', $_POST['manual_related'] ) );
+		$manual_related_array = array_map( 'absint', explode( ',', $_POST['manual_related'] ) );
 
 		foreach ( $manual_related_array as $key => $value ) {
 			if ( 'publish' !== get_post_status( $value ) ) {
@@ -244,7 +262,7 @@ function crp_save_meta_box( $post_id ) {
 	if ( empty( $crp_post_meta_filtered ) ) {	// Checks if all the array items are 0 or empty
 		delete_post_meta( $post_id, 'crp_post_meta' );	// Delete the post meta if no options are set
 	} else {
-		update_post_meta( $post_id, 'crp_post_meta', $crp_post_meta );
+		update_post_meta( $post_id, 'crp_post_meta', $crp_post_meta_filtered );
 	}
 
 	/**
