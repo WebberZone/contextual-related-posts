@@ -66,6 +66,7 @@ function crp_options() {
 		$crp_settings['add_to_archives'] = ( isset( $_POST['add_to_archives'] ) ? true : false );
 
 		$crp_settings['content_filter_priority'] = absint( $_POST['content_filter_priority'] );
+		$crp_settings['insert_after_paragraph'] = ( -1 === $_POST['insert_after_paragraph'] || '' === $_POST['insert_after_paragraph'] ) ? -1 : intval( $_POST['insert_after_paragraph'] );
 		$crp_settings['show_metabox'] = ( isset( $_POST['show_metabox'] ) ? true : false );
 		$crp_settings['show_metabox_admins'] = ( isset( $_POST['show_metabox_admins'] ) ? true : false );
 		$crp_settings['show_credit'] = ( isset( $_POST['show_credit'] ) ? true : false );

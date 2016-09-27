@@ -91,9 +91,16 @@ if ( ! defined( 'WPINC' ) ) {
 
 				<tr><th scope="row"><label for="content_filter_priority"><?php esc_html_e( 'Display location priority:', 'contextual-related-posts' ); ?></label></th>
 					<td>
-						<input type="textbox" name="content_filter_priority" id="content_filter_priority" value="<?php echo esc_attr( stripslashes( $crp_settings['content_filter_priority'] ) ); ?>" />
+						<input type="textbox" name="content_filter_priority" id="content_filter_priority" value="<?php echo esc_attr( $crp_settings['content_filter_priority'] ); ?>" />
 						<p class="description"><?php esc_html_e( 'If you select to automatically add the related posts, CRP will hook into the Content Filter at a priority as specified in this option.', 'contextual-related-posts' ); ?></p>
 						<p class="description"><?php esc_html_e( 'A higher number will cause the related posts to be processed later and move their display further down after the post content. Any number below 10 is not recommended.', 'contextual-related-posts' ); ?></p>
+					</td>
+				</tr>
+
+				<tr><th scope="row"><label for="insert_after_paragraph"><?php esc_html_e( 'Insert after paragraph number', 'contextual-related-posts' ); ?>:</label></th>
+					<td>
+						<input type="textbox" name="insert_after_paragraph" id="insert_after_paragraph" value="<?php echo esc_attr( $crp_settings['insert_after_paragraph'] ); ?>" />
+						<p class="description"><?php esc_html_e( 'Enter 0 to display the related posts before the post content, -1 to display this at the end or a number to insert it after that paragraph number. If your post has less paragraphs, related posts will be displayed at the end.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 
