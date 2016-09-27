@@ -178,10 +178,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
-= 2.4.0 =
+= 2.3.0 =
 
 * Features:
 	* Shortcode and the widget now have an added parameter for 'offset'. This is useful if you would like to display different widgets/shortcodes but not always start from the first post
+	* New option in metabox: "Exclude this post from the related posts list"
 
 * Enhancements:
 	* The generated HTML code uses a single `a href` tag rather than two separate ones per item which is usually better for SEO. If you're not using the Rounded Thumbnail style and using your own custom style, then you might need to reconfigure this
