@@ -1,4 +1,4 @@
-﻿=== Contextual Related Posts ===
+=== Contextual Related Posts ===
 Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail, shortcodes
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
@@ -311,7 +311,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.2.3 =
+= 2.3.0 =
 * New features. Deprecated functions. Upgrade highly recommended. Please do verify your settings after the upgrade.
 Check the Changelog for more details
 
