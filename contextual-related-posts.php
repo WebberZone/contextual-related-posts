@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 /**
- * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
  * @since 2.3.0
  *
@@ -43,7 +43,7 @@ if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
 }
 
 /**
- * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
  * @since 2.3.0
  *
@@ -54,7 +54,7 @@ if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
 }
 
 /**
- * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
  * @since 2.3.0
  *
@@ -62,6 +62,18 @@ if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
  */
 if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
 	define( 'CRP_PLUGIN_FILE', __FILE__ );
+}
+
+
+/**
+ * Maximum words to match in the content.
+ *
+ * @since 2.3.0
+ *
+ * @var int Maximum number of words to match.
+ */
+if ( ! defined( 'CRP_MAX_WORDS' ) ) {
+	define( 'CRP_MAX_WORDS', 500 );
 }
 
 

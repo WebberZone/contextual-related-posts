@@ -187,13 +187,13 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Enhancements:
 	* The generated HTML code uses a single `a href` tag rather than two separate ones per item which is usually better for SEO. If you're not using the Rounded Thumbnail style and using your own custom style, then you might need to reconfigure this
+	* New constant `CRP_MAX_WORDS` (default 500) limits the post content to be compared. Add this to your `wp-config.php` file to overwrite
 
 * Bug fixes:
 	* Language files initialisation had the wrong text domain
 	* Stop updating the thumb settings if the existing value isn't found. Caused incorrect changes in certain installations
 	* Force link text to white when using Rounded Thumb style
 	* The plugin will no longer generate any notices if post author is missing
-	* Fixes post content to be compared to 1,000 words to avoid mySQL errors for very long articles
 
 * Deprecated:
 	* Removed wick for exclude categories auto-suggest. Plugin now uses jQuery Suggest that is included in WordPress. When you re-save plugin options, the field will convert the slugs to the category name

@@ -43,8 +43,8 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 	 */
 	$output = apply_filters( 'crp_excerpt_pre_trim', $output, $id, $excerpt_length, $use_excerpt );
 
-	if ( 0 === (int)$excerpt_length || 1000 < (int)$excerpt_length ) {
-		$excerpt_length = 1000;
+	if ( 0 === (int)$excerpt_length || CRP_MAX_WORDS < (int)$excerpt_length ) {
+		$excerpt_length = CRP_MAX_WORDS;
 	}
 
 	if ( $excerpt_length > 0 ) {
