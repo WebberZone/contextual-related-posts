@@ -193,9 +193,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* Stop updating the thumb settings if the existing value isn't found. Caused incorrect changes in certain installations
 	* Force link text to white when using Rounded Thumb style
 	* The plugin will no longer generate any notices if post author is missing
+	* Fixes post content to be compared to 2,000 words to avoid mySQL errors for very long articles
 
 * Deprecated:
 	* Removed wick for exclude categories auto-suggest. Plugin now uses jQuery Suggest that is included in WordPress. When you re-save plugin options, the field will convert the slugs to the category name
+	* Deprecated `$crp_url`. Use the new constants `CRP_PLUGIN_DIR`, `CRP_PLUGIN_URL` and `CRP_PLUGIN_FILE`
 
 = 2.2.3 =
 

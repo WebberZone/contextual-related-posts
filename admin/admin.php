@@ -55,7 +55,7 @@ function crp_options() {
 		$crp_settings['limit'] = absint( $_POST['limit'] );
 		$crp_settings['daily_range'] = absint( $_POST['daily_range'] );
 		$crp_settings['match_content'] = isset( $_POST['match_content'] ) ? true : false;
-		$crp_settings['match_content_words'] = absint( $_POST['match_content_words'] );
+		$crp_settings['match_content_words'] = min( 2000, absint( $_POST['match_content_words'] ) );
 
 		$crp_settings['add_to_content'] = ( isset( $_POST['add_to_content'] ) ? true : false );
 		$crp_settings['add_to_page'] = ( isset( $_POST['add_to_page'] ) ? true : false );

@@ -184,7 +184,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 				<tr><th scope="row"><label for="match_content_words"><?php esc_html_e( 'Limit content to be compared:', 'contextual-related-posts' ); ?></label></th>
 					<td><input type="textbox" name="match_content_words" id="match_content_words" value="<?php echo esc_attr( stripslashes( $crp_settings['match_content_words'] ) ); ?>">
-						<p class="description"><?php esc_html_e( 'This sets the maximum words of the content that will be matched. Set to 0 for no limit. Only applies if you active the above option.', 'contextual-related-posts' ); ?></p>
+						<p class="description"><?php esc_html_e( 'This sets the maximum words of the content that will be matched. Set to 0 for no limit. Max value: 2,000. Only applies if you activate the above option.', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 
