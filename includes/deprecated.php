@@ -8,6 +8,16 @@
  */
 
 /**
+ * Holds the URL for CRP
+ *
+ * @since	1.2
+ * @deprecated 2.3.0
+ *
+ * @var string
+ */
+$crp_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
+
+/**
  * Fetch related posts.
  *
  * @since 1.8.6

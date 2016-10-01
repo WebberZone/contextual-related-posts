@@ -642,7 +642,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<label>
 						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" <?php if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( 'Rounded Thumbnails', 'contextual-related-posts' ); ?>
 					</label>
-					<p class="description"><img src="<?php echo esc_url( plugins_url( 'admin/images/crp-rounded-thumbs.png', dirname( __FILE__ ) ) ); ?>" /></p>
+					<p class="description"><img src="<?php echo esc_url( plugins_url( 'admin/images/crp-rounded-thumbs.png', CRP_PLUGIN_FILE ) ); ?>" /></p>
 					<p class="description"><?php esc_html_e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', 'contextual-related-posts' ); ?></p>
 					<p class="description"><?php printf(
 						esc_html__( 'You can view the default style at %s', 'contextual-related-posts' ),

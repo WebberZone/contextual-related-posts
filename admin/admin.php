@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function crp_options() {
 
-	global $crp_url, $wpdb;
+	global $wpdb;
 
 	$crp_settings = crp_read_options();
 
@@ -114,7 +114,7 @@ function crp_options() {
 
 		$crp_settings['thumb_meta'] = empty( $_POST['thumb_meta'] ) ? 'post-image' : sanitize_text_field( wp_unslash( $_POST['thumb_meta'] ) );
 		$crp_settings['scan_images'] = ( isset( $_POST['scan_images'] ) ? true : false );
-		$crp_settings['thumb_default'] = ( ( '' === esc_url_raw( $_POST['thumb_default'] ) ) || ( '/default.png' === esc_url_raw( $_POST['thumb_default'] ) ) ) ? TOP_TEN_PLUGIN_URL . '/default.png' : esc_url_raw( $_POST['thumb_default'] );
+		$crp_settings['thumb_default'] = ( ( '' === esc_url_raw( $_POST['thumb_default'] ) ) || ( '/default.png' === esc_url_raw( $_POST['thumb_default'] ) ) ) ? CRP_PLUGIN_URL . '/default.png' : esc_url_raw( $_POST['thumb_default'] );
 		$crp_settings['thumb_default_show'] = ( isset( $_POST['thumb_default_show'] ) ? true : false );
 
 		/**** Feed options ****/
@@ -272,7 +272,7 @@ add_action( 'admin_menu', 'crp_adminmenu' );
  * @since 1.2
  */
 function crp_adminhead() {
-	global $crp_url;
+
 	wp_enqueue_script( 'common' );
 	wp_enqueue_script( 'wp-lists' );
 	wp_enqueue_script( 'postbox' );

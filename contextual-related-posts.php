@@ -32,22 +32,38 @@ if ( ! defined( 'WPINC' ) ) {
 
 
 /**
- * Holds the filesystem directory path (with trailing slash) for CRP
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts
  *
- * @since	1.2
+ * @since 2.3.0
  *
- * @var string
+ * @var string Plugin folder path
  */
-$crp_path = plugin_dir_path( __FILE__ );
+if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
+	define( 'CRP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
 
 /**
- * Holds the URL for CRP
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts
  *
- * @since	1.2
+ * @since 2.3.0
  *
- * @var string
+ * @var string Plugin folder URL
  */
-$crp_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
+if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
+	define( 'CRP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
+
+/**
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts
+ *
+ * @since 2.3.0
+ *
+ * @var string Plugin Root File
+ */
+if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
+	define( 'CRP_PLUGIN_FILE', __FILE__ );
+}
+
 
 /**
  * Global variable holding the current settings for Contextual Related Posts
@@ -66,7 +82,7 @@ $crp_settings = crp_read_options();
  * @since	2.2.0
  */
 function crp_lang_init() {
-	load_plugin_textdomain( 'contextual-related-posts', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'contextual-related-posts', false, dirname( plugin_basename( CRP_PLUGIN_FILE ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'crp_lang_init' );
 
@@ -153,7 +169,7 @@ function get_crp( $args = array() ) {
 	$post_classes = $widget_class . $shortcode_class;
 
 	/**
-	 * Filter the classes added to the div wrapper of the Top 10.
+	 * Filter the classes added to the div wrapper of the Contextual Related Posts.
 	 *
 	 * @since	2.2.3
 	 *
@@ -762,7 +778,7 @@ function crp_heading_styles() {
 	global $crp_settings;
 
 	if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
-		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', __FILE__ ) );
+		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ) );
 		wp_enqueue_style( 'crp-style-rounded-thumbs' );
 
 		$custom_css = "
@@ -982,10 +998,10 @@ add_action( 'wp_head', 'crp_header' );
  * @param bool $network_wide Network wide flag.
  */
 function activate_crp( $network_wide ) {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/plugin-activator.php';
+	require_once( CRP_PLUGIN_DIR . 'includes/plugin-activator.php' );
 	crp_activate( $network_wide );
 }
-register_activation_hook( __FILE__, 'activate_crp' );
+register_activation_hook( CRP_PLUGIN_FILE, 'activate_crp' );
 
 
 /**
@@ -1001,7 +1017,7 @@ function crp_activate_new_site( $blog_id ) {
 		return;
 	}
 
-	require_once plugin_dir_path( __FILE__ ) . 'includes/plugin-activator.php';
+	require_once( CRP_PLUGIN_DIR . 'includes/plugin-activator.php' );
 
 	switch_to_blog( $blog_id );
 	crp_single_activate();
@@ -1061,7 +1077,7 @@ function crp_object_id_cur_lang( $post_id ) {
  * @since 1.9.1
  */
 function register_crp_widget() {
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/class-crp-widget.php' );
+	require_once( CRP_PLUGIN_DIR . 'includes/modules/class-crp-widget.php' );
 
 	register_widget( 'CRP_Widget' );
 }
@@ -1074,13 +1090,13 @@ add_action( 'widgets_init', 'register_crp_widget' );
  *----------------------------------------------------------------------------
  */
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/output-generator.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/media.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/tools.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/manual-posts.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/shortcode.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/taxonomies.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/exclusions.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/output-generator.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/media.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/tools.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/modules/manual-posts.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/modules/shortcode.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/modules/taxonomies.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/modules/exclusions.php' );
 
 
 /*
@@ -1089,12 +1105,12 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/modules/exclusions.php' );
  *----------------------------------------------------------------------------
  */
 
-if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
+if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/admin.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/loader.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/metabox.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/cache.php' );
+	require_once( CRP_PLUGIN_DIR . 'admin/admin.php' );
+	require_once( CRP_PLUGIN_DIR . 'admin/loader.php' );
+	require_once( CRP_PLUGIN_DIR . 'admin/metabox.php' );
+	require_once( CRP_PLUGIN_DIR . 'admin/cache.php' );
 
 } // End admin.inc
 
@@ -1105,5 +1121,5 @@ if ( is_admin() || strstr( $_SERVER['PHP_SELF'], 'wp-admin/' ) ) {
  *----------------------------------------------------------------------------
  */
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/deprecated.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/deprecated.php' );
 
