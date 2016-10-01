@@ -870,7 +870,7 @@ function crp_default_options() {
 
 		// Thumbnail options.
 		'post_thumb_op' => 'inline',	// Default option to display text and no thumbnails in posts.
-		'thumb_size' => 'crp_thumbnail',	// Default thumbnail size
+		'thumb_size' => 'thumbnail',	// Default thumbnail size
 		'thumb_height' => '150',	// Height of thumbnails.
 		'thumb_width' => '150',	// Width of thumbnails.
 		'thumb_crop' => true,		// Crop mode. default is hard crop.
