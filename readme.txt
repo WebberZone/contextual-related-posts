@@ -178,6 +178,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.3.1 =
+
+* Bug fixes:
+	* Replaced `.crp_title` wrapper from `div` to `span`
+
 = 2.3.0 =
 
 * Features:

@@ -38,6 +38,7 @@
 .crp_related .crp_title {
 	color: #fff !important;
 	position: absolute;
+	display: block;
 	bottom: 0;
 	padding: 3px;
 	color: #fff;
