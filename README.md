@@ -8,7 +8,7 @@ __Tested up to:__ 4.7
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
-__Plugin page:__ [Contextual Related Posts home page](https://webberzone.com/plugins/contextual-related-posts/) | [WordPress.org listing](http://wordpress.org/extend/plugins/contextual-related-posts/)
+__Plugin page:__ [Contextual Related Posts home page](https://webberzone.com/plugins/contextual-related-posts/) | [WordPress.org listing](https://wordpress.org/plugins/contextual-related-posts/)
 
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -60,7 +60,7 @@ Visit [Contextual Related Posts on Transifex](https://www.transifex.com/projects
 
 
 ## Screenshots
-![General Options](https://raw.github.com/WebberZone/contextual-related-posts/master/assets/screenshot-1.png)
+![General Options](https://raw.github.com/WebberZone/contextual-related-posts/master/wporg-assets/screenshot-1.png)
 
 _Contextual Related Posts - General Options_
 

@@ -181,7 +181,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 = 2.3.1 =
 
 * Bug fixes:
-	* Replaced `.crp_title` wrapper from `div` to `span`
+	* Replaced `.crp_title` wrapper from `div` to `span`. Empty the cache via the settings page and also your browser cache
 
 = 2.3.0 =
 
@@ -316,7 +316,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.3.0 =
+= 2.3.1 =
 * New features. Deprecated functions. Upgrade highly recommended. Please do verify your settings after the upgrade.
 Check the Changelog for more details
 
