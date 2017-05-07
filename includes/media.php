@@ -224,7 +224,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		$class = apply_filters( 'crp_thumb_class', $class );
 
 		$output .= '<img src="' . $postimage . '" alt="' . $post_title . '" title="' . $post_title . '" ' . $thumb_html . ' class="' . $class . '" />';
-	}
+	}// End if().
 
 	/**
 	 * Filters post thumbnail created for CRP.

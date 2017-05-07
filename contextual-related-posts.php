@@ -253,7 +253,7 @@ function get_crp( $args = array() ) {
 			if ( $loop_counter == $args['limit'] ) {
 				break;	// End loop when related posts limit is reached.
 			}
-		} //end of foreach loop
+		} // End foreach().
 
 		if ( $args['show_credit'] ) {
 
@@ -280,7 +280,7 @@ function get_crp( $args = array() ) {
 
 	} else {
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
-	}
+	}// End if().
 
 	// Check if the opening list tag is missing in the output, it means all of our results were eliminated cause of the category filter.
 	if ( false === ( strpos( $output, $args['before_list_item'] ) ) ) {
@@ -583,7 +583,7 @@ function get_crp_posts_id( $args = array() ) {
 		$results = $wpdb->get_results( $sql );
 	} else {
 		$results = false;
-	}
+	}// End if().
 
 	/**
 	 * Filter object containing the post IDs.
@@ -1076,7 +1076,7 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	require_once( CRP_PLUGIN_DIR . 'admin/metabox.php' );
 	require_once( CRP_PLUGIN_DIR . 'admin/cache.php' );
 
-} // End admin.inc
+} // End if().
 
 
 /*

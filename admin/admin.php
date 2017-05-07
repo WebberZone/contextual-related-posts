@@ -164,7 +164,9 @@ function crp_options() {
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
-		$post_types_arr = ( isset( $_POST['post_types'] ) && is_array( $_POST['post_types'] ) ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['post_types'] ) ) : array( 'post' => 'post' );
+		$post_types_arr = ( isset( $_POST['post_types'] ) && is_array( $_POST['post_types'] ) ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['post_types'] ) ) : array(
+			'post' => 'post',
+		);
 		$post_types = array_intersect( $wp_post_types, $post_types_arr );
 		$crp_settings['post_types'] = http_build_query( $post_types, '', '&' );
 
@@ -212,7 +214,7 @@ function crp_options() {
 		$str .= '</div>';
 
 		echo $str; // WPCS: XSS OK.
-	}
+	}// End if().
 
 	if ( ( isset( $_POST['crp_default'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) {
 		delete_option( 'ald_crp_settings' );

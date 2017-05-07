@@ -30,7 +30,9 @@ class CRP_Widget extends WP_Widget {
 		parent::__construct(
 			'widget_crp', // Base ID
 			__( 'Related Posts [CRP]', 'contextual-related-posts' ), // Name
-			array( 'description' => __( 'Display Related Posts', 'contextual-related-posts' ) ) // Args.
+			array(
+				'description' => __( 'Display Related Posts', 'contextual-related-posts' ),
+			) // Args.
 		);
 	}
 
@@ -257,7 +259,7 @@ class CRP_Widget extends WP_Widget {
 			$output .= $args['after_widget'];
 
 			echo $output; // WPCS: XSS OK.
-		}
+		}// End if().
 	} //ending function widget
 }
 

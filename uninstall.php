@@ -54,5 +54,5 @@ if ( ! is_multisite() ) {
 	// Switch back to the current blog.
 	restore_current_blog();
 
-}
+}// End if().
 

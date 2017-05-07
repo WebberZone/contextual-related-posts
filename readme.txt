@@ -148,7 +148,10 @@ Usage: `<?php if ( function_exists( 'echo_crp' ) ) { echo_crp(); } ?>` to your t
 
 Takes a post ID and returns the related post IDs as an object.
 
-Usage: `<?php if ( function_exists( 'get_crp_posts_id' ) ) { get_crp_posts_id( array( 'postid' => $postid, 'limit' => $limit ) ); } ?>`
+Usage: `<?php if ( function_exists( 'get_crp_posts_id' ) ) { get_crp_posts_id( array(
+	'postid' => $postid,
+	'limit' => $limit,
+) ); } ?>`
 
 Parameters:
 
