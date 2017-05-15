@@ -47,7 +47,9 @@ matrix:
     - env: SNIFF=1
 
 before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  - export PHPCS_DIR=/tmp/phpcs
+  - export SNIFFS_DIR=/tmp/sniffs
+  - export PATH="$HOME/.composer/vendor/bin:$PHPCS_DIR/bin:$PATH"
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
@@ -57,14 +59,6 @@ before_script:
         composer global require "phpunit/phpunit=4.8.*"
       fi
     fi
- # - |
- #   if [[ "$SNIFF" == "phpcs" ]] ; then
- #     composer global require wp-coding-standards/wpcs
- #     phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs
- #   fi
-
-  - export PHPCS_DIR=/tmp/phpcs
-  - export SNIFFS_DIR=/tmp/sniffs
   # Install CodeSniffer for WordPress Coding Standards checks.
   - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
   # Install WordPress Coding Standards.
@@ -72,18 +66,10 @@ before_script:
   # Install PHP Compatibility sniffs.
   - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
   # Set install path for PHPCS sniffs.
-  # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
-  - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
+  - if [[ "$SNIFF" == "1" ]]; then phpcs --config-set installed_paths $SNIFFS_DIR; fi
+  - if [[ "$SNIFF" == "1" ]]; then phpcs -i; fi
   # After CodeSniffer install you should refresh your path.
   - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
-  # Install JSCS: JavaScript Code Style checker.
-  # @link http://jscs.info/
-  - if [[ "$SNIFF" == "1" ]]; then npm install -g jscs; fi
-  # Install JSHint, a JavaScript Code Quality Tool.
-  # @link http://jshint.com/docs/
-  - if [[ "$SNIFF" == "1" ]]; then npm install -g jshint; fi
-  # Pull in the WP Core jshint rules.
-  - if [[ "$SNIFF" == "1" ]]; then wget https://develop.svn.wordpress.org/trunk/.jshintrc; fi
 
 script:
   - |
@@ -93,13 +79,8 @@ script:
     fi
   - |
     if [[ "$SNIFF" == "1" ]] ; then
-      $PHPCS_DIR/bin/phpcs -p -s -v -n . --standard=./phpcs.ruleset.xml --extensions=php
+      phpcs -p -s -v -n . --standard=./phpcs.ruleset.xml --extensions=php
     fi
-
-  # Run through JSHint.
-  - if [[ "$SNIFF" == "1" ]]; then jshint .; fi
-  # Run through JavaScript Code Style checker.
-  - if [[ "$SNIFF" == "1" ]]; then jscs .; fi
 
 addons:
     code_climate:
