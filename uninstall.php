@@ -47,7 +47,7 @@ if ( ! is_multisite() ) {
 			WHERE meta_key LIKE 'crp_related_posts%'
 		" );
 
-	    delete_option( $option_name );
+		delete_option( $option_name );
 
 	}
 

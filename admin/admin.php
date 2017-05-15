@@ -302,12 +302,12 @@ function crp_adminhead() {
 			content: '\f140';
 		}
 		.wrap h1:before {
-		    content: "\f237";
-		    display: inline-block;
-		    -webkit-font-smoothing: antialiased;
-		    font: normal 29px/1 'dashicons';
-		    vertical-align: middle;
-		    margin-right: 0.3em;
+			content: "\f237";
+			display: inline-block;
+			-webkit-font-smoothing: antialiased;
+			font: normal 29px/1 'dashicons';
+			vertical-align: middle;
+			margin-right: 0.3em;
 		}
 	</style>
 
@@ -320,10 +320,10 @@ function crp_adminhead() {
 			postboxes.add_postbox_toggles('crp_options');
 		});
 
-	    // Function to add auto suggest.
-	    function setSuggest( id, taxonomy ) {
-	        jQuery('#' + id).suggest("<?php echo admin_url( 'admin-ajax.php?action=ajax-tag-search&tax=' ); ?>" + taxonomy, {multiple:true, multipleSep: ","});
-	    }
+		// Function to add auto suggest.
+		function setSuggest( id, taxonomy ) {
+			jQuery('#' + id).suggest("<?php echo admin_url( 'admin-ajax.php?action=ajax-tag-search&tax=' ); ?>" + taxonomy, {multiple:true, multipleSep: ","});
+		}
 
 		function clearCache() {
 			jQuery.post(ajaxurl, {action: 'crp_clear_cache'}, function(response, textStatus, jqXHR) {

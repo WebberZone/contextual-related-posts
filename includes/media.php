@@ -192,7 +192,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		$postimage = apply_filters( 'crp_postimage', $postimage, $args['thumb_width'], $args['thumb_height'], $thumb_timthumb, $thumb_timthumb_q, $result );
 
 		if ( is_ssl() ) {
-		    $postimage = preg_replace( '~http://~', 'https://', $postimage );
+			$postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
 
 		if ( 'css' == $args['thumb_html'] ) {
@@ -348,13 +348,13 @@ function crp_get_all_image_sizes( $size = '' ) {
 			$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
 			$sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
 
-	        if ( ( 0 == $sizes[ $_size ]['width'] ) && ( 0 == $sizes[ $_size ]['height'] ) ) {
-	            unset( $sizes[ $_size ] );
-	        }
+			if ( ( 0 == $sizes[ $_size ]['width'] ) && ( 0 == $sizes[ $_size ]['height'] ) ) {
+				unset( $sizes[ $_size ] );
+			}
 		} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
 
 			$sizes[ $_size ] = array(
-	            'name' => $_size,
+				'name' => $_size,
 				'width' => $_wp_additional_image_sizes[ $_size ]['width'],
 				'height' => $_wp_additional_image_sizes[ $_size ]['height'],
 				'crop' => (bool) $_wp_additional_image_sizes[ $_size ]['crop'],
