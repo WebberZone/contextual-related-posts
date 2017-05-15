@@ -77,7 +77,7 @@ script:
     fi
   - |
     if [[ "$SNIFF" == "1" ]] ; then
-      phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
+      phpcs -p -v -s --standard=phpcs.ruleset.xml $(find . -name '*.php')
     fi
 
 addons:
