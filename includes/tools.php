@@ -66,44 +66,51 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 
 
 /**
- * Function to limit content by characters.
+ * Truncate a string to a certain length.
  *
- * @since 1.8.4
+ * @since 2.4.0
  *
- * @param	string $content    Content to be used to make an excerpt.
- * @param	int    $no_of_char Maximum length of excerpt in characters.
- * @return 	string				Formatted content.
+ * @param  string $string String to truncate.
+ * @param  int $count Maximum number of characters to take.
+ * @param  string $more What to append if $string needs to be trimmed.
+ * @param  bool $break_words Optionally choose to break words.
+ * @return string Truncated string.
  */
-function crp_max_formatted_content( $content, $no_of_char = -1 ) {
-	$content = strip_tags( $content );
+function crp_trim_char( $string, $count = 60, $more = '&hellip;', $break_words = false ) {
 
-	if ( ( $no_of_char > 0 ) && ( strlen( $content ) > $no_of_char ) ) {
-		$words_array = preg_split( '/[\s]+/', substr( $content, 0, $no_of_char ) );
+	$string = wp_strip_all_tags( $string, true );
 
-		// Break back down into a string of words, but drop the last one if it's chopped off.
-		if ( substr( $content, $no_of_char, 1 ) === ' ' ) {
-			$content = implode( ' ', $words_array );
-		} else {
-			$content = implode( ' ', array_slice( $words_array, 0, -1 ) ) . '&hellip;';
+	if ( 0 === $count ) {
+		return '';
+	}
+
+	if ( mb_strlen( $string ) > $count && $count > 0 ) {
+		$count -= min( $count, mb_strlen( $more ) );
+
+		if ( ! $break_words ) {
+			$string = preg_replace( '/\s+?(\S+)?$/u', '', mb_substr( $string, 0, $count+1 ) );
 		}
+
+		$string = mb_substr( $string, 0, $count ) . $more;
 	}
 
 	/**
-	 * Filters formatted content after cropping.
+	 * Filters truncated string.
 	 *
-	 * @since	1.9
+	 * @since 2.4.0
 	 *
-	 * @param	string	$content	Formatted content
-	 * @param	int		$no_of_char	Maximum length of excerpt in characters
+	 * @param string $string String to truncate.
+	 * @param int $count Maximum number of characters to take.
+	 * @param string $more What to append if $string needs to be trimmed.
+	 * @param bool $break_words Optionally choose to break words.
 	 */
-	return apply_filters( 'crp_max_formatted_content' , $content, $no_of_char );
+	return apply_filters( 'crp_trim_char', $string, $count, $more, $break_words );
 }
-
 
 /**
  * Delete the CRP cache.
  *
- * @param	array $meta_keys Array of meta keys that hold the cache.
+ * @param array $meta_keys Array of meta keys that hold the cache.
  */
 function crp_cache_delete( $meta_keys = array() ) {
 

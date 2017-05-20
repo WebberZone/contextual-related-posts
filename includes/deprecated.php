@@ -131,3 +131,30 @@ function echo_ald_crp( $args = array() ) {
 	echo_crp( $args );
 }
 
+/**
+ * Function to limit content by characters.
+ *
+ * @since 1.8.4
+ * @deprecated 2.4.0
+ *
+ * @param	string $content    Content to be used to make an excerpt.
+ * @param	int    $no_of_char Maximum length of excerpt in characters.
+ * @return 	string				Formatted content.
+ */
+function crp_max_formatted_content( $content, $no_of_char = -1 ) {
+
+	_deprecated_function( __FUNCTION__, '2.4.0', 'crp_trim_char()' );
+
+	$content = crp_trim_char( $content, $no_of_char );
+
+	/**
+	 * Filters formatted content after cropping.
+	 *
+	 * @since	1.9
+	 *
+	 * @param	string	$content	Formatted content
+	 * @param	int		$no_of_char	Maximum length of excerpt in characters
+	 */
+	return apply_filters( 'crp_max_formatted_content' , $content, $no_of_char );
+}
+

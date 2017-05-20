@@ -181,6 +181,14 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.4.0 =
+
+* Bug fixes:
+	* Trimming titles should now work with multibyte / non-English characters
+
+* Deprecated:
+	* `crp_max_formatted_content` has been deprecated. Use `crp_trim_char` instead
+
 = 2.3.1 =
 
 * Bug fixes:
