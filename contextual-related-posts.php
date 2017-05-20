@@ -193,7 +193,7 @@ function get_crp( $args = array() ) {
 		foreach ( $results as $result ) {
 
 			/* Support WPML */
-		    $resultid = crp_object_id_cur_lang( $result->ID );
+			$resultid = crp_object_id_cur_lang( $result->ID );
 
 			// If this is NULL or already processed ID or matches current post then skip processing this loop.
 			if ( ! $resultid || in_array( $resultid, $processed_results ) || intval( $resultid ) === intval( $post->ID ) ) {
@@ -221,7 +221,7 @@ function get_crp( $args = array() ) {
 
 				$p_in_c = false;	// Variable to check if post exists in a particular category
 				foreach ( $categorys as $cat ) {	// Loop to check if post exists in excluded category.
-					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories ) ) ? true : false;
+					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories, true ) ) ? true : false;
 					if ( $p_in_c ) {
 						break;	// Skip loop execution and go to the next step.
 					}
@@ -250,7 +250,7 @@ function get_crp( $args = array() ) {
 
 			$output .= crp_after_list_item( $args, $result );
 
-			if ( $loop_counter == $args['limit'] ) {
+			if ( $loop_counter === absint( $args['limit'] ) ) {
 				break;	// End loop when related posts limit is reached.
 			}
 		} // End foreach().
@@ -259,6 +259,7 @@ function get_crp( $args = array() ) {
 
 			$output .= crp_before_list_item( $args, $result );
 
+			/* translators: Link to plugin home page */
 			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/plugins/contextual-related-posts/' ) );
 
 			$output .= crp_after_list_item( $args, $result );
@@ -473,7 +474,7 @@ function get_crp_posts_id( $args = array() ) {
 		$where .= " AND $wpdb->posts.post_status = 'publish' ";					// Only show published posts
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );	// Show posts after the date specified.
 
-		// Convert exclude post IDs string to array so it can be filtered
+		// Convert exclude post IDs string to array so it can be filtered.
 		$exclude_post_ids = explode( ',', $args['exclude_post_ids'] );
 
 		/**
@@ -485,7 +486,7 @@ function get_crp_posts_id( $args = array() ) {
 		 */
 		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids );
 
-		// Convert it back to string
+		// Convert it back to string.
 		$exclude_post_ids = implode( ',', array_filter( $exclude_post_ids ) );
 
 		if ( '' != $exclude_post_ids ) {
@@ -778,7 +779,7 @@ function echo_crp( $args = array() ) {
 function crp_heading_styles() {
 	global $crp_settings;
 
-	if ( 'rounded_thumbs' == $crp_settings['crp_styles'] ) {
+	if ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) {
 		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ) );
 		wp_enqueue_style( 'crp-style-rounded-thumbs' );
 
@@ -937,7 +938,7 @@ function crp_read_options() {
 		}
 		$crp_settings_changed = true;
 	}
-	if ( true == $crp_settings_changed ) {
+	if ( true === $crp_settings_changed ) {
 		update_option( 'ald_crp_settings', $crp_settings );
 	}
 
@@ -964,21 +965,21 @@ function crp_header() {
 
 	// Add CSS to header.
 	if ( '' != $custom_css ) {
-	    if ( ( is_single() ) ) {
+		if ( ( is_single() ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-	    } elseif ( (is_page()) ) {
+		} elseif ( (is_page()) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-	    } elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
+		} elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-	    } elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
+		} elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-	    } elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
+		} elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-	    } elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
+		} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-	    } elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
+		} elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-	    }
+		}
 	}
 }
 add_action( 'wp_head', 'crp_header' );

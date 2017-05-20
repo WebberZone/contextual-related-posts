@@ -17,7 +17,7 @@
 function crp_add_image_sizes() {
 	global $crp_settings;
 
-	if ( ! in_array( $crp_settings['thumb_size'], get_intermediate_image_sizes() ) ) {
+	if ( ! in_array( $crp_settings['thumb_size'], get_intermediate_image_sizes(), true ) ) {
 		$crp_settings['thumb_size'] = 'crp_thumbnail';
 	}
 
@@ -97,7 +97,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	// If there is no thumbnail found, check the post thumbnail.
 	if ( ! $postimage ) {
-		if ( false != get_post_thumbnail_id( $result->ID ) ) {
+		if ( false !== get_post_thumbnail_id( $result->ID ) ) {
 			$postthumb = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), $crp_settings['thumb_size'] );
 			$postimage = $postthumb[0];
 		}
@@ -127,7 +127,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( $postimage ) {
 			$postimage_id = crp_get_attachment_id_from_url( $postimage );
 
-			if ( false != wp_get_attachment_image_src( $postimage_id, $crp_settings['thumb_size'] ) ) {
+			if ( false !== wp_get_attachment_image_src( $postimage_id, $crp_settings['thumb_size'] ) ) {
 				$postthumb = wp_get_attachment_image_src( $postimage_id, $crp_settings['thumb_size'] );
 				$postimage = $postthumb[0];
 			}
@@ -195,9 +195,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 			$postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
 
-		if ( 'css' == $args['thumb_html'] ) {
+		if ( 'css' === $args['thumb_html'] ) {
 			$thumb_html = 'style="max-width:' . $args['thumb_width'] . 'px;max-height:' . $args['thumb_height'] . 'px;"';
-		} elseif ( 'html' == $args['thumb_html'] ) {
+		} elseif ( 'html' === $args['thumb_html'] ) {
 			$thumb_html = 'width="' . $args['thumb_width'] . '" height="' . $args['thumb_height'] . '"';
 		} else {
 			$thumb_html = '';
@@ -294,7 +294,7 @@ function crp_get_attachment_id_from_url( $attachment_url = '' ) {
 	$attachment_id = false;
 
 	// If there is no url, return.
-	if ( '' == $attachment_url ) {
+	if ( '' === $attachment_url ) {
 		return;
 	}
 
@@ -341,14 +341,14 @@ function crp_get_all_image_sizes( $size = '' ) {
 	$intermediate_image_sizes = get_intermediate_image_sizes();
 
 	foreach ( $intermediate_image_sizes as $_size ) {
-		if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
+		if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ), true ) ) {
 
 			$sizes[ $_size ]['name'] = $_size;
-			$sizes[ $_size ]['width'] = get_option( $_size . '_size_w' );
-			$sizes[ $_size ]['height'] = get_option( $_size . '_size_h' );
+			$sizes[ $_size ]['width'] = absint( get_option( $_size . '_size_w' ) );
+			$sizes[ $_size ]['height'] = absint( get_option( $_size . '_size_h' ) );
 			$sizes[ $_size ]['crop'] = (bool) get_option( $_size . '_crop' );
 
-			if ( ( 0 == $sizes[ $_size ]['width'] ) && ( 0 == $sizes[ $_size ]['height'] ) ) {
+			if ( ( 0 === $sizes[ $_size ]['width'] ) && ( 0 === $sizes[ $_size ]['height'] ) ) {
 				unset( $sizes[ $_size ] );
 			}
 		} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {

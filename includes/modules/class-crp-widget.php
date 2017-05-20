@@ -28,11 +28,12 @@ class CRP_Widget extends WP_Widget {
 	 */
 	function __construct() {
 		parent::__construct(
-			'widget_crp', // Base ID
-			__( 'Related Posts [CRP]', 'contextual-related-posts' ), // Name
+			'widget_crp',
+			__( 'Related Posts [CRP]', 'contextual-related-posts' ),
 			array(
 				'description' => __( 'Display Related Posts', 'contextual-related-posts' ),
-			) // Args.
+				'customize_selective_refresh' => true,
+			)
 		);
 	}
 

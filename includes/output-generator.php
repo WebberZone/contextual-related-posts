@@ -274,7 +274,7 @@ function crp_list_link( $args, $result ) {
 	$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
 
 	if ( 'after' === $args['post_thumb_op'] ) {
-		$output .= '<span class="crp_title">' . $title . '</span>'; // Add title when required by settings
+		$output .= '<span class="crp_title">' . $title . '</span>'; // Add title when required by settings.
 	}
 
 	if ( 'inline' === $args['post_thumb_op'] || 'after' === $args['post_thumb_op'] || 'thumbs_only' === $args['post_thumb_op'] ) {
@@ -292,7 +292,7 @@ function crp_list_link( $args, $result ) {
 	}
 
 	if ( 'inline' === $args['post_thumb_op'] || 'text_only' === $args['post_thumb_op'] ) {
-		$output .= '<span class="crp_title">' . $title . '</span>'; // Add title when required by settings
+		$output .= '<span class="crp_title">' . $title . '</span>'; // Add title when required by settings.
 	}
 
 	$output .= '</a>';

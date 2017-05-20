@@ -208,7 +208,8 @@ function crp_options() {
 			$str .= '<p>' . __( 'Text Only style selected. Thumbnails will not be displayed.', 'contextual-related-posts' ) . '</p>';
 		}
 		if ( 'crp_thumbnail' !== $crp_settings['thumb_size'] ) {
-			$str .= '<p>' . sprintf( __( 'Pre-built thumbnail size selected. Thumbnail set to %1$d x %1$d.', 'contextual-related-posts' ), $crp_settings['thumb_width'], $crp_settings['thumb_height'] ) . '</p>';
+			/* translators: Thumbnail width and height */
+			$str .= '<p>' . sprintf( __( 'Pre-built thumbnail size selected. Thumbnail set to %1$d x %2$d.', 'contextual-related-posts' ), $crp_settings['thumb_width'], $crp_settings['thumb_height'] ) . '</p>';
 		}
 
 		$str .= '</div>';

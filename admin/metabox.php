@@ -133,6 +133,7 @@ function crp_call_meta_box() {
 			$title = get_the_title( $manual_related_post );
 			echo '<a href="' . esc_url( get_permalink( $manual_related_post ) ) . '" target="_blank" title="' . esc_attr( $title ) . '" class="wherego_title">' . esc_attr( $title ) . '</a>. ';
 			printf(
+				/* translators: Post type name */
 				esc_html__( 'This post type is: %s', 'contextual-related-posts' ),
 				'<em>' . esc_html__( get_post_type( $manual_related_post ) ) . '</em>'
 			);
