@@ -71,9 +71,9 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
  * @since 2.4.0
  *
  * @param  string $string String to truncate.
- * @param  int $count Maximum number of characters to take.
+ * @param  int    $count Maximum number of characters to take.
  * @param  string $more What to append if $string needs to be trimmed.
- * @param  bool $break_words Optionally choose to break words.
+ * @param  bool   $break_words Optionally choose to break words.
  * @return string Truncated string.
  */
 function crp_trim_char( $string, $count = 60, $more = '&hellip;', $break_words = false ) {
@@ -88,7 +88,7 @@ function crp_trim_char( $string, $count = 60, $more = '&hellip;', $break_words =
 		$count -= min( $count, mb_strlen( $more ) );
 
 		if ( ! $break_words ) {
-			$string = preg_replace( '/\s+?(\S+)?$/u', '', mb_substr( $string, 0, $count+1 ) );
+			$string = preg_replace( '/\s+?(\S+)?$/u', '', mb_substr( $string, 0, $count + 1 ) );
 		}
 
 		$string = mb_substr( $string, 0, $count ) . $more;
