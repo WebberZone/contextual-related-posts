@@ -41,6 +41,7 @@ function crp_activate( $network_wide ) {
 		crp_single_activate();
 	}
 }
+register_activation_hook( CRP_PLUGIN_FILE, 'crp_activate' );
 
 
 /**
@@ -61,5 +62,26 @@ function crp_single_activate() {
 	$wpdb->show_errors();
 
 }
+
+
+/**
+ * Fired when a new site is activated with a WPMU environment.
+ *
+ * @since 2.0.0
+ *
+ * @param    int $blog_id    ID of the new blog.
+ */
+function crp_activate_new_site( $blog_id ) {
+
+	if ( 1 !== did_action( 'wpmu_new_blog' ) ) {
+		return;
+	}
+
+	switch_to_blog( $blog_id );
+	crp_single_activate();
+	restore_current_blog();
+
+}
+add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
 
 

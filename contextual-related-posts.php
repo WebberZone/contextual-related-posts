@@ -996,50 +996,6 @@ add_action( 'wp_head', 'crp_header' );
 
 /*
  ----------------------------------------------------------------------------*
- * Activate the plugin
- *----------------------------------------------------------------------------
- */
-
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-plugin-name-activator.php
- *
- * @since 2.2.0
- *
- * @param bool $network_wide Network wide flag.
- */
-function activate_crp( $network_wide ) {
-	require_once( CRP_PLUGIN_DIR . 'includes/plugin-activator.php' );
-	crp_activate( $network_wide );
-}
-register_activation_hook( CRP_PLUGIN_FILE, 'activate_crp' );
-
-
-/**
- * Fired when a new site is activated with a WPMU environment.
- *
- * @since 2.0.0
- *
- * @param    int $blog_id    ID of the new blog.
- */
-function crp_activate_new_site( $blog_id ) {
-
-	if ( 1 !== did_action( 'wpmu_new_blog' ) ) {
-		return;
-	}
-
-	require_once( CRP_PLUGIN_DIR . 'includes/plugin-activator.php' );
-
-	switch_to_blog( $blog_id );
-	crp_single_activate();
-	restore_current_blog();
-
-}
-add_action( 'wpmu_new_blog', 'crp_activate_new_site' );
-
-
-/*
- ----------------------------------------------------------------------------*
  * WordPress widget
  *----------------------------------------------------------------------------
  */
@@ -1063,6 +1019,7 @@ add_action( 'widgets_init', 'register_crp_widget' );
  *----------------------------------------------------------------------------
  */
 
+require_once( CRP_PLUGIN_DIR . 'includes/plugin-activator.php' );
 require_once( CRP_PLUGIN_DIR . 'includes/i10n.php' );
 require_once( CRP_PLUGIN_DIR . 'includes/output-generator.php' );
 require_once( CRP_PLUGIN_DIR . 'includes/media.php' );
