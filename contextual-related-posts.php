@@ -516,7 +516,7 @@ function get_crp_posts_id( $args = array() ) {
 		 * @param string   $join  The JOIN clause of the query.
 		 * @param int	   $source_post->ID	Post ID
 		 */
-			$join = apply_filters( 'crp_posts_join', $join, $source_post->ID );
+		$join = apply_filters( 'crp_posts_join', $join, $source_post->ID );
 
 		/**
 		 * Filter the WHERE clause of the query.
@@ -581,7 +581,15 @@ function get_crp_posts_id( $args = array() ) {
 		}
 
 		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $having $orderby $limits";
+
 		$results = $wpdb->get_results( $sql );
+
+		if ( $args['random_order'] ) {
+			$results_array = (array) $results;
+			shuffle( $results_array );
+			$results = (object) $results_array;
+		}
+
 	} else {
 		$results = false;
 	}// End if().
@@ -829,81 +837,82 @@ function crp_default_options() {
 
 	$crp_settings = array(
 		// General options.
-		'cache' => false,			// Cache output for faster page load.
+		'cache'                    => false,			// Cache output for faster page load.
 
-		'add_to_content' => true,		// Add related posts to content (only on single posts).
-		'add_to_page' => true,		// Add related posts to content (only on single pages).
-		'add_to_feed' => false,		// Add related posts to feed (full).
-		'add_to_home' => false,		// Add related posts to home page.
+		'add_to_content'           => true,		// Add related posts to content (only on single posts).
+		'add_to_page'              => true,		// Add related posts to content (only on single pages).
+		'add_to_feed'              => false,		// Add related posts to feed (full).
+		'add_to_home'              => false,		// Add related posts to home page.
 		'add_to_category_archives' => false,		// Add related posts to category archives.
-		'add_to_tag_archives' => false,		// Add related posts to tag archives.
-		'add_to_archives' => false,		// Add related posts to other archives.
+		'add_to_tag_archives'      => false,		// Add related posts to tag archives.
+		'add_to_archives'          => false,		// Add related posts to other archives.
 
-		'content_filter_priority' => 10,	// Content priority.
-		'insert_after_paragraph' => -1,	// Insert after paragraph number.
-		'show_metabox'	=> true,	// Show metabox to admins.
-		'show_metabox_admins'	=> false,	// Limit to admins as well.
+		'content_filter_priority'  => 10,	// Content priority.
+		'insert_after_paragraph'   => -1,	// Insert after paragraph number.
+		'show_metabox'             => true,	// Show metabox to admins.
+		'show_metabox_admins'      => false,	// Limit to admins as well.
 
-		'show_credit' => false,		// Link to this plugin's page?
+		'show_credit'              => false,		// Link to this plugin's page?
 
 		// List tuning options.
-		'limit' => '6',				// How many posts to display?
-		'daily_range' => '1095',				// How old posts should be displayed?
+		'limit'                    => '6',				// How many posts to display?
+		'daily_range'              => '1095',				// How old posts should be displayed?
+		'random_order'             => false,	// Randomise posts
 
-		'match_content' => true,		// Match against post content as well as title.
-		'match_content_words' => '0',	// How many characters of content should be matched? 0 for all chars.
+		'match_content'            => true,		// Match against post content as well as title.
+		'match_content_words'      => '0',	// How many characters of content should be matched? 0 for all chars.
 
-		'post_types' => $post_types,		// WordPress custom post types.
+		'post_types'               => $post_types,		// WordPress custom post types.
 
-		'exclude_categories' => '',	// Exclude these categories.
-		'exclude_cat_slugs' => '',	// Exclude these categories (slugs).
-		'exclude_post_ids' => '',	// Comma separated list of page / post IDs that are to be excluded in the results.
+		'exclude_categories'       => '',	// Exclude these categories.
+		'exclude_cat_slugs'        => '',	// Exclude these categories (slugs).
+		'exclude_post_ids'         => '',	// Comma separated list of page / post IDs that are to be excluded in the results.
 
 		// Output options.
-		'title' => $title,			// Add before the content.
-		'blank_output' => true,		// Blank output?
-		'blank_output_text' => $blank_output_text,		// Blank output text.
+		'title'                    => $title,			// Add before the content.
+		'blank_output'             => true,		// Blank output?
+		'blank_output_text'        => $blank_output_text,		// Blank output text.
 
-		'show_excerpt' => false,			// Show post excerpt in list item.
-		'show_date' => false,			// Show date in list item.
-		'show_author' => false,			// Show author in list item.
-		'excerpt_length' => '10',		// Length of characters.
-		'title_length' => '60',		// Limit length of post title.
+		'show_excerpt'             => false,			// Show post excerpt in list item.
+		'show_date'                => false,			// Show date in list item.
+		'show_author'              => false,			// Show author in list item.
+		'excerpt_length'           => '10',		// Length of characters.
+		'title_length'             => '60',		// Limit length of post title.
 
-		'link_new_window' => false,			// Open link in new window - Includes target="_blank" to links.
-		'link_nofollow' => false,			// Includes rel="nofollow" to links.
+		'link_new_window'          => false,			// Open link in new window.
+		'link_nofollow'            => false,			// Includes rel nofollow to links.
 
-		'before_list' => '<ul>',	// Before the entire list.
-		'after_list' => '</ul>',	// After the entire list.
-		'before_list_item' => '<li>',	// Before each list item.
-		'after_list_item' => '</li>',	// After each list item.
+		'before_list'              => '<ul>',	// Before the entire list.
+		'after_list'               => '</ul>',	// After the entire list.
+		'before_list_item'         => '<li>',	// Before each list item.
+		'after_list_item'          => '</li>',	// After each list item.
 
-		'exclude_on_post_ids' => '', 	// Comma separate list of page/post IDs to not display related posts on.
-		'exclude_on_post_types' => '',		// WordPress custom post types.
+		'exclude_on_post_ids'      => '', 	// Comma separate list of page/post IDs to not display related posts on.
+		'exclude_on_post_types'    => '',		// WordPress custom post types.
 
 		// Thumbnail options.
-		'post_thumb_op' => 'inline',	// Default option to display text and no thumbnails in posts.
-		'thumb_size' => 'thumbnail',	// Default thumbnail size
-		'thumb_height' => '150',	// Height of thumbnails.
-		'thumb_width' => '150',	// Width of thumbnails.
-		'thumb_crop' => true,		// Crop mode. default is hard crop.
-		'thumb_html' => 'html',		// Use HTML or CSS for width and height of the thumbnail?
-		'thumb_meta' => 'post-image',	// Meta field that is used to store the location of default thumbnail image.
-		'scan_images' => true,			// Scan post for images.
-		'thumb_default' => $thumb_default,	// Default thumbnail image.
-		'thumb_default_show' => true,	// Show default thumb if none found (if false, don't show thumb at all).
+		'post_thumb_op'            => 'inline',	// Default option to display text and no thumbnails in posts.
+		'thumb_size'               => 'thumbnail',	// Default thumbnail size
+		'thumb_height'             => '150',	// Height of thumbnails.
+		'thumb_width'              => '150',	// Width of thumbnails.
+		'thumb_crop'               => true,		// Crop mode. default is hard crop.
+		'thumb_html'               => 'html',		// Use HTML or CSS for width and height of the thumbnail?
+		'thumb_meta'               => 'post-image',	// Meta field that is used to store the location of default thumbnail image.
+		'scan_images'              => true,			// Scan post for images.
+		'thumb_default'            => $thumb_default,	// Default thumbnail image.
+		'thumb_default_show'       => true,	// Show default thumb if none found (if false, don't show thumb at all).
 
 		// Feed options.
-		'limit_feed' => '5',				// How many posts to display in feeds.
-		'post_thumb_op_feed' => 'text_only',	// Default option to display text and no thumbnails in Feeds.
-		'thumb_height_feed' => '50',	// Height of thumbnails in feed.
-		'thumb_width_feed' => '50',	// Width of thumbnails in feed.
-		'show_excerpt_feed' => false,			// Show description in list item in feed.
+		'limit_feed'               => '5',			// How many posts to display in feeds.
+		'post_thumb_op_feed'       => 'text_only',	// Default option to display text and no thumbnails in Feeds.
+		'thumb_height_feed'        => '50',	// Height of thumbnails in feed.
+		'thumb_width_feed'         => '50',	// Width of thumbnails in feed.
+		'show_excerpt_feed'        => false,			// Show description in list item in feed.
 
 		// Custom styles.
-		'custom_CSS' => '',			// Custom CSS to style the output.
-		'include_default_style' => true,	// Include default style - Will be DEPRECATED in the next version.
-		'crp_styles'	=> 'rounded_thumbs',// Defaault style is rounded thubnails.
+		'custom_CSS'               => '',			// Custom CSS to style the output.
+		'include_default_style'    => true,			// Include default style - Will be DEPRECATED in the next version.
+		'crp_styles'               => 'rounded_thumbs',	// Defaault style is rounded thubnails.
 	);
 
 	/**

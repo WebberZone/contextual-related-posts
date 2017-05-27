@@ -54,6 +54,7 @@ function crp_options() {
 		$crp_settings['cache'] = isset( $_POST['cache'] ) ? true : false;
 		$crp_settings['limit'] = absint( $_POST['limit'] );
 		$crp_settings['daily_range'] = absint( $_POST['daily_range'] );
+		$crp_settings['random_order'] = isset( $_POST['random_order'] ) ? true : false;
 		$crp_settings['match_content'] = isset( $_POST['match_content'] ) ? true : false;
 		$crp_settings['match_content_words'] = min( CRP_MAX_WORDS, absint( $_POST['match_content_words'] ) );
 

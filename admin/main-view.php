@@ -176,6 +176,12 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
+				<tr><th scope="row"><label for="random_order"><?php esc_html_e( 'Randomize posts', 'contextual-related-posts' ); ?>:</label></th>
+					<td><input type="checkbox" name="random_order" id="random_order" <?php checked( $crp_settings['random_order'] ); ?> />
+						<p class="description"><?php esc_html_e( 'This shuffles the top related posts. Does not work if the cache is enabled.', 'contextual-related-posts' ); ?></p>
+					</td>
+				</tr>
+
 				<tr><th scope="row"><label for="match_content"><?php esc_html_e( 'Find related posts based on content as well as title:', 'contextual-related-posts' ); ?></label></th>
 					<td><input type="checkbox" name="match_content" id="match_content" <?php checked( $crp_settings['match_content'] ); ?> />
 						<p class="description"><?php esc_html_e( 'If unchecked, only posts titles are used. I recommend using a caching plugin or enabling "Cache output" above if you enable this. Each site is different, so toggle this option to see which setting gives you better quality related posts.', 'contextual-related-posts' ); ?></p>

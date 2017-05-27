@@ -184,6 +184,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 = 2.4.0 =
 
 * Features:
+	* New option to randomize the related posts
 	* "Automatically add related posts to" option applies to widgets
 
 * Bug fixes:
