@@ -30,6 +30,6 @@ echo "Installing Contextual Related Posts...\n";
 
 global $crp_settings, $current_user;
 
-activate_crp( true );
+crp_activate( true );
 
 $crp_settings = crp_read_options();
