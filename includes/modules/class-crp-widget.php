@@ -279,3 +279,13 @@ class CRP_Widget extends WP_Widget {
 }
 
 
+/**
+ * Initialise the widget.
+ *
+ * @since 1.9.1
+ */
+function register_crp_widget() {
+	register_widget( 'CRP_Widget' );
+}
+add_action( 'widgets_init', 'register_crp_widget' );
+

@@ -996,25 +996,6 @@ add_action( 'wp_head', 'crp_header' );
 
 /*
  ----------------------------------------------------------------------------*
- * WordPress widget
- *----------------------------------------------------------------------------
- */
-
-/**
- * Initialise the widget.
- *
- * @since 1.9.1
- */
-function register_crp_widget() {
-	require_once( CRP_PLUGIN_DIR . 'includes/modules/class-crp-widget.php' );
-
-	register_widget( 'CRP_Widget' );
-}
-add_action( 'widgets_init', 'register_crp_widget' );
-
-
-/*
- ----------------------------------------------------------------------------*
  * CRP modules & includes
  *----------------------------------------------------------------------------
  */
@@ -1028,6 +1009,7 @@ require_once( CRP_PLUGIN_DIR . 'includes/modules/manual-posts.php' );
 require_once( CRP_PLUGIN_DIR . 'includes/modules/shortcode.php' );
 require_once( CRP_PLUGIN_DIR . 'includes/modules/taxonomies.php' );
 require_once( CRP_PLUGIN_DIR . 'includes/modules/exclusions.php' );
+require_once( CRP_PLUGIN_DIR . 'includes/modules/class-crp-widget.php' );
 
 
 /*
