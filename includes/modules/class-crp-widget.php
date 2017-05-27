@@ -208,6 +208,16 @@ class CRP_Widget extends WP_Widget {
 			}
 		}
 
+		// Return if disabled in settings page.
+		if ( ( is_single() && ! $crp_settings['add_to_content'] ) ||
+		( is_page() && ! $crp_settings['add_to_page'] ) ||
+		( is_home() && ! $crp_settings['add_to_home'] ) ||
+		( is_category() && ! $crp_settings['add_to_category_archives'] ) ||
+		( is_tag() && ! $crp_settings['add_to_tag_archives'] ) ||
+		( ( is_tax() || is_author() || is_date() ) && ! $crp_settings['add_to_archives'] ) ) {
+			return;
+		}
+
 		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
 		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types, true ) ) ) {
 			return 0;	// Exit without adding related posts.
