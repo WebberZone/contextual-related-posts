@@ -122,7 +122,7 @@ class CRP_Widget extends WP_Widget {
 			<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
 
 				<label>
-					<input id="<?php echo esc_attr( $this->get_field_id( 'post_types' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_types' ) ); ?>[]" type="checkbox" value="<?php echo esc_attr( $wp_post_type ); ?>" <?php if ( in_array( $wp_post_type, $posts_types_inc ) ) { echo 'checked="checked"'; } ?> />
+					<input id="<?php echo esc_attr( $this->get_field_id( 'post_types' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_types' ) ); ?>[]" type="checkbox" value="<?php echo esc_attr( $wp_post_type ); ?>" <?php checked( true, in_array( $wp_post_type, $posts_types_inc, true ) ); ?> />
 					<?php echo esc_attr( $wp_post_type ); ?>
 				</label>
 				<br />
@@ -181,9 +181,11 @@ class CRP_Widget extends WP_Widget {
 		 *
 		 * @since 2.0.0
 		 *
-		 * @param	array	$instance	Widget options array
+		 * @param array $instance Widget options array
+		 * @param array $new_instance Values just sent to be saved.
+		 * @param array $old_instance Previously saved values from database.
 		 */
-		return apply_filters( 'crp_widget_options_update' , $instance );
+		return apply_filters( 'crp_widget_options_update', $instance, $new_instance, $old_instance );
 	} //ending update
 
 	/**
@@ -201,13 +203,13 @@ class CRP_Widget extends WP_Widget {
 		if ( isset( $post ) ) {
 			$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
 
-			if ( isset( $crp_post_meta['disable_here'] ) && ( 1 == $crp_post_meta['disable_here'] ) ) {
+			if ( isset( $crp_post_meta['disable_here'] ) && $crp_post_meta['disable_here'] ) {
 				return;
 			}
 		}
 
 		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
-		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types ) ) ) {
+		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types, true ) ) ) {
 			return 0;	// Exit without adding related posts.
 		}
 
@@ -249,9 +251,11 @@ class CRP_Widget extends WP_Widget {
 			 *
 			 * @since 2.0.0
 			 *
-			 * @param	array	$arguments	Widget options array
+			 * @param array $arguments Widget options array.
+			 * @param array $args Widget arguments.
+			 * @param array $instance Saved values from database.
 			 */
-			$arguments = apply_filters( 'crp_widget_options' , $arguments );
+			$arguments = apply_filters( 'crp_widget_options' , $arguments, $args, $instance );
 
 			$output = $args['before_widget'];
 			$output .= $args['before_title'] . $title . $args['after_title'];
@@ -261,7 +265,7 @@ class CRP_Widget extends WP_Widget {
 
 			echo $output; // WPCS: XSS OK.
 		}// End if().
-	} //ending function widget
+	} // Ending function widget.
 }
 
 
