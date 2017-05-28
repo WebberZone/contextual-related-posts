@@ -62,15 +62,15 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	// Issue notice for deprecated arguments.
 	if ( isset( $args['thumb_timthumb'] ) ) {
-		_deprecated_argument( __FUNCTION__, '2.1', __( 'thumb_timthumb argument has been deprecated', 'contextual-related-posts' ) );
+		_deprecated_argument( __FUNCTION__, '2.1', esc_html__( 'thumb_timthumb argument has been deprecated', 'contextual-related-posts' ) );
 	}
 
 	if ( isset( $args['thumb_timthumb_q'] ) ) {
-		_deprecated_argument( __FUNCTION__, '2.1', __( 'thumb_timthumb_q argument has been deprecated', 'contextual-related-posts' ) );
+		_deprecated_argument( __FUNCTION__, '2.1', esc_html__( 'thumb_timthumb_q argument has been deprecated', 'contextual-related-posts' ) );
 	}
 
 	if ( isset( $args['filter'] ) ) {
-		_deprecated_argument( __FUNCTION__, '2.1', __( 'filter argument has been deprecated', 'contextual-related-posts' ) );
+		_deprecated_argument( __FUNCTION__, '2.1', esc_html__( 'filter argument has been deprecated', 'contextual-related-posts' ) );
 	}
 
 	$result = get_post( $args['postid'] );

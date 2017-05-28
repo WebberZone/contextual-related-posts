@@ -45,7 +45,7 @@ function crp_add_meta_box( $post_type, $post ) {
 	 */
 	$post_types = apply_filters( 'crp_meta_box_post_types', $post_types );
 
-	if ( in_array( $post_type, $post_types ) ) {
+	if ( in_array( $post_type, $post_types, true ) ) {
 
 		add_meta_box(
 			'crp_metabox',

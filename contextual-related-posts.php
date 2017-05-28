@@ -250,7 +250,7 @@ function get_crp( $args = array() ) {
 
 			$output .= crp_after_list_item( $args, $result );
 
-			if ( $loop_counter === absint( $args['limit'] ) ) {
+			if ( absint( $args['limit'] ) === $loop_counter ) {
 				break;	// End loop when related posts limit is reached.
 			}
 		} // End foreach().
@@ -857,7 +857,7 @@ function crp_default_options() {
 		// List tuning options.
 		'limit'                    => '6',				// How many posts to display?
 		'daily_range'              => '1095',				// How old posts should be displayed?
-		'random_order'             => false,	// Randomise posts
+		'random_order'             => false,	// Randomise posts.
 
 		'match_content'            => true,		// Match against post content as well as title.
 		'match_content_words'      => '0',	// How many characters of content should be matched? 0 for all chars.
