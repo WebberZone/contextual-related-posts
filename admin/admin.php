@@ -57,6 +57,7 @@ function crp_options() {
 		$crp_settings['random_order'] = isset( $_POST['random_order'] ) ? true : false;
 		$crp_settings['match_content'] = isset( $_POST['match_content'] ) ? true : false;
 		$crp_settings['match_content_words'] = min( CRP_MAX_WORDS, absint( $_POST['match_content_words'] ) );
+		$crp_settings['same_post_type'] = isset( $_POST['same_post_type'] ) ? true : false;
 
 		$crp_settings['add_to_content'] = ( isset( $_POST['add_to_content'] ) ? true : false );
 		$crp_settings['add_to_page'] = ( isset( $_POST['add_to_page'] ) ? true : false );

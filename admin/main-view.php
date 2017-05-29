@@ -205,6 +205,12 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
+				<tr><th scope="row"><label for="same_post_type"><?php esc_html_e( 'Limit to same post type', 'contextual-related-posts' ); ?>:</label></th>
+					<td><input type="checkbox" name="same_post_type" id="same_post_type" <?php checked( $crp_settings['same_post_type'] ); ?> />
+						<p class="description"><?php esc_html_e( 'If checked, the related posts will only be selected from the same post type of the current post.', 'contextual-related-posts' ); ?></p>
+					</td>
+				</tr>
+
 				<tr><th scope="row"><label for="exclude_post_ids"><?php esc_html_e( 'List of post or page IDs to exclude from the results:', 'contextual-related-posts' ); ?></label></th>
 					<td><input type="textbox" name="exclude_post_ids" id="exclude_post_ids" value="<?php echo esc_attr( stripslashes( $crp_settings['exclude_post_ids'] ) ); ?>" style="width:250px">
 						<p class="description"><?php esc_html_e( 'Comma separated list of post, page or custom post type IDs. e.g. 188,320,500', 'contextual-related-posts' ); ?></p>

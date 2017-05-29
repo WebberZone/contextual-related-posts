@@ -185,6 +185,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Features:
 	* New option to randomize the related posts
+	* New option to limit related posts to the same post type
 	* "Automatically add related posts to" option applies to widgets
 
 * Bug fixes:
