@@ -197,7 +197,7 @@ function get_crp( $args = array() ) {
 
 			// If this is NULL or already processed ID or matches current post then skip processing this loop.
 			if ( ! $resultid || in_array( $resultid, $processed_results ) || intval( $resultid ) === intval( $post->ID ) ) {
-			    continue;
+				continue;
 			}
 
 			// Push the current ID into the array to ensure we're not repeating it.

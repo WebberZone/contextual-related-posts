@@ -188,7 +188,9 @@ function crp_save_meta_box( $post_id ) {
 	$crp_post_meta = array();
 
 	// Bail if we're doing an auto save.
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) { return; }
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
 
 	// If our nonce isn't there, or we can't verify it, bail.
 	if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['crp_meta_box_nonce'] ), 'crp_meta_box' ) ) { // Input var okay.
