@@ -1,10 +1,14 @@
-[![Build Status](https://travis-ci.org/WebberZone/contextual-related-posts.svg)](https://travis-ci.org/WebberZone/contextual-related-posts)
+[![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/contextual-related-posts.svg?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
+[![License](https://img.shields.io/badge/license-GPL_v2%2B-orange.svg?style=flat-square)](http://opensource.org/licenses/GPL-2.0)
+[![WordPress Tested](https://img.shields.io/wordpress/v/contextual-related-posts.svg?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
+[![Build Status](https://travis-ci.org/WebberZone/contextual-related-posts.svg?branch=master)](https://travis-ci.org/WebberZone/contextual-related-posts)
+[![Code Climate](https://codeclimate.com/github/WebberZone/contextual-related-posts/badges/gpa.svg)](https://codeclimate.com/github/WebberZone/contextual-related-posts)
 
 # Contextual Related Posts
 
 __Requires:__ 4.1
 
-__Tested up to:__ 4.7
+__Tested up to:__ 4.8
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
