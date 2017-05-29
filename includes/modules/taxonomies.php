@@ -26,16 +26,16 @@ if ( ! defined( 'WPINC' ) ) {
 function crp_exclude_categories_join( $join ) {
 	global $wpdb, $crp_settings;
 
-	if ( '' != $crp_settings['exclude_categories'] ) {
+	if ( ! empty( $crp_settings['exclude_categories'] ) ) {
 
 		$sql = $join;
 		$sql .= " INNER JOIN $wpdb->term_relationships AS excat_tr ON ($wpdb->posts.ID = excat_tr.object_id) ";
 		$sql .= " INNER JOIN $wpdb->term_taxonomy AS excat_tt ON (excat_tr.term_taxonomy_id = excat_tt.term_taxonomy_id) ";
 
 		return $sql;
-	} else {
-		return $join;
 	}
+
+	return $join;
 }
 add_filter( 'crp_posts_join', 'crp_exclude_categories_join' );
 
@@ -50,23 +50,22 @@ add_filter( 'crp_posts_join', 'crp_exclude_categories_join' );
 function crp_exclude_categories_where( $where ) {
 	global $wpdb, $crp_settings;
 
-	if ( '' == $crp_settings['exclude_categories'] ) {
-		return $where;
-	} else {
+	if ( ! empty( $crp_settings['exclude_categories'] ) ) {
 
 		$terms = $crp_settings['exclude_categories'];
 
 		$sql = $where;
 
 		$sql .= " AND $wpdb->posts.ID NOT IN (
-            SELECT object_id
-            FROM $wpdb->term_relationships
-            WHERE term_taxonomy_id IN ($terms)
-        )";
+			SELECT object_id
+			FROM $wpdb->term_relationships
+			WHERE term_taxonomy_id IN ($terms)
+		)";
 
 		return $sql;
 	}
 
+	return $where;
 }
 add_filter( 'crp_posts_where', 'crp_exclude_categories_where' );
 
