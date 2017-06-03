@@ -188,6 +188,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* New option to limit related posts to the same post type
 	* "Automatically add related posts to" option applies to widgets
 
+* Enhancements:
+	* `post_types` argument now takes a comma-separated list of post types. Default format when resaving options is also comma-separated
+
 * Bug fixes:
 	* Trimming titles should now work with multibyte / non-English characters
 
@@ -332,7 +335,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.3.1 =
-* New features. Deprecated functions. Upgrade highly recommended. Please do verify your settings after the upgrade.
+= 2.4.0 =
+* New features. Upgrade highly recommended. Please do verify your settings after the upgrade.
 Check the Changelog for more details
 

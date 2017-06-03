@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-01 17:07+0100\n"
+"POT-Creation-Date: 2017-06-04 00:37+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza <me@ajaydsouza.com>\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -13,39 +13,39 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext;esc_html__;esc_attr__;esc_html_e;"
 "esc_attr_e\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: admin/admin.php:200
+#: admin/admin.php:226
 msgid "Options saved successfully. If enabled, the cache has been cleared."
 msgstr ""
 
-#: admin/admin.php:203
+#: admin/admin.php:229
 msgid ""
 "Rounded Thumbnails style selected. Author, Excerpt and Date will not be "
 "displayed."
 msgstr ""
 
-#: admin/admin.php:206
+#: admin/admin.php:232
 msgid "Text Only style selected. Thumbnails will not be displayed."
 msgstr ""
 
-#: admin/admin.php:209
+#: admin/admin.php:236
 #, php-format
-msgid "Pre-built thumbnail size selected. Thumbnail set to %1$d x %1$d."
+msgid "Pre-built thumbnail size selected. Thumbnail set to %1$d x %2$d."
 msgstr ""
 
-#: admin/admin.php:233
+#: admin/admin.php:269
 msgid "Options set to Default."
 msgstr ""
 
-#: admin/admin.php:242
+#: admin/admin.php:278
 msgid "Index recreated"
 msgstr ""
 
-#: admin/admin.php:259
+#: admin/admin.php:295
 msgid "Related Posts"
 msgstr ""
 
@@ -63,15 +63,15 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: admin/loader.php:45 admin/sidebar-view.php:48
+#: admin/loader.php:44 admin/sidebar-view.php:48
 msgid "Support"
 msgstr ""
 
-#: admin/loader.php:46
+#: admin/loader.php:45
 msgid "Donate"
 msgstr ""
 
-#: admin/loader.php:47
+#: admin/loader.php:46
 msgid "Contribute"
 msgstr ""
 
@@ -83,25 +83,25 @@ msgstr ""
 msgid "List tuning options"
 msgstr ""
 
-#: admin/main-view.php:34 admin/main-view.php:247
+#: admin/main-view.php:34 admin/main-view.php:259
 msgid "Output options"
 msgstr ""
 
-#: admin/main-view.php:35 admin/main-view.php:451
-#: includes/modules/class-crp-widget.php:98
+#: admin/main-view.php:35 admin/main-view.php:463
+#: includes/modules/class-crp-widget.php:105
 msgid "Thumbnail options"
 msgstr ""
 
-#: admin/main-view.php:36 admin/main-view.php:618
+#: admin/main-view.php:36 admin/main-view.php:630
 msgid "Styles"
 msgstr ""
 
-#: admin/main-view.php:37 admin/main-view.php:701
+#: admin/main-view.php:37 admin/main-view.php:713
 msgid "Feed options"
 msgstr ""
 
-#: admin/main-view.php:54 admin/main-view.php:148 admin/main-view.php:246
-#: admin/main-view.php:450 admin/main-view.php:617 admin/main-view.php:700
+#: admin/main-view.php:54 admin/main-view.php:148 admin/main-view.php:258
+#: admin/main-view.php:462 admin/main-view.php:629 admin/main-view.php:712
 #: admin/sidebar-view.php:19 admin/sidebar-view.php:40
 #: admin/sidebar-view.php:58
 msgid "Click to toggle"
@@ -230,13 +230,13 @@ msgid ""
 "in the list."
 msgstr ""
 
-#: admin/main-view.php:142 admin/main-view.php:240 admin/main-view.php:444
-#: admin/main-view.php:611 admin/main-view.php:694 admin/main-view.php:766
-#: admin/main-view.php:782
+#: admin/main-view.php:142 admin/main-view.php:252 admin/main-view.php:456
+#: admin/main-view.php:623 admin/main-view.php:706 admin/main-view.php:778
+#: admin/main-view.php:794
 msgid "Save Options"
 msgstr ""
 
-#: admin/main-view.php:165 admin/main-view.php:719
+#: admin/main-view.php:165 admin/main-view.php:731
 msgid "Number of related posts to display: "
 msgstr ""
 
@@ -262,10 +262,19 @@ msgid ""
 msgstr ""
 
 #: admin/main-view.php:179
-msgid "Find related posts based on content as well as title:"
+msgid "Randomize posts"
 msgstr ""
 
 #: admin/main-view.php:181
+msgid ""
+"This shuffles the top related posts. Does not work if the cache is enabled."
+msgstr ""
+
+#: admin/main-view.php:185
+msgid "Find related posts based on content as well as title:"
+msgstr ""
+
+#: admin/main-view.php:187
 msgid ""
 "If unchecked, only posts titles are used. I recommend using a caching plugin "
 "or enabling \"Cache output\" above if you enable this. Each site is "
@@ -273,89 +282,99 @@ msgid ""
 "quality related posts."
 msgstr ""
 
-#: admin/main-view.php:185
+#: admin/main-view.php:191
 msgid "Limit content to be compared:"
 msgstr ""
 
-#: admin/main-view.php:187
+#: admin/main-view.php:193
 msgid ""
 "This sets the maximum words of the content that will be matched. Set to 0 "
 "for no limit. Max value: 2,000. Only applies if you activate the above "
 "option."
 msgstr ""
 
-#: admin/main-view.php:191
+#: admin/main-view.php:197
 msgid "Post types to include in results:"
 msgstr ""
 
-#: admin/main-view.php:198
+#: admin/main-view.php:204
 msgid ""
 "These post types will be displayed in the list. Includes custom post types."
 msgstr ""
 
-#: admin/main-view.php:202
+#: admin/main-view.php:208
+msgid "Limit to same post type"
+msgstr ""
+
+#: admin/main-view.php:210
+msgid ""
+"If checked, the related posts will only be selected from the same post type "
+"of the current post."
+msgstr ""
+
+#: admin/main-view.php:214
 msgid "List of post or page IDs to exclude from the results:"
 msgstr ""
 
-#: admin/main-view.php:204 admin/main-view.php:375
+#: admin/main-view.php:216 admin/main-view.php:387
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
 msgstr ""
 
-#: admin/main-view.php:208
+#: admin/main-view.php:220
 msgid "Categories to exclude from the results: "
 msgstr ""
 
-#: admin/main-view.php:211
+#: admin/main-view.php:223
 msgid ""
 "Comma separated list of category slugs. The field above has an autocomplete "
 "so simply start typing in the beginning of your category name and it will "
 "prompt you with options."
 msgstr ""
 
-#: admin/main-view.php:214
+#: admin/main-view.php:226
 msgid "Excluded category IDs are:"
 msgstr ""
 
-#: admin/main-view.php:215
+#: admin/main-view.php:227
 msgid " "
 msgstr ""
 
-#: admin/main-view.php:220
+#: admin/main-view.php:232
 #, php-format
 msgid ""
 "These might differ from the IDs visible in the Categories page which use the "
 "%1$s. CRP uses the %2$s which is unique to this taxonomy."
 msgstr ""
 
-#: admin/main-view.php:263
+#: admin/main-view.php:275
 msgid "Title of related posts:"
 msgstr ""
 
-#: admin/main-view.php:266
+#: admin/main-view.php:278
 #, php-format
 msgid ""
 "This is the main heading of the related posts. You can also display the "
 "current post title by using %1$s"
 msgstr ""
 
-#: admin/main-view.php:270
+#: admin/main-view.php:282
 msgid "When there are no posts, what should be shown?"
 msgstr ""
 
-#: admin/main-view.php:274
+#: admin/main-view.php:286
 msgid "Blank Output"
 msgstr ""
 
-#: admin/main-view.php:279
+#: admin/main-view.php:291
 msgid "Display:"
 msgstr ""
 
-#: admin/main-view.php:285 admin/main-view.php:722
+#: admin/main-view.php:297 admin/main-view.php:734
 msgid "Show post excerpt in list?"
 msgstr ""
 
-#: admin/main-view.php:288
+#: admin/main-view.php:300
 #, php-format
 msgid ""
 "Displays the excerpt of the post. If you do not provide an explicit excerpt "
@@ -363,122 +382,122 @@ msgid ""
 "automatic excerpt which refers to the first %d words of the post's content"
 msgstr ""
 
-#: admin/main-view.php:291
+#: admin/main-view.php:303
 msgid ""
 "Rounded Thumbnails style selected under the Custom Styles. Excerpt display "
 "is disabled."
 msgstr ""
 
-#: admin/main-view.php:296
+#: admin/main-view.php:308
 msgid "Length of excerpt (in words):"
 msgstr ""
 
-#: admin/main-view.php:302
+#: admin/main-view.php:314
 msgid "Show post author in list?"
 msgstr ""
 
-#: admin/main-view.php:305
+#: admin/main-view.php:317
 msgid "Displays the author name prefixed with \"by\". e.g. by John Doe"
 msgstr ""
 
-#: admin/main-view.php:308
+#: admin/main-view.php:320
 msgid ""
 "Rounded Thumbnails style selected under the Custom Styles. Author display is "
 "disabled."
 msgstr ""
 
-#: admin/main-view.php:313
+#: admin/main-view.php:325
 msgid "Show post date in list?"
 msgstr ""
 
-#: admin/main-view.php:316
+#: admin/main-view.php:328
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options"
 msgstr ""
 
-#: admin/main-view.php:319
+#: admin/main-view.php:331
 msgid ""
 "Rounded Thumbnails style selected under the Custom Styles. Date display is "
 "disabled."
 msgstr ""
 
-#: admin/main-view.php:324
+#: admin/main-view.php:336
 msgid "Limit post title length (in characters)"
 msgstr ""
 
-#: admin/main-view.php:327
+#: admin/main-view.php:339
 msgid ""
 "Any title longer than the number of characters set above will be cut and "
 "appended with an ellipsis (&hellip;)"
 msgstr ""
 
-#: admin/main-view.php:331
+#: admin/main-view.php:343
 msgid "Open links in new window"
 msgstr ""
 
-#: admin/main-view.php:337
+#: admin/main-view.php:349
 msgid "Add nofollow attribute to links in the list"
 msgstr ""
 
-#: admin/main-view.php:370
+#: admin/main-view.php:382
 msgid "Exclusion settings:"
 msgstr ""
 
-#: admin/main-view.php:372
+#: admin/main-view.php:384
 msgid "Exclude display of related posts on these posts / pages"
 msgstr ""
 
-#: admin/main-view.php:378
+#: admin/main-view.php:390
 msgid "Exclude display of related posts on these post types."
 msgstr ""
 
-#: admin/main-view.php:385
+#: admin/main-view.php:397
 msgid ""
 "The related posts will not display on any of the above selected post types"
 msgstr ""
 
-#: admin/main-view.php:415
+#: admin/main-view.php:427
 msgid "Customize the output:"
 msgstr ""
 
-#: admin/main-view.php:417
+#: admin/main-view.php:429
 msgid "HTML to display before the list of posts: "
 msgstr ""
 
-#: admin/main-view.php:420
+#: admin/main-view.php:432
 msgid "HTML to display before each list item: "
 msgstr ""
 
-#: admin/main-view.php:423
+#: admin/main-view.php:435
 msgid "HTML to display after each list item: "
 msgstr ""
 
-#: admin/main-view.php:426
+#: admin/main-view.php:438
 msgid "HTML to display after the list of posts: "
 msgstr ""
 
-#: admin/main-view.php:467 admin/main-view.php:725
+#: admin/main-view.php:479 admin/main-view.php:737
 msgid "Location of post thumbnail:"
 msgstr ""
 
-#: admin/main-view.php:471 admin/main-view.php:729
+#: admin/main-view.php:483 admin/main-view.php:741
 msgid "Display thumbnails inline with posts, before title"
 msgstr ""
 
-#: admin/main-view.php:476 admin/main-view.php:733
+#: admin/main-view.php:488 admin/main-view.php:745
 msgid "Display thumbnails inline with posts, after title"
 msgstr ""
 
-#: admin/main-view.php:481 admin/main-view.php:737
+#: admin/main-view.php:493 admin/main-view.php:749
 msgid "Display only thumbnails, no text"
 msgstr ""
 
-#: admin/main-view.php:486 admin/main-view.php:741
+#: admin/main-view.php:498 admin/main-view.php:753
 msgid "Do not display thumbnails, only text."
 msgstr ""
 
-#: admin/main-view.php:490
+#: admin/main-view.php:502
 #, php-format
 msgid ""
 "This setting cannot be changed because an inbuilt style has been selected "
@@ -486,140 +505,140 @@ msgid ""
 "select %1$s under the Styles section."
 msgstr ""
 
-#: admin/main-view.php:490 admin/main-view.php:637
+#: admin/main-view.php:502 admin/main-view.php:649
 msgid "No styles"
 msgstr ""
 
-#: admin/main-view.php:494
+#: admin/main-view.php:506
 msgid "Thumbnail size:"
 msgstr ""
 
-#: admin/main-view.php:519
+#: admin/main-view.php:531
 msgid "Custom size"
 msgstr ""
 
-#: admin/main-view.php:522
+#: admin/main-view.php:534
 msgid "You can choose from existing image sizes above or create a custom size."
 msgstr ""
 
-#: admin/main-view.php:523
+#: admin/main-view.php:535
 msgid ""
 "If you choose an existing size, then the width, height and crop mode "
 "settings in the three options below will be automatically updated to reflect "
 "the correct dimensions of the setting."
 msgstr ""
 
-#: admin/main-view.php:524
+#: admin/main-view.php:536
 msgid ""
 "If you have chosen Custom size above, then enter the width, height and crop "
 "settings below. For best results, use a cropped image with the same width "
 "and height. The default setting is 150x150 cropped image."
 msgstr ""
 
-#: admin/main-view.php:525
+#: admin/main-view.php:537
 msgid ""
 "Any changes to the thumbnail settings doesn't automatically resize existing "
 "images."
 msgstr ""
 
-#: admin/main-view.php:527
+#: admin/main-view.php:539
 #, php-format
 msgid "I recommend using %1$s or %2$s to regenerate all image sizes."
 msgstr ""
 
-#: admin/main-view.php:534
+#: admin/main-view.php:546
 msgid "Width of the thumbnail:"
 msgstr ""
 
-#: admin/main-view.php:537
+#: admin/main-view.php:549
 msgid "Height of the thumbnail: "
 msgstr ""
 
-#: admin/main-view.php:542
+#: admin/main-view.php:554
 msgid "Crop mode:"
 msgstr ""
 
-#: admin/main-view.php:546
+#: admin/main-view.php:558
 msgid ""
 "By default, thumbnails will be hard cropped. Uncheck this box to "
 "proportionately/soft crop the thumbnails."
 msgstr ""
 
-#: admin/main-view.php:550
+#: admin/main-view.php:562
 msgid "Image size attributes:"
 msgstr ""
 
-#: admin/main-view.php:554
+#: admin/main-view.php:566
 msgid "Style attributes. e.g."
 msgstr ""
 
-#: admin/main-view.php:560
+#: admin/main-view.php:572
 msgid "HTML width and height attributes. e.g."
 msgstr ""
 
-#: admin/main-view.php:566
+#: admin/main-view.php:578
 msgid "No HTML or Style attributes"
 msgstr ""
 
-#: admin/main-view.php:571
+#: admin/main-view.php:583
 msgid "Post thumbnail meta field name:"
 msgstr ""
 
-#: admin/main-view.php:573
+#: admin/main-view.php:585
 #, php-format
 msgid ""
 "The value of this field should contain a direct link to the image. This is "
 "set in the meta box in the %1$s screen."
 msgstr ""
 
-#: admin/main-view.php:573
+#: admin/main-view.php:585
 msgid "Add New Post"
 msgstr ""
 
-#: admin/main-view.php:576
+#: admin/main-view.php:588
 msgid "Extract the first image from the post?"
 msgstr ""
 
-#: admin/main-view.php:578
+#: admin/main-view.php:590
 msgid ""
 "This will only happen if there is no post thumbnail set and no image URL is "
 "specified in the meta field."
 msgstr ""
 
-#: admin/main-view.php:581
+#: admin/main-view.php:593
 msgid "Use default thumbnail?"
 msgstr ""
 
-#: admin/main-view.php:583
+#: admin/main-view.php:595
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 
-#: admin/main-view.php:586
+#: admin/main-view.php:598
 msgid "Default thumbnail:"
 msgstr ""
 
-#: admin/main-view.php:593
+#: admin/main-view.php:605
 msgid ""
 "The plugin will first check if the post contains a thumbnail. If it doesn't "
 "then it will check the meta field. If this is not available, then it will "
 "show the default image as specified above."
 msgstr ""
 
-#: admin/main-view.php:634
+#: admin/main-view.php:646
 msgid "Style of the related posts:"
 msgstr ""
 
-#: admin/main-view.php:639
+#: admin/main-view.php:651
 msgid "Select this option if you plan to add your own styles"
 msgstr ""
 
-#: admin/main-view.php:643
+#: admin/main-view.php:655
 msgid "Rounded Thumbnails"
 msgstr ""
 
-#: admin/main-view.php:646
+#: admin/main-view.php:658
 msgid ""
 "Enabling this option will turn on the thumbnails and set their width and "
 "height to 150px. It will also turn off the display of the author, excerpt "
@@ -627,139 +646,139 @@ msgid ""
 "settings."
 msgstr ""
 
-#: admin/main-view.php:648
+#: admin/main-view.php:660
 #, php-format
 msgid "You can view the default style at %s"
 msgstr ""
 
-#: admin/main-view.php:654
+#: admin/main-view.php:666
 msgid "Text only"
 msgstr ""
 
-#: admin/main-view.php:656
+#: admin/main-view.php:668
 msgid ""
 "Enabling this option will disable thumbnails and no longer include the "
 "default style sheet included in the plugin."
 msgstr ""
 
-#: admin/main-view.php:671
+#: admin/main-view.php:683
 msgid "Custom CSS to add to header:"
 msgstr ""
 
-#: admin/main-view.php:676
+#: admin/main-view.php:688
 #, php-format
 msgid ""
 "Do not include %1$s tags. Check out the %2$s for available CSS classes to "
 "style."
 msgstr ""
 
-#: admin/main-view.php:717
+#: admin/main-view.php:729
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
 "Options tab."
 msgstr ""
 
-#: admin/main-view.php:745
+#: admin/main-view.php:757
 msgid "Maximum width of the thumbnail: "
 msgstr ""
 
-#: admin/main-view.php:748
+#: admin/main-view.php:760
 msgid "Maximum height of the thumbnail: "
 msgstr ""
 
-#: admin/main-view.php:783
+#: admin/main-view.php:795
 msgid "Default Options"
 msgstr ""
 
-#: admin/main-view.php:783
+#: admin/main-view.php:795
 msgid "Do you want to set options to Default?"
 msgstr ""
 
-#: admin/main-view.php:784
+#: admin/main-view.php:796
 msgid "Recreate Index"
 msgstr ""
 
-#: admin/main-view.php:784
+#: admin/main-view.php:796
 msgid "Are you sure you want to recreate the index?"
 msgstr ""
 
-#: admin/main-view.php:789
+#: admin/main-view.php:801
 #, php-format
 msgid ""
 "One or more FULLTEXT indices are missing. Please hit the %1$s at the bottom "
 "of the page to fix this."
 msgstr ""
 
-#: admin/main-view.php:789
+#: admin/main-view.php:801
 msgid "Recreate Index button"
 msgstr ""
 
-#: admin/main-view.php:794
+#: admin/main-view.php:806
 msgid ""
 "If the Recreate Index button fails, please run the following queries in "
 "phpMyAdmin or Adminer"
 msgstr ""
 
-#: admin/metabox.php:104
+#: admin/metabox.php:105
 msgid "Disable Related Posts display:"
 msgstr ""
 
-#: admin/metabox.php:107
+#: admin/metabox.php:108
 msgid ""
 "If this is checked, then Contextual Related Posts will not automatically "
 "insert the related posts at the end of post content."
 msgstr ""
 
-#: admin/metabox.php:111
+#: admin/metabox.php:112
 msgid "Exclude this post from the related posts list:"
 msgstr ""
 
-#: admin/metabox.php:114
+#: admin/metabox.php:115
 msgid ""
 "If this is checked, then this post will be excluded from the popular posts "
 "list."
 msgstr ""
 
-#: admin/metabox.php:118 admin/metabox.php:126
+#: admin/metabox.php:119 admin/metabox.php:127
 msgid "Manual related posts:"
 msgstr ""
 
-#: admin/metabox.php:120
+#: admin/metabox.php:121
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. "
 "188,320,500. These will be given preference over the related posts generated "
 "by the plugin."
 msgstr ""
 
-#: admin/metabox.php:121
+#: admin/metabox.php:122
 msgid ""
 "Once you enter the list above and save this page, the plugin will display "
 "the titles of the posts below for your reference. Only IDs corresponding to "
 "published posts or custom post types will be retained."
 msgstr ""
 
-#: admin/metabox.php:136
+#: admin/metabox.php:138
 #, php-format
 msgid "This post type is: %s"
 msgstr ""
 
-#: admin/metabox.php:147
+#: admin/metabox.php:149
 msgid "Location of thumbnail"
 msgstr ""
 
-#: admin/metabox.php:149
+#: admin/metabox.php:151
 msgid ""
 "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
 "image will be used for the post. It will be resized to the thumbnail size "
 "set under Settings &raquo; Related Posts &raquo; Output Options"
 msgstr ""
 
-#: admin/metabox.php:150
+#: admin/metabox.php:152
 msgid "The URL above is saved in the meta field:"
 msgstr ""
 
-#: admin/metabox.php:155
+#: admin/metabox.php:157
 msgid ""
 "You have Top 10 WordPress Plugin installed. If you are trying to modify the "
 "thumbnail, then you'll need to make the same change in the Top 10 meta box "
@@ -818,17 +837,17 @@ msgstr ""
 msgid "Follow us"
 msgstr ""
 
-#: contextual-related-posts.php:262
-#, php-format
-msgid "Powered by <a href=\"%s\" rel=\"nofollow\">Contextual Related Posts</a>"
-msgstr ""
-
-#: contextual-related-posts.php:816
+#: contextual-related-posts.php:100
 msgid "<h3>Related Posts:</h3>"
 msgstr ""
 
-#: contextual-related-posts.php:818
+#: contextual-related-posts.php:102
 msgid "No related posts found"
+msgstr ""
+
+#: includes/main-query.php:189
+#, php-format
+msgid "Powered by <a href=\"%s\" rel=\"nofollow\">Contextual Related Posts</a>"
 msgstr ""
 
 #: includes/media.php:65
@@ -847,59 +866,59 @@ msgstr ""
 msgid "Related Posts [CRP]"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:33
+#: includes/modules/class-crp-widget.php:34
 msgid "Display Related Posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:69
+#: includes/modules/class-crp-widget.php:76
 msgid "Title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:74
+#: includes/modules/class-crp-widget.php:81
 msgid "No. of posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:79
+#: includes/modules/class-crp-widget.php:86
 msgid "Offset"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:84
+#: includes/modules/class-crp-widget.php:91
 msgid " Show excerpt?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:89
+#: includes/modules/class-crp-widget.php:96
 msgid " Show author?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:94
+#: includes/modules/class-crp-widget.php:101
 msgid " Show date?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:100
+#: includes/modules/class-crp-widget.php:107
 msgid "Thumbnails inline, before title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:101
+#: includes/modules/class-crp-widget.php:108
 msgid "Thumbnails inline, after title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:102
+#: includes/modules/class-crp-widget.php:109
 msgid "Only thumbnails, no text"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:103
+#: includes/modules/class-crp-widget.php:110
 msgid "No thumbnails, only text."
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:108
+#: includes/modules/class-crp-widget.php:115
 msgid "Thumbnail height"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:113
+#: includes/modules/class-crp-widget.php:120
 msgid "Thumbnail width"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:117
+#: includes/modules/class-crp-widget.php:124
 msgid "Post types to include"
 msgstr ""
 
