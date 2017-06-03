@@ -41,9 +41,10 @@ function crp_add_meta_box( $post_type, $post ) {
 	 *
 	 * @since	2.2.0
 	 *
-	 * @param	array	$post_types	Array of post types
+	 * @param array $post_types Array of post types.
+	 * @param array $post_types Post object.
 	 */
-	$post_types = apply_filters( 'crp_meta_box_post_types', $post_types );
+	$post_types = apply_filters( 'crp_meta_box_post_types', $post_types, $post );
 
 	if ( in_array( $post_type, $post_types, true ) ) {
 
