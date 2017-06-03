@@ -57,10 +57,14 @@ class CRP_Widget extends WP_Widget {
 
 		// Parse the Post types.
 		$post_types = array();
-		if ( isset( $instance['post_types'] ) ) {
-			$post_types = $instance['post_types'];
-			parse_str( $post_types, $post_types );	// Save post types in $post_types variable.
+
+		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+		if ( ! empty( $instance['post_types'] ) && false === strpos( $instance['post_types'], '=' ) ) {
+			$post_types = explode( ',', $instance['post_types'] );
+		} else {
+			parse_str( $instance['post_types'], $post_types );	// Save post types in $post_types variable.
 		}
+
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
@@ -170,9 +174,9 @@ class CRP_Widget extends WP_Widget {
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
-		$post_types = ( isset( $new_instance['post_types'] ) ) ? $new_instance['post_types'] : array();
+		$post_types = isset( $new_instance['post_types'] ) ? $new_instance['post_types'] : array();
 		$post_types = array_intersect( $wp_post_types, $post_types );
-		$instance['post_types'] = http_build_query( $post_types, '', '&' );
+		$instance['post_types'] = implode( ',', $post_types );
 
 		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache.
 
@@ -218,7 +222,13 @@ class CRP_Widget extends WP_Widget {
 			return;
 		}
 
-		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+		if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
+			$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
+		} else {
+			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+		}
+
 		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types, true ) ) ) {
 			return 0;	// Exit without adding related posts.
 		}

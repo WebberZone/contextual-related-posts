@@ -360,9 +360,21 @@ function get_crp_posts_id( $args = array() ) {
 	$limit = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
 	$offset = isset( $args['offset'] ) ? $args['offset'] : 0;
 
-	// Save post types in $post_types variable.
-	parse_str( $args['post_types'], $post_types );
+	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+	if ( ! empty( $args['post_types'] ) && false === strpos( $args['post_types'], '=' ) ) {
+		$post_types = explode( ',', $args['post_types'] );
+	} else {
+		parse_str( $args['post_types'], $post_types );	// Save post types in $post_types variable.
+	}
 
+	// If post_types is empty or if we want all the post types.
+	if ( empty( $post_types ) || 'all' === $args['post_types'] ) {
+		$post_types = get_post_types( array(
+			'public'	=> true,
+		) );
+	}
+
+	// If we only want posts from the same post type.
 	if ( $args['same_post_type'] ) {
 		$post_types = (array) $source_post->post_type;
 	}
@@ -372,10 +384,11 @@ function get_crp_posts_id( $args = array() ) {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param array  $post_types  Array of post types to filter by
-	 * @param int    $source_post->ID    Post ID
+	 * @param array  $post_types Array of post types to filter by.
+	 * @param int    $source_post->ID Post ID.
+	 * @param array  $args Arguments array.
 	 */
-	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $source_post->ID );
+	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $source_post->ID, $args );
 
 	// Are we matching only the title or the post content as well?
 	$match_fields = array(
@@ -387,7 +400,6 @@ function get_crp_posts_id( $args = array() ) {
 	);
 
 	if ( $args['match_content'] ) {
-
 		$match_fields[] = 'post_content';
 		$match_fields_content[] = crp_excerpt( $source_post->ID, $args['match_content_words'], false );
 	}
@@ -593,7 +605,6 @@ function get_crp_posts_id( $args = array() ) {
 			shuffle( $results_array );
 			$results = (object) $results_array;
 		}
-
 	} else {
 		$results = false;
 	}// End if().
@@ -646,9 +657,16 @@ function crp_content_filter( $content ) {
 	if ( in_array( $post->ID, $exclude_on_post_ids ) ) {
 		return $content;	// Exit without adding related posts.
 	}
-	// If this post type is in the DO NOT DISPLAY list
-	parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
-	if ( in_array( $post->post_type, $exclude_on_post_types ) ) {
+
+	// If this post type is in the DO NOT DISPLAY list.
+	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+	if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
+		$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
+	} else {
+		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+	}
+
+	if ( in_array( $post->post_type, $exclude_on_post_types, true ) ) {
 		return $content;	// Exit without adding related posts.
 	}
 	// If the DO NOT DISPLAY meta field is set.
@@ -832,13 +850,6 @@ function crp_default_options() {
 
 	$thumb_default = plugins_url( 'default.png' , __FILE__ );
 
-	// Set default post types to post and page.
-	$post_types = array(
-		'post' => 'post',
-		'page' => 'page',
-	);
-	$post_types	= http_build_query( $post_types, '', '&' );
-
 	$crp_settings = array(
 		// General options.
 		'cache'                    => false,			// Cache output for faster page load.
@@ -866,7 +877,7 @@ function crp_default_options() {
 		'match_content'            => true,		// Match against post content as well as title.
 		'match_content_words'      => '0',	// How many characters of content should be matched? 0 for all chars.
 
-		'post_types'               => $post_types,		// WordPress custom post types.
+		'post_types'               => 'post,page',		// WordPress custom post types.
 		'same_post_type'           => false,	// Limit to the same post type.
 
 		'exclude_categories'       => '',	// Exclude these categories.

@@ -31,10 +31,23 @@ function crp_options() {
 	$wp_post_types	= get_post_types( array(
 		'public'	=> true,
 	) );
-	parse_str( $crp_settings['post_types'], $post_types );
+
+	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+	if ( ! empty( $crp_settings['post_types'] ) && false === strpos( $crp_settings['post_types'], '=' ) ) {
+		$post_types = explode( ',', $crp_settings['post_types'] );
+	} else {
+		parse_str( $crp_settings['post_types'], $post_types );	// Save post types in $post_types variable.
+	}
+
 	$posts_types_inc = array_intersect( $wp_post_types, $post_types );
 
-	parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );
+	// If this post type is in the DO NOT DISPLAY list.
+	if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
+		$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
+	} else {
+		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+	}
+
 	$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
 	// Temporary check if default styles are off and rounded thumbnails are selected - will be eventually deprecated.
@@ -170,12 +183,12 @@ function crp_options() {
 			'post' => 'post',
 		);
 		$post_types = array_intersect( $wp_post_types, $post_types_arr );
-		$crp_settings['post_types'] = http_build_query( $post_types, '', '&' );
+		$crp_settings['post_types'] = implode( ',', $post_types );
 
 		/**** Post types to exclude display on ****/
 		$post_types_excl_arr = ( isset( $_POST['exclude_on_post_types'] ) && is_array( $_POST['exclude_on_post_types'] ) ) ? $_POST['exclude_on_post_types'] : array();
 		$exclude_on_post_types = array_intersect( $wp_post_types, $post_types_excl_arr );
-		$crp_settings['exclude_on_post_types'] = http_build_query( $exclude_on_post_types, '', '&' );
+		$crp_settings['exclude_on_post_types'] = implode( ',', $exclude_on_post_types );
 
 		/**
 		 * Filters $crp_settings before it is saved into the database
@@ -191,10 +204,19 @@ function crp_options() {
 		update_option( 'ald_crp_settings', $crp_settings );
 		$crp_settings = crp_read_options();
 
-		parse_str( $crp_settings['post_types'], $post_types );
+		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+		if ( ! empty( $crp_settings['post_types'] ) && false === strpos( $crp_settings['post_types'], '=' ) ) {
+			$post_types = explode( ',', $crp_settings['post_types'] );
+		} else {
+			parse_str( $crp_settings['post_types'], $post_types );	// Save post types in $post_types variable.
+		}
 		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
 
-		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );
+		if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
+			$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
+		} else {
+			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+		}
 		$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
 		// Delete the cache.
@@ -229,10 +251,19 @@ function crp_options() {
 		$wp_post_types	= get_post_types( array(
 			'public'	=> true,
 		) );
-		parse_str( $crp_settings['post_types'], $post_types );
+		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+		if ( ! empty( $crp_settings['post_types'] ) && false === strpos( $crp_settings['post_types'], '=' ) ) {
+			$post_types = explode( ',', $crp_settings['post_types'] );
+		} else {
+			parse_str( $crp_settings['post_types'], $post_types );	// Save post types in $post_types variable.
+		}
 		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
 
-		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );
+		if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
+			$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
+		} else {
+			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+		}
 		$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
 		$str = '<div id="message" class="updated fade"><p>' . __( 'Options set to Default.', 'contextual-related-posts' ) . '</p></div>';
