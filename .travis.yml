@@ -18,8 +18,6 @@ cache:
 matrix:
   fast_finish: true
   include:
-    - php: hhvm
-      env: WP_VERSION=latest
     - php: 7.1
       env: WP_VERSION=latest
     - php: 7.1
@@ -42,7 +40,6 @@ matrix:
   allow_failures:
     # Allow failures for unstable builds.
     - php: nightly
-    - php: hhvm
     - env: WP_VERSION=master
     - env: SNIFF=1
 
