@@ -22,12 +22,6 @@
 	<config name="testVersion" value="5.2-99.0"/>
 	<rule ref="PHPCompatibility"/>
 
-	<rule ref="WordPress.WP.I18n">
-		<properties>
-			<property name="text_domain" type="array" value="contextual-related-posts"/>
-		</properties>
-	</rule>
-
 	<rule ref="WordPress.WP.DeprecatedFunctions">
 		<properties>
 			<property name="minimum_supported_version" value="4.5"/>

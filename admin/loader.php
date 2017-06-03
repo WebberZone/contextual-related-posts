@@ -38,7 +38,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( CRP_PLUGIN_FILE ), 'crp_pl
  */
 function crp_plugin_actions( $links, $file ) {
 
-	if ( $file === plugin_basename( CRP_PLUGIN_FILE ) ) {
+	if ( plugin_basename( CRP_PLUGIN_FILE ) === $file ) {
 
 		$new_links = array(
 			'support'    => '<a href = "http://wordpress.org/support/plugin/contextual-related-posts">' . esc_html__( 'Support', 'contextual-related-posts' ) . '</a>',
