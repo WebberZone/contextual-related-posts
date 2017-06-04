@@ -2,7 +2,7 @@ engines:
   phpcodesniffer:
     enabled: true
     config:
-      standard: "phpcs.ruleset.xml"
+      standard: "WordPress"
       ignore_warnings: true
     checks:
       Squiz Commenting InlineComment InvalidEndChar:
