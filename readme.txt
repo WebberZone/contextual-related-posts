@@ -181,6 +181,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.4.1 =
+
+* Bug fixes:
+	* Reverted the "Automatically add related posts to" setting introduced in 2.4.0
+
 = 2.4.0 =
 
 * Features:
@@ -335,7 +340,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.4.0 =
+= 2.4.1 =
 * New features. Upgrade highly recommended. Please do verify your settings after the upgrade.
 Check the Changelog for more details
 
