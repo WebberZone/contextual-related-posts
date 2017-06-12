@@ -185,6 +185,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Bug fixes:
 	* Reverted the "Automatically add related posts to" setting introduced in 2.4.0
+	* Metaboxes will now save when editting attachments
 
 = 2.4.0 =
 

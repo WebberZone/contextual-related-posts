@@ -269,4 +269,5 @@ function crp_save_meta_box( $post_id ) {
 	do_action( 'crp_save_meta_box', $post_id );
 }
 add_action( 'save_post', 'crp_save_meta_box' );
+add_action( 'edit_attachment', 'crp_save_meta_box' );
 
