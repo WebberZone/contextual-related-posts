@@ -18,10 +18,6 @@
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
 	<rule ref="Generic.Commenting.Todo"/>
 
-	<!-- Check for PHP cross-version compatibility. -->
-	<config name="testVersion" value="5.2-99.0"/>
-	<rule ref="PHPCompatibility"/>
-
 	<rule ref="WordPress.WP.DeprecatedFunctions">
 		<properties>
 			<property name="minimum_supported_version" value="4.5"/>

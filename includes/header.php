@@ -28,7 +28,7 @@ function crp_header() {
 	if ( '' != $custom_css ) {
 		if ( ( is_single() ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-		} elseif ( (is_page()) ) {
+		} elseif ( ( is_page() ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
 		} elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.

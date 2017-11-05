@@ -49,7 +49,7 @@ function crp_content_filter( $content ) {
 	// If this post ID is in the DO NOT DISPLAY list.
 	$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
 	if ( in_array( $post->ID, $exclude_on_post_ids ) ) {
-		return $content;	// Exit without adding related posts.
+		return $content;    // Exit without adding related posts.
 	}
 
 	// If this post type is in the DO NOT DISPLAY list.
@@ -57,11 +57,11 @@ function crp_content_filter( $content ) {
 	if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
 		$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
 	} else {
-		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
 	}
 
 	if ( in_array( $post->post_type, $exclude_on_post_types, true ) ) {
-		return $content;	// Exit without adding related posts.
+		return $content;    // Exit without adding related posts.
 	}
 	// If the DO NOT DISPLAY meta field is set.
 	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
@@ -100,7 +100,7 @@ function crp_content_filter( $content ) {
  * @since 2.3.0
  *
  * @param string $content Post content.
- * @param string $crp_code	CRP generated code.
+ * @param string $crp_code  CRP generated code.
  * @return string After the filter has been processed
  */
 function crp_generate_content( $content, $crp_code ) {
@@ -122,12 +122,12 @@ function crp_generate_content( $content, $crp_code ) {
  * @since 2.3.0
  *
  * @param string $content Post content.
- * @param string $crp_code	CRP generated code.
+ * @param string $crp_code  CRP generated code.
  * @param string $paragraph_id Paragraph number to insert after.
  * @return string After the filter has been processed
  */
 function crp_insert_after_paragraph( $content, $crp_code, $paragraph_id ) {
-	$closing_p = '</p>';
+	$closing_p  = '</p>';
 	$paragraphs = explode( $closing_p, $content );
 
 	if ( count( $paragraphs ) >= $paragraph_id ) {
@@ -153,18 +153,18 @@ function crp_insert_after_paragraph( $content, $crp_code, $paragraph_id ) {
  *
  * @since 1.8.4
  *
- * @param	string $content Post content.
- * @return	string	Formatted content
+ * @param   string $content Post content.
+ * @return  string  Formatted content
  */
 function crp_rss_filter( $content ) {
 	global $crp_settings;
 
-	$limit_feed = $crp_settings['limit_feed'];
-	$show_excerpt_feed = $crp_settings['show_excerpt_feed'];
+	$limit_feed         = $crp_settings['limit_feed'];
+	$show_excerpt_feed  = $crp_settings['show_excerpt_feed'];
 	$post_thumb_op_feed = $crp_settings['post_thumb_op_feed'];
 
 	if ( $crp_settings['add_to_feed'] ) {
-		$output = $content;
+		$output  = $content;
 		$output .= get_crp( 'is_widget=0&limit=' . $limit_feed . '&show_excerpt=' . $show_excerpt_feed . '&post_thumb_op=' . $post_thumb_op_feed );
 		return $output;
 	} else {

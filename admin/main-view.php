@@ -29,12 +29,12 @@ if ( ! defined( 'WPINC' ) ) {
 			do_action( 'crp_admin_nav_bar_before' )
 		?>
 
-	  	<li><a href="#genopdiv"><?php esc_html_e( 'General options', 'contextual-related-posts' ); ?></a> | </li>
+		  <li><a href="#genopdiv"><?php esc_html_e( 'General options', 'contextual-related-posts' ); ?></a> | </li>
 		<li><a href="#tuneopdiv"><?php esc_html_e( 'List tuning options', 'contextual-related-posts' ); ?></a> | </li>
-	  	<li><a href="#outputopdiv"><?php esc_html_e( 'Output options', 'contextual-related-posts' ); ?></a> | </li>
-	  	<li><a href="#thumbopdiv"><?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?></a> | </li>
-	  	<li><a href="#customcssdiv"><?php esc_html_e( 'Styles', 'contextual-related-posts' ); ?></a> | </li>
-	  	<li><a href="#feedopdiv"><?php esc_html_e( 'Feed options', 'contextual-related-posts' ); ?></a></li>
+		  <li><a href="#outputopdiv"><?php esc_html_e( 'Output options', 'contextual-related-posts' ); ?></a> | </li>
+		  <li><a href="#thumbopdiv"><?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?></a> | </li>
+		  <li><a href="#customcssdiv"><?php esc_html_e( 'Styles', 'contextual-related-posts' ); ?></a> | </li>
+		  <li><a href="#feedopdiv"><?php esc_html_e( 'Feed options', 'contextual-related-posts' ); ?></a></li>
 
 		<?php
 			/**
@@ -51,9 +51,9 @@ if ( ! defined( 'WPINC' ) ) {
 	<div id="post-body-content">
 	  <form method="post" id="crp_options" name="crp_options" onsubmit="return checkForm()">
 
-	    <div id="genopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
-	      <h3 class='hndle'><span><?php esc_html_e( 'General options', 'contextual-related-posts' ); ?></span></h3>
-	      <div class="inside">
+		<div id="genopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
+		  <h3 class='hndle'><span><?php esc_html_e( 'General options', 'contextual-related-posts' ); ?></span></h3>
+		  <div class="inside">
 
 			<table class="form-table">
 
@@ -63,7 +63,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_general_options_before', $crp_settings );
 				?>
@@ -72,7 +72,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<td><input type="checkbox" name="cache" id="cache" <?php checked( true, $crp_settings['cache'] ); ?> />
 						<p class="description"><?php esc_html_e( 'Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.', 'contextual-related-posts' ); ?></p>
 						<p class="description"><?php esc_html_e( 'The CRP cache works independently and in addition to any of your caching plugins like WP Super Cache or W3 Total Cache. It is recommended that you enable this on your blog.', 'contextual-related-posts' ); ?></p>
-						<p><input type="button" value="<?php esc_html_e( 'Clear cache', 'contextual-related-posts' ) ?>" onclick="return clearCache();" class="button-secondary" /></p>
+						<p><input type="button" value="<?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?>" onclick="return clearCache();" class="button-secondary" /></p>
 					</td>
 				</tr>
 
@@ -131,7 +131,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_general_options_after', $crp_settings );
 				?>
@@ -142,12 +142,12 @@ if ( ! defined( 'WPINC' ) ) {
 			  <input type="submit" name="crp_save" id="crp_genop_save" value="<?php esc_attr_e( 'Save Options', 'contextual-related-posts' ); ?>" class="button button-primary" />
 			</p>
 
-	      </div> <!-- // inside -->
-	    </div> <!-- // genopdiv -->
+		  </div> <!-- // inside -->
+		</div> <!-- // genopdiv -->
 
-	    <div id="tuneopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
-	      <h3 class='hndle'><span><?php esc_html_e( 'List tuning options', 'contextual-related-posts' ); ?></span></h3>
-	      <div class="inside">
+		<div id="tuneopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
+		  <h3 class='hndle'><span><?php esc_html_e( 'List tuning options', 'contextual-related-posts' ); ?></span></h3>
+		  <div class="inside">
 
 			<table class="form-table">
 
@@ -157,7 +157,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.1.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_tuning_options_before', $crp_settings );
 				?>
@@ -241,7 +241,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.1.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_tuning_options_after', $crp_settings );
 				?>
@@ -252,12 +252,12 @@ if ( ! defined( 'WPINC' ) ) {
 			  <input type="submit" name="crp_save" id="crp_tuneop_save" value="<?php esc_attr_e( 'Save Options', 'contextual-related-posts' ); ?>" class="button button-primary" />
 			</p>
 
-	      </div> <!-- // inside -->
-	    </div> <!-- // tuneopdiv -->
+		  </div> <!-- // inside -->
+		</div> <!-- // tuneopdiv -->
 
-	    <div id="outputopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
-	      <h3 class='hndle'><span><?php esc_html_e( 'Output options', 'contextual-related-posts' ); ?></span></h3>
-	      <div class="inside">
+		<div id="outputopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
+		  <h3 class='hndle'><span><?php esc_html_e( 'Output options', 'contextual-related-posts' ); ?></span></h3>
+		  <div class="inside">
 
 			<table class="form-table">
 
@@ -267,7 +267,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_output_options_before', $crp_settings );
 				?>
@@ -358,7 +358,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_output_options_after', $crp_settings );
 				?>
@@ -373,7 +373,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_exclusion_options_before', $crp_settings );
 				?>
@@ -404,7 +404,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_exclusion_options_after', $crp_settings );
 				?>
@@ -419,7 +419,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_customize_options_before', $crp_settings );
 				?>
@@ -445,7 +445,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_customize_options_after', $crp_settings );
 				?>
@@ -456,12 +456,12 @@ if ( ! defined( 'WPINC' ) ) {
 			  <input type="submit" name="crp_save" id="crp_outputop_save" value="<?php esc_attr_e( 'Save Options', 'contextual-related-posts' ); ?>" class="button button-primary" />
 			</p>
 
-	      </div> <!-- // inside -->
-	    </div> <!-- // outputopdiv -->
+		  </div> <!-- // inside -->
+		</div> <!-- // outputopdiv -->
 
-	    <div id="thumbopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
-	      <h3 class='hndle'><span><?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?></span></h3>
-	      <div class="inside">
+		<div id="thumbopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
+		  <h3 class='hndle'><span><?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?></span></h3>
+		  <div class="inside">
 
 			<table class="form-table">
 
@@ -471,7 +471,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_thumb_options_before', $crp_settings );
 				?>
@@ -479,22 +479,22 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="post_thumb_op"><?php esc_html_e( 'Location of post thumbnail:', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<label>
-							<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php checked( 'inline',  $crp_settings['post_thumb_op'], true ); ?> />
+							<input type="radio" name="post_thumb_op" value="inline" id="post_thumb_op_0" <?php checked( 'inline', $crp_settings['post_thumb_op'], true ); ?> />
 							<?php esc_html_e( 'Display thumbnails inline with posts, before title', 'contextual-related-posts' ); ?>
 						</label>
 						<br />
 						<label>
-							<input type="radio" name="post_thumb_op" value="after" id="post_thumb_op_1" <?php checked( 'after',  $crp_settings['post_thumb_op'], true ); ?> />
+							<input type="radio" name="post_thumb_op" value="after" id="post_thumb_op_1" <?php checked( 'after', $crp_settings['post_thumb_op'], true ); ?> />
 							<?php esc_html_e( 'Display thumbnails inline with posts, after title', 'contextual-related-posts' ); ?>
 						</label>
 						<br />
 						<label>
-							<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_2" <?php checked( 'thumbs_only',  $crp_settings['post_thumb_op'], true ); ?> />
+							<input type="radio" name="post_thumb_op" value="thumbs_only" id="post_thumb_op_2" <?php checked( 'thumbs_only', $crp_settings['post_thumb_op'], true ); ?> />
 							<?php esc_html_e( 'Display only thumbnails, no text', 'contextual-related-posts' ); ?>
 						</label>
 						<br />
 						<label>
-							<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php checked( 'text_only',  $crp_settings['post_thumb_op'], true ); ?> />
+							<input type="radio" name="post_thumb_op" value="text_only" id="post_thumb_op_3" <?php checked( 'text_only', $crp_settings['post_thumb_op'], true ); ?> />
 							<?php esc_html_e( 'Do not display thumbnails, only text.', 'contextual-related-posts' ); ?>
 						</label>
 
@@ -515,7 +515,7 @@ if ( ! defined( 'WPINC' ) ) {
 						foreach ( $crp_get_all_image_sizes as $size ) :
 						?>
 						<label>
-							<input type="radio" name="thumb_size" value="<?php esc_attr_e( $size['name'] ) ?>" id="<?php esc_attr_e( $size['name'] ) ?>" <?php checked( $crp_settings['thumb_size'], $size['name'] ); ?> />
+							<input type="radio" name="thumb_size" value="<?php esc_attr_e( $size['name'] ); ?>" id="<?php esc_attr_e( $size['name'] ); ?>" <?php checked( $crp_settings['thumb_size'], $size['name'] ); ?> />
 							<?php esc_html_e( $size['name'] ); ?> ( <?php esc_html_e( $size['width'] ); ?>x<?php esc_html_e( $size['height'] ); ?>
 							<?php
 							if ( $size['crop'] ) {
@@ -535,11 +535,13 @@ if ( ! defined( 'WPINC' ) ) {
 								<?php esc_html_e( 'If you choose an existing size, then the width, height and crop mode settings in the three options below will be automatically updated to reflect the correct dimensions of the setting.', 'contextual-related-posts' ); ?><br />
 								<?php esc_html_e( 'If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image with the same width and height. The default setting is 150x150 cropped image.', 'contextual-related-posts' ); ?><br /><br />
 								<?php esc_html_e( "Any changes to the thumbnail settings doesn't automatically resize existing images.", 'contextual-related-posts' ); ?>
-									<?php printf(
+									<?php
+									printf(
 										esc_html__( 'I recommend using %1$s or %2$s to regenerate all image sizes.', 'contextual-related-posts' ),
 										'<a href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=otf-regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" class="thickbox">OTF Regenerate Thumbnails</a>',
 										'<a href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" class="thickbox">Regenerate Thumbnails</a>'
-									); ?>
+									);
+									?>
 							</p>
 					</td>
 				</tr>
@@ -563,14 +565,18 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<label>
 							<input type="radio" name="thumb_html" value="css" id="thumb_html_0" <?php checked( 'css', $crp_settings['thumb_html'], true ); ?> />
-							<?php esc_html_e( 'Style attributes. e.g.', 'contextual-related-posts' );
-							echo ' <code>style="max-width:' . esc_attr( $crp_settings['thumb_width'] ) . 'px;max-height:' . esc_attr( $crp_settings['thumb_height'] ) . 'px;"</code>'; ?>
+							<?php
+							esc_html_e( 'Style attributes. e.g.', 'contextual-related-posts' );
+							echo ' <code>style="max-width:' . esc_attr( $crp_settings['thumb_width'] ) . 'px;max-height:' . esc_attr( $crp_settings['thumb_height'] ) . 'px;"</code>';
+							?>
 						</label>
 						<br />
 						<label>
 							<input type="radio" name="thumb_html" value="html" id="thumb_html_1" <?php checked( 'html', $crp_settings['thumb_html'], true ); ?> />
-							<?php esc_html_e( 'HTML width and height attributes. e.g.', 'contextual-related-posts' );
-							echo ' <code>width="' . esc_attr( $crp_settings['thumb_width'] ) . '" height="' . esc_attr( $crp_settings['thumb_height'] ) . '"</code>' ?>
+							<?php
+							esc_html_e( 'HTML width and height attributes. e.g.', 'contextual-related-posts' );
+							echo ' <code>width="' . esc_attr( $crp_settings['thumb_width'] ) . '" height="' . esc_attr( $crp_settings['thumb_height'] ) . '"</code>'
+							?>
 						</label>
 						<br />
 						<label>
@@ -597,10 +603,10 @@ if ( ! defined( 'WPINC' ) ) {
 				</tr>
 				<tr><th scope="row"><label for="thumb_default"><?php esc_html_e( 'Default thumbnail:', 'contextual-related-posts' ); ?></label></th>
 					<td><input type="textbox" name="thumb_default" id="thumb_default" value="<?php echo esc_attr( $crp_settings['thumb_default'] ); ?>" style="width:100%">
-					  	<?php
-						if ( ! empty( $crp_settings['thumb_default'] ) ) {
-							printf( '<img src="%1$s" style="max-width:200px" />', esc_url( $crp_settings['thumb_default'] ) );
-						}
+							<?php
+							if ( ! empty( $crp_settings['thumb_default'] ) ) {
+								printf( '<img src="%1$s" style="max-width:200px" />', esc_url( $crp_settings['thumb_default'] ) );
+							}
 						?>
 						<p class="description"><?php esc_html_e( "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified above.", 'contextual-related-posts' ); ?></p>
 					</td>
@@ -612,7 +618,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_thumb_options_after', $crp_settings );
 				?>
@@ -623,12 +629,12 @@ if ( ! defined( 'WPINC' ) ) {
 			  <input type="submit" name="crp_save" id="crp_thumbop_save" value="<?php esc_attr_e( 'Save Options', 'contextual-related-posts' ); ?>" class="button button-primary" />
 			</p>
 
-	      </div> <!-- // inside -->
-	    </div> <!-- // outputopdiv -->
+		  </div> <!-- // inside -->
+		</div> <!-- // outputopdiv -->
 
-	    <div id="customcssdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
-	      <h3 class='hndle'><span><?php esc_html_e( 'Styles', 'contextual-related-posts' ); ?></span></h3>
-	      <div class="inside">
+		<div id="customcssdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
+		  <h3 class='hndle'><span><?php esc_html_e( 'Styles', 'contextual-related-posts' ); ?></span></h3>
+		  <div class="inside">
 
 			<table class="form-table">
 
@@ -638,7 +644,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_custom_styles_before', $crp_settings );
 				?>
@@ -652,14 +658,23 @@ if ( ! defined( 'WPINC' ) ) {
 					<br />
 
 					<label>
-						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" <?php if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( 'Rounded Thumbnails', 'contextual-related-posts' ); ?>
+						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" 
+						<?php
+						if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) ) {
+							echo 'checked="checked"'; }
+?>
+ /> <?php esc_html_e( 'Rounded Thumbnails', 'contextual-related-posts' ); ?>
 					</label>
 					<p class="description"><img src="<?php echo esc_url( plugins_url( 'admin/images/crp-rounded-thumbs.png', CRP_PLUGIN_FILE ) ); ?>" /></p>
 					<p class="description"><?php esc_html_e( 'Enabling this option will turn on the thumbnails and set their width and height to 150px. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', 'contextual-related-posts' ); ?></p>
-					<p class="description"><?php printf(
+					<p class="description">
+					<?php
+					printf(
 						esc_html__( 'You can view the default style at %s', 'contextual-related-posts' ),
 						'<a href="' . esc_url( 'https://github.com/WebberZone/contextual-related-posts/blob/master/css/default-style.css' ) . '" target="_blank">' . esc_url( 'https://github.com/WebberZone/contextual-related-posts/blob/master/css/default-style.css' ) . '</a>'
-					); ?></p>
+					);
+					?>
+					</p>
 					<br />
 
 					<label>
@@ -673,7 +688,7 @@ if ( ! defined( 'WPINC' ) ) {
 						 *
 						 * @since 2.2.0
 						 *
-						 * @param	array	$crp_settings	Contextual Related Posts settings array
+						 * @param   array   $crp_settings   Contextual Related Posts settings array
 						 */
 						do_action( 'crp_admin_crp_styles', $crp_settings );
 					?>
@@ -695,7 +710,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_custom_styles_after', $crp_settings );
 				?>
@@ -706,12 +721,12 @@ if ( ! defined( 'WPINC' ) ) {
 			  <input type="submit" name="crp_save" id="crp_customcss_save" value="<?php esc_attr_e( 'Save Options', 'contextual-related-posts' ); ?>" class="button button-primary" />
 			</p>
 
-	      </div> <!-- // inside -->
-	    </div> <!-- // customcssdiv -->
+		  </div> <!-- // inside -->
+		</div> <!-- // customcssdiv -->
 
-	    <div id="feedopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
-	      <h3 class='hndle'><span><?php esc_html_e( 'Feed options', 'contextual-related-posts' ); ?></span></h3>
-	      <div class="inside">
+		<div id="feedopdiv" class="postbox"><div class="handlediv" title="<?php esc_attr_e( 'Click to toggle', 'contextual-related-posts' ); ?>"><br /></div>
+		  <h3 class='hndle'><span><?php esc_html_e( 'Feed options', 'contextual-related-posts' ); ?></span></h3>
+		  <div class="inside">
 
 			<table class="form-table">
 
@@ -721,7 +736,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_feed_options_before', $crp_settings );
 				?>
@@ -767,7 +782,7 @@ if ( ! defined( 'WPINC' ) ) {
 					 *
 					 * @since 2.0.0
 					 *
-					 * @param	array	$crp_settings	Contextual Related Posts settings array
+					 * @param   array   $crp_settings   Contextual Related Posts settings array
 					 */
 					do_action( 'crp_admin_feed_options_after', $crp_settings );
 				?>
@@ -778,8 +793,8 @@ if ( ! defined( 'WPINC' ) ) {
 			  <input type="submit" name="crp_save" id="crp_feedop_save" value="<?php esc_attr_e( 'Save Options', 'contextual-related-posts' ); ?>" class="button button-primary" />
 			</p>
 
-	      </div> <!-- // inside -->
-	    </div> <!-- // feedopdiv -->
+		  </div> <!-- // inside -->
+		</div> <!-- // feedopdiv -->
 
 		<?php
 			/**
@@ -814,13 +829,13 @@ if ( ! defined( 'WPINC' ) ) {
 			</p>
 		</div>
 
-		<?php wp_nonce_field( 'crp-plugin-settings' ) ?>
+		<?php wp_nonce_field( 'crp-plugin-settings' ); ?>
 	  </form>
 	</div><!-- /post-body-content -->
 	<div id="postbox-container-1" class="postbox-container">
 	  <div id="side-sortables" class="meta-box-sortables ui-sortable">
 
-			<?php include_once( 'sidebar-view.php' ); ?>
+			<?php require_once 'sidebar-view.php'; ?>
 
 	  </div><!-- /side-sortables -->
 	</div><!-- /postbox-container-1 -->

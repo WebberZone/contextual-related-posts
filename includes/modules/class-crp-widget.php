@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Create a Wordpress Widget for CRP.
+ * Create a WordPress Widget for CRP.
  *
  * @since 1.9
  *
@@ -31,7 +31,7 @@ class CRP_Widget extends WP_Widget {
 			'widget_crp',
 			__( 'Related Posts [CRP]', 'contextual-related-posts' ),
 			array(
-				'description' => __( 'Display Related Posts', 'contextual-related-posts' ),
+				'description'                 => __( 'Display Related Posts', 'contextual-related-posts' ),
 				'customize_selective_refresh' => true,
 			)
 		);
@@ -40,20 +40,20 @@ class CRP_Widget extends WP_Widget {
 	/**
 	 * Back-end widget form.
 	 *
-	 * @see	WP_Widget::form()
+	 * @see WP_Widget::form()
 	 *
-	 * @param	array $instance   Previously saved values from database.
+	 * @param   array $instance   Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$limit = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
-		$offset = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : '';
-		$show_excerpt = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
-		$show_author = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
-		$show_date = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
+		$title         = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$limit         = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
+		$offset        = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : '';
+		$show_excerpt  = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
+		$show_author   = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
+		$show_date     = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
 		$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : '';
-		$thumb_height = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
-		$thumb_width = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
+		$thumb_height  = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
+		$thumb_width   = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
 
 		// Parse the Post types.
 		$post_types = array();
@@ -62,12 +62,14 @@ class CRP_Widget extends WP_Widget {
 		if ( ! empty( $instance['post_types'] ) && false === strpos( $instance['post_types'], '=' ) ) {
 			$post_types = explode( ',', $instance['post_types'] );
 		} else {
-			parse_str( $instance['post_types'], $post_types );	// Save post types in $post_types variable.
+			parse_str( $instance['post_types'], $post_types );  // Save post types in $post_types variable.
 		}
 
-		$wp_post_types	= get_post_types( array(
-			'public'	=> true,
-		) );
+		$wp_post_types   = get_post_types(
+			array(
+				'public' => true,
+			)
+		);
 		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
 
 		?>
@@ -88,26 +90,41 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php if ( $show_excerpt ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" 
+									<?php
+									if ( $show_excerpt ) {
+										echo 'checked="checked"'; }
+?>
+ /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox" <?php if ( $show_author ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox" 
+									<?php
+									if ( $show_author ) {
+										echo 'checked="checked"'; }
+?>
+ /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox" <?php if ( $show_date ) { echo 'checked="checked"'; } ?> /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox" 
+									<?php
+									if ( $show_date ) {
+										echo 'checked="checked"'; }
+?>
+ /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
 			<select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'post_thumb_op' ) ); ?>">
-			  <option value="inline" <?php selected( 'inline', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, before title','contextual-related-posts' ); ?></option>
-			  <option value="after" <?php selected( 'after', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, after title','contextual-related-posts' ); ?></option>
-			  <option value="thumbs_only" <?php selected( 'thumbs_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'Only thumbnails, no text','contextual-related-posts' ); ?></option>
-			  <option value="text_only" <?php selected( 'text_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'No thumbnails, only text.','contextual-related-posts' ); ?></option>
+			  <option value="inline" <?php selected( 'inline', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
+			  <option value="after" <?php selected( 'after', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
+			  <option value="thumbs_only" <?php selected( 'thumbs_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
+			  <option value="text_only" <?php selected( 'text_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
 			</select>
 		</p>
 		<p>
@@ -131,7 +148,7 @@ class CRP_Widget extends WP_Widget {
 				</label>
 				<br />
 
-			<?php }	?>
+			<?php } ?>
 		</p>
 
 		<?php
@@ -140,7 +157,7 @@ class CRP_Widget extends WP_Widget {
 			 *
 			 * @since 2.1.0
 			 *
-			 * @param	array	$instance	Widget options array
+			 * @param   array   $instance   Widget options array
 			 */
 			do_action( 'crp_widget_options_after', $instance );
 		?>
@@ -153,29 +170,31 @@ class CRP_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::update()
 	 *
-	 * @param 	array $new_instance Values just sent to be saved.
-	 * @param 	array $old_instance Previously saved values from database.
+	 * @param   array $new_instance Values just sent to be saved.
+	 * @param   array $old_instance Previously saved values from database.
 	 *
-	 * @return 	array	Updated safe values to be saved.
+	 * @return  array   Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-		$instance['title'] = strip_tags( $new_instance['title'] );
-		$instance['limit'] = $new_instance['limit'];
-		$instance['offset'] = $new_instance['offset'];
-		$instance['show_excerpt'] = $new_instance['show_excerpt'];
-		$instance['show_author'] = $new_instance['show_author'];
-		$instance['show_date'] = $new_instance['show_date'];
+		$instance                  = $old_instance;
+		$instance['title']         = strip_tags( $new_instance['title'] );
+		$instance['limit']         = $new_instance['limit'];
+		$instance['offset']        = $new_instance['offset'];
+		$instance['show_excerpt']  = $new_instance['show_excerpt'];
+		$instance['show_author']   = $new_instance['show_author'];
+		$instance['show_date']     = $new_instance['show_date'];
 		$instance['post_thumb_op'] = $new_instance['post_thumb_op'];
-		$instance['thumb_height'] = $new_instance['thumb_height'];
-		$instance['thumb_width'] = $new_instance['thumb_width'];
+		$instance['thumb_height']  = $new_instance['thumb_height'];
+		$instance['thumb_width']   = $new_instance['thumb_width'];
 
 		// Process post types to be selected.
-		$wp_post_types	= get_post_types( array(
-			'public'	=> true,
-		) );
-		$post_types = isset( $new_instance['post_types'] ) ? $new_instance['post_types'] : array();
-		$post_types = array_intersect( $wp_post_types, $post_types );
+		$wp_post_types          = get_post_types(
+			array(
+				'public' => true,
+			)
+		);
+		$post_types             = isset( $new_instance['post_types'] ) ? $new_instance['post_types'] : array();
+		$post_types             = array_intersect( $wp_post_types, $post_types );
 		$instance['post_types'] = implode( ',', $post_types );
 
 		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache.
@@ -197,8 +216,8 @@ class CRP_Widget extends WP_Widget {
 	 *
 	 * @see WP_Widget::widget()
 	 *
-	 * @param	array $args   Widget arguments.
-	 * @param	array $instance   Saved values from database.
+	 * @param   array $args   Widget arguments.
+	 * @param   array $instance   Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
 		global $post, $crp_settings;
@@ -216,11 +235,11 @@ class CRP_Widget extends WP_Widget {
 		if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
 			$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
 		} else {
-			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
 		}
 
 		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types, true ) ) ) {
-			return 0;	// Exit without adding related posts.
+			return 0;   // Exit without adding related posts.
 		}
 
 		$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
@@ -236,24 +255,24 @@ class CRP_Widget extends WP_Widget {
 			$offset = isset( $instance['offset'] ) ? $instance['offset'] : 0;
 
 			$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : 'text_only';
-			$thumb_height = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : $crp_settings['thumb_height'];
-			$thumb_width = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : $crp_settings['thumb_width'];
-			$show_excerpt = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
-			$show_author = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
-			$show_date = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
-			$post_types = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : $crp_settings['post_types'];
+			$thumb_height  = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : $crp_settings['thumb_height'];
+			$thumb_width   = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : $crp_settings['thumb_width'];
+			$show_excerpt  = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
+			$show_author   = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
+			$show_date     = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
+			$post_types    = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : $crp_settings['post_types'];
 
 			$arguments = array(
-				'is_widget' => 1,
-				'limit' => $limit,
-				'offset' => $offset,
-				'show_excerpt' => $show_excerpt,
-				'show_author' => $show_author,
-				'show_date' => $show_date,
+				'is_widget'     => 1,
+				'limit'         => $limit,
+				'offset'        => $offset,
+				'show_excerpt'  => $show_excerpt,
+				'show_author'   => $show_author,
+				'show_date'     => $show_date,
 				'post_thumb_op' => $post_thumb_op,
-				'thumb_height' => $thumb_height,
-				'thumb_width' => $thumb_width,
-				'post_types' => $post_types,
+				'thumb_height'  => $thumb_height,
+				'thumb_width'   => $thumb_width,
+				'post_types'    => $post_types,
 			);
 
 			/**
@@ -265,9 +284,9 @@ class CRP_Widget extends WP_Widget {
 			 * @param array $args Widget arguments.
 			 * @param array $instance Saved values from database.
 			 */
-			$arguments = apply_filters( 'crp_widget_options' , $arguments, $args, $instance );
+			$arguments = apply_filters( 'crp_widget_options', $arguments, $args, $instance );
 
-			$output = $args['before_widget'];
+			$output  = $args['before_widget'];
 			$output .= $args['before_title'] . $title . $args['after_title'];
 			$output .= get_crp( $arguments );
 

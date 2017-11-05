@@ -8,7 +8,7 @@
 /**
  * Initialises text domain for l10n.
  *
- * @since	2.2.0
+ * @since   2.2.0
  */
 function crp_lang_init() {
 	load_plugin_textdomain( 'contextual-related-posts', false, dirname( plugin_basename( CRP_PLUGIN_FILE ) ) . '/languages/' );
@@ -19,7 +19,7 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
 /**
  * Returns the object identifier for the current language (WPML).
  *
- * @since	2.1.0
+ * @since   2.1.0
  *
  * @param int|string $post_id Post ID.
  */
@@ -30,10 +30,10 @@ function crp_object_id_cur_lang( $post_id ) {
 	/**
 	 * Filter to modify if the original language ID is returned.
 	 *
-	 * @since	2.2.3
+	 * @since   2.2.3
 	 *
-	 * @param	bool	$return_original_if_missing
-	 * @param	int	$post_id	Post ID
+	 * @param   bool    $return_original_if_missing
+	 * @param   int $post_id    Post ID
 	 */
 	$return_original_if_missing = apply_filters( 'crp_wpml_return_original', $return_original_if_missing, $post_id );
 
@@ -48,9 +48,9 @@ function crp_object_id_cur_lang( $post_id ) {
 	/**
 	 * Filters object ID for current language (WPML).
 	 *
-	 * @since	2.1.0
+	 * @since   2.1.0
 	 *
-	 * @param	int	$post_id	Post ID
+	 * @param   int $post_id    Post ID
 	 */
 	return apply_filters( 'crp_object_id_cur_lang', $post_id );
 }

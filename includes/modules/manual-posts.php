@@ -3,7 +3,7 @@
  * Manual posts module
  *
  * @package   Contextual_Related_Posts
- * @subpackage	Manual_Posts
+ * @subpackage  Manual_Posts
  * @author    Ajay D'Souza <me@ajaydsouza.com>
  * @license   GPL-2.0+
  * @link      https://webberzone.com
@@ -18,10 +18,10 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Checks if a list of manual posts exists and adds them before the other posts.
  *
- * @since	2.2.0
+ * @since   2.2.0
  *
- * @param	object $results    Original object array with post results.
- * @return	object	Updated object array with post results
+ * @param   object $results    Original object array with post results.
+ * @return  object  Updated object array with post results
  */
 function crp_manual_posts( $results ) {
 	global $post, $wpdb;

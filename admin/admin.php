@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Function generates the plugin settings page.
  *
- * @since	1.0.1
+ * @since   1.0.1
  */
 function crp_options() {
 
@@ -28,15 +28,17 @@ function crp_options() {
 
 	$crp_settings = crp_read_options();
 
-	$wp_post_types	= get_post_types( array(
-		'public'	=> true,
-	) );
+	$wp_post_types = get_post_types(
+		array(
+			'public' => true,
+		)
+	);
 
 	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
 	if ( ! empty( $crp_settings['post_types'] ) && false === strpos( $crp_settings['post_types'], '=' ) ) {
 		$post_types = explode( ',', $crp_settings['post_types'] );
 	} else {
-		parse_str( $crp_settings['post_types'], $post_types );	// Save post types in $post_types variable.
+		parse_str( $crp_settings['post_types'], $post_types );  // Save post types in $post_types variable.
 	}
 
 	$posts_types_inc = array_intersect( $wp_post_types, $post_types );
@@ -45,7 +47,7 @@ function crp_options() {
 	if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
 		$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
 	} else {
-		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
 	}
 
 	$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
@@ -63,52 +65,52 @@ function crp_options() {
 
 	if ( ( isset( $_POST['crp_save'] ) ) && ( check_admin_referer( 'crp-plugin-settings' ) ) ) { // Input var okay.
 
-		/**** General options ***/
-		$crp_settings['cache'] = isset( $_POST['cache'] ) ? true : false;
-		$crp_settings['limit'] = absint( $_POST['limit'] );
-		$crp_settings['daily_range'] = absint( $_POST['daily_range'] );
-		$crp_settings['random_order'] = isset( $_POST['random_order'] ) ? true : false;
-		$crp_settings['match_content'] = isset( $_POST['match_content'] ) ? true : false;
+		/**** General options */
+		$crp_settings['cache']               = isset( $_POST['cache'] ) ? true : false;
+		$crp_settings['limit']               = absint( $_POST['limit'] );
+		$crp_settings['daily_range']         = absint( $_POST['daily_range'] );
+		$crp_settings['random_order']        = isset( $_POST['random_order'] ) ? true : false;
+		$crp_settings['match_content']       = isset( $_POST['match_content'] ) ? true : false;
 		$crp_settings['match_content_words'] = min( CRP_MAX_WORDS, absint( $_POST['match_content_words'] ) );
-		$crp_settings['same_post_type'] = isset( $_POST['same_post_type'] ) ? true : false;
+		$crp_settings['same_post_type']      = isset( $_POST['same_post_type'] ) ? true : false;
 
-		$crp_settings['add_to_content'] = ( isset( $_POST['add_to_content'] ) ? true : false );
-		$crp_settings['add_to_page'] = ( isset( $_POST['add_to_page'] ) ? true : false );
-		$crp_settings['add_to_feed'] = ( isset( $_POST['add_to_feed'] ) ? true : false );
-		$crp_settings['add_to_home'] = ( isset( $_POST['add_to_home'] ) ? true : false );
+		$crp_settings['add_to_content']           = ( isset( $_POST['add_to_content'] ) ? true : false );
+		$crp_settings['add_to_page']              = ( isset( $_POST['add_to_page'] ) ? true : false );
+		$crp_settings['add_to_feed']              = ( isset( $_POST['add_to_feed'] ) ? true : false );
+		$crp_settings['add_to_home']              = ( isset( $_POST['add_to_home'] ) ? true : false );
 		$crp_settings['add_to_category_archives'] = ( isset( $_POST['add_to_category_archives'] ) ? true : false );
-		$crp_settings['add_to_tag_archives'] = ( isset( $_POST['add_to_tag_archives'] ) ? true : false );
-		$crp_settings['add_to_archives'] = ( isset( $_POST['add_to_archives'] ) ? true : false );
+		$crp_settings['add_to_tag_archives']      = ( isset( $_POST['add_to_tag_archives'] ) ? true : false );
+		$crp_settings['add_to_archives']          = ( isset( $_POST['add_to_archives'] ) ? true : false );
 
 		$crp_settings['content_filter_priority'] = absint( $_POST['content_filter_priority'] );
-		$crp_settings['insert_after_paragraph'] = ( -1 === $_POST['insert_after_paragraph'] || '' === $_POST['insert_after_paragraph'] ) ? -1 : intval( $_POST['insert_after_paragraph'] );
-		$crp_settings['show_metabox'] = ( isset( $_POST['show_metabox'] ) ? true : false );
-		$crp_settings['show_metabox_admins'] = ( isset( $_POST['show_metabox_admins'] ) ? true : false );
-		$crp_settings['show_credit'] = ( isset( $_POST['show_credit'] ) ? true : false );
+		$crp_settings['insert_after_paragraph']  = ( -1 === $_POST['insert_after_paragraph'] || '' === $_POST['insert_after_paragraph'] ) ? -1 : intval( $_POST['insert_after_paragraph'] );
+		$crp_settings['show_metabox']            = ( isset( $_POST['show_metabox'] ) ? true : false );
+		$crp_settings['show_metabox_admins']     = ( isset( $_POST['show_metabox_admins'] ) ? true : false );
+		$crp_settings['show_credit']             = ( isset( $_POST['show_credit'] ) ? true : false );
 
-		/**** Output options ****/
-		$crp_settings['title'] = wp_kses_post( wp_unslash( $_POST['title'] ) );
-		$crp_settings['blank_output'] = 'blank' === $_POST['blank_output'] ? true : false;
+		/**** Output options */
+		$crp_settings['title']             = wp_kses_post( wp_unslash( $_POST['title'] ) );
+		$crp_settings['blank_output']      = 'blank' === $_POST['blank_output'] ? true : false;
 		$crp_settings['blank_output_text'] = wp_kses_post( wp_unslash( $_POST['blank_output_text'] ) );
 
-		$crp_settings['show_excerpt'] = ( isset( $_POST['show_excerpt'] ) ? true : false );
-		$crp_settings['show_date'] = ( isset( $_POST['show_date'] ) ? true : false );
-		$crp_settings['show_author'] = ( isset( $_POST['show_author'] ) ? true : false );
+		$crp_settings['show_excerpt']   = ( isset( $_POST['show_excerpt'] ) ? true : false );
+		$crp_settings['show_date']      = ( isset( $_POST['show_date'] ) ? true : false );
+		$crp_settings['show_author']    = ( isset( $_POST['show_author'] ) ? true : false );
 		$crp_settings['excerpt_length'] = absint( $_POST['excerpt_length'] );
-		$crp_settings['title_length'] = absint( $_POST['title_length'] );
+		$crp_settings['title_length']   = absint( $_POST['title_length'] );
 
 		$crp_settings['link_new_window'] = ( isset( $_POST['link_new_window'] ) ? true : false );
-		$crp_settings['link_nofollow'] = ( isset( $_POST['link_nofollow'] ) ? true : false );
+		$crp_settings['link_nofollow']   = ( isset( $_POST['link_nofollow'] ) ? true : false );
 
-		$crp_settings['before_list'] = wp_kses_post( wp_unslash( $_POST['before_list'] ) );
-		$crp_settings['after_list'] = wp_kses_post( wp_unslash( $_POST['after_list'] ) );
+		$crp_settings['before_list']      = wp_kses_post( wp_unslash( $_POST['before_list'] ) );
+		$crp_settings['after_list']       = wp_kses_post( wp_unslash( $_POST['after_list'] ) );
 		$crp_settings['before_list_item'] = wp_kses_post( wp_unslash( $_POST['before_list_item'] ) );
-		$crp_settings['after_list_item'] = wp_kses_post( wp_unslash( $_POST['after_list_item'] ) );
+		$crp_settings['after_list_item']  = wp_kses_post( wp_unslash( $_POST['after_list_item'] ) );
 
 		$crp_settings['exclude_on_post_ids'] = empty( $_POST['exclude_on_post_ids'] ) ? '' : implode( ',', array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['exclude_on_post_ids'] ) ) ) ) );
-		$crp_settings['exclude_post_ids'] = empty( $_POST['exclude_post_ids'] ) ? '' : implode( ',', array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['exclude_post_ids'] ) ) ) ) );
+		$crp_settings['exclude_post_ids']    = empty( $_POST['exclude_post_ids'] ) ? '' : implode( ',', array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['exclude_post_ids'] ) ) ) ) );
 
-		/**** Thumbnail options ****/
+		/**** Thumbnail options */
 		$crp_settings['post_thumb_op'] = sanitize_text_field( wp_unslash( $_POST['post_thumb_op'] ) );
 
 		$crp_settings['thumb_size'] = sanitize_text_field( wp_unslash( $_POST['thumb_size'] ) );
@@ -117,47 +119,47 @@ function crp_options() {
 			$crp_thumb_size = crp_get_all_image_sizes( $crp_settings['thumb_size'] );
 
 			$crp_settings['thumb_height'] = absint( $crp_thumb_size['height'] );
-			$crp_settings['thumb_width'] = absint( $crp_thumb_size['width'] );
-			$crp_settings['thumb_crop'] = $crp_thumb_size['crop'];
+			$crp_settings['thumb_width']  = absint( $crp_thumb_size['width'] );
+			$crp_settings['thumb_crop']   = $crp_thumb_size['crop'];
 		} else {
 			$crp_settings['thumb_height'] = absint( $_POST['thumb_height'] );
-			$crp_settings['thumb_width'] = absint( $_POST['thumb_width'] );
-			$crp_settings['thumb_crop'] = ( isset( $_POST['thumb_crop'] ) ? true : false );
+			$crp_settings['thumb_width']  = absint( $_POST['thumb_width'] );
+			$crp_settings['thumb_crop']   = ( isset( $_POST['thumb_crop'] ) ? true : false );
 		}
 
 		$crp_settings['thumb_html'] = sanitize_text_field( wp_unslash( $_POST['thumb_html'] ) );
 
-		$crp_settings['thumb_meta'] = empty( $_POST['thumb_meta'] ) ? 'post-image' : sanitize_text_field( wp_unslash( $_POST['thumb_meta'] ) );
-		$crp_settings['scan_images'] = ( isset( $_POST['scan_images'] ) ? true : false );
-		$crp_settings['thumb_default'] = ( ( '' === esc_url_raw( $_POST['thumb_default'] ) ) || ( '/default.png' === esc_url_raw( $_POST['thumb_default'] ) ) ) ? CRP_PLUGIN_URL . '/default.png' : esc_url_raw( $_POST['thumb_default'] );
+		$crp_settings['thumb_meta']         = empty( $_POST['thumb_meta'] ) ? 'post-image' : sanitize_text_field( wp_unslash( $_POST['thumb_meta'] ) );
+		$crp_settings['scan_images']        = ( isset( $_POST['scan_images'] ) ? true : false );
+		$crp_settings['thumb_default']      = ( ( '' === esc_url_raw( $_POST['thumb_default'] ) ) || ( '/default.png' === esc_url_raw( $_POST['thumb_default'] ) ) ) ? CRP_PLUGIN_URL . '/default.png' : esc_url_raw( $_POST['thumb_default'] );
 		$crp_settings['thumb_default_show'] = ( isset( $_POST['thumb_default_show'] ) ? true : false );
 
-		/**** Feed options ****/
-		$crp_settings['limit_feed'] = absint( $_POST['limit_feed'] );
+		/**** Feed options */
+		$crp_settings['limit_feed']         = absint( $_POST['limit_feed'] );
 		$crp_settings['post_thumb_op_feed'] = sanitize_text_field( wp_unslash( $_POST['post_thumb_op_feed'] ) );
-		$crp_settings['thumb_height_feed'] = absint( $_POST['thumb_height_feed'] );
-		$crp_settings['thumb_width_feed'] = absint( $_POST['thumb_width_feed'] );
-		$crp_settings['show_excerpt_feed'] = ( isset( $_POST['show_excerpt_feed'] ) ? true : false );
+		$crp_settings['thumb_height_feed']  = absint( $_POST['thumb_height_feed'] );
+		$crp_settings['thumb_width_feed']   = absint( $_POST['thumb_width_feed'] );
+		$crp_settings['show_excerpt_feed']  = ( isset( $_POST['show_excerpt_feed'] ) ? true : false );
 
-		/**** Styles ****/
+		/**** Styles */
 		$crp_settings['custom_CSS'] = wp_kses_post( wp_unslash( $_POST['custom_CSS'] ) );
 
 		$crp_settings['crp_styles'] = sanitize_text_field( wp_unslash( $_POST['crp_styles'] ) );
 
 		if ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) {
 			$crp_settings['include_default_style'] = true;
-			$crp_settings['post_thumb_op'] = 'inline';
-			$crp_settings['show_excerpt'] = false;
-			$crp_settings['show_author'] = false;
-			$crp_settings['show_date'] = false;
+			$crp_settings['post_thumb_op']         = 'inline';
+			$crp_settings['show_excerpt']          = false;
+			$crp_settings['show_author']           = false;
+			$crp_settings['show_date']             = false;
 		} elseif ( 'text_only' === $crp_settings['crp_styles'] ) {
 			$crp_settings['include_default_style'] = false;
-			$crp_settings['post_thumb_op'] = 'text_only';
+			$crp_settings['post_thumb_op']         = 'text_only';
 		} else {
 			$crp_settings['include_default_style'] = false;
 		}
 
-		/**** Exclude categories ****/
+		/**** Exclude categories */
 		$exclude_categories_slugs = array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $_POST['exclude_cat_slugs'] ) ) ) );
 
 		foreach ( $exclude_categories_slugs as $exclude_categories_slug ) {
@@ -169,38 +171,40 @@ function crp_options() {
 			}
 			if ( isset( $category_obj->term_taxonomy_id ) ) {
 				$exclude_categories[] = $category_obj->term_taxonomy_id;
-				$exclude_cat_slugs[] = $category_obj->name;
+				$exclude_cat_slugs[]  = $category_obj->name;
 			}
 		}
 		$crp_settings['exclude_categories'] = isset( $exclude_categories ) ? join( ',', $exclude_categories ) : '';
-		$crp_settings['exclude_cat_slugs'] = isset( $exclude_cat_slugs ) ? join( ',', $exclude_cat_slugs ) : '';
+		$crp_settings['exclude_cat_slugs']  = isset( $exclude_cat_slugs ) ? join( ',', $exclude_cat_slugs ) : '';
 
-		/**** Post types to include ****/
-		$wp_post_types	= get_post_types( array(
-			'public'	=> true,
-		) );
-		$post_types_arr = ( isset( $_POST['post_types'] ) && is_array( $_POST['post_types'] ) ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['post_types'] ) ) : array(
+		/**** Post types to include */
+		$wp_post_types              = get_post_types(
+			array(
+				'public' => true,
+			)
+		);
+		$post_types_arr             = ( isset( $_POST['post_types'] ) && is_array( $_POST['post_types'] ) ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['post_types'] ) ) : array(
 			'post' => 'post',
 		);
-		$post_types = array_intersect( $wp_post_types, $post_types_arr );
+		$post_types                 = array_intersect( $wp_post_types, $post_types_arr );
 		$crp_settings['post_types'] = implode( ',', $post_types );
 
-		/**** Post types to exclude display on ****/
-		$post_types_excl_arr = ( isset( $_POST['exclude_on_post_types'] ) && is_array( $_POST['exclude_on_post_types'] ) ) ? $_POST['exclude_on_post_types'] : array();
-		$exclude_on_post_types = array_intersect( $wp_post_types, $post_types_excl_arr );
+		/**** Post types to exclude display on */
+		$post_types_excl_arr                   = ( isset( $_POST['exclude_on_post_types'] ) && is_array( $_POST['exclude_on_post_types'] ) ) ? $_POST['exclude_on_post_types'] : array();
+		$exclude_on_post_types                 = array_intersect( $wp_post_types, $post_types_excl_arr );
 		$crp_settings['exclude_on_post_types'] = implode( ',', $exclude_on_post_types );
 
 		/**
 		 * Filters $crp_settings before it is saved into the database
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
-		 * @param	array	$crp_settings	CRP settings
-		 * @param	array	$_POST			POST array that consists of the saved settings
+		 * @param   array   $crp_settings   CRP settings
+		 * @param   array   $_POST          POST array that consists of the saved settings
 		 */
 		$crp_settings = apply_filters( 'crp_save_options', $crp_settings, $_POST );
 
-		/**** Update CRP options into the database ****/
+		/**** Update CRP options into the database */
 		update_option( 'ald_crp_settings', $crp_settings );
 		$crp_settings = crp_read_options();
 
@@ -208,14 +212,14 @@ function crp_options() {
 		if ( ! empty( $crp_settings['post_types'] ) && false === strpos( $crp_settings['post_types'], '=' ) ) {
 			$post_types = explode( ',', $crp_settings['post_types'] );
 		} else {
-			parse_str( $crp_settings['post_types'], $post_types );	// Save post types in $post_types variable.
+			parse_str( $crp_settings['post_types'], $post_types );  // Save post types in $post_types variable.
 		}
 		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
 
 		if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
 			$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
 		} else {
-			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
 		}
 		$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
@@ -248,21 +252,23 @@ function crp_options() {
 
 		$crp_settings = crp_read_options();
 
-		$wp_post_types	= get_post_types( array(
-			'public'	=> true,
-		) );
+		$wp_post_types = get_post_types(
+			array(
+				'public' => true,
+			)
+		);
 		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
 		if ( ! empty( $crp_settings['post_types'] ) && false === strpos( $crp_settings['post_types'], '=' ) ) {
 			$post_types = explode( ',', $crp_settings['post_types'] );
 		} else {
-			parse_str( $crp_settings['post_types'], $post_types );	// Save post types in $post_types variable.
+			parse_str( $crp_settings['post_types'], $post_types );  // Save post types in $post_types variable.
 		}
 		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
 
 		if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
 			$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
 		} else {
-			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );	// Save post types in $exclude_on_post_types variable.
+			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
 		}
 		$posts_types_excl = array_intersect( $wp_post_types, $exclude_on_post_types );
 
@@ -279,8 +285,8 @@ function crp_options() {
 		echo $str; // WPCS: XSS ok.
 	}
 
-	/**** Include the views page ****/
-	include_once( 'main-view.php' );
+	/**** Include the views page */
+	include_once 'main-view.php';
 }
 
 

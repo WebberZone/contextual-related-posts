@@ -12,16 +12,18 @@
 /**
  * Add link to WordPress plugin action links.
  *
- * @version	1.8.10
+ * @version 1.8.10
  *
  * @param array $links Links array.
  * @return array Links array with our settings link added
  */
 function crp_plugin_actions_links( $links ) {
 
-	return array_merge( array(
-		'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . esc_html__( 'Settings', 'contextual-related-posts' ) . '</a>',
-	), $links );
+	return array_merge(
+		array(
+			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . esc_html__( 'Settings', 'contextual-related-posts' ) . '</a>',
+		), $links
+	);
 
 }
 add_filter( 'plugin_action_links_' . plugin_basename( CRP_PLUGIN_FILE ), 'crp_plugin_actions_links' );

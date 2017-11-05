@@ -27,16 +27,16 @@ function get_crp( $args = array() ) {
 
 	// If set, save $exclude_categories.
 	if ( isset( $args['exclude_categories'] ) && '' != $args['exclude_categories'] ) {
-		$exclude_categories = explode( ',', $args['exclude_categories'] );
+		$exclude_categories   = explode( ',', $args['exclude_categories'] );
 		$args['strict_limit'] = false;
 	}
 	$defaults = array(
-		'is_widget' => false,
+		'is_widget'    => false,
 		'is_shortcode' => false,
-		'is_manual' => false,
-		'echo' => true,
-		'heading' => true,
-		'offset' => 0,
+		'is_manual'    => false,
+		'echo'         => true,
+		'heading'      => true,
+		'offset'       => 0,
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -67,20 +67,24 @@ function get_crp( $args = array() ) {
 	}
 
 	// Retrieve the list of posts.
-	$results = get_crp_posts_id( array_merge( $args, array(
-		'postid' => $post->ID,
-		'strict_limit' => isset( $args['strict_limit'] ) ? $args['strict_limit'] : true,
-	) ) );
+	$results = get_crp_posts_id(
+		array_merge(
+			$args, array(
+				'postid'       => $post->ID,
+				'strict_limit' => isset( $args['strict_limit'] ) ? $args['strict_limit'] : true,
+			)
+		)
+	);
 
 	/**
 	 * Filter to create a custom HTML output
 	 *
 	 * @since 2.2.3
 	 *
-	 * @param	mixed              Default return value
-	 * @param	array   $results   Array of IDs of related posts
-	 * @param	array   $args      Array of settings
-	 * @return	string             Custom HTML formatted list of related posts
+	 * @param   mixed              Default return value
+	 * @param   array   $results   Array of IDs of related posts
+	 * @param   array   $args      Array of settings
+	 * @return  string             Custom HTML formatted list of related posts
 	 */
 	$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
 	if ( ! empty( $custom_template ) ) {
@@ -90,7 +94,7 @@ function get_crp( $args = array() ) {
 		return $custom_template;
 	}
 
-	$widget_class = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
+	$widget_class    = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
 	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
 
 	$post_classes = $widget_class . $shortcode_class;
@@ -98,9 +102,9 @@ function get_crp( $args = array() ) {
 	/**
 	 * Filter the classes added to the div wrapper of the Contextual Related Posts.
 	 *
-	 * @since	2.2.3
+	 * @since   2.2.3
 	 *
-	 * @param	string   $post_classes	Post classes string.
+	 * @param   string   $post_classes  Post classes string.
 	 */
 	$post_classes = apply_filters( 'crp_post_class', $post_classes );
 
@@ -132,27 +136,28 @@ function get_crp( $args = array() ) {
 			/**
 			 * Filter the post ID for each result. Allows a custom function to hook in and change the ID if needed.
 			 *
-			 * @since	1.9
+			 * @since   1.9
 			 *
-			 * @param	int	$resultid	ID of the post
+			 * @param   int $resultid   ID of the post
 			 */
 			$resultid = apply_filters( 'crp_post_id', $resultid );
 
-			$result = get_post( $resultid );	// Let's get the Post using the ID.
+			$result = get_post( $resultid );    // Let's get the Post using the ID.
 
 			// Process the category exclusion if passed in the shortcode.
 			if ( isset( $exclude_categories ) ) {
 
-				$categorys = get_the_category( $result->ID );	// Fetch categories of the plugin.
+				$categorys = get_the_category( $result->ID );   // Fetch categories of the plugin.
 
-				$p_in_c = false;	// Variable to check if post exists in a particular category
-				foreach ( $categorys as $cat ) {	// Loop to check if post exists in excluded category.
+				$p_in_c = false;    // Variable to check if post exists in a particular category
+				foreach ( $categorys as $cat ) {    // Loop to check if post exists in excluded category.
 					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories, true ) ) ? true : false;
 					if ( $p_in_c ) {
-						break;	// Skip loop execution and go to the next step.
+						break;  // Skip loop execution and go to the next step.
 					}
 				}
-				if ( $p_in_c ) { continue;	// Skip loop execution and go to the next step.
+				if ( $p_in_c ) {
+					continue;  // Skip loop execution and go to the next step.
 				}
 			}
 
@@ -177,7 +182,7 @@ function get_crp( $args = array() ) {
 			$output .= crp_after_list_item( $args, $result );
 
 			if ( absint( $args['limit'] ) === $loop_counter ) {
-				break;	// End loop when related posts limit is reached.
+				break;  // End loop when related posts limit is reached.
 			}
 		} // End foreach().
 
@@ -199,9 +204,9 @@ function get_crp( $args = array() ) {
 		/**
 		 * Filter the clearfix div tag. This is included after the closing tag to clear any miscellaneous floating elements;
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
-		 * @param	string	$clearfix	Contains: <div style="clear:both"></div>
+		 * @param   string  $clearfix   Contains: <div style="clear:both"></div>
 		 */
 		$output .= apply_filters( 'crp_clearfix', $clearfix );
 
@@ -211,7 +216,7 @@ function get_crp( $args = array() ) {
 
 	// Check if the opening list tag is missing in the output, it means all of our results were eliminated cause of the category filter.
 	if ( false === ( strpos( $output, $args['before_list_item'] ) ) ) {
-		$output = '<div id="crp_related">';
+		$output  = '<div id="crp_related">';
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}
 
@@ -225,10 +230,10 @@ function get_crp( $args = array() ) {
 	/**
 	 * Filter the output
 	 *
-	 * @since	1.9.1
+	 * @since   1.9.1
 	 *
-	 * @param	string	$output	Formatted list of related posts
-	 * @param	array	$args	Complete set of arguments
+	 * @param   string  $output Formatted list of related posts
+	 * @param   array   $args   Complete set of arguments
 	 */
 	return apply_filters( 'get_crp', $output, $args );
 }
@@ -246,19 +251,19 @@ function get_crp_posts_id( $args = array() ) {
 	global $wpdb, $post, $crp_settings;
 
 	// Initialise some variables.
-	$fields = '';
-	$where = '';
-	$join = '';
-	$groupby = '';
-	$orderby = '';
-	$having = '';
-	$limits = '';
+	$fields       = '';
+	$where        = '';
+	$join         = '';
+	$groupby      = '';
+	$orderby      = '';
+	$having       = '';
+	$limits       = '';
 	$match_fields = '';
 
 	$defaults = array(
-		'postid' => false,	// Get related posts for a specific post ID.
-		'strict_limit' => true,	// If this is set to false, then it will fetch 5x posts.
-		'offset' => 0,	// Offset the related posts returned by this number.
+		'postid'       => false,  // Get related posts for a specific post ID.
+		'strict_limit' => true, // If this is set to false, then it will fetch 5x posts.
+		'offset'       => 0,  // Offset the related posts returned by this number.
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -269,7 +274,7 @@ function get_crp_posts_id( $args = array() ) {
 	$crp_thumb_size = crp_get_all_image_sizes( $args['thumb_size'] );
 
 	if ( isset( $crp_thumb_size['width'] ) ) {
-		$thumb_width = $crp_thumb_size['width'];
+		$thumb_width  = $crp_thumb_size['width'];
 		$thumb_height = $crp_thumb_size['height'];
 	}
 
@@ -283,21 +288,23 @@ function get_crp_posts_id( $args = array() ) {
 
 	$source_post = ( empty( $args['postid'] ) ) ? $post : get_post( $args['postid'] );
 
-	$limit = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
+	$limit  = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
 	$offset = isset( $args['offset'] ) ? $args['offset'] : 0;
 
 	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
 	if ( ! empty( $args['post_types'] ) && false === strpos( $args['post_types'], '=' ) ) {
 		$post_types = explode( ',', $args['post_types'] );
 	} else {
-		parse_str( $args['post_types'], $post_types );	// Save post types in $post_types variable.
+		parse_str( $args['post_types'], $post_types );  // Save post types in $post_types variable.
 	}
 
 	// If post_types is empty or if we want all the post types.
 	if ( empty( $post_types ) || 'all' === $args['post_types'] ) {
-		$post_types = get_post_types( array(
-			'public'	=> true,
-		) );
+		$post_types = get_post_types(
+			array(
+				'public' => true,
+			)
+		);
 	}
 
 	// If we only want posts from the same post type.
@@ -326,42 +333,42 @@ function get_crp_posts_id( $args = array() ) {
 	);
 
 	if ( $args['match_content'] ) {
-		$match_fields[] = 'post_content';
+		$match_fields[]         = 'post_content';
 		$match_fields_content[] = crp_excerpt( $source_post->ID, $args['match_content_words'], false );
 	}
 
 	/**
 	 * Filter the fields that are to be matched.
 	 *
-	 * @since	2.2.0
+	 * @since   2.2.0
 	 *
-	 * @param array   $match_fields	Array of fields to be matched
-	 * @param int	   $source_post->ID	Post ID
+	 * @param array   $match_fields Array of fields to be matched
+	 * @param int      $source_post->ID Post ID
 	 */
 	$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $source_post->ID );
 
 	/**
 	 * Filter the content of the fields that are to be matched.
 	 *
-	 * @since	2.2.0
+	 * @since   2.2.0
 	 *
-	 * @param array	$match_fields_content	Array of content of fields to be matched
-	 * @param int	$source_post->ID	Post ID
+	 * @param array $match_fields_content   Array of content of fields to be matched
+	 * @param int   $source_post->ID    Post ID
 	 */
 	$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $source_post->ID );
 
 	// Convert our arrays into their corresponding strings after they have been filtered.
 	$match_fields = implode( ',', $match_fields );
-	$stuff = implode( ' ', $match_fields_content );
+	$stuff        = implode( ' ', $match_fields_content );
 
 	// Make sure the post is not from the future.
 	$time_difference = get_option( 'gmt_offset' );
-	$now = gmdate( 'Y-m-d H:i:s', ( time() + ( $time_difference * 3600 ) ) );
+	$now             = gmdate( 'Y-m-d H:i:s', ( time() + ( $time_difference * 3600 ) ) );
 
 	// Limit the related posts by time.
 	$current_time = current_time( 'timestamp', 0 );
-	$from_date = $current_time - ( $args['daily_range'] * DAY_IN_SECONDS );
-	$from_date = gmdate( 'Y-m-d H:i:s' , $from_date );
+	$from_date    = $current_time - ( $args['daily_range'] * DAY_IN_SECONDS );
+	$from_date    = gmdate( 'Y-m-d H:i:s', $from_date );
 
 	// Create the SQL query to fetch the related posts from the database.
 	if ( is_int( $source_post->ID ) ) {
@@ -375,11 +382,11 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the MATCH clause of the query.
 		 *
-		 * @since	2.1.0
+		 * @since   2.1.0
 		 *
-		 * @param string   $match  		The MATCH section of the WHERE clause of the query
-		 * @param string   $stuff  		String to match fulltext with
-		 * @param int	   $source_post->ID	Post ID
+		 * @param string   $match       The MATCH section of the WHERE clause of the query
+		 * @param string   $stuff       String to match fulltext with
+		 * @param int      $source_post->ID Post ID
 		 */
 		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post->ID );
 
@@ -389,10 +396,10 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the Maximum date clause of the query.
 		 *
-		 * @since	2.1.0
+		 * @since   2.1.0
 		 *
 		 * @param string   $now_clause  The Maximum date of the WHERE clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$now_clause = apply_filters( 'crp_posts_now_date', $now_clause, $source_post->ID );
 
@@ -402,19 +409,19 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the Maximum date clause of the query.
 		 *
-		 * @since	2.1.0
+		 * @since   2.1.0
 		 *
 		 * @param string   $from_clause  The Minimum date of the WHERE clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$from_clause = apply_filters( 'crp_posts_from_date', $from_clause, $source_post->ID );
 
 		// Create the base WHERE clause.
-		$where = $match;
+		$where  = $match;
 		$where .= $now_clause;
 		$where .= $from_clause;
-		$where .= " AND $wpdb->posts.post_status = 'publish' ";					// Only show published posts
-		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );	// Show posts after the date specified.
+		$where .= " AND $wpdb->posts.post_status = 'publish' ";                 // Only show published posts
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );  // Show posts after the date specified.
 
 		// Convert exclude post IDs string to array so it can be filtered.
 		$exclude_post_ids = explode( ',', $args['exclude_post_ids'] );
@@ -435,7 +442,7 @@ function get_crp_posts_id( $args = array() ) {
 			$where .= " AND $wpdb->posts.ID NOT IN ({$exclude_post_ids}) ";
 		}
 
-		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";	// Array of post types.
+		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";    // Array of post types.
 
 		// Create the base LIMITS clause.
 		$limits .= $wpdb->prepare( ' LIMIT %d, %d ', $offset, $limit );
@@ -443,70 +450,70 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the SELECT clause of the query.
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
 		 * @param string   $fields  The SELECT clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$fields = apply_filters( 'crp_posts_fields', $fields, $source_post->ID );
 
 		/**
 		 * Filter the JOIN clause of the query.
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
 		 * @param string   $join  The JOIN clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$join = apply_filters( 'crp_posts_join', $join, $source_post->ID );
 
 		/**
 		 * Filter the WHERE clause of the query.
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
 		 * @param string   $where  The WHERE clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$where = apply_filters( 'crp_posts_where', $where, $source_post->ID );
 
 		/**
 		 * Filter the GROUP BY clause of the query.
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
 		 * @param string   $groupby  The GROUP BY clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$groupby = apply_filters( 'crp_posts_groupby', $groupby, $source_post->ID );
 
 		/**
 		 * Filter the HAVING clause of the query.
 		 *
-		 * @since	2.2.0
+		 * @since   2.2.0
 		 *
 		 * @param string  $having  The HAVING clause of the query.
-		 * @param int	    $source_post->ID	Post ID
+		 * @param int       $source_post->ID    Post ID
 		 */
 		$having = apply_filters( 'crp_posts_having', $having, $source_post->ID );
 
 		/**
 		 * Filter the ORDER BY clause of the query.
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
 		 * @param string   $orderby  The ORDER BY clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$orderby = apply_filters( 'crp_posts_orderby', $orderby, $source_post->ID );
 
 		/**
 		 * Filter the LIMIT clause of the query.
 		 *
-		 * @since	2.0.0
+		 * @since   2.0.0
 		 *
 		 * @param string   $limits  The LIMIT clause of the query.
-		 * @param int	   $source_post->ID	Post ID
+		 * @param int      $source_post->ID Post ID
 		 */
 		$limits = apply_filters( 'crp_posts_limits', $limits, $source_post->ID );
 
@@ -538,9 +545,9 @@ function get_crp_posts_id( $args = array() ) {
 	/**
 	 * Filter object containing the post IDs.
 	 *
-	 * @since	1.9
+	 * @since   1.9
 	 *
-	 * @param 	object   $results  Object containing the related post IDs
+	 * @param   object   $results  Object containing the related post IDs
 	 */
 	return apply_filters( 'get_crp_posts_id', $results );
 }
