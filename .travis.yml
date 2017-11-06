@@ -20,6 +20,8 @@ cache:
 matrix:
   fast_finish: true
   include:
+    - php: 5.6
+      env: SNIFF=1
     - php: 7.1
       env: WP_VERSION=latest
     - php: 7.1
@@ -32,8 +34,6 @@ matrix:
       env: WP_VERSION=latest
     - php: 5.6
       env: WP_VERSION=trunk
-    - php: 5.6
-      env: SNIFF=1
     - php: 5.3
       env: WP_VERSION=latest
     - php: 5.3
@@ -63,7 +63,7 @@ before_script:
   # Install PHP Compatibility sniffs.
   - if [[ "$SNIFF" == "1" ]]; then git clone -b master https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
   # Set install path for PHPCS sniffs.
-  - if [[ "$SNIFF" == "1" ]]; then phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$SNIFFS_DIR; fi
+  - if [[ "$SNIFF" == "1" ]]; then phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$SNIFFS_DIR,$SNIFFS_DIR/PHPCompatibility; fi
   - if [[ "$SNIFF" == "1" ]]; then phpcs -i; fi
   # After CodeSniffer install you should refresh your path.
   - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
@@ -72,13 +72,9 @@ script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       phpunit
-      WP_MULTISITE=1 phpunit
     fi
   - |
     if [[ "$SNIFF" == "1" ]] ; then
       phpcs -p -v -s --standard=phpcs.ruleset.xml $(find . -name '*.php')
     fi
 
-addons:
-    code_climate:
-        repo_token: 551ca5ac256e8b26dad480c964ce692d6e28afbf97c34994c0ef84e3d9cfc65c
