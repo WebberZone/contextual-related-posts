@@ -4,7 +4,7 @@ Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 4.1
-Tested up to: 4.8
+Tested up to: 4.9
 License: GPLv2 or later
 
 Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
