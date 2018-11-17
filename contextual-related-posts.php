@@ -117,6 +117,7 @@ function crp_default_options() {
 
 		'content_filter_priority'  => 10,   // Content priority.
 		'insert_after_paragraph'   => -1,   // Insert after paragraph number.
+		'disable_on_mobile'        => false, // Disable on mobile.
 		'show_metabox'             => true, // Show metabox to admins.
 		'show_metabox_admins'      => false,    // Limit to admins as well.
 
@@ -161,7 +162,7 @@ function crp_default_options() {
 
 		// Thumbnail options.
 		'post_thumb_op'            => 'inline', // Default option to display text and no thumbnails in posts.
-		'thumb_size'               => 'thumbnail',  // Default thumbnail size
+		'thumb_size'               => 'thumbnail',  // Default thumbnail size.
 		'thumb_height'             => '150',    // Height of thumbnails.
 		'thumb_width'              => '150',    // Width of thumbnails.
 		'thumb_crop'               => true,     // Crop mode. default is hard crop.

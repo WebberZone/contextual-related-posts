@@ -183,6 +183,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.5.0 =
 
+* Features:
+	* New option to disable related posts on mobile devices
+
 * Enhancements:
 	* New filters `crp_thumb_alt` and `crp_thumb_title` to edit the post thumbnail alt and title tags. Use this to remove/replace the tags
 	* New function and filter `crp_permalink`
