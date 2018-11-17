@@ -185,6 +185,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Bug fixes:
 	* Fixed CSS validation errors
+	* Removed conversion of table schema from/to InnoDB. If you are using a version of mySQL above v5.6, you can alter the table engine to use InnoDB with a FULLTEXT index
 
 = 2.4.1 =
 

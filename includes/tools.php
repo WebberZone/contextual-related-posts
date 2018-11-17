@@ -163,25 +163,6 @@ function crp_create_index() {
 
 	$wpdb->hide_errors();
 
-	// If we're running mySQL v5.6, convert the WPDB posts table to InnoDB, since InnoDB supports FULLTEXT from v5.6 onwards.
-	if ( version_compare( 5.6, $wpdb->db_version(), '<=' ) ) {
-		$table_engine = 'InnoDB';
-	} else {
-		$table_engine = 'MyISAM';
-	}
-
-	$current_engine = $wpdb->get_row(
-		"
-		SELECT engine FROM INFORMATION_SCHEMA.TABLES
-		WHERE table_schema=DATABASE()
-		AND table_name = '{$wpdb->posts}'
-	"
-	);
-
-	if ( $current_engine->engine !== $table_engine ) {
-		$wpdb->query( "ALTER TABLE {$wpdb->posts} ENGINE = {$table_engine};" ); // WPCS: unprepared SQL OK.
-	}
-
 	if ( ! $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) ) {
 		$wpdb->query( "ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related (post_title, post_content);" );
 	}
@@ -222,3 +203,21 @@ function crp_delete_index() {
 }
 
 
+/**
+ * Get the table schema for the posts table.
+ *
+ * @since   2.5.0
+ */
+function crp_posts_table_engine() {
+	global $wpdb;
+
+	$engine = $wpdb->get_row(
+		"
+		SELECT engine FROM INFORMATION_SCHEMA.TABLES
+		WHERE table_schema=DATABASE()
+		AND table_name = '{$wpdb->posts}'
+	"
+	);
+
+	return $engine;
+}
