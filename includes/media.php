@@ -196,9 +196,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		}
 
 		if ( 'css' === $args['thumb_html'] ) {
-			$thumb_html = 'style="max-width:' . $args['thumb_width'] . 'px;max-height:' . $args['thumb_height'] . 'px;"';
+			$thumb_html = ' style="max-width:' . $args['thumb_width'] . 'px;max-height:' . $args['thumb_height'] . 'px;"';
 		} elseif ( 'html' === $args['thumb_html'] ) {
-			$thumb_html = 'width="' . $args['thumb_width'] . '" height="' . $args['thumb_height'] . '"';
+			$thumb_html = ' width="' . $args['thumb_width'] . '" height="' . $args['thumb_height'] . '"';
 		} else {
 			$thumb_html = '';
 		}
@@ -209,8 +209,33 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @since   2.2.0
 		 *
 		 * @param   string  $thumb_html Thumbnail HTML
+		 * @param   array   $args Argument array
 		 */
-		$thumb_html = apply_filters( 'crp_thumb_html', $thumb_html );
+		$thumb_html = apply_filters( 'crp_thumb_html', $thumb_html, $args );
+
+		$img_alt = ' alt="' . $post_title . '"';
+
+		/**
+		 * Filters the thumbnail alt tag.
+		 *
+		 * @since   2.5.0
+		 *
+		 * @param   string  $img_alt Thumbnail alt tag
+		 * @param   array   $args Argument array
+		 */
+		$img_alt = apply_filters( 'crp_thumb_alt', $img_alt, $args );
+
+		$img_title = ' title="' . $post_title . '"';
+
+		/**
+		 * Filters the thumbnail title tag.
+		 *
+		 * @since   2.5.0
+		 *
+		 * @param   string  $img_title Thumbnail title tag
+		 * @param   array   $args Argument array
+		 */
+		$img_title = apply_filters( 'crp_thumb_title', $img_title, $args );
 
 		$class = $args['class'] . ' crp_' . $pick;
 
@@ -220,11 +245,12 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @since   2.2.2
 		 *
 		 * @param   string  $thumb_html Thumbnail HTML
+		 * @param   array   $args Argument array
 		 */
-		$class = apply_filters( 'crp_thumb_class', $class );
+		$class = apply_filters( 'crp_thumb_class', $class, $args );
 
-		$output .= '<img src="' . $postimage . '" alt="' . $post_title . '" title="' . $post_title . '" ' . $thumb_html . ' class="' . $class . '" />';
-	}// End if().
+		$output .= '<img src="' . $postimage . '"' . $img_alt . $img_title . $thumb_html . ' class="' . $class . '" />';
+	}
 
 	/**
 	 * Filters post thumbnail created for CRP.
@@ -232,7 +258,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	 * @since   1.9
 	 *
 	 * @param   array   $output Formatted output
-	 * @param   array   $args   Argument list
+	 * @param   array   $args   Argument array
 	 */
 	return apply_filters( 'crp_get_the_post_thumbnail', $output, $args );
 }
@@ -311,7 +337,7 @@ function crp_get_attachment_id_from_url( $attachment_url = '' ) {
 		$attachment_url = str_replace( $upload_dir_paths['baseurl'] . '/', '', $attachment_url );
 
 		// Finally, run a custom database query to get the attachment ID from the modified attachment URL.
-		$attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = '%s' AND wposts.post_type = 'attachment'", $attachment_url ) );
+		$attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = %s AND wposts.post_type = 'attachment'", $attachment_url ) );
 
 	}
 
