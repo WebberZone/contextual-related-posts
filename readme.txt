@@ -181,6 +181,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.5.0 =
+
+* Bug fixes:
+	* Fixed CSS validation errors
+
 = 2.4.1 =
 
 * Bug fixes:
