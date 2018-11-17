@@ -257,21 +257,49 @@ function crp_author( $args, $result ) {
 
 
 /**
+ * Returns the permalink of each list item.
+ *
+ * @since   2.5.0
+ *
+ * @param   array  $args   Array of arguments.
+ * @param   object $result Object of the current post result.
+ * @return  string  Space separated list of link attributes
+ */
+function crp_permalink( $args, $result ) {
+
+	$link = get_permalink( $result->ID );
+
+	/**
+	 * Filter the title of each list item.
+	 *
+	 * @since   2.5.0
+	 *
+	 * @param   string  $title  Permalink of the post.
+	 * @param   object  $result Object of the current post result
+	 * @param   array   $args   Array of arguments
+	 */
+	return apply_filters( 'crp_permalink', $link, $result, $args );
+
+}
+
+
+/**
  * Returns the formatted list item with link and and thumbnail for each list item.
  *
  * @since   2.2.0
  *
  * @param   array  $args   Array of arguments.
  * @param   object $result Object of the current post result.
- * @return  string  Space separated list of link attributes
+ * @return  string Space separated list of link attributes
  */
 function crp_list_link( $args, $result ) {
 
 	$output          = '';
 	$title           = crp_title( $args, $result );
+	$link            = crp_permalink( $args, $result );
 	$link_attributes = crp_link_attributes( $args );
 
-	$output .= '<a href="' . get_permalink( $result->ID ) . '" ' . $link_attributes . '>';
+	$output .= '<a href="' . $link . '" ' . $link_attributes . '>';
 
 	if ( 'after' === $args['post_thumb_op'] ) {
 		$output .= '<span class="crp_title">' . $title . '</span>'; // Add title when required by settings.
