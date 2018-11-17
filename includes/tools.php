@@ -22,11 +22,14 @@
 function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 	$content = '';
 
-	if ( $use_excerpt ) {
-		$content = get_post( $id )->post_excerpt;
-	}
-	if ( empty( $content ) ) {
-		$content = get_post( $id )->post_content;
+	$post = get_post( $id );
+	if ( $post ) {
+		if ( $use_excerpt ) {
+			$content = $post->post_excerpt;
+		}
+		if ( empty( $content ) ) {
+			$content = $post->post_content;
+		}
 	}
 
 	$output = strip_tags( strip_shortcodes( $content ) );
