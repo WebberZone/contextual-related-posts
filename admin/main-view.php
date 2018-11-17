@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 		?>
 
 		  <li><a href="#genopdiv"><?php esc_html_e( 'General options', 'contextual-related-posts' ); ?></a> | </li>
-		<li><a href="#tuneopdiv"><?php esc_html_e( 'List tuning options', 'contextual-related-posts' ); ?></a> | </li>
+		  <li><a href="#tuneopdiv"><?php esc_html_e( 'List tuning options', 'contextual-related-posts' ); ?></a> | </li>
 		  <li><a href="#outputopdiv"><?php esc_html_e( 'Output options', 'contextual-related-posts' ); ?></a> | </li>
 		  <li><a href="#thumbopdiv"><?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?></a> | </li>
 		  <li><a href="#customcssdiv"><?php esc_html_e( 'Styles', 'contextual-related-posts' ); ?></a> | </li>
@@ -101,6 +101,13 @@ if ( ! defined( 'WPINC' ) ) {
 					<td>
 						<input type="textbox" name="insert_after_paragraph" id="insert_after_paragraph" value="<?php echo esc_attr( $crp_settings['insert_after_paragraph'] ); ?>" />
 						<p class="description"><?php esc_html_e( 'Enter 0 to display the related posts before the post content, -1 to display this at the end or a number to insert it after that paragraph number. If your post has less paragraphs, related posts will be displayed at the end.', 'contextual-related-posts' ); ?></p>
+					</td>
+				</tr>
+
+				<tr><th scope="row"><label for="disable_on_mobile"><?php esc_html_e( 'Disable on mobile devices:', 'contextual-related-posts' ); ?></label></th>
+					<td>
+						<input type="checkbox" name="disable_on_mobile" id="disable_on_mobile" <?php checked( true, $crp_settings['disable_on_mobile'] ); ?> />
+						<p class="description"><?php esc_html_e( 'Disable display of related posts on mobile devices', 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
 
@@ -297,7 +304,7 @@ if ( ! defined( 'WPINC' ) ) {
 				<tr><th scope="row"><label for="show_excerpt"><?php esc_html_e( 'Show post excerpt in list?', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<input type="checkbox" name="show_excerpt" id="show_excerpt" <?php checked( true, $crp_settings['show_excerpt'] ); ?> />
-						<p class="description"><?php printf( esc_html__( "Displays the excerpt of the post. If you do not provide an explicit excerpt to a post (in the post editor's optional excerpt field), it will display an automatic excerpt which refers to the first %d words of the post's content", 'contextual-related-posts' ), esc_html_e( $crp_settings['excerpt_length'] ) ); ?></p>
+						<p class="description"><?php printf( esc_html__( "Displays the excerpt of the post. If you do not provide an explicit excerpt to a post (in the post editor's optional excerpt field), it will display an automatic excerpt which refers to the first %d words of the post's content", 'contextual-related-posts' ), $crp_settings['excerpt_length'] ); ?></p>
 
 						<?php if ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) { ?>
 							<p style="color: #F00"><?php esc_html_e( 'Rounded Thumbnails style selected under the Custom Styles. Excerpt display is disabled.', 'contextual-related-posts' ); ?></p>
@@ -658,7 +665,7 @@ if ( ! defined( 'WPINC' ) ) {
 					<br />
 
 					<label>
-						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0" 
+						<input type="radio" name="crp_styles" value="rounded_thumbs" id="crp_styles_0"
 						<?php
 						if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) ) {
 							echo 'checked="checked"'; }

@@ -46,6 +46,11 @@ function crp_content_filter( $content ) {
 		return $content;
 	}
 
+	// Return if this is a mobile device and disable on mobile option is enabled.
+	if ( wp_is_mobile() && $crp_settings['disable_on_mobile'] ) {
+		return $content;
+	}
+
 	// If this post ID is in the DO NOT DISPLAY list.
 	$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
 	if ( in_array( $post->ID, $exclude_on_post_ids ) ) {
