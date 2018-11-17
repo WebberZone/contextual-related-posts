@@ -69,7 +69,8 @@ function get_crp( $args = array() ) {
 	// Retrieve the list of posts.
 	$results = get_crp_posts_id(
 		array_merge(
-			$args, array(
+			$args,
+			array(
 				'postid'       => $post->ID,
 				'strict_limit' => isset( $args['strict_limit'] ) ? $args['strict_limit'] : true,
 			)

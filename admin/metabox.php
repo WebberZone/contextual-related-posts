@@ -102,7 +102,7 @@ function crp_call_meta_box() {
 	}
 	$manual_related_array = explode( ',', $manual_related );
 
-?>
+	?>
 	<p>
 		<label for="crp_disable_here"><strong><?php esc_html_e( 'Disable Related Posts display:', 'contextual-related-posts' ); ?></strong></label>
 		<input type="checkbox" id="crp_disable_here" name="crp_disable_here" <?php checked( 1, $disable_here, true ); ?> />

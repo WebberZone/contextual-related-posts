@@ -28,7 +28,8 @@ function crp_ajax_clearcache() {
 				"
 			DELETE FROM {$wpdb->postmeta}
 			WHERE meta_key = %s
-		", $meta_key
+		",
+				$meta_key
 			)
 		);
 

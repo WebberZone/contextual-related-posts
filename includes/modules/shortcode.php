@@ -35,7 +35,9 @@ function crp_shortcode( $atts, $content = null ) {
 				'is_shortcode' => 1,
 				'offset'       => 0,
 			)
-		), $atts, 'crp'
+		),
+		$atts,
+		'crp'
 	);
 
 	return get_crp( $atts );

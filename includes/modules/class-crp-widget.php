@@ -94,7 +94,7 @@ class CRP_Widget extends WP_Widget {
 									<?php
 									if ( $show_excerpt ) {
 										echo 'checked="checked"'; }
-?>
+									?>
  /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
@@ -104,7 +104,7 @@ class CRP_Widget extends WP_Widget {
 									<?php
 									if ( $show_author ) {
 										echo 'checked="checked"'; }
-?>
+									?>
  /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
@@ -114,7 +114,7 @@ class CRP_Widget extends WP_Widget {
 									<?php
 									if ( $show_date ) {
 										echo 'checked="checked"'; }
-?>
+									?>
  /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>

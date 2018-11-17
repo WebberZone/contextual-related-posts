@@ -323,7 +323,7 @@ function crp_adminhead() {
 
 	add_thickbox();
 
-?>
+	?>
 	<style type="text/css">
 		.postbox .handlediv:before {
 			right:12px;
@@ -380,6 +380,6 @@ function crp_adminhead() {
 
 	//]]>
 	</script>
-<?php
+	<?php
 }
 

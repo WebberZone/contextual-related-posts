@@ -513,7 +513,7 @@ if ( ! defined( 'WPINC' ) ) {
 						}
 
 						foreach ( $crp_get_all_image_sizes as $size ) :
-						?>
+							?>
 						<label>
 							<input type="radio" name="thumb_size" value="<?php esc_attr_e( $size['name'] ); ?>" id="<?php esc_attr_e( $size['name'] ); ?>" <?php checked( $crp_settings['thumb_size'], $size['name'] ); ?> />
 							<?php esc_html_e( $size['name'] ); ?> ( <?php esc_html_e( $size['width'] ); ?>x<?php esc_html_e( $size['height'] ); ?>
@@ -521,7 +521,7 @@ if ( ! defined( 'WPINC' ) ) {
 							if ( $size['crop'] ) {
 								echo 'cropped';
 							}
-								?>
+							?>
 								)
 							</label>
 							<br />
@@ -607,7 +607,7 @@ if ( ! defined( 'WPINC' ) ) {
 							if ( ! empty( $crp_settings['thumb_default'] ) ) {
 								printf( '<img src="%1$s" style="max-width:200px" />', esc_url( $crp_settings['thumb_default'] ) );
 							}
-						?>
+							?>
 						<p class="description"><?php esc_html_e( "The plugin will first check if the post contains a thumbnail. If it doesn't then it will check the meta field. If this is not available, then it will show the default image as specified above.", 'contextual-related-posts' ); ?></p>
 					</td>
 				</tr>
@@ -662,7 +662,7 @@ if ( ! defined( 'WPINC' ) ) {
 						<?php
 						if ( $crp_settings['include_default_style'] && ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) ) {
 							echo 'checked="checked"'; }
-?>
+						?>
  /> <?php esc_html_e( 'Rounded Thumbnails', 'contextual-related-posts' ); ?>
 					</label>
 					<p class="description"><img src="<?php echo esc_url( plugins_url( 'admin/images/crp-rounded-thumbs.png', CRP_PLUGIN_FILE ) ); ?>" /></p>
