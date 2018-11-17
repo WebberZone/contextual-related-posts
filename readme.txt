@@ -183,9 +183,13 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.5.0 =
 
+* Enhancements:
+	* New filters `crp_thumb_alt` and `crp_thumb_title` to edit the post thumbnail alt and title tags. Use this to remove/replace the tags
+
 * Bug fixes:
 	* Fixed CSS validation errors
 	* Removed conversion of table schema from/to InnoDB. If you are using a version of mySQL above v5.6, you can alter the table engine to use InnoDB with a FULLTEXT index
+	* Prevent errors from non-existent post id (virtual post). Contributed by [@jnorell](https://github.com/jnorell)
 
 = 2.4.1 =
 
