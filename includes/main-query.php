@@ -289,6 +289,10 @@ function get_crp_posts_id( $args = array() ) {
 
 	$source_post = ( empty( $args['postid'] ) ) ? $post : get_post( $args['postid'] );
 
+	if ( ! $source_post ) {
+		$source_post = $post;
+	}
+
 	$limit  = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
 	$offset = isset( $args['offset'] ) ? $args['offset'] : 0;
 
