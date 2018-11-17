@@ -43,16 +43,14 @@
 	padding: 3px;
 	color: #fff;
 	font-size: .9em;
-	text-shadow: 1000 .1em .1em .2em;
-	background: rgb(0.5, 0.5, 0.5);
-	background: rgba(0, 0, 0, 0.5);
+	text-shadow: .1em .1em .2em #000;
+	background-color: rgba(0, 0, 0, 0.5);
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
 }
 .crp_related li:hover .crp_title {
-	background: rgb(0.2, 0.2, 0.2);
-	background: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.8);
 }
 .crp_related li {
 	vertical-align: bottom;
