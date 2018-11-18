@@ -51,6 +51,11 @@ function crp_content_filter( $content ) {
 		return $content;
 	}
 
+	// Return if this is an amp page and disable on amp option is enabled.
+	if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() && $crp_settings['disable_on_amp'] ) {
+		return $content;
+	}
+
 	// If this post ID is in the DO NOT DISPLAY list.
 	$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
 	if ( in_array( $post->ID, $exclude_on_post_ids ) ) {

@@ -111,6 +111,13 @@ if ( ! defined( 'WPINC' ) ) {
 					</td>
 				</tr>
 
+				<tr><th scope="row"><label for="disable_on_amp"><?php esc_html_e( 'Disable on AMP pages:', 'contextual-related-posts' ); ?></label></th>
+					<td>
+						<input type="checkbox" name="disable_on_amp" id="disable_on_amp" <?php checked( true, $crp_settings['disable_on_amp'] ); ?> />
+						<p class="description"><?php esc_html_e( 'Disable display of related posts on AMP pages', 'contextual-related-posts' ); ?></p>
+					</td>
+				</tr>
+
 				<tr><th scope="row"><label for="show_metabox"><?php esc_html_e( 'Show metabox:', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<input type="checkbox" name="show_metabox" id="show_metabox" <?php checked( true, $crp_settings['show_metabox'] ); ?> />

@@ -84,6 +84,8 @@ function crp_options() {
 
 		$crp_settings['content_filter_priority'] = absint( $_POST['content_filter_priority'] );
 		$crp_settings['insert_after_paragraph']  = ( -1 === $_POST['insert_after_paragraph'] || '' === $_POST['insert_after_paragraph'] ) ? -1 : intval( $_POST['insert_after_paragraph'] );
+		$crp_settings['disable_on_mobile']       = ( isset( $_POST['disable_on_mobile'] ) ? true : false );
+		$crp_settings['disable_on_amp']          = ( isset( $_POST['disable_on_amp'] ) ? true : false );
 		$crp_settings['show_metabox']            = ( isset( $_POST['show_metabox'] ) ? true : false );
 		$crp_settings['show_metabox_admins']     = ( isset( $_POST['show_metabox_admins'] ) ? true : false );
 		$crp_settings['show_credit']             = ( isset( $_POST['show_credit'] ) ? true : false );

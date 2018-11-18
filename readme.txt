@@ -185,6 +185,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Features:
 	* New option to disable related posts on mobile devices
+	* New option to disable related posts on AMP pages
 
 * Enhancements:
 	* New filters `crp_thumb_alt` and `crp_thumb_title` to edit the post thumbnail alt and title tags. Use this to remove/replace the tags
