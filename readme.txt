@@ -190,6 +190,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Enhancements:
 	* New filters `crp_thumb_alt` and `crp_thumb_title` to edit the post thumbnail alt and title tags. Use this to remove/replace the tags
 	* New function and filter `crp_permalink`
+	* Saving a post will delete its cache
 
 * Bug fixes:
 	* Fixed CSS validation errors
