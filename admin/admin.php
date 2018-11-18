@@ -5,7 +5,7 @@
  * This page is accessible via Settings > Contextual Related Posts
  *
  * @package   Contextual_Related_Posts
- * @author    Ajay D'Souza <me@ajaydsouza.com>
+ * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
  * @copyright 2009-2018 Ajay D'Souza
