@@ -60,6 +60,7 @@
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
+	list-style-type: none;
 }
 .crp_clear {
 	clear: both;
