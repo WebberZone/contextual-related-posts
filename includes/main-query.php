@@ -150,7 +150,7 @@ function get_crp( $args = array() ) {
 
 				$categorys = get_the_category( $result->ID );   // Fetch categories of the plugin.
 
-				$p_in_c = false;    // Variable to check if post exists in a particular category
+				$p_in_c = false;    // Variable to check if post exists in a particular category.
 				foreach ( $categorys as $cat ) {    // Loop to check if post exists in excluded category.
 					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories, true ) ) ? true : false;
 					if ( $p_in_c ) {
@@ -185,7 +185,7 @@ function get_crp( $args = array() ) {
 			if ( absint( $args['limit'] ) === $loop_counter ) {
 				break;  // End loop when related posts limit is reached.
 			}
-		} // End foreach().
+		} // End foreach.
 
 		if ( $args['show_credit'] ) {
 
@@ -213,7 +213,7 @@ function get_crp( $args = array() ) {
 
 	} else {
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
-	}// End if().
+	}// End if.
 
 	// Check if the opening list tag is missing in the output, it means all of our results were eliminated cause of the category filter.
 	if ( false === ( strpos( $output, $args['before_list_item'] ) ) ) {
@@ -372,7 +372,7 @@ function get_crp_posts_id( $args = array() ) {
 
 	// Limit the related posts by time.
 	$current_time = current_time( 'timestamp', 0 );
-	$from_date    = $current_time - ( $args['daily_range'] * DAY_IN_SECONDS );
+	$from_date    = $current_time - ( absint( $args['daily_range'] ) * DAY_IN_SECONDS );
 	$from_date    = gmdate( 'Y-m-d H:i:s', $from_date );
 
 	// Create the SQL query to fetch the related posts from the database.
@@ -382,7 +382,7 @@ function get_crp_posts_id( $args = array() ) {
 		$fields = " $wpdb->posts.ID ";
 
 		// Create the base MATCH clause.
-		$match = $wpdb->prepare( ' AND MATCH (' . $match_fields . ") AGAINST ('%s') ", $stuff );
+		$match = $wpdb->prepare( ' AND MATCH (' . $match_fields . ') AGAINST (%s) ', $stuff ); // WPCS: unprepared SQL ok.
 
 		/**
 		 * Filter the MATCH clause of the query.
@@ -396,7 +396,7 @@ function get_crp_posts_id( $args = array() ) {
 		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post->ID );
 
 		// Create the maximum date limit. Show posts before today.
-		$now_clause = $wpdb->prepare( " AND $wpdb->posts.post_date < '%s' ", $now );
+		$now_clause = $wpdb->prepare( " AND $wpdb->posts.post_date < %s ", $now );
 
 		/**
 		 * Filter the Maximum date clause of the query.
@@ -409,7 +409,7 @@ function get_crp_posts_id( $args = array() ) {
 		$now_clause = apply_filters( 'crp_posts_now_date', $now_clause, $source_post->ID );
 
 		// Create the minimum date limit. Show posts after the date specified.
-		$from_clause = ( 0 == $args['daily_range'] ) ? '' : $wpdb->prepare( " AND $wpdb->posts.post_date >= '%s' ", $from_date );
+		$from_clause = ( 0 === absint( $args['daily_range'] ) ) ? '' : $wpdb->prepare( " AND $wpdb->posts.post_date >= %s ", $from_date );
 
 		/**
 		 * Filter the Maximum date clause of the query.
@@ -425,7 +425,7 @@ function get_crp_posts_id( $args = array() ) {
 		$where  = $match;
 		$where .= $now_clause;
 		$where .= $from_clause;
-		$where .= " AND $wpdb->posts.post_status = 'publish' ";                 // Only show published posts
+		$where .= " AND $wpdb->posts.post_status = 'publish' ";                 // Only show published posts.
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );  // Show posts after the date specified.
 
 		// Convert exclude post IDs string to array so it can be filtered.
@@ -536,7 +536,7 @@ function get_crp_posts_id( $args = array() ) {
 
 		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $having $orderby $limits";
 
-		$results = $wpdb->get_results( $sql );
+		$results = $wpdb->get_results( $sql ); // WPCS: unprepared SQL ok.
 
 		if ( $args['random_order'] ) {
 			$results_array = (array) $results;
@@ -545,7 +545,7 @@ function get_crp_posts_id( $args = array() ) {
 		}
 	} else {
 		$results = false;
-	}// End if().
+	}// End if.
 
 	/**
 	 * Filter object containing the post IDs.
