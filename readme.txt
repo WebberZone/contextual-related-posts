@@ -1,13 +1,13 @@
 === Contextual Related Posts ===
-Tags: related posts, related, similar posts, posts, post, feed, feeds, rss, widget, thumbnail, shortcodes
+Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
-Requires at least: 4.1
-Tested up to: 4.9
+Requires at least: 4.2
+Tested up to: 5.0
 License: GPLv2 or later
 
-Display related posts on your WordPress blog and feed. Supports thumbnails, shortcodes, widgets and custom post types!
+Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
 
 == Description ==
 
@@ -23,10 +23,10 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
 
 * **Automatic**: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
 * **Manual install**: Want more control over placement? Check the [FAQ](http://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install.
+* **Caching**: Related posts output is automatically cached as visitors browse through your site
 * **Widgets**: Add related posts to widgetized area of your theme. Lots of options available
 * **Shortcode**: Use `[crp]` to display the posts anywhere you want in the post content
 * **The algorithm**: Find related posts by title and/or content of the current post
-* **Caching**: Related posts output is automatically cached as visitors browse through your site
 * **Exclusions**: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
 * **Custom post types**: The related posts list lets you include posts, pages, attachments or any other custom post type!
 * **Thumbnail support**:
@@ -40,9 +40,14 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
     * Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
 * **Extendable code**: CRP has tonnes of filters and actions that allow any developer to easily add features, edit outputs, etc.
 
-= Extensions =
+= Extensions/Addons =
 
-* [CRP Taxonomy Extender](https://webberzone.com/downloads/crp-taxonomy/)
+* [Related Posts by Categories and Tags](https://webberzone.com/downloads/crp-taxonomy/)
+
+= GDPR =
+Contextual Related Posts is GDPR compliant as it doesn't collect any personal data about your visitors when installed out of the box. All posts are processed on your site and not sent to any external service.
+
+YOU ARE RESPONSIBLE FOR ENSURING THAT ALL GDPR REQUIREMENTS ARE MET ON YOUR WEBSITE.
 
 = Donations =
 
@@ -58,10 +63,7 @@ Bug reports are [welcomed on GitHub](https://github.com/WebberZone/contextual-re
 
 = Translations =
 
-Contextual Related Posts is now on Transifex with several translations made available by the [WP Translations](http://wp-translations.org). If you're a translator, do consider joining the WP Translations team and contribute towards this and a huge number of WordPress plugins.
-
-Visit [Contextual Related Posts on Transifex](https://www.transifex.com/projects/p/contextual-related-posts/).
-
+Contextual Related Posts is available for [translation directly on WordPress.org](https://translate.wordpress.org/projects/wp-plugins/contextual-related-posts). Check out the official [Translator Handbook](https://make.wordpress.org/polyglots/handbook/rosetta/theme-plugin-directories/) to contribute.
 
 == Installation ==
 
