@@ -64,3 +64,87 @@ function crp_ajax_clearcache() {
 add_action( 'wp_ajax_crp_clear_cache', 'crp_ajax_clearcache' );
 
 
+/**
+ * Delete the CRP cache.
+ *
+ * @since   2.2.0
+ *
+ * @param array $meta_keys Array of meta keys that hold the cache.
+ */
+function crp_cache_delete( $meta_keys = array() ) {
+
+	$default_meta_keys = crp_cache_get_keys();
+
+	if ( ! empty( $meta_keys ) ) {
+		$meta_keys = array_intersect( $default_meta_keys, (array) $meta_keys );
+	} else {
+		$meta_keys = $default_meta_keys;
+	}
+
+	foreach ( $meta_keys as $meta_key ) {
+		delete_post_meta_by_key( $meta_key );
+	}
+}
+
+
+/**
+ * Get the default meta keys used for the cache
+ *
+ * @since   2.2.0
+ */
+function crp_cache_get_keys() {
+
+	$meta_keys = array(
+		'crp_related_posts',
+		'crp_related_posts_widget',
+		'crp_related_posts_feed',
+		'crp_related_posts_widget_feed',
+		'crp_related_posts_manual',
+	);
+
+	/**
+	 * Filters the array containing the various cache keys.
+	 *
+	 * @since   1.9
+	 *
+	 * @param   array   $default_meta_keys  Array of meta keys
+	 */
+	return apply_filters( 'crp_cache_keys', $meta_keys );
+}
+
+
+/**
+ * Function to clear cache on post save.
+ *
+ * @since   2.5.0
+ *
+ * @param mixed $post_id Post ID.
+ */
+function crp_delete_cache_post_save( $post_id ) {
+	global $crp_settings;
+
+	// Bail if we're doing an auto save.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// If our nonce isn't there, or we can't verify it, bail.
+	if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['crp_meta_box_nonce'] ), 'crp_meta_box' ) ) { // Input var okay.
+		return;
+	}
+
+	// If our current user can't edit this post, bail.
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	// Clear cache of current post.
+	$default_meta_keys = crp_cache_get_keys();
+	foreach ( $default_meta_keys as $meta_key ) {
+		delete_post_meta( $post_id, $meta_key );
+	}
+
+}
+add_action( 'save_post', 'crp_delete_cache_post_save' );
+add_action( 'edit_attachment', 'crp_delete_cache_post_save' );
+
