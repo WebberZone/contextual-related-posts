@@ -18,7 +18,7 @@ cache:
 matrix:
   fast_finish: true
   include:
-    - php: 7.2
+    - php: 7.0
       env: SNIFF=1
     - php: 7.2
       env: WP_VERSION=latest
@@ -28,8 +28,6 @@ matrix:
       env: WP_VERSION=latest
     - php: 5.6
       env: WP_VERSION=4.1
-    - php: 7.2
-      env: WP_VERSION=trunk
 
   allow_failures:
     # Allow failures for unstable builds.
@@ -41,21 +39,26 @@ before_script:
   - export PHPCS_DIR=/tmp/phpcs
   - export SNIFFS_DIR=/tmp/sniffs
   - export PATH="$HOME/.composer/vendor/bin:$PHPCS_DIR/bin:$PATH"
+  - phpunit --version
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
       if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
-        composer global require "phpunit/phpunit=5.7.*"
+        echo "Using latest PHPUnit 6.x branch"
+        composer global require "phpunit/phpunit=^6"
       else
-        composer global require "phpunit/phpunit=4.8.*"
+        echo "Using latest PHPUnit 4.x branch"
+        composer global require "phpunit/phpunit=^4"
       fi
+      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit --version
     fi
+
+  # Install PHP_CodeSniffer.
+  - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
   # Install WordPress Coding Standards.
-  - if [[ "$SNIFF" == "1" ]]; then composer global require wp-coding-standards/wpcs; fi
-  # Install PHP Compatibility sniffs.
-  - if [[ "$SNIFF" == "1" ]]; then git clone -b master https://github.com/wimg/PHPCompatibility.git $SNIFFS_DIR/PHPCompatibility; fi
-  # Set install path for PHPCS sniffs.
-  - if [[ "$SNIFF" == "1" ]]; then phpcs --config-set installed_paths $HOME/.composer/vendor/wp-coding-standards/wpcs,$SNIFFS_DIR,$SNIFFS_DIR/PHPCompatibility; fi
+  - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR; fi
+  # Set install path for WordPress Coding Standards.
+  - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
   - if [[ "$SNIFF" == "1" ]]; then phpcs -i; fi
   # After CodeSniffer install you should refresh your path.
   - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
@@ -63,10 +66,10 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit
+      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit
     fi
   - |
     if [[ "$SNIFF" == "1" ]] ; then
-      phpcs -p -v -s --standard=phpcs.ruleset.xml $(find . -name '*.php')
+      $PHPCS_DIR/bin/phpcs -p -v -s --standard=phpcs.ruleset.xml $(find . -name '*.php')
     fi
 
