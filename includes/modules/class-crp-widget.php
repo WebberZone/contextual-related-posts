@@ -61,7 +61,7 @@ class CRP_Widget extends WP_Widget {
 		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
 		if ( ! empty( $instance['post_types'] ) && false === strpos( $instance['post_types'], '=' ) ) {
 			$post_types = explode( ',', $instance['post_types'] );
-		} else {
+		} elseif ( ! empty( $instance['post_types'] ) ) {
 			parse_str( $instance['post_types'], $post_types );  // Save post types in $post_types variable.
 		}
 
@@ -90,7 +90,7 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" 
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox"
 									<?php
 									if ( $show_excerpt ) {
 										echo 'checked="checked"'; }
@@ -100,7 +100,7 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox" 
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox"
 									<?php
 									if ( $show_author ) {
 										echo 'checked="checked"'; }
@@ -110,7 +110,7 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox" 
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox"
 									<?php
 									if ( $show_date ) {
 										echo 'checked="checked"'; }
