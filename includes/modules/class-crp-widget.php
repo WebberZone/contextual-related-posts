@@ -177,15 +177,16 @@ class CRP_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                  = $old_instance;
-		$instance['title']         = strip_tags( $new_instance['title'] );
-		$instance['limit']         = $new_instance['limit'];
-		$instance['offset']        = $new_instance['offset'];
-		$instance['show_excerpt']  = $new_instance['show_excerpt'];
-		$instance['show_author']   = $new_instance['show_author'];
-		$instance['show_date']     = $new_instance['show_date'];
+		$instance                  = array();
+		$instance['title']         = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
+		$instance['limit']         = ( ! empty( $new_instance['limit'] ) ) ? intval( $new_instance['limit'] ) : '';
 		$instance['post_thumb_op'] = $new_instance['post_thumb_op'];
-		$instance['thumb_height']  = $new_instance['thumb_height'];
-		$instance['thumb_width']   = $new_instance['thumb_width'];
+		$instance['thumb_width']   = ( ! empty( $new_instance['thumb_width'] ) ) ? intval( $new_instance['thumb_width'] ) : '';
+		$instance['thumb_height']  = ( ! empty( $new_instance['thumb_height'] ) ) ? intval( $new_instance['thumb_height'] ) : '';
+		$instance['show_excerpt']  = isset( $new_instance['show_excerpt'] ) ? true : false;
+		$instance['show_author']   = isset( $new_instance['show_author'] ) ? true : false;
+		$instance['show_date']     = isset( $new_instance['show_date'] ) ? true : false;
+		$instance['offset']        = ( ! empty( $new_instance['offset'] ) ) ? intval( $new_instance['offset'] ) : '';
 
 		// Process post types to be selected.
 		$wp_post_types          = get_post_types(
