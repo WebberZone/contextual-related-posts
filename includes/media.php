@@ -25,7 +25,7 @@ function crp_add_image_sizes() {
 	if ( 'crp_thumbnail' === $crp_settings['thumb_size'] ) {
 		$width  = empty( $crp_settings['thumb_width'] ) ? 150 : $crp_settings['thumb_width'];
 		$height = empty( $crp_settings['thumb_height'] ) ? 150 : $crp_settings['thumb_height'];
-		$crop   = isset( $crp_settings['thumb_crop'] ) ? $crp_settings['thumb_crop'] : false;
+		$crop   = isset( $crp_settings['thumb_crop'] ) ? $crp_settings['thumb_crop'] : true;
 
 		add_image_size( 'crp_thumbnail', $width, $height, $crop );
 	}

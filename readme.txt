@@ -187,6 +187,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Enhancements:
 	* Do not delete index on activation
+	* crp_thumbnail image size will set the default crop option to true if not already set
 
 * Bug fixes:
 	* Missing/Unknown PHP errors/warnings in the widget
