@@ -32,15 +32,15 @@ if ( ! is_multisite() ) {
 } else {
 
 	// Get all blogs in the network and activate plugin on each one.
-	$blog_ids = $wpdb->get_col(
+	$blogids = $wpdb->get_col(
 		"
     	SELECT blog_id FROM $wpdb->blogs
 		WHERE archived = '0' AND spam = '0' AND deleted = '0'
 	"
 	);
 
-	foreach ( $blog_ids as $blog_id ) {
-		switch_to_blog( $blog_id );
+	foreach ( $blogids as $blogid ) {
+		switch_to_blog( $blogid );
 
 		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related" );
 		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title" );

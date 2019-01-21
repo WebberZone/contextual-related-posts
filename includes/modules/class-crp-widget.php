@@ -26,7 +26,7 @@ class CRP_Widget extends WP_Widget {
 	/**
 	 * Register widget with WordPress.
 	 */
-	function __construct() {
+	public function __construct() {
 		parent::__construct(
 			'widget_crp',
 			__( 'Related Posts [CRP]', 'contextual-related-posts' ),
@@ -120,11 +120,11 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
-			<select class="widefat" id="<?php esc_attr_e( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php esc_attr_e( $this->get_field_name( 'post_thumb_op' ) ); ?>">
-			  <option value="inline" <?php selected( 'inline', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
-			  <option value="after" <?php selected( 'after', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
-			  <option value="thumbs_only" <?php selected( 'thumbs_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
-			  <option value="text_only" <?php selected( 'text_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
+			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_thumb_op' ) ); ?>">
+				<option value="inline" <?php selected( 'inline', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
+				<option value="after" <?php selected( 'after', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
+				<option value="thumbs_only" <?php selected( 'thumbs_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
+				<option value="text_only" <?php selected( 'text_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
 			</select>
 		</p>
 		<p>
@@ -293,8 +293,8 @@ class CRP_Widget extends WP_Widget {
 
 			$output .= $args['after_widget'];
 
-			echo $output; // WPCS: XSS OK.
-		}// End if().
+			echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}// End if.
 	} // Ending function widget.
 }
 
