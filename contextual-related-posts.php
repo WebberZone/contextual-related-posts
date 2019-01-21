@@ -167,6 +167,7 @@ function crp_default_options() {
 		'thumb_height'             => '150',    // Height of thumbnails.
 		'thumb_width'              => '150',    // Width of thumbnails.
 		'thumb_crop'               => true,     // Crop mode. default is hard crop.
+		'thumb_create_sizes'       => true,     // Create thumbnail sizes.
 		'thumb_html'               => 'html',       // Use HTML or CSS for width and height of the thumbnail?
 		'thumb_meta'               => 'post-image', // Meta field that is used to store the location of default thumbnail image.
 		'scan_images'              => true,         // Scan post for images.

@@ -22,7 +22,7 @@ function crp_add_image_sizes() {
 	}
 
 	// Add image sizes if 'crp_thumbnail' is selected or the selected thumbnail size is no longer valid.
-	if ( 'crp_thumbnail' === $crp_settings['thumb_size'] ) {
+	if ( 'crp_thumbnail' === $crp_settings['thumb_size'] && $crp_settings['thumb_create_sizes'] ) {
 		$width  = empty( $crp_settings['thumb_width'] ) ? 150 : $crp_settings['thumb_width'];
 		$height = empty( $crp_settings['thumb_height'] ) ? 150 : $crp_settings['thumb_height'];
 		$crop   = isset( $crp_settings['thumb_crop'] ) ? $crp_settings['thumb_crop'] : true;
