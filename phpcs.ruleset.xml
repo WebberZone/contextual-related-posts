@@ -7,12 +7,7 @@
 	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/index.php</exclude-pattern>
 
-	<rule ref="WordPress-Extra">
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
-		<exclude name="WordPress.XSS.EscapeOutput"/>
-	</rule>
-
-	<rule ref="WordPress-Docs" />
+	<rule ref="WordPress" />
 
 	<!-- Add in some extra rules from other standards. -->
 	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
