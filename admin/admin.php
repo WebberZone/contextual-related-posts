@@ -120,13 +120,15 @@ function crp_options() {
 		if ( 'crp_thumbnail' !== $crp_settings['thumb_size'] ) {
 			$crp_thumb_size = crp_get_all_image_sizes( $crp_settings['thumb_size'] );
 
-			$crp_settings['thumb_height'] = absint( $crp_thumb_size['height'] );
-			$crp_settings['thumb_width']  = absint( $crp_thumb_size['width'] );
-			$crp_settings['thumb_crop']   = $crp_thumb_size['crop'];
+			$crp_settings['thumb_height']       = absint( $crp_thumb_size['height'] );
+			$crp_settings['thumb_width']        = absint( $crp_thumb_size['width'] );
+			$crp_settings['thumb_crop']         = $crp_thumb_size['crop'];
+			$crp_settings['thumb_create_sizes'] = ( isset( $_POST['thumb_create_sizes'] ) ? true : false );
 		} else {
-			$crp_settings['thumb_height'] = absint( $_POST['thumb_height'] );
-			$crp_settings['thumb_width']  = absint( $_POST['thumb_width'] );
-			$crp_settings['thumb_crop']   = ( isset( $_POST['thumb_crop'] ) ? true : false );
+			$crp_settings['thumb_height']       = absint( $_POST['thumb_height'] );
+			$crp_settings['thumb_width']        = absint( $_POST['thumb_width'] );
+			$crp_settings['thumb_crop']         = ( isset( $_POST['thumb_crop'] ) ? true : false );
+			$crp_settings['thumb_create_sizes'] = ( isset( $_POST['thumb_create_sizes'] ) ? true : false );
 		}
 
 		$crp_settings['thumb_html'] = sanitize_text_field( wp_unslash( $_POST['thumb_html'] ) );

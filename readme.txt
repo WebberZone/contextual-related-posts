@@ -185,6 +185,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.5.1 =
 
+* Features:
+	* New option to disable creation of thumbnails
+
 * Enhancements:
 	* Do not delete index on activation
 	* crp_thumbnail image size will set the default crop option to true if not already set

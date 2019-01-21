@@ -575,6 +575,14 @@ if ( ! defined( 'WPINC' ) ) {
 						</p>
 					</td>
 				</tr>
+				<tr><th scope="row"><label for="thumb_create_sizes"><?php esc_html_e( 'Generate thumbnail sizes:', 'contextual-related-posts' ); ?></label></th>
+					<td>
+						<input type="checkbox" name="thumb_create_sizes" id="thumb_create_sizes" <?php checked( true, $crp_settings['thumb_create_sizes'] ); ?> />
+						<p class="description">
+							<?php esc_html_e( 'If you select this option and Custom size is selected above, the plugin will register the image size with WordPress to create new thumbnails. Does not update old images as explained above.', 'contextual-related-posts' ); ?>
+						</p>
+					</td>
+				</tr>
 				<tr><th scope="row"><label for="thumb_html"><?php esc_html_e( 'Image size attributes:', 'contextual-related-posts' ); ?></label></th>
 					<td>
 						<label>
