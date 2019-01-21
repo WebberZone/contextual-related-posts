@@ -58,7 +58,6 @@ function crp_single_activate() {
 
 	$wpdb->hide_errors();
 
-	crp_delete_index();
 	crp_create_index();
 
 	$wpdb->show_errors();

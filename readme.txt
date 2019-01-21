@@ -185,6 +185,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.5.1 =
 
+* Enhancements:
+	* Do not delete index on activation
+
 * Bug fixes:
 	* Missing/Unknown PHP errors/warnings in the widget
 
