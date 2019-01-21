@@ -55,7 +55,7 @@ function crp_heading_styles() {
 	global $crp_settings;
 
 	if ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) {
-		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ) );
+		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ), array(), '1.0' );
 		wp_enqueue_style( 'crp-style-rounded-thumbs' );
 
 		$custom_css = "
@@ -69,9 +69,9 @@ function crp_heading_styles() {
   margin: auto;
 }
 .crp_related .crp_title {
-  width: " . ( $crp_settings['thumb_width'] ) . 'px;
+  width: 100%;
 }
-                ';
+                ";
 
 		wp_add_inline_style( 'crp-style-rounded-thumbs', $custom_css );
 

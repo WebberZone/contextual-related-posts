@@ -191,6 +191,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Bug fixes:
 	* Missing/Unknown PHP errors/warnings in the widget
+	* Minor CSS fixes
 
 = 2.5.0 =
 
