@@ -138,7 +138,7 @@ function crp_call_meta_box() {
 			printf(
 				/* translators: Post type name */
 				esc_html__( 'This post type is: %s', 'contextual-related-posts' ),
-				'<em>' . esc_html__( get_post_type( $manual_related_post ) ) . '</em>'
+				'<em>' . esc_html( get_post_type( $manual_related_post ) ) . '</em>'
 			);
 
 			echo '</li>';
@@ -151,7 +151,7 @@ function crp_call_meta_box() {
 		<label for="crp_thumb_meta"><strong><?php esc_html_e( 'Location of thumbnail', 'contextual-related-posts' ); ?>:</strong></label>
 		<input type="text" id="crp_thumb_meta" name="crp_thumb_meta" value="<?php echo esc_attr( $value ); ?>" style="width:100%" />
 		<em><?php esc_html_e( "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This image will be used for the post. It will be resized to the thumbnail size set under Settings &raquo; Related Posts &raquo; Output Options", 'contextual-related-posts' ); ?></em>
-		<em><?php esc_html_e( 'The URL above is saved in the meta field:', 'contextual-related-posts' ); ?></em> <strong><?php esc_html_e( $crp_settings['thumb_meta'] ); ?></strong>
+		<em><?php esc_html_e( 'The URL above is saved in the meta field:', 'contextual-related-posts' ); ?></em> <strong><?php echo esc_html( $crp_settings['thumb_meta'] ); ?></strong>
 	</p>
 
 	<p>
@@ -255,8 +255,8 @@ function crp_save_meta_box( $post_id ) {
 	$crp_post_meta_filtered = array_filter( $crp_post_meta );
 
 	/**** Now we can start saving */
-	if ( empty( $crp_post_meta_filtered ) ) {   // Checks if all the array items are 0 or empty
-		delete_post_meta( $post_id, 'crp_post_meta' );  // Delete the post meta if no options are set
+	if ( empty( $crp_post_meta_filtered ) ) {   // Checks if all the array items are 0 or empty.
+		delete_post_meta( $post_id, 'crp_post_meta' );  // Delete the post meta if no options are set.
 	} else {
 		update_post_meta( $post_id, 'crp_post_meta', $crp_post_meta_filtered );
 	}
