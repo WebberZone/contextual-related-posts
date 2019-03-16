@@ -3,7 +3,7 @@ Tags: related posts, related, related articles, contextual related posts, simila
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
-Requires at least: 4.2
+Requires at least: 4.5
 Tested up to: 5.0
 License: GPLv2 or later
 
