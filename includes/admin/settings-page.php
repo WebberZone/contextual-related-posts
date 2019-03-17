@@ -31,8 +31,6 @@ function crp_options_page() {
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Contextual Related Posts Settings', 'contextual-related-posts' ); ?></h1>
 
-		<?php settings_errors(); ?>
-
 		<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 		<div id="post-body-content">
