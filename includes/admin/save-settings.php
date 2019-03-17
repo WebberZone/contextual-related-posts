@@ -279,15 +279,16 @@ add_filter( 'crp_settings_sanitize_posttypes', 'crp_sanitize_posttypes_field' );
 
 
 /**
- * Sanitize exclude_cat_slugs to save a new entry of exclude_categories
+ * Modify settings when they are being saved.
  *
  * @since 2.6.0
  *
  * @param  array $settings Settings array.
- * @return string  $settings  Sanitizied settings array.
+ * @return string  $settings  Sanitized settings array.
  */
-function crp_sanitize_exclude_cat( $settings ) {
+function crp_change_settings_on_save( $settings ) {
 
+	// Sanitize exclude_cat_slugs to save a new entry of exclude_categories.
 	if ( ! empty( $settings['exclude_cat_slugs'] ) ) {
 
 		$exclude_cat_slugs = explode( ',', $settings['exclude_cat_slugs'] );
@@ -309,24 +310,17 @@ function crp_sanitize_exclude_cat( $settings ) {
 
 	}
 
-	return $settings;
-}
-add_filter( 'crp_settings_sanitize', 'crp_sanitize_exclude_cat' );
-
-
-/**
- * Delete cache when saving settings.
- *
- * @since 2.6.0
- *
- * @param  array $settings Settings array.
- * @return string  $settings  Sanitizied settings array.
- */
-function crp_sanitize_cache( $settings ) {
+	// Overwrite settings if rounded thumbnail style is selected.
+	if ( 'rounded_thumbs' === $settings['crp_styles'] ) {
+		$settings['show_excerpt']  = 0;
+		$settings['show_author']   = 0;
+		$settings['show_date']     = 0;
+		$settings['post_thumb_op'] = 'inline';
+	}
 
 	// Delete the cache.
 	crp_cache_delete();
 
 	return $settings;
 }
-add_filter( 'crp_settings_sanitize', 'crp_sanitize_cache' );
+add_filter( 'crp_settings_sanitize', 'crp_change_settings_on_save' );
