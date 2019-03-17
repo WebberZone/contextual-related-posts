@@ -173,6 +173,8 @@ function crp_max_formatted_content( $content, $no_of_char = -1 ) {
  */
 function crp_default_options() {
 
+	_deprecated_function( __FUNCTION__, '2.6.0' );
+
 	$title = __( '<h3>Related Posts:</h3>', 'contextual-related-posts' );
 
 	$blank_output_text = __( 'No related posts found', 'contextual-related-posts' );
@@ -284,22 +286,10 @@ function crp_default_options() {
  * @return array Contextual Related Posts options
  */
 function crp_read_options() {
-	$crp_settings_changed = false;
 
-	$defaults = crp_default_options();
+	_deprecated_function( __FUNCTION__, '2.6.0', 'crp_get_settings()' );
 
-	$crp_settings = array_map( 'stripslashes', (array) get_option( 'ald_crp_settings' ) );
-	unset( $crp_settings[0] ); // Produced by the (array) casting when there's nothing in the DB.
-
-	foreach ( $defaults as $k => $v ) {
-		if ( ! isset( $crp_settings[ $k ] ) ) {
-			$crp_settings[ $k ] = $v;
-		}
-		$crp_settings_changed = true;
-	}
-	if ( true === $crp_settings_changed ) {
-		update_option( 'ald_crp_settings', $crp_settings );
-	}
+	$crp_settings = crp_get_settings();
 
 	/**
 	 * Filters the options array.
