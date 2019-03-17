@@ -20,9 +20,9 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.8.4
  */
 function crp_header() {
-	global $crp_settings;
 
-	$custom_css = stripslashes( $crp_settings['custom_CSS'] );
+	$add_to     = crp_get_option( 'add_to', false );
+	$custom_css = stripslashes( crp_get_option( 'custom_CSS' ) );
 
 	// Add CSS to header.
 	if ( '' != $custom_css ) {
@@ -30,13 +30,13 @@ function crp_header() {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
 		} elseif ( ( is_page() ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-		} elseif ( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) {
+		} elseif ( ( is_home() ) && ( $add_to['home'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-		} elseif ( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) {
+		} elseif ( ( is_category() ) && ( $add_to['category_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-		} elseif ( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) {
+		} elseif ( ( is_tag() ) && ( $add_to['tag_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
-		} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) {
+		} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $add_to['other_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
 		} elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
@@ -52,20 +52,22 @@ add_action( 'wp_head', 'crp_header' );
  * @since 1.9
  */
 function crp_heading_styles() {
-	global $crp_settings;
 
-	if ( 'rounded_thumbs' === $crp_settings['crp_styles'] ) {
+	$thumb_width = crp_get_option('thumb_width');
+	$thumb_height = crp_get_option('thumb_height');
+
+	if ( 'rounded_thumbs' === crp_get_option( 'crp_styles' ) ) {
 		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ), array(), '1.0' );
 		wp_enqueue_style( 'crp-style-rounded-thumbs' );
 
 		$custom_css = "
 .crp_related a {
-  width: {$crp_settings['thumb_width']}px;
-  height: {$crp_settings['thumb_height']}px;
+  width: {$thumb_width}px;
+  height: {$thumb_height}px;
   text-decoration: none;
 }
 .crp_related img {
-  max-width: {$crp_settings['thumb_width']}px;
+  max-width: {$thumb_width}px;
   margin: auto;
 }
 .crp_related .crp_title {
