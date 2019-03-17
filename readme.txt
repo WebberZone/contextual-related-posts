@@ -187,6 +187,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Features:
 	* Implemented the Settings API for handling plugin settings
+	* New Tools page: Recreate the indices, delete the cache and delete old settings
 
 = 2.5.1 =
 

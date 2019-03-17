@@ -31,6 +31,12 @@ function crp_options_page() {
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Contextual Related Posts Settings', 'contextual-related-posts' ); ?></h1>
 
+		<p>
+			<a href="<?php echo admin_url( 'admin.php?page=crp_tools_page' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+				<?php esc_html_e( 'Visit the Tools page', 'autoclose' ); ?>
+			</a>
+		<p>
+
 		<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 		<div id="post-body-content">

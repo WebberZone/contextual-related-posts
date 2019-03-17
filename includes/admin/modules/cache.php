@@ -25,10 +25,10 @@ function crp_ajax_clearcache() {
 
 		$count = $wpdb->query(
 			$wpdb->prepare(
-				"
+			"
 			DELETE FROM {$wpdb->postmeta}
 			WHERE meta_key = %s
-		",
+			",
 				$meta_key
 			)
 		);

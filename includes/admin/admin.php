@@ -223,8 +223,11 @@ function crp_adminhead() {
  * @return string Updated Footer text
  */
 function crp_admin_footer( $footer_text ) {
+	global $crp_settings_page, $crp_settings_tools_help;
 
-	if ( get_current_screen()->parent_base === 'crp_options_page' ) {
+	$current_screen = get_current_screen();
+
+	if ( $current_screen->id === $crp_settings_page || $current_screen->id === $crp_settings_tools_help ) {
 
 		$text = sprintf(
 			/* translators: 1: Contextual Related Posts website, 2: Plugin reviews link. */
