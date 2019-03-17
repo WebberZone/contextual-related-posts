@@ -27,11 +27,24 @@ if ( ! defined( 'WPINC' ) ) {
 function crp_add_admin_pages_links() {
 	global $crp_settings_page, $crp_settings_tools_help;
 
-	$crp_settings_page = add_options_page( esc_html__( 'Contextual Related Posts', 'contextual-related-posts' ), esc_html__( 'Contextual Related Posts', 'contextual-related-posts' ), 'manage_options', 'crp_options_page', 'crp_options_page' );
+	$crp_settings_page = add_options_page(
+		esc_html__( 'Contextual Related Posts', 'contextual-related-posts' ),
+		esc_html__( 'Related Posts', 'contextual-related-posts' ),
+		'manage_options',
+		'crp_options_page',
+		'crp_options_page'
+	);
 	add_action( "load-$crp_settings_page", 'crp_settings_help' ); // Load the settings contextual help.
 	add_action( "admin_head-$crp_settings_page", 'crp_adminhead' ); // Load the admin head.
 
-	$crp_settings_tools_help = add_submenu_page( $crp_settings_page, esc_html__( 'Contextual Related Posts Tools', 'contextual-related-posts' ), esc_html__( 'Tools', 'contextual-related-posts' ), 'manage_options', 'crp_tools_page', 'crp_tools_page' );
+	$crp_settings_tools_help = add_submenu_page(
+		$crp_settings_page,
+		esc_html__( 'Contextual Related Posts Tools', 'contextual-related-posts' ),
+		esc_html__( 'Tools', 'contextual-related-posts' ),
+		'manage_options',
+		'crp_tools_page',
+		'crp_tools_page'
+	);
 	add_action( "load-$crp_settings_tools_help", 'crp_settings_tools_help' );
 	add_action( "admin_head-$crp_settings_tools_help", 'crp_adminhead' );
 

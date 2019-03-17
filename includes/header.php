@@ -53,8 +53,8 @@ add_action( 'wp_head', 'crp_header' );
  */
 function crp_heading_styles() {
 
-	$thumb_width = crp_get_option('thumb_width');
-	$thumb_height = crp_get_option('thumb_height');
+	$thumb_width  = crp_get_option( 'thumb_width' );
+	$thumb_height = crp_get_option( 'thumb_height' );
 
 	if ( 'rounded_thumbs' === crp_get_option( 'crp_styles' ) ) {
 		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ), array(), '1.0' );
