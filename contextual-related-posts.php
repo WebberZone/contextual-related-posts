@@ -76,61 +76,13 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
 }
 
 /*
- *---------------------------------------------------------------------------*
- * Contextual Related Posts Settings
- *---------------------------------------------------------------------------*
- */
-
-require_once CRP_PLUGIN_DIR . 'includes/admin/default-settings.php';
-require_once CRP_PLUGIN_DIR . 'includes/admin/register-settings.php';
-
-
-/**
- * Global variable holding the current settings for Contextual Related Posts
- *
- * @since   1.8.10
- *
- * @var array
- */
-global $crp_settings;
-$crp_settings = crp_get_settings();
-
-
-/**
- * Get Settings.
- *
- * Retrieves all plugin settings
- *
- * @since  2.6.0
- * @return array Contextual Related Posts settings
- */
-function crp_get_settings() {
-
-	$settings = get_option( 'crp_settings' );
-
-	if ( false === $settings ) {
-		add_option( 'crp_settings', crp_settings_defaults() );
-		$settings = get_option( 'crp_settings' );
-	}
-
-	/**
-	 * Settings array
-	 *
-	 * Retrieves all plugin settings
-	 *
-	 * @since 2.0.0
-	 * @param array $settings Settings array
-	 */
-	return apply_filters( 'crp_get_settings', $settings );
-}
-
-
-/*
  *----------------------------------------------------------------------------
  * CRP modules & includes
  *----------------------------------------------------------------------------
  */
 
+require_once CRP_PLUGIN_DIR . 'includes/admin/default-settings.php';
+require_once CRP_PLUGIN_DIR . 'includes/admin/register-settings.php';
 require_once CRP_PLUGIN_DIR . 'includes/plugin-activator.php';
 require_once CRP_PLUGIN_DIR . 'includes/i10n.php';
 require_once CRP_PLUGIN_DIR . 'includes/output-generator.php';
@@ -173,4 +125,44 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
  */
 
 require_once CRP_PLUGIN_DIR . 'includes/deprecated.php';
+
+
+/**
+ * Global variable holding the current settings for Contextual Related Posts
+ *
+ * @since   1.8.10
+ *
+ * @var array
+ */
+global $crp_settings;
+$crp_settings = crp_get_settings();
+
+
+/**
+ * Get Settings.
+ *
+ * Retrieves all plugin settings
+ *
+ * @since  2.6.0
+ * @return array Contextual Related Posts settings
+ */
+function crp_get_settings() {
+
+	$settings = get_option( 'crp_settings' );
+
+	if ( false === $settings ) {
+		add_option( 'crp_settings', crp_settings_defaults() );
+		$settings = get_option( 'crp_settings' );
+	}
+
+	/**
+	 * Settings array
+	 *
+	 * Retrieves all plugin settings
+	 *
+	 * @since 2.0.0
+	 * @param array $settings Settings array
+	 */
+	return apply_filters( 'crp_get_settings', $settings );
+}
 
