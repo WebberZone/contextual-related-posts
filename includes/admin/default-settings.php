@@ -243,9 +243,9 @@ function crp_settings_output() {
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'html_wrapper_header'   => array(
-			'id'   => 'html_wrapper_header',
-			'name' => '<h3>' . esc_html__( 'HTML to display', 'contextual-related-posts' ) . '</h3>',
+		'exclude_output_header' => array(
+			'id'   => 'exclude_output_header',
+			'name' => '<h3>' . esc_html__( 'Exclusion settings', 'contextual-related-posts' ) . '</h3>',
 			'desc' => '',
 			'type' => 'header',
 		),
@@ -342,14 +342,14 @@ function crp_settings_list() {
 			'name'    => esc_html__( 'Randomize posts', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'This shuffles the top related posts. Does not work if the cache is enabled.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
-			'options' => true,
+			'options' => false,
 		),
 		'match_content'       => array(
 			'id'      => 'match_content',
 			'name'    => esc_html__( 'Related posts based on title and content', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'If unchecked, only posts titles are used. Enable the cache if enabling this option for better performance. Each site is different, so toggle this option to see which setting gives you better quality related posts.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
-			'options' => true,
+			'options' => false,
 		),
 		'match_content_words' => array(
 			'id'      => 'match_content_words',
@@ -365,7 +365,7 @@ function crp_settings_list() {
 			'name'    => esc_html__( 'Post types to include', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'At least one option should be selected above. Select which post types you want to include in the list of posts. This field can be overridden using a comma separated list of post types when using the manual display.', 'contextual-related-posts' ),
 			'type'    => 'posttypes',
-			'options' => 'post',
+			'options' => 'post,page',
 		),
 		'same_post_type'      => array(
 			'id'      => 'same_post_type',
@@ -672,7 +672,7 @@ function crp_upgrade_settings() {
 	// Convert the add_to_{x} to the new settings format.
 	$add_to = array(
 		'single'            => 'add_to_content',
-		'page'              => 'count_on_pages',
+		'page'              => 'add_to_page',
 		'feed'              => 'add_to_feed',
 		'home'              => 'add_to_home',
 		'category_archives' => 'add_to_category_archives',
