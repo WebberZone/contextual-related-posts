@@ -30,29 +30,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
-/**
- * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
- *
- * @since 2.3.0
- *
- * @var string Plugin folder path
- */
-if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
-	define( 'CRP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-}
-
-/**
- * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
- *
- * @since 2.3.0
- *
- * @var string Plugin folder URL
- */
-if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
-	define( 'CRP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-}
-
 /**
  * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
@@ -66,6 +43,28 @@ if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
 
 
 /**
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
+ *
+ * @since 2.3.0
+ *
+ * @var string Plugin folder path
+ */
+if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
+	define( 'CRP_PLUGIN_DIR', plugin_dir_path( CRP_PLUGIN_FILE ) );
+}
+
+/**
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
+ *
+ * @since 2.3.0
+ *
+ * @var string Plugin folder URL
+ */
+if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
+	define( 'CRP_PLUGIN_URL', plugin_dir_url( CRP_PLUGIN_FILE ) );
+}
+
+/**
  * Maximum words to match in the content.
  *
  * @since 2.3.0
@@ -76,6 +75,15 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
 	define( 'CRP_MAX_WORDS', 500 );
 }
 
+/*
+ *---------------------------------------------------------------------------*
+ * Contextual Related Posts Settings
+ *---------------------------------------------------------------------------*
+ */
+
+require_once CRP_PLUGIN_DIR . 'includes/admin/default-settings.php';
+require_once CRP_PLUGIN_DIR . 'includes/admin/register-settings.php';
+
 
 /**
  * Global variable holding the current settings for Contextual Related Posts
@@ -85,7 +93,36 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
  * @var array
  */
 global $crp_settings;
-$crp_settings = crp_read_options();
+$crp_settings = crp_get_settings();
+
+
+/**
+ * Get Settings.
+ *
+ * Retrieves all plugin settings
+ *
+ * @since  2.6.0
+ * @return array Contextual Related Posts settings
+ */
+function crp_get_settings() {
+
+	$settings = get_option( 'crp_settings' );
+
+	if ( false === $settings ) {
+		add_option( 'crp_settings', crp_settings_defaults() );
+		$settings = get_option( 'crp_settings' );
+	}
+
+	/**
+	 * Settings array
+	 *
+	 * Retrieves all plugin settings
+	 *
+	 * @since 2.0.0
+	 * @param array $settings Settings array
+	 */
+	return apply_filters( 'crp_get_settings', $settings );
+}
 
 
 /*
@@ -117,6 +154,11 @@ require_once CRP_PLUGIN_DIR . 'includes/modules/class-crp-widget.php';
 
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
+	require_once CRP_PLUGIN_DIR . 'includes/admin/admin.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/settings-page.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/save-settings.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/help-tab.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/tools.php';
 	require_once CRP_PLUGIN_DIR . 'admin/admin.php';
 	require_once CRP_PLUGIN_DIR . 'admin/loader.php';
 	require_once CRP_PLUGIN_DIR . 'admin/metabox.php';

@@ -25,29 +25,15 @@ if ( ! defined( 'WPINC' ) ) {
  * @return void
  */
 function crp_add_admin_pages_links() {
-	global $crp_settings_page, $crp_settings_tools_help, $crp_settings_popular_posts, $crp_settings_popular_posts_daily;
+	global $crp_settings_page, $crp_settings_tools_help;
 
-	$crp_settings_page = add_menu_page( esc_html__( 'Contextual Related Posts Settings', 'contextual-related-posts' ), esc_html__( 'Contextual Related Posts', 'contextual-related-posts' ), 'manage_options', 'crp_options_page', 'crp_options_page', 'dashicons-editor-ol' );
+	$crp_settings_page = add_options_page( esc_html__( 'Contextual Related Posts', 'contextual-related-posts' ), esc_html__( 'Contextual Related Posts', 'contextual-related-posts' ), 'manage_options', 'crp_options_page', 'crp_options_page' );
 	add_action( "load-$crp_settings_page", 'crp_settings_help' ); // Load the settings contextual help.
 	add_action( "admin_head-$crp_settings_page", 'crp_adminhead' ); // Load the admin head.
 
-	$plugin_page = add_submenu_page( 'crp_options_page', esc_html__( 'Contextual Related Posts Settings', 'contextual-related-posts' ), esc_html__( 'Settings', 'contextual-related-posts' ), 'manage_options', 'crp_options_page', 'crp_options_page' );
-	add_action( 'admin_head-' . $plugin_page, 'crp_adminhead' );
-
-	$crp_settings_tools_help = add_submenu_page( 'crp_options_page', esc_html__( 'Contextual Related Posts Tools', 'contextual-related-posts' ), esc_html__( 'Tools', 'contextual-related-posts' ), 'manage_options', 'crp_tools_page', 'crp_tools_page' );
+	$crp_settings_tools_help = add_submenu_page( $crp_settings_page, esc_html__( 'Contextual Related Posts Tools', 'contextual-related-posts' ), esc_html__( 'Tools', 'contextual-related-posts' ), 'manage_options', 'crp_tools_page', 'crp_tools_page' );
 	add_action( "load-$crp_settings_tools_help", 'crp_settings_tools_help' );
-	add_action( 'admin_head-' . $crp_settings_tools_help, 'crp_adminhead' );
-
-	// Initialise Contextual Related Posts Statistics pages.
-	$crp_stats_screen = new Top_Ten_Statistics();
-
-	$crp_settings_popular_posts = add_submenu_page( 'crp_options_page', __( 'Contextual Related Posts', 'contextual-related-posts' ), __( 'related posts', 'contextual-related-posts' ), 'manage_options', 'crp_popular_posts', array( $crp_stats_screen, 'plugin_settings_page' ) );
-	add_action( "load-$crp_settings_popular_posts", array( $crp_stats_screen, 'screen_option' ) );
-	add_action( 'admin_head-' . $crp_settings_popular_posts, 'crp_adminhead' );
-
-	$crp_settings_popular_posts_daily = add_submenu_page( 'crp_options_page', __( 'Contextual Related Posts Daily related posts', 'contextual-related-posts' ), __( 'Daily related posts', 'contextual-related-posts' ), 'manage_options', 'crp_popular_posts&orderby=daily_count&order=desc', array( $crp_stats_screen, 'plugin_settings_page' ) );
-	add_action( "load-$crp_settings_popular_posts_daily", array( $crp_stats_screen, 'screen_option' ) );
-	add_action( 'admin_head-' . $crp_settings_popular_posts_daily, 'crp_adminhead' );
+	add_action( "admin_head-$crp_settings_tools_help", 'crp_adminhead' );
 
 }
 add_action( 'admin_menu', 'crp_add_admin_pages_links' );
@@ -60,26 +46,14 @@ add_action( 'admin_menu', 'crp_add_admin_pages_links' );
  * @return void
  */
 function crp_adminhead() {
-	global $crp_settings_page, $crp_settings_tools_help, $crp_settings_popular_posts, $crp_settings_popular_posts_daily;
+	global $crp_settings_page, $crp_settings_tools_help;
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-autocomplete' );
 	wp_enqueue_script( 'jquery-ui-tabs' );
 	wp_enqueue_script( 'plugin-install' );
-	wp_enqueue_script( 'jquery-ui-datepicker' );
 	add_thickbox();
 
-	$screen = get_current_screen();
-
-	if ( $screen->id === $crp_settings_popular_posts || $screen->id === $crp_settings_popular_posts_daily ) {
-		wp_enqueue_style(
-			'crp-admin-ui-css',
-			plugins_url( 'includes/admin/css/contextual-related-posts-admin.min.css', CRP_PLUGIN_FILE ),
-			false,
-			'1.0',
-			false
-		);
-	}
 	?>
 	<script type="text/javascript">
 	//<![CDATA[
@@ -219,88 +193,12 @@ function crp_adminhead() {
 				});
 			});
 
-			$( function() {
-				var dateFormat = 'dd M yy',
-				from = $( "#datepicker-from" )
-					.datepicker({
-						changeMonth: true,
-						maxDate: 0,
-						dateFormat: dateFormat
-					})
-					.on( "change", function() {
-						to.datepicker( "option", "minDate", getDate( this ) );
-					}),
-				to = $( "#datepicker-to" )
-					.datepicker({
-						changeMonth: true,
-						maxDate: 0,
-						dateFormat: dateFormat
-					})
-					.on( "change", function() {
-						from.datepicker( "option", "maxDate", getDate( this ) );
-					});
-
-				function getDate( element ) {
-					var date;
-					try {
-						date = $.datepicker.parseDate( dateFormat, element.value );
-					} catch( error ) {
-						date = null;
-					}
-
-					return date;
-				}
-			} );
-
-
-
 		});
 
 	//]]>
 	</script>
 	<?php
 }
-
-
-/**
- * Customise the taxonomy columns.
- *
- * @since 2.6.0
- * @param  array $columns Columns in the admin view.
- * @return array Updated columns.
- */
-function crp_tax_columns( $columns ) {
-
-	// Remove the description column.
-	unset( $columns['description'] );
-
-	$new_columns = array(
-		'tax_id' => 'ID',
-	);
-
-	return array_merge( $columns, $new_columns );
-}
-add_filter( 'manage_edit-crp_category_columns', 'crp_tax_columns' );
-add_filter( 'manage_edit-crp_category_sortable_columns', 'crp_tax_columns' );
-add_filter( 'manage_edit-crp_tag_columns', 'crp_tax_columns' );
-add_filter( 'manage_edit-crp_tag_sortable_columns', 'crp_tax_columns' );
-
-
-/**
- * Add taxonomy ID to the admin column.
- *
- * @since 2.6.0
- *
- * @param  string     $value Deprecated.
- * @param  string     $name  Name of the column.
- * @param  int|string $id    Category ID.
- * @return int|string
- */
-function crp_tax_id( $value, $name, $id ) {
-	return 'tax_id' === $name ? $id : $value;
-}
-add_filter( 'manage_crp_category_custom_column', 'crp_tax_id', 10, 3 );
-add_filter( 'manage_crp_tag_custom_column', 'crp_tax_id', 10, 3 );
 
 
 /**
@@ -332,24 +230,6 @@ function crp_admin_footer( $footer_text ) {
 }
 add_filter( 'admin_footer_text', 'crp_admin_footer' );
 
-
-/**
- * Add CSS to Admin head
- *
- * @since 2.6.0
- *
- * return void
- */
-function crp_admin_head() {
-	?>
-	<style type="text/css" media="screen">
-		#dashboard_right_now .crp-article-count:before {
-			content: "\f331";
-		}
-	</style>
-	<?php
-}
-add_filter( 'admin_head', 'crp_admin_head' );
 
 /**
  * Adding WordPress plugin action links.
