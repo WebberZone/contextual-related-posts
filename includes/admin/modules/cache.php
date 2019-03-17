@@ -121,7 +121,6 @@ function crp_cache_get_keys() {
  * @param mixed $post_id Post ID.
  */
 function crp_delete_cache_post_save( $post_id ) {
-	global $crp_settings;
 
 	// Bail if we're doing an auto save.
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {

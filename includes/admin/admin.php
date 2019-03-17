@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 2.6.0
  *
- * @global $crp_settings_page
+ * @global $crp_settings_page, $crp_settings_tools_help
  * @return void
  */
 function crp_add_admin_pages_links() {
@@ -229,48 +229,4 @@ function crp_admin_footer( $footer_text ) {
 	}
 }
 add_filter( 'admin_footer_text', 'crp_admin_footer' );
-
-
-/**
- * Adding WordPress plugin action links.
- *
- * @version 1.9.2
- *
- * @param   array $links Action links.
- * @return  array   Links array with our settings link added.
- */
-function crp_plugin_actions_links( $links ) {
-
-	return array_merge(
-		array(
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options_page' ) . '">' . __( 'Settings', 'contextual-related-posts' ) . '</a>',
-		),
-		$links
-	);
-
-}
-add_filter( 'plugin_action_links_' . plugin_basename( CRP_PLUGIN_FILE ), 'crp_plugin_actions_links' );
-
-
-/**
- * Add links to the plugin action row.
- *
- * @since 2.6.0
- *
- * @param   array $links Action links.
- * @param   array $file Plugin file name.
- * @return  array   Links array with our links added
- */
-function crp_plugin_actions( $links, $file ) {
-	$plugin = plugin_basename( CRP_PLUGIN_FILE );
-
-	if ( $file === $plugin ) {
-		$links[] = '<a href="https://wordpress.org/support/plugin/contextual-related-posts/">' . __( 'Support', 'contextual-related-posts' ) . '</a>';
-		$links[] = '<a href="https://ajaydsouza.com/donate/">' . __( 'Donate', 'contextual-related-posts' ) . '</a>';
-		$links[] = '<a href="https://github.com/WebberZone/contextual-related-posts">' . __( 'Contribute', 'contextual-related-posts' ) . '</a>';
-	}
-	return $links;
-}
-add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 );
-
 

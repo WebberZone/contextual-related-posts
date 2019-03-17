@@ -158,11 +158,10 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	require_once CRP_PLUGIN_DIR . 'includes/admin/settings-page.php';
 	require_once CRP_PLUGIN_DIR . 'includes/admin/save-settings.php';
 	require_once CRP_PLUGIN_DIR . 'includes/admin/help-tab.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/tools.php';
-	require_once CRP_PLUGIN_DIR . 'admin/admin.php';
-	require_once CRP_PLUGIN_DIR . 'admin/loader.php';
-	require_once CRP_PLUGIN_DIR . 'admin/metabox.php';
-	require_once CRP_PLUGIN_DIR . 'admin/cache.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/tools.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/loader.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/metabox.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/cache.php';
 
 } // End if.
 
