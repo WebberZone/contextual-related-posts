@@ -3,8 +3,8 @@ Tags: related posts, related, related articles, contextual related posts, simila
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
-Requires at least: 4.5
-Tested up to: 5.0
+Requires at least: 4.7
+Tested up to: 5.1
 License: GPLv2 or later
 
 Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -182,6 +182,12 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 
 == Changelog ==
+
+= 2.6.0 =
+
+* Features:
+	* Implemented the Settings API for handling plugin settings
+	* New Tools page: Recreate the indices, delete the cache and delete old settings
 
 = 2.5.1 =
 
@@ -372,7 +378,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.5.1 =
-* New features. Upgrade highly recommended. Please do verify your settings after the upgrade.
+= 2.6.0 =
+* Implemented Settings API. Please verify your settings after the upgrade.
 Check the Changelog for more details
 

@@ -20,9 +20,8 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.9
  */
 function crp_content_prepare_filter() {
-	global $crp_settings;
 
-	$priority = isset( $crp_settings['content_filter_priority'] ) ? $crp_settings['content_filter_priority'] : 10;
+	$priority = crp_get_option( 'content_filter_priority' );
 
 	add_filter( 'the_content', 'crp_content_filter', $priority );
 }
@@ -47,27 +46,27 @@ function crp_content_filter( $content ) {
 	}
 
 	// Return if this is a mobile device and disable on mobile option is enabled.
-	if ( wp_is_mobile() && $crp_settings['disable_on_mobile'] ) {
+	if ( wp_is_mobile() && crp_get_option( 'disable_on_mobile' ) ) {
 		return $content;
 	}
 
 	// Return if this is an amp page and disable on amp option is enabled.
-	if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() && $crp_settings['disable_on_amp'] ) {
+	if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() && crp_get_option( 'disable_on_amp' ) ) {
 		return $content;
 	}
 
 	// If this post ID is in the DO NOT DISPLAY list.
-	$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
+	$exclude_on_post_ids = explode( ',', crp_get_option( 'exclude_on_post_ids' ) );
 	if ( in_array( $post->ID, $exclude_on_post_ids ) ) {
 		return $content;    // Exit without adding related posts.
 	}
 
 	// If this post type is in the DO NOT DISPLAY list.
 	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-	if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
-		$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
+	if ( ! empty( crp_get_option( 'exclude_on_post_types' ) ) && false === strpos( crp_get_option( 'exclude_on_post_types' ), '=' ) ) {
+		$exclude_on_post_types = explode( ',', crp_get_option( 'exclude_on_post_types' ) );
 	} else {
-		parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
+		parse_str( crp_get_option( 'exclude_on_post_types' ), $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
 	}
 
 	if ( in_array( $post->post_type, $exclude_on_post_types, true ) ) {
@@ -86,13 +85,15 @@ function crp_content_filter( $content ) {
 		return $content;
 	}
 
+	$add_to = crp_get_option( 'add_to', false );
+
 	// Else add the content.
-	if ( ( ( is_single() ) && ( $crp_settings['add_to_content'] ) ) ||
-	( ( is_page() ) && ( $crp_settings['add_to_page'] ) ) ||
-	( ( is_home() ) && ( $crp_settings['add_to_home'] ) ) ||
-	( ( is_category() ) && ( $crp_settings['add_to_category_archives'] ) ) ||
-	( ( is_tag() ) && ( $crp_settings['add_to_tag_archives'] ) ) ||
-	( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $crp_settings['add_to_archives'] ) ) ) {
+	if ( ( ( is_single() ) && ! empty( $add_to['single'] ) ) ||
+	( ( is_page() ) && ! empty( $add_to['page'] ) ) ||
+	( ( is_home() ) && ! empty( $add_to['home'] ) ) ||
+	( ( is_category() ) && ! empty( $add_to['category_archives'] ) ) ||
+	( ( is_tag() ) && ! empty( $add_to['tag_archives'] ) ) ||
+	( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ! empty( $add_to['other_archives'] ) ) ) {
 
 		$crp_code = get_crp( 'is_widget=0' );
 
@@ -114,14 +115,15 @@ function crp_content_filter( $content ) {
  * @return string After the filter has been processed
  */
 function crp_generate_content( $content, $crp_code ) {
-	global $crp_settings;
 
-	if ( -1 === (int) $crp_settings['insert_after_paragraph'] || ! is_numeric( $crp_settings['insert_after_paragraph'] ) ) {
+	$insert_after_paragraph = crp_get_option( 'insert_after_paragraph' );
+
+	if ( -1 === (int) $insert_after_paragraph || ! is_numeric( $insert_after_paragraph ) ) {
 		return $content . $crp_code;
-	} elseif ( 0 === (int) $crp_settings['insert_after_paragraph'] ) {
+	} elseif ( 0 === (int) $insert_after_paragraph ) {
 		return $crp_code . $content;
 	} else {
-		return crp_insert_after_paragraph( $content, $crp_code, $crp_settings['insert_after_paragraph'] );
+		return crp_insert_after_paragraph( $content, $crp_code, $insert_after_paragraph );
 	}
 
 }
@@ -167,13 +169,14 @@ function crp_insert_after_paragraph( $content, $crp_code, $paragraph_id ) {
  * @return  string  Formatted content
  */
 function crp_rss_filter( $content ) {
-	global $crp_settings;
 
-	$limit_feed         = $crp_settings['limit_feed'];
-	$show_excerpt_feed  = $crp_settings['show_excerpt_feed'];
-	$post_thumb_op_feed = $crp_settings['post_thumb_op_feed'];
+	$add_to = crp_get_option( 'add_to', false );
 
-	if ( $crp_settings['add_to_feed'] ) {
+	$limit_feed         = crp_get_option( 'limit_feed' );
+	$show_excerpt_feed  = crp_get_option( 'show_excerpt_feed' );
+	$post_thumb_op_feed = crp_get_option( 'post_thumb_op_feed' );
+
+	if ( $add_to['feed'] ) {
 		$output  = $content;
 		$output .= get_crp( 'is_widget=0&limit=' . $limit_feed . '&show_excerpt=' . $show_excerpt_feed . '&post_thumb_op=' . $post_thumb_op_feed );
 		return $output;
@@ -203,5 +206,4 @@ function echo_crp( $args = array() ) {
 
 	echo get_crp( $args ); // WPCS: XSS ok.
 }
-
 
