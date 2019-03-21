@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @param   array  $atts   Shortcode attributes.
  * @param   string $content Post content.
- * @return  Related Posts
+ * @return  string Related Posts
  */
 function crp_shortcode( $atts, $content = null ) {
 	global $crp_settings;

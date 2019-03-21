@@ -30,29 +30,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
-/**
- * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
- *
- * @since 2.3.0
- *
- * @var string Plugin folder path
- */
-if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
-	define( 'CRP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-}
-
-/**
- * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
- *
- * @since 2.3.0
- *
- * @var string Plugin folder URL
- */
-if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
-	define( 'CRP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-}
-
 /**
  * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
@@ -66,6 +43,28 @@ if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
 
 
 /**
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
+ *
+ * @since 2.3.0
+ *
+ * @var string Plugin folder path
+ */
+if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
+	define( 'CRP_PLUGIN_DIR', plugin_dir_path( CRP_PLUGIN_FILE ) );
+}
+
+/**
+ * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
+ *
+ * @since 2.3.0
+ *
+ * @var string Plugin folder URL
+ */
+if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
+	define( 'CRP_PLUGIN_URL', plugin_dir_url( CRP_PLUGIN_FILE ) );
+}
+
+/**
  * Maximum words to match in the content.
  *
  * @since 2.3.0
@@ -76,170 +75,14 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
 	define( 'CRP_MAX_WORDS', 500 );
 }
 
-
-/**
- * Global variable holding the current settings for Contextual Related Posts
- *
- * @since   1.8.10
- *
- * @var array
- */
-global $crp_settings;
-$crp_settings = crp_read_options();
-
-
-/**
- * Default options.
- *
- * @since 1.0.1
- *
- * @return array Default options
- */
-function crp_default_options() {
-
-	$title = __( '<h3>Related Posts:</h3>', 'contextual-related-posts' );
-
-	$blank_output_text = __( 'No related posts found', 'contextual-related-posts' );
-
-	$thumb_default = plugins_url( 'default.png', __FILE__ );
-
-	$crp_settings = array(
-		// General options.
-		'cache'                    => false,            // Cache output for faster page load.
-
-		'add_to_content'           => true,     // Add related posts to content (only on single posts).
-		'add_to_page'              => true,     // Add related posts to content (only on single pages).
-		'add_to_feed'              => false,        // Add related posts to feed (full).
-		'add_to_home'              => false,        // Add related posts to home page.
-		'add_to_category_archives' => false,        // Add related posts to category archives.
-		'add_to_tag_archives'      => false,        // Add related posts to tag archives.
-		'add_to_archives'          => false,        // Add related posts to other archives.
-
-		'content_filter_priority'  => 10,   // Content priority.
-		'insert_after_paragraph'   => -1,   // Insert after paragraph number.
-		'disable_on_mobile'        => false, // Disable on mobile.
-		'disable_on_amp'           => false, // Disable on AMP.
-		'show_metabox'             => true, // Show metabox to admins.
-		'show_metabox_admins'      => false,    // Limit to admins as well.
-
-		'show_credit'              => false,        // Link to this plugin's page?
-
-		// List tuning options.
-		'limit'                    => '6',              // How many posts to display?
-		'daily_range'              => '1095',               // How old posts should be displayed?
-		'random_order'             => false,    // Randomise posts.
-
-		'match_content'            => true,     // Match against post content as well as title.
-		'match_content_words'      => '0',  // How many characters of content should be matched? 0 for all chars.
-
-		'post_types'               => 'post,page',      // WordPress custom post types.
-		'same_post_type'           => false,    // Limit to the same post type.
-
-		'exclude_categories'       => '',   // Exclude these categories.
-		'exclude_cat_slugs'        => '',   // Exclude these categories (slugs).
-		'exclude_post_ids'         => '',   // Comma separated list of page / post IDs that are to be excluded in the results.
-
-		// Output options.
-		'title'                    => $title,           // Add before the content.
-		'blank_output'             => true,     // Blank output?
-		'blank_output_text'        => $blank_output_text,       // Blank output text.
-
-		'show_excerpt'             => false,            // Show post excerpt in list item.
-		'show_date'                => false,            // Show date in list item.
-		'show_author'              => false,            // Show author in list item.
-		'excerpt_length'           => '10',     // Length of characters.
-		'title_length'             => '60',     // Limit length of post title.
-
-		'link_new_window'          => false,            // Open link in new window.
-		'link_nofollow'            => false,            // Includes rel nofollow to links.
-
-		'before_list'              => '<ul>',   // Before the entire list.
-		'after_list'               => '</ul>',  // After the entire list.
-		'before_list_item'         => '<li>',   // Before each list item.
-		'after_list_item'          => '</li>',  // After each list item.
-
-		'exclude_on_post_ids'      => '',   // Comma separate list of page/post IDs to not display related posts on.
-		'exclude_on_post_types'    => '',       // WordPress custom post types.
-
-		// Thumbnail options.
-		'post_thumb_op'            => 'inline', // Default option to display text and no thumbnails in posts.
-		'thumb_size'               => 'thumbnail',  // Default thumbnail size.
-		'thumb_height'             => '150',    // Height of thumbnails.
-		'thumb_width'              => '150',    // Width of thumbnails.
-		'thumb_crop'               => true,     // Crop mode. default is hard crop.
-		'thumb_create_sizes'       => true,     // Create thumbnail sizes.
-		'thumb_html'               => 'html',       // Use HTML or CSS for width and height of the thumbnail?
-		'thumb_meta'               => 'post-image', // Meta field that is used to store the location of default thumbnail image.
-		'scan_images'              => true,         // Scan post for images.
-		'thumb_default'            => $thumb_default,   // Default thumbnail image.
-		'thumb_default_show'       => true, // Show default thumb if none found (if false, don't show thumb at all).
-
-		// Feed options.
-		'limit_feed'               => '5',          // How many posts to display in feeds.
-		'post_thumb_op_feed'       => 'text_only',  // Default option to display text and no thumbnails in Feeds.
-		'thumb_height_feed'        => '50', // Height of thumbnails in feed.
-		'thumb_width_feed'         => '50', // Width of thumbnails in feed.
-		'show_excerpt_feed'        => false,            // Show description in list item in feed.
-
-		// Custom styles.
-		'custom_CSS'               => '',           // Custom CSS to style the output.
-		'include_default_style'    => true,         // Include default style - Will be DEPRECATED in the next version.
-		'crp_styles'               => 'rounded_thumbs', // Defaault style is rounded thubnails.
-	);
-
-	/**
-	 * Filters the default options array.
-	 *
-	 * @since   1.9.1
-	 *
-	 * @param   array   $crp_settings   Default options.
-	 */
-	return apply_filters( 'crp_default_options', $crp_settings );
-}
-
-
-/**
- * Function to read options from the database.
- *
- * @since 1.0.1
- *
- * @return array Contextual Related Posts options
- */
-function crp_read_options() {
-	$crp_settings_changed = false;
-
-	$defaults = crp_default_options();
-
-	$crp_settings = array_map( 'stripslashes', (array) get_option( 'ald_crp_settings' ) );
-	unset( $crp_settings[0] ); // Produced by the (array) casting when there's nothing in the DB.
-
-	foreach ( $defaults as $k => $v ) {
-		if ( ! isset( $crp_settings[ $k ] ) ) {
-			$crp_settings[ $k ] = $v;
-		}
-		$crp_settings_changed = true;
-	}
-	if ( true === $crp_settings_changed ) {
-		update_option( 'ald_crp_settings', $crp_settings );
-	}
-
-	/**
-	 * Filters the options array.
-	 *
-	 * @since   1.9.1
-	 *
-	 * @param   array   $crp_settings   Options read from the database
-	 */
-	return apply_filters( 'crp_read_options', $crp_settings );
-}
-
-
 /*
  *----------------------------------------------------------------------------
  * CRP modules & includes
  *----------------------------------------------------------------------------
  */
 
+require_once CRP_PLUGIN_DIR . 'includes/admin/default-settings.php';
+require_once CRP_PLUGIN_DIR . 'includes/admin/register-settings.php';
 require_once CRP_PLUGIN_DIR . 'includes/plugin-activator.php';
 require_once CRP_PLUGIN_DIR . 'includes/i10n.php';
 require_once CRP_PLUGIN_DIR . 'includes/output-generator.php';
@@ -263,10 +106,14 @@ require_once CRP_PLUGIN_DIR . 'includes/modules/class-crp-widget.php';
 
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 
-	require_once CRP_PLUGIN_DIR . 'admin/admin.php';
-	require_once CRP_PLUGIN_DIR . 'admin/loader.php';
-	require_once CRP_PLUGIN_DIR . 'admin/metabox.php';
-	require_once CRP_PLUGIN_DIR . 'admin/cache.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/admin.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/settings-page.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/save-settings.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/help-tab.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/tools.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/loader.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/metabox.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/cache.php';
 
 } // End if.
 
@@ -278,4 +125,44 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
  */
 
 require_once CRP_PLUGIN_DIR . 'includes/deprecated.php';
+
+
+/**
+ * Global variable holding the current settings for Contextual Related Posts
+ *
+ * @since   1.8.10
+ *
+ * @var array
+ */
+global $crp_settings;
+$crp_settings = crp_get_settings();
+
+
+/**
+ * Get Settings.
+ *
+ * Retrieves all plugin settings
+ *
+ * @since  2.6.0
+ * @return array Contextual Related Posts settings
+ */
+function crp_get_settings() {
+
+	$settings = get_option( 'crp_settings' );
+
+	if ( false === $settings ) {
+		add_option( 'crp_settings', crp_settings_defaults() );
+		$settings = get_option( 'crp_settings' );
+	}
+
+	/**
+	 * Settings array
+	 *
+	 * Retrieves all plugin settings
+	 *
+	 * @since 2.0.0
+	 * @param array $settings Settings array
+	 */
+	return apply_filters( 'crp_get_settings', $settings );
+}
 

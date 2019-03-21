@@ -23,15 +23,16 @@ if ( ! defined( 'WPINC' ) ) {
  * @param object $post Post object.
  */
 function crp_add_meta_box( $post_type, $post ) {
-	global $crp_settings;
 
 	// If metaboxes are disabled, then exit.
-	if ( ! $crp_settings['show_metabox'] ) {
-		return; }
+	if ( ! crp_get_option( 'show_metabox' ) ) {
+		return;
+	}
 
 	// If current user isn't an admin and we're restricting metaboxes to admins only, then exit.
-	if ( ! current_user_can( 'manage_options' ) && $crp_settings['show_metabox_admins'] ) {
-		return; }
+	if ( ! current_user_can( 'manage_options' ) && crp_get_option( 'show_metabox_admins' ) ) {
+		return;
+	}
 
 	$args       = array(
 		'public' => true,
@@ -69,13 +70,13 @@ add_action( 'add_meta_boxes', 'crp_add_meta_box', 10, 2 );
  * @since   1.9.1
  */
 function crp_call_meta_box() {
-	global $post, $crp_settings;
+	global $post;
 
 	/**** Add an nonce field so we can check for it later. */
 	wp_nonce_field( 'crp_meta_box', 'crp_meta_box_nonce' );
 
 	// Get the thumbnail settings. The name of the meta key is defined in thumb_meta parameter of the CRP Settings array.
-	$crp_thumb_meta = get_post_meta( $post->ID, $crp_settings['thumb_meta'], true );
+	$crp_thumb_meta = get_post_meta( $post->ID, crp_get_option( 'thumb_meta' ), true );
 	$value          = ( $crp_thumb_meta ) ? $crp_thumb_meta : '';
 
 	// Get related posts specific meta.
@@ -151,7 +152,7 @@ function crp_call_meta_box() {
 		<label for="crp_thumb_meta"><strong><?php esc_html_e( 'Location of thumbnail', 'contextual-related-posts' ); ?>:</strong></label>
 		<input type="text" id="crp_thumb_meta" name="crp_thumb_meta" value="<?php echo esc_attr( $value ); ?>" style="width:100%" />
 		<em><?php esc_html_e( "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This image will be used for the post. It will be resized to the thumbnail size set under Settings &raquo; Related Posts &raquo; Output Options", 'contextual-related-posts' ); ?></em>
-		<em><?php esc_html_e( 'The URL above is saved in the meta field:', 'contextual-related-posts' ); ?></em> <strong><?php echo esc_html( $crp_settings['thumb_meta'] ); ?></strong>
+		<em><?php esc_html_e( 'The URL above is saved in the meta field:', 'contextual-related-posts' ); ?></em> <strong><?php echo esc_html( crp_get_option( 'thumb_meta' ) ); ?></strong>
 	</p>
 
 	<p>
@@ -186,7 +187,6 @@ function crp_call_meta_box() {
  * @param mixed $post_id Post ID.
  */
 function crp_save_meta_box( $post_id ) {
-	global $crp_settings;
 
 	$crp_post_meta = array();
 
@@ -211,9 +211,9 @@ function crp_save_meta_box( $post_id ) {
 	}
 
 	if ( ! empty( $thumb_meta ) ) {
-		update_post_meta( $post_id, $crp_settings['thumb_meta'], $thumb_meta );
+		update_post_meta( $post_id, crp_get_option( 'thumb_meta' ), $thumb_meta );
 	} else {
-		delete_post_meta( $post_id, $crp_settings['thumb_meta'] );
+		delete_post_meta( $post_id, crp_get_option( 'thumb_meta' ) );
 	}
 
 	// Disable posts.

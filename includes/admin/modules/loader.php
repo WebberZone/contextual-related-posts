@@ -21,7 +21,7 @@ function crp_plugin_actions_links( $links ) {
 
 	return array_merge(
 		array(
-			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options' ) . '">' . esc_html__( 'Settings', 'contextual-related-posts' ) . '</a>',
+			'settings' => '<a href="' . admin_url( 'options-general.php?page=crp_options_page' ) . '">' . esc_html__( 'Settings', 'contextual-related-posts' ) . '</a>',
 		),
 		$links
 	);

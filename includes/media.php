@@ -15,17 +15,18 @@
  * @since 2.0.0
  */
 function crp_add_image_sizes() {
-	global $crp_settings;
 
-	if ( ! in_array( $crp_settings['thumb_size'], get_intermediate_image_sizes(), true ) ) {
-		$crp_settings['thumb_size'] = 'crp_thumbnail';
+	$thumb_size = crp_get_option( 'thumb_size' );
+
+	if ( ! in_array( $thumb_size, get_intermediate_image_sizes() ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+		$thumb_size = 'crp_thumbnail';
 	}
 
 	// Add image sizes if 'crp_thumbnail' is selected or the selected thumbnail size is no longer valid.
-	if ( 'crp_thumbnail' === $crp_settings['thumb_size'] && $crp_settings['thumb_create_sizes'] ) {
-		$width  = empty( $crp_settings['thumb_width'] ) ? 150 : $crp_settings['thumb_width'];
-		$height = empty( $crp_settings['thumb_height'] ) ? 150 : $crp_settings['thumb_height'];
-		$crop   = isset( $crp_settings['thumb_crop'] ) ? $crp_settings['thumb_crop'] : true;
+	if ( 'crp_thumbnail' === $thumb_size && crp_get_option( 'thumb_create_sizes' ) ) {
+		$width  = crp_get_option( 'thumb_width', 150 );
+		$height = crp_get_option( 'thumb_height', 150 );
+		$crop   = crp_get_option( 'thumb_crop', true );
 
 		add_image_size( 'crp_thumbnail', $width, $height, $crop );
 	}
@@ -42,8 +43,6 @@ add_action( 'init', 'crp_add_image_sizes' );
  * @return string Output with the post thumbnail
  */
 function crp_get_the_post_thumbnail( $args = array() ) {
-
-	global $crp_settings;
 
 	$defaults = array(
 		'postid'             => '',
@@ -93,12 +92,21 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	if ( ! $postimage ) {
 		$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );
 		$pick      = 'meta';
+		if ( $postimage ) {
+			$postimage_id = crp_get_attachment_id_from_url( $postimage );
+
+			if ( false != wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+				$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+				$postimage = $postthumb[0];
+			}
+			$pick .= 'correct';
+		}
 	}
 
 	// If there is no thumbnail found, check the post thumbnail.
 	if ( ! $postimage ) {
 		if ( false !== get_post_thumbnail_id( $result->ID ) ) {
-			$postthumb = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), $crp_settings['thumb_size'] );
+			$postthumb = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), array( $args['thumb_width'], $args['thumb_height'] ) );
 			$postimage = $postthumb[0];
 		}
 		$pick = 'featured';
@@ -127,8 +135,8 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( $postimage ) {
 			$postimage_id = crp_get_attachment_id_from_url( $postimage );
 
-			if ( false !== wp_get_attachment_image_src( $postimage_id, $crp_settings['thumb_size'] ) ) {
-				$postthumb = wp_get_attachment_image_src( $postimage_id, $crp_settings['thumb_size'] );
+			if ( false !== wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) ) ) {
+				$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
 				$postimage = $postthumb[0];
 			}
 			$pick = 'correct';
@@ -138,7 +146,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	// If there is no thumbnail found, fetch the first child image.
 	if ( ! $postimage ) {
-		$postimage = crp_get_first_image( $result->ID );
+		$postimage = crp_get_first_image( $result->ID, $args['thumb_width'], $args['thumb_height'] );
 		$pick      = 'firstchild';
 	}
 
@@ -268,12 +276,14 @@ function crp_get_the_post_thumbnail( $args = array() ) {
  * Get the first child image in the post.
  *
  * @since 1.8.9
+ * @since 2.6.0 Added $thumb_width, $thumb_height
  *
- * @param mixed $post_id    Post ID.
+ * @param mixed $post_id      Post ID.
+ * @param int   $thumb_width  Thumb width.
+ * @param int   $thumb_height Thumb height.
  * @return string
  */
-function crp_get_first_image( $post_id ) {
-	global $crp_settings;
+function crp_get_first_image( $post_id, $thumb_width, $thumb_height ) {
 
 	$args = array(
 		'numberposts'    => 1,
@@ -288,17 +298,19 @@ function crp_get_first_image( $post_id ) {
 
 	if ( $attachments ) {
 		foreach ( $attachments as $attachment ) {
-			$image_attributes = wp_get_attachment_image_src( $attachment->ID, $crp_settings['thumb_size'] ) ? wp_get_attachment_image_src( $attachment->ID, $crp_settings['thumb_size'] ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
+			$image_attributes = wp_get_attachment_image_src( $attachment->ID, array( $thumb_width, $thumb_height ) ) ? wp_get_attachment_image_src( $attachment->ID, array( $thumb_width, $thumb_height ) ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
 
 			/**
 			 * Filters first child image from the post.
 			 *
-			 * @since   2.0.0
+			 * @since 2.0.0
 			 *
-			 * @param   array   $image_attributes[0]    URL of the image
-			 * @param   int     $post_id                    Post ID
+			 * @param array $image_attributes[0] URL of the image
+			 * @param int   $post_id             Post ID
+			 * @param int   $thumb_width         Thumb width
+			 * @param int   $thumb_height        Thumb height
 			 */
-			return apply_filters( 'crp_get_first_image', $image_attributes[0], $post_id );
+			return apply_filters( 'crp_get_first_image', $image_attributes[0], $post_id, $thumb_width, $thumb_height );
 		}
 	} else {
 		return false;
