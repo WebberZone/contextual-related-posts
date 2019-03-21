@@ -5,6 +5,11 @@
  * @package Contextual_Related_Posts
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Initialises text domain for l10n.
  *

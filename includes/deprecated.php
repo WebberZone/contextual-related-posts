@@ -7,6 +7,11 @@
  * @package Contextual_Related_Posts
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Holds the URL for CRP
  *

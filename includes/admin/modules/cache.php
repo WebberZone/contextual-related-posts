@@ -9,6 +9,11 @@
  * @copyright 2009-2019 Ajay D'Souza
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Function to clear the CRP Cache with Ajax.
  *
@@ -25,10 +30,10 @@ function crp_ajax_clearcache() {
 
 		$count = $wpdb->query(
 			$wpdb->prepare(
-			"
-			DELETE FROM {$wpdb->postmeta}
-			WHERE meta_key = %s
-			",
+				"
+				DELETE FROM {$wpdb->postmeta}
+				WHERE meta_key = %s
+				",
 				$meta_key
 			)
 		);
