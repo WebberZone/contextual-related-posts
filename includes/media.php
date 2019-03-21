@@ -9,6 +9,11 @@
  * @copyright 2009-2019 Ajay D'Souza
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Add custom image size of thumbnail. Filters `init`.
  *
