@@ -32,4 +32,4 @@ global $crp_settings, $current_user;
 
 crp_activate( true );
 
-$crp_settings = crp_get_settings()();
+$crp_settings = crp_get_settings();
