@@ -48,7 +48,7 @@ function crp_settings_sanitize( $input = array() ) {
 		crp_settings_reset();
 		$crp_settings = crp_get_settings();
 
-		add_settings_error( 'crp-notices', '', __( 'Settings have been reset to their default values. Reload this page to view the updated settings', 'contextual-related-posts' ), 'error' );
+		add_settings_error( 'crp-notices', 'crp_reset', __( 'Settings have been reset to their default values. Reload this page to view the updated settings', 'contextual-related-posts' ), 'error' );
 
 		return $crp_settings;
 	}
@@ -116,7 +116,16 @@ function crp_settings_sanitize( $input = array() ) {
 		unset( $output[ $key ] );
 	}
 
-	add_settings_error( 'crp-notices', '', __( 'Settings updated.', 'contextual-related-posts' ), 'updated' );
+	add_settings_error( 'crp-notices', 'crp-updated', __( 'Settings updated.', 'contextual-related-posts' ), 'updated' );
+
+	// Overwrite settings if rounded thumbnail style is selected.
+	if ( 'rounded_thumbs' === $output['crp_styles'] ) {
+		add_settings_error( 'crp-notices', 'crp-styles', __( 'Post author, excerpt and date disabled. Thumbnail location set to inline before text.', 'contextual-related-posts' ), 'updated' );
+	}
+	// Overwrite settings if text_only thumbnail style is selected.
+	if ( 'text_only' === $output['crp_styles'] ) {
+		add_settings_error( 'crp-notices', 'crp-styles', __( 'Thumbnail location set to text only.', 'contextual-related-posts' ), 'updated' );
+	}
 
 	/**
 	 * Filter the settings array before it is returned.
@@ -316,6 +325,10 @@ function crp_change_settings_on_save( $settings ) {
 		$settings['show_author']   = 0;
 		$settings['show_date']     = 0;
 		$settings['post_thumb_op'] = 'inline';
+	}
+	// Overwrite settings if text_only thumbnail style is selected.
+	if ( 'text_only' === $settings['crp_styles'] ) {
+		$settings['post_thumb_op'] = 'text_only';
 	}
 
 	// Delete the cache.
