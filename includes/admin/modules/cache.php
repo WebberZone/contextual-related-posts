@@ -28,7 +28,7 @@ function crp_ajax_clearcache() {
 
 	foreach ( $meta_keys as $meta_key ) {
 
-		$count = $wpdb->query(
+		$count = $wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->prepare(
 				"
 				DELETE FROM {$wpdb->postmeta}
