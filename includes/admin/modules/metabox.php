@@ -232,7 +232,7 @@ function crp_save_meta_box( $post_id ) {
 	// Save Manual related posts.
 	if ( isset( $_POST['manual_related'] ) ) {
 
-		$manual_related_array = array_map( 'absint', explode( ',', $_POST['manual_related'] ) );
+		$manual_related_array = array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['manual_related'] ) ) ) );
 
 		foreach ( $manual_related_array as $key => $value ) {
 			if ( 'publish' !== get_post_status( $value ) ) {
