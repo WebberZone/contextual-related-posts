@@ -25,21 +25,21 @@ function crp_header() {
 	$custom_css = stripslashes( crp_get_option( 'custom_CSS' ) );
 
 	// Add CSS to header.
-	if ( '' != $custom_css ) {
+	if ( '' != $custom_css ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 		if ( ( is_single() ) ) {
-			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
+			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( ( is_page() ) ) {
-			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
+			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( ( is_home() ) && ( $add_to['home'] ) ) {
-			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
+			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( ( is_category() ) && ( $add_to['category_archives'] ) ) {
-			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
+			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( ( is_tag() ) && ( $add_to['tag_archives'] ) ) {
-			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
+			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $add_to['other_archives'] ) ) {
-			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
+			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
-			echo '<style type="text/css">' . $custom_css . '</style>'; // WPCS: XSS ok.
+			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 }

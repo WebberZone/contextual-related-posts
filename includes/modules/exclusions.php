@@ -23,7 +23,7 @@ function crp_exclude_post_ids( $exclude_post_ids ) {
 
 	$exclude_post_ids = (array) $exclude_post_ids;
 
-	$crp_post_metas = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta'", ARRAY_A );
+	$crp_post_metas = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta'", ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 	foreach ( $crp_post_metas as $crp_post_meta ) {
 		$meta_value = maybe_unserialize( $crp_post_meta['meta_value'] );

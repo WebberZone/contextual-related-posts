@@ -16,11 +16,11 @@ $option_name = 'ald_crp_settings';
 
 if ( ! is_multisite() ) {
 
-	$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related" );
-	$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title" );
-	$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content" );
+	$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+	$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+	$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 
-	$wpdb->query(
+	$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		"
 		DELETE FROM {$wpdb->postmeta}
 		WHERE meta_key LIKE 'crp_related_posts%'
@@ -32,7 +32,7 @@ if ( ! is_multisite() ) {
 } else {
 
 	// Get all blogs in the network and activate plugin on each one.
-	$blogids = $wpdb->get_col(
+	$blogids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		"
     	SELECT blog_id FROM $wpdb->blogs
 		WHERE archived = '0' AND spam = '0' AND deleted = '0'
@@ -42,11 +42,11 @@ if ( ! is_multisite() ) {
 	foreach ( $blogids as $blogid ) {
 		switch_to_blog( $blogid );
 
-		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related" );
-		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title" );
-		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content" );
+		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 
-		$wpdb->query(
+		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			"
 			DELETE FROM {$wpdb->postmeta}
 			WHERE meta_key LIKE 'crp_related_posts%'
@@ -60,5 +60,5 @@ if ( ! is_multisite() ) {
 	// Switch back to the current blog.
 	restore_current_blog();
 
-}// End if().
+}
 

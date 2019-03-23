@@ -26,7 +26,7 @@ function get_crp( $args = array() ) {
 	global $post, $crp_settings;
 
 	// If set, save $exclude_categories.
-	if ( isset( $args['exclude_categories'] ) && '' != $args['exclude_categories'] ) {
+	if ( isset( $args['exclude_categories'] ) && '' != $args['exclude_categories'] ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 		$exclude_categories   = explode( ',', $args['exclude_categories'] );
 		$args['strict_limit'] = false;
 	}
@@ -127,7 +127,7 @@ function get_crp( $args = array() ) {
 			$resultid = crp_object_id_cur_lang( $result->ID );
 
 			// If this is NULL or already processed ID or matches current post then skip processing this loop.
-			if ( ! $resultid || in_array( $resultid, $processed_results ) || intval( $resultid ) === intval( $post->ID ) ) {
+			if ( ! $resultid || in_array( $resultid, $processed_results ) || intval( $resultid ) === intval( $post->ID ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 				continue;
 			}
 
@@ -382,7 +382,7 @@ function get_crp_posts_id( $args = array() ) {
 		$fields = " $wpdb->posts.ID ";
 
 		// Create the base MATCH clause.
-		$match = $wpdb->prepare( ' AND MATCH (' . $match_fields . ') AGAINST (%s) ', $stuff ); // WPCS: unprepared SQL ok.
+		$match = $wpdb->prepare( ' AND MATCH (' . $match_fields . ') AGAINST (%s) ', $stuff ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 		/**
 		 * Filter the MATCH clause of the query.
@@ -443,7 +443,7 @@ function get_crp_posts_id( $args = array() ) {
 		// Convert it back to string.
 		$exclude_post_ids = implode( ',', array_filter( $exclude_post_ids ) );
 
-		if ( '' != $exclude_post_ids ) {
+		if ( '' != $exclude_post_ids ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 			$where .= " AND $wpdb->posts.ID NOT IN ({$exclude_post_ids}) ";
 		}
 
@@ -536,7 +536,7 @@ function get_crp_posts_id( $args = array() ) {
 
 		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $having $orderby $limits";
 
-		$results = $wpdb->get_results( $sql ); // WPCS: unprepared SQL ok.
+		$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 
 		if ( $args['random_order'] ) {
 			$results_array = (array) $results;

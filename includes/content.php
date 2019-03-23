@@ -57,7 +57,7 @@ function crp_content_filter( $content ) {
 
 	// If this post ID is in the DO NOT DISPLAY list.
 	$exclude_on_post_ids = explode( ',', crp_get_option( 'exclude_on_post_ids' ) );
-	if ( in_array( $post->ID, $exclude_on_post_ids ) ) {
+	if ( in_array( $post->ID, $exclude_on_post_ids ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 		return $content;    // Exit without adding related posts.
 	}
 
@@ -204,6 +204,6 @@ function echo_crp( $args = array() ) {
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
 
-	echo get_crp( $args ); // WPCS: XSS ok.
+	echo get_crp( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
