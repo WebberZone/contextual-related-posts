@@ -24,7 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @param   string $content Post content.
  * @return  string Related Posts
  */
-function crp_shortcode( $atts, $content = null ) {
+function crp_shortcode( $atts, $content = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	global $crp_settings;
 
 	$atts = shortcode_atts(
