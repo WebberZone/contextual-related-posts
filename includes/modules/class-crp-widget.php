@@ -90,32 +90,17 @@ class CRP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox"
-									<?php
-									if ( $show_excerpt ) {
-										echo 'checked="checked"'; }
-									?>
- /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php checked( true, $show_excerpt, true ); ?> /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox"
-									<?php
-									if ( $show_author ) {
-										echo 'checked="checked"'; }
-									?>
- /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox" <?php checked( true, $show_author, true ); ?> /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox"
-									<?php
-									if ( $show_date ) {
-										echo 'checked="checked"'; }
-									?>
- /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
+			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox" <?php checked( true, $show_date, true ); ?> /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
 		<p>
@@ -247,7 +232,7 @@ class CRP_Widget extends WP_Widget {
 
 		if ( ( ( is_single() ) && ( ! is_single( $exclude_on_post_ids ) ) ) || ( ( is_page() ) && ( ! is_page( $exclude_on_post_ids ) ) ) ) {
 
-			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? strip_tags( str_replace( '%postname%', $post->post_title, $crp_settings['title'] ) ) : $instance['title'] );
+			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? wp_strip_all_tags( str_replace( '%postname%', $post->post_title, $crp_settings['title'] ) ) : $instance['title'] );
 
 			$limit = isset( $instance['limit'] ) ? $instance['limit'] : $crp_settings['limit'];
 			if ( empty( $limit ) ) {
