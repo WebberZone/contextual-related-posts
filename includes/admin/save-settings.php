@@ -288,6 +288,23 @@ add_filter( 'crp_settings_sanitize_posttypes', 'crp_sanitize_posttypes_field' );
 
 
 /**
+ * Sanitize taxonomies fields
+ *
+ * @since 2.6.0
+ *
+ * @param  array $value The field value.
+ * @return string  $value  Sanitized value
+ */
+function crp_sanitize_taxonomies_field( $value ) {
+
+	$taxonomies = is_array( $value ) ? array_map( 'sanitize_text_field', wp_unslash( $value ) ) : array();
+
+	return implode( ',', $taxonomies );
+}
+add_filter( 'crp_settings_sanitize_taxonomies', 'crp_sanitize_taxonomies_field' );
+
+
+/**
  * Modify settings when they are being saved.
  *
  * @since 2.6.0
