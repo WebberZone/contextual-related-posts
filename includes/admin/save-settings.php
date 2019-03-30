@@ -280,7 +280,7 @@ add_filter( 'crp_settings_sanitize_checkbox', 'crp_sanitize_checkbox_field' );
  */
 function crp_sanitize_posttypes_field( $value ) {
 
-	$post_types = is_array( $value ) ? array_map( 'sanitize_text_field', wp_unslash( $value ) ) : array( 'post' );
+	$post_types = is_array( $value ) ? array_map( 'sanitize_text_field', wp_unslash( $value ) ) : array();
 
 	return implode( ',', $post_types );
 }

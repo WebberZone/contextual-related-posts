@@ -38,7 +38,7 @@ add_action( 'template_redirect', 'crp_content_prepare_filter' );
  */
 function crp_content_filter( $content ) {
 
-	global $post, $crp_settings;
+	global $post;
 
 	// Return if it's not in the loop or in the main query.
 	if ( ! in_the_loop() && ! is_main_query() ) {
