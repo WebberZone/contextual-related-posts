@@ -59,8 +59,6 @@ register_activation_hook( CRP_PLUGIN_FILE, 'crp_activate' );
 function crp_single_activate() {
 	global $wpdb;
 
-	crp_read_options();
-
 	$wpdb->hide_errors();
 
 	crp_create_index();
