@@ -150,11 +150,6 @@ function crp_get_settings() {
 
 	$settings = get_option( 'crp_settings' );
 
-	if ( false === $settings ) {
-		add_option( 'crp_settings', crp_settings_defaults() );
-		$settings = get_option( 'crp_settings' );
-	}
-
 	/**
 	 * Settings array
 	 *
