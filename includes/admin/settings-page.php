@@ -560,7 +560,7 @@ function crp_descriptive_text_callback( $args ) {
 
 
 /**
- * Display csv fields.
+ * Display post types fields.
  *
  * @since 2.6.0
  *
@@ -600,6 +600,61 @@ function crp_posttypes_callback( $args ) {
 
 		$html .= sprintf( '<input name="crp_settings[%1$s][%2$s]" id="crp_settings[%1$s][%2$s]" type="checkbox" value="%2$s" %3$s /> ', sanitize_key( $args['id'] ), esc_attr( $wp_post_type ), checked( true, in_array( $wp_post_type, $posts_types_inc, true ), false ) );
 		$html .= sprintf( '<label for="crp_settings[%1$s][%2$s]">%2$s</label> <br />', sanitize_key( $args['id'] ), $wp_post_type );
+
+	}
+
+	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
+
+	/** This filter has been defined in settings-page.php */
+	echo apply_filters( 'crp_after_setting_output', $html, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+
+/**
+ * Display csv fields.
+ *
+ * @since 2.6.0
+ *
+ * @param array $args Array of arguments.
+ * @return void
+ */
+function crp_taxonomies_callback( $args ) {
+
+	global $crp_settings;
+	$html = '';
+
+	if ( isset( $crp_settings[ $args['id'] ] ) ) {
+		$options = $crp_settings[ $args['id'] ];
+	} else {
+		$options = isset( $args['options'] ) ? $args['options'] : '';
+	}
+
+	// If taxonomies is empty or contains a query string then use parse_str else consider it comma-separated.
+	if ( is_array( $options ) ) {
+		$taxonomies = $options;
+	} elseif ( ! is_array( $options ) && false === strpos( $options, '=' ) ) {
+		$taxonomies = explode( ',', $options );
+	} else {
+		parse_str( $options, $taxonomies );
+	}
+
+	/* Fetch taxonomies */
+	$argsc         = array(
+		'public'   => true,
+		'_builtin' => true,
+	);
+	$output        = 'objects';
+	$operator      = 'and';
+	$wp_taxonomies = get_taxonomies( $argsc, $output, $operator );
+
+	$taxonomies_inc = array_intersect( wp_list_pluck( (array) $wp_taxonomies, 'name' ), $taxonomies );
+
+	$html .= sprintf( '<input type="hidden" name="crp_settings[%1$s]" value="-1" />', sanitize_key( $args['id'] ) );
+
+	foreach ( $wp_taxonomies as $wp_taxonomy ) {
+
+		$html .= sprintf( '<input name="crp_settings[%1$s][%2$s]" id="crp_settings[%1$s][%2$s]" type="checkbox" value="%2$s" %3$s /> ', sanitize_key( $args['id'] ), esc_attr( $wp_taxonomy->name ), checked( true, in_array( $wp_taxonomy->name, $taxonomies_inc, true ), false ) );
+		$html .= sprintf( '<label for="crp_settings[%1$s][%2$s]">%3$s</label> <br />', sanitize_key( $args['id'] ), esc_attr( $wp_taxonomy->name ), $wp_taxonomy->labels->name );
 
 	}
 
