@@ -185,6 +185,8 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.6.0 =
 
+Release post: [https://wzn.io/2JZBZJy](https://wzn.io/2JZBZJy)
+
 * Features:
 	* Implemented the Settings API for handling plugin settings
 	* New Tools page: Recreate the indices, delete the cache and delete old settings
