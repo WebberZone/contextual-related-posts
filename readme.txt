@@ -185,6 +185,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.6.1 =
 
+* Features:
+	* New options to delete options and/or data on uninstall. This will only work if you visit the Settings page and save the pages.
+
 * Bug fixes:
 	* Custom CSS code should now be properly added to the header
 
