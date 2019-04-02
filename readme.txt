@@ -192,6 +192,10 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Enhancements:
 	* `widget_title` filter includes `$instance` and `id_base` variables
 
+* Bug fixes:
+	* Checked for non-zero thumbnail width and height in the widget
+	* More checks for PHP errors and notices
+
 = 2.5.1 =
 
 * Features:
