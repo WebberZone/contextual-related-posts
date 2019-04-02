@@ -183,6 +183,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.6.1 =
+
+* Bug fixes:
+	* Custom CSS code should now be properly added to the header
+
 = 2.6.0 =
 
 Release post: [https://wzn.io/2JZBZJy](https://wzn.io/2JZBZJy)

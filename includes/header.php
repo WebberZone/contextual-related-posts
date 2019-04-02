@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
 function crp_header() {
 
 	$add_to     = crp_get_option( 'add_to', false );
-	$custom_css = stripslashes( crp_get_option( 'custom_CSS' ) );
+	$custom_css = stripslashes( crp_get_option( 'custom_css' ) );
 
 	// Add CSS to header.
 	if ( '' != $custom_css ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
