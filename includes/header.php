@@ -26,17 +26,17 @@ function crp_header() {
 
 	// Add CSS to header.
 	if ( '' != $custom_css ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-		if ( ( is_single() ) ) {
+		if ( ( is_single() ) && ! empty( $add_to['single'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		} elseif ( ( is_page() ) ) {
+		} elseif ( ( is_page() ) && ! empty( $add_to['page'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		} elseif ( ( is_home() ) && ( $add_to['home'] ) ) {
+		} elseif ( ( is_home() ) && ! empty( $add_to['home'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		} elseif ( ( is_category() ) && ( $add_to['category_archives'] ) ) {
+		} elseif ( ( is_category() ) && ! empty( $add_to['category_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		} elseif ( ( is_tag() ) && ( $add_to['tag_archives'] ) ) {
+		} elseif ( ( is_tag() ) && ! empty( $add_to['tag_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ( $add_to['other_archives'] ) ) {
+		} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ! empty( $add_to['other_archives'] ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		} elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
 			echo '<style type="text/css">' . $custom_css . '</style>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
