@@ -95,7 +95,7 @@ Contextual Related Posts is available for [translation directly on WordPress.org
 7. Default style of Related Posts
 8. Contextual Related Post metabox in the Edit Posts screen
 9. CRP Widget
-
+10. Tools page
 
 == Frequently Asked Questions ==
 
