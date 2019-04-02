@@ -189,6 +189,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* Implemented the Settings API for handling plugin settings
 	* New Tools page: Recreate the indices, delete the cache and delete old settings
 
+* Enhancements:
+	* `widget_title` filter includes `$instance` and `id_base` variables
+
 = 2.5.1 =
 
 * Features:

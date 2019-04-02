@@ -232,7 +232,18 @@ class CRP_Widget extends WP_Widget {
 
 		if ( ( ( is_single() ) && ( ! is_single( $exclude_on_post_ids ) ) ) || ( ( is_page() ) && ( ! is_page( $exclude_on_post_ids ) ) ) ) {
 
-			$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? wp_strip_all_tags( str_replace( '%postname%', $post->post_title, $crp_settings['title'] ) ) : $instance['title'] );
+			$title = empty( $instance['title'] ) ? wp_strip_all_tags( str_replace( '%postname%', $post->post_title, $crp_settings['title'] ) ) : $instance['title'];
+
+			/**
+			 * Filters the widget title.
+			 *
+			 * @since 2.6.0
+			 *
+			 * @param string $title    The widget title. Default 'Pages'.
+			 * @param array  $instance Array of settings for the current widget.
+			 * @param mixed  $id_base  The widget ID.
+			 */
+			$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
 			$limit = isset( $instance['limit'] ) ? $instance['limit'] : $crp_settings['limit'];
 			if ( empty( $limit ) ) {
@@ -266,11 +277,12 @@ class CRP_Widget extends WP_Widget {
 			 *
 			 * @since 2.0.0
 			 *
-			 * @param array $arguments Widget options array.
-			 * @param array $args Widget arguments.
-			 * @param array $instance Saved values from database.
+			 * @param array $arguments CRP widget options array.
+			 * @param array $args      Widget arguments.
+			 * @param array $instance  Saved values from database.
+			 * @param mixed $id_base   The widget ID.
 			 */
-			$arguments = apply_filters( 'crp_widget_options', $arguments, $args, $instance );
+			$arguments = apply_filters( 'crp_widget_options', $arguments, $args, $instance, $this->id_base );
 
 			$output  = $args['before_widget'];
 			$output .= $args['before_title'] . $title . $args['after_title'];
