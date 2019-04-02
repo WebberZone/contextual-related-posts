@@ -252,8 +252,8 @@ class CRP_Widget extends WP_Widget {
 			$offset = isset( $instance['offset'] ) ? $instance['offset'] : 0;
 
 			$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : 'text_only';
-			$thumb_height  = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : $crp_settings['thumb_height'];
-			$thumb_width   = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : $crp_settings['thumb_width'];
+			$thumb_height  = isset( $instance['thumb_height'] ) && ! empty( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : $crp_settings['thumb_height'];
+			$thumb_width   = isset( $instance['thumb_width'] ) && ! empty( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : $crp_settings['thumb_width'];
 			$show_excerpt  = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
 			$show_author   = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
 			$show_date     = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
