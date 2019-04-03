@@ -190,6 +190,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Bug fixes:
 	* Custom CSS code should now be properly added to the header
+	* Upgrading settings when "Automatically add related posts to" had no options checked should work properly
 
 = 2.6.0 =
 

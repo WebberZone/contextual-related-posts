@@ -66,7 +66,7 @@ function crp_settings_general() {
 		),
 		'add_to'                  => array(
 			'id'      => 'add_to',
-			'name'    => esc_html__( 'Automatically add related posts to', 'contextual-related-posts' ) . ':',
+			'name'    => esc_html__( 'Automatically add related posts to', 'contextual-related-posts' ),
 			/* translators: 1: Code. */
 			'desc'    => sprintf( esc_html__( 'If you choose to disable this, please add %1$s to your template file where you want it displayed', 'contextual-related-posts' ), "<code>&lt;?php if ( function_exists( 'echo_crp' ) ) { echo_crp(); } ?&gt;</code>" ),
 			'type'    => 'multicheck',
@@ -675,6 +675,8 @@ function crp_upgrade_settings() {
 
 	// Start will assigning all the old settings to the new settings and we will unset later on.
 	$settings = $old_settings;
+
+	$settings['add_to'] = array();
 
 	// Convert the add_to_{x} to the new settings format.
 	$add_to = array(
