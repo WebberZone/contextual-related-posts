@@ -63,7 +63,7 @@ function crp_content_filter( $content ) {
 
 	// If this post type is in the DO NOT DISPLAY list.
 	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-	if ( ! empty( crp_get_option( 'exclude_on_post_types' ) ) && false === strpos( crp_get_option( 'exclude_on_post_types' ), '=' ) ) {
+	if ( crp_get_option( 'exclude_on_post_types' ) && false === strpos( crp_get_option( 'exclude_on_post_types' ), '=' ) ) {
 		$exclude_on_post_types = explode( ',', crp_get_option( 'exclude_on_post_types' ) );
 	} else {
 		parse_str( crp_get_option( 'exclude_on_post_types' ), $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.

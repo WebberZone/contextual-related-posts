@@ -183,6 +183,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.6.2 =
+
+* Bug fixes:
+	* Fixed PHP fatal error "Can’t use function return value in write context"
+
 = 2.6.1 =
 
 Release post: [https://wzn.io/2K2ohWB](https://wzn.io/2K2ohWB)
