@@ -733,11 +733,11 @@ function crp_get_styles() {
 	);
 
 	/**
-	 * Filter the array containing the types of trackers to add your own.
+	 * Filter the array containing the styles to add your own.
 	 *
 	 * @since 2.6.0
 	 *
-	 * @param string $trackers Different trackers.
+	 * @param string $styles Different styles.
 	 */
 	return apply_filters( 'crp_get_styles', $styles );
 }
