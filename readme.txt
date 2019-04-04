@@ -185,6 +185,8 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.6.2 =
 
+Release post: [https://wzn.io/2K2ohWB](https://wzn.io/2K2ohWB)
+
 * Bug fixes:
 	* Fixed PHP fatal error "Can’t use function return value in write context"
 	* Changed default setting for thumbnail width and height to 150
