@@ -187,6 +187,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Bug fixes:
 	* Fixed PHP fatal error "Can’t use function return value in write context"
+	* Changed default setting for thumbnail width and height to 150
 
 = 2.6.1 =
 
