@@ -314,9 +314,9 @@ add_filter( 'crp_settings_sanitize_taxonomies', 'crp_sanitize_taxonomies_field' 
 function crp_change_settings_on_save( $settings ) {
 
 	// Sanitize exclude_cat_slugs to save a new entry of exclude_categories.
-	if ( ! empty( $settings['exclude_cat_slugs'] ) ) {
+	if ( isset( $settings['exclude_cat_slugs'] ) ) {
 
-		$exclude_cat_slugs = explode( ',', $settings['exclude_cat_slugs'] );
+		$exclude_cat_slugs = array_unique( explode( ',', $settings['exclude_cat_slugs'] ) );
 
 		foreach ( $exclude_cat_slugs as $cat_name ) {
 			$cat = get_term_by( 'name', $cat_name, 'category' );

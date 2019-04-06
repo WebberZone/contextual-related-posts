@@ -183,6 +183,13 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.6.3 =
+
+* Bug fixes:
+	* Exclude categories settings wouldn't save properly
+	* Unset setting should work properly
+	* Clearer messages when saving options and a style is activated
+
 = 2.6.2 =
 
 Release post: [https://wzn.io/2K2ohWB](https://wzn.io/2K2ohWB)
@@ -406,7 +413,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.6.0 =
+= 2.6.3 =
 * Implemented Settings API. Please verify your settings after the upgrade.
 Check the Changelog for more details
 
