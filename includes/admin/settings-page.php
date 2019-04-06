@@ -611,7 +611,7 @@ function crp_posttypes_callback( $args ) {
 
 
 /**
- * Display csv fields.
+ * Display taxonomies fields.
  *
  * @since 2.6.0
  *
