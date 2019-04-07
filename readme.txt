@@ -185,9 +185,12 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.6.3 =
 
+* Enhancements:
+	* Optimized versions of default.png and default2.png
+
 * Bug fixes:
-	* Exclude categories settings wouldn't save properly
-	* Unset setting should work properly
+	* "Exclude categories" setting wouldn't save properly
+	* Delete any deprecated settings on save should work properly
 	* Clearer messages when saving options and a style is activated
 
 = 2.6.2 =
