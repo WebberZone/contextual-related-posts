@@ -185,6 +185,8 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.6.3 =
 
+Release post: [https://wzn.io/2VrGdOR](https://wzn.io/2VrGdOR)
+
 * Enhancements:
 	* Optimized versions of default.png and default2.png
 
