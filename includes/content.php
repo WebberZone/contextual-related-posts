@@ -176,7 +176,7 @@ function crp_rss_filter( $content ) {
 	$show_excerpt_feed  = crp_get_option( 'show_excerpt_feed' );
 	$post_thumb_op_feed = crp_get_option( 'post_thumb_op_feed' );
 
-	if ( $add_to['feed'] ) {
+	if ( isset( $add_to['feed'] ) && $add_to['feed'] ) {
 		$output  = $content;
 		$output .= get_crp( 'is_widget=0&limit=' . $limit_feed . '&show_excerpt=' . $show_excerpt_feed . '&post_thumb_op=' . $post_thumb_op_feed );
 		return $output;

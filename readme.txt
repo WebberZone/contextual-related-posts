@@ -189,6 +189,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 	* Optimized versions of default.png and default2.png
 
 * Bug fixes:
+	* Fixed PHP error when viewing feed
 	* "Exclude categories" setting wouldn't save properly
 	* Delete any deprecated settings on save should work properly
 	* Clearer messages when saving options and a style is activated
