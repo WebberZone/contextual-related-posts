@@ -4,7 +4,7 @@ Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
 Requires at least: 4.7
-Tested up to: 5.1
+Tested up to: 5.2
 License: GPLv2 or later
 
 Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
