@@ -80,17 +80,6 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	$result     = get_post( $args['postid'] );
 	$post_title = $result->post_title;
 
-	/**
-	 * Filters the title and alt message for thumbnails.
-	 *
-	 * @since   2.2.2
-	 *
-	 * @param   string  $post_title  Post tile used as thumbnail alt and title
-	 * @param   object  $result      Post Object
-	 * @param   array   $args        Array of arguments
-	 */
-	$post_title = apply_filters( 'crp_thumb_title', $post_title, $result, $args );
-
 	$output    = '';
 	$postimage = '';
 
@@ -209,48 +198,6 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 			$postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
 
-		if ( 'css' === $args['thumb_html'] ) {
-			$thumb_html = ' style="max-width:' . $args['thumb_width'] . 'px;max-height:' . $args['thumb_height'] . 'px;"';
-		} elseif ( 'html' === $args['thumb_html'] ) {
-			$thumb_html = ' width="' . $args['thumb_width'] . '" height="' . $args['thumb_height'] . '"';
-		} else {
-			$thumb_html = '';
-		}
-
-		/**
-		 * Filters the thumbnail HTML and allows a filter function to add any more HTML if needed.
-		 *
-		 * @since   2.2.0
-		 *
-		 * @param   string  $thumb_html Thumbnail HTML
-		 * @param   array   $args Argument array
-		 */
-		$thumb_html = apply_filters( 'crp_thumb_html', $thumb_html, $args );
-
-		$img_alt = ' alt="' . $post_title . '"';
-
-		/**
-		 * Filters the thumbnail alt tag.
-		 *
-		 * @since   2.5.0
-		 *
-		 * @param   string  $img_alt Thumbnail alt tag
-		 * @param   array   $args Argument array
-		 */
-		$img_alt = apply_filters( 'crp_thumb_alt', $img_alt, $args );
-
-		$img_title = ' title="' . $post_title . '"';
-
-		/**
-		 * Filters the thumbnail title tag.
-		 *
-		 * @since   2.5.0
-		 *
-		 * @param   string  $img_title Thumbnail title tag
-		 * @param   array   $args Argument array
-		 */
-		$img_title = apply_filters( 'crp_thumb_title', $img_title, $args );
-
 		$class = $args['class'] . ' crp_' . $pick;
 
 		/**
@@ -261,9 +208,32 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @param   string  $thumb_html Thumbnail HTML
 		 * @param   array   $args Argument array
 		 */
-		$class = apply_filters( 'crp_thumb_class', $class, $args );
+		$attr['class'] = apply_filters( 'crp_thumb_class', $class, $args );
 
-		$output .= '<img src="' . $postimage . '"' . $img_alt . $img_title . $thumb_html . ' class="' . $class . '" />';
+		/**
+		 * Filters the thumbnail alt.
+		 *
+		 * @since 2.5.0
+		 *
+		 * @param string $post_title Thumbnail alt attribute
+		 * @param array  $args       Argument array
+		 */
+		$attr['alt'] = apply_filters( 'crp_thumb_alt', $post_title, $args );
+
+		/**
+		 * Filters the thumbnail title.
+		 *
+		 * @since 2.6.0
+		 *
+		 * @param string $post_title Thumbnail title attribute
+		 */
+		$attr['title'] = apply_filters( 'crp_thumb_title', $post_title );
+
+		$attr['thumb_html']   = $args['thumb_html'];
+		$attr['thumb_width']  = $args['thumb_width'];
+		$attr['thumb_height'] = $args['thumb_height'];
+
+		$output .= crp_get_image_html( $postimage, $attr );
 	}
 
 	/**
@@ -321,6 +291,118 @@ function crp_get_first_image( $post_id, $thumb_width, $thumb_height ) {
 	} else {
 		return false;
 	}
+}
+
+
+/**
+ * Get an HTML img element
+ *
+ * @since 2.7.0
+ *
+ * @param string $attachment_url Image URL.
+ * @param array  $attr Attributes for the image markup.
+ * @return string HTML img element or empty string on failure.
+ */
+function crp_get_image_html( $attachment_url, $attr = array() ) {
+
+	// If there is no url, return.
+	if ( '' == $attachment_url ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+		return;
+	}
+
+	$default_attr = array(
+		'src'          => $attachment_url,
+		'thumb_html'   => crp_get_option( 'thumb_html', 'html' ),
+		'thumb_width'  => crp_get_option( 'thumb_width', 150 ),
+		'thumb_height' => crp_get_option( 'thumb_height', 150 ),
+	);
+
+	$attr = wp_parse_args( $attr, $default_attr );
+
+	$hwstring = crp_get_image_hwstring( $attr );
+
+	// Generate 'srcset' and 'sizes' if not already present.
+	if ( empty( $attr['srcset'] ) ) {
+		$attachment_id = crp_get_attachment_id_from_url( $attachment_url );
+		$image_meta    = wp_get_attachment_metadata( $attachment_id );
+
+		if ( is_array( $image_meta ) ) {
+			$size_array = array( absint( $attr['thumb_width'] ), absint( $attr['thumb_height'] ) );
+			$srcset     = wp_calculate_image_srcset( $size_array, $attachment_url, $image_meta, $attachment_id );
+			$sizes      = wp_calculate_image_sizes( $size_array, $attachment_url, $image_meta, $attachment_id );
+
+			if ( $srcset && ( $sizes || ! empty( $attr['sizes'] ) ) ) {
+				$attr['srcset'] = $srcset;
+
+				if ( empty( $attr['sizes'] ) ) {
+					$attr['sizes'] = $sizes;
+				}
+			}
+		}
+	}
+
+	// Unset attributes we don't want to display.
+	unset( $attr['thumb_html'] );
+	unset( $attr['thumb_width'] );
+	unset( $attr['thumb_height'] );
+
+	/**
+	 * Filters the list of attachment image attributes.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param array  $attr Attributes for the image markup.
+	 * @param string $attachment_url Image URL.
+	 */
+	$attr = apply_filters( 'crp_get_image_attributes', $attr, $attachment_url );
+	$attr = array_map( 'esc_attr', $attr );
+
+	$html = '<img ' . $hwstring;
+	foreach ( $attr as $name => $value ) {
+		$html .= " $name=" . '"' . $value . '"';
+	}
+	$html .= ' />';
+
+	return apply_filters( 'crp_get_image_html', $html );
+}
+
+
+/**
+ * Retrieve width and height attributes using given width and height values.
+ *
+ * @since 2.7.0
+ *
+ * @param array $args Argument array.
+ *
+ * @return string Height-width string.
+ */
+function crp_get_image_hwstring( $args = array() ) {
+
+	$default_args = array(
+		'thumb_html'   => crp_get_option( 'thumb_html', 'html' ),
+		'thumb_width'  => crp_get_option( 'thumb_width', 150 ),
+		'thumb_height' => crp_get_option( 'thumb_height', 150 ),
+	);
+
+	$args = wp_parse_args( $args, $default_args );
+
+	if ( 'css' === $args['thumb_html'] ) {
+		$thumb_html = ' style="max-width:' . $args['thumb_width'] . 'px;max-height:' . $args['thumb_height'] . 'px;" ';
+	} elseif ( 'html' === $args['thumb_html'] ) {
+		$thumb_html = ' width="' . $args['thumb_width'] . '" height="' . $args['thumb_height'] . '" ';
+	} else {
+		$thumb_html = '';
+	}
+
+	/**
+	 * Filters the thumbnail HTML and allows a filter function to add any more HTML if needed.
+	 *
+	 * @since   2.2.0
+	 *
+	 * @param string $thumb_html Thumbnail HTML.
+	 * @param array  $args       Argument array.
+	 */
+	return apply_filters( 'crp_thumb_html', $thumb_html, $args );
 }
 
 

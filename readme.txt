@@ -187,9 +187,10 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Features:
 	* New option to order posts by relevance, dates or randomly
+	* Thumbnail HTML markup includes `srcset` and `sizes` attributes when available. Read [Responsive Images in WordPress 4.4](https://make.wordpress.org/core/2015/11/10/responsive-images-in-wordpress-4-4/)
 
 * Enhancements:
-	* No longer use `get_the_title`. You can use `crp_title` and/or `crp_thumb_title` filters to edit the post title and the alt/title attributes of the thumbnail respectively.
+	* No longer use `get_the_title`. You can use `crp_title` and/or `crp_thumb_title` filters to edit the post title and the alt/title attributes of the thumbnail respectively
 
 = 2.6.3 =
 
