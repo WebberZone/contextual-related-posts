@@ -344,10 +344,22 @@ function crp_settings_list() {
 			'options' => '1095',
 			'min'     => '0',
 		),
+		'ordering'            => array(
+			'id'      => 'ordering',
+			'name'    => esc_html__( 'Order posts', 'contextual-related-posts' ),
+			'desc'    => '',
+			'type'    => 'radio',
+			'default' => 'relevance',
+			'options' => array(
+				'relevance' => esc_html__( 'By relevance', 'contextual-related-posts' ),
+				'random'    => esc_html__( 'Randomly', 'contextual-related-posts' ),
+				'date'      => esc_html__( 'By date', 'contextual-related-posts' ),
+			),
+		),
 		'random_order'        => array(
 			'id'      => 'random_order',
 			'name'    => esc_html__( 'Randomize posts', 'contextual-related-posts' ),
-			'desc'    => esc_html__( 'This shuffles the top related posts. Does not work if the cache is enabled.', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'This shuffles the selected related posts. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if the cache is enabled.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
