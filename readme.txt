@@ -188,6 +188,9 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Features:
 	* New option to order posts by relevance, dates or randomly
 
+* Enhancements:
+	* No longer use `get_the_title`. You can use `crp_title` and/or `crp_thumb_title` filters to edit the post title and the alt/title attributes of the thumbnail respectively.
+
 = 2.6.3 =
 
 Release post: [https://wzn.io/2VrGdOR](https://wzn.io/2VrGdOR)
