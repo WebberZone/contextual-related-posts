@@ -191,6 +191,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Enhancements:
 	* No longer use `get_the_title`. You can use `crp_title` and/or `crp_thumb_title` filters to edit the post title and the alt/title attributes of the thumbnail respectively
+	* Selecting Rounded thumbnails under Styles tab will allow your thumbnail setting to either be "inline before text" or "only thumbnails, no text"
 
 = 2.6.3 =
 
