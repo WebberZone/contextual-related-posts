@@ -678,7 +678,7 @@ function crp_tags_search() {
 		wp_die( 0 );
 	}
 
-	$taxonomy = sanitize_key( $_REQUEST['tax'] );
+	$taxonomy = sanitize_key( $_REQUEST['tax'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$tax      = get_taxonomy( $taxonomy );
 	if ( ! $tax ) {
 		wp_die( 0 );
