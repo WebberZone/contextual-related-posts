@@ -263,7 +263,7 @@ function get_crp_posts_id( $args = array() ) {
 
 	$defaults = array(
 		'postid'       => false,  // Get related posts for a specific post ID.
-		'strict_limit' => true, // If this is set to false, then it will fetch 5x posts.
+		'strict_limit' => true, // If this is set to false, then it will fetch 3x posts.
 		'offset'       => 0,  // Offset the related posts returned by this number.
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
@@ -291,6 +291,13 @@ function get_crp_posts_id( $args = array() ) {
 
 	if ( ! $source_post ) {
 		$source_post = $post;
+	}
+
+	$random_order = ( $args['random_order'] || ( isset( $args['ordering'] ) && 'random' === $args['ordering'] ) ) ? true : false;
+
+	// If we need to order randomly then set strict_limit to false.
+	if ( $random_order ) {
+		$args['strict_limit'] = false;
 	}
 
 	$limit  = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
@@ -379,7 +386,12 @@ function get_crp_posts_id( $args = array() ) {
 	if ( is_int( $source_post->ID ) ) {
 
 		// Fields to return.
-		$fields = " $wpdb->posts.ID ";
+		$fields = " $wpdb->posts.ID, $wpdb->posts.post_date ";
+
+		// Set order by in case of date.
+		if ( isset( $args['ordering'] ) && 'date' === $args['ordering'] ) {
+			$orderby = " $wpdb->posts.post_date ";
+		}
 
 		// Create the base MATCH clause.
 		$match = $wpdb->prepare( ' AND MATCH (' . $match_fields . ') AGAINST (%s) ', $stuff ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
@@ -538,14 +550,14 @@ function get_crp_posts_id( $args = array() ) {
 
 		$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 
-		if ( $args['random_order'] ) {
+		if ( $random_order ) {
 			$results_array = (array) $results;
 			shuffle( $results_array );
 			$results = (object) $results_array;
 		}
 	} else {
 		$results = false;
-	}// End if.
+	}
 
 	/**
 	 * Filter object containing the post IDs.
