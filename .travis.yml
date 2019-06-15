@@ -84,15 +84,10 @@ before_script:
 
 - npm --version
 - node --version
-- nvm install 10.13.0
-- npm install
-- npm prune
 - mysql --version
 - phpenv versions
 - php --version
 - php -m
-- npm --version
-- node --version
 - which phpunit
 - phpunit --version
 - curl --version
