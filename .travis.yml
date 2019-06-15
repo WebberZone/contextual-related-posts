@@ -76,7 +76,6 @@ before_script:
   - mysql --version
   - phpenv versions
   - php --version
-  - php -m
 
   # Install PHP_CodeSniffer.
   - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
@@ -91,7 +90,7 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit
+      phpunit
     fi
   - |
     if [[ "$SNIFF" == "1" ]] ; then
