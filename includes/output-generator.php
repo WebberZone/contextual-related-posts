@@ -194,7 +194,7 @@ function crp_after_list_item( $args, $result ) {
  */
 function crp_title( $args, $result ) {
 
-	$title = crp_trim_char( get_the_title( $result->ID ), $args['title_length'] );  // Get the post title and crop it if needed.
+	$title = crp_trim_char( $result->post_title, $args['title_length'] );  // Get the post title and crop it if needed.
 
 	/**
 	 * Filter the title of each list item.
