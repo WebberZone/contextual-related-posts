@@ -28,6 +28,8 @@ matrix:
       env: WP_VERSION=latest
     - php: 5.6
       env: WP_VERSION=4.1
+    - php: 7.2
+      env: WP_VERSION=trunk
 
   allow_failures:
     # Allow failures for unstable builds.
@@ -43,24 +45,14 @@ before_script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-    case "$TRAVIS_PHP_VERSION" in
-      7.4snapshot|7.3|7.2|7.1|nightly)
-        echo "Using PHPUnit 7.x"
-        travis_retry composer global require "phpunit/phpunit:^7"
-        ;;
-      7.0)
-        echo "Using PHPUnit 6.x"
-        travis_retry composer global require "phpunit/phpunit:^6"
-        ;;
-      5.6)
-        echo "Using PHPUnit 4.x"
-        travis_retry composer global require "phpunit/phpunit:^4"
-        ;;
-      *)
-        echo "No PHPUnit version handling for PHP version $TRAVIS_PHP_VERSION"
-        exit 1
-        ;;
-    esac
+      if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
+        echo "Using latest PHPUnit 6.x branch"
+        composer global require "phpunit/phpunit=^6"
+      else
+        echo "Using latest PHPUnit 4.x branch"
+        composer global require "phpunit/phpunit=^4"
+      fi
+      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit --version
     fi
 
   # Install PHP_CodeSniffer.
@@ -73,17 +65,6 @@ before_script:
   # After CodeSniffer install you should refresh your path.
   - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
 
-- npm --version
-- node --version
-- mysql --version
-- phpenv versions
-- php --version
-- php -m
-- which phpunit
-- phpunit --version
-- curl --version
-- locale -a
-
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
@@ -93,4 +74,3 @@ script:
     if [[ "$SNIFF" == "1" ]] ; then
       $PHPCS_DIR/bin/phpcs -p -v -s --standard=phpcs.ruleset.xml $(find . -name '*.php')
     fi
-
