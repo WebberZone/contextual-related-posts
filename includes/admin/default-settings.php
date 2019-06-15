@@ -393,6 +393,13 @@ function crp_settings_list() {
 			'type'    => 'checkbox',
 			'options' => false,
 		),
+		'same_author'         => array(
+			'id'      => 'same_author',
+			'name'    => esc_html__( 'Limit to same author', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same author of the current post.', 'contextual-related-posts' ),
+			'type'    => 'checkbox',
+			'options' => false,
+		),
 		'exclude_post_ids'    => array(
 			'id'      => 'exclude_post_ids',
 			'name'    => esc_html__( 'Post/page IDs to exclude', 'contextual-related-posts' ),
