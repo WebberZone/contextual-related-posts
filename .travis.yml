@@ -36,22 +36,41 @@ matrix:
     - env: SNIFF=1
 
 before_script:
+  - |
+	# Remove Xdebug for a huge performance increase:
+	if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
+      phpenv config-rm xdebug.ini
+	else
+      echo "xdebug.ini does not exist"
+    fi
+
   - export PHPCS_DIR=/tmp/phpcs
   - export SNIFFS_DIR=/tmp/sniffs
   - export PATH="$HOME/.composer/vendor/bin:$PHPCS_DIR/bin:$PATH"
   - phpunit --version
   - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-      if [[ ${TRAVIS_PHP_VERSION:0:2} == "7." ]]; then
-        echo "Using latest PHPUnit 6.x branch"
-        composer global require "phpunit/phpunit=^6"
-      else
-        echo "Using latest PHPUnit 4.x branch"
-        composer global require "phpunit/phpunit=^4"
-      fi
-      $HOME/.config/composer/vendor/phpunit/phpunit/phpunit --version
-    fi
+  # Install the specified version of PHPUnit depending on the PHP version:
+  if [[ ! -z "$WP_VERSION" ]] ; then
+    bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+    case "$TRAVIS_PHP_VERSION" in
+      7.4snapshot|7.3|7.2|7.1|nightly)
+        echo "Using PHPUnit 7.x"
+        travis_retry composer global require "phpunit/phpunit:^7"
+        ;;
+      7.0)
+        echo "Using PHPUnit 6.x"
+        travis_retry composer global require "phpunit/phpunit:^6"
+        ;;
+      5.6)
+        echo "Using PHPUnit 4.x"
+        travis_retry composer global require "phpunit/phpunit:^4"
+        ;;
+      *)
+        echo "No PHPUnit version handling for PHP version $TRAVIS_PHP_VERSION"
+        exit 1
+        ;;
+    esac
+  fi
 
   # Install PHP_CodeSniffer.
   - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
@@ -62,6 +81,22 @@ before_script:
   - if [[ "$SNIFF" == "1" ]]; then phpcs -i; fi
   # After CodeSniffer install you should refresh your path.
   - if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
+
+- npm --version
+- node --version
+- nvm install 10.13.0
+- npm install
+- npm prune
+- mysql --version
+- phpenv versions
+- php --version
+- php -m
+- npm --version
+- node --version
+- which phpunit
+- phpunit --version
+- curl --version
+- locale -a
 
 script:
   - |
