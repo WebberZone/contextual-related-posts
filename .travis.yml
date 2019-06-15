@@ -67,6 +67,8 @@ before_script:
 
     fi
 
+  - phpunit --version
+
   # Install PHP_CodeSniffer.
   - if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR; fi
   # Install WordPress Coding Standards.
