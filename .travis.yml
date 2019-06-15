@@ -36,14 +36,6 @@ matrix:
     - env: SNIFF=1
 
 before_script:
-  - |
-	# Remove Xdebug for a huge performance increase:
-	if [ -f ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ]; then
-      phpenv config-rm xdebug.ini
-	else
-      echo "xdebug.ini does not exist"
-    fi
-
   - export PHPCS_DIR=/tmp/phpcs
   - export SNIFFS_DIR=/tmp/sniffs
   - export PATH="$HOME/.composer/vendor/bin:$PHPCS_DIR/bin:$PATH"
