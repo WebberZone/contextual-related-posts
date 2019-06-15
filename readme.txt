@@ -187,6 +187,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 * Features:
 	* New option to order posts by relevance, dates or randomly
+	* New option to limit posts by the same author
 	* Thumbnail HTML markup includes `srcset` and `sizes` attributes when available. Read [Responsive Images in WordPress 4.4](https://make.wordpress.org/core/2015/11/10/responsive-images-in-wordpress-4-4/)
 
 * Enhancements:

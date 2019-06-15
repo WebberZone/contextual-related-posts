@@ -438,7 +438,11 @@ function get_crp_posts_id( $args = array() ) {
 		$where .= $now_clause;
 		$where .= $from_clause;
 		$where .= " AND $wpdb->posts.post_status = 'publish' ";                 // Only show published posts.
-		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );  // Show posts after the date specified.
+		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );  // Don't include the current ID.
+
+		if ( isset( $args['same_author'] ) && $args['same_author'] ) {
+			$where .= $wpdb->prepare( " AND {$wpdb->posts}.post_author = %d ", $source_post->post_author );  // Show posts of same author.
+		}
 
 		// Convert exclude post IDs string to array so it can be filtered.
 		$exclude_post_ids = explode( ',', $args['exclude_post_ids'] );
