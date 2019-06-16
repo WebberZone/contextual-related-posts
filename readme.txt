@@ -185,6 +185,8 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 = 2.7.0 =
 
+Release post: [https://wzn.io/2XUCur8](https://wzn.io/2XUCur8)
+
 * Features:
 	* Caching improvements: "Enable cache" has been renamed to "Cache HTML output". New option "Cache posts only" has been introduced to cache the output of the database query (array of posts)
 	* New option to order posts by relevance, dates or randomly
@@ -249,7 +251,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.6.3 =
-* Implemented Settings API. Please verify your settings after the upgrade.
+= 2.7.0 =
+* More caching control, new options and enhancements.
 Check the Changelog for more details
 
