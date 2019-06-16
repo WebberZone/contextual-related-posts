@@ -49,7 +49,7 @@ function get_crp( $args = array() ) {
 	}
 
 	// Support caching to speed up retrieval.
-	if ( ! empty( $args['cache'] ) ) {
+	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) ) {
 		$meta_key = 'crp_related_posts';
 		if ( $args['is_widget'] ) {
 			$meta_key .= '_widget';
@@ -89,7 +89,7 @@ function get_crp( $args = array() ) {
 	 */
 	$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
 	if ( ! empty( $custom_template ) ) {
-		if ( ! empty( $args['cache'] ) ) {
+		if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) ) {
 			update_post_meta( $post->ID, $meta_key, $custom_template, '' );
 		}
 		return $custom_template;
@@ -224,7 +224,7 @@ function get_crp( $args = array() ) {
 	$output .= '</div>'; // Closing div of 'crp_related'.
 
 	// Support caching to speed up retrieval.
-	if ( ! empty( $args['cache'] ) ) {
+	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) ) {
 		update_post_meta( $post->ID, $meta_key, $output, '' );
 	}
 
@@ -552,7 +552,32 @@ function get_crp_posts_id( $args = array() ) {
 
 		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $having $orderby $limits";
 
-		$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		// Support caching to speed up retrieval.
+		if ( ! empty( $args['cache_posts'] ) ) {
+
+			$attr = array(
+				'offset'           => $offset,
+				'limit'            => $limit,
+				'same_author'      => isset( $args['same_author'] ) && $args['same_author'],
+				'exclude_post_ids' => $exclude_post_ids,
+				'post_types'       => join( "', '", $post_types ),
+				'order_by'         => $orderby,
+				'is_ssl'           => is_ssl(),
+			);
+
+			$meta_key = crp_cache_get_key( $attr );
+
+			$results = get_post_meta( $post->ID, $meta_key, true );
+		}
+
+		if ( ! $results ) {
+			$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		}
+
+		// Support caching to speed up retrieval.
+		if ( ! empty( $args['cache_posts'] ) ) {
+			update_post_meta( $post->ID, $meta_key, $results, '' );
+		}
 
 		if ( $random_order ) {
 			$results_array = (array) $results;
@@ -573,3 +598,16 @@ function get_crp_posts_id( $args = array() ) {
 	return apply_filters( 'get_crp_posts_id', $results );
 }
 
+
+/**
+ * Get the meta key based on a list of parameters.
+ *
+ * @param array $attr   Array of attributes.
+ * @return string Cache meta key
+ */
+function crp_cache_get_key( $attr ) {
+
+	$meta_key = '_crp_cache_' . md5( wp_json_encode( $attr ) );
+
+	return $meta_key;
+}

@@ -57,10 +57,17 @@ function crp_get_registered_settings() {
 function crp_settings_general() {
 
 	$settings = array(
+		'cache_posts'             => array(
+			'id'      => 'cache_posts',
+			'name'    => esc_html__( 'Cache posts only', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'Enabling this will only cache the related posts but not the entire HTML output. This gives you more flexibility at marginally lower performance. Use this if you only have the related posts called with the same set of parameters.', 'contextual-related-posts' ),
+			'type'    => 'checkbox',
+			'options' => false,
+		),
 		'cache'                   => array(
 			'id'      => 'cache',
-			'name'    => esc_html__( 'Enable cache', 'contextual-related-posts' ),
-			'desc'    => esc_html__( 'Enabling this option will cache the related posts output when the post is visited the first time. The cache is cleaned when you save this page.', 'contextual-related-posts' ),
+			'name'    => esc_html__( 'Cache HTML output', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'Only works if the previous option is disabled. Enabling this will cache the entire HTML generated when the post is visited the first time. The cache is cleaned when you save this page. Highly recommended particularly on busy sites.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
@@ -359,7 +366,7 @@ function crp_settings_list() {
 		'random_order'        => array(
 			'id'      => 'random_order',
 			'name'    => esc_html__( 'Randomize posts', 'contextual-related-posts' ),
-			'desc'    => esc_html__( 'This shuffles the selected related posts. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if the cache is enabled.', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'This shuffles the selected related posts. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if Cache HTML output is enabled.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
