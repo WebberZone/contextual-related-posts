@@ -261,6 +261,7 @@ class CRP_Widget extends WP_Widget {
 
 			$arguments = array(
 				'is_widget'     => 1,
+				'instance_id'   => $this->number,
 				'limit'         => $limit,
 				'offset'        => $offset,
 				'show_excerpt'  => $show_excerpt,

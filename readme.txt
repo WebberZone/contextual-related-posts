@@ -186,6 +186,7 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 = 2.7.0 =
 
 * Features:
+	* Caching improvements: "Enable cache" has been renamed to "Cache HTML output". New option "Cache posts only" has been introduced to cache the output of the database query (array of posts)
 	* New option to order posts by relevance, dates or randomly
 	* New option to limit posts by the same author
 	* Thumbnail HTML markup includes `srcset` and `sizes` attributes when available. Read [Responsive Images in WordPress 4.4](https://make.wordpress.org/core/2015/11/10/responsive-images-in-wordpress-4-4/)

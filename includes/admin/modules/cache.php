@@ -107,6 +107,8 @@ function crp_cache_get_keys() {
 		'crp_related_posts_manual',
 	);
 
+	$meta_keys = array_merge( $meta_keys, crp_cache_get_meta_keys() );
+
 	/**
 	 * Filters the array containing the various cache keys.
 	 *
@@ -117,6 +119,38 @@ function crp_cache_get_keys() {
 	return apply_filters( 'crp_cache_keys', $meta_keys );
 }
 
+
+/**
+ * Get the _crp_cache keys.
+ *
+ * @since 2.7.0
+ *
+ * @return array Array of _crp_cache keys.
+ */
+function crp_cache_get_meta_keys() {
+	global $wpdb;
+
+	$keys = array();
+
+	$sql = "
+		SELECT meta_key
+		FROM {$wpdb->postmeta}
+		WHERE `meta_key` LIKE '_crp_cache_%'
+	";
+
+	$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+
+	$keys = wp_list_pluck( $results, 'meta_key' );
+
+	/**
+	 * Filter the array of _crp_cache keys.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @return array Array of _crp_cache keys.
+	 */
+	return apply_filters( 'crp_cache_get_meta_keys', $keys );
+}
 
 /**
  * Function to clear cache on post save.
