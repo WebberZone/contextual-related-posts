@@ -570,7 +570,7 @@ function get_crp_posts_id( $args = array() ) {
 			$results = get_post_meta( $post->ID, $meta_key, true );
 		}
 
-		if ( ! $results ) {
+		if ( empty( $results ) ) {
 			$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 		}
 
