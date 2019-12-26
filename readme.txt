@@ -183,6 +183,11 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 
 == Changelog ==
 
+= 2.8.0 =
+
+* Bug fixes:
+	* Selecting date order now orders the related posts by newest first
+
 = 2.7.0 =
 
 Release post: [https://wzn.io/2XUCur8](https://wzn.io/2XUCur8)

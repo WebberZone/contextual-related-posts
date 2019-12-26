@@ -390,7 +390,7 @@ function get_crp_posts_id( $args = array() ) {
 
 		// Set order by in case of date.
 		if ( isset( $args['ordering'] ) && 'date' === $args['ordering'] ) {
-			$orderby = " $wpdb->posts.post_date ";
+			$orderby = " $wpdb->posts.post_date DESC ";
 		}
 
 		// Create the base MATCH clause.
@@ -601,6 +601,8 @@ function get_crp_posts_id( $args = array() ) {
 
 /**
  * Get the meta key based on a list of parameters.
+ *
+ * @since 2.7.0
  *
  * @param array $attr   Array of attributes.
  * @return string Cache meta key
