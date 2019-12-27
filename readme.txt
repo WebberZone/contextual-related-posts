@@ -3,8 +3,8 @@ Tags: related posts, related, related articles, contextual related posts, simila
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: trunk
-Requires at least: 4.7
-Tested up to: 5.2
+Requires at least: 4.8
+Tested up to: 5.3
 License: GPLv2 or later
 
 Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -164,21 +164,7 @@ Parameters:
 
 = Shortcodes =
 
-You can insert the related posts anywhere in your post using the `[crp]` shortcode. The plugin takes three optional attributes `limit`, `heading` and `cache` as follows:
-
-`[crp limit="5" heading="1" cache="1"]`
-
-*limit* : Maximum number of posts to return. The actual number displayed may be lower depending on the matching algorithm and the category / post exclusion settings.
-
-*heading* : By default, the heading you specify in **Title of related posts:** under **Output options** will be displayed. You can override this by specifying your own heading e.g.
-
-`
-<h3>Similar posts</h3>
-[crp limit="2" heading="0"]
-`
-*cache* : Cache the output or not? By default the output will be cached for the post you add the shortcode in. You can override this by specifying `cache=0`
-
-In addition to the above, the shortcode takes every option that the plugin supports. See `crp_default_options()` function to see the options that can be set.
+You can insert the related posts anywhere in your post using the `[crp]` shortcode. View [this article in the knowledge base](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/) for more details.
 
 
 == Changelog ==
@@ -188,67 +174,6 @@ In addition to the above, the shortcode takes every option that the plugin suppo
 * Bug fixes:
 	* Selecting date order now orders the related posts by newest first
 
-= 2.7.0 =
-
-Release post: [https://wzn.io/2XUCur8](https://wzn.io/2XUCur8)
-
-* Features:
-	* Caching improvements: "Enable cache" has been renamed to "Cache HTML output". New option "Cache posts only" has been introduced to cache the output of the database query (array of posts)
-	* New option to order posts by relevance, dates or randomly
-	* New option to limit posts by the same author
-	* Thumbnail HTML markup includes `srcset` and `sizes` attributes when available. Read [Responsive Images in WordPress 4.4](https://make.wordpress.org/core/2015/11/10/responsive-images-in-wordpress-4-4/)
-
-* Enhancements:
-	* No longer use `get_the_title`. You can use `crp_title` and/or `crp_thumb_title` filters to edit the post title and the alt/title attributes of the thumbnail respectively
-	* Selecting Rounded thumbnails under Styles tab will allow your thumbnail setting to either be "inline before text" or "only thumbnails, no text"
-
-= 2.6.3 =
-
-Release post: [https://wzn.io/2VrGdOR](https://wzn.io/2VrGdOR)
-
-* Enhancements:
-	* Optimized versions of default.png and default2.png
-
-* Bug fixes:
-	* Fixed PHP error when viewing feed
-	* "Exclude categories" setting wouldn't save properly
-	* Delete any deprecated settings on save should work properly
-	* Clearer messages when saving options and a style is activated
-
-= 2.6.2 =
-
-Release post: [https://wzn.io/2K2ohWB](https://wzn.io/2K2ohWB)
-
-* Bug fixes:
-	* Fixed PHP fatal error "Can’t use function return value in write context"
-	* Changed default setting for thumbnail width and height to 150
-
-= 2.6.1 =
-
-Release post: [https://wzn.io/2K2ohWB](https://wzn.io/2K2ohWB)
-
-* Features:
-	* New options to delete options and/or data on uninstall. This will only work if you visit the Settings page and save the pages.
-
-* Bug fixes:
-	* Custom CSS code should now be properly added to the header
-	* Upgrading settings when "Automatically add related posts to" had no options checked should work properly
-
-= 2.6.0 =
-
-Release post: [https://wzn.io/2JZBZJy](https://wzn.io/2JZBZJy)
-
-* Features:
-	* Implemented the Settings API for handling plugin settings
-	* New Tools page: Recreate the indices, delete the cache and delete old settings
-
-* Enhancements:
-	* `widget_title` filter includes `$instance` and `id_base` variables
-
-* Bug fixes:
-	* Checked for non-zero thumbnail width and height in the widget
-	* More checks for PHP errors and notices
-
 = Earlier versions =
 
 For the changelog of earlier versions, please refer to the separate changelog.txt file.
@@ -256,7 +181,6 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.7.0 =
-* More caching control, new options and enhancements.
-Check the Changelog for more details
-
+= 2.9.0 =
+[ ]
+Check the Changelog for more details or view the release post on [https://webberzone.com](https://webberzone.com)
