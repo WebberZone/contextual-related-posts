@@ -174,6 +174,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Features:
     * Two new settings in the widget: *Order posts* and *Randomize order* that allows the global setting to be overridden
 
+* Enhancements:
+    * Show author, Show date, Show post excerpt and Post thumbnail settings will show a message that they cannnot be modified in case the Rounded thumbnails or No text styles are selected
+
 * Bug fixes:
 	* Selecting date order now orders the related posts by newest first
 

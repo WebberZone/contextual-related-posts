@@ -750,3 +750,29 @@ function crp_admin_thumbnail( $html, $args ) {
 }
 add_filter( 'crp_after_setting_output', 'crp_admin_thumbnail', 10, 2 );
 
+
+/**
+ * Output messages when a specific style is selected.
+ *
+ * @since 2.8.0
+ *
+ * @param  string $html Current HTML.
+ * @param  array  $args Argument array of the setting.
+ * @return string
+ */
+function crp_styles_messages( $html, $args ) {
+
+	$crp_styles = crp_get_option( 'crp_styles' );
+
+	if ( 'rounded_thumbs' === $crp_styles && ( 'show_excerpt' === $args['id'] || 'show_author' === $args['id'] || 'show_date' === $args['id'] ) ) {
+		$html .= '<span style="color:red">' . esc_html__( 'This option cannot be changed because of the selected related posts style. To modify this option, you will need to select No styles or Text only in the Styles tab', 'contextual-related-posts' ) . '</span>';
+	}
+
+	if ( ( 'rounded_thumbs' === $crp_styles || 'text_only' === $crp_styles ) && 'post_thumb_op' === $args['id'] ) {
+		$html .= '<span style="color:red">' . esc_html__( 'This option cannot be changed because of the selected related posts style. To modify this option, you will need to select No styles in the Styles tab', 'contextual-related-posts' ) . '</span>';
+	}
+
+	return $html;
+}
+add_filter( 'crp_after_setting_output', 'crp_styles_messages', 10, 2 );
+
