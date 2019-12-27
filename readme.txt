@@ -172,7 +172,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 = 2.8.0 =
 
 * Features:
-    * Two new settings in the widget: *Order posts* and *Randomize order* that allows the global setting to be overridden
+    * Two new settings in the widget: **Order posts** and **Randomize order** that allows the global setting to be overridden
+    * New setting called **Keyword** in the Meta box where you can enter a word or a phrase to find related posts. If entered, the plugin will continue to search the `post_title` and `post_content` fields but will use this keyword instead of the values of the title and content of the source post
 
 * Enhancements:
     * Show author, Show date, Show post excerpt and Post thumbnail settings will show a message that they cannnot be modified in case the Rounded thumbnails or No text styles are selected
