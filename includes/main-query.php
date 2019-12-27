@@ -349,6 +349,15 @@ function get_crp_posts_id( $args = array() ) {
 		$match_fields_content[] = crp_excerpt( $source_post->ID, $args['match_content_words'], false );
 	}
 
+	// If keyword is entered, override the matching content.
+	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
+
+	if ( isset( $crp_post_meta['keyword'] ) ) {
+		$match_fields_content = array(
+			$crp_post_meta['keyword'],
+		);
+	}
+
 	/**
 	 * Filter the fields that are to be matched.
 	 *
