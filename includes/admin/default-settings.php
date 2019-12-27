@@ -357,11 +357,7 @@ function crp_settings_list() {
 			'desc'    => '',
 			'type'    => 'radio',
 			'default' => 'relevance',
-			'options' => array(
-				'relevance' => esc_html__( 'By relevance', 'contextual-related-posts' ),
-				'random'    => esc_html__( 'Randomly', 'contextual-related-posts' ),
-				'date'      => esc_html__( 'By date', 'contextual-related-posts' ),
-			),
+			'options' => crp_get_orderings(),
 		),
 		'random_order'        => array(
 			'id'      => 'random_order',
@@ -766,4 +762,28 @@ function crp_get_styles() {
 	 * @param string $styles Different styles.
 	 */
 	return apply_filters( 'crp_get_styles', $styles );
+}
+
+/**
+ * Get the various order settings.
+ *
+ * @since 2.8.0
+ * @return array Order settings.
+ */
+function crp_get_orderings() {
+
+	$orderings = array(
+		'relevance' => esc_html__( 'By relevance', 'contextual-related-posts' ),
+		'random'    => esc_html__( 'Randomly', 'contextual-related-posts' ),
+		'date'      => esc_html__( 'By date', 'contextual-related-posts' ),
+	);
+
+	/**
+	 * Filter the array containing the order settings.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @param string $orderings Order settings.
+	 */
+	return apply_filters( 'crp_get_orderings', $orderings );
 }

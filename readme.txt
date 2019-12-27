@@ -171,6 +171,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 2.8.0 =
 
+* Features:
+    * Two new settings in the widget: *Order posts* and *Randomize order* that allows the global setting to be overridden
+
 * Bug fixes:
 	* Selecting date order now orders the related posts by newest first
 
@@ -181,6 +184,6 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.9.0 =
+= 2.8.0 =
 [ ]
 Check the Changelog for more details or view the release post on [https://webberzone.com](https://webberzone.com)
