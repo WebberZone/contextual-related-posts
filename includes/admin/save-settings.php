@@ -337,9 +337,9 @@ function crp_change_settings_on_save( $settings ) {
 
 	// Overwrite settings if rounded thumbnail style is selected.
 	if ( 'rounded_thumbs' === $settings['crp_styles'] ) {
-		$settings['show_excerpt']  = 0;
-		$settings['show_author']   = 0;
-		$settings['show_date']     = 0;
+		$settings['show_excerpt'] = 0;
+		$settings['show_author']  = 0;
+		$settings['show_date']    = 0;
 
 		if ( 'inline' !== $settings['post_thumb_op'] && 'thumbs_only' !== $settings['post_thumb_op'] ) {
 			$settings['post_thumb_op'] = 'inline';
