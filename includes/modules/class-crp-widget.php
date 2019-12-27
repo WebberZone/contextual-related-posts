@@ -54,6 +54,8 @@ class CRP_Widget extends WP_Widget {
 		$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : '';
 		$thumb_height  = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
 		$thumb_width   = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
+		$ordering      = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
+		$random_order  = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
 
 		// Parse the Post types.
 		$post_types = array();
@@ -71,6 +73,9 @@ class CRP_Widget extends WP_Widget {
 			)
 		);
 		$posts_types_inc = array_intersect( $wp_post_types, $post_types );
+
+		// Get the different ordering settings.
+		$orderings = crp_get_orderings();
 
 		?>
 		<p>
@@ -122,7 +127,23 @@ class CRP_Widget extends WP_Widget {
 			<?php esc_html_e( 'Thumbnail width', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumb_width' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumb_width' ) ); ?>" type="text" value="<?php echo esc_attr( $thumb_width ); ?>" />
 			</label>
 		</p>
+		<p><?php esc_html_e( 'Order posts', 'contextual-related-posts' ); ?>:<br />
 
+			<?php foreach ( $orderings as $order => $label ) { ?>
+
+				<label>
+					<input id="<?php echo esc_attr( $this->get_field_id( 'ordering' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ordering' ) ); ?>" type="radio" value="<?php echo esc_attr( $order ); ?>" <?php checked( $order === $ordering ); ?> />
+					<?php echo esc_attr( $label ); ?>
+				</label>
+				<br />
+
+			<?php } ?>
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'random_order' ) ); ?>">
+			<input id="<?php echo esc_attr( $this->get_field_id( 'random_order' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'random_order' ) ); ?>" type="checkbox" <?php checked( true, $random_order, true ); ?> /> <?php esc_html_e( ' Randomize posts', 'contextual-related-posts' ); ?>
+			</label>
+		</p>
 		<p><?php esc_html_e( 'Post types to include', 'contextual-related-posts' ); ?>:<br />
 
 			<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
@@ -172,6 +193,8 @@ class CRP_Widget extends WP_Widget {
 		$instance['show_author']   = isset( $new_instance['show_author'] ) ? true : false;
 		$instance['show_date']     = isset( $new_instance['show_date'] ) ? true : false;
 		$instance['offset']        = ( ! empty( $new_instance['offset'] ) ) ? intval( $new_instance['offset'] ) : '';
+		$instance['ordering']      = isset( $new_instance['ordering'] ) ? $new_instance['ordering'] : '';
+		$instance['random_order']  = isset( $new_instance['random_order'] ) ? true : false;
 
 		// Process post types to be selected.
 		$wp_post_types          = get_post_types(
@@ -257,6 +280,8 @@ class CRP_Widget extends WP_Widget {
 			$show_excerpt  = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
 			$show_author   = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
 			$show_date     = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
+			$ordering      = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
+			$random_order  = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
 			$post_types    = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : $crp_settings['post_types'];
 
 			$arguments = array(
@@ -270,6 +295,8 @@ class CRP_Widget extends WP_Widget {
 				'post_thumb_op' => $post_thumb_op,
 				'thumb_height'  => $thumb_height,
 				'thumb_width'   => $thumb_width,
+				'ordering'      => $ordering,
+				'random_order'  => $random_order,
 				'post_types'    => $post_types,
 			);
 
