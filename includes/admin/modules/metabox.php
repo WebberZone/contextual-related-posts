@@ -107,7 +107,7 @@ function crp_call_meta_box() {
 	if ( isset( $crp_post_meta['keyword'] ) ) {
 		$keyword = $crp_post_meta['keyword'];
 	} else {
-		$keyword = 0;
+		$keyword = '';
 	}
 
 	?>
@@ -127,7 +127,7 @@ function crp_call_meta_box() {
 
 	<p>
 		<label for="keyword"><strong><?php esc_html_e( 'Keyword:', 'contextual-related-posts' ); ?></strong></label>
-		<textarea class="large-text" cols="50" rows="5" id="crp_keyword" name="crp_keyword"><?php esc_textarea( stripslashes( $keyword ) ); ?></textarea>
+		<textarea class="large-text" cols="50" rows="5" id="crp_keyword" name="crp_keyword"><?php echo esc_textarea( stripslashes( $keyword ) ); ?></textarea>
 		<em><?php esc_html_e( 'Enter either a word or a phrase that will be used to find related posts. If entered, the plugin will continue to search the `post_title` and `post_content` fields but will use this keyword instead of the values of the title and content of this post.', 'contextual-related-posts' ); ?></em>
 	</p>
 
