@@ -34,9 +34,11 @@ function get_crp( $args = array() ) {
 		'is_widget'    => false,
 		'is_shortcode' => false,
 		'is_manual'    => false,
+		'is_block'     => false,
 		'echo'         => true,
 		'heading'      => true,
 		'offset'       => 0,
+		'extra_class'  => '',
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -56,6 +58,9 @@ function get_crp( $args = array() ) {
 		}
 		if ( $args['is_manual'] ) {
 			$meta_key .= '_manual';
+		}
+		if ( $args['is_block'] ) {
+			$meta_key .= '_block';
 		}
 		if ( is_feed() ) {
 			$meta_key .= '_feed';
@@ -95,10 +100,11 @@ function get_crp( $args = array() ) {
 		return $custom_template;
 	}
 
-	$widget_class    = $args['is_widget'] ? 'crp_related_widget' : 'crp_related ';
+	$widget_class    = $args['is_widget'] ? 'crp_related_widget ' : 'crp_related ';
 	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
+	$block_class     = $args['is_block'] ? 'crp_related_block ' : '';
 
-	$post_classes = $widget_class . $shortcode_class;
+	$post_classes = $widget_class . $shortcode_class . $block_class . ' ' . $args['extra_class'];
 
 	/**
 	 * Filter the classes added to the div wrapper of the Contextual Related Posts.
