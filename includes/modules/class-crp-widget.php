@@ -301,7 +301,7 @@ class CRP_Widget extends WP_Widget {
 			);
 
 			/**
-			 * Filters arguments passed to crp_pop_posts for the widget.
+			 * Filters arguments passed to get_crp for the widget.
 			 *
 			 * @since 2.0.0
 			 *
