@@ -393,7 +393,7 @@ function get_crp_posts_id( $args = array() ) {
 	$now             = gmdate( 'Y-m-d H:i:s', ( time() + ( $time_difference * 3600 ) ) );
 
 	// Limit the related posts by time.
-	$current_time = current_time( 'timestamp', 0 );
+	$current_time = strtotime( current_time( 'mysql' ) );
 	$from_date    = $current_time - ( absint( $args['daily_range'] ) * DAY_IN_SECONDS );
 	$from_date    = gmdate( 'Y-m-d H:i:s', $from_date );
 

@@ -182,6 +182,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Bug fixes:
 	* Selecting date order now orders the related posts by newest first
     * Fixed PHP warning in the widget
+    * Stop using `current_time( 'timestamp' )`
 
 = Earlier versions =
 
