@@ -472,7 +472,7 @@ function get_crp_posts_id( $args = array() ) {
 		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids );
 
 		// Convert it back to string.
-		$exclude_post_ids = implode( ',', array_filter( $exclude_post_ids ) );
+		$exclude_post_ids = implode( ',', array_filter( array_filter( $exclude_post_ids, 'absint' ) ) );
 
 		if ( '' != $exclude_post_ids ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 			$where .= " AND $wpdb->posts.ID NOT IN ({$exclude_post_ids}) ";
