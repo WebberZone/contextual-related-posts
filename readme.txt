@@ -97,6 +97,7 @@ Contextual Related Posts is available for [translation directly on WordPress.org
 8. Contextual Related Post metabox in the Edit Posts screen
 9. CRP Widget
 10. Tools page
+11. Gutenberg block - Settings sidebar
 
 == Frequently Asked Questions ==
 
