@@ -229,7 +229,7 @@ class CRP_Widget extends WP_Widget {
 	 * @param   array $instance   Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
-		global $post, $crp_settings;
+		global $post;
 
 		// Get the post meta.
 		if ( isset( $post ) ) {
@@ -241,21 +241,21 @@ class CRP_Widget extends WP_Widget {
 		}
 
 		// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-		if ( ! empty( $crp_settings['exclude_on_post_types'] ) && false === strpos( $crp_settings['exclude_on_post_types'], '=' ) ) {
-			$exclude_on_post_types = explode( ',', $crp_settings['exclude_on_post_types'] );
+		if ( crp_get_option( 'exclude_on_post_types' ) && false === strpos( crp_get_option( 'exclude_on_post_types' ), '=' ) ) {
+			$exclude_on_post_types = explode( ',', crp_get_option( 'exclude_on_post_types' ) );
 		} else {
-			parse_str( $crp_settings['exclude_on_post_types'], $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
+			parse_str( crp_get_option( 'exclude_on_post_types' ), $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
 		}
 
 		if ( is_object( $post ) && ( in_array( $post->post_type, $exclude_on_post_types, true ) ) ) {
 			return 0;   // Exit without adding related posts.
 		}
 
-		$exclude_on_post_ids = explode( ',', $crp_settings['exclude_on_post_ids'] );
+		$exclude_on_post_ids = explode( ',', crp_get_option( 'exclude_on_post_ids' ) );
 
 		if ( ( ( is_single() ) && ( ! is_single( $exclude_on_post_ids ) ) ) || ( ( is_page() ) && ( ! is_page( $exclude_on_post_ids ) ) ) ) {
 
-			$title = empty( $instance['title'] ) ? wp_strip_all_tags( str_replace( '%postname%', $post->post_title, $crp_settings['title'] ) ) : $instance['title'];
+			$title = empty( $instance['title'] ) ? wp_strip_all_tags( str_replace( '%postname%', $post->post_title, crp_get_option( 'title' ) ) ) : $instance['title'];
 
 			/**
 			 * Filters the widget title.
@@ -268,21 +268,21 @@ class CRP_Widget extends WP_Widget {
 			 */
 			$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-			$limit = isset( $instance['limit'] ) ? $instance['limit'] : $crp_settings['limit'];
+			$limit = isset( $instance['limit'] ) ? $instance['limit'] : crp_get_option( 'limit' );
 			if ( empty( $limit ) ) {
-				$limit = $crp_settings['limit'];
+				$limit = crp_get_option( 'limit' );
 			}
 			$offset = isset( $instance['offset'] ) ? $instance['offset'] : 0;
 
 			$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : 'text_only';
-			$thumb_height  = isset( $instance['thumb_height'] ) && ! empty( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : $crp_settings['thumb_height'];
-			$thumb_width   = isset( $instance['thumb_width'] ) && ! empty( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : $crp_settings['thumb_width'];
+			$thumb_height  = isset( $instance['thumb_height'] ) && ! empty( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : crp_get_option( 'thumb_height' );
+			$thumb_width   = isset( $instance['thumb_width'] ) && ! empty( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : crp_get_option( 'thumb_width' );
 			$show_excerpt  = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
 			$show_author   = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
 			$show_date     = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
 			$ordering      = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
 			$random_order  = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
-			$post_types    = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : $crp_settings['post_types'];
+			$post_types    = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : crp_get_option( 'post_types' );
 
 			$arguments = array(
 				'is_widget'     => 1,
