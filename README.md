@@ -29,11 +29,12 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
 ### Key features
 
 * **Automatic**: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
-* **Manual install**: Want more control over placement? Check the [FAQ](https://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install.
-* **Caching**: Related posts output is automatically cached as visitors browse through your site
+* **Manual install**: Want more control over placement? Check the [FAQ](http://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install
+* **Gutenberg / Block Editor support**: You can find a block called "Related Posts [CRP]" with its own configurable set of options
 * **Widgets**: Add related posts to widgetized area of your theme. Lots of options available
 * **Shortcode**: Use `[crp]` to display the posts anywhere you want in the post content
 * **The algorithm**: Find related posts by title and/or content of the current post
+* **Caching**: Related posts output is automatically cached as visitors browse through your site
 * **Exclusions**: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
 * **Custom post types**: The related posts list lets you include posts, pages, attachments or any other custom post type!
 * **Thumbnail support**:
