@@ -173,6 +173,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 2.8.0 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-8-0/](https://webberzone.com/blog/contextual-related-posts-v2-8-0/)
+
 * Features:
     * New block for Gutenberg aka the block editor. The block is called **Related Posts [CRP]** and you can find it under the widgets category
     * Two new settings in the widget: **Order posts** and **Randomize order** that allows the global setting to be overridden
