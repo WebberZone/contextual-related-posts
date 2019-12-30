@@ -101,7 +101,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	// If there is no thumbnail found, check the post thumbnail.
 	if ( ! $postimage ) {
 		if ( false !== get_post_thumbnail_id( $result->ID ) ) {
-			$postthumb = wp_get_attachment_image_src( get_post_thumbnail_id( $result->ID ), array( $args['thumb_width'], $args['thumb_height'] ) );
+			$attachment_id = ( 'attachment' === $result->post_type ) ? $result->ID : get_post_thumbnail_id( $result->ID );
+
+			$postthumb = wp_get_attachment_image_src( $attachment_id, array( $args['thumb_width'], $args['thumb_height'] ) );
 			$postimage = $postthumb[0];
 		}
 		$pick = 'featured';

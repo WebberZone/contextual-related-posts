@@ -252,7 +252,7 @@ function get_crp( $args = array() ) {
  * @since 1.9
  *
  * @param array $args Arguments array.
- * @return object $results
+ * @return object $results Array of related post objects
  */
 function get_crp_posts_id( $args = array() ) {
 	global $wpdb, $post, $crp_settings;
@@ -452,7 +452,7 @@ function get_crp_posts_id( $args = array() ) {
 		$where  = $match;
 		$where .= $now_clause;
 		$where .= $from_clause;
-		$where .= " AND $wpdb->posts.post_status = 'publish' ";                 // Only show published posts.
+		$where .= " AND $wpdb->posts.post_status IN ('publish','inherit') "; // Only show published posts or attachments.
 		$where .= $wpdb->prepare( " AND {$wpdb->posts}.ID != %d ", $source_post->ID );  // Don't include the current ID.
 
 		if ( isset( $args['same_author'] ) && $args['same_author'] ) {
