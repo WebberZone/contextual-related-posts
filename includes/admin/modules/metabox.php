@@ -278,12 +278,6 @@ function crp_save_meta_box( $post_id ) {
 		update_post_meta( $post_id, 'crp_post_meta', $crp_post_meta_filtered );
 	}
 
-	// Clear cache of current post.
-	$default_meta_keys = crp_cache_get_keys();
-	foreach ( $default_meta_keys as $meta_key ) {
-		delete_post_meta( $post_id, $meta_key );
-	}
-
 	/**
 	 * Action triggered when saving Contextual Related Posts meta box settings
 	 *

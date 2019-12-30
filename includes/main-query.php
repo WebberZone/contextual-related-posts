@@ -51,7 +51,7 @@ function get_crp( $args = array() ) {
 	}
 
 	// Support caching to speed up retrieval.
-	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) ) {
+	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 		$meta_key = 'crp_related_posts';
 		if ( $args['is_widget'] ) {
 			$meta_key .= '_widget';
@@ -94,7 +94,7 @@ function get_crp( $args = array() ) {
 	 */
 	$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
 	if ( ! empty( $custom_template ) ) {
-		if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) ) {
+		if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 			update_post_meta( $post->ID, $meta_key, $custom_template, '' );
 		}
 		return $custom_template;
@@ -230,7 +230,7 @@ function get_crp( $args = array() ) {
 	$output .= '</div>'; // Closing div of 'crp_related'.
 
 	// Support caching to speed up retrieval.
-	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) ) {
+	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 		update_post_meta( $post->ID, $meta_key, $output, '' );
 	}
 
@@ -568,7 +568,7 @@ function get_crp_posts_id( $args = array() ) {
 		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $having $orderby $limits";
 
 		// Support caching to speed up retrieval.
-		if ( ! empty( $args['cache_posts'] ) ) {
+		if ( ! empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 
 			$attr = array(
 				'offset'           => $offset,
@@ -590,7 +590,7 @@ function get_crp_posts_id( $args = array() ) {
 		}
 
 		// Support caching to speed up retrieval.
-		if ( ! empty( $args['cache_posts'] ) ) {
+		if ( ! empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 			update_post_meta( $post->ID, $meta_key, $results, '' );
 		}
 
