@@ -105,6 +105,7 @@ function crp_cache_get_keys() {
 		'crp_related_posts_feed',
 		'crp_related_posts_widget_feed',
 		'crp_related_posts_manual',
+		'crp_related_posts_block',
 	);
 
 	$meta_keys = array_merge( $meta_keys, crp_cache_get_meta_keys() );
@@ -167,7 +168,7 @@ function crp_delete_cache_post_save( $post_id ) {
 	}
 
 	// If our nonce isn't there, or we can't verify it, bail.
-	if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['crp_meta_box_nonce'] ), 'crp_meta_box' ) ) { // Input var okay.
+	if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['crp_meta_box_nonce'] ), 'crp_meta_box' ) ) {
 		return;
 	}
 
@@ -183,6 +184,5 @@ function crp_delete_cache_post_save( $post_id ) {
 	}
 
 }
-add_action( 'save_post', 'crp_delete_cache_post_save' );
-add_action( 'edit_attachment', 'crp_delete_cache_post_save' );
+add_action( 'crp_save_meta_box', 'crp_delete_cache_post_save' );
 
