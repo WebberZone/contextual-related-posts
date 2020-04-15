@@ -71,6 +71,9 @@ function get_crp( $args = array() ) {
 		}
 	}
 
+	// Get thumbnail size.
+	list( $args['thumb_width'], $args['thumb_height'] ) = crp_get_thumb_size( $args );
+
 	// Retrieve the list of posts.
 	$results = get_crp_posts_id(
 		array_merge(

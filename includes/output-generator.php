@@ -308,7 +308,7 @@ function crp_list_link( $args, $result ) {
 	if ( 'inline' === $args['post_thumb_op'] || 'after' === $args['post_thumb_op'] || 'thumbs_only' === $args['post_thumb_op'] ) {
 		$output .= crp_get_the_post_thumbnail(
 			array(
-				'postid'             => $result->ID,
+				'postid'             => $result,
 				'thumb_height'       => $args['thumb_height'],
 				'thumb_width'        => $args['thumb_width'],
 				'thumb_meta'         => $args['thumb_meta'],
