@@ -179,6 +179,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Bug fixes:
     * Fixed errors created when trying to fetch a featured image or scanned images with remote links
+    * Saving categories fields in the settings page uses `str_getcsv` and a custom function `crp_str_putcsv`
 
 = 2.8.0 =
 
