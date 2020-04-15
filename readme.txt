@@ -171,6 +171,15 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
+= 2.9.0 =
+
+* Enhancements:
+    * New function: `crp_get_thumb_size()` to get the correct size of the thumbnail
+    * Only run a get_post query if only the post ID is passed to `crp_get_the_post_thumbnail()`
+
+* Bug fixes:
+    * Fixed errors created when trying to fetch a featured image or scanned images with remote links
+
 = 2.8.0 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v2-8-0/](https://webberzone.com/blog/contextual-related-posts-v2-8-0/)
@@ -196,6 +205,6 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.8.0 =
-New block for Gutenberg. Enhancements to the widget. New Keyword setting.
+= 2.9.0 =
+[ ]
 Check the Changelog for more details or view the release post on [https://webberzone.com](https://webberzone.com)

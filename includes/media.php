@@ -77,11 +77,17 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		_deprecated_argument( __FUNCTION__, '2.1', esc_html__( 'filter argument has been deprecated', 'contextual-related-posts' ) );
 	}
 
-	$result     = get_post( $args['postid'] );
-	$post_title = $result->post_title;
+	if ( is_int( $args['postid'] ) ) {
+		$result = get_post( $args['postid'] );
+	} else {
+		$result = $args['postid'];
+	}
+
+	$post_title = esc_attr( $result->post_title );
 
 	$output    = '';
 	$postimage = '';
+	$pick      = '';
 
 	// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page.
 	if ( ! $postimage ) {
@@ -90,7 +96,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( $postimage ) {
 			$postimage_id = crp_get_attachment_id_from_url( $postimage );
 
-			if ( false != wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+			if ( false !== wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) ) ) {
 				$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
 				$postimage = $postthumb[0];
 			}
@@ -104,7 +110,10 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 			$attachment_id = ( 'attachment' === $result->post_type ) ? $result->ID : get_post_thumbnail_id( $result->ID );
 
 			$postthumb = wp_get_attachment_image_src( $attachment_id, array( $args['thumb_width'], $args['thumb_height'] ) );
-			$postimage = $postthumb[0];
+			if ( false !== $postthumb ) {
+				$postimage = $postthumb[0];
+				$pick      = 'featured';
+			}
 		}
 		$pick = 'featured';
 	}
@@ -125,20 +134,19 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		$post_content = apply_filters( 'crp_thumb_post_content', $result->post_content, $result );
 
 		preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches );
-
-		if ( isset( $matches[1][0] ) && $matches[1][0] ) {
-			$postimage = $matches[1][0]; // We need the first one only!
+		if ( isset( $matches[1][0] ) && $matches[1][0] ) {          // any image there?
+			$postimage = $matches[1][0]; // we need the first one only!
 		}
+		$pick = 'first';
 		if ( $postimage ) {
 			$postimage_id = crp_get_attachment_id_from_url( $postimage );
 
 			if ( false !== wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) ) ) {
 				$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
 				$postimage = $postthumb[0];
+				$pick     .= 'correct';
 			}
-			$pick = 'correct';
 		}
-		$pick .= 'first';
 	}
 
 	// If there is no thumbnail found, fetch the first child image.
@@ -150,13 +158,13 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	// If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin.
 	if ( ! $postimage ) {
 		$postimage = get_post_meta( $result->ID, '_video_thumbnail', true );
-		$pick      = 'video';
+		$pick      = 'video_thumb';
 	}
 
 	// If no thumb found and settings permit, use default thumb.
 	if ( ! $postimage && $args['thumb_default_show'] ) {
 		$postimage = $args['thumb_default'];
-		$pick      = 'default';
+		$pick      = 'default_thumb';
 	}
 
 	// Hopefully, we've found a thumbnail by now. If so, run it through the custom filter, check for SSL and create the image tag.
@@ -456,6 +464,49 @@ function crp_get_attachment_id_from_url( $attachment_url = '' ) {
 
 
 /**
+ * Function to get the correct height and width of the thumbnail.
+ *
+ * @since   2.9.0
+ *
+ * @param  array $args Array of arguments.
+ * @return array Width and height
+ */
+function crp_get_thumb_size( $args ) {
+
+	// Get thumbnail size.
+	$crp_thumb_size = crp_get_all_image_sizes( $args['thumb_size'] );
+
+	if ( isset( $crp_thumb_size['width'] ) ) {
+		$thumb_width  = $crp_thumb_size['width'];
+		$thumb_height = $crp_thumb_size['height'];
+	}
+
+	if ( empty( $thumb_width ) || ( $args['is_widget'] && $thumb_width != $args['thumb_width'] ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+		$thumb_width        = $args['thumb_width'];
+		$args['thumb_html'] = 'css';
+	}
+
+	if ( empty( $thumb_height ) || ( $args['is_widget'] && $thumb_height != $args['thumb_height'] ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+		$thumb_height       = $args['thumb_height'];
+		$args['thumb_html'] = 'css';
+	}
+
+	$thumb_size = array( $thumb_width, $thumb_height );
+
+	/**
+	 * Filter array of thumbnail size.
+	 *
+	 * @since   2.9.0
+	 *
+	 * @param   array   $thumb_size Array with width and height of thumbnail
+	 * @param   array   $args   Array of arguments
+	 */
+	return apply_filters( 'crp_get_thumb_size', $thumb_size, $args );
+
+}
+
+
+/**
  * Get all image sizes.
  *
  * @since   2.0.0
@@ -508,5 +559,4 @@ function crp_get_all_image_sizes( $size = '' ) {
 	 */
 	return apply_filters( 'crp_get_all_image_sizes', $sizes );
 }
-
 
