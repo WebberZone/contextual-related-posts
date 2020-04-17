@@ -45,6 +45,24 @@ function get_crp( $args = array() ) {
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
 
+	// Short circuit flag.
+	$short_circuit = false;
+
+	/**
+	 * Allow a short circuit flag to be set to exit at this stage. Set to true to exit.
+	 *
+	 * @since 2.9.0
+	 *
+	 * @param bool   $short_circuit Short circuit filter.
+	 * @param object $post          Current Post object.
+	 * @param array  $args          Complete set of arguments.
+	 */
+	$short_circuit = apply_filters( 'get_crp_short_circuit', $short_circuit, $post, $args );
+
+	if ( $short_circuit ) {
+		return false;
+	}
+
 	// WPML support.
 	if ( function_exists( 'wpml_object_id_filter' ) || function_exists( 'icl_object_id' ) ) {
 		$args['strict_limit'] = false;
@@ -355,7 +373,7 @@ function get_crp_posts_id( $args = array() ) {
 
 	if ( $args['match_content'] ) {
 		$match_fields[]         = 'post_content';
-		$match_fields_content[] = crp_excerpt( $source_post->ID, $args['match_content_words'], false );
+		$match_fields_content[] = crp_excerpt( $source_post->ID, min( $args['match_content_words'], CRP_MAX_WORDS ), false );
 	}
 
 	// If keyword is entered, override the matching content.
@@ -571,6 +589,32 @@ function get_crp_posts_id( $args = array() ) {
 		}
 
 		$sql = "SELECT DISTINCT $fields FROM $wpdb->posts $join WHERE 1=1 $where $groupby $having $orderby $limits";
+
+		// Short circuit flag.
+		$short_circuit = false;
+
+		/**
+		 * Allow a short circuit flag to be set to exit at this stage. Set to true to exit.
+		 *
+		 * @since 2.9.0
+		 *
+		 * @param bool   $short_circuit Short circuit filter.
+		 * @param object $source_post   Current Post object.
+		 * @param array  $args          Complete set of arguments.
+		 * @param string $sql           SQL clause.
+		 * @param string $fields        The SELECT clause of the query.
+		 * @param string $join          The JOIN clause of the query.
+		 * @param string $where         The WHERE clause of the query.
+		 * @param string $groupby       The GROUP BY clause of the query.
+		 * @param string $having        The HAVING clause of the query.
+		 * @param string $orderby       The ORDER BY clause of the query.
+		 * @param string $limits        The LIMIT clause of the query.
+		 */
+		$short_circuit = apply_filters( 'get_crp_posts_id_short_circuit', $short_circuit, $source_post, $args, $sql, $fields, $join, $where, $groupby, $having, $orderby, $limits );
+
+		if ( $short_circuit ) {
+			return false;
+		}
 
 		// Support caching to speed up retrieval.
 		if ( ! empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
