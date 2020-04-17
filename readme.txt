@@ -179,6 +179,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
     * `$match_fields` parameter added to `crp_posts_match` filter
     * Updated WPML functions to use latest filters
 	* Admin scripts are no longer loaded into the head - but using a separate JavaScript file
+	* Implemented CodeMirror to format custom styles box
 
 * Bug fixes:
     * Fixed errors created when trying to fetch a featured image or scanned images with remote links
