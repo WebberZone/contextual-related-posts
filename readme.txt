@@ -176,6 +176,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Enhancements:
     * New function: `crp_get_thumb_size()` to get the correct size of the thumbnail
     * Only run a get_post query if only the post ID is passed to `crp_get_the_post_thumbnail()`
+    * `$match_fields` parameter added to `crp_posts_match` filter
 
 * Bug fixes:
     * Fixed errors created when trying to fetch a featured image or scanned images with remote links

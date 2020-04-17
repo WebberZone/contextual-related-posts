@@ -417,13 +417,15 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the MATCH clause of the query.
 		 *
-		 * @since   2.1.0
+		 * @since 2.1.0
+		 * @since 2.9.0 $match_fields parameter added.
 		 *
-		 * @param string   $match       The MATCH section of the WHERE clause of the query
-		 * @param string   $stuff       String to match fulltext with
-		 * @param int      $source_post->ID Post ID
+		 * @param string   $match       The MATCH section of the WHERE clause of the query.
+		 * @param string   $stuff       String to match fulltext with.
+		 * @param int      $source_post->ID Post ID.
+		 * @param string   $match_fields Fields to match.
 		 */
-		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post->ID );
+		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post->ID, $match_fields );
 
 		// Create the maximum date limit. Show posts before today.
 		$now_clause = $wpdb->prepare( " AND $wpdb->posts.post_date < %s ", $now );
