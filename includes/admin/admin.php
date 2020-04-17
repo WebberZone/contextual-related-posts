@@ -104,6 +104,16 @@ function crp_load_admin_scripts( $hook ) {
 		wp_enqueue_script( 'plugin-install' );
 		add_thickbox();
 
+		wp_enqueue_code_editor(
+			array(
+				'type'       => 'text/html',
+				'codemirror' => array(
+					'indentUnit' => 2,
+					'tabSize'    => 2,
+				),
+			)
+		);
+
 	}
 }
 add_action( 'admin_enqueue_scripts', 'crp_load_admin_scripts' );

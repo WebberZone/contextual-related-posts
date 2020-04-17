@@ -586,12 +586,13 @@ function crp_settings_styles() {
 			'options' => crp_get_styles(),
 		),
 		'custom_css' => array(
-			'id'      => 'custom_css',
-			'name'    => esc_html__( 'Custom CSS', 'contextual-related-posts' ),
+			'id'          => 'custom_css',
+			'name'        => esc_html__( 'Custom CSS', 'contextual-related-posts' ),
 			/* translators: 1: Opening a tag, 2: Closing a tag, 3: Opening code tage, 4. Closing code tag. */
-			'desc'    => sprintf( esc_html__( 'Do not include %3$sstyle%4$s tags. Check out the %1$sFAQ%2$s for available CSS classes to style.', 'contextual-related-posts' ), '<a href="' . esc_url( 'http://wordpress.org/plugins/contextual-related-posts/faq/' ) . '" target="_blank">', '</a>', '<code>', '</code>' ),
-			'type'    => 'css',
-			'options' => '',
+			'desc'        => sprintf( esc_html__( 'Do not include %3$sstyle%4$s tags. Check out the %1$sFAQ%2$s for available CSS classes to style.', 'contextual-related-posts' ), '<a href="' . esc_url( 'http://wordpress.org/plugins/contextual-related-posts/faq/' ) . '" target="_blank">', '</a>', '<code>', '</code>' ),
+			'type'        => 'css',
+			'options'     => '',
+			'field_class' => 'codemirror_css',
 		),
 	);
 
