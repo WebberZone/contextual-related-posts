@@ -376,11 +376,12 @@ function crp_settings_list() {
 		'match_content_words' => array(
 			'id'      => 'match_content_words',
 			'name'    => esc_html__( 'Limit content to be compared', 'contextual-related-posts' ),
-			'desc'    => esc_html__( 'This sets the maximum words of the content that will be matched. Set to 0 for no limit. Max value: 2,000. Only applies if you activate the above option.', 'contextual-related-posts' ),
+			/* translators: 1: Number. */
+			'desc'    => sprintf( esc_html__( 'This sets the maximum words of the content that will be matched. Set to 0 for no limit. Max value: %1$s. Only applies if you activate the above option.', 'contextual-related-posts' ), CRP_MAX_WORDS ),
 			'type'    => 'number',
 			'options' => '0',
 			'min'     => '0',
-			'max'     => '2000',
+			'max'     => CRP_MAX_WORDS,
 		),
 		'post_types'          => array(
 			'id'      => 'post_types',
