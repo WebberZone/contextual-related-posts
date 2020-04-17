@@ -30,7 +30,10 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
  */
 function crp_object_id_cur_lang( $post_id ) {
 
-	$return_original_if_missing = true;
+	$return_original_if_missing = false;
+
+	$post         = get_post( $post_id );
+	$current_lang = apply_filters( 'wpml_current_language', null );
 
 	/**
 	 * Filter to modify if the original language ID is returned.
@@ -42,13 +45,13 @@ function crp_object_id_cur_lang( $post_id ) {
 	 */
 	$return_original_if_missing = apply_filters( 'crp_wpml_return_original', $return_original_if_missing, $post_id );
 
+	// Polylang implementation.
 	if ( function_exists( 'pll_get_post' ) ) {
 		$post_id = pll_get_post( $post_id );
-	} elseif ( function_exists( 'wpml_object_id_filter' ) ) {
-		$post_id = wpml_object_id_filter( $post_id, 'any', $return_original_if_missing );
-	} elseif ( function_exists( 'icl_object_id' ) ) {
-		$post_id = icl_object_id( $post_id, 'any', $return_original_if_missing );
 	}
+
+	// WPML implementation.
+	$post_id = apply_filters( 'wpml_object_id', $post_id, $post->post_type, $return_original_if_missing, $current_lang );
 
 	/**
 	 * Filters object ID for current language (WPML).
