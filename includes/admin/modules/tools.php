@@ -64,7 +64,7 @@ function crp_tools_page() {
 
 				<h2 style="padding-left:0px"><?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?></h2>
 				<p>
-					<input type="button" name="cache_clear" id="cache_clear"  value="<?php esc_attr_e( 'Clear cache', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="return clearCache();" />
+					<input type="button" name="cache_clear" id="cache_clear"  value="<?php esc_attr_e( 'Clear cache', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="return crpClearCache();" />
 				</p>
 				<p class="description">
 					<?php esc_html_e( 'Clear the Contextual Related Posts cache. This will also be cleared automatically when you save the settings page.', 'contextual-related-posts' ); ?>

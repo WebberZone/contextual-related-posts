@@ -35,7 +35,6 @@ function crp_add_admin_pages_links() {
 		'crp_options_page'
 	);
 	add_action( "load-$crp_settings_page", 'crp_settings_help' ); // Load the settings contextual help.
-	add_action( "admin_head-$crp_settings_page", 'crp_adminhead' ); // Load the admin head.
 
 	$crp_settings_tools_help = add_submenu_page(
 		$crp_settings_page,
@@ -46,172 +45,9 @@ function crp_add_admin_pages_links() {
 		'crp_tools_page'
 	);
 	add_action( "load-$crp_settings_tools_help", 'crp_settings_tools_help' );
-	add_action( "admin_head-$crp_settings_tools_help", 'crp_adminhead' );
 
 }
 add_action( 'admin_menu', 'crp_add_admin_pages_links' );
-
-
-/**
- * Function to add CSS and JS to the Admin header.
- *
- * @since 2.6.0
- * @return void
- */
-function crp_adminhead() {
-	global $crp_settings_page, $crp_settings_tools_help;
-
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'jquery-ui-autocomplete' );
-	wp_enqueue_script( 'jquery-ui-tabs' );
-	wp_enqueue_script( 'plugin-install' );
-	add_thickbox();
-
-	?>
-	<script type="text/javascript">
-	//<![CDATA[
-		// Function to clear the cache.
-		function clearCache() {
-			/**** since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php ****/
-			jQuery.post(ajaxurl, {
-				action: 'crp_clear_cache'
-			}, function (response, textStatus, jqXHR) {
-				alert(response.message);
-			}, 'json');
-		}
-
-		// Function to add auto suggest.
-		jQuery(document).ready(function($) {
-			$.fn.crpTagsSuggest = function( options ) {
-
-				var cache;
-				var last;
-				var $element = $( this );
-
-				var taxonomy = $element.attr( 'data-wp-taxonomy' ) || 'category';
-
-				function split( val ) {
-					return val.split( /,\s*/ );
-				}
-
-				function extractLast( term ) {
-					return split( term ).pop();
-				}
-
-				$element.on( "keydown", function( event ) {
-						// Don't navigate away from the field on tab when selecting an item.
-						if ( event.keyCode === $.ui.keyCode.TAB &&
-						$( this ).autocomplete( 'instance' ).menu.active ) {
-							event.preventDefault();
-						}
-					})
-					.autocomplete({
-						minLength: 2,
-						source: function( request, response ) {
-							var term;
-
-							if ( last === request.term ) {
-								response( cache );
-								return;
-							}
-
-							term = extractLast( request.term );
-
-							if ( last === request.term ) {
-								response( cache );
-								return;
-							}
-
-							$.ajax({
-								type: 'POST',
-								dataType: 'json',
-								url: '<?php echo admin_url( 'admin-ajax.php' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>',
-								data: {
-									action: 'crp_tag_search',
-									tax: taxonomy,
-									q: term
-								},
-								success: function( data ) {
-									cache = data;
-
-									response( data );
-								}
-							});
-
-							last = request.term;
-
-						},
-						search: function() {
-							// Custom minLength.
-							var term = extractLast( this.value );
-
-							if ( term.length < 2 ) {
-								return false;
-							}
-						},
-						focus: function( event, ui ) {
-							// Prevent value inserted on focus.
-							event.preventDefault();
-						},
-						select: function( event, ui ) {
-							var terms = split( this.value );
-
-							// Remove the last user input.
-							terms.pop();
-
-							// Add the selected item.
-							terms.push( ui.item.value );
-
-							// Add placeholder to get the comma-and-space at the end.
-							terms.push( "" );
-							this.value = terms.join( ", " );
-							return false;
-						}
-					});
-
-			};
-
-			$( '.category_autocomplete' ).each( function ( i, element ) {
-				$( element ).crpTagsSuggest();
-			});
-
-			// Prompt the user when they leave the page without saving the form.
-			formmodified=0;
-
-			$('form *').change(function(){
-				formmodified=1;
-			});
-
-			window.onbeforeunload = confirmExit;
-
-			function confirmExit() {
-				if (formmodified == 1) {
-					return "<?php esc_html__( 'New information not saved. Do you wish to leave the page?', 'contextual-related-posts' ); ?>";
-				}
-			}
-
-			$( "input[name='submit']" ).click( function() {
-				formmodified = 0;
-			});
-
-			$( function() {
-				$( "#post-body-content" ).tabs({
-					create: function( event, ui ) {
-						$( ui.tab.find("a") ).addClass( "nav-tab-active" );
-					},
-					activate: function( event, ui ) {
-						$( ui.oldTab.find("a") ).removeClass( "nav-tab-active" );
-						$( ui.newTab.find("a") ).addClass( "nav-tab-active" );
-					}
-				});
-			});
-
-		});
-
-	//]]>
-	</script>
-	<?php
-}
 
 
 /**
@@ -245,4 +81,30 @@ function crp_admin_footer( $footer_text ) {
 	}
 }
 add_filter( 'admin_footer_text', 'crp_admin_footer' );
+
+
+/**
+ * Enqueue Admin JS
+ *
+ * @since 2.9.0
+ *
+ * @param string $hook The current admin page.
+ */
+function crp_load_admin_scripts( $hook ) {
+
+	global $crp_settings_page, $crp_settings_tools_help;
+
+	wp_register_script( 'crp-admin-js', CRP_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker' ), '1.0', true );
+	wp_register_script( 'crp-suggest-js', CRP_PLUGIN_URL . 'includes/admin/js/crp-suggest.min.js', array( 'jquery', 'jquery-ui-autocomplete' ), '1.0', true );
+
+	if ( in_array( $hook, array( $crp_settings_page, $crp_settings_tools_help ), true ) ) {
+
+		wp_enqueue_script( 'crp-admin-js' );
+		wp_enqueue_script( 'crp-suggest-js' );
+		wp_enqueue_script( 'plugin-install' );
+		add_thickbox();
+
+	}
+}
+add_action( 'admin_enqueue_scripts', 'crp_load_admin_scripts' );
 
