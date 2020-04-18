@@ -173,6 +173,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 2.9.0 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
+
 * Features:
     * New section under Settings > Related Posts > Tools to export and import settings. Best option if you'd like the same configuration across multiple WordPress sites
 	* New shortcode setting `include_cat_ids` to limit top posts to selected categories/taxonomies. Use a comma separated list of [term_taxonomy_id](https://codex.wordpress.org/WordPress_Taxonomy#wp_term_taxonomy)
