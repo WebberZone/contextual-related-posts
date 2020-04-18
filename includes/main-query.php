@@ -503,6 +503,12 @@ function get_crp_posts_id( $args = array() ) {
 
 		$where .= " AND $wpdb->posts.post_type IN ('" . join( "', '", $post_types ) . "') ";    // Array of post types.
 
+		if ( isset( $args['include_cat_ids'] ) && ! empty( $args['include_cat_ids'] ) ) {
+			$include_cat_ids = $args['include_cat_ids'];
+
+			$where .= " AND $wpdb->posts.ID IN ( SELECT object_id FROM $wpdb->term_relationships WHERE term_taxonomy_id IN ($include_cat_ids) )";
+		}
+
 		// Create the base LIMITS clause.
 		$limits .= $wpdb->prepare( ' LIMIT %d, %d ', $offset, $limit );
 

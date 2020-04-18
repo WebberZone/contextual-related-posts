@@ -45,17 +45,19 @@ class CRP_Widget extends WP_Widget {
 	 * @param   array $instance   Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		$title         = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$limit         = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
-		$offset        = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : '';
-		$show_excerpt  = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
-		$show_author   = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
-		$show_date     = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
-		$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : '';
-		$thumb_height  = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
-		$thumb_width   = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
-		$ordering      = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
-		$random_order  = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
+		$title              = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$limit              = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
+		$offset             = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : '';
+		$show_excerpt       = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
+		$show_author        = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
+		$show_date          = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
+		$post_thumb_op      = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : '';
+		$thumb_height       = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
+		$thumb_width        = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
+		$ordering           = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
+		$random_order       = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
+		$include_categories = isset( $instance['include_categories'] ) ? esc_attr( $instance['include_categories'] ) : '';
+		$include_cat_ids    = isset( $instance['include_cat_ids'] ) ? esc_attr( $instance['include_cat_ids'] ) : '';
 
 		// Parse the Post types.
 		$post_types = array();
@@ -144,6 +146,13 @@ class CRP_Widget extends WP_Widget {
 			<input id="<?php echo esc_attr( $this->get_field_id( 'random_order' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'random_order' ) ); ?>" type="checkbox" <?php checked( true, $random_order, true ); ?> /> <?php esc_html_e( ' Randomize posts', 'contextual-related-posts' ); ?>
 			</label>
 		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'include_categories' ) ); ?>">
+				<?php esc_html_e( 'Only from categories', 'top-10' ); ?>:
+				<input class="widefat category_autocomplete" id="<?php echo esc_attr( $this->get_field_id( 'include_categories' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'include_categories' ) ); ?>" type="text" value="<?php echo esc_attr( $include_categories ); ?>" />
+			</label>
+			<input type="hidden" id="<?php echo esc_attr( $this->get_field_id( 'include_cat_ids' ) ); ?>" name="<?php echo esc_attr( $this->get_field_id( 'include_cat_ids' ) ); ?>" value="<?php echo esc_attr( $include_cat_ids ); ?>" />
+		</p>
 		<p><?php esc_html_e( 'Post types to include', 'contextual-related-posts' ); ?>:<br />
 
 			<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
@@ -205,6 +214,20 @@ class CRP_Widget extends WP_Widget {
 		$post_types             = isset( $new_instance['post_types'] ) ? $new_instance['post_types'] : array();
 		$post_types             = array_intersect( $wp_post_types, $post_types );
 		$instance['post_types'] = implode( ',', $post_types );
+
+		// Save include_categories.
+		$include_categories = array_unique( str_getcsv( $new_instance['include_categories'] ) );
+
+		foreach ( $include_categories as $cat_name ) {
+			$cat = get_term_by( 'name', $cat_name, 'category' );
+
+			if ( isset( $cat->term_taxonomy_id ) ) {
+				$include_cat_ids[]   = $cat->term_taxonomy_id;
+				$include_cat_names[] = $cat->name;
+			}
+		}
+		$instance['include_cat_ids']    = isset( $include_cat_ids ) ? join( ',', $include_cat_ids ) : '';
+		$instance['include_categories'] = isset( $include_cat_names ) ? tptn_str_putcsv( $include_cat_names ) : '';
 
 		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache.
 
@@ -274,30 +297,32 @@ class CRP_Widget extends WP_Widget {
 			}
 			$offset = isset( $instance['offset'] ) ? $instance['offset'] : 0;
 
-			$post_thumb_op = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : 'text_only';
-			$thumb_height  = isset( $instance['thumb_height'] ) && ! empty( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : crp_get_option( 'thumb_height' );
-			$thumb_width   = isset( $instance['thumb_width'] ) && ! empty( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : crp_get_option( 'thumb_width' );
-			$show_excerpt  = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
-			$show_author   = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
-			$show_date     = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
-			$ordering      = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
-			$random_order  = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
-			$post_types    = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : crp_get_option( 'post_types' );
+			$post_thumb_op   = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : 'text_only';
+			$thumb_height    = isset( $instance['thumb_height'] ) && ! empty( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : crp_get_option( 'thumb_height' );
+			$thumb_width     = isset( $instance['thumb_width'] ) && ! empty( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : crp_get_option( 'thumb_width' );
+			$show_excerpt    = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
+			$show_author     = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
+			$show_date       = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
+			$ordering        = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
+			$random_order    = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
+			$post_types      = isset( $instance['post_types'] ) && ! empty( $instance['post_types'] ) ? $instance['post_types'] : crp_get_option( 'post_types' );
+			$include_cat_ids = isset( $instance['include_cat_ids'] ) ? esc_attr( $instance['include_cat_ids'] ) : '';
 
 			$arguments = array(
-				'is_widget'     => 1,
-				'instance_id'   => $this->number,
-				'limit'         => $limit,
-				'offset'        => $offset,
-				'show_excerpt'  => $show_excerpt,
-				'show_author'   => $show_author,
-				'show_date'     => $show_date,
-				'post_thumb_op' => $post_thumb_op,
-				'thumb_height'  => $thumb_height,
-				'thumb_width'   => $thumb_width,
-				'ordering'      => $ordering,
-				'random_order'  => $random_order,
-				'post_types'    => $post_types,
+				'is_widget'       => 1,
+				'instance_id'     => $this->number,
+				'limit'           => $limit,
+				'offset'          => $offset,
+				'show_excerpt'    => $show_excerpt,
+				'show_author'     => $show_author,
+				'show_date'       => $show_date,
+				'post_thumb_op'   => $post_thumb_op,
+				'thumb_height'    => $thumb_height,
+				'thumb_width'     => $thumb_width,
+				'ordering'        => $ordering,
+				'random_order'    => $random_order,
+				'post_types'      => $post_types,
+				'include_cat_ids' => $include_cat_ids,
 			);
 
 			/**

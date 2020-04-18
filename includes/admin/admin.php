@@ -97,6 +97,14 @@ function crp_load_admin_scripts( $hook ) {
 	wp_register_script( 'crp-admin-js', CRP_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker' ), '1.0', true );
 	wp_register_script( 'crp-suggest-js', CRP_PLUGIN_URL . 'includes/admin/js/crp-suggest.min.js', array( 'jquery', 'jquery-ui-autocomplete' ), '1.0', true );
 
+	wp_register_style(
+		'crp-admin-customizer-css',
+		CRP_PLUGIN_URL . 'includes/admin/css/crp-customizer.min.css',
+		false,
+		'1.0',
+		false
+	);
+
 	if ( in_array( $hook, array( $crp_settings_page, $crp_settings_tools_help ), true ) ) {
 
 		wp_enqueue_script( 'crp-admin-js' );
@@ -117,4 +125,36 @@ function crp_load_admin_scripts( $hook ) {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'crp_load_admin_scripts' );
+
+
+/**
+ * This function enqueues scripts and styles in the Customizer.
+ *
+ * @since 2.9.0
+ */
+function crp_customize_controls_enqueue_scripts() {
+	wp_enqueue_script( 'customize-controls' );
+	wp_enqueue_script( 'crp-suggest-js' );
+
+	wp_enqueue_style( 'crp-admin-customizer-css' );
+
+}
+add_action( 'customize_controls_enqueue_scripts', 'crp_customize_controls_enqueue_scripts', 99 );
+
+
+/**
+ * This function enqueues scripts and styles on widgets.php.
+ *
+ * @since 2.9.0
+ *
+ * @param string $hook The current admin page.
+ */
+function crp_enqueue_scripts_widgets( $hook ) {
+	if ( 'widgets.php' !== $hook ) {
+		return;
+	}
+	wp_enqueue_script( 'crp-suggest-js' );
+	wp_enqueue_style( 'crp-admin-customizer-css' );
+}
+add_action( 'admin_enqueue_scripts', 'crp_enqueue_scripts_widgets', 99 );
 
