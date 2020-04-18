@@ -173,6 +173,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 2.9.0 =
 
+* Features:
+    * New section under Settings > Related Posts > Tools to export and import settings. Best option if you'd like the same configuration across multiple WordPress sites
+
 * Enhancements:
     * New function: `crp_get_thumb_size()` to get the correct size of the thumbnail
     * Only run a get_post query if only the post ID is passed to `crp_get_the_post_thumbnail()`
