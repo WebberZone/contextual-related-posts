@@ -214,17 +214,6 @@ function get_crp( $args = array() ) {
 			}
 		} // End foreach.
 
-		if ( $args['show_credit'] ) {
-
-			$output .= crp_before_list_item( $args, $result );
-
-			/* translators: Link to plugin home page */
-			$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow">Contextual Related Posts</a>', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/plugins/contextual-related-posts/' ) );
-
-			$output .= crp_after_list_item( $args, $result );
-
-		}
-
 		$output .= crp_after_list( $args );
 
 		$clearfix = '<div class="crp_clear"></div>';
@@ -241,6 +230,17 @@ function get_crp( $args = array() ) {
 	} else {
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}// End if.
+
+	if ( $args['show_credit'] ) {
+
+		$output .= '<p class="crp_class_credit"><small>';
+
+		/* translators: Link to plugin home page */
+		$output .= sprintf( __( 'Powered by <a href="%s" rel="nofollow" style="float:none">Contextual Related Posts</a>', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/plugins/contextual-related-posts/' ) );
+
+		$output .= '</small></p>';
+
+	}
 
 	// Check if the opening list tag is missing in the output, it means all of our results were eliminated cause of the category filter.
 	if ( false === ( strpos( $output, $args['before_list_item'] ) ) ) {

@@ -185,6 +185,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 	* Implemented CodeMirror to format custom styles box
     * New filters `get_crp_short_circuit` and `get_crp_posts_id_short_circuit` to bypass outputs and queries
     * `CRP_MAX_WORDS` has been reduced from 500 to 250 to avoid "Too many words" mySQL error
+    * The link to the Contextual Related Posts link is no longer a list item but a smaller text paragraph below the items. You can turn this on by enabling Show Credit.
 
 * Bug fixes:
     * Fixed errors created when trying to fetch a featured image or scanned images with remote links
