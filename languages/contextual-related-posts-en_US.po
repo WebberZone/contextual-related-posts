@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-30 14:25+0530\n"
+"POT-Creation-Date: 2020-04-18 10:45+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext;esc_html__;esc_attr__;esc_html_e;"
 "esc_attr_e\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -26,19 +26,15 @@ msgstr ""
 msgid "Related Posts"
 msgstr ""
 
-#: includes/admin/admin.php:42 includes/admin/modules/tools.php:49
+#: includes/admin/admin.php:41 includes/admin/modules/tools.php:54
 msgid "Contextual Related Posts Tools"
 msgstr ""
 
-#: includes/admin/admin.php:43
+#: includes/admin/admin.php:42
 msgid "Tools"
 msgstr ""
 
-#: includes/admin/admin.php:189
-msgid "New information not saved. Do you wish to leave the page?"
-msgstr ""
-
-#: includes/admin/admin.php:234
+#: includes/admin/admin.php:70
 #, php-format
 msgid ""
 "Thank you for using <a href=\"%1$s\" target=\"_blank\">Contextual Related "
@@ -79,13 +75,13 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:146
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:88
+#: includes/modules/class-crp-widget.php:90
 msgid "No. of posts"
 msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:157
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:93
+#: includes/modules/class-crp-widget.php:95
 msgid "Offset"
 msgstr ""
 
@@ -108,7 +104,7 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:184
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:112
+#: includes/modules/class-crp-widget.php:114
 msgid "Thumbnail options"
 msgstr ""
 
@@ -344,7 +340,7 @@ msgid "No related posts found"
 msgstr ""
 
 #: includes/admin/default-settings.php:210
-#: includes/admin/default-settings.php:636
+#: includes/admin/default-settings.php:638
 msgid "Show post excerpt"
 msgstr ""
 
@@ -425,7 +421,7 @@ msgid "After each list item"
 msgstr ""
 
 #: includes/admin/default-settings.php:339
-#: includes/admin/default-settings.php:627
+#: includes/admin/default-settings.php:629
 msgid "Number of posts to display"
 msgstr ""
 
@@ -447,7 +443,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:356
-#: includes/modules/class-crp-widget.php:130
+#: includes/modules/class-crp-widget.php:132
 msgid "Order posts"
 msgstr ""
 
@@ -474,71 +470,71 @@ msgstr ""
 msgid "Limit content to be compared"
 msgstr ""
 
-#: includes/admin/default-settings.php:379
+#: includes/admin/default-settings.php:380
+#, php-format
 msgid ""
 "This sets the maximum words of the content that will be matched. Set to 0 "
-"for no limit. Max value: 2,000. Only applies if you activate the above "
-"option."
-msgstr ""
-
-#: includes/admin/default-settings.php:387
-#: includes/modules/class-crp-widget.php:147
-msgid "Post types to include"
+"for no limit. Max value: %1$s. Only applies if you activate the above option."
 msgstr ""
 
 #: includes/admin/default-settings.php:388
+#: includes/modules/class-crp-widget.php:156
+msgid "Post types to include"
+msgstr ""
+
+#: includes/admin/default-settings.php:389
 msgid ""
 "At least one option should be selected above. Select which post types you "
 "want to include in the list of posts. This field can be overridden using a "
 "comma separated list of post types when using the manual display."
 msgstr ""
 
-#: includes/admin/default-settings.php:394
+#: includes/admin/default-settings.php:395
 msgid "Limit to same post type"
 msgstr ""
 
-#: includes/admin/default-settings.php:395
+#: includes/admin/default-settings.php:396
 msgid ""
 "If checked, the related posts will only be selected from the same post type "
 "of the current post."
 msgstr ""
 
-#: includes/admin/default-settings.php:401
+#: includes/admin/default-settings.php:402
 msgid "Limit to same author"
 msgstr ""
 
-#: includes/admin/default-settings.php:402
+#: includes/admin/default-settings.php:403
 msgid ""
 "If checked, the related posts will only be selected from the same author of "
 "the current post."
 msgstr ""
 
-#: includes/admin/default-settings.php:408
+#: includes/admin/default-settings.php:409
 msgid "Post/page IDs to exclude"
 msgstr ""
 
-#: includes/admin/default-settings.php:409
+#: includes/admin/default-settings.php:410
 msgid ""
 "Comma-separated list of post or page IDs to exclude from the list. e.g. "
 "188,320,500"
 msgstr ""
 
-#: includes/admin/default-settings.php:415
+#: includes/admin/default-settings.php:416
 msgid "Exclude Categories"
 msgstr ""
 
-#: includes/admin/default-settings.php:416
+#: includes/admin/default-settings.php:417
 msgid ""
 "Comma separated list of category slugs. The field above has an autocomplete "
 "so simply start typing in the starting letters and it will prompt you with "
 "options. Does not support custom taxonomies."
 msgstr ""
 
-#: includes/admin/default-settings.php:427
+#: includes/admin/default-settings.php:428
 msgid "Exclude category IDs"
 msgstr ""
 
-#: includes/admin/default-settings.php:428
+#: includes/admin/default-settings.php:429
 msgid ""
 "This is a readonly field that is automatically populated based on the above "
 "input when the settings are saved. These might differ from the IDs visible "
@@ -546,36 +542,36 @@ msgid ""
 "the term_taxonomy_id which is unique to this taxonomy."
 msgstr ""
 
-#: includes/admin/default-settings.php:458
-#: includes/admin/default-settings.php:643
+#: includes/admin/default-settings.php:459
+#: includes/admin/default-settings.php:645
 msgid "Location of the post thumbnail"
 msgstr ""
 
-#: includes/admin/default-settings.php:463
-#: includes/admin/default-settings.php:648
+#: includes/admin/default-settings.php:464
+#: includes/admin/default-settings.php:650
 msgid "Display thumbnails inline with posts, before title"
 msgstr ""
 
-#: includes/admin/default-settings.php:464
-#: includes/admin/default-settings.php:649
+#: includes/admin/default-settings.php:465
+#: includes/admin/default-settings.php:651
 msgid "Display thumbnails inline with posts, after title"
 msgstr ""
 
-#: includes/admin/default-settings.php:465
-#: includes/admin/default-settings.php:650
+#: includes/admin/default-settings.php:466
+#: includes/admin/default-settings.php:652
 msgid "Display only thumbnails, no text"
 msgstr ""
 
-#: includes/admin/default-settings.php:466
-#: includes/admin/default-settings.php:651
+#: includes/admin/default-settings.php:467
+#: includes/admin/default-settings.php:653
 msgid "Do not display thumbnails, only text"
 msgstr ""
 
-#: includes/admin/default-settings.php:471
+#: includes/admin/default-settings.php:472
 msgid "Thumbnail size"
 msgstr ""
 
-#: includes/admin/default-settings.php:472
+#: includes/admin/default-settings.php:473
 msgid ""
 "You can choose from existing image sizes above or create a custom size. If "
 "you have chosen Custom size above, then enter the width, height and crop "
@@ -583,125 +579,125 @@ msgid ""
 "width and/or height below, existing images will not be automatically resized."
 msgstr ""
 
-#: includes/admin/default-settings.php:474
+#: includes/admin/default-settings.php:475
 #, php-format
 msgid "I recommend using %1$s or %2$s to regenerate all image sizes."
 msgstr ""
 
-#: includes/admin/default-settings.php:484
-#: includes/admin/default-settings.php:656
-#: includes/modules/class-crp-widget.php:127
+#: includes/admin/default-settings.php:485
+#: includes/admin/default-settings.php:658
+#: includes/modules/class-crp-widget.php:129
 msgid "Thumbnail width"
 msgstr ""
 
-#: includes/admin/default-settings.php:493
-#: includes/admin/default-settings.php:665
-#: includes/modules/class-crp-widget.php:122
+#: includes/admin/default-settings.php:494
+#: includes/admin/default-settings.php:667
+#: includes/modules/class-crp-widget.php:124
 msgid "Thumbnail height"
 msgstr ""
 
-#: includes/admin/default-settings.php:502
+#: includes/admin/default-settings.php:503
 msgid "Hard crop thumbnails"
 msgstr ""
 
-#: includes/admin/default-settings.php:503
+#: includes/admin/default-settings.php:504
 msgid ""
 "Check this box to hard crop the thumbnails. i.e. force the width and height "
 "above vs. maintaining proportions."
 msgstr ""
 
-#: includes/admin/default-settings.php:509
+#: includes/admin/default-settings.php:510
 msgid "Generate thumbnail sizes"
 msgstr ""
 
-#: includes/admin/default-settings.php:510
+#: includes/admin/default-settings.php:511
 msgid ""
 "If you select this option and Custom size is selected above, the plugin will "
 "register the image size with WordPress to create new thumbnails. Does not "
 "update old images as explained above."
 msgstr ""
 
-#: includes/admin/default-settings.php:516
+#: includes/admin/default-settings.php:517
 msgid "Thumbnail size attributes"
 msgstr ""
 
-#: includes/admin/default-settings.php:522
+#: includes/admin/default-settings.php:523
 #, php-format
 msgid "Use CSS to set the width and height: e.g. %s"
 msgstr ""
 
-#: includes/admin/default-settings.php:524
+#: includes/admin/default-settings.php:525
 #, php-format
 msgid "Use HTML attributes to set the width and height: e.g. %s"
 msgstr ""
 
-#: includes/admin/default-settings.php:525
+#: includes/admin/default-settings.php:526
 msgid ""
 "No width or height set. You will need to use external styles to force any "
 "width or height of your choice."
 msgstr ""
 
-#: includes/admin/default-settings.php:530
+#: includes/admin/default-settings.php:531
 msgid "Thumbnail meta field name"
 msgstr ""
 
-#: includes/admin/default-settings.php:531
+#: includes/admin/default-settings.php:532
 msgid ""
 "The value of this field should contain the URL of the image and can be set "
 "in the metabox in the Edit Post screen"
 msgstr ""
 
-#: includes/admin/default-settings.php:537
+#: includes/admin/default-settings.php:538
 msgid "Get first image"
 msgstr ""
 
-#: includes/admin/default-settings.php:538
+#: includes/admin/default-settings.php:539
 msgid ""
 "The plugin will fetch the first image in the post content if this is "
 "enabled. This can slow down the loading of your page if the first image in "
 "the followed posts is large in file-size."
 msgstr ""
 
-#: includes/admin/default-settings.php:544
+#: includes/admin/default-settings.php:545
 msgid "Use default thumbnail?"
 msgstr ""
 
-#: includes/admin/default-settings.php:545
+#: includes/admin/default-settings.php:546
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 
-#: includes/admin/default-settings.php:551 includes/admin/settings-page.php:746
+#: includes/admin/default-settings.php:552 includes/admin/settings-page.php:748
 msgid "Default thumbnail"
 msgstr ""
 
-#: includes/admin/default-settings.php:552
+#: includes/admin/default-settings.php:553
 msgid ""
 "Enter the full URL of the image that you wish to display if no thumbnail is "
 "found. This image will be displayed below."
 msgstr ""
 
-#: includes/admin/default-settings.php:582
+#: includes/admin/default-settings.php:583
 msgid "Related Posts style"
 msgstr ""
 
-#: includes/admin/default-settings.php:590
+#: includes/admin/default-settings.php:591
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/default-settings.php:592
+#: includes/admin/default-settings.php:593
 #, php-format
 msgid ""
 "Do not include %3$sstyle%4$s tags. Check out the %1$sFAQ%2$s for available "
 "CSS classes to style."
 msgstr ""
 
-#: includes/admin/default-settings.php:621
+#: includes/admin/default-settings.php:623
 msgid "About this tab"
 msgstr ""
 
-#: includes/admin/default-settings.php:622
+#: includes/admin/default-settings.php:624
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
@@ -709,42 +705,42 @@ msgid ""
 "way to style the related posts in the feed."
 msgstr ""
 
-#: includes/admin/default-settings.php:742
+#: includes/admin/default-settings.php:744
 msgid "No styles"
 msgstr ""
 
-#: includes/admin/default-settings.php:743
+#: includes/admin/default-settings.php:745
 msgid "Select this option if you plan to add your own styles"
 msgstr ""
 
-#: includes/admin/default-settings.php:747
+#: includes/admin/default-settings.php:749
 msgid "Text only"
 msgstr ""
 
-#: includes/admin/default-settings.php:748
+#: includes/admin/default-settings.php:750
 msgid "Disable thumbnails and no longer include the default style sheet"
 msgstr ""
 
-#: includes/admin/default-settings.php:752
+#: includes/admin/default-settings.php:754
 msgid "Rounded thumbnails"
 msgstr ""
 
-#: includes/admin/default-settings.php:753
+#: includes/admin/default-settings.php:755
 msgid ""
 "Enabling this option will turn on the thumbnails and force their width and "
 "height. It will also turn off the display of the author, excerpt and date if "
 "already enabled. Disabling this option will not revert any settings."
 msgstr ""
 
-#: includes/admin/default-settings.php:776
+#: includes/admin/default-settings.php:778
 msgid "By relevance"
 msgstr ""
 
-#: includes/admin/default-settings.php:777
+#: includes/admin/default-settings.php:779
 msgid "Randomly"
 msgstr ""
 
-#: includes/admin/default-settings.php:778
+#: includes/admin/default-settings.php:780
 msgid "By date"
 msgstr ""
 
@@ -990,49 +986,85 @@ msgstr ""
 msgid "Indices have been recreated"
 msgstr ""
 
-#: includes/admin/modules/tools.php:53
+#: includes/admin/modules/tools.php:48
+msgid "Settings have been imported successfully"
+msgstr ""
+
+#: includes/admin/modules/tools.php:58
 msgid "Visit the Settings page"
 msgstr ""
 
-#: includes/admin/modules/tools.php:65 includes/admin/modules/tools.php:67
+#: includes/admin/modules/tools.php:70 includes/admin/modules/tools.php:72
 msgid "Clear cache"
 msgstr ""
 
-#: includes/admin/modules/tools.php:70
+#: includes/admin/modules/tools.php:75
 msgid ""
 "Clear the Contextual Related Posts cache. This will also be cleared "
 "automatically when you save the settings page."
 msgstr ""
 
-#: includes/admin/modules/tools.php:73 includes/admin/modules/tools.php:75
+#: includes/admin/modules/tools.php:78 includes/admin/modules/tools.php:80
 msgid "Recreate Indices"
 msgstr ""
 
-#: includes/admin/modules/tools.php:78
+#: includes/admin/modules/tools.php:83
 msgid ""
 "Deletes and recreates the FULLTEXT index in the posts table. If the above "
 "function gives an error, then you can run the below code in phpMyAdmin or "
 "Adminer. Remember to backup your database first!"
 msgstr ""
 
-#: includes/admin/modules/tools.php:84
+#: includes/admin/modules/tools.php:94
+msgid "Export/Import settings"
+msgstr ""
+
+#: includes/admin/modules/tools.php:96
+msgid ""
+"Export the plugin settings for this site as a .json file. This allows you to "
+"easily import the configuration into another site."
+msgstr ""
+
+#: includes/admin/modules/tools.php:100
+msgid "Export Settings"
+msgstr ""
+
+#: includes/admin/modules/tools.php:109
+msgid ""
+"Import the plugin settings from a .json file. This file can be obtained by "
+"exporting the settings on another site using the form above."
+msgstr ""
+
+#: includes/admin/modules/tools.php:115
+msgid "Import Settings"
+msgstr ""
+
+#: includes/admin/modules/tools.php:124
 msgid "Other tools"
 msgstr ""
 
-#: includes/admin/modules/tools.php:86
+#: includes/admin/modules/tools.php:126
 msgid "Delete old settings"
 msgstr ""
 
-#: includes/admin/modules/tools.php:86
+#: includes/admin/modules/tools.php:126
 msgid "This will delete the settings before v2.6.x. Proceed?"
 msgstr ""
 
-#: includes/admin/modules/tools.php:89
+#: includes/admin/modules/tools.php:129
 msgid ""
 "From v2.6.x, Contextual Related Posts stores the settings in a new key in "
 "the database. This will delete the old settings for the current blog. It is "
 "recommended that you do this at the earliest after upgrade. However, you "
 "should do this only if you are comfortable with the new settings."
+msgstr ""
+
+#: includes/admin/modules/tools.php:239
+msgid "Please upload a valid .json file"
+msgstr ""
+
+#: includes/admin/modules/tools.php:245
+msgid "Please upload a file to import"
 msgstr ""
 
 #: includes/admin/save-settings.php:51
@@ -1095,18 +1127,18 @@ msgid ""
 "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
 
-#: includes/admin/settings-page.php:316
+#: includes/admin/settings-page.php:318
 msgid "Modified from default setting"
 msgstr ""
 
-#: includes/admin/settings-page.php:768
+#: includes/admin/settings-page.php:770
 msgid ""
 "This option cannot be changed because of the selected related posts style. "
 "To modify this option, you will need to select No styles or Text only in the "
 "Styles tab"
 msgstr ""
 
-#: includes/admin/settings-page.php:772
+#: includes/admin/settings-page.php:774
 msgid ""
 "This option cannot be changed because of the selected related posts style. "
 "To modify this option, you will need to select No styles in the Styles tab"
@@ -1164,9 +1196,11 @@ msgstr ""
 msgid "<h3>Related Posts:</h3>"
 msgstr ""
 
-#: includes/main-query.php:201
+#: includes/main-query.php:239
 #, php-format
-msgid "Powered by <a href=\"%s\" rel=\"nofollow\">Contextual Related Posts</a>"
+msgid ""
+"Powered by <a href=\"%s\" rel=\"nofollow\" style=\"float:none\">Contextual "
+"Related Posts</a>"
 msgstr ""
 
 #: includes/media.php:69
@@ -1185,40 +1219,44 @@ msgstr ""
 msgid "Display Related Posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:83
+#: includes/modules/class-crp-widget.php:85
 msgid "Title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:98
+#: includes/modules/class-crp-widget.php:100
 msgid " Show excerpt?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:103
+#: includes/modules/class-crp-widget.php:105
 msgid " Show author?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:108
+#: includes/modules/class-crp-widget.php:110
 msgid " Show date?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:114
+#: includes/modules/class-crp-widget.php:116
 msgid "Thumbnails inline, before title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:115
+#: includes/modules/class-crp-widget.php:117
 msgid "Thumbnails inline, after title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:116
+#: includes/modules/class-crp-widget.php:118
 msgid "Only thumbnails, no text"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:117
+#: includes/modules/class-crp-widget.php:119
 msgid "No thumbnails, only text."
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:144
+#: includes/modules/class-crp-widget.php:146
 msgid " Randomize posts"
+msgstr ""
+
+#: includes/modules/class-crp-widget.php:151
+msgid "Only from categories"
 msgstr ""
 
 #: includes/output-generator.php:239
