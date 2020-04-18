@@ -2,9 +2,9 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: trunk
-Requires at least: 4.8
-Tested up to: 5.3
+Stable tag: 2.9.0
+Requires at least: 4.9
+Tested up to: 5.4
 License: GPLv2 or later
 
 Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -213,11 +213,10 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v2-8-0/](htt
 
 = Earlier versions =
 
-For the changelog of earlier versions, please refer to the separate changelog.txt file.
+For the changelog of earlier versions, please refer to the separate changelog.txt file or the [releases page on Github](https://github.com/WebberZone/contextual-related-posts/releases).
 
 
 == Upgrade Notice ==
 
 = 2.9.0 =
-[ ]
-Check the Changelog for more details or view the release post on [https://webberzone.com](https://webberzone.com)
+New features and bug-fixes. Check the Changelog for more details or view the release post on https://webberzone.com
