@@ -171,6 +171,13 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
+= 2.9.1 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
+
+Bug fixes:
+    * Custom CSS box would not save and get cleared out when saving settings
+
 = 2.9.0 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
@@ -220,5 +227,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.9.0 =
+= 2.9.1 =
 New features and bug-fixes. Check the Changelog for more details or view the release post on https://webberzone.com
