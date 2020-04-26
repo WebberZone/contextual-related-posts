@@ -274,7 +274,7 @@ function crp_textarea_callback( $args ) {
 
 	$class = sanitize_html_class( $args['field_class'] );
 
-	$html  = sprintf( '<textarea class="%3$s" cols="50" rows="20" id="ata_settings[%1$s]" name="ata_settings[%1$s]">%2$s</textarea>', sanitize_key( $args['id'] ), esc_textarea( stripslashes( $value ) ), 'large-text ' . $class );
+	$html  = sprintf( '<textarea class="%3$s" cols="50" rows="20" id="crp_settings[%1$s]" name="crp_settings[%1$s]">%2$s</textarea>', sanitize_key( $args['id'] ), esc_textarea( stripslashes( $value ) ), 'large-text ' . $class );
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
