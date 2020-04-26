@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 2.9.0
+Stable tag: 2.9.1
 Requires at least: 4.9
 Tested up to: 5.4
 License: GPLv2 or later
