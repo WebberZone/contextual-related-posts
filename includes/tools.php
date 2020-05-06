@@ -28,13 +28,14 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 	$content = '';
 
 	$post = get_post( $id );
-	if ( $post ) {
-		if ( $use_excerpt ) {
-			$content = $post->post_excerpt;
-		}
-		if ( empty( $content ) ) {
-			$content = $post->post_content;
-		}
+	if ( empty( $post ) ) {
+		return '';
+	}
+	if ( $use_excerpt ) {
+		$content = $post->post_excerpt;
+	}
+	if ( empty( $content ) ) {
+		$content = $post->post_content;
 	}
 
 	$output = wp_strip_all_tags( strip_shortcodes( $content ) );
@@ -59,6 +60,10 @@ function crp_excerpt( $id, $excerpt_length = 0, $use_excerpt = true ) {
 
 	if ( $excerpt_length > 0 ) {
 		$output = wp_trim_words( $output, $excerpt_length );
+	}
+
+	if ( post_password_required( $post ) ) {
+		$output = __( 'There is no excerpt because this is a protected post.', 'contextual-related-posts' );
 	}
 
 	/**
