@@ -31,9 +31,10 @@ function crp_shortcode( $atts, $content = null ) { // phpcs:ignore Generic.CodeA
 		array_merge(
 			$crp_settings,
 			array(
-				'heading'      => 1,
-				'is_shortcode' => 1,
-				'offset'       => 0,
+				'heading'         => 1,
+				'is_shortcode'    => 1,
+				'offset'          => 0,
+				'include_cat_ids' => '',
 			)
 		),
 		$atts,
