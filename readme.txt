@@ -184,6 +184,7 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](htt
 
 Bug fixes:
     * Custom CSS box would not save and get cleared out when saving settings
+	* `include_cat_ids` didn't work with the shortcode
 
 = 2.9.0 =
 
