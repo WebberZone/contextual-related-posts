@@ -171,6 +171,13 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
+= 2.9.2 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
+
+Bug fixes:
+    * Password protected posts will no longer show the excerpt
+
 = 2.9.1 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
