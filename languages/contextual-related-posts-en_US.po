@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-18 10:45+0100\n"
+"POT-Creation-Date: 2020-05-07 22:01+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone <plugins@webberzone.com>\n"
@@ -1261,4 +1261,8 @@ msgstr ""
 
 #: includes/output-generator.php:239
 msgid " by "
+msgstr ""
+
+#: includes/tools.php:66
+msgid "There is no excerpt because this is a protected post."
 msgstr ""
