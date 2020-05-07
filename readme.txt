@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 2.9.1
+Stable tag: 2.9.2
 Requires at least: 4.9
 Tested up to: 5.4
 License: GPLv2 or later
@@ -235,5 +235,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.9.1 =
-New features and bug-fixes. Check the Changelog for more details or view the release post on https://webberzone.com
+= 2.9.2 =
+Bug fix release. Check the Changelog for more details or view the release post on https://webberzone.com
