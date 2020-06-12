@@ -67,6 +67,57 @@ function crp_single_activate() {
 
 }
 
+/**
+ * Fired for each blog when the plugin is deactivated.
+ *
+ * @since 2.9.3
+ *
+ * @param    boolean $network_wide    True if WPMU superadmin uses
+ *                                    "Network Deactivate" action, false if
+ *                                    WPMU is disabled or plugin is
+ *                                    deactivated on an individual blog.
+ */
+function crp_deactivate( $network_wide ) {
+	global $wpdb;
+
+	if ( is_multisite() && $network_wide ) {
+
+		// Get all blogs in the network and activate plugin on each one.
+		$blog_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			"
+        	SELECT blog_id FROM $wpdb->blogs
+			WHERE archived = '0' AND spam = '0' AND deleted = '0'
+			"
+		);
+		foreach ( $blog_ids as $blog_id ) {
+			switch_to_blog( $blog_id );
+			crp_single_deactivate();
+		}
+
+		// Switch back to the current blog.
+		restore_current_blog();
+
+	} else {
+		crp_single_deactivate();
+	}
+}
+register_deactivation_hook( CRP_PLUGIN_FILE, 'crp_deactivate' );
+
+/**
+ * Fired for each blog when the plugin is deactivated.
+ *
+ * @since 2.0.0
+ */
+function crp_single_deactivate() {
+	global $wpdb;
+
+	$wpdb->hide_errors();
+
+	crp_delete_index();
+
+	$wpdb->show_errors();
+
+}
 
 /**
  * Fired when a new site is activated with a WPMU environment.
