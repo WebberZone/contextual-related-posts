@@ -31,6 +31,18 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
+ * Holds the version of Contextual Related Posts.
+ *
+ * @since 2.9.3
+ *
+ * @var string Contextual Related Posts Version.
+ */
+if ( ! defined( 'CRP_VERSION' ) ) {
+	define( 'CRP_VERSION', '2.9.3' );
+}
+
+
+/**
  * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
  * @since 2.3.0
