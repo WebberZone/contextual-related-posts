@@ -42,6 +42,12 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
     * Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
 * **Extendable code**: CRP has tonnes of filters and actions that allow any developer to easily add features, edit outputs, etc.
 
+= mySQL FULLTEXT indices =
+
+On activation, the plugin creates three mySQL FULLTEXT indices (or indexes) that are then used to find the related posts in the `*_posts`. These are for `post_content`, `post_title` and `(post_title,post_content)`. If you're running a multisite installation, then this is created for each of the blogs on activation. All these indices occupy space in your mySQL database but are essential for the plugin to run.
+
+You have two sets of options in the settings page which allows you to remove these indices when you deactivate or delete the plugin. The latter is true by default.
+
 = Extensions/Addons =
 
 * [Related Posts by Categories and Tags](https://webberzone.com/downloads/crp-taxonomy/)
