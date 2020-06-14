@@ -180,7 +180,7 @@ function crp_default_options() {
 
 	_deprecated_function( __FUNCTION__, '2.6.0' );
 
-	$title = __( '<h3>Related Posts:</h3>', 'contextual-related-posts' );
+	$title = '<h3>' . __( 'Related Posts', 'contextual-related-posts' ) . ':</h3>';
 
 	$blank_output_text = __( 'No related posts found', 'contextual-related-posts' );
 
