@@ -55,7 +55,7 @@ function get_crp( $args = array() ) {
 	 *
 	 * @param bool   $short_circuit Short circuit filter.
 	 * @param object $post          Current Post object.
-	 * @param array  $args          Complete set of arguments.
+	 * @param array  $args          Arguments array.
 	 */
 	$short_circuit = apply_filters( 'get_crp_short_circuit', $short_circuit, $post, $args );
 
@@ -130,11 +130,13 @@ function get_crp( $args = array() ) {
 	/**
 	 * Filter the classes added to the div wrapper of the Contextual Related Posts.
 	 *
-	 * @since   2.2.3
+	 * @since 2.2.3
+	 * @since 2.9.3 Added $args
 	 *
-	 * @param   string   $post_classes  Post classes string.
+	 * @param string $post_classes Post classes string.
+	 * @param array  $args         Arguments array.
 	 */
-	$post_classes = apply_filters( 'crp_post_class', $post_classes );
+	$post_classes = apply_filters( 'crp_post_class', $post_classes, $args );
 
 	$output = '<div class="' . $post_classes . '">';
 
@@ -164,11 +166,13 @@ function get_crp( $args = array() ) {
 			/**
 			 * Filter the post ID for each result. Allows a custom function to hook in and change the ID if needed.
 			 *
-			 * @since   1.9
+			 * @since 1.9
+			 * @since 2.9.3 Added $args
 			 *
-			 * @param   int $resultid   ID of the post
+			 * @param int   $resultid ID of the post
+			 * @param array $args     Arguments array.
 			 */
-			$resultid = apply_filters( 'crp_post_id', $resultid );
+			$resultid = apply_filters( 'crp_post_id', $resultid, $args );
 
 			$result = get_post( $resultid );    // Let's get the Post using the ID.
 
@@ -221,11 +225,13 @@ function get_crp( $args = array() ) {
 		/**
 		 * Filter the clearfix div tag. This is included after the closing tag to clear any miscellaneous floating elements;
 		 *
-		 * @since   2.0.0
+		 * @since 2.0.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param   string  $clearfix   Contains: <div style="clear:both"></div>
+		 * @param string $clearfix Contains: <div style="clear:both"></div>
+		 * @param array  $args     Arguments array.
 		 */
-		$output .= apply_filters( 'crp_clearfix', $clearfix );
+		$output .= apply_filters( 'crp_clearfix', $clearfix, $args );
 
 	} else {
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
@@ -260,8 +266,8 @@ function get_crp( $args = array() ) {
 	 *
 	 * @since   1.9.1
 	 *
-	 * @param   string  $output Formatted list of related posts
-	 * @param   array   $args   Complete set of arguments
+	 * @param   string  $output Formatted list of related posts.
+	 * @param   array   $args   Arguments array.
 	 */
 	return apply_filters( 'get_crp', $output, $args );
 }
@@ -289,9 +295,9 @@ function get_crp_posts_id( $args = array() ) {
 	$match_fields = '';
 
 	$defaults = array(
-		'postid'       => false,  // Get related posts for a specific post ID.
-		'strict_limit' => true, // If this is set to false, then it will fetch 3x posts.
-		'offset'       => 0,  // Offset the related posts returned by this number.
+		'postid'       => false, // Get related posts for a specific post ID.
+		'strict_limit' => true,  // If this is set to false, then it will fetch 3x posts.
+		'offset'       => 0,     // Offset the related posts returned by this number.
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -356,9 +362,9 @@ function get_crp_posts_id( $args = array() ) {
 	 *
 	 * @since 2.2.0
 	 *
-	 * @param array  $post_types Array of post types to filter by.
-	 * @param int    $source_post->ID Post ID.
-	 * @param array  $args Arguments array.
+	 * @param array $post_types      Array of post types to filter by.
+	 * @param int   $source_post->ID Post ID.
+	 * @param array $args            Arguments array.
 	 */
 	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $source_post->ID, $args );
 
@@ -388,22 +394,26 @@ function get_crp_posts_id( $args = array() ) {
 	/**
 	 * Filter the fields that are to be matched.
 	 *
-	 * @since   2.2.0
+	 * @since 2.2.0
+	 * @since 2.9.3 Added $args
 	 *
-	 * @param array   $match_fields Array of fields to be matched
-	 * @param int      $source_post->ID Post ID
+	 * @param array $match_fields    Array of fields to be matched
+	 * @param int   $source_post->ID Post ID
+	 * @param array $args            Arguments array.
 	 */
-	$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $source_post->ID );
+	$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $source_post->ID, $args );
 
 	/**
 	 * Filter the content of the fields that are to be matched.
 	 *
-	 * @since   2.2.0
+	 * @since 2.2.0
+	 * @since 2.9.3 Added $args
 	 *
-	 * @param array $match_fields_content   Array of content of fields to be matched
-	 * @param int   $source_post->ID    Post ID
+	 * @param array $match_fields_content Array of content of fields to be matched
+	 * @param int   $source_post->ID      Post ID
+	 * @param array $args                 Arguments array.
 	 */
-	$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $source_post->ID );
+	$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $source_post->ID, $args );
 
 	// Convert our arrays into their corresponding strings after they have been filtered.
 	$match_fields = implode( ',', $match_fields );
@@ -436,14 +446,16 @@ function get_crp_posts_id( $args = array() ) {
 		 * Filter the MATCH clause of the query.
 		 *
 		 * @since 2.1.0
-		 * @since 2.9.0 $match_fields parameter added.
+		 * @since 2.9.0 Added $match_fields
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $match       The MATCH section of the WHERE clause of the query.
-		 * @param string   $stuff       String to match fulltext with.
-		 * @param int      $source_post->ID Post ID.
-		 * @param string   $match_fields Fields to match.
+		 * @param string $match           The MATCH section of the WHERE clause of the query.
+		 * @param string $stuff           String to match fulltext with.
+		 * @param int    $source_post->ID Post ID.
+		 * @param string $match_fields    Fields to match.
+		 * @param array  $args            Arguments array.
 		 */
-		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post->ID, $match_fields );
+		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post->ID, $match_fields, $args );
 
 		// Create the maximum date limit. Show posts before today.
 		$now_clause = $wpdb->prepare( " AND $wpdb->posts.post_date < %s ", $now );
@@ -451,12 +463,14 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the Maximum date clause of the query.
 		 *
-		 * @since   2.1.0
+		 * @since 2.1.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $now_clause  The Maximum date of the WHERE clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $now_clause      The Maximum date of the WHERE clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$now_clause = apply_filters( 'crp_posts_now_date', $now_clause, $source_post->ID );
+		$now_clause = apply_filters( 'crp_posts_now_date', $now_clause, $source_post->ID, $args );
 
 		// Create the minimum date limit. Show posts after the date specified.
 		$from_clause = ( 0 === absint( $args['daily_range'] ) ) ? '' : $wpdb->prepare( " AND $wpdb->posts.post_date >= %s ", $from_date );
@@ -464,12 +478,14 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the Maximum date clause of the query.
 		 *
-		 * @since   2.1.0
+		 * @since 2.1.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $from_clause  The Minimum date of the WHERE clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $from_clause     The Minimum date of the WHERE clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$from_clause = apply_filters( 'crp_posts_from_date', $from_clause, $source_post->ID );
+		$from_clause = apply_filters( 'crp_posts_from_date', $from_clause, $source_post->ID, $args );
 
 		// Create the base WHERE clause.
 		$where  = $match;
@@ -489,10 +505,12 @@ function get_crp_posts_id( $args = array() ) {
 		 * Filter exclude post IDs array.
 		 *
 		 * @since 2.3.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param array   $exclude_post_ids  Array of post IDs.
+		 * @param array $exclude_post_ids Array of post IDs.
+		 * @param array $args             Arguments array.
 		 */
-		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids );
+		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args );
 
 		// Convert it back to string.
 		$exclude_post_ids = implode( ',', array_filter( array_filter( $exclude_post_ids, 'absint' ) ) );
@@ -515,72 +533,86 @@ function get_crp_posts_id( $args = array() ) {
 		/**
 		 * Filter the SELECT clause of the query.
 		 *
-		 * @since   2.0.0
+		 * @since 2.0.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $fields  The SELECT clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $fields          The SELECT clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$fields = apply_filters( 'crp_posts_fields', $fields, $source_post->ID );
+		$fields = apply_filters( 'crp_posts_fields', $fields, $source_post->ID, $args );
 
 		/**
 		 * Filter the JOIN clause of the query.
 		 *
-		 * @since   2.0.0
+		 * @since 2.0.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $join  The JOIN clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $join            The JOIN clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$join = apply_filters( 'crp_posts_join', $join, $source_post->ID );
+		$join = apply_filters( 'crp_posts_join', $join, $source_post->ID, $args );
 
 		/**
 		 * Filter the WHERE clause of the query.
 		 *
-		 * @since   2.0.0
+		 * @since 2.0.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $where  The WHERE clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $where           The WHERE clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$where = apply_filters( 'crp_posts_where', $where, $source_post->ID );
+		$where = apply_filters( 'crp_posts_where', $where, $source_post->ID, $args );
 
 		/**
 		 * Filter the GROUP BY clause of the query.
 		 *
-		 * @since   2.0.0
+		 * @since 2.0.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $groupby  The GROUP BY clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $groupby         The GROUP BY clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$groupby = apply_filters( 'crp_posts_groupby', $groupby, $source_post->ID );
+		$groupby = apply_filters( 'crp_posts_groupby', $groupby, $source_post->ID, $args );
 
 		/**
 		 * Filter the HAVING clause of the query.
 		 *
-		 * @since   2.2.0
+		 * @since 2.2.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string  $having  The HAVING clause of the query.
-		 * @param int       $source_post->ID    Post ID
+		 * @param string $having          The HAVING clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$having = apply_filters( 'crp_posts_having', $having, $source_post->ID );
+		$having = apply_filters( 'crp_posts_having', $having, $source_post->ID, $args );
 
 		/**
 		 * Filter the ORDER BY clause of the query.
 		 *
-		 * @since   2.0.0
+		 * @since 2.0.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $orderby  The ORDER BY clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $orderby         The ORDER BY clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$orderby = apply_filters( 'crp_posts_orderby', $orderby, $source_post->ID );
+		$orderby = apply_filters( 'crp_posts_orderby', $orderby, $source_post->ID, $args );
 
 		/**
 		 * Filter the LIMIT clause of the query.
 		 *
-		 * @since   2.0.0
+		 * @since 2.0.0
+		 * @since 2.9.3 Added $args
 		 *
-		 * @param string   $limits  The LIMIT clause of the query.
-		 * @param int      $source_post->ID Post ID
+		 * @param string $limits          The LIMIT clause of the query.
+		 * @param int    $source_post->ID Post ID
+		 * @param array  $args            Arguments array.
 		 */
-		$limits = apply_filters( 'crp_posts_limits', $limits, $source_post->ID );
+		$limits = apply_filters( 'crp_posts_limits', $limits, $source_post->ID, $args );
 
 		if ( ! empty( $groupby ) ) {
 			$groupby = 'GROUP BY ' . $groupby;
@@ -606,7 +638,7 @@ function get_crp_posts_id( $args = array() ) {
 		 *
 		 * @param bool   $short_circuit Short circuit filter.
 		 * @param object $source_post   Current Post object.
-		 * @param array  $args          Complete set of arguments.
+		 * @param array  $args          Arguments array.
 		 * @param string $sql           SQL clause.
 		 * @param string $fields        The SELECT clause of the query.
 		 * @param string $join          The JOIN clause of the query.
@@ -661,11 +693,13 @@ function get_crp_posts_id( $args = array() ) {
 	/**
 	 * Filter object containing the post IDs.
 	 *
-	 * @since   1.9
+	 * @since 1.9
+	 * @since 2.9.3 Added $args
 	 *
-	 * @param   object   $results  Object containing the related post IDs
+	 * @param object $results Object containing the related post IDs
+	 * @param array  $args    Arguments array.
 	 */
-	return apply_filters( 'get_crp_posts_id', $results );
+	return apply_filters( 'get_crp_posts_id', $results, $args );
 }
 
 
