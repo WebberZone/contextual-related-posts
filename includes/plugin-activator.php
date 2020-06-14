@@ -57,14 +57,7 @@ register_activation_hook( CRP_PLUGIN_FILE, 'crp_activate' );
  * @since 2.0.0
  */
 function crp_single_activate() {
-	global $wpdb;
-
-	$wpdb->hide_errors();
-
 	crp_create_index();
-
-	$wpdb->show_errors();
-
 }
 
 /**
@@ -106,17 +99,14 @@ register_deactivation_hook( CRP_PLUGIN_FILE, 'crp_deactivate' );
 /**
  * Fired for each blog when the plugin is deactivated.
  *
- * @since 2.0.0
+ * @since 2.9.3
  */
 function crp_single_deactivate() {
-	global $wpdb;
+	$settings = get_option( 'crp_settings' );
 
-	$wpdb->hide_errors();
-
-	crp_delete_index();
-
-	$wpdb->show_errors();
-
+	if ( ! empty( $settings['uninstall_indices_deactivate'] ) ) {
+		crp_delete_index();
+	}
 }
 
 /**
