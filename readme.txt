@@ -5,6 +5,7 @@ Donate link: https://ajaydsouza.com/donate/
 Stable tag: 2.9.3
 Requires at least: 4.9
 Tested up to: 5.4
+Requires PHP: 5.6
 License: GPLv2 or later
 
 Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -172,6 +173,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 == Changelog ==
 
 = 2.9.3 =
+
+* Features:
+    * New constant `CRP_VERSION` to hold the current version of the plugin
 
 * Enhancements:
     * Added the `$args` attribute to the filters in main-query.php
