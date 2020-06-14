@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 2.9.2
+Stable tag: 2.9.3
 Requires at least: 4.9
 Tested up to: 5.4
 License: GPLv2 or later
@@ -170,6 +170,11 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 
 == Changelog ==
+
+= 2.9.3 =
+
+* Enhancements:
+    * Added the `$args` attribute to the filters in main-query.php
 
 = 2.9.2 =
 
