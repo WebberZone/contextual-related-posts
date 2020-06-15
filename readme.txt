@@ -180,6 +180,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 2.9.3 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-3/](https://webberzone.com/blog/contextual-related-posts-v2-9-3/)
+
 * Features:
     * New constant `CRP_VERSION` to hold the current version of the plugin
     * New setting to delete FULLTEXT indices on deactivation
