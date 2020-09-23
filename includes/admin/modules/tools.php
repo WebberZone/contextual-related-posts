@@ -100,7 +100,7 @@ function crp_tools_page() {
 					<?php submit_button( esc_html__( 'Export Settings', 'contextual-related-posts' ), 'primary', 'crp_export_settings', false ); ?>
 				</p>
 
-				<?php wp_nonce_field( 'crp_export_setting_nonce', 'crp_export_setting_nonce' ); ?>
+				<?php wp_nonce_field( 'crp_export_settings_nonce', 'crp_export_settings_nonce' ); ?>
 			</form>
 
 			<form method="post" enctype="multipart/form-data">
