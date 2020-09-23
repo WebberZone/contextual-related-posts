@@ -2,6 +2,24 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 2.8.0 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-8-0/](https://webberzone.com/blog/contextual-related-posts-v2-8-0/)
+
+* Features:
+    * New block for Gutenberg aka the block editor. The block is called **Related Posts [CRP]** and you can find it under the widgets category
+    * Two new settings in the widget: **Order posts** and **Randomize order** that allows the global setting to be overridden
+    * New setting called **Keyword** in the Meta box where you can enter a word or a phrase to find related posts. If entered, the plugin will continue to search the `post_title` and `post_content` fields but will use this keyword instead of the values of the title and content of the source post
+
+* Enhancements:
+    * Show author, Show date, Show post excerpt and Post thumbnail settings will show a message that they cannnot be modified in case the Rounded thumbnails or No text styles are selected
+
+* Bug fixes:
+	* Selecting date order now orders the related posts by newest first
+    * Fixed PHP warning in the widget
+    * Stop using `current_time( 'timestamp' )`
+    * Fixes incorrect thumbnail image displayed for attachments in the related posts list
+
 = 2.7.0 =
 
 * Features:

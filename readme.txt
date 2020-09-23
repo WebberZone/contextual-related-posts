@@ -2,9 +2,9 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 2.9.3
+Stable tag: 2.9.4
 Requires at least: 4.9
-Tested up to: 5.4
+Tested up to: 5.5
 Requires PHP: 5.6
 License: GPLv2 or later
 
@@ -178,6 +178,13 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
+= 2.9.4 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-3/](https://webberzone.com/blog/contextual-related-posts-v2-9-3/)
+
+* Bugs:
+    * Fixed nonce verification not always done in Import/Export interface. Thanks to [Lenon Leite](https://github.com/lenonleite)
+
 = 2.9.3 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-3/](https://webberzone.com/blog/contextual-related-posts-v2-9-3/)
@@ -228,24 +235,6 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](htt
     * Fixed errors created when trying to fetch a featured image or scanned images with remote links
     * Saving categories fields in the settings page uses `str_getcsv` and a custom function `crp_str_putcsv`
 
-= 2.8.0 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v2-8-0/](https://webberzone.com/blog/contextual-related-posts-v2-8-0/)
-
-* Features:
-    * New block for Gutenberg aka the block editor. The block is called **Related Posts [CRP]** and you can find it under the widgets category
-    * Two new settings in the widget: **Order posts** and **Randomize order** that allows the global setting to be overridden
-    * New setting called **Keyword** in the Meta box where you can enter a word or a phrase to find related posts. If entered, the plugin will continue to search the `post_title` and `post_content` fields but will use this keyword instead of the values of the title and content of the source post
-
-* Enhancements:
-    * Show author, Show date, Show post excerpt and Post thumbnail settings will show a message that they cannnot be modified in case the Rounded thumbnails or No text styles are selected
-
-* Bug fixes:
-	* Selecting date order now orders the related posts by newest first
-    * Fixed PHP warning in the widget
-    * Stop using `current_time( 'timestamp' )`
-    * Fixes incorrect thumbnail image displayed for attachments in the related posts list
-
 = Earlier versions =
 
 For the changelog of earlier versions, please refer to the separate changelog.txt file or the [releases page on Github](https://github.com/WebberZone/contextual-related-posts/releases).
@@ -253,5 +242,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.9.2 =
-Bug fix release. Check the Changelog for more details or view the release post on https://webberzone.com
+= 2.9.4 =
+Bug fix and minor security release. Check the Changelog for more details or view the release post on https://webberzone.com
