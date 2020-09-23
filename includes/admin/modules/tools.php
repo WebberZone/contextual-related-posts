@@ -191,7 +191,7 @@ function crp_process_settings_export() {
 		return;
 	}
 
-	if ( isset( $_POST['crp_export_settings_nonce'] ) && ! wp_verify_nonce( sanitize_key( $_POST['crp_export_settings_nonce'] ), 'crp_export_settings_nonce' ) ) {
+	if ( ! isset( $_POST['crp_export_settings_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['crp_export_settings_nonce'] ), 'crp_export_settings_nonce' ) ) {
 		return;
 	}
 
@@ -224,7 +224,7 @@ function crp_process_settings_import() {
 		return;
 	}
 
-	if ( isset( $_POST['crp_import_settings_nonce'] ) && ! wp_verify_nonce( sanitize_key( $_POST['crp_import_settings_nonce'] ), 'crp_import_settings_nonce' ) ) {
+	if ( ! isset( $_POST['crp_import_settings_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['crp_import_settings_nonce'] ), 'crp_import_settings_nonce' ) ) {
 		return;
 	}
 
