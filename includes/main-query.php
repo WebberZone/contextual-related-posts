@@ -63,8 +63,8 @@ function get_crp( $args = array() ) {
 		return false;
 	}
 
-	// WPML support.
-	if ( function_exists( 'wpml_object_id_filter' ) || function_exists( 'icl_object_id' ) ) {
+	// WPML & PolyLang support - change strict limit to false.
+	if ( function_exists( 'wpml_object_id_filter' ) || function_exists( 'icl_object_id' ) || function_exists( 'pll_get_post' ) ) {
 		$args['strict_limit'] = false;
 	}
 
@@ -147,34 +147,9 @@ function get_crp( $args = array() ) {
 
 		$output .= crp_before_list( $args );
 
-		// We need this for WPML support.
-		$processed_results = array();
-
 		foreach ( $results as $result ) {
 
-			/* Support WPML */
-			$resultid = crp_object_id_cur_lang( $result->ID );
-
-			// If this is NULL or already processed ID or matches current post then skip processing this loop.
-			if ( ! $resultid || in_array( $resultid, $processed_results ) || intval( $resultid ) === intval( $post->ID ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
-				continue;
-			}
-
-			// Push the current ID into the array to ensure we're not repeating it.
-			array_push( $processed_results, $resultid );
-
-			/**
-			 * Filter the post ID for each result. Allows a custom function to hook in and change the ID if needed.
-			 *
-			 * @since 1.9
-			 * @since 2.9.3 Added $args
-			 *
-			 * @param int   $resultid ID of the post
-			 * @param array $args     Arguments array.
-			 */
-			$resultid = apply_filters( 'crp_post_id', $resultid, $args );
-
-			$result = get_post( $resultid );    // Let's get the Post using the ID.
+			$result = get_post( $result->ID ); // Let's get the Post using the ID.
 
 			// Process the category exclusion if passed in the shortcode.
 			if ( isset( $exclude_categories ) ) {
