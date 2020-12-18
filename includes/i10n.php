@@ -20,6 +20,39 @@ function crp_lang_init() {
 }
 add_action( 'plugins_loaded', 'crp_lang_init' );
 
+/**
+ * Get the ID of a post in the current language. Works with WPML and PolyLang.
+ *
+ * @since 3.0.0
+ *
+ * @param array $results Arry of Posts.
+ * @return array Updated array of WP_Post objects.
+ */
+function crp_translate_ids( $results ) {
+	global $post;
+
+	$processed_ids     = array();
+	$processed_results = array();
+
+	foreach ( $results as $result ) {
+
+		$resultid = crp_object_id_cur_lang( $result->ID );
+
+		// If this is NULL or already processed ID or matches current post then skip processing this loop.
+		if ( ! $resultid || in_array( $resultid, $processed_ids ) || intval( $resultid ) === intval( $post->ID ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+			continue;
+		}
+
+		// Push the current ID into the array to ensure we're not repeating it.
+		array_push( $processed_ids, $resultid );
+
+		$result = get_post( $resultid );    // Let's get the Post using the ID.
+		array_push( $processed_results, $result );
+	}
+	return $processed_results;
+}
+add_filter( 'get_crp_posts_id', 'crp_translate_ids', 999 );
+
 
 /**
  * Returns the object identifier for the current language (WPML).

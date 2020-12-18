@@ -2,6 +2,63 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 2.9.4 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-3/](https://webberzone.com/blog/contextual-related-posts-v2-9-3/)
+
+* Bugs:
+    * Fixed nonce verification not always done in Import/Export interface. Thanks to [Lenon Leite](https://github.com/lenonleite)
+
+= 2.9.3 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-3/](https://webberzone.com/blog/contextual-related-posts-v2-9-3/)
+
+* Features:
+    * New constant `CRP_VERSION` to hold the current version of the plugin
+    * New setting to delete FULLTEXT indices on deactivation
+
+* Enhancements:
+    * Added the `$args` attribute to the filters in main-query.php
+
+= 2.9.2 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
+
+Bug fixes:
+    * Password protected posts will no longer show the excerpt
+
+= 2.9.1 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
+
+Bug fixes:
+    * Custom CSS box would not save and get cleared out when saving settings
+	* `include_cat_ids` didn't work with the shortcode
+
+= 2.9.0 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](https://webberzone.com/blog/contextual-related-posts-v2-9-0/)
+
+* Features:
+    * New section under Settings > Related Posts > Tools to export and import settings. Best option if you'd like the same configuration across multiple WordPress sites
+	* New shortcode setting `include_cat_ids` to limit top posts to selected categories/taxonomies. Use a comma separated list of [term_taxonomy_id](https://codex.wordpress.org/WordPress_Taxonomy#wp_term_taxonomy)
+	* New setting in widget to only include certain categories. Doesn't work with custom taxonomies
+
+* Enhancements:
+    * New function: `crp_get_thumb_size()` to get the correct size of the thumbnail
+    * Only run a get_post query if only the post ID is passed to `crp_get_the_post_thumbnail()`
+    * `$match_fields` parameter added to `crp_posts_match` filter
+    * Updated WPML functions to use latest filters
+	* Admin scripts are no longer loaded into the head - but using a separate JavaScript file
+	* Implemented CodeMirror to format custom styles box
+    * New filters `get_crp_short_circuit` and `get_crp_posts_id_short_circuit` to bypass outputs and queries
+    * `CRP_MAX_WORDS` has been reduced from 500 to 250 to avoid "Too many words" mySQL error
+    * The link to the Contextual Related Posts link is no longer a list item but a smaller text paragraph below the items. You can turn this on by enabling Show Credit.
+
+* Bug fixes:
+    * Fixed errors created when trying to fetch a featured image or scanned images with remote links
+    * Saving categories fields in the settings page uses `str_getcsv` and a custom function `crp_str_putcsv`
+
 = 2.8.0 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v2-8-0/](https://webberzone.com/blog/contextual-related-posts-v2-8-0/)
