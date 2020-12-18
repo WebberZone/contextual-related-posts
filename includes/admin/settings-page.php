@@ -642,8 +642,7 @@ function crp_taxonomies_callback( $args ) {
 
 	/* Fetch taxonomies */
 	$argsc         = array(
-		'public'   => true,
-		'_builtin' => true,
+		'public' => true,
 	);
 	$output        = 'objects';
 	$operator      = 'and';
