@@ -224,7 +224,7 @@ function get_crp( $args = array() ) {
 	}
 
 	// Check if the opening list tag is missing in the output, it means all of our results were eliminated cause of the category filter.
-	if ( false === ( strpos( $output, $args['before_list_item'] ) ) ) {
+	if ( ! empty( $args['before_list_item'] ) && false === strpos( $output, $args['before_list_item'] ) ) {
 		$output  = '<div id="crp_related">';
 		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}
