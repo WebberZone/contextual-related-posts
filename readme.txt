@@ -185,6 +185,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Bug fixes:
     * In the settings page, only built-in taxonomies were being incorrectly displayed
+    * If "before list item" is empty, then the output was blanked out
 
 = Earlier versions =
 
