@@ -180,8 +180,11 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.0.0 =
 
+* Features:
+    * CRP Thumbnails now include the `loading="lazy"` attribute added in WordPress 5.5
+
 * Enhancement:
-    * If WPML or PolyLang are active, `get_crp_posts_id()` will return the translated set of post IDs and external processing is no longer needed.
+    * If WPML or PolyLang are active, `get_crp_posts_id()` will return the translated set of post IDs and external processing is no longer needed
 
 * Bug fixes:
     * In the settings page, only built-in taxonomies were being incorrectly displayed
