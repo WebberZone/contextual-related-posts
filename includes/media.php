@@ -317,7 +317,7 @@ function crp_get_image_html( $attachment_url, $attr = array() ) {
 
 	// If there is no url, return.
 	if ( '' == $attachment_url ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-		return;
+		return '';
 	}
 
 	$default_attr = array(
@@ -373,7 +373,20 @@ function crp_get_image_html( $attachment_url, $attr = array() ) {
 	}
 	$html .= ' />';
 
-	return apply_filters( 'crp_get_image_html', $html );
+	if ( function_exists( 'wp_img_tag_add_loading_attr' ) ) {
+		$html = wp_img_tag_add_loading_attr( $html, 'crp_thumbnail' );
+	}
+
+	/**
+	 * Filters the img tag.
+	 *
+	 * @since 2.7.0
+	 *
+	 * @param string $html           HTML img element or empty string on failure.
+	 * @param string $attachment_url Image URL.
+	 * @param array  $attr           Attributes for the image markup.
+	 */
+	return apply_filters( 'crp_get_image_html', $html, $attachment_url, $attr );
 }
 
 
