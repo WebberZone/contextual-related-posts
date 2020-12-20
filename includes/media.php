@@ -96,11 +96,11 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( $postimage ) {
 			$postimage_id = crp_get_attachment_id_from_url( $postimage );
 
-			if ( false !== wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) ) ) {
-				$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			if ( false !== $postthumb ) {
 				$postimage = $postthumb[0];
+				$pick     .= 'correct';
 			}
-			$pick .= 'correct';
 		}
 	}
 
@@ -141,8 +141,8 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( $postimage ) {
 			$postimage_id = crp_get_attachment_id_from_url( $postimage );
 
-			if ( false !== wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) ) ) {
-				$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			if ( false !== $postthumb ) {
 				$postimage = $postthumb[0];
 				$pick     .= 'correct';
 			}
@@ -244,6 +244,14 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		$attr['thumb_height'] = $args['thumb_height'];
 
 		$output .= crp_get_image_html( $postimage, $attr );
+
+		if ( function_exists( 'wp_img_tag_add_srcset_and_sizes_attr' ) ) {
+			$output = wp_img_tag_add_srcset_and_sizes_attr( $output, 'crp_thumbnail', $attachment_id );
+		}
+
+		if ( function_exists( 'wp_img_tag_add_loading_attr' ) ) {
+			$output = wp_img_tag_add_loading_attr( $output, 'crp_thumbnail' );
+		}
 	}
 
 	/**
@@ -372,10 +380,6 @@ function crp_get_image_html( $attachment_url, $attr = array() ) {
 		$html .= " $name=" . '"' . $value . '"';
 	}
 	$html .= ' />';
-
-	if ( function_exists( 'wp_img_tag_add_loading_attr' ) ) {
-		$html = wp_img_tag_add_loading_attr( $html, 'crp_thumbnail' );
-	}
 
 	/**
 	 * Filters the img tag.
