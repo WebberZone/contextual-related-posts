@@ -21,11 +21,11 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 2.6.0
  *
- * @global $crp_settings_page, $crp_settings_tools_help
+ * @global $crp_settings_page, $crp_settings_tools
  * @return void
  */
 function crp_add_admin_pages_links() {
-	global $crp_settings_page, $crp_settings_tools_help;
+	global $crp_settings_page, $crp_settings_tools;
 
 	$crp_settings_page = add_options_page(
 		esc_html__( 'Contextual Related Posts', 'contextual-related-posts' ),
@@ -36,7 +36,7 @@ function crp_add_admin_pages_links() {
 	);
 	add_action( "load-$crp_settings_page", 'crp_settings_help' ); // Load the settings contextual help.
 
-	$crp_settings_tools_help = add_submenu_page(
+	$crp_settings_tools = add_submenu_page(
 		$crp_settings_page,
 		esc_html__( 'Contextual Related Posts Tools', 'contextual-related-posts' ),
 		esc_html__( 'Tools', 'contextual-related-posts' ),
@@ -44,7 +44,7 @@ function crp_add_admin_pages_links() {
 		'crp_tools_page',
 		'crp_tools_page'
 	);
-	add_action( "load-$crp_settings_tools_help", 'crp_settings_tools_help' );
+	add_action( "load-$crp_settings_tools", 'crp_settings_help' );
 
 }
 add_action( 'admin_menu', 'crp_add_admin_pages_links' );
@@ -59,11 +59,11 @@ add_action( 'admin_menu', 'crp_add_admin_pages_links' );
  * @return string Updated Footer text
  */
 function crp_admin_footer( $footer_text ) {
-	global $crp_settings_page, $crp_settings_tools_help;
+	global $crp_settings_page, $crp_settings_tools;
 
 	$current_screen = get_current_screen();
 
-	if ( $current_screen->id === $crp_settings_page || $current_screen->id === $crp_settings_tools_help ) {
+	if ( $current_screen->id === $crp_settings_page || $current_screen->id === $crp_settings_tools ) {
 
 		$text = sprintf(
 			/* translators: 1: Contextual Related Posts website, 2: Plugin reviews link. */
@@ -92,7 +92,7 @@ add_filter( 'admin_footer_text', 'crp_admin_footer' );
  */
 function crp_load_admin_scripts( $hook ) {
 
-	global $crp_settings_page, $crp_settings_tools_help;
+	global $crp_settings_page, $crp_settings_tools;
 
 	wp_register_script( 'crp-admin-js', CRP_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker' ), '1.0', true );
 	wp_register_script( 'crp-suggest-js', CRP_PLUGIN_URL . 'includes/admin/js/crp-suggest.min.js', array( 'jquery', 'jquery-ui-autocomplete' ), '1.0', true );
@@ -105,7 +105,7 @@ function crp_load_admin_scripts( $hook ) {
 		false
 	);
 
-	if ( in_array( $hook, array( $crp_settings_page, $crp_settings_tools_help ), true ) ) {
+	if ( in_array( $hook, array( $crp_settings_page, $crp_settings_tools ), true ) ) {
 
 		wp_enqueue_script( 'crp-admin-js' );
 		wp_enqueue_script( 'crp-suggest-js' );

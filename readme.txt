@@ -181,15 +181,17 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 = 3.0.0 =
 
 * Features:
+    * New CRP_Query class for fetching related posts. This replaces `get_crp_posts_id()` which will be deprecated in a new version
     * CRP Thumbnails now include the `loading="lazy"` attribute added in WordPress 5.5
 
 * Enhancement:
-    * If WPML or PolyLang are active, `get_crp_posts_id()` will return the translated set of post IDs and external processing is no longer needed
+    * If WPML or PolyLang are active, `get_crp_posts_id()` and `CRP_Query` will return the translated set of post IDs and external processing is no longer needed
     * Use `wp_img_tag_add_srcset_and_sizes_attr()` to generate srcset and sizes attributes. The original code to display the srcset and sizes attributes will continue to be used
 
 * Bug fixes:
     * In the settings page, only built-in taxonomies were being incorrectly displayed
     * If "before list item" is empty, then the output was blanked out
+    * Settings help has been fixed
 
 = Earlier versions =
 
@@ -198,5 +200,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 2.9.4 =
-Bug fix and minor security release. Check the Changelog for more details or view the release post on https://webberzone.com
+= 3.0.0 =
+Major release. Resave settings on upgrade. Check the Changelog for more details or view the release post on https://webberzone.com
