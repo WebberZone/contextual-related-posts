@@ -227,7 +227,7 @@ class CRP_Widget extends WP_Widget {
 			}
 		}
 		$instance['include_cat_ids']    = isset( $include_cat_ids ) ? join( ',', $include_cat_ids ) : '';
-		$instance['include_categories'] = isset( $include_cat_names ) ? tptn_str_putcsv( $include_cat_names ) : '';
+		$instance['include_categories'] = isset( $include_cat_names ) ? crp_str_putcsv( $include_cat_names ) : '';
 
 		delete_post_meta_by_key( 'crp_related_posts_widget' ); // Delete the cache.
 
