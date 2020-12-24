@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @var string Contextual Related Posts Version.
  */
 if ( ! defined( 'CRP_VERSION' ) ) {
-	define( 'CRP_VERSION', '2.9.3' );
+	define( 'CRP_VERSION', '3.0.0' );
 }
 
 
