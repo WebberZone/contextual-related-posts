@@ -36,63 +36,70 @@ function crp_translate_ids( $results ) {
 
 	foreach ( $results as $result ) {
 
-		$resultid = crp_object_id_cur_lang( $result->ID );
+		$result = crp_object_id_cur_lang( $result );
 
 		// If this is NULL or already processed ID or matches current post then skip processing this loop.
-		if ( ! $resultid || in_array( $resultid, $processed_ids ) || intval( $resultid ) === intval( $post->ID ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+		if ( ! $result->ID || in_array( $result->ID, $processed_ids ) || intval( $result->ID ) === intval( $post->ID ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 			continue;
 		}
 
 		// Push the current ID into the array to ensure we're not repeating it.
-		array_push( $processed_ids, $resultid );
+		array_push( $processed_ids, $result->ID );
 
-		$result = get_post( $resultid );    // Let's get the Post using the ID.
+		$result = get_post( $result );    // Let's get the Post using the ID.
 		array_push( $processed_results, $result );
 	}
 	return $processed_results;
 }
 add_filter( 'get_crp_posts_id', 'crp_translate_ids', 999 );
+add_filter( 'crp_query_the_posts', 'crp_translate_ids', 999 );
 
 
 /**
  * Returns the object identifier for the current language (WPML).
  *
- * @since   2.1.0
+ * @since 2.1.0
+ * @since 3.0.0 Parameter can be a WP_Post object. Return is a WP_Post object.
  *
- * @param int|string $post_id Post ID.
+ * @param WP_Post|int|string $post Post object or Post ID.
+ * @return WP_Post Post opbject, updated if needed.
  */
-function crp_object_id_cur_lang( $post_id ) {
+function crp_object_id_cur_lang( $post ) {
 
 	$return_original_if_missing = false;
 
-	$post         = get_post( $post_id );
+	$post         = get_post( $post );
 	$current_lang = apply_filters( 'wpml_current_language', null );
-
-	/**
-	 * Filter to modify if the original language ID is returned.
-	 *
-	 * @since   2.2.3
-	 *
-	 * @param   bool    $return_original_if_missing
-	 * @param   int $post_id    Post ID
-	 */
-	$return_original_if_missing = apply_filters( 'crp_wpml_return_original', $return_original_if_missing, $post_id );
 
 	// Polylang implementation.
 	if ( function_exists( 'pll_get_post' ) ) {
-		$post_id = pll_get_post( $post_id );
+		$post = pll_get_post( $post->ID );
+		$post = get_post( $post );
 	}
 
 	// WPML implementation.
-	$post_id = apply_filters( 'wpml_object_id', $post_id, $post->post_type, $return_original_if_missing, $current_lang );
+	if ( class_exists( 'SitePress' ) ) {
+		/**
+		 * Filter to modify if the original language ID is returned.
+		 *
+		 * @since   2.2.3
+		 *
+		 * @param   bool    $return_original_if_missing
+		 * @param   int $post->ID    Post ID
+		 */
+		$return_original_if_missing = apply_filters( 'crp_wpml_return_original', $return_original_if_missing, $post->ID );
+
+		$post = apply_filters( 'wpml_object_id', $post->ID, $post->post_type, $return_original_if_missing, $current_lang );
+		$post = get_post( $post );
+	}
 
 	/**
 	 * Filters object ID for current language (WPML).
 	 *
 	 * @since   2.1.0
 	 *
-	 * @param   int $post_id    Post ID
+	 * @param   int $post->ID    Post ID
 	 */
-	return apply_filters( 'crp_object_id_cur_lang', $post_id );
+	return apply_filters( 'crp_object_id_cur_lang', $post );
 }
 

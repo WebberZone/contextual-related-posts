@@ -64,7 +64,7 @@ function get_crp( $args = array() ) {
 	}
 
 	// WPML & PolyLang support - change strict limit to false.
-	if ( function_exists( 'wpml_object_id_filter' ) || function_exists( 'icl_object_id' ) || function_exists( 'pll_get_post' ) ) {
+	if ( class_exists( 'SitePress' ) || function_exists( 'pll_get_post' ) ) {
 		$args['strict_limit'] = false;
 	}
 
@@ -93,7 +93,7 @@ function get_crp( $args = array() ) {
 	list( $args['thumb_width'], $args['thumb_height'] ) = crp_get_thumb_size( $args );
 
 	// Retrieve the list of posts.
-	$results = get_crp_posts_id(
+	$results = get_crp_posts(
 		array_merge(
 			$args,
 			array(
@@ -358,7 +358,7 @@ function get_crp_posts_id( $args = array() ) {
 	}
 
 	// If keyword is entered, override the matching content.
-	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
+	$crp_post_meta = get_post_meta( $source_post->ID, 'crp_post_meta', true );
 
 	if ( isset( $crp_post_meta['keyword'] ) ) {
 		$match_fields_content = array(
@@ -691,4 +691,39 @@ function crp_cache_get_key( $attr ) {
 	$meta_key = '_crp_cache_' . md5( wp_json_encode( $attr ) );
 
 	return $meta_key;
+}
+
+
+/**
+ * Retrieves an array of the related posts.
+ *
+ * The defaults are as follows:
+ *
+ * @since 1.8.6
+ * @since 3.0.0 Parameters have been dropped for a single $args parameter.
+ *
+ * @see CRP_Query::prepare_query_args()
+ *
+ * @param array $args Optional. Arguments to retrieve posts. See WP_Query::parse_query() for all available arguments.
+ * @return WP_Post[]|int[] Array of post objects or post IDs.
+ */
+function get_crp_posts( $args = array() ) {
+	// Backcompat if postid was passed in the pre-3.0.0 version.
+	if ( is_int( $args ) ) {
+		$args = array(
+			'postid' => $args,
+		);
+	}
+
+	$get_crp_posts = new CRP_Query( $args );
+
+	/**
+	 * Filter array of post IDs or objects.
+	 *
+	 * @since 1.9
+	 *
+	 * @param WP_Post[]|int[] $posts Array of post objects or post IDs.
+	 * @param array           $args  Arguments to retrieve posts.
+	 */
+	return apply_filters( 'get_crp_posts', $get_crp_posts->posts, $args );
 }
