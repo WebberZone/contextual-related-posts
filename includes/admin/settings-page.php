@@ -655,7 +655,7 @@ function crp_taxonomies_callback( $args ) {
 	foreach ( $wp_taxonomies as $wp_taxonomy ) {
 
 		$html .= sprintf( '<input name="crp_settings[%1$s][%2$s]" id="crp_settings[%1$s][%2$s]" type="checkbox" value="%2$s" %3$s /> ', sanitize_key( $args['id'] ), esc_attr( $wp_taxonomy->name ), checked( true, in_array( $wp_taxonomy->name, $taxonomies_inc, true ), false ) );
-		$html .= sprintf( '<label for="crp_settings[%1$s][%2$s]">%3$s</label> <br />', sanitize_key( $args['id'] ), esc_attr( $wp_taxonomy->name ), $wp_taxonomy->labels->name );
+		$html .= sprintf( '<label for="crp_settings[%1$s][%2$s]">%3$s (%4$s)</label> <br />', sanitize_key( $args['id'] ), esc_attr( $wp_taxonomy->name ), $wp_taxonomy->labels->name, $wp_taxonomy->name );
 
 	}
 
