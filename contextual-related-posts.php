@@ -87,6 +87,17 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
 	define( 'CRP_MAX_WORDS', 250 );
 }
 
+/**
+ * CRP Cache expiration time.
+ *
+ * @since 3.0.0
+ *
+ * @var int Cache time. Default is one month.
+ */
+if ( ! defined( 'CRP_CACHE_TIME' ) ) {
+	define( 'CRP_CACHE_TIME', MONTH_IN_SECONDS );
+}
+
 /*
  *----------------------------------------------------------------------------
  * CRP modules & includes
@@ -105,6 +116,7 @@ require_once CRP_PLUGIN_DIR . 'includes/tools.php';
 require_once CRP_PLUGIN_DIR . 'includes/header.php';
 require_once CRP_PLUGIN_DIR . 'includes/content.php';
 require_once CRP_PLUGIN_DIR . 'includes/modules/manual-posts.php';
+require_once CRP_PLUGIN_DIR . 'includes/modules/cache.php';
 require_once CRP_PLUGIN_DIR . 'includes/modules/shortcode.php';
 require_once CRP_PLUGIN_DIR . 'includes/modules/taxonomies.php';
 require_once CRP_PLUGIN_DIR . 'includes/modules/exclusions.php';
@@ -127,8 +139,6 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/tools.php';
 	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/loader.php';
 	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/metabox.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/cache.php';
-
 } // End if.
 
 
