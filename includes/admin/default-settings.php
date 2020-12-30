@@ -106,6 +106,28 @@ function crp_settings_general() {
 			'options' => '-1',
 			'min'     => '-1',
 		),
+		'same_taxes'                   => array(
+			'id'      => 'same_taxes',
+			'name'    => esc_html__( 'Only from same', 'crp-taxonomy' ),
+			'desc'    => esc_html__( 'Limit the related posts only to the categories, tags, and/or taxonomies of the current post.', 'crp-taxonomy' ),
+			'type'    => 'taxonomies',
+			'options' => '',
+		),
+		'match_all'                    => array(
+			'id'      => 'match_all',
+			'name'    => esc_html__( 'Match all taxonomies', 'crp-taxonomy' ),
+			'desc'    => esc_html__( 'If enabled, then it will only select posts that match all the above selected taxonomies. This can result in no related posts being found.', 'crp-taxonomy' ),
+			'type'    => 'checkbox',
+			'options' => false,
+		),
+		'no_of_common_terms'           => array(
+			'id'      => 'no_of_common_terms',
+			'name'    => esc_html__( 'Number of common terms', 'crp-taxonomy' ),
+			'desc'    => esc_html__( 'Enter the minimum number of common terms that have to be matched before a post is considered related.', 'crp-taxonomy' ),
+			'type'    => 'number',
+			'options' => '1',
+			'min'     => '1',
+		),
 		'disable_on_mobile'            => array(
 			'id'      => 'disable_on_mobile',
 			'name'    => esc_html__( 'Disable on mobile devices', 'contextual-related-posts' ),
@@ -284,6 +306,18 @@ function crp_settings_output() {
 			'type'    => 'posttypes',
 			'options' => '',
 		),
+		'exclude_on_cat_slugs'  => array(
+			'id'               => 'exclude_on_cat_slugs',
+			'name'             => esc_html__( 'Exclude on Categories', 'crp-taxonomy' ),
+			'desc'             => esc_html__( 'Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the starting letters and it will prompt you with options. Does not support custom taxonomies.', 'crp-taxonomy' ),
+			'type'             => 'csv',
+			'options'          => '',
+			'size'             => 'large',
+			'field_class'      => 'category_autocomplete',
+			'field_attributes' => array(
+				'data-wp-taxonomy' => 'category',
+			),
+		),
 		'html_wrapper_header'   => array(
 			'id'   => 'html_wrapper_header',
 			'name' => '<h3>' . esc_html__( 'HTML to display', 'contextual-related-posts' ) . '</h3>',
@@ -341,7 +375,7 @@ function crp_settings_output() {
 function crp_settings_list() {
 
 	$settings = array(
-		'limit'               => array(
+		'limit'                  => array(
 			'id'      => 'limit',
 			'name'    => esc_html__( 'Number of posts to display', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'Maximum number of posts that will be displayed in the list. This option is used if you do not specify the number of posts in the widget or shortcodes', 'contextual-related-posts' ),
@@ -350,7 +384,7 @@ function crp_settings_list() {
 			'min'     => '0',
 			'size'    => 'small',
 		),
-		'daily_range'         => array(
+		'daily_range'            => array(
 			'id'      => 'daily_range',
 			'name'    => esc_html__( 'Related posts should be newer than', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'This sets the cut-off period for which posts will be displayed. e.g. setting it to 365 will show related posts from the last year only. Set to 0 to disable limiting posts by date.', 'contextual-related-posts' ),
@@ -358,7 +392,7 @@ function crp_settings_list() {
 			'options' => '1095',
 			'min'     => '0',
 		),
-		'ordering'            => array(
+		'ordering'               => array(
 			'id'      => 'ordering',
 			'name'    => esc_html__( 'Order posts', 'contextual-related-posts' ),
 			'desc'    => '',
@@ -366,21 +400,21 @@ function crp_settings_list() {
 			'default' => 'relevance',
 			'options' => crp_get_orderings(),
 		),
-		'random_order'        => array(
+		'random_order'           => array(
 			'id'      => 'random_order',
 			'name'    => esc_html__( 'Randomize posts', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'This shuffles the selected related posts. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if Cache HTML output is enabled.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'match_content'       => array(
+		'match_content'          => array(
 			'id'      => 'match_content',
 			'name'    => esc_html__( 'Related posts based on title and content', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'If unchecked, only posts titles are used. Enable the cache if enabling this option for better performance. Each site is different, so toggle this option to see which setting gives you better quality related posts.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'match_content_words' => array(
+		'match_content_words'    => array(
 			'id'      => 'match_content_words',
 			'name'    => esc_html__( 'Limit content to be compared', 'contextual-related-posts' ),
 			/* translators: 1: Number. */
@@ -390,35 +424,35 @@ function crp_settings_list() {
 			'min'     => '0',
 			'max'     => CRP_MAX_WORDS,
 		),
-		'post_types'          => array(
+		'post_types'             => array(
 			'id'      => 'post_types',
 			'name'    => esc_html__( 'Post types to include', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'At least one option should be selected above. Select which post types you want to include in the list of posts. This field can be overridden using a comma separated list of post types when using the manual display.', 'contextual-related-posts' ),
 			'type'    => 'posttypes',
 			'options' => 'post,page',
 		),
-		'same_post_type'      => array(
+		'same_post_type'         => array(
 			'id'      => 'same_post_type',
 			'name'    => esc_html__( 'Limit to same post type', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same post type of the current post.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'same_author'         => array(
+		'same_author'            => array(
 			'id'      => 'same_author',
 			'name'    => esc_html__( 'Limit to same author', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same author of the current post.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
 			'options' => false,
 		),
-		'exclude_post_ids'    => array(
+		'exclude_post_ids'       => array(
 			'id'      => 'exclude_post_ids',
 			'name'    => esc_html__( 'Post/page IDs to exclude', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'Comma-separated list of post or page IDs to exclude from the list. e.g. 188,320,500', 'contextual-related-posts' ),
 			'type'    => 'numbercsv',
 			'options' => '',
 		),
-		'exclude_cat_slugs'   => array(
+		'exclude_cat_slugs'      => array(
 			'id'               => 'exclude_cat_slugs',
 			'name'             => esc_html__( 'Exclude Categories', 'contextual-related-posts' ),
 			'desc'             => esc_html__( 'Comma separated list of category slugs. The field above has an autocomplete so simply start typing in the starting letters and it will prompt you with options. Does not support custom taxonomies.', 'contextual-related-posts' ),
@@ -430,13 +464,27 @@ function crp_settings_list() {
 				'data-wp-taxonomy' => 'category',
 			),
 		),
-		'exclude_categories'  => array(
+		'exclude_categories'     => array(
 			'id'       => 'exclude_categories',
 			'name'     => esc_html__( 'Exclude category IDs', 'contextual-related-posts' ),
 			'desc'     => esc_html__( 'This is a readonly field that is automatically populated based on the above input when the settings are saved. These might differ from the IDs visible in the Categories page which use the term_id. Contextual Related Posts uses the term_taxonomy_id which is unique to this taxonomy.', 'contextual-related-posts' ),
 			'type'     => 'text',
 			'options'  => '',
 			'readonly' => true,
+		),
+		'disable_contextual'     => array(
+			'id'      => 'disable_contextual',
+			'name'    => esc_html__( 'Disable contextual matching', 'crp-taxonomy' ),
+			'desc'    => esc_html__( 'Selecting this option will turn off contextual matching. This is only useful if you activate the option: "Only from same" from the General tab. Otherwise, you will end up with the same set of related posts on all pages with no relevance.', 'crp-taxonomy' ),
+			'type'    => 'checkbox',
+			'options' => false,
+		),
+		'disable_contextual_cpt' => array(
+			'id'      => 'disable_contextual_cpt',
+			'name'    => esc_html__( 'Disable contextual matching ONLY on attachments and custom post types', 'crp-taxonomy' ),
+			'desc'    => esc_html__( 'Applies only if the previous option is checked. Selecting this option will retain contextual matching for posts and pages but disable this on any custom post types.', 'crp-taxonomy' ),
+			'type'    => 'checkbox',
+			'options' => true,
 		),
 	);
 

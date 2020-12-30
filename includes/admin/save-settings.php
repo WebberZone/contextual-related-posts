@@ -334,6 +334,24 @@ function crp_change_settings_on_save( $settings ) {
 		$settings['exclude_cat_slugs']  = isset( $exclude_categories_slugs ) ? crp_str_putcsv( $exclude_categories_slugs ) : '';
 	}
 
+	// Sanitize exclude_on_cat_slugs to save a new entry of exclude_on_categories.
+	if ( isset( $settings['exclude_on_cat_slugs'] ) ) {
+
+		$exclude_on_cat_slugs = array_unique( str_getcsv( $settings['exclude_on_cat_slugs'] ) );
+
+		foreach ( $exclude_on_cat_slugs as $cat_name ) {
+			$cat = get_term_by( 'name', $cat_name, 'category' );
+
+			if ( isset( $cat->term_taxonomy_id ) ) {
+				$exclude_on_categories[]       = $cat->term_taxonomy_id;
+				$exclude_on_categories_slugs[] = $cat->name;
+			}
+		}
+		$settings['exclude_on_categories'] = isset( $exclude_on_categories ) ? join( ',', $exclude_on_categories ) : '';
+		$settings['exclude_on_cat_slugs']  = isset( $exclude_on_categories_slugs ) ? crp_str_putcsv( $exclude_on_categories_slugs ) : '';
+
+	}
+
 	// Overwrite settings if rounded thumbnail style is selected.
 	if ( 'rounded_thumbs' === $settings['crp_styles'] ) {
 		$settings['show_excerpt'] = 0;

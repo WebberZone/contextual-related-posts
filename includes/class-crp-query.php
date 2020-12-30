@@ -36,6 +36,14 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $query_args = array();
 
 		/**
+		 * Flag to turn relevance matching ON or OFF.
+		 *
+		 * @since 3.0.0
+		 * @var bool
+		 */
+		public $enable_relevance = true;
+
+		/**
 		 * Random order flag.
 		 *
 		 * @since 3.0.0
@@ -81,6 +89,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			add_filter( 'posts_join', array( $this, 'posts_join' ), 10, 2 );
 			add_filter( 'posts_where', array( $this, 'posts_where' ), 10, 2 );
 			add_filter( 'posts_orderby', array( $this, 'posts_orderby' ), 10, 2 );
+			add_filter( 'posts_request', array( $this, 'posts_request' ), 10, 2 );
 			add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 10, 2 );
 			add_filter( 'the_posts', array( $this, 'the_posts' ), 10, 2 );
 
@@ -91,6 +100,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			remove_filter( 'posts_join', array( $this, 'posts_join' ) );
 			remove_filter( 'posts_where', array( $this, 'posts_where' ) );
 			remove_filter( 'posts_orderby', array( $this, 'posts_orderby' ) );
+			remove_filter( 'posts_request', array( $this, 'posts_request' ) );
 			remove_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ) );
 			remove_filter( 'the_posts', array( $this, 'the_posts' ) );
 		}
@@ -199,6 +209,34 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				);
 			}
 
+			// Process same taxonomies option.
+			if ( isset( $args['same_taxes'] ) && $args['same_taxes'] ) {
+				$taxonomies = explode( ',', $args['same_taxes'] );
+
+				// Get the taxonomies used by the post type.
+				$post_taxonomies = get_object_taxonomies( $source_post );
+
+				// Only limit the taxonomies to what is selected for the current post.
+				$current_taxonomies = array_values( array_intersect( $taxonomies, $post_taxonomies ) );
+
+				// Store the number of common taxonomies.
+				$args['taxonomy_count'] = count( $current_taxonomies );
+
+				// Get the terms for the current post.
+				$terms = wp_get_object_terms( $source_post->ID, (array) $current_taxonomies );
+				if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
+					$term_taxonomy_ids = array_unique( wp_list_pluck( $terms, 'term_taxonomy_id' ) );
+
+					$tax_query[] = array(
+						'taxonomy'         => 'category',
+						'field'            => 'term_taxonomy_id',
+						'terms'            => wp_parse_id_list( $term_taxonomy_ids ),
+						'operator'         => 'IN',
+						'include_children' => false,
+					);
+				}
+			}
+
 			/**
 			 * Filter the tax_query passed to the query.
 			 *
@@ -263,6 +301,16 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$args['author'] = $source_post->post_author;
 			}
 
+			// Disable contextual matching.
+			if ( ! empty( $args['disable_contextual'] ) ) {
+				/* If post or page and we're not disabling custom post types */
+				if ( ( 'post' === $source_post->post_type || 'page' === $source_post->post_type ) && ( $args['disable_contextual_cpt'] ) ) {
+					$this->enable_relevance = true;
+				} else {
+					$this->enable_relevance = false;
+				}
+			}
+
 			// Unset what we don't need.
 			unset( $args['title'] );
 			unset( $args['blank_output'] );
@@ -302,7 +350,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			// Are we matching only the title or the post content as well?
 			$match_fields = array(
-				'post_title',
+				"$wpdb->posts.post_title",
 			);
 
 			$match_fields_content = array(
@@ -310,7 +358,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			);
 
 			if ( $this->query_args['match_content'] ) {
-				$match_fields[]         = 'post_content';
+				$match_fields[]         = "$wpdb->posts.post_content";
 				$match_fields_content[] = crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false );
 			}
 
@@ -371,8 +419,11 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			if ( true !== $query->get( 'crp_query' ) ) {
 				return $fields;
 			}
-			$match   = ', ' . $this->get_match_sql() . ' as score ';
-			$fields .= $match;
+
+			if ( $this->enable_relevance ) {
+				$match   = ', ' . $this->get_match_sql() . ' as score ';
+				$fields .= $match;
+			}
 
 			return $fields;
 		}
@@ -384,13 +435,19 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *
 		 * @param string   $join  The JOIN clause of the query.
 		 * @param WP_Query $query The WP_Query instance.
-		 * @return string  Updated Fields
+		 * @return string  Updated JOIN
 		 */
 		public function posts_join( $join, $query ) {
+			global $wpdb;
 
 			// Return if it is not a CRP_Query.
 			if ( true !== $query->get( 'crp_query' ) ) {
 				return $join;
+			}
+
+			if ( ! empty( $this->query_args['match_all'] ) || ( isset( $this->query_args['no_of_common_terms'] ) && absint( $this->query_args['no_of_common_terms'] ) > 1 ) ) {
+				$join .= " INNER JOIN $wpdb->term_relationships AS crp_tr ON ($wpdb->posts.ID = crp_tr.object_id) ";
+				$join .= " INNER JOIN $wpdb->term_taxonomy AS crp_tt ON (crp_tr.term_taxonomy_id = crp_tt.term_taxonomy_id) ";
 			}
 
 			return $join;
@@ -403,7 +460,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *
 		 * @param string   $where The WHERE clause of the query.
 		 * @param WP_Query $query The WP_Query instance.
-		 * @return string  Updated Fields
+		 * @return string  Updated WHERE
 		 */
 		public function posts_where( $where, $query ) {
 
@@ -412,26 +469,29 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				return $where;
 			}
 
-			$match = ' AND ' . $this->get_match_sql();
+			if ( $this->enable_relevance ) {
 
-			/**
-			 * Filter the MATCH clause of the query.
-			 *
-			 * @since 2.1.0
-			 * @since 2.9.0 Added $match_fields
-			 * @since 2.9.3 Added $args
-			 * @since 3.0.0 Changed third argument from post ID to WP_Post object.
-			 *
-			 * @param string $match        The MATCH section of the WHERE clause of the query.
-			 * @param string $stuff        String to match fulltext with.
-			 * @param int    $source_post  Source Post instance.
-			 * @param string $match_fields Fields to match.
-			 * @param array  $args         Arguments array.
-			 */
-			$match = apply_filters( 'crp_posts_match', $match, $this->stuff, $this->source_post, $this->match_fields, $this->query_args );
+				$match = ' AND ' . $this->get_match_sql();
 
-			$where .= $match;
+				/**
+				 * Filter the MATCH clause of the query.
+				 *
+				 * @since 2.1.0
+				 * @since 2.9.0 Added $match_fields
+				 * @since 2.9.3 Added $args
+				 * @since 3.0.0 Changed third argument from post ID to WP_Post object.
+				 *
+				 * @param string $match        The MATCH section of the WHERE clause of the query.
+				 * @param string $stuff        String to match fulltext with.
+				 * @param int    $source_post  Source Post instance.
+				 * @param string $match_fields Fields to match.
+				 * @param array  $args         Arguments array.
+				 */
+				$match = apply_filters( 'crp_posts_match', $match, $this->stuff, $this->source_post, $this->match_fields, $this->query_args );
 
+				$where .= $match;
+
+			}
 			return $where;
 		}
 
@@ -442,7 +502,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *
 		 * @param string   $orderby  The ORDER BY clause of the query.
 		 * @param WP_Query $query The WP_Query instance.
-		 * @return string  Updated Fields
+		 * @return string  Updated ORDER BY
 		 */
 		public function posts_orderby( $orderby, $query ) {
 			global $wpdb;
@@ -457,7 +517,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				return $orderby;
 			}
 
-			$orderby = ' score DESC ';
+			if ( $this->enable_relevance ) {
+				$orderby = ' score DESC ';
+			}
 
 			// Set order by in case of date.
 			if ( isset( $this->query_args['ordering'] ) && 'date' === $this->query_args['ordering'] ) {
@@ -465,6 +527,47 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			}
 
 			return $orderby;
+		}
+
+		/**
+		 * Modify the completed SQL query before sending.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param string   $sql  The complete SQL query.
+		 * @param WP_Query $query The WP_Query instance.
+		 * @return string  Updated SQL query.
+		 */
+		public function posts_request( $sql, $query ) {
+			global $wpdb;
+
+			$conditions = array();
+
+			// Return if it is not a CRP_Query.
+			if ( true !== $query->get( 'crp_query' ) ) {
+				return $sql;
+			}
+
+			if ( ! empty( $this->query_args['match_all'] ) && ! empty( $this->query_args['taxonomy_count'] ) ) {
+				$conditions[] = $wpdb->prepare( 'COUNT(DISTINCT crp_tt.taxonomy) = %d', $this->query_args['taxonomy_count'] );
+			}
+			if ( isset( $this->query_args['no_of_common_terms'] ) && absint( $this->query_args['no_of_common_terms'] ) > 1 ) {
+				$conditions[] = $wpdb->prepare( 'COUNT(DISTINCT crp_tt.term_id) >= %d', absint( $this->query_args['no_of_common_terms'] ) );
+			}
+
+			if ( ! empty( $conditions ) ) {
+				$conditions = implode( ' AND ', $conditions );
+				$having     = "HAVING ( {$conditions} ) ORDER BY";
+
+				$sql = str_replace(
+					'ORDER BY',
+					$having,
+					$sql
+				);
+
+			}
+
+			return $sql;
 		}
 
 		/**
