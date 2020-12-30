@@ -36,8 +36,6 @@ if ( is_multisite() ) {
  * Delete plugin data.
  *
  * @since 2.6.1
- *
- * @return void
  */
 function crp_delete_data() {
 	global $wpdb;
@@ -51,7 +49,8 @@ function crp_delete_data() {
 		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			"
 			DELETE FROM {$wpdb->postmeta}
-			WHERE meta_key LIKE 'crp_related_posts%'
+			WHERE `meta_key` LIKE 'crp_related_posts%'
+			OR `meta_key` LIKE '_crp_cache_%'
 		"
 		);
 	}
