@@ -70,20 +70,8 @@ function get_crp( $args = array() ) {
 
 	// Support caching to speed up retrieval.
 	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-		$meta_key = 'crp_related_posts';
-		if ( $args['is_widget'] ) {
-			$meta_key .= '_widget';
-		}
-		if ( $args['is_manual'] ) {
-			$meta_key .= '_manual';
-		}
-		if ( $args['is_block'] ) {
-			$meta_key .= '_block';
-		}
-		if ( is_feed() ) {
-			$meta_key .= '_feed';
-		}
-		$output = get_post_meta( $post->ID, $meta_key, true );
+		$meta_key = crp_cache_get_key( $args );
+		$output   = get_crp_cache( $post->ID, $meta_key );
 		if ( $output ) {
 			return $output;
 		}
@@ -116,7 +104,7 @@ function get_crp( $args = array() ) {
 	$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
 	if ( ! empty( $custom_template ) ) {
 		if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-			update_post_meta( $post->ID, $meta_key, $custom_template, '' );
+			set_crp_cache( $post->ID, $meta_key, $custom_template );
 		}
 		return $custom_template;
 	}
@@ -233,7 +221,7 @@ function get_crp( $args = array() ) {
 
 	// Support caching to speed up retrieval.
 	if ( ! empty( $args['cache'] ) && empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-		update_post_meta( $post->ID, $meta_key, $output, '' );
+		set_crp_cache( $post->ID, $meta_key, $output );
 	}
 
 	/**
@@ -632,19 +620,8 @@ function get_crp_posts_id( $args = array() ) {
 		// Support caching to speed up retrieval.
 		if ( ! empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 
-			$attr = array(
-				'offset'           => $offset,
-				'limit'            => $limit,
-				'same_author'      => isset( $args['same_author'] ) && $args['same_author'],
-				'exclude_post_ids' => $exclude_post_ids,
-				'post_types'       => join( "', '", $post_types ),
-				'order_by'         => $orderby,
-				'is_ssl'           => is_ssl(),
-			);
-
-			$meta_key = crp_cache_get_key( $attr );
-
-			$results = get_post_meta( $post->ID, $meta_key, true );
+			$meta_key = crp_cache_get_key( $args );
+			$results  = get_crp_cache( $post->ID, $meta_key );
 		}
 
 		if ( empty( $results ) ) {
@@ -653,7 +630,7 @@ function get_crp_posts_id( $args = array() ) {
 
 		// Support caching to speed up retrieval.
 		if ( ! empty( $args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-			update_post_meta( $post->ID, $meta_key, $results, '' );
+			set_crp_cache( $post->ID, $meta_key, $results );
 		}
 
 		if ( $random_order ) {
@@ -675,22 +652,6 @@ function get_crp_posts_id( $args = array() ) {
 	 * @param array  $args    Arguments array.
 	 */
 	return apply_filters( 'get_crp_posts_id', $results, $args );
-}
-
-
-/**
- * Get the meta key based on a list of parameters.
- *
- * @since 2.7.0
- *
- * @param array $attr   Array of attributes.
- * @return string Cache meta key
- */
-function crp_cache_get_key( $attr ) {
-
-	$meta_key = '_crp_cache_' . md5( wp_json_encode( $attr ) );
-
-	return $meta_key;
 }
 
 

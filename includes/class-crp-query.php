@@ -76,6 +76,14 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $stuff;
 
 		/**
+		 * Cache set flag.
+		 *
+		 * @since 3.0.0
+		 * @var bool
+		 */
+		public $in_cache = false;
+
+		/**
 		 * Main constructor.
 		 *
 		 * @since 3.0.0
@@ -591,7 +599,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 				$meta_key = crp_cache_get_key( $this->request );
 
-				$post_ids = get_post_meta( $this->source_post->ID, $meta_key, true );
+				$post_ids = get_crp_cache( $this->source_post->ID, $meta_key );
 
 				if ( ! empty( $post_ids ) ) {
 					$posts                = get_posts(
@@ -604,6 +612,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 					);
 					$query->found_posts   = count( $posts );
 					$query->max_num_pages = ceil( $query->found_posts / $query->get( 'posts_per_page' ) );
+					$this->in_cache       = true;
 				}
 			}
 
@@ -627,11 +636,11 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			}
 
 			// Support caching to speed up retrieval.
-			if ( ! empty( $this->query_args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
+			if ( ! empty( $this->query_args['cache_posts'] ) && ! $this->in_cache && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 				$meta_key = crp_cache_get_key( $this->request );
 				$post_ids = wp_list_pluck( $query->posts, 'ID' );
 
-				update_post_meta( $this->source_post->ID, $meta_key, $post_ids, '' );
+				set_crp_cache( $this->source_post->ID, $meta_key, $post_ids );
 			}
 
 			// Manual Posts (manual_related - set via the Post Meta) or Include Posts (can be set as a parameter).
