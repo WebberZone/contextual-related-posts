@@ -18,13 +18,15 @@ if ( ! defined( 'WPINC' ) ) {
  * Function to create an excerpt for the post.
  *
  * @since 1.6
+ * @since 3.0.0 Added $more_link_text parameter.
  *
- * @param int|WP_Post $post Post ID or WP_Post instance.
+ * @param int|WP_Post $post           Post ID or WP_Post instance.
  * @param int|string  $excerpt_length Length of the excerpt in words.
- * @param bool        $use_excerpt Use excerpt instead of content.
+ * @param bool        $use_excerpt    Use excerpt instead of content.
+ * @param string      $more_link_text Content for when there is more text. Default is null.
  * @return string Excerpt
  */
-function crp_excerpt( $post, $excerpt_length = 0, $use_excerpt = true ) {
+function crp_excerpt( $post, $excerpt_length = 0, $use_excerpt = true, $more_link_text = '' ) {
 	$content = '';
 
 	$post = get_post( $post );
@@ -59,8 +61,54 @@ function crp_excerpt( $post, $excerpt_length = 0, $use_excerpt = true ) {
 		$excerpt_length = CRP_MAX_WORDS;
 	}
 
+	/**
+	 * Filters the Read More text of the CRP excerpt.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string  $more_link_text    Read More text.
+	 * @param WP_Post $post              Source Post instance.
+	 */
+	$more_link_text = apply_filters( 'crp_excerpt_more_link_text', $more_link_text, $post );
+
+	if ( null === $more_link_text ) {
+		$more_link_text = sprintf(
+			'<span aria-label="%1$s">%2$s</span>',
+			sprintf(
+				/* translators: %s: Post title. */
+				__( 'Continue reading %s', 'contextual-related-posts' ),
+				the_title_attribute(
+					array(
+						'echo' => false,
+						'post' => $post,
+					)
+				)
+			),
+			__( '(more&hellip;)', 'contextual-related-posts' )
+		);
+	}
+
+	if ( ! empty( $more_link_text ) ) {
+		$more_link_element = ' <a href="' . get_permalink( $post ) . "#more-{$post->ID}\" class=\"more-link\">$more_link_text</a>";
+	} else {
+		$more_link_element = '';
+	}
+
+	/**
+	 * Filters the Read More link text of the CRP excerpt.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string  $more_link_element Read More link element.
+	 * @param string  $more_link_text    Read More text.
+	 * @param WP_Post $post              Source Post instance.
+	 */
+	$more_link_element = apply_filters( 'crp_excerpt_more_link', $more_link_element, $more_link_text, $post );
+
 	if ( $excerpt_length > 0 ) {
-		$output = wp_trim_words( $output, $excerpt_length );
+		$more_link_element = empty( $more_link_element ) ? null : $more_link_element;
+
+		$output = wp_trim_words( $output, $excerpt_length, $more_link_element );
 	}
 
 	if ( post_password_required( $post ) ) {

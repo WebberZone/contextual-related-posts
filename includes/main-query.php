@@ -31,14 +31,15 @@ function get_crp( $args = array() ) {
 		$args['strict_limit'] = false;
 	}
 	$defaults = array(
-		'is_widget'    => false,
-		'is_shortcode' => false,
-		'is_manual'    => false,
-		'is_block'     => false,
-		'echo'         => true,
-		'heading'      => true,
-		'offset'       => 0,
-		'extra_class'  => '',
+		'is_widget'      => false,
+		'is_shortcode'   => false,
+		'is_manual'      => false,
+		'is_block'       => false,
+		'echo'           => true,
+		'heading'        => true,
+		'offset'         => 0,
+		'extra_class'    => '',
+		'more_link_text' => '',
 	);
 	$defaults = array_merge( $defaults, $crp_settings );
 
@@ -169,7 +170,7 @@ function get_crp( $args = array() ) {
 			}
 
 			if ( $args['show_excerpt'] ) {
-				$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $args['excerpt_length'] ) . '</span>';
+				$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $args['excerpt_length'], true, $args['more_link_text'] ) . '</span>';
 			}
 
 			$loop_counter++;
