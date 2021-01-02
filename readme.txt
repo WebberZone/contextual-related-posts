@@ -185,10 +185,11 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
     * CRP Thumbnails now include the `loading="lazy"` attribute added in WordPress 5.5
     * New parameter `more_link_text` tha can be passed to `get_crp()` which holds the "read more". Recommended option to customize the more link text using the filter `crp_excerpt_more_link_text` or the more linke element using `crp_excerpt_more_link`
 
-* Enhancement:
+* Enhancement/Modifications:
     * If WPML or PolyLang are active, `get_crp_posts_id()` and `CRP_Query` will return the translated set of post IDs and external processing is no longer needed
     * Use `wp_img_tag_add_srcset_and_sizes_attr()` to generate srcset and sizes attributes. The original code to display the srcset and sizes attributes will continue to be used
     * Improved caching with inbuilt expiry. Use CRP_CACHE_TIME in your wp-config.php to set how long the transients should be set for. Default is one month
+    * CRP_MAX_WORDS has been reduced to 100
 
 * Bug fixes:
     * In the settings page, only built-in taxonomies were being incorrectly displayed
