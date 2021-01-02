@@ -299,7 +299,7 @@ function crp_list_link( $args, $result ) {
 	$link            = crp_permalink( $args, $result );
 	$link_attributes = crp_link_attributes( $args );
 
-	$output .= '<a href="' . $link . '" ' . $link_attributes . ' class="' . $result->post_type . '-' . $result->ID . '">';
+	$output .= '<a href="' . $link . '" ' . $link_attributes . ' class="crp_link ' . $result->post_type . '-' . $result->ID . '">';
 
 	if ( 'after' === $args['post_thumb_op'] ) {
 		$output .= '<span class="crp_title">' . $title . '</span>'; // Add title when required by settings.
