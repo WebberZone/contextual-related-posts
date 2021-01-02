@@ -84,7 +84,7 @@ if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
  * @var int Maximum number of words to match.
  */
 if ( ! defined( 'CRP_MAX_WORDS' ) ) {
-	define( 'CRP_MAX_WORDS', 250 );
+	define( 'CRP_MAX_WORDS', 100 );
 }
 
 /**
