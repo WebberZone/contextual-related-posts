@@ -74,88 +74,78 @@ function crp_block_init() {
 	);
 	wp_localize_script( 'related-posts-block-editor', 'crp_php_variables', $localized_variables );
 
-	if ( 'rounded_thumbs' === crp_get_option( 'crp_styles' ) ) {
+	$style_array = crp_get_style();
 
-		$thumb_width  = crp_get_option( 'thumb_width' );
-		$thumb_height = crp_get_option( 'thumb_height' );
+	if ( ! empty( $style_array ) ) {
+		$style     = $style_array['name'];
+		$extra_css = $style_array['extra_css'];
 
 		wp_register_style(
 			'related-posts-block-editor',
-			plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ),
+			plugins_url( "css/{$style}.min.css", CRP_PLUGIN_FILE ),
 			array( 'wp-edit-blocks' ),
 			'1.0'
 		);
-		$custom_css = "
-.crp_related a {
-  width: {$thumb_width}px;
-  height: {$thumb_height}px;
-  text-decoration: none;
-}
-.crp_related img {
-  max-width: {$thumb_width}px;
-  margin: auto;
-}
-.crp_related .crp_title {
-  width: 100%;
-}
-                ";
+		wp_add_inline_style( 'related-posts-block-editor', $extra_css );
+	}
 
-		wp_add_inline_style( 'related-posts-block-editor', $custom_css );
+	$args = array(
+		'editor_script'   => 'related-posts-block-editor',
+		'render_callback' => 'render_crp_block',
+		'attributes'      => array(
+			'className'        => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+			'heading'          => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'limit'            => array(
+				'type'    => 'number',
+				'default' => 6,
+			),
+			'offset'           => array(
+				'type'    => 'number',
+				'default' => 0,
+			),
+			'show_excerpt'     => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'show_author'      => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'show_date'        => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'post_thumb_op'    => array(
+				'type'    => 'string',
+				'default' => 'inline',
+			),
+			'ordering'         => array(
+				'type'    => 'string',
+				'default' => 'relevance',
+			),
+			'random_order'     => array(
+				'type'    => 'boolean',
+				'default' => false,
+			),
+			'other_attributes' => array(
+				'type'    => 'string',
+				'default' => '',
+			),
+		),
+	);
+	if ( ! empty( $style ) ) {
+		$args['editor_style'] = 'related-posts-block-editor';
 	}
 
 	register_block_type(
 		'contextual-related-posts/related-posts',
-		array(
-			'editor_script'   => 'related-posts-block-editor',
-			'editor_style'    => 'related-posts-block-editor',
-			'render_callback' => 'render_crp_block',
-			'attributes'      => array(
-				'className'        => array(
-					'type'    => 'string',
-					'default' => '',
-				),
-				'heading'          => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'limit'            => array(
-					'type'    => 'number',
-					'default' => 6,
-				),
-				'offset'           => array(
-					'type'    => 'number',
-					'default' => 0,
-				),
-				'show_excerpt'     => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'show_author'      => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'show_date'        => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'post_thumb_op'    => array(
-					'type'    => 'string',
-					'default' => 'inline',
-				),
-				'ordering'         => array(
-					'type'    => 'string',
-					'default' => 'relevance',
-				),
-				'random_order'     => array(
-					'type'    => 'boolean',
-					'default' => false,
-				),
-				'other_attributes' => array(
-					'type'    => 'string',
-					'default' => '',
-				),
-			),
-		)
+		$args
 	);
 
 	if ( function_exists( 'wp_set_script_translations' ) ) {

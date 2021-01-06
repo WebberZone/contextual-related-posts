@@ -807,7 +807,22 @@ function crp_get_styles() {
 		array(
 			'id'          => 'rounded_thumbs',
 			'name'        => esc_html__( 'Rounded thumbnails', 'contextual-related-posts' ),
-			'description' => '<br /><img src="' . esc_url( plugins_url( 'includes/admin/images/crp-rounded-thumbs.png', CRP_PLUGIN_FILE ) ) . '" width="350" /> <br />' . esc_html__( 'Enabling this option will turn on the thumbnails and force their width and height. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', 'contextual-related-posts' ),
+			'description' => '<br /><img src="' . esc_url( plugins_url( 'includes/admin/images/rounded-thumbs.png', CRP_PLUGIN_FILE ) ) . '" width="500" /> <br />' . esc_html__( 'Enabling this option will turn on the thumbnails. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', 'contextual-related-posts' ) . '<br />',
+		),
+		array(
+			'id'          => 'masonry',
+			'name'        => esc_html__( 'Masonry', 'contextual-related-posts' ),
+			'description' => '<br /><img src="' . esc_url( plugins_url( 'includes/admin/images/masonry.png', CRP_PLUGIN_FILE ) ) . '" width="500" /> <br />' . esc_html__( 'Enables a masonry style layout similar to one made famous by Pinterest.', 'contextual-related-posts' ) . '<br />',
+		),
+		array(
+			'id'          => 'grid',
+			'name'        => esc_html__( 'Grid', 'contextual-related-posts' ),
+			'description' => '<br /><img src="' . esc_url( plugins_url( 'includes/admin/images/grid.png', CRP_PLUGIN_FILE ) ) . '" width="500" /> <br />' . esc_html__( 'Uses CSS Grid for display. Might not work on older browsers.', 'contextual-related-posts' ) . '<br />',
+		),
+		array(
+			'id'          => 'thumbs_grid',
+			'name'        => esc_html__( 'Rounded thumbnails with CSS grid', 'contextual-related-posts' ),
+			'description' => '<br /><img src="' . esc_url( plugins_url( 'includes/admin/images/thumbs-grid.png', CRP_PLUGIN_FILE ) ) . '" width="500" /> <br />' . esc_html__( 'Uses CSS grid. It will also turn off the display of the author, excerpt and date if already enabled. Disabling this option will not revert any settings.', 'contextual-related-posts' ) . '<br />',
 		),
 	);
 
