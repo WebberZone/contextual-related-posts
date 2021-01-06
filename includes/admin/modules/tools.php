@@ -163,13 +163,9 @@ function crp_recreate_indices_sql() {
 	$sql .= '<br />';
 	$sql .= "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title;";
 	$sql .= '<br />';
-	$sql .= "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content;";
-	$sql .= '<br />';
 	$sql .= "ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related (post_title, post_content);";
 	$sql .= '<br />';
 	$sql .= "ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_title (post_title);";
-	$sql .= '<br />';
-	$sql .= "ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_content (post_content);";
 
 	/**
 	 * Filters the SQL code to recreate the PRIMARY KEY.
