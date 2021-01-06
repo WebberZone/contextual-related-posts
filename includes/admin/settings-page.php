@@ -765,11 +765,11 @@ function crp_styles_messages( $html, $args ) {
 
 	$crp_styles = crp_get_option( 'crp_styles' );
 
-	if ( 'rounded_thumbs' === $crp_styles && ( 'show_excerpt' === $args['id'] || 'show_author' === $args['id'] || 'show_date' === $args['id'] ) ) {
+	if ( in_array( $crp_styles, array( 'rounded_thumbs', 'thumbs_grid' ), true ) && ( 'show_excerpt' === $args['id'] || 'show_author' === $args['id'] || 'show_date' === $args['id'] ) ) {
 		$html .= '<span style="color:red">' . esc_html__( 'This option cannot be changed because of the selected related posts style. To modify this option, you will need to select No styles or Text only in the Styles tab', 'contextual-related-posts' ) . '</span>';
 	}
 
-	if ( ( 'rounded_thumbs' === $crp_styles || 'text_only' === $crp_styles ) && 'post_thumb_op' === $args['id'] ) {
+	if ( in_array( $crp_styles, array( 'rounded_thumbs', 'thumbs_grid', 'text_only' ), true ) && 'post_thumb_op' === $args['id'] ) {
 		$html .= '<span style="color:red">' . esc_html__( 'This option cannot be changed because of the selected related posts style. To modify this option, you will need to select No styles in the Styles tab', 'contextual-related-posts' ) . '</span>';
 	}
 

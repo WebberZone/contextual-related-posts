@@ -184,6 +184,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
     * New CRP_Query class for fetching related posts. This replaces `get_crp_posts_id()` which will be deprecated in a new version
     * CRP Thumbnails now include the `loading="lazy"` attribute added in WordPress 5.5
     * New parameter `more_link_text` tha can be passed to `get_crp()` which holds the "read more". Recommended option to customize the more link text using the filter `crp_excerpt_more_link_text` or the more linke element using `crp_excerpt_more_link`
+    * Three new styles: "Masonry" (like Pinterest), "Grid" and "Rounded thumbnails with CSS grid". Might not work with older browsers
 
 * Enhancement/Modifications:
     * If WPML or PolyLang are active, `get_crp_posts_id()` and `CRP_Query` will return the translated set of post IDs and external processing is no longer needed

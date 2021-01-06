@@ -53,31 +53,81 @@ add_action( 'wp_head', 'crp_header' );
  */
 function crp_heading_styles() {
 
-	$thumb_width  = crp_get_option( 'thumb_width' );
-	$thumb_height = crp_get_option( 'thumb_height' );
+	$style_array = crp_get_style();
 
-	if ( 'rounded_thumbs' === crp_get_option( 'crp_styles' ) ) {
-		wp_register_style( 'crp-style-rounded-thumbs', plugins_url( 'css/default-style.css', CRP_PLUGIN_FILE ), array(), '1.0' );
-		wp_enqueue_style( 'crp-style-rounded-thumbs' );
+	if ( ! empty( $style_array ) ) {
+		$style     = $style_array['name'];
+		$extra_css = $style_array['extra_css'];
 
-		$custom_css = "
-.crp_related a {
-  width: {$thumb_width}px;
-  height: {$thumb_height}px;
-  text-decoration: none;
-}
-.crp_related img {
-  max-width: {$thumb_width}px;
-  margin: auto;
-}
-.crp_related .crp_title {
-  width: 100%;
-}
-                ";
-
-		wp_add_inline_style( 'crp-style-rounded-thumbs', $custom_css );
-
+		wp_register_style( "crp-style-{$style}", plugins_url( "css/{$style}.min.css", CRP_PLUGIN_FILE ), array(), '1.0' );
+		wp_enqueue_style( "crp-style-{$style}" );
+		wp_add_inline_style( "crp-style-{$style}", $extra_css );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
 
+
+/**
+ * Get the current style for the related posts.
+ *
+ * @return array Contains two elements:
+ *               'name' holding style name and 'extra_css' to be added inline.
+ */
+function crp_get_style() {
+
+	$style        = array();
+	$thumb_width  = crp_get_option( 'thumb_width' );
+	$thumb_height = crp_get_option( 'thumb_height' );
+	$crp_style    = crp_get_option( 'crp_styles' );
+
+	switch ( $crp_style ) {
+		case 'rounded_thumbs':
+			$style['name']      = 'rounded-thumbs';
+			$style['extra_css'] = "
+			.crp_related a {
+			  width: {$thumb_width}px;
+			  height: {$thumb_height}px;
+			  text-decoration: none;
+			}
+			.crp_related img {
+			  max-width: {$thumb_width}px;
+			  margin: auto;
+			}
+			.crp_related .crp_title {
+			  width: 100%;
+			}
+			";
+			break;
+
+		case 'masonry':
+			$style['name']      = 'masonry';
+			$style['extra_css'] = '';
+			break;
+
+		case 'grid':
+			$style['name']      = 'grid';
+			$style['extra_css'] = '';
+			break;
+
+		case 'thumbs_grid':
+			$row_height = max( 0, $thumb_height - 50 );
+
+			$style['name']      = 'thumbs-grid';
+			$style['extra_css'] = "
+			.crp_related ul li a.crp_link {
+				grid-template-rows: {$row_height}px 50px;
+			}
+			.crp_related ul {
+				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
+			}
+			";
+			break;
+
+		default:
+			$style['name']      = '';
+			$style['extra_css'] = '';
+			break;
+	}
+
+	return $style;
+}
