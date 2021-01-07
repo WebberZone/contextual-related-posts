@@ -89,7 +89,7 @@ function crp_excerpt( $post, $excerpt_length = 0, $use_excerpt = true, $more_lin
 	}
 
 	if ( ! empty( $more_link_text ) ) {
-		$more_link_element = ' <a href="' . get_permalink( $post ) . "#more-{$post->ID}\" class=\"more-link\">$more_link_text</a>";
+		$more_link_element = ' <a href="' . get_permalink( $post ) . "#more-{$post->ID}\" class=\"crp_read_more_link\">$more_link_text</a>";
 	} else {
 		$more_link_element = '';
 	}
