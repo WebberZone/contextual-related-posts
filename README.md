@@ -8,7 +8,7 @@
 
 __Requires:__ 5.0
 
-__Tested up to:__ 5.7
+__Tested up to:__ 5.6
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
