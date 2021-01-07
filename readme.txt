@@ -195,6 +195,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
     * In the settings page, only built-in taxonomies were being incorrectly displayed
     * If "before list item" is empty, then the output was blanked out
     * Settings help has been fixed
+    * `crp_get_option` would return an incorrect value if $crp_settings global variable was not set
 
 = Earlier versions =
 

@@ -33,6 +33,10 @@ function crp_get_option( $key = '', $default = null ) {
 
 	global $crp_settings;
 
+	if ( empty( $crp_settings ) ) {
+		$crp_settings = crp_get_settings();
+	}
+
 	if ( is_null( $default ) ) {
 		$default = crp_get_default_option( $key );
 	}
