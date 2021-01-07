@@ -6,9 +6,9 @@
 [![Build Status](https://travis-ci.org/WebberZone/contextual-related-posts.svg?branch=master)](https://travis-ci.org/WebberZone/contextual-related-posts)
 [![Code Climate](https://codeclimate.com/github/WebberZone/contextual-related-posts/badges/gpa.svg)](https://codeclimate.com/github/WebberZone/contextual-related-posts)
 
-__Requires:__ 4.9
+__Requires:__ 5.0
 
-__Tested up to:__ 5.5
+__Tested up to:__ 5.7
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -53,10 +53,6 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
 On activation, the plugin creates three mySQL FULLTEXT indices (or indexes) that are then used to find the related posts in the `*_posts`. These are for `post_content`, `post_title` and `(post_title,post_content)`. If you're running a multisite installation, then this is created for each of the blogs on activation. All these indices occupy space in your mySQL database but are essential for the plugin to run.
 
 You have two sets of options in the settings page which allows you to remove these indices when you deactivate or delete the plugin. The latter is true by default.
-
-### Extensions/Addons
-
-* [Related Posts by Categories and Tags](https://webberzone.com/downloads/crp-taxonomy/)
 
 ### GDPR
 
