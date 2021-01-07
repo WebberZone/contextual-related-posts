@@ -4,10 +4,6 @@
  *
  * @package   Contextual_Related_Posts
  * @subpackage  Manual_Posts
- * @author    Ajay D'Souza
- * @license   GPL-2.0+
- * @link      https://webberzone.com
- * @copyright 2009-2020 Ajay D'Souza
  */
 
 // If this file is called directly, abort.
