@@ -4,7 +4,7 @@ Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: 3.0.0
 Requires at least: 5.0
-Tested up to: 5.7
+Tested up to: 5.6
 Requires PHP: 5.6
 License: GPLv2 or later
 
