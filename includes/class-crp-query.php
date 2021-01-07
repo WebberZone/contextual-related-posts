@@ -489,11 +489,11 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				 * @since 2.9.3 Added $args
 				 * @since 3.0.0 Changed third argument from post ID to WP_Post object.
 				 *
-				 * @param string $match        The MATCH section of the WHERE clause of the query.
-				 * @param string $stuff        String to match fulltext with.
-				 * @param int    $source_post  Source Post instance.
-				 * @param string $match_fields Fields to match.
-				 * @param array  $args         Arguments array.
+				 * @param string  $match        The MATCH section of the WHERE clause of the query.
+				 * @param string  $stuff        String to match fulltext with.
+				 * @param WP_Post $source_post  Source Post instance.
+				 * @param string  $match_fields Fields to match.
+				 * @param array   $args         Arguments array.
 				 */
 				$match = apply_filters( 'crp_posts_match', $match, $this->stuff, $this->source_post, $this->match_fields, $this->query_args );
 

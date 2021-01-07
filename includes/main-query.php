@@ -321,16 +321,8 @@ function get_crp_posts_id( $args = array() ) {
 		$post_types = (array) $source_post->post_type;
 	}
 
-	/**
-	 * Filter the post_type clause of the query.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @param array $post_types      Array of post types to filter by.
-	 * @param int   $source_post->ID Post ID.
-	 * @param array $args            Arguments array.
-	 */
-	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $source_post->ID, $args );
+	/** This filter has been documented in class-crp-query.php */
+	$post_types = apply_filters( 'crp_posts_post_types', $post_types, $source_post, $args );
 
 	// Are we matching only the title or the post content as well?
 	$match_fields = array(
@@ -355,29 +347,11 @@ function get_crp_posts_id( $args = array() ) {
 		);
 	}
 
-	/**
-	 * Filter the fields that are to be matched.
-	 *
-	 * @since 2.2.0
-	 * @since 2.9.3 Added $args
-	 *
-	 * @param array $match_fields    Array of fields to be matched
-	 * @param int   $source_post->ID Post ID
-	 * @param array $args            Arguments array.
-	 */
-	$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $source_post->ID, $args );
+	/** This filter has been documented in class-crp-query.php */
+	$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $source_post, $args );
 
-	/**
-	 * Filter the content of the fields that are to be matched.
-	 *
-	 * @since 2.2.0
-	 * @since 2.9.3 Added $args
-	 *
-	 * @param array $match_fields_content Array of content of fields to be matched
-	 * @param int   $source_post->ID      Post ID
-	 * @param array $args                 Arguments array.
-	 */
-	$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $source_post->ID, $args );
+	/** This filter has been documented in class-crp-query.php */
+	$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $source_post, $args );
 
 	// Convert our arrays into their corresponding strings after they have been filtered.
 	$match_fields = implode( ',', $match_fields );
@@ -406,20 +380,8 @@ function get_crp_posts_id( $args = array() ) {
 		// Create the base MATCH clause.
 		$match = $wpdb->prepare( ' AND MATCH (' . $match_fields . ') AGAINST (%s) ', $stuff ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-		/**
-		 * Filter the MATCH clause of the query.
-		 *
-		 * @since 2.1.0
-		 * @since 2.9.0 Added $match_fields
-		 * @since 2.9.3 Added $args
-		 *
-		 * @param string $match           The MATCH section of the WHERE clause of the query.
-		 * @param string $stuff           String to match fulltext with.
-		 * @param int    $source_post->ID Post ID.
-		 * @param string $match_fields    Fields to match.
-		 * @param array  $args            Arguments array.
-		 */
-		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post->ID, $match_fields, $args );
+		/** This filter has been documented in class-crp-query.php */
+		$match = apply_filters( 'crp_posts_match', $match, $stuff, $source_post, $match_fields, $args );
 
 		// Create the maximum date limit. Show posts before today.
 		$now_clause = $wpdb->prepare( " AND $wpdb->posts.post_date < %s ", $now );
@@ -465,15 +427,7 @@ function get_crp_posts_id( $args = array() ) {
 		// Convert exclude post IDs string to array so it can be filtered.
 		$exclude_post_ids = explode( ',', $args['exclude_post_ids'] );
 
-		/**
-		 * Filter exclude post IDs array.
-		 *
-		 * @since 2.3.0
-		 * @since 2.9.3 Added $args
-		 *
-		 * @param array $exclude_post_ids Array of post IDs.
-		 * @param array $args             Arguments array.
-		 */
+		/** This filter has been documented in class-crp-query.php */
 		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args );
 
 		// Convert it back to string.
