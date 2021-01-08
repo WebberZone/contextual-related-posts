@@ -278,8 +278,8 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Set date_query.
 			$args['date_query'] = array(
 				array(
-					'after'     => gmdate( 'Y-m-d', strtotime( current_time( 'mysql' ) ) - ( absint( $args['daily_range'] ) * DAY_IN_SECONDS ) ),
-					'before'    => current_time( 'Y-m-d' ),
+					'after'     => ( 0 === absint( $args['daily_range'] ) ) ? '' : gmdate( 'Y-m-d', strtotime( current_time( 'mysql' ) ) - ( absint( $args['daily_range'] ) * DAY_IN_SECONDS ) ),
+					'before'    => current_time( 'mysql' ),
 					'inclusive' => true,
 				),
 			);
