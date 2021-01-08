@@ -28,6 +28,14 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $source_post;
 
 		/**
+		 * Query vars, before parsing
+		 *
+		 * @since 3.0.2
+		 * @var array
+		 */
+		public $input_query_args = array();
+
+		/**
 		 * Query vars, after parsing
 		 *
 		 * @since 3.0.0
@@ -149,6 +157,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			$args['suppress_filters']    = false;
 			$args['ignore_sticky_posts'] = true;
 			$args['no_found_rows']       = true;
+
+			// Store query args before we manipulate them.
+			$this->input_query_args = $args;
 
 			// Set the source post.
 			$source_post = empty( $args['postid'] ) ? $post : get_post( $args['postid'] );
@@ -597,7 +608,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Check the cache if there are any posts saved.
 			if ( ! empty( $this->query_args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 
-				$meta_key = crp_cache_get_key( $this->request );
+				$meta_key = crp_cache_get_key( $this->input_query_args );
 
 				$post_ids = get_crp_cache( $this->source_post->ID, $meta_key );
 
@@ -637,7 +648,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			// Support caching to speed up retrieval.
 			if ( ! empty( $this->query_args['cache_posts'] ) && ! $this->in_cache && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-				$meta_key = crp_cache_get_key( $this->request );
+				$meta_key = crp_cache_get_key( $this->input_query_args );
 				$post_ids = wp_list_pluck( $query->posts, 'ID' );
 
 				set_crp_cache( $this->source_post->ID, $meta_key, $post_ids );

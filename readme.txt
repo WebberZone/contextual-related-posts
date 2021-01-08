@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 Requires at least: 5.0
 Tested up to: 5.6
 Requires PHP: 5.6
@@ -178,6 +178,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Bug fixes:
     * Fixed issue where Related Posts newer than was set to 0 caused no posts to display
+    * Use the original arguments when setting the cache key for CRP_Query
 
 = 3.0.1 =
 
@@ -216,5 +217,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.0.1 =
+= 3.0.2 =
 Major release. Filters deprecated. Resave settings on upgrade. Please read the release post on https://webberzone.com
