@@ -46,7 +46,7 @@ function crp_settings_help() {
 			'<p>' . sprintf(
 			/* translators: 1: Link to Knowledge Base article. */
 				__( 'You can find detailed information on each of the settings in these <a href="%1$s" target="_blank">knowledgebase articles</a>.', 'contextual-related-posts' ),
-				esc_url( 'https://webberzone.com/support/section/contextual-related-posts/01-crp-getting-started/' ),
+				esc_url( 'https://webberzone.com/support/section/contextual-related-posts/01-crp-getting-started/' )
 			) . '</p>',
 		)
 	);
@@ -61,7 +61,7 @@ function crp_settings_help() {
 				'<p>' . sprintf(
 				/* translators: 1: Link to Knowledge Base article. */
 					__( 'You can find more information on each of these tools in this <a href="%1$s" target="_blank">knowledgebase article</a>.', 'contextual-related-posts' ),
-					esc_url( 'https://webberzone.com/support/knowledgebase/contextual-related-posts-settings-tools/' ),
+					esc_url( 'https://webberzone.com/support/knowledgebase/contextual-related-posts-settings-tools/' )
 				) . '</p>',
 		)
 	);
