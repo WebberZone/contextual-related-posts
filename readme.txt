@@ -174,6 +174,11 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
+= 3.0.2 =
+
+* Bug fixes:
+    * Fixed issue where Related Posts newer than was set to 0 caused no posts to display
+
 = 3.0.1 =
 
 * Bug fixes:
