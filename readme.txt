@@ -176,6 +176,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.0.0 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
+
 * Features:
     * New CRP_Query class for fetching related posts. This replaces `get_crp_posts_id()` which will be deprecated in a future version
     * CRP Thumbnails now include the `loading="lazy"` attribute added in WordPress 5.5
