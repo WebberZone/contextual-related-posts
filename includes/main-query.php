@@ -194,7 +194,7 @@ function get_crp( $args = array() ) {
 		$output .= apply_filters( 'crp_clearfix', $clearfix, $args );
 
 	} else {
-		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
+		$output .= ( 'blank' === $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}// End if.
 
 	if ( $args['show_credit'] ) {
@@ -211,7 +211,7 @@ function get_crp( $args = array() ) {
 	// Check if the opening list tag is missing in the output, it means all of our results were eliminated cause of the category filter.
 	if ( ! empty( $args['before_list_item'] ) && false === strpos( $output, $args['before_list_item'] ) ) {
 		$output  = '<div id="crp_related">';
-		$output .= ( $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
+		$output .= ( 'blank' === $args['blank_output'] ) ? ' ' : '<p>' . $args['blank_output_text'] . '</p>';
 	}
 
 	$output .= '</div>'; // Closing div of 'crp_related'.
