@@ -51,7 +51,7 @@ function crp_heading_styles() {
 
 	$style_array = crp_get_style();
 
-	if ( ! empty( $style_array ) ) {
+	if ( ! empty( $style_array['name'] ) ) {
 		$style     = $style_array['name'];
 		$extra_css = $style_array['extra_css'];
 

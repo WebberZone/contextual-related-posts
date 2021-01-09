@@ -174,6 +174,11 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
+= 3.0.3 =
+
+* Bug fixes:
+    * Selecting No style created a 404 error
+
 = 3.0.2 =
 
 * Bug fixes:
