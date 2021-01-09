@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 18:05+0000\n"
+"POT-Creation-Date: 2021-01-09 16:41+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:22
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:32
+#: includes/modules/class-crp-widget.php:28
 msgid "Related Posts [CRP]"
 msgstr ""
 
@@ -76,13 +76,13 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:146
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:90
+#: includes/modules/class-crp-widget.php:86
 msgid "No. of posts"
 msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:157
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:95
+#: includes/modules/class-crp-widget.php:91
 msgid "Offset"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:184
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:114
+#: includes/modules/class-crp-widget.php:110
 msgid "Thumbnail options"
 msgstr ""
 
@@ -496,7 +496,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:397
-#: includes/modules/class-crp-widget.php:132
+#: includes/modules/class-crp-widget.php:128
 msgid "Order posts"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:429
-#: includes/modules/class-crp-widget.php:156
+#: includes/modules/class-crp-widget.php:152
 msgid "Post types to include"
 msgstr ""
 
@@ -655,13 +655,13 @@ msgstr ""
 
 #: includes/admin/default-settings.php:540
 #: includes/admin/default-settings.php:713
-#: includes/modules/class-crp-widget.php:129
+#: includes/modules/class-crp-widget.php:125
 msgid "Thumbnail width"
 msgstr ""
 
 #: includes/admin/default-settings.php:549
 #: includes/admin/default-settings.php:722
-#: includes/modules/class-crp-widget.php:124
+#: includes/modules/class-crp-widget.php:120
 msgid "Thumbnail height"
 msgstr ""
 
@@ -860,7 +860,7 @@ msgid ""
 "target=\"_blank\">GitHub</a> (bug reports only)."
 msgstr ""
 
-#: includes/admin/help-tab.php:43 includes/admin/modules/loader.php:29
+#: includes/admin/help-tab.php:43 includes/admin/modules/loader.php:25
 msgid "Settings"
 msgstr ""
 
@@ -897,43 +897,43 @@ msgid ""
 "\" target=\"_blank\">knowledgebase article</a>."
 msgstr ""
 
-#: includes/admin/modules/loader.php:52 includes/admin/sidebar.php:60
+#: includes/admin/modules/loader.php:48 includes/admin/sidebar.php:60
 msgid "Support"
 msgstr ""
 
-#: includes/admin/modules/loader.php:53
+#: includes/admin/modules/loader.php:49
 msgid "Donate"
 msgstr ""
 
-#: includes/admin/modules/loader.php:54
+#: includes/admin/modules/loader.php:50
 msgid "Contribute"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:115
+#: includes/admin/modules/metabox.php:111
 msgid "Disable Related Posts display:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:118
+#: includes/admin/modules/metabox.php:114
 msgid ""
 "If this is checked, then Contextual Related Posts will not automatically "
 "insert the related posts at the end of post content."
 msgstr ""
 
-#: includes/admin/modules/metabox.php:122
+#: includes/admin/modules/metabox.php:118
 msgid "Exclude this post from the related posts list:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:125
+#: includes/admin/modules/metabox.php:121
 msgid ""
 "If this is checked, then this post will be excluded from the popular posts "
 "list."
 msgstr ""
 
-#: includes/admin/modules/metabox.php:129
+#: includes/admin/modules/metabox.php:125
 msgid "Keyword:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:131
+#: includes/admin/modules/metabox.php:127
 msgid ""
 "Enter either a word or a phrase that will be used to find related posts. If "
 "entered, the plugin will continue to search the `post_title` and "
@@ -941,46 +941,46 @@ msgid ""
 "title and content of this post."
 msgstr ""
 
-#: includes/admin/modules/metabox.php:135
-#: includes/admin/modules/metabox.php:143
+#: includes/admin/modules/metabox.php:131
+#: includes/admin/modules/metabox.php:139
 msgid "Manual related posts:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:137
+#: includes/admin/modules/metabox.php:133
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. "
 "188,320,500. These will be given preference over the related posts generated "
 "by the plugin."
 msgstr ""
 
-#: includes/admin/modules/metabox.php:138
+#: includes/admin/modules/metabox.php:134
 msgid ""
 "Once you enter the list above and save this page, the plugin will display "
 "the titles of the posts below for your reference. Only IDs corresponding to "
 "published posts or custom post types will be retained."
 msgstr ""
 
-#: includes/admin/modules/metabox.php:154
+#: includes/admin/modules/metabox.php:150
 #, php-format
 msgid "This post type is: %s"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:165
+#: includes/admin/modules/metabox.php:161
 msgid "Location of thumbnail"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:167
+#: includes/admin/modules/metabox.php:163
 msgid ""
 "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
 "image will be used for the post. It will be resized to the thumbnail size "
 "set under Settings &raquo; Related Posts &raquo; Output Options"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:168
+#: includes/admin/modules/metabox.php:164
 msgid "The URL above is saved in the meta field:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:173
+#: includes/admin/modules/metabox.php:169
 msgid ""
 "You have Top 10 WordPress Plugin installed. If you are trying to modify the "
 "thumbnail, then you'll need to make the same change in the Top 10 meta box "
@@ -1217,82 +1217,82 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
-#: includes/main-query.php:209
+#: includes/main-query.php:205
 #, php-format
 msgid ""
 "Powered by <a href=\"%s\" rel=\"nofollow\" style=\"float:none\">Contextual "
 "Related Posts</a>"
 msgstr ""
 
-#: includes/media.php:69
+#: includes/media.php:65
 msgid "thumb_timthumb argument has been deprecated"
 msgstr ""
 
-#: includes/media.php:73
+#: includes/media.php:69
 msgid "thumb_timthumb_q argument has been deprecated"
 msgstr ""
 
-#: includes/media.php:77
+#: includes/media.php:73
 msgid "filter argument has been deprecated"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:34
+#: includes/modules/class-crp-widget.php:30
 msgid "Display Related Posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:85
+#: includes/modules/class-crp-widget.php:81
 msgid "Title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:100
+#: includes/modules/class-crp-widget.php:96
 msgid " Show excerpt?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:105
+#: includes/modules/class-crp-widget.php:101
 msgid " Show author?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:110
+#: includes/modules/class-crp-widget.php:106
 msgid " Show date?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:116
+#: includes/modules/class-crp-widget.php:112
 msgid "Thumbnails inline, before title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:117
+#: includes/modules/class-crp-widget.php:113
 msgid "Thumbnails inline, after title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:118
+#: includes/modules/class-crp-widget.php:114
 msgid "Only thumbnails, no text"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:119
+#: includes/modules/class-crp-widget.php:115
 msgid "No thumbnails, only text."
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:146
+#: includes/modules/class-crp-widget.php:142
 msgid " Randomize posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:151
+#: includes/modules/class-crp-widget.php:147
 msgid "Only from categories"
 msgstr ""
 
-#: includes/output-generator.php:239
+#: includes/output-generator.php:235
 msgid " by "
 msgstr ""
 
-#: includes/tools.php:79
+#: includes/tools.php:75
 #, php-format
 msgid "Continue reading %s"
 msgstr ""
 
-#: includes/tools.php:87
+#: includes/tools.php:83
 msgid "(more&hellip;)"
 msgstr ""
 
-#: includes/tools.php:115
+#: includes/tools.php:111
 msgid "There is no excerpt because this is a protected post."
 msgstr ""
