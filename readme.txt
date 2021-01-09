@@ -179,6 +179,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Bug fixes:
     * Fixed issue where Related Posts newer than was set to 0 caused no posts to display
     * Use the original arguments when setting the cache key for CRP_Query
+    * Selecting "Blank Output" didn't work
 
 = 3.0.1 =
 
