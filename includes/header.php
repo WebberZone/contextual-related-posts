@@ -66,6 +66,8 @@ add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
 /**
  * Get the current style for the related posts.
  *
+ * @since 3.0.0
+ *
  * @return array Contains two elements:
  *               'name' holding style name and 'extra_css' to be added inline.
  */
@@ -102,7 +104,11 @@ function crp_get_style() {
 
 		case 'grid':
 			$style['name']      = 'grid';
-			$style['extra_css'] = '';
+			$style['extra_css'] = "
+			.crp_related ul {
+				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
+			}
+			";
 			break;
 
 		case 'thumbs_grid':
