@@ -176,6 +176,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.0.3 =
 
+* Enhancement/Modifications:
+    * Grid style minimum width is now decided by the width of the thumbnail
+
 * Bug fixes:
     * Selecting No style created a 404 error
 
