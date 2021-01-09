@@ -287,13 +287,15 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			$args['post_type'] = apply_filters( 'crp_posts_post_types', $post_types, $source_post, $args );
 
 			// Set date_query.
-			$args['date_query'] = array(
-				array(
-					'after'     => ( 0 === absint( $args['daily_range'] ) ) ? '' : gmdate( 'Y-m-d', strtotime( current_time( 'mysql' ) ) - ( absint( $args['daily_range'] ) * DAY_IN_SECONDS ) ),
-					'before'    => current_time( 'mysql' ),
-					'inclusive' => true,
-				),
-			);
+			if ($args['daily_range'] > 0) {
+				$args['date_query'] = array(
+					array(
+						'after'     => ( 0 === absint( $args['daily_range'] ) ) ? '' : gmdate( 'Y-m-d', strtotime( current_time( 'mysql' ) ) - ( absint( $args['daily_range'] ) * DAY_IN_SECONDS ) ),
+						'before'    => current_time( 'mysql' ),
+						'inclusive' => true,
+					),
+				);
+			}
 
 			// Set post_status.
 			$args['post_status'] = empty( $args['post_status'] ) ? array( 'publish', 'inherit' ) : $args['post_status'];
