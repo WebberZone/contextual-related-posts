@@ -90,9 +90,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );
 		$pick      = 'meta';
 		if ( $postimage ) {
-			$postimage_id = crp_get_attachment_id_from_url( $postimage );
+			$attachment_id = crp_get_attachment_id_from_url( $postimage );
 
-			$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			$postthumb = wp_get_attachment_image_src( $attachment_id, array( $args['thumb_width'], $args['thumb_height'] ) );
 			if ( false !== $postthumb ) {
 				$postimage = $postthumb[0];
 				$pick     .= 'correct';
@@ -135,9 +135,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		}
 		$pick = 'first';
 		if ( $postimage ) {
-			$postimage_id = crp_get_attachment_id_from_url( $postimage );
+			$attachment_id = crp_get_attachment_id_from_url( $postimage );
 
-			$postthumb = wp_get_attachment_image_src( $postimage_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			$postthumb = wp_get_attachment_image_src( $attachment_id, array( $args['thumb_width'], $args['thumb_height'] ) );
 			if ( false !== $postthumb ) {
 				$postimage = $postthumb[0];
 				$pick     .= 'correct';
@@ -181,25 +181,6 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 */
 		$postimage = apply_filters( 'crp_thumb_url', $postimage, $args['thumb_width'], $args['thumb_height'], $result );
 
-		/* Backward compatibility */
-		$thumb_timthumb   = false;
-		$thumb_timthumb_q = 75;
-
-		/**
-		 * Filters the thumbnail image URL.
-		 *
-		 * @since   1.8.10
-		 * @deprecated  2.1 Use crp_thumb_url instead.
-		 *
-		 * @param   string  $postimage      URL of the thumbnail image
-		 * @param   int     $thumb_width    Thumbnail width
-		 * @param   int     $thumb_height   Thumbnail height
-		 * @param   boolean $thumb_timthumb Enable timthumb?
-		 * @param   int     $thumb_timthumb_q   Quality of timthumb thumbnail.
-		 * @param   object  $result         Post Object
-		 */
-		$postimage = apply_filters( 'crp_postimage', $postimage, $args['thumb_width'], $args['thumb_height'], $thumb_timthumb, $thumb_timthumb_q, $result );
-
 		if ( is_ssl() ) {
 			$postimage = preg_replace( '~http://~', 'https://', $postimage );
 		}
@@ -242,7 +223,13 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		$output .= crp_get_image_html( $postimage, $attr );
 
 		if ( function_exists( 'wp_img_tag_add_srcset_and_sizes_attr' ) ) {
-			$output = wp_img_tag_add_srcset_and_sizes_attr( $output, 'crp_thumbnail', $attachment_id );
+			if ( empty( $attachment_id ) ) {
+				$attachment_id = crp_get_attachment_id_from_url( $postimage );
+			}
+
+			if ( ! empty( $attachment_id ) ) {
+				$output = wp_img_tag_add_srcset_and_sizes_attr( $output, 'crp_thumbnail', $attachment_id );
+			}
 		}
 
 		if ( function_exists( 'wp_img_tag_add_loading_attr' ) ) {
