@@ -60,7 +60,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $random_order = false;
 
 		/**
-		 * Random order flag.
+		 * CRP Post Meta.
 		 *
 		 * @since 3.0.0
 		 * @var mixed
@@ -68,7 +68,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $crp_post_meta;
 
 		/**
-		 * Random order flag.
+		 * Fields to be matched.
 		 *
 		 * @since 3.0.0
 		 * @var string
@@ -76,7 +76,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $match_fields;
 
 		/**
-		 * Random order flag.
+		 * Holds the text to be matched.
 		 *
 		 * @since 3.0.0
 		 * @var string
