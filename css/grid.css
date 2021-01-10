@@ -14,6 +14,7 @@
 }
 .crp_related ul li {
 	text-align:left;
+	word-break: break-word;
 }
 .crp_related .crp_thumb, .crp_related .crp_title {
 	display: block;
