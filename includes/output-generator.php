@@ -302,6 +302,7 @@ function crp_list_link( $args, $result ) {
 	}
 
 	if ( 'inline' === $args['post_thumb_op'] || 'after' === $args['post_thumb_op'] || 'thumbs_only' === $args['post_thumb_op'] ) {
+		$output .= '<figure>';
 		$output .= crp_get_the_post_thumbnail(
 			array(
 				'postid'             => $result,
@@ -315,6 +316,7 @@ function crp_list_link( $args, $result ) {
 				'class'              => 'crp_thumb',
 			)
 		);
+		$output .= '</figure>';
 	}
 
 	if ( 'inline' === $args['post_thumb_op'] || 'text_only' === $args['post_thumb_op'] ) {
