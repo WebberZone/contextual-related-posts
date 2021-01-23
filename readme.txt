@@ -179,6 +179,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Enhancement/Modifications:
     * `include_cat_ids` and `exclude_categories` will also accept custom taxonomy `term_taxonomy_id`s
     * Thumbnail's `img` tag is wrapped in `<figure>`
+    * Remove extra checking for exclude_categories in get_crp
 
 = 3.0.3 =
 

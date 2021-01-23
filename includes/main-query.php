@@ -134,24 +134,7 @@ function get_crp( $args = array() ) {
 
 		foreach ( $results as $result ) {
 
-			$result = get_post( $result->ID ); // Let's get the Post using the ID.
-
-			// Process the category exclusion if passed in the shortcode.
-			if ( isset( $exclude_categories ) ) {
-
-				$categorys = get_the_category( $result->ID );   // Fetch categories of the plugin.
-
-				$p_in_c = false;    // Variable to check if post exists in a particular category.
-				foreach ( $categorys as $cat ) {    // Loop to check if post exists in excluded category.
-					$p_in_c = ( in_array( $cat->cat_ID, $exclude_categories, true ) ) ? true : false;
-					if ( $p_in_c ) {
-						break;  // Skip loop execution and go to the next step.
-					}
-				}
-				if ( $p_in_c ) {
-					continue;  // Skip loop execution and go to the next step.
-				}
-			}
+			$result = get_post( $result );
 
 			$output .= crp_before_list_item( $args, $result );
 
