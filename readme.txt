@@ -177,7 +177,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 = 3.0.4 =
 
 * Enhancement/Modifications:
-    * `include_cat_ids` will also accept custom taxonomy `term_taxonomy_id`s
+    * `include_cat_ids` and `exclude_categories` will also accept custom taxonomy `term_taxonomy_id`s
 
 = 3.0.3 =
 
