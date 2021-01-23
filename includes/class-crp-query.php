@@ -131,7 +131,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 * @param string|array $args {
 		 *     Optional. Array or string of Query parameters.
 		 *
-		 *     @type array|string  $include_cat_ids  An array or comma-separated string of category IDs.
+		 *     @type array|string  $include_cat_ids  An array or comma-separated string of category or custom taxonomy term_taxonoy_id.
 		 *     @type array|string  $include_post_ids An array or comma-separated string of post IDs.
 		 *     @type bool          $offset           Offset the related posts returned by this number.
 		 *     @type int           $postid           Get related posts for a specific post ID.
@@ -212,9 +212,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			if ( ! empty( $args['include_cat_ids'] ) ) {
 				$tax_query[] = array(
-					'taxonomy' => 'category',
-					'field'    => 'term_taxonomy_id',
-					'terms'    => wp_parse_id_list( $args['include_cat_ids'] ),
+					'field'            => 'term_taxonomy_id',
+					'terms'            => wp_parse_id_list( $args['include_cat_ids'] ),
+					'include_children' => false,
 				);
 			}
 
@@ -247,7 +247,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 					$term_taxonomy_ids = array_unique( wp_list_pluck( $terms, 'term_taxonomy_id' ) );
 
 					$tax_query[] = array(
-						'taxonomy'         => 'category',
 						'field'            => 'term_taxonomy_id',
 						'terms'            => wp_parse_id_list( $term_taxonomy_ids ),
 						'operator'         => 'IN',
