@@ -220,7 +220,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			if ( ! empty( $args['exclude_categories'] ) ) {
 				$tax_query[] = array(
-					'taxonomy'         => 'category',
 					'field'            => 'term_taxonomy_id',
 					'terms'            => wp_parse_id_list( $args['exclude_categories'] ),
 					'operator'         => 'NOT IN',
