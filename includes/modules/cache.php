@@ -51,7 +51,7 @@ function crp_cache_delete( $meta_keys = array() ) {
 	}
 
 	foreach ( $meta_keys as $meta_key ) {
-		$del_meta = delete_post_meta_by_key( $meta_key );
+		$del_meta = delete_crp_cache_by_key( $meta_key );
 		if ( $del_meta ) {
 			$loop++;
 		}
@@ -87,10 +87,12 @@ function crp_cache_get_keys() {
  * Get the _crp_cache keys.
  *
  * @since 2.7.0
+ * @since 3.0.0 Added $post_id parameter
  *
+ * @param int $post_id Post ID. Optional.
  * @return array Array of _crp_cache keys.
  */
-function crp_cache_get_meta_keys() {
+function crp_cache_get_meta_keys( $post_id = 0 ) {
 	global $wpdb;
 
 	$meta_keys = array(
@@ -108,7 +110,12 @@ function crp_cache_get_meta_keys() {
 		SELECT meta_key
 		FROM {$wpdb->postmeta}
 		WHERE `meta_key` LIKE '_crp_cache_%'
+		AND `meta_key` NOT LIKE '_crp_cache_expires_%'
 	";
+
+	if ( $post_id > 0 ) {
+		$sql .= $wpdb->prepare( ' AND post_id = %d ', $post_id );
+	}
 
 	$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 
@@ -152,7 +159,7 @@ function crp_delete_cache_post_save( $post_id ) {
 	}
 
 	// Clear cache of current post.
-	$meta_keys = crp_cache_get_meta_keys();
+	$meta_keys = crp_cache_get_meta_keys( $post_id );
 	foreach ( $meta_keys as $meta_key ) {
 		delete_post_meta( $post_id, $meta_key );
 	}
@@ -261,6 +268,27 @@ function delete_crp_cache( $post_id, $key ) {
 	if ( $result ) {
 		delete_post_meta( $post_id, $cache_expires );
 	}
+
+	return $result;
+}
+
+
+/**
+ * Delete the value of the CRP cache by cache key.
+ *
+ * @since 3.0.4
+ *
+ * @param string $key CRP Cache key.
+ * @return bool True on success, False on failure.
+ */
+function delete_crp_cache_by_key( $key ) {
+	$key           = str_replace( '_crp_cache_expires_', '', $key );
+	$key           = str_replace( '_crp_cache_', '', $key );
+	$meta_key      = '_crp_cache_' . $key;
+	$cache_expires = '_crp_cache_expires_' . $key;
+
+	$result = delete_post_meta_by_key( $meta_key );
+	delete_post_meta_by_key( $cache_expires );
 
 	return $result;
 }
