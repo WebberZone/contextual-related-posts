@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-09 16:41+0000\n"
+"POT-Creation-Date: 2021-01-30 13:51+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -45,7 +45,7 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:22
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:28
+#: includes/modules/class-crp-widget.php:29
 msgid "Related Posts [CRP]"
 msgstr ""
 
@@ -76,13 +76,13 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:146
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:86
+#: includes/modules/class-crp-widget.php:87
 msgid "No. of posts"
 msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:157
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:91
+#: includes/modules/class-crp-widget.php:92
 msgid "Offset"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgstr ""
 
 #: includes/admin/blocks/related-posts/index.js:184
 #: includes/admin/blocks/related-posts/index.min.js:1
-#: includes/modules/class-crp-widget.php:110
+#: includes/modules/class-crp-widget.php:111
 msgid "Thumbnail options"
 msgstr ""
 
@@ -496,7 +496,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:397
-#: includes/modules/class-crp-widget.php:128
+#: includes/modules/class-crp-widget.php:129
 msgid "Order posts"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:429
-#: includes/modules/class-crp-widget.php:152
+#: includes/modules/class-crp-widget.php:153
 msgid "Post types to include"
 msgstr ""
 
@@ -655,13 +655,13 @@ msgstr ""
 
 #: includes/admin/default-settings.php:540
 #: includes/admin/default-settings.php:713
-#: includes/modules/class-crp-widget.php:125
+#: includes/modules/class-crp-widget.php:126
 msgid "Thumbnail width"
 msgstr ""
 
 #: includes/admin/default-settings.php:549
 #: includes/admin/default-settings.php:722
-#: includes/modules/class-crp-widget.php:120
+#: includes/modules/class-crp-widget.php:121
 msgid "Thumbnail height"
 msgstr ""
 
@@ -1217,7 +1217,7 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
-#: includes/main-query.php:205
+#: includes/main-query.php:188
 #, php-format
 msgid ""
 "Powered by <a href=\"%s\" rel=\"nofollow\" style=\"float:none\">Contextual "
@@ -1236,47 +1236,47 @@ msgstr ""
 msgid "filter argument has been deprecated"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:30
+#: includes/modules/class-crp-widget.php:31
 msgid "Display Related Posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:81
+#: includes/modules/class-crp-widget.php:82
 msgid "Title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:96
+#: includes/modules/class-crp-widget.php:97
 msgid " Show excerpt?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:101
+#: includes/modules/class-crp-widget.php:102
 msgid " Show author?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:106
+#: includes/modules/class-crp-widget.php:107
 msgid " Show date?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:112
+#: includes/modules/class-crp-widget.php:113
 msgid "Thumbnails inline, before title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:113
+#: includes/modules/class-crp-widget.php:114
 msgid "Thumbnails inline, after title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:114
+#: includes/modules/class-crp-widget.php:115
 msgid "Only thumbnails, no text"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:115
+#: includes/modules/class-crp-widget.php:116
 msgid "No thumbnails, only text."
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:142
+#: includes/modules/class-crp-widget.php:143
 msgid " Randomize posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:147
+#: includes/modules/class-crp-widget.php:148
 msgid "Only from categories"
 msgstr ""
 
