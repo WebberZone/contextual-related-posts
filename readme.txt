@@ -176,15 +176,15 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.0.4 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
+
 * Enhancement/Modifications:
     * `include_cat_ids` and `exclude_categories` will also accept custom taxonomy `term_taxonomy_id`s
     * Thumbnail's `img` tag is wrapped in `<figure>`
-    * Remove extra checking for exclude_categories in get_crp
+    * Remove extra checking for `exclude_categories` in `get_crp`
     * Optimise deleting of cache entries when updating a post - post saving should be significantly faster
 
 = 3.0.3 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
 
 * Enhancement/Modifications:
     * Grid style minimum width is now decided by the width of the thumbnail and long words are wrapped
