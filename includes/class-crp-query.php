@@ -376,7 +376,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			if ( $this->query_args['match_content'] ) {
 				$match_fields[]         = "$wpdb->posts.post_content";
-				$match_fields_content[] = crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false );
+				$match_fields_content[] = str_ireplace( ' from', '', crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false ) );
 			}
 
 			if ( isset( $this->crp_post_meta['keyword'] ) ) {
