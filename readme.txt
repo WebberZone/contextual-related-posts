@@ -174,6 +174,11 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
+= 3.0.5 =
+
+* Bug fix:
+    * Certain posts would trigger a "SHOW TABLES LIKE" error
+
 = 3.0.4 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
