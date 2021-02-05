@@ -178,6 +178,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Bug fix:
     * Certain posts would trigger a "SHOW TABLES LIKE" error
+    * Forced `.crp_related figure` margin to 0
 
 = 3.0.4 =
 

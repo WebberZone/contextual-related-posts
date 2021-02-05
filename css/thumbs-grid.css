@@ -2,6 +2,9 @@
 	clear: both;
 	margin: 10px 0;
 }
+.crp_related h3, .crp_related figure {
+	margin: 0 !important;
+}
 .crp_related ul {
 	display: grid;
 	grid-gap: 10px;
