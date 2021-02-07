@@ -176,13 +176,13 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.0.5 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
+
 * Bug fix:
     * Certain posts would trigger a "SHOW TABLES LIKE" error
     * Forced `.crp_related figure` margin to 0
 
 = 3.0.4 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
 
 * Enhancement/Modifications:
     * `include_cat_ids` and `exclude_categories` will also accept custom taxonomy `term_taxonomy_id`s
