@@ -179,12 +179,12 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
 
 * Bug fix:
-    * Posts would trigger a "SHOW TABLES LIKE" error if they had ' from' in the title
+    * Posts would trigger a "SHOW FULL COLUMNS FROM" error if they had ' from' in the title
 
 = 3.0.5 =
 
 * Bug fix:
-    * Certain posts would trigger a "SHOW TABLES LIKE" error
+    * Certain posts would trigger a "SHOW FULL COLUMNS FROM" error
     * Forced `.crp_related figure` margin to 0
 
 = 3.0.4 =
