@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.0.4
+Stable tag: 3.0.5
 Requires at least: 5.0
 Tested up to: 5.6
 Requires PHP: 5.6
@@ -174,9 +174,14 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
-= 3.0.5 =
+= 3.0.6 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
+
+* Bug fix:
+    * Posts would trigger a "SHOW TABLES LIKE" error if they had ' from' in the title
+
+= 3.0.5 =
 
 * Bug fix:
     * Certain posts would trigger a "SHOW TABLES LIKE" error
@@ -241,5 +246,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.0.4 =
+= 3.0.6 =
 Bug fixes. Please read the release post on https://webberzone.com

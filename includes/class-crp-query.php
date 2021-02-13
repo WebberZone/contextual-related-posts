@@ -371,7 +371,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			);
 
 			$match_fields_content = array(
-				$this->source_post->post_title,
+				str_ireplace( ' from', '', $this->source_post->post_title ),
 			);
 
 			if ( $this->query_args['match_content'] ) {
