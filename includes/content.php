@@ -51,34 +51,9 @@ function crp_content_filter( $content ) {
 		return $content;
 	}
 
-	// If this post ID is in the DO NOT DISPLAY list.
-	$exclude_on_post_ids = explode( ',', crp_get_option( 'exclude_on_post_ids' ) );
-	if ( in_array( $post->ID, $exclude_on_post_ids ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+	// Check exclusions.
+	if ( crp_exclude_on( $post ) ) {
 		return $content;    // Exit without adding related posts.
-	}
-
-	// If this post type is in the DO NOT DISPLAY list.
-	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-	if ( crp_get_option( 'exclude_on_post_types' ) && false === strpos( crp_get_option( 'exclude_on_post_types' ), '=' ) ) {
-		$exclude_on_post_types = explode( ',', crp_get_option( 'exclude_on_post_types' ) );
-	} else {
-		parse_str( crp_get_option( 'exclude_on_post_types' ), $exclude_on_post_types );    // Save post types in $exclude_on_post_types variable.
-	}
-
-	if ( in_array( $post->post_type, $exclude_on_post_types, true ) ) {
-		return $content;    // Exit without adding related posts.
-	}
-	// If the DO NOT DISPLAY meta field is set.
-	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
-
-	if ( isset( $crp_post_meta['crp_disable_here'] ) ) {
-		$crp_disable_here = $crp_post_meta['crp_disable_here'];
-	} else {
-		$crp_disable_here = 0;
-	}
-
-	if ( $crp_disable_here ) {
-		return $content;
 	}
 
 	$add_to = crp_get_option( 'add_to', false );

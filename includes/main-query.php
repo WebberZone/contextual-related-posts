@@ -57,7 +57,12 @@ function get_crp( $args = array() ) {
 	$short_circuit = apply_filters( 'get_crp_short_circuit', $short_circuit, $post, $args );
 
 	if ( $short_circuit ) {
-		return false;
+		return ''; // Exit without adding related posts.
+	}
+
+	// Check exclusions.
+	if ( crp_exclude_on( $post ) ) {
+		return ''; // Exit without adding related posts.
 	}
 
 	// WPML & PolyLang support - change strict limit to false.
