@@ -4,7 +4,7 @@ Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: 3.0.5
 Requires at least: 5.0
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.6
 License: GPLv2 or later
 
@@ -181,6 +181,7 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](htt
 * Bug fix:
     * Exclude on categories did not work
     * Posts would trigger a "SHOW FULL COLUMNS FROM" error if they had ' from' in the title
+    * Manual posts did not work properly - all post types and all posts are properly fetched now
 
 = 3.0.5 =
 
