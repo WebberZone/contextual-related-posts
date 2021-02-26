@@ -613,10 +613,11 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				if ( ! empty( $post_ids ) ) {
 					$posts                = get_posts(
 						array(
-							'post__in'  => $post_ids,
-							'fields'    => $query->get( 'fields' ),
-							'orderby'   => 'post__in',
-							'post_type' => $query->get( 'post_type' ),
+							'post__in'    => $post_ids,
+							'fields'      => $query->get( 'fields' ),
+							'orderby'     => 'post__in',
+							'numberposts' => $query->get( 'posts_per_page' ),
+							'post_type'   => $query->get( 'post_type' ),
 						)
 					);
 					$query->found_posts   = count( $posts );
@@ -666,10 +667,11 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			if ( ! empty( $post_ids ) ) {
 				$extra_posts = get_posts(
 					array(
-						'post__in'  => $post_ids,
-						'fields'    => $query->get( 'fields' ),
-						'orderby'   => 'post__in',
-						'post_type' => $query->get( 'post_type' ),
+						'post__in'    => $post_ids,
+						'fields'      => $query->get( 'fields' ),
+						'orderby'     => 'post__in',
+						'numberposts' => '-1',
+						'post_type'   => 'any',
 					)
 				);
 				$posts       = array_merge( $extra_posts, $posts );
