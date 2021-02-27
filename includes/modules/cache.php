@@ -239,6 +239,10 @@ function get_crp_cache( $post_id, $key ) {
 
 	$value = get_post_meta( $post_id, $meta_key, true );
 
+	if ( ! CRP_CACHE_TIME ) {
+		return $value;
+	}
+
 	if ( $value ) {
 		$expires = (int) get_post_meta( $post_id, $cache_expires, true );
 		if ( $expires < time() || empty( $expires ) ) {
@@ -247,6 +251,8 @@ function get_crp_cache( $post_id, $key ) {
 		} else {
 			return $value;
 		}
+	} else {
+		return false;
 	}
 }
 
