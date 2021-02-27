@@ -1,0 +1,8 @@
+<wpml-config>
+    <admin-texts>
+        <key name="crp_settings">
+            <key name="title" />
+            <key name="blank_output_text" />
+        </key>
+    </admin-texts>
+</wpml-config>

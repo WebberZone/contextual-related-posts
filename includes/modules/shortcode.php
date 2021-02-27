@@ -22,6 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function crp_shortcode( $atts, $content = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 	global $crp_settings;
+	$crp_settings = crp_get_settings();
 
 	$atts = shortcode_atts(
 		array_merge(

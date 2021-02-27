@@ -180,6 +180,7 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](htt
 
 * Enhancement:
     * Defining `CRP_CACHE_TIME` to `false` will disable expiry
+    * Introduced wpml-config.xml file. Title and Custom text for blank output can now be translated with Polylang (and potentially WPML)
 
 * Bug fix:
     * Exclude on categories did not work

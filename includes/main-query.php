@@ -21,11 +21,8 @@ if ( ! defined( 'WPINC' ) ) {
 function get_crp( $args = array() ) {
 	global $post, $crp_settings;
 
-	// If set, save $exclude_categories.
-	if ( isset( $args['exclude_categories'] ) && '' != $args['exclude_categories'] ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-		$exclude_categories   = explode( ',', $args['exclude_categories'] );
-		$args['strict_limit'] = false;
-	}
+	$crp_settings = crp_get_settings();
+
 	$defaults = array(
 		'is_widget'      => false,
 		'is_shortcode'   => false,
@@ -231,6 +228,8 @@ function get_crp( $args = array() ) {
  */
 function get_crp_posts_id( $args = array() ) {
 	global $wpdb, $post, $crp_settings;
+
+	$crp_settings = crp_get_settings();
 
 	// Initialise some variables.
 	$fields       = '';
