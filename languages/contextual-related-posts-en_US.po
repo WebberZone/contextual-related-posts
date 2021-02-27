@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-07 11:02+0000\n"
+"POT-Creation-Date: 2021-02-27 19:43+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_c;__ngettext;esc_html__;esc_attr__;esc_html_e;"
 "esc_attr_e\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1217,7 +1217,7 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
-#: includes/main-query.php:188
+#: includes/main-query.php:190
 #, php-format
 msgid ""
 "Powered by <a href=\"%s\" rel=\"nofollow\" style=\"float:none\">Contextual "
@@ -1234,6 +1234,10 @@ msgstr ""
 
 #: includes/media.php:73
 msgid "filter argument has been deprecated"
+msgstr ""
+
+#: includes/modules/cache.php:25
+msgid "Cache has been cleared"
 msgstr ""
 
 #: includes/modules/class-crp-widget.php:31
