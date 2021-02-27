@@ -17,13 +17,12 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function crp_ajax_clearcache() {
 
-	$count = crp_cache_delete();
+	crp_cache_delete();
 	exit(
 		wp_json_encode(
 			array(
 				'success' => 1,
-				/* translators: 1: Number of entries. */
-				'message' => sprintf( _n( '%s entry cleared', '%s entries cleared', $count, 'contextual-related-posts' ), number_format_i18n( $count ) ),
+				'message' => __( 'Cache has been cleared', 'contextual-related-posts' ),
 			)
 		)
 	);
