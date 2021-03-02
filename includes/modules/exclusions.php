@@ -86,16 +86,20 @@ function crp_exclude_on( $post = null, $args = array() ) {
 	}
 
 	// If the DO NOT DISPLAY meta field is set.
-	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
+	if ( ( isset( $args['is_shortcode'] ) && ! $args['is_shortcode'] ) &&
+	( isset( $args['is_manual'] ) && ! $args['is_manual'] ) &&
+	( isset( $args['is_block'] ) && ! $args['is_block'] ) ) {
+		$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
 
-	if ( isset( $crp_post_meta['crp_disable_here'] ) ) {
-		$crp_disable_here = $crp_post_meta['crp_disable_here'];
-	} else {
-		$crp_disable_here = 0;
-	}
+		if ( isset( $crp_post_meta['crp_disable_here'] ) ) {
+			$crp_disable_here = $crp_post_meta['crp_disable_here'];
+		} else {
+			$crp_disable_here = 0;
+		}
 
-	if ( $crp_disable_here ) {
-		return true;
+		if ( $crp_disable_here ) {
+			return true;
+		}
 	}
 
 	return false;

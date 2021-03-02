@@ -58,7 +58,7 @@ function get_crp( $args = array() ) {
 	}
 
 	// Check exclusions.
-	if ( crp_exclude_on( $post ) ) {
+	if ( crp_exclude_on( $post, $args ) ) {
 		return ''; // Exit without adding related posts.
 	}
 
