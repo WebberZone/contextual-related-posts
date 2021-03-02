@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 Requires at least: 5.0
 Tested up to: 5.7
 Requires PHP: 5.6
@@ -174,9 +174,14 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
-= 3.0.6 =
+= 3.0.7 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
+
+* Bug fix:
+    * Replicate old style of exclusion checking of option set in meta. Using the shortcode, manual or block will ignore the meta option to "Disable Related Posts display"
+
+= 3.0.6 =
 
 * Enhancement:
     * Defining `CRP_CACHE_TIME` to `false` will disable expiry
@@ -252,5 +257,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.0.6 =
+= 3.0.7 =
 Bug fixes. Please read the release post on https://webberzone.com
