@@ -1,21 +1,31 @@
 <?php
 /**
- * PHPUnit bootstrap file
+ * PHPUnit bootstrap file.
  *
- * @package Contextual_Related_Posts
+ * @package Better_Search_Plugin
  */
+require_once dirname( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/.composer/vendor/yoast/phpunit-polyfills/phpunitpolyfills-autoload.php';
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
+
+// Check if we're installed in a src checkout.
+$pos = stripos( __FILE__, '/src/wp-content/plugins/' );
+if ( ! $_tests_dir && false !== $pos ) {
+	$_tests_dir = substr( __FILE__, 0, $pos ) . '/tests/phpunit/';
+}
+
 if ( ! $_tests_dir ) {
-	$_tests_dir = '/tmp/wordpress-tests-lib';
+	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
+}
+
+if ( ! file_exists( $_tests_dir . '/includes/functions.php' ) ) {
+	echo "Could not find $_tests_dir/includes/functions.php\n";
+	exit( 1 );
 }
 
 // Give access to tests_add_filter() function.
 require_once $_tests_dir . '/includes/functions.php';
 
-/**
- * Manually load the plugin being tested.
- */
 function _manually_load_plugin() {
 	require dirname( dirname( __FILE__ ) ) . '/contextual-related-posts.php';
 }
