@@ -1,0 +1,25 @@
+{
+    "name": "webberzone/contextual-related-posts",
+    "description": "Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!",
+    "type": "wordpress-plugin",
+    "keywords": [
+        "related posts",
+        "related",
+        "related articles",
+        "contextual related posts",
+        "similar posts",
+        "related posts widget",
+        "contextual"
+    ],
+    "license": "gpl-2.0-or-later",
+    "authors": [
+        {
+            "name": "WebberZone",
+            "email": "plugins@webberzone.com",
+            "role": "Developer"
+        }
+    ],
+    "requires": {
+        "php": ">=7"
+    }
+}
