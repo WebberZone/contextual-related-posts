@@ -371,12 +371,12 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			);
 
 			$match_fields_content = array(
-				str_ireplace( ' from', '', $this->source_post->post_title ),
+				$this->strip_stopwords( $this->source_post->post_title ),
 			);
 
 			if ( $this->query_args['match_content'] ) {
 				$match_fields[]         = "$wpdb->posts.post_content";
-				$match_fields_content[] = str_ireplace( ' from', '', crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false ) );
+				$match_fields_content[] = $this->strip_stopwords( crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false ) );
 			}
 
 			if ( isset( $this->crp_post_meta['keyword'] ) ) {
@@ -419,6 +419,31 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			$match = $wpdb->prepare( ' MATCH (' . $this->match_fields . ') AGAINST (%s) ', $this->stuff ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
 			return $match;
+		}
+
+		/**
+		 * Strip stopwords from text.
+		 *
+		 * @since 3.1.0
+		 *
+		 * @param string|array $subject The string or an array with strings to search and replace. .
+		 * @param string|array $search  The pattern to search for. It can be either a string or an array with strings.
+		 * @param string|array $replace The string or an array with strings to replace.
+		 */
+		public function strip_stopwords( $subject = '', $search = '', $replace = '' ) {
+
+			if ( empty( $search ) ) {
+				$search = $this->get_search_stopwords();
+				array_push( $search, 'from', 'where' );
+			}
+
+			foreach ( (array) $search as $s ) {
+				$pattern[] = '/\b' . $s . '\b/ui';
+			}
+			$output = preg_replace( $pattern, $replace, $subject );
+			$output = preg_replace( '/\s+/', ' ', $output );
+
+			return $output;
 		}
 
 		/**
