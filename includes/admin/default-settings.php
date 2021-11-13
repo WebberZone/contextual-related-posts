@@ -412,7 +412,7 @@ function crp_settings_list() {
 			'name'    => esc_html__( 'Related posts based on title and content', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'If unchecked, only posts titles are used. Enable the cache if enabling this option for better performance. Each site is different, so toggle this option to see which setting gives you better quality related posts.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
-			'options' => false,
+			'options' => true,
 		),
 		'match_content_words'    => array(
 			'id'      => 'match_content_words',
