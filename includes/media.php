@@ -39,6 +39,9 @@ add_action( 'init', 'crp_add_image_sizes' );
  * Function to get the post thumbnail.
  *
  * @since 1.7
+ * @since 3.1.0 `postid` argument renamed to `post`.
+ *              New `size` attribute added which can be a registered image size name or array of width and height.
+ *              `thumb_width` and `thumb_height` attributes removed. These are extracted based on size.
  *
  * @param array|string $args Array / Query string with arguments post thumbnails.
  * @return string Output with the post thumbnail
@@ -46,37 +49,30 @@ add_action( 'init', 'crp_add_image_sizes' );
 function crp_get_the_post_thumbnail( $args = array() ) {
 
 	$defaults = array(
-		'postid'             => '',
-		'thumb_height'       => '150',            // Max height of thumbnails.
-		'thumb_width'        => '150',         // Max width of thumbnails.
+		'post'               => '',
+		'size'               => 'post-thumbnail',
 		'thumb_meta'         => 'post-image',       // Meta field that is used to store the location of default thumbnail image.
 		'thumb_html'         => 'html',     // HTML / CSS for width and height attributes.
 		'thumb_default'      => '',  // Default thumbnail image.
 		'thumb_default_show' => true,   // Show default thumb if none found (if false, don't show thumb at all).
-		'scan_images'        => false,         // Scan post for images.
+		'scan_images'        => true,         // Scan post for images.
 		'class'              => 'crp_thumb',         // Class of the thumbnail.
 	);
 
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
 
-	// Issue notice for deprecated arguments.
-	if ( isset( $args['thumb_timthumb'] ) ) {
-		_deprecated_argument( __FUNCTION__, '2.1', esc_html__( 'thumb_timthumb argument has been deprecated', 'contextual-related-posts' ) );
+	$result = get_post( $args['post'] );
+
+	if ( empty( $result ) ) {
+		return '';
 	}
 
-	if ( isset( $args['thumb_timthumb_q'] ) ) {
-		_deprecated_argument( __FUNCTION__, '2.1', esc_html__( 'thumb_timthumb_q argument has been deprecated', 'contextual-related-posts' ) );
-	}
-
-	if ( isset( $args['filter'] ) ) {
-		_deprecated_argument( __FUNCTION__, '2.1', esc_html__( 'filter argument has been deprecated', 'contextual-related-posts' ) );
-	}
-
-	if ( is_int( $args['postid'] ) ) {
-		$result = get_post( $args['postid'] );
+	if ( is_string( $args['size'] ) ) {
+		list( $args['thumb_width'], $args['thumb_height'] ) = crp_get_thumb_size( $args['size'] );
 	} else {
-		$result = $args['postid'];
+		$args['thumb_width']  = $args['size'][0];
+		$args['thumb_height'] = $args['size'][1];
 	}
 
 	$post_title = esc_attr( $result->post_title );
@@ -92,10 +88,10 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( $postimage ) {
 			$attachment_id = crp_get_attachment_id_from_url( $postimage );
 
-			$postthumb = wp_get_attachment_image_src( $attachment_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
 			if ( false !== $postthumb ) {
-				$postimage = $postthumb[0];
-				$pick     .= 'correct';
+				list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
+				$pick .= 'correct';
 			}
 		}
 	}
@@ -105,10 +101,10 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( false !== get_post_thumbnail_id( $result->ID ) ) {
 			$attachment_id = ( 'attachment' === $result->post_type ) ? $result->ID : get_post_thumbnail_id( $result->ID );
 
-			$postthumb = wp_get_attachment_image_src( $attachment_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
 			if ( false !== $postthumb ) {
-				$postimage = $postthumb[0];
-				$pick      = 'featured';
+				list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
+				$pick = 'featured';
 			}
 		}
 		$pick = 'featured';
@@ -122,10 +118,10 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 *
 		 * A filter function can be tapped into this to execute shortcodes, modify content, etc.
 		 *
-		 * @since   2.2.2
+		 * @since 2.2.2
 		 *
-		 * @param   string  $result->post_content   Post content
-		 * @param   object  $result     Post Object
+		 * @param string $result->post_content Post content
+		 * @param object $result               Post Object
 		 */
 		$post_content = apply_filters( 'crp_thumb_post_content', $result->post_content, $result );
 
@@ -137,10 +133,10 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		if ( $postimage ) {
 			$attachment_id = crp_get_attachment_id_from_url( $postimage );
 
-			$postthumb = wp_get_attachment_image_src( $attachment_id, array( $args['thumb_width'], $args['thumb_height'] ) );
+			$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
 			if ( false !== $postthumb ) {
-				$postimage = $postthumb[0];
-				$pick     .= 'correct';
+				list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
+				$pick .= 'correct';
 			}
 		}
 	}
@@ -155,6 +151,17 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	if ( ! $postimage ) {
 		$postimage = get_post_meta( $result->ID, '_video_thumbnail', true );
 		$pick      = 'video_thumb';
+	}
+
+	// If no thumb found and settings permit, use site icon.
+	if ( ! $postimage ) {
+		$postimage = get_site_icon_url( max( $args['thumb_width'], $args['thumb_height'] ) );
+		$pick      = 'site_icon_max';
+	}
+
+	if ( ! $postimage ) {
+		$postimage = get_site_icon_url( min( $args['thumb_width'], $args['thumb_height'] ) );
+		$pick      = 'site_icon_min';
 	}
 
 	// If no thumb found and settings permit, use default thumb.
@@ -172,14 +179,14 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * Use this filter to modify the thumbnail URL that is automatically created
 		 * Before v2.1 this was used for cropping the post image using timthumb
 		 *
-		 * @since   2.1.0
+		 * @since 2.1.0
+		 * @since 3.1.0 Second argument changed to $args array and third argument changed to Post object.
 		 *
-		 * @param   string  $postimage      URL of the thumbnail image
-		 * @param   int     $thumb_width    Thumbnail width
-		 * @param   int     $thumb_height   Thumbnail height
-		 * @param   object  $result         Post Object
+		 * @param string  $postimage URL of the thumbnail image
+		 * @param array   $args      Arguments array.
+		 * @param WP_Post $result    Post Object
 		 */
-		$postimage = apply_filters( 'crp_thumb_url', $postimage, $args['thumb_width'], $args['thumb_height'], $result );
+		$postimage = apply_filters( 'crp_thumb_url', $postimage, $args, $result );
 
 		if ( is_ssl() ) {
 			$postimage = preg_replace( '~http://~', 'https://', $postimage );
@@ -213,8 +220,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @since 2.6.0
 		 *
 		 * @param string $post_title Thumbnail title attribute
+		 * @param array  $args       Argument array
 		 */
-		$attr['title'] = apply_filters( 'crp_thumb_title', $post_title );
+		$attr['title'] = apply_filters( 'crp_thumb_title', $post_title, $args );
 
 		$attr['thumb_html']   = $args['thumb_html'];
 		$attr['thumb_width']  = $args['thumb_width'];
@@ -467,41 +475,41 @@ function crp_get_attachment_id_from_url( $attachment_url = '' ) {
  * Function to get the correct height and width of the thumbnail.
  *
  * @since   2.9.0
+ * @since 3.1.0 First argument is a string.
  *
- * @param  array $args Array of arguments.
- * @return array Width and height
+ * @param  string $size Image size.
+ * @return array Width and height. If no width and height is found, then 150 is returned for each.
  */
-function crp_get_thumb_size( $args ) {
+function crp_get_thumb_size( $size = 'thumbnail' ) {
+
+	if ( is_string( $size ) ) {
+		$thumb_size = $size;
+	} elseif ( isset( $size['thumb_size'] ) ) {
+		$thumb_size = $size['thumb_size'];
+	}
 
 	// Get thumbnail size.
-	$crp_thumb_size = crp_get_all_image_sizes( $args['thumb_size'] );
+	$crp_thumb_size = crp_get_all_image_sizes( $thumb_size );
 
 	if ( isset( $crp_thumb_size['width'] ) ) {
 		$thumb_width  = $crp_thumb_size['width'];
 		$thumb_height = $crp_thumb_size['height'];
 	}
 
-	if ( empty( $thumb_width ) || ( $args['is_widget'] && $thumb_width != $args['thumb_width'] ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-		$thumb_width        = $args['thumb_width'];
-		$args['thumb_html'] = 'css';
+	if ( isset( $thumb_width ) && isset( $thumb_height ) ) {
+		$thumb_size = array( $thumb_width, $thumb_height );
+	} else {
+		$thumb_size = array( 150, 150 );
 	}
-
-	if ( empty( $thumb_height ) || ( $args['is_widget'] && $thumb_height != $args['thumb_height'] ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-		$thumb_height       = $args['thumb_height'];
-		$args['thumb_html'] = 'css';
-	}
-
-	$thumb_size = array( $thumb_width, $thumb_height );
 
 	/**
 	 * Filter array of thumbnail size.
 	 *
-	 * @since   2.9.0
+	 * @since 2.9.0
 	 *
-	 * @param   array   $thumb_size Array with width and height of thumbnail
-	 * @param   array   $args   Array of arguments
+	 * @param array $thumb_size Array with width and height of thumbnail
 	 */
-	return apply_filters( 'crp_get_thumb_size', $thumb_size, $args );
+	return apply_filters( 'crp_get_thumb_size', $thumb_size );
 
 }
 
@@ -559,4 +567,3 @@ function crp_get_all_image_sizes( $size = '' ) {
 	 */
 	return apply_filters( 'crp_get_all_image_sizes', $sizes );
 }
-
