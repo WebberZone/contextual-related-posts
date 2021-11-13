@@ -140,6 +140,7 @@ function crp_excerpt( $post, $excerpt_length = 0, $use_excerpt = true, $more_lin
 function crp_trim_char( $string, $count = 60, $more = '&hellip;', $break_words = false ) {
 
 	$string = wp_strip_all_tags( $string, true );
+	$count  = absint( $count );
 
 	if ( 0 === $count ) {
 		return '';
