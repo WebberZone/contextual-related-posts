@@ -678,6 +678,11 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				set_crp_cache( $this->source_post->ID, $meta_key, $post_ids );
 			}
 
+			// Shuffle posts if random order is set.
+			if ( $this->random_order ) {
+				shuffle( $posts );
+			}
+
 			// Manual Posts (manual_related - set via the Post Meta) or Include Posts (can be set as a parameter).
 			$post_ids = array();
 
@@ -700,11 +705,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 					)
 				);
 				$posts       = array_merge( $extra_posts, $posts );
-			}
-
-			// Shuffle posts if random order is set.
-			if ( $this->random_order ) {
-				shuffle( $posts );
 			}
 
 			/**
