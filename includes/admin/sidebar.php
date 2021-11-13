@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 						<input type="hidden" name="currency_code" value="USD">
 						<input type="hidden" name="button_subtype" value="services">
 						<input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_LG.gif:NonHosted">
-						<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="<?php esc_html_e( 'Send your donation to the author of', 'contextual-related-posts' ); ?> Contextual Related Posts">
+						<input type="image" src="<?php echo esc_url( CRP_PLUGIN_URL . 'includes/admin/images/paypal_donate_button.gif' ); ?>" border="0" name="submit" alt="<?php esc_html_e( 'Send your donation to the author of', 'contextual-related-posts' ); ?> Contextual Related Posts">
 						<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
 					</form>
 				</div>
