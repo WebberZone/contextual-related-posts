@@ -184,4 +184,3 @@ function crp_get_settings() {
 	 */
 	return apply_filters( 'crp_get_settings', $settings );
 }
-

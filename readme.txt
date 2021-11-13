@@ -3,8 +3,8 @@ Tags: related posts, related, related articles, contextual related posts, simila
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: 3.1.0
-Requires at least: 5.0
-Tested up to: 5.7
+Requires at least: 5.1
+Tested up to: 5.8
 Requires PHP: 7.0
 License: GPLv2 or later
 
@@ -173,6 +173,12 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 
 == Changelog ==
+
+= 3.1.0 =
+
+* Bug fixes:
+    * Don't enqueue wp-editor on widgets.php
+    * [WP_Query stopwords](https://developer.wordpress.org/reference/classes/wp_query/get_search_stopwords/) are stripped from content that is matched.
 
 = 3.0.7 =
 
