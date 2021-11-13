@@ -305,9 +305,8 @@ function crp_list_link( $args, $result ) {
 		$output .= '<figure>';
 		$output .= crp_get_the_post_thumbnail(
 			array(
-				'postid'             => $result,
-				'thumb_height'       => $args['thumb_height'],
-				'thumb_width'        => $args['thumb_width'],
+				'post'               => $result,
+				'size'               => $args['thumb_size'],
 				'thumb_meta'         => $args['thumb_meta'],
 				'thumb_html'         => $args['thumb_html'],
 				'thumb_default'      => $args['thumb_default'],
