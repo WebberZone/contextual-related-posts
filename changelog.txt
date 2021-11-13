@@ -2,6 +2,82 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 3.0.7 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
+
+* Bug fix:
+    * Replicate old style of exclusion checking of option set in meta. Using the shortcode, manual or block will ignore the meta option to "Disable Related Posts display"
+
+= 3.0.6 =
+
+* Enhancement:
+    * Defining `CRP_CACHE_TIME` to `false` will disable expiry
+    * Introduced wpml-config.xml file. Title and Custom text for blank output can now be translated with Polylang (and potentially WPML)
+
+* Bug fix:
+    * Exclude on categories did not work
+    * Posts would trigger a "SHOW FULL COLUMNS FROM" error if they had ' from' in the title
+    * Manual posts did not work properly - all post types and all posts are properly fetched now
+
+= 3.0.5 =
+
+* Bug fix:
+    * Certain posts would trigger a "SHOW FULL COLUMNS FROM" error
+    * Forced `.crp_related figure` margin to 0
+
+= 3.0.4 =
+
+* Enhancement/Modifications:
+    * `include_cat_ids` and `exclude_categories` will also accept custom taxonomy `term_taxonomy_id`s
+    * Thumbnail's `img` tag is wrapped in `<figure>`
+    * Remove extra checking for `exclude_categories` in `get_crp`
+    * Optimise deleting of cache entries when updating a post - post saving should be significantly faster
+
+= 3.0.3 =
+
+* Enhancement/Modifications:
+    * Grid style minimum width is now decided by the width of the thumbnail and long words are wrapped
+
+* Bug fixes:
+    * Selecting No style created a 404 error
+    * Fixed issue with $attachment_id not being declared in some cases
+
+= 3.0.2 =
+
+* Bug fixes:
+    * Fixed issue where Related Posts newer than was set to 0 caused no posts to display
+    * Use the original arguments when setting the cache key for CRP_Query
+    * Selecting "Blank Output" didn't work
+
+= 3.0.1 =
+
+* Bug fixes:
+    * Fixed issue with help tab that broke some sites
+
+= 3.0.0 =
+
+* Features:
+    * New CRP_Query class for fetching related posts. This replaces `get_crp_posts_id()` which will be deprecated in a future version
+    * CRP Thumbnails now include the `loading="lazy"` attribute added in WordPress 5.5
+    * New parameter `more_link_text` that can be passed to `get_crp()` which holds the "read more". Recommended option to customize the more link text using the filter `crp_excerpt_more_link_text` or the more link element using `crp_excerpt_more_link`
+    * Three new styles: "Masonry" (like Pinterest), "Grid" and "Rounded thumbnails with CSS grid". Might not work with older browsers
+    * Imported settings of [Related Posts by Categories and Tags](https://webberzone.com/downloads/crp-taxonomy/). That plugin is now deprecated with this release.
+
+* Enhancement/Modifications:
+    * If WPML or PolyLang are active, `get_crp_posts_id()` and `CRP_Query` will return the translated set of post IDs and external processing is no longer needed
+    * Use `wp_img_tag_add_srcset_and_sizes_attr()` to generate srcset and sizes attributes. The original code to display the srcset and sizes attributes will continue to be used
+    * Improved caching with inbuilt expiry. Use CRP_CACHE_TIME in your wp-config.php to set how long the cache should be set for. Default is one month
+    * CRP_MAX_WORDS has been reduced to 100
+    * Dropped the need for FULLTEXT index on post_content which should save some database space
+    * Deprecated the following filters: `get_crp_posts_id`, `crp_posts_now_date`, `crp_posts_from_date`, `crp_posts_fields`, `crp_posts_join`, `crp_posts_where`, `crp_posts_groupby`, `crp_posts_having`, `crp_posts_orderby`, `crp_posts_limits`, `get_crp_posts_id_short_circuit`
+
+* Bug fixes:
+    * In the settings page, only built-in taxonomies were being incorrectly displayed
+    * If "before list item" is empty, then the output was blanked out
+    * Settings help has been fixed
+    * `crp_get_option` would return an incorrect value if $crp_settings global variable was not set
+
 = 2.9.4 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-3/](https://webberzone.com/blog/contextual-related-posts-v2-9-3/)
