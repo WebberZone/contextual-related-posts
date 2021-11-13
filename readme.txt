@@ -183,7 +183,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Bug fixes:
     * Don't enqueue wp-editor on widgets.php
-    * [WP_Query stopwords](https://developer.wordpress.org/reference/classes/wp_query/get_search_stopwords/) are stripped from content that is matched.
+    * [WP_Query stopwords](https://developer.wordpress.org/reference/classes/wp_query/get_search_stopwords/) are stripped from content that is matched
+    * Manual posts are added after the automatic posts are shuffled
 
 = Earlier versions =
 
