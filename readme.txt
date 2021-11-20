@@ -176,6 +176,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.1.0 =
 
+* Features:
+    * New setting in the metabox to exclude specific terms
+
 * Enhancements/modifications:
     * Thumbnail function uses the size instead of exact array of sizes to better select the appropriate thumbnail image size
     * Use site icon if no other thumbnail is found

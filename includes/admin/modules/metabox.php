@@ -72,39 +72,27 @@ function crp_call_meta_box() {
 	wp_nonce_field( 'crp_meta_box', 'crp_meta_box_nonce' );
 
 	// Get the thumbnail settings. The name of the meta key is defined in thumb_meta parameter of the CRP Settings array.
-	$crp_thumb_meta = get_post_meta( $post->ID, crp_get_option( 'thumb_meta' ), true );
-	$value          = ( $crp_thumb_meta ) ? $crp_thumb_meta : '';
+	$thumb_meta = get_post_meta( $post->ID, crp_get_option( 'thumb_meta' ), true );
+	$value      = ( $thumb_meta ) ? $thumb_meta : '';
 
 	// Get related posts specific meta.
-	$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
+	$post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
 
 	// Disable display option.
-	if ( isset( $crp_post_meta['crp_disable_here'] ) ) {
-		$disable_here = $crp_post_meta['crp_disable_here'];
-	} else {
-		$disable_here = 0;
-	}
+	$disable_here = isset( $post_meta['crp_disable_here'] ) ? $post_meta['crp_disable_here'] : 0;
 
-	if ( isset( $crp_post_meta['exclude_this_post'] ) ) {
-		$exclude_this_post = $crp_post_meta['exclude_this_post'];
-	} else {
-		$exclude_this_post = 0;
-	}
+	// Exclude this post.
+	$exclude_this_post = isset( $post_meta['exclude_this_post'] ) ? $post_meta['exclude_this_post'] : 0;
 
 	// Manual related.
-	if ( isset( $crp_post_meta['manual_related'] ) ) {
-		$manual_related = $crp_post_meta['manual_related'];
-	} else {
-		$manual_related = '';
-	}
+	$manual_related       = isset( $post_meta['manual_related'] ) ? $post_meta['manual_related'] : '';
 	$manual_related_array = explode( ',', $manual_related );
 
 	// Keyword - word or phrase.
-	if ( isset( $crp_post_meta['keyword'] ) ) {
-		$keyword = $crp_post_meta['keyword'];
-	} else {
-		$keyword = '';
-	}
+	$keyword = isset( $post_meta['keyword'] ) ? $post_meta['keyword'] : '';
+
+	// Exclude terms.
+	$exclude_words = isset( $post_meta['exclude_words'] ) ? $post_meta['exclude_words'] : '';
 
 	?>
 	<p>
@@ -125,6 +113,12 @@ function crp_call_meta_box() {
 		<label for="keyword"><strong><?php esc_html_e( 'Keyword:', 'contextual-related-posts' ); ?></strong></label>
 		<textarea class="large-text" cols="50" rows="5" id="crp_keyword" name="crp_keyword"><?php echo esc_textarea( stripslashes( $keyword ) ); ?></textarea>
 		<em><?php esc_html_e( 'Enter either a word or a phrase that will be used to find related posts. If entered, the plugin will continue to search the `post_title` and `post_content` fields but will use this keyword instead of the values of the title and content of this post.', 'contextual-related-posts' ); ?></em>
+	</p>
+
+	<p>
+		<label for="exclude_words"><strong><?php esc_html_e( 'Exclude terms:', 'contextual-related-posts' ); ?></strong></label>
+		<textarea class="large-text" cols="50" rows="5" id="crp_exclude_words" name="crp_exclude_words"><?php echo esc_textarea( stripslashes( $exclude_words ) ); ?></textarea>
+		<em><?php esc_html_e( "Enter a comma-separated list of terms. If a related post's title or content contains any of these terms then it will be excluded from the results.", 'contextual-related-posts' ); ?></em>
 	</p>
 
 	<p>
@@ -171,7 +165,7 @@ function crp_call_meta_box() {
 	</p>
 
 	<?php
-	if ( $crp_thumb_meta ) {
+	if ( $thumb_meta ) {
 		echo '<img src="' . esc_attr( $value ) . '" style="max-width:100%" />';
 	}
 	?>
@@ -197,7 +191,7 @@ function crp_call_meta_box() {
  */
 function crp_save_meta_box( $post_id ) {
 
-	$crp_post_meta = array();
+	$post_meta = array();
 
 	// Bail if we're doing an auto save.
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -227,19 +221,23 @@ function crp_save_meta_box( $post_id ) {
 
 	// Disable posts.
 	if ( isset( $_POST['crp_disable_here'] ) ) {
-		$crp_post_meta['crp_disable_here'] = 1;
+		$post_meta['crp_disable_here'] = 1;
 	} else {
-		$crp_post_meta['crp_disable_here'] = 0;
+		$post_meta['crp_disable_here'] = 0;
 	}
 
 	if ( isset( $_POST['crp_exclude_this_post'] ) ) {
-		$crp_post_meta['exclude_this_post'] = 1;
+		$post_meta['exclude_this_post'] = 1;
 	} else {
-		$crp_post_meta['exclude_this_post'] = 0;
+		$post_meta['exclude_this_post'] = 0;
 	}
 
 	if ( isset( $_POST['crp_keyword'] ) ) {
-		$crp_post_meta['keyword'] = sanitize_text_field( wp_unslash( $_POST['crp_keyword'] ) );
+		$post_meta['keyword'] = sanitize_text_field( wp_unslash( $_POST['crp_keyword'] ) );
+	}
+
+	if ( isset( $_POST['crp_exclude_words'] ) ) {
+		$post_meta['exclude_words'] = implode( ',', array_map( 'trim', explode( ',', sanitize_text_field( wp_unslash( $_POST['crp_exclude_words'] ) ) ) ) );
 	}
 
 	// Save Manual related posts.
@@ -252,7 +250,7 @@ function crp_save_meta_box( $post_id ) {
 				unset( $manual_related_array[ $key ] );
 			}
 		}
-		$crp_post_meta['manual_related'] = implode( ',', $manual_related_array );
+		$post_meta['manual_related'] = implode( ',', $manual_related_array );
 	}
 
 	/**
@@ -260,18 +258,18 @@ function crp_save_meta_box( $post_id ) {
 	 *
 	 * @since   2.2.0
 	 *
-	 * @param   array   $crp_post_meta  CRP post-specific settings
+	 * @param   array   $post_meta  CRP post-specific settings
 	 * @param   int $post_id    Post ID
 	 */
-	$crp_post_meta = apply_filters( 'crp_post_meta', $crp_post_meta, $post_id );
+	$post_meta = apply_filters( 'crp_post_meta', $post_meta, $post_id );
 
-	$crp_post_meta_filtered = array_filter( $crp_post_meta );
+	$post_meta_filtered = array_filter( $post_meta );
 
 	/**** Now we can start saving */
-	if ( empty( $crp_post_meta_filtered ) ) {   // Checks if all the array items are 0 or empty.
+	if ( empty( $post_meta_filtered ) ) {   // Checks if all the array items are 0 or empty.
 		delete_post_meta( $post_id, 'crp_post_meta' );  // Delete the post meta if no options are set.
 	} else {
-		update_post_meta( $post_id, 'crp_post_meta', $crp_post_meta_filtered );
+		update_post_meta( $post_id, 'crp_post_meta', $post_meta_filtered );
 	}
 
 	/**
@@ -285,4 +283,3 @@ function crp_save_meta_box( $post_id ) {
 }
 add_action( 'save_post', 'crp_save_meta_box' );
 add_action( 'edit_attachment', 'crp_save_meta_box' );
-
