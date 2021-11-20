@@ -3,8 +3,8 @@
 [![WordPress Plugin Version](https://img.shields.io/wordpress/plugin/v/contextual-related-posts.svg?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 [![License](https://img.shields.io/badge/license-GPL_v2%2B-orange.svg?style=flat-square)](http://opensource.org/licenses/GPL-2.0)
 [![WordPress Tested](https://img.shields.io/wordpress/v/contextual-related-posts.svg?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
-[![Required PHP](https://img.shields.io/wordpress/plugin/required-php/better-search?style=flat-square)](https://wordpress.org/plugins/better-search/)
-[![Active installs](https://img.shields.io/wordpress/plugin/installs/better-search?style=flat-square)](https://wordpress.org/plugins/better-search/)
+[![Required PHP](https://img.shields.io/wordpress/plugin/required-php/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
+[![Active installs](https://img.shields.io/wordpress/plugin/installs/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 
 __Requires:__ 5.1
 
