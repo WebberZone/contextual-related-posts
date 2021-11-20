@@ -505,6 +505,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 * @return string  Updated WHERE
 		 */
 		public function posts_where( $where, $query ) {
+			global $wpdb;
 
 			// Return if it is not a CRP_Query.
 			if ( true !== $query->get( 'crp_query' ) ) {
@@ -534,6 +535,28 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$where .= $match;
 
 			}
+
+			if ( isset( $this->crp_post_meta['exclude_words'] ) ) {
+
+				$n          = '%';
+				$excludeand = '';
+				$exclude    = '';
+
+				$exclude_words = explode( ',', $this->crp_post_meta['exclude_words'] );
+				$exclude_words = array_filter( $exclude_words );
+				foreach ( (array) $exclude_words as $word ) {
+					$like_op    = 'NOT LIKE';
+					$andor_op   = 'AND';
+					$like       = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
+					$exclude   .= $wpdb->prepare( "{$excludeand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s))", $like, $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					$excludeand = ' AND ';
+				}
+
+				if ( ! empty( $exclude ) ) {
+					$where .= " AND ({$exclude}) ";
+				}
+			}
+
 			return $where;
 		}
 
