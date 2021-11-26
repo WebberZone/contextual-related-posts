@@ -33,6 +33,7 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
 * **Gutenberg / Block Editor support**: You can find a block called "Related Posts [CRP]" with its own configurable set of options
 * **Widgets**: Add related posts to widgetized area of your theme. Lots of options available
 * **Shortcode**: Use `[crp]` to display the posts anywhere you want in the post content
+* **REST API**: Fetch related posts at `contextual-related-posts/v1/posts/<id>/`
 * **The algorithm**: Find related posts by title and/or content of the current post
 * **Caching**: Related posts output is automatically cached as visitors browse through your site
 * **Exclusions**: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
