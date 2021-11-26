@@ -389,7 +389,7 @@ function crp_settings_list() {
 			'name'    => esc_html__( 'Related posts should be newer than', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'This sets the cut-off period for which posts will be displayed. e.g. setting it to 365 will show related posts from the last year only. Set to 0 to disable limiting posts by date.', 'contextual-related-posts' ),
 			'type'    => 'number',
-			'options' => '1095',
+			'options' => '0',
 			'min'     => '0',
 		),
 		'ordering'               => array(
