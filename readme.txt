@@ -109,39 +109,27 @@ If your question isn't listed here, please create a new post at the [WordPress.o
 
 = How can I customise the output? =
 
-Several customization options are available via the Settings page in WordPress Admin. You can access this via <strong>Settings &raquo; Related Posts</strong>
-
-The plugin also provides you with a set of CSS classes that allow you to style your posts by adding code to the *style.css* sheet.
-
-The main CSS classes / IDs are:
-
-* **crp_related**: ID of the main wrapper `div`. This is only displayed on singular pages, i.e. post, page and attachment
-
-* **crp_related**: Class of the main wrapper `div`. If you are displaying the related posts on non-singular pages, then you should style this
-
-* **crp_title**: Class of the `span` tag for title of the post
-
-* **crp_excerpt**: Class of the `span` tag for excerpt (if included)
-
-* **crp_thumb**: Class of the post thumbnail `img` tag
-
+Contextual Related Posts is highly customizable. There are several configurable options in the Settings page and you can use CSS to customize the outputs. Learn more by reading [this article](https://webberzone.com/support/knowledgebase/customising-the-output-of-contextual-related-posts/).
 
 = How does the plugin select thumbnails? =
 
-The plugin selects thumbnails in the following order:
+If you enable thumbnails, the plugin will try to find the correct thumbnail in this order:
 
-1. Post meta field: This is the meta field value you can use when editing your post. The default is `post-image`
+1. Post meta field: This is the meta field value you can use when editing your post. The default is `post-image`. Change it in the Settings page
 
-2. Post Thumbnail image: The image that you can set while editing your post in WordPress &raquo; New Post screen
+2. Post Thumbnail image: The image that you can set under Featured Image
 
-3. First image in the post: The plugin will try to fetch the first image in the post
+3. First image in the post: The plugin will try to fetch the first image in the post. Toggle this in the Settings page
 
-3. Video Thumbnails: Meta field set by <a href="https://wordpress.org/extend/plugins/video-thumbnails/">Video Thumbnails</a>
+4. First child image attached to the post
 
-4. Default Thumbnail: If enabled, it will use the default thumbnail that you specify in the Settings screen
+5. Video Thumbnails: Meta field set by [Video Thumbnails plugin](https://wordpress.org/plugins/video-thumbnails/)
 
+6. Site Icon: this is typically set using Customizer
 
-= Manual install =
+7. Default Thumbnail: If enabled, it will use the default thumbnail that you specify in the Settings page
+
+= Template tags =
 
 The following functions are available in case you wish to do a manual install of the posts by editing the theme files.
 
@@ -151,8 +139,7 @@ Echoes the list of posts wherever you add the this function. You can also use th
 
 Usage: `<?php if ( function_exists( 'echo_crp' ) ) { echo_crp(); } ?>` to your template file where you want the related posts to be displayed.
 
-
-**get_crp_posts_id()**
+**get_crp_posts_id( $args = array() )**
 
 Takes a post ID and returns the related post IDs as an object.
 
@@ -167,6 +154,7 @@ Parameters:
 
 *$limit* : Maximum number of posts to return. The actual number displayed may be lower depending on the matching algorithm and the category / post exclusion settings.
 
+This is not an exhaustive set of Parameters. For the full list of Parameters check out the shortcode FAQ below.
 
 = Shortcodes =
 
