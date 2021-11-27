@@ -179,28 +179,46 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			}
 			$this->random_order = $random_order;
 
-			// Set the number of posts to be retrieved.
-			$args['posts_per_page'] = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
-
-			// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-			if ( ! empty( $args['post_types'] ) && false === strpos( $args['post_types'], '=' ) ) {
-				$post_types = explode( ',', $args['post_types'] );
-			} else {
-				parse_str( $args['post_types'], $post_types );  // Save post types in $post_types variable.
+			// Set the number of posts to be retrieved. Use posts_per_page if set else use limit.
+			if ( empty( $args['posts_per_page'] ) ) {
+				$args['posts_per_page'] = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
 			}
 
-			// If post_types is empty or if we want all the post types.
-			if ( empty( $post_types ) || 'all' === $args['post_types'] ) {
-				$post_types = get_post_types(
-					array(
-						'public' => true,
-					)
-				);
-			}
+			if ( empty( $args['post_type'] ) ) {
 
-			// If we only want posts from the same post type.
-			if ( $args['same_post_type'] ) {
-				$post_types = (array) $source_post->post_type;
+				// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
+				if ( ! empty( $args['post_types'] ) && false === strpos( $args['post_types'], '=' ) ) {
+					$post_types = explode( ',', $args['post_types'] );
+				} else {
+					parse_str( $args['post_types'], $post_types );  // Save post types in $post_types variable.
+				}
+
+				// If post_types is empty or if we want all the post types.
+				if ( empty( $post_types ) || 'all' === $args['post_types'] ) {
+					$post_types = get_post_types(
+						array(
+							'public' => true,
+						)
+					);
+				}
+
+				// If we only want posts from the same post type.
+				if ( $args['same_post_type'] ) {
+					$post_types = (array) $source_post->post_type;
+				}
+
+				/**
+				 * Filter the post_types passed to the query.
+				 *
+				 * @since 2.2.0
+				 * @since 3.0.0 Changed second argument from post ID to WP_Post object.
+				 *
+				 * @param array   $post_types  Array of post types to filter by.
+				 * @param WP_Post $source_post Source Post instance.
+				 * @param array   $args        Arguments array.
+				 */
+				$args['post_type'] = apply_filters( 'crp_posts_post_types', $post_types, $source_post, $args );
+
 			}
 
 			// Tax Query.
@@ -271,18 +289,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			}
 
 			$args['tax_query'] = $tax_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-
-			/**
-			 * Filter the post_types passed to the query.
-			 *
-			 * @since 2.2.0
-			 * @since 3.0.0 Changed second argument from post ID to WP_Post object.
-			 *
-			 * @param array   $post_types  Array of post types to filter by.
-			 * @param WP_Post $source_post Source Post instance.
-			 * @param array   $args        Arguments array.
-			 */
-			$args['post_type'] = apply_filters( 'crp_posts_post_types', $post_types, $source_post, $args );
 
 			// Set date_query.
 			$args['date_query'] = array(
