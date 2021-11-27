@@ -173,6 +173,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
     * Thumbnail function uses the size instead of exact array of sizes to better select the appropriate thumbnail image size
     * Use site icon if no other thumbnail is found
     * Use both `post_title` and `post_content` fields for matching even when match content setting is off
+    * Passing `post_type` and `posts_per_page` arguments will be respected instead of being overridden
 
 * Bug fixes:
     * Don't enqueue wp-editor on widgets.php
