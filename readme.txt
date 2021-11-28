@@ -187,5 +187,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.0.7 =
-Bug fixes. Please read the release post on https://webberzone.com
+= 3.1.0 =
+WP REST API support. Please read the release post on https://webberzone.com
