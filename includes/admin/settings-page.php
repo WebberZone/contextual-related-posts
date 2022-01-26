@@ -451,17 +451,17 @@ function crp_thumbsizes_callback( $args ) {
 		);
 	}
 
-	foreach ( $args['options'] as $option ) {
+	foreach ( $args['options'] as $name => $option ) {
 		$checked = false;
 
-		if ( isset( $crp_settings[ $args['id'] ] ) && $crp_settings[ $args['id'] ] === $option['name'] ) {
+		if ( isset( $crp_settings[ $args['id'] ] ) && $crp_settings[ $args['id'] ] === $name ) {
 			$checked = true;
-		} elseif ( isset( $args['default'] ) && $args['default'] === $option['name'] && ! isset( $crp_settings[ $args['id'] ] ) ) {
+		} elseif ( isset( $args['default'] ) && $args['default'] === $name && ! isset( $crp_settings[ $args['id'] ] ) ) {
 			$checked = true;
 		}
 
-		$html .= sprintf( '<input name="crp_settings[%1$s]" id="crp_settings[%1$s][%2$s]" type="radio" value="%2$s" %3$s /> ', sanitize_key( $args['id'] ), $option['name'], checked( true, $checked, false ) );
-		$html .= sprintf( '<label for="crp_settings[%1$s][%2$s]">%3$s</label> <br />', sanitize_key( $args['id'] ), $option['name'], $option['name'] . ' (' . $option['width'] . 'x' . $option['height'] . ')' );
+		$html .= sprintf( '<input name="crp_settings[%1$s]" id="crp_settings[%1$s][%2$s]" type="radio" value="%2$s" %3$s /> ', sanitize_key( $args['id'] ), $name, checked( true, $checked, false ) );
+		$html .= sprintf( '<label for="crp_settings[%1$s][%2$s]">%3$s</label> <br />', sanitize_key( $args['id'] ), $name, $name . ' (' . $option['width'] . 'x' . $option['height'] . ')' );
 	}
 
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
