@@ -167,6 +167,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-1-0/](https://webberzone.com/blog/contextual-related-posts-v3-1-0/)
 
+* Enhancements:
+    * Don't clear cache when saving settings. The cache can be cleared in the Tools page
+
 * Bug fixes:
     * Limiting of characters didn't work properly
     * Fixed link to Tools menu under Settings. Tools button link is better displayed

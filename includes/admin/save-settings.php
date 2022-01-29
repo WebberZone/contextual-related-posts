@@ -367,9 +367,6 @@ function crp_change_settings_on_save( $settings ) {
 		$settings['post_thumb_op'] = 'text_only';
 	}
 
-	// Delete the cache.
-	crp_cache_delete();
-
 	return $settings;
 }
 add_filter( 'crp_settings_sanitize', 'crp_change_settings_on_save' );
