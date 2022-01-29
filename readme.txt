@@ -170,6 +170,7 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-1-0/](htt
 * Bug fixes:
     * Limiting of characters didn't work properly
     * Fixed link to Tools menu under Settings. Tools button link is better displayed
+    * Fixed activation when new blog is created on multisite
 
 = 3.1.0 =
 
