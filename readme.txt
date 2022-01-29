@@ -169,6 +169,7 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-1-0/](htt
 
 * Enhancements:
     * Don't clear cache when saving settings. The cache can be cleared in the Tools page
+    * Default thumbnail is now prioritized over the site icon
 
 * Bug fixes:
     * Limiting of characters didn't work properly
