@@ -2,10 +2,10 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.1.0
-Requires at least: 5.1
-Tested up to: 5.8
-Requires PHP: 7.0
+Stable tag: 3.1.1
+Requires at least: 5.3
+Tested up to: 5.9
+Requires PHP: 7.1
 License: GPLv2 or later
 
 Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
@@ -200,5 +200,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.1.0 =
-WP REST API support. Please read the release post on https://webberzone.com
+= 3.1.1 =
+Bug fixes. Please read the release post on https://webberzone.com
