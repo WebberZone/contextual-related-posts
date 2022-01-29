@@ -36,8 +36,7 @@ function crp_add_admin_pages_links() {
 	);
 	add_action( "load-$crp_settings_page", 'crp_settings_help' ); // Load the settings contextual help.
 
-	$crp_settings_tools = add_submenu_page(
-		$crp_settings_page,
+	$crp_settings_tools = add_options_page(
 		esc_html__( 'Contextual Related Posts Tools', 'contextual-related-posts' ),
 		esc_html__( 'Tools', 'contextual-related-posts' ),
 		'manage_options',
@@ -158,3 +157,37 @@ function crp_enqueue_scripts_widgets( $hook ) {
 }
 add_action( 'admin_enqueue_scripts', 'crp_enqueue_scripts_widgets', 99 );
 
+/**
+ * Adds minor CSS styles to the admin menu.
+ *
+ * @since 3.1.1
+ */
+function crp_admin_css() {
+
+	if ( ! is_customize_preview() ) {
+		$css = '
+			<style type="text/css">
+				#adminmenu a[href="options-general.php?page=crp_tools_page"]:before {
+					content: "\21B3";
+					margin-right: 0.5em;
+					opacity: 0.5;
+				}
+				a.crp_button {
+					background: green;
+					padding: 10px;
+					color: white;
+					text-decoration: none;
+					text-shadow: none;
+					border-radius: 3px;
+					transition: all 0.3s ease 0s;
+					border: 1px solid green;
+				}
+				a.crp_button:hover {
+					box-shadow: 3px 3px 10px #666;
+				}
+			</style>';
+
+		echo $css; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+}
+add_action( 'admin_head', 'crp_admin_css' );
