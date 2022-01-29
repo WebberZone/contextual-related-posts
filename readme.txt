@@ -163,9 +163,14 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
-= 3.1.0 =
+= 3.1.1 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-1-0/](https://webberzone.com/blog/contextual-related-posts-v3-1-0/)
+
+* Bug fixes:
+    * Limiting of characters didn't work properly
+
+= 3.1.0 =
 
 * Features:
     * REST API support - you can now fetch the related posts via the REST API. Fetch posts at `/contextual-related-posts/v1/posts/<id>`

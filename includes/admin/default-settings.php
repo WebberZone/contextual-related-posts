@@ -270,6 +270,7 @@ function crp_settings_output() {
 			'desc'    => esc_html__( 'Any title longer than the number of characters set above will be cut and appended with an ellipsis (&hellip;)', 'contextual-related-posts' ),
 			'type'    => 'number',
 			'options' => '60',
+			'min'     => '0',
 			'size'    => 'small',
 		),
 		'link_new_window'       => array(
