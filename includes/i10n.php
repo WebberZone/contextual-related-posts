@@ -25,7 +25,7 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
  *
  * @since 3.0.0
  *
- * @param array $results Arry of Posts.
+ * @param array $results Array of Posts.
  * @return array Updated array of WP_Post objects.
  */
 function crp_translate_ids( $results ) {
@@ -84,8 +84,8 @@ function crp_object_id_cur_lang( $post ) {
 		 *
 		 * @since   2.2.3
 		 *
-		 * @param   bool    $return_original_if_missing
-		 * @param   int $post->ID    Post ID
+		 * @param bool $return_original_if_missing Flag to return original post ID if translated post ID is missing.
+		 * @param int  $id                         Post ID
 		 */
 		$return_original_if_missing = apply_filters( 'crp_wpml_return_original', $return_original_if_missing, $post->ID );
 
@@ -94,11 +94,11 @@ function crp_object_id_cur_lang( $post ) {
 	}
 
 	/**
-	 * Filters object ID for current language (WPML).
+	 * Filters post object for current language.
 	 *
-	 * @since   2.1.0
+	 * @since 2.1.0
 	 *
-	 * @param   int $post->ID    Post ID
+	 * @param WP_Post $id Post object.
 	 */
 	return apply_filters( 'crp_object_id_cur_lang', $post );
 }
