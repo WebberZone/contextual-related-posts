@@ -374,7 +374,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Are we matching only the title or the post content as well?
 			$match_fields = array(
 				"$wpdb->posts.post_title",
-				"$wpdb->posts.post_content",
 			);
 
 			$match_fields_content = array(
@@ -382,6 +381,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			);
 
 			if ( $this->query_args['match_content'] ) {
+				$match_fields[]         = "$wpdb->posts.post_content";
 				$match_fields_content[] = $this->strip_stopwords( crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false ) );
 			}
 
