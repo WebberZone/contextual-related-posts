@@ -131,5 +131,15 @@ function crp_get_style() {
 			break;
 	}
 
-	return $style;
+	/**
+	 * Filter the style array which contains the name and extra_css.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param array  $style        Style array containing name and extra_css.
+	 * @param string $crp_style    Style name.
+	 * @param int    $thumb_width  Thumbnail width.
+	 * @param int    $thumb_height Thumbnail height.
+	 */
+	return apply_filters( 'crp_get_style', $style, $crp_style, $thumb_width, $thumb_height );
 }
