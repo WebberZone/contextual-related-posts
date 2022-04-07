@@ -474,7 +474,7 @@ function crp_get_attachment_id_from_url( $attachment_url = '' ) {
 /**
  * Function to get the correct height and width of the thumbnail.
  *
- * @since   2.9.0
+ * @since 2.9.0
  * @since 3.1.0 First argument is a string.
  *
  * @param  string $size Image size.
