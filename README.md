@@ -6,9 +6,9 @@
 [![Required PHP](https://img.shields.io/wordpress/plugin/required-php/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 
-__Requires:__ 5.1
+__Requires:__ 5.6
 
-__Tested up to:__ 5.8
+__Tested up to:__ 5.9
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -28,26 +28,26 @@ And the default inbuilt styles allow you to switch between gorgeous thumbnail-ri
 
 ### Key features
 
-* **Automatic**: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
-* **Manual install**: Want more control over placement? Check the [FAQ](http://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install
-* **Gutenberg / Block Editor support**: You can find a block called "Related Posts [CRP]" with its own configurable set of options
-* **Widgets**: Add related posts to widgetized area of your theme. Lots of options available
-* **Shortcode**: Use `[crp]` to display the posts anywhere you want in the post content
-* **REST API**: Fetch related posts at `contextual-related-posts/v1/posts/<id>/`
-* **The algorithm**: Find related posts by title and/or content of the current post
-* **Caching**: Related posts output is automatically cached as visitors browse through your site
-* **Exclusions**: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
-* **Custom post types**: The related posts list lets you include posts, pages, attachments or any other custom post type!
-* **Thumbnail support**:
+* __Automatic__: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
+* __Manual install__: Want more control over placement? Check the [FAQ](http://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install
+* __Gutenberg / Block Editor support__: You can find a block called "Related Posts [CRP]" with its own configurable set of options
+* __Widgets__: Add related posts to widgetized area of your theme. Lots of options available
+* __Shortcode__: Use `[crp]` to display the posts anywhere you want in the post content
+* __REST API__: Fetch related posts at `contextual-related-posts/v1/posts/<id>/`
+* __The algorithm__: Find related posts by title and/or content of the current post
+* __Caching__: Related posts output is automatically cached as visitors browse through your site
+* __Exclusions__: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
+* __Custom post types__: The related posts list lets you include posts, pages, attachments or any other custom post type!
+* __Thumbnail support__:
   * Support for WordPress post thumbnails. CRP will create a custom image size (`crp_thumbnail`) with the dimensions specified in the Settings page
   * Auto-extract the first image in your post to be displayed as a thumbnail
   * Manually enter the URL of the thumbnail via [WordPress meta fields](http://codex.wordpress.org/Custom_Fields). Specify this using the meta box in your Edit screens.
   * Optionally, use timthumb to resize images or use your own filter function to resize post images
-* **Styles**: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area or use the style included.
-* **Customisable output**:
+* __Styles__: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area or use the style included.
+* __Customisable output__:
   * Display excerpts in post. You can select the length of the excerpt in words
   * Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
-* **Extendable code**: CRP has tonnes of filters and actions that allow any developer to easily add features, edit outputs, etc.
+* __Extendable code__: CRP has tonnes of filters and actions that allow any developer to easily add features, edit outputs, etc.
 
 ### mySQL FULLTEXT indices
 
