@@ -13,7 +13,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Initialises text domain for l10n.
  *
- * @since   2.2.0
+ * @since 2.2.0
  */
 function crp_lang_init() {
 	load_plugin_textdomain( 'contextual-related-posts', false, dirname( plugin_basename( CRP_PLUGIN_FILE ) ) . '/languages/' );
@@ -29,7 +29,6 @@ add_action( 'plugins_loaded', 'crp_lang_init' );
  * @return array Updated array of WP_Post objects.
  */
 function crp_translate_ids( $results ) {
-	global $post;
 
 	$processed_ids     = array();
 	$processed_results = array();
@@ -38,8 +37,8 @@ function crp_translate_ids( $results ) {
 
 		$result = crp_object_id_cur_lang( $result );
 
-		// If this is NULL or already processed ID or matches current post then skip processing this loop.
-		if ( ! $result->ID || in_array( $result->ID, $processed_ids ) || intval( $result->ID ) === intval( $post->ID ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
+		// If this is NULL or already processed ID then skip processing this loop.
+		if ( ! $result->ID || in_array( $result->ID, $processed_ids ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
 			continue;
 		}
 

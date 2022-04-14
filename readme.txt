@@ -168,6 +168,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Enhancements/modifications:
     * `post_title` and `post_content` fields are only used if *Use content* option is set
 
+* Bug fixes:
+    * Current post was incorrectly being excluded in the translation functions
+
 = 3.1.1 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-1-0/](https://webberzone.com/blog/contextual-related-posts-v3-1-0/)
