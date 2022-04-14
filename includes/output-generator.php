@@ -13,12 +13,14 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Returns the link attributes.
  *
- * @since   2.2.0
+ * @since 2.2.0
+ * @since 3.2.0 Added $result parameter
  *
- * @param   array $args   Array of arguments.
+ * @param array   $args   Array of arguments.
+ * @param WP_Post $result WP_Post object.
  * @return  string  Space separated list of link attributes.
  */
-function crp_link_attributes( $args ) {
+function crp_link_attributes( $args, $result ) {
 
 	$rel_attribute    = ( $args['link_nofollow'] ) ? ' rel="nofollow" ' : ' ';
 	$target_attribute = ( $args['link_new_window'] ) ? ' target="_blank" ' : ' ';
@@ -31,12 +33,14 @@ function crp_link_attributes( $args ) {
 	/**
 	 * Filter the title of the Related Posts list
 	 *
-	 * @since   2.2.0
+	 * @since 2.2.0
+	 * @since 3.2.0 Added $result parameter
 	 *
-	 * @param   array   $link_attributes    Array of link attributes
-	 * @param   array   $args   Array of arguments
+	 * @param array   $link_attributes    Array of link attributes
+	 * @param array   $args   Array of arguments
+	 * @param WP_Post $result WP_Post object.
 	 */
-	$link_attributes = apply_filters( 'crp_link_attributes', $link_attributes, $args );
+	$link_attributes = apply_filters( 'crp_link_attributes', $link_attributes, $args, $result );
 
 	// Convert it to a string.
 	$link_attributes = implode( ' ', $link_attributes );
@@ -130,8 +134,8 @@ function crp_after_list( $args ) {
  *
  * @since   2.2.0
  *
- * @param   array  $args   Array of arguments.
- * @param   object $result Object of the current post result.
+ * @param   array   $args   Array of arguments.
+ * @param   WP_Post $result WP_Post object.
  * @return  string  Space separated list of link attributes
  */
 function crp_before_list_item( $args, $result ) {
@@ -143,9 +147,9 @@ function crp_before_list_item( $args, $result ) {
 	 *
 	 * @since   1.9
 	 *
-	 * @param   string  $before_list_item   Tag before each list item. Can be defined in the Settings page.
-	 * @param   object  $result Object of the current post result
-	 * @param   array   $args   Array of arguments
+	 * @param   string  $before_list_item Tag before each list item. Can be defined in the Settings page.
+	 * @param   WP_Post $result           WP_Post object.
+	 * @param   array   $args             Array of arguments
 	 */
 	return apply_filters( 'crp_before_list_item', $before_list_item, $result, $args );
 
@@ -157,8 +161,8 @@ function crp_before_list_item( $args, $result ) {
  *
  * @since   2.2.0
  *
- * @param   array  $args   Array of arguments.
- * @param   object $result Object of the current post result.
+ * @param   array   $args   Array of arguments.
+ * @param   WP_Post $result WP_Post object.
  * @return  string  Space separated list of link attributes
  */
 function crp_after_list_item( $args, $result ) {
@@ -184,8 +188,8 @@ function crp_after_list_item( $args, $result ) {
  *
  * @since   2.2.0
  *
- * @param   array  $args   Array of arguments.
- * @param   object $result Object of the current post result.
+ * @param   array   $args   Array of arguments.
+ * @param   WP_Post $result WP_Post object.
  * @return  string  Space separated list of link attributes
  */
 function crp_title( $args, $result ) {
@@ -198,7 +202,7 @@ function crp_title( $args, $result ) {
 	 * @since   1.9
 	 *
 	 * @param   string  $title  Title of the post.
-	 * @param   object  $result Object of the current post result
+	 * @param   WP_Post $result WP_Post object.
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_title', $title, $result, $args );
@@ -211,8 +215,8 @@ function crp_title( $args, $result ) {
  *
  * @since   2.2.0
  *
- * @param   array  $args   Array of arguments.
- * @param   object $result Object of the current post result.
+ * @param   array   $args   Array of arguments.
+ * @param   WP_Post $result WP_Post object.
  * @return  string  Space separated list of link attributes
  */
 function crp_author( $args, $result ) {
@@ -244,7 +248,7 @@ function crp_author( $args, $result ) {
 	 *
 	 * @param   string  $crp_author Formatted string with author details and link
 	 * @param   object  $author_info    WP_User object of the post author
-	 * @param   object  $result Object of the current post result
+	 * @param   WP_Post $result WP_Post object.
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_author', $crp_author, $author_info, $result, $args );
@@ -257,8 +261,8 @@ function crp_author( $args, $result ) {
  *
  * @since   2.5.0
  *
- * @param   array  $args   Array of arguments.
- * @param   object $result Object of the current post result.
+ * @param   array   $args   Array of arguments.
+ * @param   WP_Post $result WP_Post object.
  * @return  string  Space separated list of link attributes
  */
 function crp_permalink( $args, $result ) {
@@ -271,7 +275,7 @@ function crp_permalink( $args, $result ) {
 	 * @since   2.5.0
 	 *
 	 * @param   string  $title  Permalink of the post.
-	 * @param   object  $result Object of the current post result
+	 * @param   WP_Post $result WP_Post object.
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_permalink', $link, $result, $args );
@@ -284,8 +288,8 @@ function crp_permalink( $args, $result ) {
  *
  * @since   2.2.0
  *
- * @param   array  $args   Array of arguments.
- * @param   object $result Object of the current post result.
+ * @param   array   $args   Array of arguments.
+ * @param   WP_Post $result WP_Post object.
  * @return  string Space separated list of link attributes
  */
 function crp_list_link( $args, $result ) {
@@ -293,7 +297,7 @@ function crp_list_link( $args, $result ) {
 	$output          = '';
 	$title           = crp_title( $args, $result );
 	$link            = crp_permalink( $args, $result );
-	$link_attributes = crp_link_attributes( $args );
+	$link_attributes = crp_link_attributes( $args, $result );
 
 	$output .= '<a href="' . $link . '" ' . $link_attributes . ' class="crp_link ' . $result->post_type . '-' . $result->ID . '">';
 
@@ -330,7 +334,7 @@ function crp_list_link( $args, $result ) {
 	 * @since   2.2.0
 	 *
 	 * @param   string  $output Formatted list item with link and and thumbnail
-	 * @param   object  $result Object of the current post result
+	 * @param   WP_Post $result WP_Post object.
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_list_link', $output, $result, $args );
