@@ -165,6 +165,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.2.0 =
 
+* New feature:
+    * No widget is displayed if `get_crp()` is empty i.e. no related posts are found
+
 * Enhancements/modifications:
     * `post_title` and `post_content` fields are only used if *Use content* option is set
     * Gutenberg block updated to the latest Blocks API
