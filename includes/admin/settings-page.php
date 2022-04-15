@@ -459,9 +459,20 @@ function crp_thumbsizes_callback( $args ) {
 		} elseif ( isset( $args['default'] ) && $args['default'] === $name && ! isset( $crp_settings[ $args['id'] ] ) ) {
 			$checked = true;
 		}
+		$cropped = $option['crop'] ? __( ' cropped', 'contextual-related-posts' ) : '';
 
-		$html .= sprintf( '<input name="crp_settings[%1$s]" id="crp_settings[%1$s][%2$s]" type="radio" value="%2$s" %3$s /> ', sanitize_key( $args['id'] ), $name, checked( true, $checked, false ) );
-		$html .= sprintf( '<label for="crp_settings[%1$s][%2$s]">%3$s</label> <br />', sanitize_key( $args['id'] ), $name, $name . ' (' . $option['width'] . 'x' . $option['height'] . ')' );
+		$html .= sprintf(
+			'<input name="crp_settings[%1$s]" id="crp_settings[%1$s][%2$s]" type="radio" value="%2$s" %3$s /> ',
+			sanitize_key( $args['id'] ),
+			$name,
+			checked( true, $checked, false )
+		);
+		$html .= sprintf(
+			'<label for="crp_settings[%1$s][%2$s]">%3$s</label> <br />',
+			sanitize_key( $args['id'] ),
+			$name,
+			$name . ' (' . $option['width'] . 'x' . $option['height'] . $cropped . ')'
+		);
 	}
 
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
@@ -776,4 +787,3 @@ function crp_styles_messages( $html, $args ) {
 	return $html;
 }
 add_filter( 'crp_after_setting_output', 'crp_styles_messages', 10, 2 );
-
