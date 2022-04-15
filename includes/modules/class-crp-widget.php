@@ -42,19 +42,18 @@ if ( ! class_exists( 'CRP_Widget' ) ) :
 		 * @param   array $instance   Previously saved values from database.
 		 */
 		public function form( $instance ) {
-			$title              = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-			$limit              = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
-			$offset             = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : '';
-			$show_excerpt       = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
-			$show_author        = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
-			$show_date          = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
-			$post_thumb_op      = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : '';
-			$thumb_height       = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
-			$thumb_width        = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
-			$ordering           = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
-			$random_order       = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
-			$include_categories = isset( $instance['include_categories'] ) ? esc_attr( $instance['include_categories'] ) : '';
-			$include_cat_ids    = isset( $instance['include_cat_ids'] ) ? esc_attr( $instance['include_cat_ids'] ) : '';
+			$title           = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+			$limit           = isset( $instance['limit'] ) ? esc_attr( $instance['limit'] ) : '';
+			$offset          = isset( $instance['offset'] ) ? esc_attr( $instance['offset'] ) : '';
+			$show_excerpt    = isset( $instance['show_excerpt'] ) ? esc_attr( $instance['show_excerpt'] ) : '';
+			$show_author     = isset( $instance['show_author'] ) ? esc_attr( $instance['show_author'] ) : '';
+			$show_date       = isset( $instance['show_date'] ) ? esc_attr( $instance['show_date'] ) : '';
+			$post_thumb_op   = isset( $instance['post_thumb_op'] ) ? esc_attr( $instance['post_thumb_op'] ) : '';
+			$thumb_height    = isset( $instance['thumb_height'] ) ? esc_attr( $instance['thumb_height'] ) : '';
+			$thumb_width     = isset( $instance['thumb_width'] ) ? esc_attr( $instance['thumb_width'] ) : '';
+			$ordering        = isset( $instance['ordering'] ) ? esc_attr( $instance['ordering'] ) : '';
+			$random_order    = isset( $instance['random_order'] ) ? esc_attr( $instance['random_order'] ) : '';
+			$include_cat_ids = isset( $instance['include_cat_ids'] ) ? esc_attr( $instance['include_cat_ids'] ) : '';
 
 			// Parse the Post types.
 			$post_types = array();
@@ -77,91 +76,90 @@ if ( ! class_exists( 'CRP_Widget' ) ) :
 			$orderings = crp_get_orderings();
 
 			?>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
-			<?php esc_html_e( 'Title', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-			</label>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
-			<?php esc_html_e( 'No. of posts', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
-			</label>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>">
-			<?php esc_html_e( 'Offset', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'offset' ) ); ?>" type="text" value="<?php echo esc_attr( $offset ); ?>" />
-			</label>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php checked( true, $show_excerpt, true ); ?> /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
-			</label>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox" <?php checked( true, $show_author, true ); ?> /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
-			</label>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox" <?php checked( true, $show_date, true ); ?> /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
-			</label>
-		</p>
-		<p>
-			<?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
-			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_thumb_op' ) ); ?>">
-				<option value="inline" <?php selected( 'inline', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
-				<option value="after" <?php selected( 'after', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
-				<option value="thumbs_only" <?php selected( 'thumbs_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
-				<option value="text_only" <?php selected( 'text_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
-			</select>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumb_height' ) ); ?>">
-			<?php esc_html_e( 'Thumbnail height', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumb_height' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumb_height' ) ); ?>" type="text" value="<?php echo esc_attr( $thumb_height ); ?>" />
-			</label>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'thumb_width' ) ); ?>">
-			<?php esc_html_e( 'Thumbnail width', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumb_width' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumb_width' ) ); ?>" type="text" value="<?php echo esc_attr( $thumb_width ); ?>" />
-			</label>
-		</p>
-		<p><?php esc_html_e( 'Order posts', 'contextual-related-posts' ); ?>:<br />
-
-			<?php foreach ( $orderings as $order => $label ) { ?>
-
-				<label>
-					<input id="<?php echo esc_attr( $this->get_field_id( 'ordering' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ordering' ) ); ?>" type="radio" value="<?php echo esc_attr( $order ); ?>" <?php checked( $order === $ordering ); ?> />
-					<?php echo esc_attr( $label ); ?>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+				<?php esc_html_e( 'Title', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 				</label>
-				<br />
-
-			<?php } ?>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'random_order' ) ); ?>">
-			<input id="<?php echo esc_attr( $this->get_field_id( 'random_order' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'random_order' ) ); ?>" type="checkbox" <?php checked( true, $random_order, true ); ?> /> <?php esc_html_e( ' Randomize posts', 'contextual-related-posts' ); ?>
-			</label>
-		</p>
-		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'include_categories' ) ); ?>">
-				<?php esc_html_e( 'Only from categories', 'top-10' ); ?>:
-				<input class="widefat category_autocomplete" id="<?php echo esc_attr( $this->get_field_id( 'include_categories' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'include_categories' ) ); ?>" type="text" value="<?php echo esc_attr( $include_categories ); ?>" />
-			</label>
-			<input type="hidden" id="<?php echo esc_attr( $this->get_field_id( 'include_cat_ids' ) ); ?>" name="<?php echo esc_attr( $this->get_field_id( 'include_cat_ids' ) ); ?>" value="<?php echo esc_attr( $include_cat_ids ); ?>" />
-		</p>
-		<p><?php esc_html_e( 'Post types to include', 'contextual-related-posts' ); ?>:<br />
-
-			<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
-
-				<label>
-					<input id="<?php echo esc_attr( $this->get_field_id( 'post_types' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_types' ) ); ?>[]" type="checkbox" value="<?php echo esc_attr( $wp_post_type ); ?>" <?php checked( true, in_array( $wp_post_type, $posts_types_inc, true ) ); ?> />
-					<?php echo esc_attr( $wp_post_type ); ?>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
+				<?php esc_html_e( 'No. of posts', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="text" value="<?php echo esc_attr( $limit ); ?>" />
 				</label>
-				<br />
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>">
+				<?php esc_html_e( 'Offset', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'offset' ) ); ?>" type="text" value="<?php echo esc_attr( $offset ); ?>" />
+				</label>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>">
+				<input id="<?php echo esc_attr( $this->get_field_id( 'show_excerpt' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_excerpt' ) ); ?>" type="checkbox" <?php checked( true, $show_excerpt, true ); ?> /> <?php esc_html_e( ' Show excerpt?', 'contextual-related-posts' ); ?>
+				</label>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>">
+				<input id="<?php echo esc_attr( $this->get_field_id( 'show_author' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_author' ) ); ?>" type="checkbox" <?php checked( true, $show_author, true ); ?> /> <?php esc_html_e( ' Show author?', 'contextual-related-posts' ); ?>
+				</label>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>">
+				<input id="<?php echo esc_attr( $this->get_field_id( 'show_date' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'show_date' ) ); ?>" type="checkbox" <?php checked( true, $show_date, true ); ?> /> <?php esc_html_e( ' Show date?', 'contextual-related-posts' ); ?>
+				</label>
+			</p>
+			<p>
+				<?php esc_html_e( 'Thumbnail options', 'contextual-related-posts' ); ?>: <br />
+				<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'post_thumb_op' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_thumb_op' ) ); ?>">
+					<option value="inline" <?php selected( 'inline', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, before title', 'contextual-related-posts' ); ?></option>
+					<option value="after" <?php selected( 'after', $post_thumb_op, true ); ?>><?php esc_html_e( 'Thumbnails inline, after title', 'contextual-related-posts' ); ?></option>
+					<option value="thumbs_only" <?php selected( 'thumbs_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'Only thumbnails, no text', 'contextual-related-posts' ); ?></option>
+					<option value="text_only" <?php selected( 'text_only', $post_thumb_op, true ); ?>><?php esc_html_e( 'No thumbnails, only text.', 'contextual-related-posts' ); ?></option>
+				</select>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'thumb_height' ) ); ?>">
+				<?php esc_html_e( 'Thumbnail height', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumb_height' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumb_height' ) ); ?>" type="text" value="<?php echo esc_attr( $thumb_height ); ?>" />
+				</label>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'thumb_width' ) ); ?>">
+				<?php esc_html_e( 'Thumbnail width', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'thumb_width' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'thumb_width' ) ); ?>" type="text" value="<?php echo esc_attr( $thumb_width ); ?>" />
+				</label>
+			</p>
+			<p><?php esc_html_e( 'Order posts', 'contextual-related-posts' ); ?>:<br />
 
-			<?php } ?>
-		</p>
+				<?php foreach ( $orderings as $order => $label ) { ?>
+
+					<label>
+						<input id="<?php echo esc_attr( $this->get_field_id( 'ordering' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ordering' ) ); ?>" type="radio" value="<?php echo esc_attr( $order ); ?>" <?php checked( $order === $ordering ); ?> />
+						<?php echo esc_attr( $label ); ?>
+					</label>
+					<br />
+
+				<?php } ?>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'random_order' ) ); ?>">
+				<input id="<?php echo esc_attr( $this->get_field_id( 'random_order' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'random_order' ) ); ?>" type="checkbox" <?php checked( true, $random_order, true ); ?> /> <?php esc_html_e( ' Randomize posts', 'contextual-related-posts' ); ?>
+				</label>
+			</p>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'include_cat_ids' ) ); ?>">
+					<?php esc_html_e( 'Only from categories (comma-separated list of term taxonomy IDs)', 'contextual-related-posts' ); ?>:
+					<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'include_cat_ids' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'include_cat_ids' ) ); ?>" type="text" value="<?php echo esc_attr( $include_cat_ids ); ?>" />
+				</label>
+			</p>
+			<p><?php esc_html_e( 'Post types to include', 'contextual-related-posts' ); ?>:<br />
+
+				<?php foreach ( $wp_post_types as $wp_post_type ) { ?>
+
+					<label>
+						<input id="<?php echo esc_attr( $this->get_field_id( 'post_types' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'post_types' ) ); ?>[]" type="checkbox" value="<?php echo esc_attr( $wp_post_type ); ?>" <?php checked( true, in_array( $wp_post_type, $posts_types_inc, true ) ); ?> />
+						<?php echo esc_attr( $wp_post_type ); ?>
+					</label>
+					<br />
+
+				<?php } ?>
+			</p>
 
 			<?php
 			/**
@@ -213,10 +211,10 @@ if ( ! class_exists( 'CRP_Widget' ) ) :
 			$instance['post_types'] = implode( ',', $post_types );
 
 			// Save include_categories.
-			$include_categories = array_unique( str_getcsv( $new_instance['include_categories'] ) );
+			$include_categories = wp_parse_id_list( $new_instance['include_cat_ids'] );
 
 			foreach ( $include_categories as $cat_name ) {
-				$cat = get_term_by( 'name', $cat_name, 'category' );
+				$cat = get_term_by( 'term_taxonomy_id', $cat_name );
 
 				if ( isset( $cat->term_taxonomy_id ) ) {
 					$include_cat_ids[]   = $cat->term_taxonomy_id;
