@@ -55,7 +55,7 @@ function crp_heading_styles() {
 		$style     = $style_array['name'];
 		$extra_css = $style_array['extra_css'];
 
-		wp_register_style( "crp-style-{$style}", plugins_url( "css/{$style}.min.css", CRP_PLUGIN_FILE ), array(), '1.0.1' );
+		wp_register_style( "crp-style-{$style}", plugins_url( "css/{$style}.min.css", CRP_PLUGIN_FILE ), array(), CRP_VERSION );
 		wp_enqueue_style( "crp-style-{$style}" );
 		wp_add_inline_style( "crp-style-{$style}", $extra_css );
 	}
