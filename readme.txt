@@ -167,6 +167,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Enhancements/modifications:
     * `post_title` and `post_content` fields are only used if *Use content* option is set
+    * Gutenberg block updated to the latest Blocks API
 
 * Bug fixes:
     * Current post was incorrectly being excluded in the translation functions

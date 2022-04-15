@@ -1,0 +1,62 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "contextual-related-posts/related-posts",
+	"version": "2.0.0",
+	"title": "Contextual Related Posts",
+	"category": "widgets",
+	"icon": "list-view",
+	"keywords": ["related posts", "posts", "contextual"],
+	"description": "Display the Related Posts",
+	"supports": {
+		"html": false
+	},
+	"attributes": {
+		"className": {
+			"type": "string",
+			"default": ""
+		},
+		"heading": {
+			"type": "boolean",
+			"default": false
+		},
+		"limit": {
+			"type": "string",
+			"default": 6
+		},
+		"offset": {
+			"type": "string",
+			"default": 0
+		},
+		"show_excerpt": {
+			"type": "boolean",
+			"default": false
+		},
+		"show_author": {
+			"type": "boolean",
+			"default": false
+		},
+		"show_date": {
+			"type": "boolean",
+			"default": false
+		},
+		"post_thumb_op": {
+			"type": "string",
+			"default": "inline"
+		},
+		"ordering": {
+			"type": "string",
+			"default": "relevance"
+		},
+		"random_order": {
+			"type": "boolean",
+			"default": false
+		},
+		"other_attributes": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"textdomain": "contextual-related-posts",
+	"editorScript": "file:./build/index.js"
+}
