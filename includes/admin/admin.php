@@ -93,15 +93,26 @@ function crp_load_admin_scripts( $hook ) {
 
 	global $crp_settings_page, $crp_settings_tools;
 
-	wp_register_script( 'crp-admin-js', CRP_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js', array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker' ), '1.0', true );
-	wp_register_script( 'crp-suggest-js', CRP_PLUGIN_URL . 'includes/admin/js/crp-suggest.min.js', array( 'jquery', 'jquery-ui-autocomplete' ), '1.0', true );
+	wp_register_script(
+		'crp-admin-js',
+		CRP_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js',
+		array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker' ),
+		CRP_VERSION,
+		true
+	);
+	wp_register_script(
+		'crp-suggest-js',
+		CRP_PLUGIN_URL . 'includes/admin/js/crp-suggest.min.js',
+		array( 'jquery', 'jquery-ui-autocomplete' ),
+		CRP_VERSION,
+		true
+	);
 
 	wp_register_style(
 		'crp-admin-customizer-css',
 		CRP_PLUGIN_URL . 'includes/admin/css/crp-customizer.min.css',
 		false,
-		'1.0',
-		false
+		CRP_VERSION
 	);
 
 	if ( in_array( $hook, array( $crp_settings_page, $crp_settings_tools ), true ) ) {
