@@ -332,13 +332,15 @@ if ( ! class_exists( 'CRP_Widget' ) ) :
 				 */
 				$arguments = apply_filters( 'crp_widget_options', $arguments, $args, $instance, $this->id_base );
 
-				$output  = $args['before_widget'];
-				$output .= $args['before_title'] . $title . $args['after_title'];
-				$output .= get_crp( $arguments );
+				$related_posts = get_crp( $arguments );
+				if ( ! empty( wp_strip_all_tags( $related_posts, true ) ) ) {
+					$output  = $args['before_widget'];
+					$output .= $args['before_title'] . $title . $args['after_title'];
+					$output .= $related_posts;
+					$output .= $args['after_widget'];
 
-				$output .= $args['after_widget'];
-
-				echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				}
 			}// End if.
 		} // Ending function widget.
 	}
