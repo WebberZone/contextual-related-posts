@@ -122,7 +122,7 @@ require_once CRP_PLUGIN_DIR . 'includes/modules/taxonomies.php';
 require_once CRP_PLUGIN_DIR . 'includes/modules/exclusions.php';
 require_once CRP_PLUGIN_DIR . 'includes/modules/class-crp-rest-api.php';
 require_once CRP_PLUGIN_DIR . 'includes/modules/class-crp-widget.php';
-require_once CRP_PLUGIN_DIR . 'includes/admin/blocks/related-posts.php';
+require_once CRP_PLUGIN_DIR . 'includes/blocks/register-blocks.php';
 
 
 /*
