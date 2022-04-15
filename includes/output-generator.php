@@ -338,5 +338,29 @@ function crp_list_link( $args, $result ) {
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_list_link', $output, $result, $args );
+}
 
+/**
+ * Returns the date.
+ *
+ * @since 3.2.0
+ *
+ * @param  array   $args   Array of arguments.
+ * @param  WP_Post $result WP_Post object.
+ * @return string Space separated list of link attributes
+ */
+function crp_date( $args, $result ) {
+
+	$output = mysql2date( get_option( 'date_format', 'd/m/y' ), $result->post_date );
+
+	/**
+	 * Filter Formatted list item with link and and thumbnail.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @param string  $output Formatted list item with link and and thumbnail
+	 * @param WP_Post $result WP_Post object.
+	 * @param array   $args   Array of arguments
+	 */
+	return apply_filters( 'crp_date', $output, $result, $args );
 }

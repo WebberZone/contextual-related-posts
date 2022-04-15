@@ -147,7 +147,7 @@ function get_crp( $args = array() ) {
 			}
 
 			if ( $args['show_date'] ) {
-				$output .= '<span class="crp_date"> ' . mysql2date( get_option( 'date_format', 'd/m/y' ), $result->post_date ) . '</span> ';
+				$output .= '<span class="crp_date"> ' . crp_date( $args, $result ) . '</span> ';
 			}
 
 			if ( $args['show_excerpt'] ) {
