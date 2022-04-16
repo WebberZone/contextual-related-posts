@@ -457,8 +457,8 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param string   $fields  The SELECT clause of the query.
-		 * @param WP_Query $query The WP_Query instance.
+		 * @param string   $fields The SELECT clause of the query.
+		 * @param WP_Query $query  The WP_Query instance.
 		 * @return string  Updated Fields
 		 */
 		public function posts_fields( $fields, $query ) {
@@ -472,6 +472,16 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$match   = ', ' . $this->get_match_sql() . ' as score ';
 				$fields .= $match;
 			}
+
+			/**
+			 * Filters the posts_fields of CRP_Query after processing and before returning.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param string   $fields The SELECT clause of the query.
+			 * @param WP_Query $query  The WP_Query instance.
+			 */
+			$fields = apply_filters( 'crp_query_posts_fields', $fields, $query );
 
 			return $fields;
 		}
@@ -497,6 +507,16 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$join .= " INNER JOIN $wpdb->term_relationships AS crp_tr ON ($wpdb->posts.ID = crp_tr.object_id) ";
 				$join .= " INNER JOIN $wpdb->term_taxonomy AS crp_tt ON (crp_tr.term_taxonomy_id = crp_tt.term_taxonomy_id) ";
 			}
+
+			/**
+			 * Filters the posts_join of CRP_Query after processing and before returning.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param string   $join  The JOIN clause of the query.
+			 * @param WP_Query $query The WP_Query instance.
+			 */
+			$join = apply_filters( 'crp_query_posts_join', $join, $query );
 
 			return $join;
 		}
@@ -563,6 +583,16 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				}
 			}
 
+			/**
+			 * Filters the posts_where of CRP_Query after processing and before returning.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param string   $where The WHERE clause of the query.
+			 * @param WP_Query $query  The WP_Query instance.
+			 */
+			$where = apply_filters( 'crp_query_posts_where', $where, $query );
+
 			return $where;
 		}
 
@@ -596,6 +626,16 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			if ( isset( $this->query_args['ordering'] ) && 'date' === $this->query_args['ordering'] ) {
 				$orderby = " $wpdb->posts.post_date DESC ";
 			}
+
+			/**
+			 * Filters the posts_orderby of CRP_Query after processing and before returning.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param string   $orderby The SELECT clause of the query.
+			 * @param WP_Query $query   The WP_Query instance.
+			 */
+			$orderby = apply_filters( 'crp_query_posts_orderby', $orderby, $query );
 
 			return $orderby;
 		}
@@ -638,6 +678,16 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			}
 
+			/**
+			 * Filters the posts_request of CRP_Query after processing and before returning.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param string   $sql   The SQL Query.
+			 * @param WP_Query $query The WP_Query instance.
+			 */
+			$sql = apply_filters( 'crp_query_posts_request', $sql, $query );
+
 			return $sql;
 		}
 
@@ -646,9 +696,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param string   $posts Array of post data.
-		 * @param WP_Query $query The WP_Query instance.
-		 * @return string  Updated Array of post objects.
+		 * @param WP_Post[] $posts Array of post data.
+		 * @param WP_Query  $query The WP_Query instance.
+		 * @return WP_Post[] Updated Array of post objects.
 		 */
 		public function posts_pre_query( $posts, $query ) {
 
@@ -679,6 +729,16 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 					$this->in_cache       = true;
 				}
 			}
+
+			/**
+			 * Filters the posts_pre_query of CRP_Query after processing and before returning.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param WP_Post[] $posts Array of post data.
+			 * @param WP_Query  $query The WP_Query instance.
+			 */
+			$posts = apply_filters( 'crp_query_posts_pre_query', $posts, $query );
 
 			return $posts;
 		}
@@ -742,8 +802,8 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 * @since 1.9
 			 * @since 2.9.3 Added $args
 			 *
-			 * @param object $posts Array of post objects.
-			 * @param array  $args  Arguments array.
+			 * @param WP_Post[] $posts Array of post objects.
+			 * @param array     $args  Arguments array.
 			 */
 			return apply_filters( 'crp_query_the_posts', $posts, $this->query_args );
 		}
