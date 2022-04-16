@@ -293,3 +293,64 @@ function crp_str_putcsv( $array, $delimiter = ',', $enclosure = '"', $terminator
 	return $string;
 }
 
+/**
+ * Get Primary category for a given post.
+ *
+ * @since 3.2.0
+ *
+ * @param int|WP_Post $post       Post ID or WP_Post object.
+ * @param string      $term       Term name.
+ * @param bool        $return_all Whether to return all categories.
+ * @return array Primary term object at `primary` and array of term
+ *               objects at `all` if $return_all is true.
+ */
+function crp_get_post_primary_category( $post, $term = 'category', $return_all = false ) {
+	$return = array(
+		'primary' => '',
+		'all'     => array(),
+	);
+
+	$post = get_post( $post );
+	if ( ! $post ) {
+		return $return;
+	}
+
+	// If Yoast is active.
+	if ( class_exists( 'WPSEO_Primary_Term' ) ) {
+		$wpseo_primary_term = new WPSEO_Primary_Term( $term, $post );
+		$primary_term       = get_term( $wpseo_primary_term->get_primary_term() );
+
+		if ( ! is_wp_error( $primary_term ) ) {
+			$return['primary'] = $primary_term;
+		}
+	}
+
+	// Rank Math SEO primary term.
+	if ( class_exists( 'RankMath' ) ) {
+		$primary_term = get_term( get_post_meta( $post->ID, "rank_math_primary_{$term}", true ) );
+		if ( ! is_wp_error( $primary_term ) ) {
+			$return['primary'] = $primary_term;
+		}
+	}
+
+	// The SEO Framework primary term.
+	if ( function_exists( 'the_seo_framework' ) ) {
+		$primary_term = get_term( get_post_meta( $post->ID, "_primary_term_{$term}", true ) );
+		if ( ! is_wp_error( $primary_term ) ) {
+			$return['primary'] = $primary_term;
+		}
+	}
+
+	if ( empty( $return['primary'] ) || $return_all ) {
+		$categories = get_the_terms( $post, $term );
+
+		if ( ! empty( $categories ) ) {
+			if ( empty( $return['primary'] ) ) {
+				$return['primary'] = $categories[0];
+			}
+			$return['all'] = ( $return_all ) ? $categories : array();
+		}
+	}
+
+	return $return;
+}
