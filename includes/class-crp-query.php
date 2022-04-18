@@ -245,12 +245,34 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				);
 			}
 
+			if ( ! empty( $args['primary_term'] ) ) {
+				// Get the taxonomies used by the post type.
+				$post_taxonomies = get_object_taxonomies( $source_post );
+
+				foreach ( (array) $post_taxonomies as $term ) {
+					if ( empty( $primary_term['primary'] ) ) {
+						$primary_term = crp_get_primary_term( $source_post, $term );
+					}
+				}
+
+				if ( ! empty( $primary_term['primary'] ) ) {
+
+					$tax_query[] = array(
+						'field'            => 'term_taxonomy_id',
+						'terms'            => wp_parse_id_list( $primary_term['primary']->term_taxonomy_id ),
+						'include_children' => false,
+					);
+				}
+			}
+
 			// Process same taxonomies option.
 			if ( isset( $args['same_taxes'] ) && $args['same_taxes'] ) {
 				$taxonomies = explode( ',', $args['same_taxes'] );
 
 				// Get the taxonomies used by the post type.
-				$post_taxonomies = get_object_taxonomies( $source_post );
+				if ( empty( $post_taxonomies ) ) {
+					$post_taxonomies = get_object_taxonomies( $source_post );
+				}
 
 				// Only limit the taxonomies to what is selected for the current post.
 				$current_taxonomies = array_values( array_intersect( $taxonomies, $post_taxonomies ) );
