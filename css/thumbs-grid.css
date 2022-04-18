@@ -1,41 +1,41 @@
-.crp_related {
+.crp_related.crp-thumbs-grid {
 	clear: both;
 	margin: 10px 0;
 }
-.crp_related h3, .crp_related figure {
+.crp_related.crp-thumbs-grid h3, .crp_related.crp-thumbs-grid figure {
 	margin: 0 !important;
 }
-.crp_related ul {
+.crp_related.crp-thumbs-grid ul {
 	display: grid;
 	grid-gap: 10px;
 	margin: 0;
 	justify-items: center;
 	list-style: none;
 }
-.crp_related ul li {
+.crp_related.crp-thumbs-grid ul li {
 	text-align:center;
 	border: 1px solid #ddd;
 	display: flex;
 	flex-direction: column;
 	word-break: break-word;
 }
-.crp_related li:hover {
+.crp_related.crp-thumbs-grid li:hover {
 	background: #eee;
 	border-color: #bbb;
 }
-.crp_related ul li a.crp_link {
+.crp_related.crp-thumbs-grid ul li a.crp_link {
 	flex-grow: 1;
 	display: grid;
 	overflow: hidden;
 	padding: 3px;
 }
-.crp_related ul li a.crp_link .crp_thumb {
+.crp_related.crp-thumbs-grid ul li a.crp_link .crp_thumb {
 	grid-row-start: 1;
 	grid-row-end: 3;
 	grid-column-start: 1;
 	grid-column-end: 2;
 }
-.crp_related ul li a.crp_link .crp_title {
+.crp_related.crp-thumbs-grid ul li a.crp_link .crp_title {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -44,22 +44,22 @@
 	grid-column-start: 1;
 	grid-column-end: 2;
 }
-.crp_related a {
+.crp_related.crp-thumbs-grid a {
 	-webkit-box-shadow: none !important;
 	-moz-box-shadow: none !important;
 	box-shadow: none !important;
 	text-decoration: none !important;
 }
-.crp_related a:hover {
+.crp_related.crp-thumbs-grid a:hover {
 	text-decoration: none;
 }
-.crp_related ul li img {
+.crp_related.crp-thumbs-grid ul li img {
 	max-width: 100%;
 	height: auto;
 	display: block;
 	margin: 0 auto;
 }
-.crp_related .crp_title {
+.crp_related.crp-thumbs-grid .crp_title {
 	color: #fff !important;
 	padding: 3px;
 	font-size: .9em;
@@ -72,10 +72,10 @@
 	overflow: hidden;
 	line-height: initial;
 }
-.crp_related li:hover .crp_title {
+.crp_related.crp-thumbs-grid li:hover .crp_title {
 	background-color: rgba(0, 0, 0, 0.8);
 }
-.crp_related li {
+.crp_related.crp-thumbs-grid li {
 	vertical-align: bottom;
 	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4);
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.4);

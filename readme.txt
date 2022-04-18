@@ -172,7 +172,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Enhancements/modifications:
     * `post_title` and `post_content` fields are only used if *Use content* option is set
     * Gutenberg block updated to the latest Blocks API
-    * Widget "Only from categories" autocomplete replaced by ID list
+    * The widget's "Only from categories" autocomplete replaced by ID list
+    * Wrapper `div` now always includes `crp_related` class name. Stylesheets have been updated to have more specific styles e.g. `.crp_related.crp-rounded-thumbs`
 
 * Bug fixes:
     * Current post was incorrectly being excluded in the translation functions

@@ -108,22 +108,29 @@ function get_crp( $args = array() ) {
 		return $custom_template;
 	}
 
-	$widget_class    = $args['is_widget'] ? 'crp_related_widget ' : 'crp_related ';
-	$shortcode_class = $args['is_shortcode'] ? 'crp_related_shortcode ' : '';
-	$block_class     = $args['is_block'] ? 'crp_related_block ' : '';
-
-	$post_classes = $widget_class . $shortcode_class . $block_class . ' ' . $args['extra_class'];
+	$style_array  = crp_get_style();
+	$post_classes = array(
+		'main'        => 'crp_related',
+		'widget'      => $args['is_widget'] ? 'crp_related_widget' : '',
+		'shortcode'   => $args['is_shortcode'] ? 'crp_related_shortcode ' : '',
+		'block'       => $args['is_block'] ? 'crp_related_block ' : '',
+		'extra_class' => $args['extra_class'],
+		'style'       => ! empty( $style_array['name'] ) ? 'crp-' . $style_array['name'] : '',
+	);
+	$post_classes = join( ' ', $post_classes );
 
 	/**
 	 * Filter the classes added to the div wrapper of the Contextual Related Posts.
 	 *
 	 * @since 2.2.3
 	 * @since 2.9.3 Added $args
+	 * @since 3.2.0 Added $post
 	 *
-	 * @param string $post_classes Post classes string.
-	 * @param array  $args         Arguments array.
+	 * @param string  $post_classes Post classes string.
+	 * @param array   $args         Arguments array.
+	 * @param WP_Post $post         WP_Post object.
 	 */
-	$post_classes = apply_filters( 'crp_post_class', $post_classes, $args );
+	$post_classes = apply_filters( 'crp_post_class', $post_classes, $args, $post );
 
 	$output = '<div class="' . $post_classes . '">';
 
