@@ -34,7 +34,7 @@ function get_crp( $args = array() ) {
 		'extra_class'    => '',
 		'more_link_text' => '',
 	);
-	$defaults = array_merge( $defaults, $crp_settings );
+	$defaults = array_merge( $defaults, crp_settings_defaults(), $crp_settings );
 
 	// Parse incomming $args into an array and merge it with $defaults.
 	$args = wp_parse_args( $args, $defaults );
@@ -153,11 +153,18 @@ function get_crp( $args = array() ) {
 				$output .= crp_author( $args, $result );
 			}
 
-			if ( $args['show_date'] ) {
+			if ( ! empty( $args['show_date'] ) ) {
 				$output .= '<span class="crp_date"> ' . crp_date( $args, $result ) . '</span> ';
 			}
 
-			if ( $args['show_excerpt'] ) {
+			if ( ! empty( $args['show_primary_term'] ) ) {
+				$post_taxonomies = get_object_taxonomies( $result );
+				if ( ! empty( $post_taxonomies[0] ) ) {
+					$output .= '<span class="crp_primary_term"> ' . crp_get_primary_term_name( $result, $post_taxonomies[0] ) . '</span> ';
+				}
+			}
+
+			if ( ! empty( $args['show_excerpt'] ) ) {
 				$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $args['excerpt_length'], true, $args['more_link_text'] ) . '</span>';
 			}
 

@@ -168,6 +168,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * New feature:
     * No widget is displayed if `get_crp()` is empty i.e. no related posts are found
     * New option to limit posts to the primary category/term. The plugin checks if either Yoast, Rank Math, The SEO Framework or SEOPress are active. If none of these are active, the plugin will pick the first category provided by `get_the_terms()`
+    * New option to show the primary category/term
 
 * Enhancements/modifications:
     * `post_title` and `post_content` fields are only used if *Use content* option is set
