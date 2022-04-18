@@ -23,15 +23,15 @@
 	to {opacity: 1;}
 }
 
-.crp_related {
+.crp_related.crp-masonry {
 	width: 100%;
 	margin: 10px auto;
 	clear: both;
 }
-.crp_related h3, .crp_related figure {
+.crp_related.crp-masonry h3, .crp_related.crp-masonry figure {
 	margin: 0 !important;
 }
-.crp_related ul {
+.crp_related.crp-masonry ul {
 	margin: 1em 0;
 	padding: 0;
 	-moz-column-gap: 1em;
@@ -40,7 +40,7 @@
 	font-size: .85em;
 	list-style-type: none;
 }
-.crp_related ul li {
+.crp_related.crp-masonry ul li {
 	background: #fff;
 	padding: 3px;
 	margin: 0 0 1em;
@@ -63,13 +63,13 @@
 	text-align: center;
 	display:inline-block;
 }
-.crp_related ul li a {
+.crp_related.crp-masonry ul li a {
 	display: block;
 	text-decoration: none !important;
 	border: 0;
 	box-shadow: none;
 }
-.crp_related ul li .crp_author a {
+.crp_related.crp-masonry ul li .crp_author a {
 	display: inline;
 }
 .crp_author, .crp_date, .crp_excerpt {
@@ -81,12 +81,12 @@
 	margin: .25em 0;
 	color: #666;
 }
-.crp_related ul li a:hover {
+.crp_related.crp-masonry ul li a:hover {
 	color: #666;
 	border-color: #888;
 	text-decoration: none !important;
 }
-.crp_related ul li:hover {
+.crp_related.crp-masonry ul li:hover {
 	box-shadow: 0px 5px 20px 3px rgba(0,0,0,0.1) !important;
 
 	-webkit-transition: all .2s;
@@ -98,20 +98,20 @@
 }
 
 @media only screen and (min-width: 700px) {
-	.crp_related ul {
+	.crp_related.crp-masonry ul {
 		-moz-column-count: 2;
 		-webkit-column-count: 2;
 		column-count: 2;
    }
 }
 @media only screen and (min-width: 900px) {
-	.crp_related ul {
+	.crp_related.crp-masonry ul {
 		-moz-column-count: 3;
 		-webkit-column-count: 3;
 		column-count: 3;
    }
 }
-.crp_related ul li img {
+.crp_related.crp-masonry ul li img {
 	max-width: 100%;
 	height: auto;
 	display: block;
