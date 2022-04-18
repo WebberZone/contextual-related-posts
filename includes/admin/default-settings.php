@@ -242,6 +242,13 @@ function crp_settings_output() {
 			'type'    => 'checkbox',
 			'options' => false,
 		),
+		'show_primary_term'     => array(
+			'id'      => 'show_primary_term',
+			'name'    => esc_html__( 'Show primary category/term', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'This will display the primary category/term. This is usually set via your SEO plugin and will default to the first category/term returned by WordPress', 'contextual-related-posts' ),
+			'type'    => 'checkbox',
+			'options' => false,
+		),
 		'title_length'          => array(
 			'id'      => 'title_length',
 			'name'    => esc_html__( 'Limit post title length (in characters)', 'contextual-related-posts' ),
