@@ -364,3 +364,27 @@ function crp_date( $args, $result ) {
 	 */
 	return apply_filters( 'crp_date', $output, $result, $args );
 }
+
+
+/**
+ * Display the primary term for a given post.
+ *
+ * @since 3.2.0
+ *
+ * @param int|WP_Post $post Post ID or WP_Post object.
+ * @param string      $term Term name.
+ * @param bool        $echo Echo or return.
+ * @return string Term name if $echo is true, void if false.
+ */
+function crp_get_primary_term_name( $post, $term = 'category', $echo = false ) {
+	$output       = '';
+	$primary_term = crp_get_primary_term( $post, $term );
+	if ( ! empty( $primary_term['primary'] ) ) {
+		$output = $primary_term['primary']->name;
+	}
+	if ( $echo ) {
+		echo esc_html( $output );
+	} else {
+		return $output;
+	}
+}
