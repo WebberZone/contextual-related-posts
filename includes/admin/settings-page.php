@@ -690,16 +690,18 @@ function crp_tags_search() {
 		wp_die( 0 );
 	}
 
+	$tax      = '';
 	$taxonomy = sanitize_key( $_REQUEST['tax'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	$tax      = get_taxonomy( $taxonomy );
-	if ( ! $tax ) {
-		wp_die( 0 );
-	}
+	if ( ! empty( $taxonomy ) ) {
+		$tax = get_taxonomy( $taxonomy );
+		if ( ! $tax ) {
+			wp_die( 0 );
+		}
 
-	if ( ! current_user_can( $tax->cap->assign_terms ) ) {
-		wp_die( -1 );
+		if ( ! current_user_can( $tax->cap->assign_terms ) ) {
+			wp_die( -1 );
+		}
 	}
-
 	$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 	$comma = _x( ',', 'tag delimiter' );
@@ -723,18 +725,21 @@ function crp_tags_search() {
 		wp_die();
 	}
 
-	$results = get_terms(
-		$taxonomy,
+	$terms = get_terms(
 		array(
+			'taxonomy'   => ! empty( $taxonomy ) ? $taxonomy : null,
 			'name__like' => $s,
-			'fields'     => 'names',
 			'hide_empty' => false,
 		)
 	);
 
+	$results = array();
+	foreach ( (array) $terms as $term ) {
+		$results[] = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
+	}
+
 	echo wp_json_encode( $results );
 	wp_die();
-
 }
 add_action( 'wp_ajax_nopriv_crp_tag_search', 'crp_tags_search' );
 add_action( 'wp_ajax_crp_tag_search', 'crp_tags_search' );

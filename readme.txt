@@ -175,6 +175,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
     * Gutenberg block updated to the latest Blocks API
     * The widget's "Only from categories" autocomplete replaced by ID list
     * Wrapper `div` now always includes `crp_related` class name. Stylesheets have been updated to have more specific styles e.g. `.crp_related.crp-rounded-thumbs`
+    * *Exclude categories* and *Exclude on categories* renamed to *Exclude terms* and *Exclude on terms* as they now support all taxonomies and the accepted format has changed to "Term Name (taxonomy:term_taxonomy_id)"
 
 * Bug fixes:
     * Current post was incorrectly being excluded in the translation functions
