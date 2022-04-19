@@ -821,6 +821,32 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			}
 
 			/**
+			 * Set the flag if CRP should fill random posts if there is a shortage of related posts.
+			 *
+			 * @since 3.2.0
+			 *
+			 * @param bool      $fill_random_posts Fill random posts flag. Default false.
+			 * @param WP_Post[] $posts             Array of post objects.
+			 * @param WP_Query  $query             The WP_Query instance.
+			 */
+			$fill_random_posts = apply_filters( 'crp_fill_random_posts', false, $posts, $query );
+
+			if ( $fill_random_posts ) {
+				$no_of_random_posts = $this->query_args['limit'] - count( $posts );
+				if ( $no_of_random_posts > 0 ) {
+					$random_posts = get_posts(
+						array(
+							'fields'      => $query->get( 'fields' ),
+							'orderby'     => 'rand',
+							'numberposts' => $no_of_random_posts,
+							'post_type'   => $query->get( 'post_type' ),
+						)
+					);
+					$posts        = array_merge( $posts, $random_posts );
+				}
+			}
+
+			/**
 			 * Filter array of WP_Post objects before it is returned to the CRP_Query instance.
 			 *
 			 * @since 1.9
@@ -828,8 +854,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 *
 			 * @param WP_Post[] $posts Array of post objects.
 			 * @param array     $args  Arguments array.
+			 * @param WP_Query  $query The WP_Query instance.
 			 */
-			return apply_filters( 'crp_query_the_posts', $posts, $this->query_args );
+			return apply_filters( 'crp_query_the_posts', $posts, $this->query_args, $query );
 		}
 	}
 endif;
