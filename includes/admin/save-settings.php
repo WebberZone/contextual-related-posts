@@ -318,16 +318,22 @@ function crp_change_settings_on_save( $settings ) {
 
 		$exclude_cat_slugs = array_unique( str_getcsv( $settings['exclude_cat_slugs'] ) );
 
-		foreach ( $exclude_cat_slugs as $cat_name ) {
-			$cat = get_term_by( 'name', $cat_name, 'category' );
+		foreach ( $exclude_cat_slugs as $slug ) {
+			// Pattern is Name (taxonomy:term_taxonomy_id).
+			preg_match( '/(.*)\((.*):(\d+)\)/i', $slug, $matches );
+			if ( isset( $matches[3] ) ) { // This holds the term_taxonomy_id.
+				$term = get_term_by( 'term_taxonomy_id', $matches[3] );
+			} else {
+				$term = get_term_by( 'name', $slug, 'category' );
 
-			// Fall back to slugs since that was the default format before v2.4.0.
-			if ( false === $cat ) {
-				$cat = get_term_by( 'slug', $cat_name, 'category' );
+				// Fall back to slugs since that was the default format before v2.4.0.
+				if ( false === $term ) {
+					$term = get_term_by( 'slug', $slug, 'category' );
+				}
 			}
-			if ( isset( $cat->term_taxonomy_id ) ) {
-				$exclude_categories[]       = $cat->term_taxonomy_id;
-				$exclude_categories_slugs[] = $cat->name;
+			if ( isset( $term->term_taxonomy_id ) ) {
+				$exclude_categories[]       = $term->term_taxonomy_id;
+				$exclude_categories_slugs[] = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
 			}
 		}
 		$settings['exclude_categories'] = isset( $exclude_categories ) ? join( ',', $exclude_categories ) : '';
@@ -339,12 +345,17 @@ function crp_change_settings_on_save( $settings ) {
 
 		$exclude_on_cat_slugs = array_unique( str_getcsv( $settings['exclude_on_cat_slugs'] ) );
 
-		foreach ( $exclude_on_cat_slugs as $cat_name ) {
-			$cat = get_term_by( 'name', $cat_name, 'category' );
-
-			if ( isset( $cat->term_taxonomy_id ) ) {
-				$exclude_on_categories[]       = $cat->term_taxonomy_id;
-				$exclude_on_categories_slugs[] = $cat->name;
+		foreach ( $exclude_on_cat_slugs as $slug ) {
+			// Pattern is Name (taxonomy:term_taxonomy_id).
+			preg_match( '/(.*)\((.*):(\d+)\)/i', $slug, $matches );
+			if ( isset( $matches[3] ) ) { // This holds the term_taxonomy_id.
+				$term = get_term_by( 'term_taxonomy_id', $matches[3] );
+			} else {
+				$term = get_term_by( 'name', $slug, 'category' );
+			}
+			if ( isset( $term->term_taxonomy_id ) ) {
+				$exclude_on_categories[]       = $term->term_taxonomy_id;
+				$exclude_on_categories_slugs[] = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
 			}
 		}
 		$settings['exclude_on_categories'] = isset( $exclude_on_categories ) ? join( ',', $exclude_on_categories ) : '';
