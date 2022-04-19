@@ -15,10 +15,12 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since   2.3.0
  *
- * @param   array $exclude_post_ids   Original excluded post IDs.
+ * @param   array   $exclude_post_ids Original excluded post IDs.
+ * @param   array   $args             Arguments array.
+ * @param   WP_Post $post             Source post.
  * @return  array   Updated excluded post ID
  */
-function crp_exclude_post_ids( $exclude_post_ids ) {
+function crp_exclude_post_ids( $exclude_post_ids, $args, $post ) {
 	global $wpdb;
 
 	$exclude_post_ids = (array) $exclude_post_ids;
@@ -31,11 +33,14 @@ function crp_exclude_post_ids( $exclude_post_ids ) {
 		if ( isset( $meta_value['exclude_this_post'] ) && $meta_value['exclude_this_post'] ) {
 			$exclude_post_ids[] = $crp_post_meta['post_id'];
 		}
+		if ( (int) $post->ID === (int) $crp_post_meta['post_id'] && isset( $meta_value['exclude_post_ids'] ) && $meta_value['exclude_post_ids'] ) {
+			$exclude_post_ids = array_merge( $exclude_post_ids, explode( ',', $meta_value['exclude_post_ids'] ) );
+		}
 	}
 	return $exclude_post_ids;
 
 }
-add_filter( 'crp_exclude_post_ids', 'crp_exclude_post_ids' );
+add_filter( 'crp_exclude_post_ids', 'crp_exclude_post_ids', 10, 3 );
 
 
 /**

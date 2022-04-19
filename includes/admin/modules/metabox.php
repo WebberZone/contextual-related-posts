@@ -88,6 +88,10 @@ function crp_call_meta_box() {
 	$manual_related       = isset( $post_meta['manual_related'] ) ? $post_meta['manual_related'] : '';
 	$manual_related_array = explode( ',', $manual_related );
 
+	// Exclude post IDs.
+	$exclude_post_ids       = isset( $post_meta['exclude_post_ids'] ) ? $post_meta['exclude_post_ids'] : '';
+	$exclude_post_ids_array = explode( ',', $exclude_post_ids );
+
 	// Keyword - word or phrase.
 	$keyword = isset( $post_meta['keyword'] ) ? $post_meta['keyword'] : '';
 
@@ -138,11 +142,40 @@ function crp_call_meta_box() {
 			echo '<li>';
 
 			$title = get_the_title( $manual_related_post );
-			echo '<a href="' . esc_url( get_permalink( $manual_related_post ) ) . '" target="_blank" title="' . esc_attr( $title ) . '" class="wherego_title">' . esc_attr( $title ) . '</a>. ';
+			echo '<a href="' . esc_url( get_permalink( $manual_related_post ) ) . '" target="_blank" title="' . esc_attr( $title ) . '">' . esc_attr( $title ) . '</a>. ';
 			printf(
 				/* translators: Post type name */
 				esc_html__( 'This post type is: %s', 'contextual-related-posts' ),
 				'<em>' . esc_html( get_post_type( $manual_related_post ) ) . '</em>'
+			);
+
+			echo '</li>';
+		}
+		?>
+		</ol>
+	<?php } ?>
+
+	<p>
+		<label for="exclude_post_ids"><strong><?php esc_html_e( 'Exclude post IDs:', 'contextual-related-posts' ); ?></strong></label>
+		<input type="text" id="exclude_post_ids" name="exclude_post_ids" value="<?php echo esc_attr( $exclude_post_ids ); ?>" style="width:100%" />
+		<em><?php esc_html_e( 'Comma separated list of post, page or custom post type IDs. e.g. 188,320,500.', 'contextual-related-posts' ); ?></em>
+	</p>
+
+	<?php if ( ! empty( $exclude_post_ids ) ) { ?>
+
+		<strong><?php esc_html_e( 'Excluded posts:', 'contextual-related-posts' ); ?></strong>
+		<ol>
+		<?php
+		foreach ( $exclude_post_ids_array as $exclude_post_ids_post ) {
+
+			echo '<li>';
+
+			$title = get_the_title( $exclude_post_ids_post );
+			echo '<a href="' . esc_url( get_permalink( $exclude_post_ids_post ) ) . '" target="_blank" title="' . esc_attr( $title ) . '">' . esc_attr( $title ) . '</a>. ';
+			printf(
+				/* translators: Post type name */
+				esc_html__( 'This post type is: %s', 'contextual-related-posts' ),
+				'<em>' . esc_html( get_post_type( $exclude_post_ids_post ) ) . '</em>'
 			);
 
 			echo '</li>';
@@ -251,6 +284,19 @@ function crp_save_meta_box( $post_id ) {
 			}
 		}
 		$post_meta['manual_related'] = implode( ',', $manual_related_array );
+	}
+
+	// Save Manual related posts.
+	if ( isset( $_POST['exclude_post_ids'] ) ) {
+
+		$exclude_post_ids_array = array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['exclude_post_ids'] ) ) ) );
+
+		foreach ( $exclude_post_ids_array as $key => $value ) {
+			if ( 'publish' !== get_post_status( $value ) ) {
+				unset( $exclude_post_ids_array[ $key ] );
+			}
+		}
+		$post_meta['exclude_post_ids'] = implode( ',', $exclude_post_ids_array );
 	}
 
 	/**
