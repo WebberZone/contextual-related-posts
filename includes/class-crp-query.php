@@ -332,11 +332,13 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 *
 			 * @since 2.3.0
 			 * @since 2.9.3 Added $args
+			 * @since 3.2.0 Added $source_post
 			 *
-			 * @param array $exclude_post_ids Array of post IDs.
-			 * @param array $args             Arguments array.
+			 * @param array   $exclude_post_ids Array of post IDs.
+			 * @param array   $args             Arguments array.
+			 * @param WP_Post $source_post      Source post.
 			 */
-			$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args );
+			$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args, $source_post );
 
 			$exclude_post_ids[]   = $source_post->ID;
 			$args['post__not_in'] = $exclude_post_ids;
