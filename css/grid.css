@@ -11,6 +11,7 @@
 	margin: 0;
 	justify-items: center;
 	list-style: none;
+	padding: 0;
 }
 .crp_related.crp-grid ul li {
 	text-align:left;
