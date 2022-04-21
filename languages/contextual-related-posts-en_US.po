@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-20 19:40+0100\n"
+"POT-Creation-Date: 2022-04-21 15:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -76,7 +76,9 @@ msgstr ""
 #, php-format
 msgid ""
 "If you choose to disable this, please add %1$s to your template file where "
-"you want it displayed"
+"you want it displayed. On the home page and archives, the related posts are "
+"added for each post. Caching is highly recommended to avoid performance "
+"issues."
 msgstr ""
 
 #: includes/admin/default-settings.php:85
@@ -524,9 +526,8 @@ msgstr ""
 #: includes/admin/default-settings.php:487
 msgid ""
 "Selecting this option will turn off contextual matching. This is only useful "
-"if you activate the option: \"Only from same\" from the General tab. "
-"Otherwise, you will end up with the same set of related posts on all pages "
-"with no relevance."
+"if you activate the option: \"Only from same\" above. Otherwise, you will "
+"end up with the same set of related posts across your site with no relevance."
 msgstr ""
 
 #: includes/admin/default-settings.php:493
@@ -970,8 +971,9 @@ msgstr ""
 
 #: includes/admin/modules/tools.php:75
 msgid ""
-"Clear the Contextual Related Posts cache. This will also be cleared "
-"automatically when you save the settings page."
+"Clear the Contextual Related Posts cache. Contextual Related Posts includes "
+"an inbuilt cache expiry mechanism so you'll need this when you want to wipe "
+"out the cache."
 msgstr ""
 
 #: includes/admin/modules/tools.php:78 includes/admin/modules/tools.php:80
