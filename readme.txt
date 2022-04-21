@@ -166,13 +166,13 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 = 3.2.0 =
 
 * New feature:
-    * No widget is displayed if `get_crp()` is empty i.e. no related posts are found
     * New option to limit posts to the primary category/term. The plugin checks if either Yoast, Rank Math, The SEO Framework or SEOPress are active. If none of these are active, the plugin will pick the first category provided by `get_the_terms()`
     * New option to show the primary category/term
     * New option in metabox to enter a comma-separated list of post IDs to exclude from the related posts
     * New filter `crp_fill_random_posts` (default:false) which can be used to fill random posts if the number of related posts is less than the limit set
 
 * Enhancements/modifications:
+    * No widget is displayed if `get_crp()` is empty i.e. no related posts are found
     * `post_title` and `post_content` fields are only used if *Use content* option is set
     * Gutenberg block updated to the latest Blocks API
     * The widget's "Only from categories" autocomplete replaced by ID list
@@ -219,5 +219,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.1.1 =
-Bug fixes. Please read the release post on https://webberzone.com
+= 3.2.0 =
+New featuers and enhancements. Please read the release post on https://webberzone.com
