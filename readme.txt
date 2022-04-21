@@ -165,6 +165,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.2.0 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](https://webberzone.com/blog/contextual-related-posts-v3-2-0/)
+
 * New feature:
     * New option to limit posts to the primary category/term. The plugin checks if either Yoast, Rank Math, The SEO Framework or SEOPress are active. If none of these are active, the plugin will pick the first category provided by `get_the_terms()`
     * New option to show the primary category/term
