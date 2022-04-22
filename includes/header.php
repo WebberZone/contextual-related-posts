@@ -68,20 +68,22 @@ add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
  *
  * @since 3.0.0
  *
+ * @param string $style Style parameter.
+ *
  * @return array Contains two elements:
  *               'name' holding style name and 'extra_css' to be added inline.
  */
-function crp_get_style() {
+function crp_get_style( $style = '' ) {
 
-	$style        = array();
+	$style_array  = array();
 	$thumb_width  = crp_get_option( 'thumb_width' );
 	$thumb_height = crp_get_option( 'thumb_height' );
-	$crp_style    = crp_get_option( 'crp_styles' );
+	$crp_style    = $style ? $style : crp_get_option( 'crp_styles' );
 
 	switch ( $crp_style ) {
 		case 'rounded_thumbs':
-			$style['name']      = 'rounded-thumbs';
-			$style['extra_css'] = "
+			$style_array['name']      = 'rounded-thumbs';
+			$style_array['extra_css'] = "
 			.crp_related a {
 			  width: {$thumb_width}px;
 			  height: {$thumb_height}px;
@@ -98,13 +100,14 @@ function crp_get_style() {
 			break;
 
 		case 'masonry':
-			$style['name']      = 'masonry';
-			$style['extra_css'] = '';
+		case 'text_only':
+			$style_array['name']      = str_replace( '_', '-', $style );
+			$style_array['extra_css'] = '';
 			break;
 
 		case 'grid':
-			$style['name']      = 'grid';
-			$style['extra_css'] = "
+			$style_array['name']      = 'grid';
+			$style_array['extra_css'] = "
 			.crp_related ul {
 				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
 			}
@@ -114,8 +117,8 @@ function crp_get_style() {
 		case 'thumbs_grid':
 			$row_height = max( 0, $thumb_height - 50 );
 
-			$style['name']      = 'thumbs-grid';
-			$style['extra_css'] = "
+			$style_array['name']      = 'thumbs-grid';
+			$style_array['extra_css'] = "
 			.crp_related ul li a.crp_link {
 				grid-template-rows: {$row_height}px 50px;
 			}
@@ -126,8 +129,8 @@ function crp_get_style() {
 			break;
 
 		default:
-			$style['name']      = '';
-			$style['extra_css'] = '';
+			$style_array['name']      = '';
+			$style_array['extra_css'] = '';
 			break;
 	}
 
@@ -136,10 +139,10 @@ function crp_get_style() {
 	 *
 	 * @since 3.2.0
 	 *
-	 * @param array  $style        Style array containing name and extra_css.
+	 * @param array  $style_array  Style array containing name and extra_css.
 	 * @param string $crp_style    Style name.
 	 * @param int    $thumb_width  Thumbnail width.
 	 * @param int    $thumb_height Thumbnail height.
 	 */
-	return apply_filters( 'crp_get_style', $style, $crp_style, $thumb_width, $thumb_height );
+	return apply_filters( 'crp_get_style', $style_array, $crp_style, $thumb_width, $thumb_height );
 }

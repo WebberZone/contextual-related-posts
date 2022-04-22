@@ -163,9 +163,14 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
-= 3.2.0 =
+= 3.2.1 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](https://webberzone.com/blog/contextual-related-posts-v3-2-0/)
+
+* Enhancements/modifications:
+    * If thumbnail is set as `text only`, then the style is also set as `text only` at runtime
+
+= 3.2.0 =
 
 * New feature:
     * New option to limit posts to the primary category/term. The plugin checks if either Yoast, Rank Math, The SEO Framework or SEOPress are active. If none of these are active, the plugin will pick the first category provided by `get_the_terms()`
