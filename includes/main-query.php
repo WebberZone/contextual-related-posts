@@ -108,7 +108,8 @@ function get_crp( $args = array() ) {
 		return $custom_template;
 	}
 
-	$style_array  = crp_get_style();
+	$style        = ( 'text_only' === $args['post_thumb_op'] ) ? 'text_only' : $args['crp_styles'];
+	$style_array  = crp_get_style( $style );
 	$post_classes = array(
 		'main'        => 'crp_related',
 		'widget'      => $args['is_widget'] ? 'crp_related_widget' : '',
