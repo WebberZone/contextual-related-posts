@@ -237,12 +237,15 @@ function get_crp( $args = array() ) {
  * Fetch related posts IDs.
  *
  * @since 1.9
+ * @deprecated 3.2.0
  *
  * @param array $args Arguments array.
  * @return object $results Array of related post objects
  */
 function get_crp_posts_id( $args = array() ) {
 	global $wpdb, $post, $crp_settings;
+
+	_deprecated_function( __FUNCTION__, '3.2.0', 'get_crp_posts' );
 
 	$crp_settings = crp_get_settings();
 
@@ -368,7 +371,7 @@ function get_crp_posts_id( $args = array() ) {
 	if ( is_int( $source_post->ID ) ) {
 
 		// Fields to return.
-		$fields = " $wpdb->posts.ID, $wpdb->posts.post_date ";
+		$fields = " $wpdb->posts.* ";
 
 		// Set order by in case of date.
 		if ( isset( $args['ordering'] ) && 'date' === $args['ordering'] ) {
@@ -426,7 +429,7 @@ function get_crp_posts_id( $args = array() ) {
 		$exclude_post_ids = explode( ',', $args['exclude_post_ids'] );
 
 		/** This filter has been documented in class-crp-query.php */
-		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args );
+		$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args, $source_post );
 
 		// Convert it back to string.
 		$exclude_post_ids = implode( ',', array_filter( array_filter( $exclude_post_ids, 'absint' ) ) );

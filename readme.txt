@@ -170,6 +170,12 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](htt
 * Enhancements/modifications:
     * If thumbnail is set as `text only`, then the style is also set as `text only` at runtime
 
+* Bug fix:
+    * PHP error thrown when using `get_crp_posts_id()`
+
+* Deprecated:
+    * `get_crp_posts_id()`. Use `get_crp_posts()` instead
+
 = 3.2.0 =
 
 * New feature:
