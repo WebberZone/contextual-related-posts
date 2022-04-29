@@ -193,12 +193,12 @@ if ( ! class_exists( 'CRP_Widget' ) ) :
 			$instance['post_thumb_op'] = $new_instance['post_thumb_op'];
 			$instance['thumb_width']   = ( ! empty( $new_instance['thumb_width'] ) ) ? intval( $new_instance['thumb_width'] ) : '';
 			$instance['thumb_height']  = ( ! empty( $new_instance['thumb_height'] ) ) ? intval( $new_instance['thumb_height'] ) : '';
-			$instance['show_excerpt']  = isset( $new_instance['show_excerpt'] ) ? true : false;
-			$instance['show_author']   = isset( $new_instance['show_author'] ) ? true : false;
-			$instance['show_date']     = isset( $new_instance['show_date'] ) ? true : false;
+			$instance['show_excerpt']  = isset( $new_instance['show_excerpt'] ) ? (bool) $new_instance['show_excerpt'] : false;
+			$instance['show_author']   = isset( $new_instance['show_author'] ) ? (bool) $new_instance['show_author'] : false;
+			$instance['show_date']     = isset( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;
 			$instance['offset']        = ( ! empty( $new_instance['offset'] ) ) ? intval( $new_instance['offset'] ) : '';
 			$instance['ordering']      = isset( $new_instance['ordering'] ) ? $new_instance['ordering'] : '';
-			$instance['random_order']  = isset( $new_instance['random_order'] ) ? true : false;
+			$instance['random_order']  = isset( $new_instance['random_order'] ) ? (bool) $new_instance['show_date'] : false;
 
 			// Process post types to be selected.
 			$wp_post_types          = get_post_types(
@@ -207,7 +207,7 @@ if ( ! class_exists( 'CRP_Widget' ) ) :
 				)
 			);
 			$post_types             = isset( $new_instance['post_types'] ) ? $new_instance['post_types'] : array();
-			$post_types             = array_intersect( $wp_post_types, $post_types );
+			$post_types             = array_intersect( $wp_post_types, (array) $post_types );
 			$instance['post_types'] = implode( ',', $post_types );
 
 			// Save include_categories.
