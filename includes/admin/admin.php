@@ -46,7 +46,7 @@ function crp_add_admin_pages_links() {
 	add_action( "load-$crp_settings_tools", 'crp_settings_help' );
 
 }
-add_action( 'admin_menu', 'crp_add_admin_pages_links' );
+add_action( 'admin_menu', 'crp_add_admin_pages_links', 99 );
 
 
 /**
