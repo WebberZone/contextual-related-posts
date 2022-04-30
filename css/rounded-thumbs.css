@@ -47,6 +47,7 @@
 	-webkit-border-radius: 7px;
 	-moz-border-radius: 7px;
 	border-radius: 7px;
+	width: 100%;
 }
 .crp_related.crp-rounded-thumbs li:hover .crp_title {
 	background-color: rgba(0, 0, 0, 0.8);

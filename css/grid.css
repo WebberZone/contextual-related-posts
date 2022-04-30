@@ -15,7 +15,15 @@
 }
 .crp_related.crp-grid ul li {
 	text-align:left;
+	display: flex;
+	flex-direction: column;
 	word-break: break-word;
+}
+.crp_related.crp-grid ul li a.crp_link {
+	flex-grow: 1;
+	display: grid;
+	overflow: hidden;
+	padding: 3px;
 }
 .crp_related.crp-grid .crp_thumb, .crp_related.crp-grid .crp_title {
 	display: block;

@@ -78,22 +78,22 @@ function crp_get_style( $style = '' ) {
 	$style_array  = array();
 	$thumb_width  = crp_get_option( 'thumb_width' );
 	$thumb_height = crp_get_option( 'thumb_height' );
-	$crp_style    = $style ? $style : crp_get_option( 'crp_styles' );
+	$crp_style    = ! empty( $style ) ? $style : crp_get_option( 'crp_styles' );
 
 	switch ( $crp_style ) {
 		case 'rounded_thumbs':
 			$style_array['name']      = 'rounded-thumbs';
 			$style_array['extra_css'] = "
-			.crp_related a {
+			.crp_related.crp-rounded-thumbs a {
 			  width: {$thumb_width}px;
 			  height: {$thumb_height}px;
 			  text-decoration: none;
 			}
-			.crp_related img {
+			.crp_related.crp-rounded-thumbs img {
 			  max-width: {$thumb_width}px;
 			  margin: auto;
 			}
-			.crp_related .crp_title {
+			.crp_related.crp-rounded-thumbs .crp_title {
 			  width: 100%;
 			}
 			";
@@ -101,14 +101,17 @@ function crp_get_style( $style = '' ) {
 
 		case 'masonry':
 		case 'text_only':
-			$style_array['name']      = str_replace( '_', '-', $style );
+			$style_array['name']      = str_replace( '_', '-', $crp_style );
 			$style_array['extra_css'] = '';
 			break;
 
 		case 'grid':
 			$style_array['name']      = 'grid';
 			$style_array['extra_css'] = "
-			.crp_related ul {
+			.crp_related.crp-grid ul li a.crp_link {
+				grid-template-rows: {$thumb_height}px auto;
+			}
+			.crp_related.crp-grid ul {
 				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
 			}
 			";
@@ -119,10 +122,10 @@ function crp_get_style( $style = '' ) {
 
 			$style_array['name']      = 'thumbs-grid';
 			$style_array['extra_css'] = "
-			.crp_related ul li a.crp_link {
-				grid-template-rows: {$row_height}px 50px;
+			.crp_related.crp-thumbs-grid ul li a.crp_link {
+				grid-template-rows: {$row_height}px auto;
 			}
-			.crp_related ul {
+			.crp_related.crp-thumbs-grid ul {
 				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
 			}
 			";
