@@ -56,7 +56,20 @@ function render_crp_block( $attributes ) {
 	 */
 	$arguments = apply_filters( 'crp_block_options', $arguments, $attributes );
 
-	return get_crp( $arguments );
+	$output          = get_crp( $arguments );
+	$is_empty_output = empty( wp_strip_all_tags( $output ) );
+	$is_backend      = defined( 'REST_REQUEST' ) && true === REST_REQUEST && 'edit' === filter_input( INPUT_GET, 'context', FILTER_UNSAFE_RAW );
+
+	if ( $is_backend && $is_empty_output ) {
+		$output  = '<h3>';
+		$output .= __( 'Contextual Related Posts Block', 'contextual-related-posts' );
+		$output .= '</h3>';
+		$output .= '<p>';
+		$output .= __( 'No related posts were found or the block rendered empty. Please modify your block settings.', 'contextual-related-posts' );
+		$output .= '</p>';
+	}
+
+	return $output;
 }
 
 /**

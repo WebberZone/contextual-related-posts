@@ -21,6 +21,10 @@ if ( ! defined( 'WPINC' ) ) {
 function get_crp( $args = array() ) {
 	global $post, $crp_settings;
 
+	if ( ! $post ) {
+		return '';
+	}
+
 	$crp_settings = crp_get_settings();
 
 	$defaults = array(

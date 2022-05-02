@@ -167,8 +167,12 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](https://webberzone.com/blog/contextual-related-posts-v3-2-0/)
 
+* Enhancements:
+    * Block shows a placeholder when used in non-Edit screens or when no content is generated
+
 * Bug fix:
     * Missing text-only.min.css file
+    * Block settings were not saved
 
 = 3.2.2 =
 
