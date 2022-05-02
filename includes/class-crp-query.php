@@ -181,7 +181,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			// Set the number of posts to be retrieved. Use posts_per_page if set else use limit.
 			if ( empty( $args['posts_per_page'] ) ) {
-				$args['posts_per_page'] = ( $args['strict_limit'] ) ? $args['limit'] : ( $args['limit'] * 3 );
+				$args['posts_per_page'] = ( $args['strict_limit'] ) ? absint( $args['limit'] ) : ( absint( $args['limit'] ) * 3 );
 			}
 
 			if ( empty( $args['post_type'] ) ) {

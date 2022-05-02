@@ -23,6 +23,7 @@ import {
 	PanelRow,
 	SelectControl,
 	RadioControl,
+	Placeholder,
 } from '@wordpress/components';
 
 /**
@@ -42,14 +43,10 @@ import {
  * @return {WPElement} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	function processNumber(input) {
-		const output =
-			undefined === input || 0 === input || '' === input || isNaN(input)
-				? ''
-				: parseInt(input);
-		return output;
-	}
-
+	const postId =
+		null === wp.data.select('core/editor')
+			? 0
+			: wp.data.select('core/editor').getCurrentPostId();
 	const {
 		heading,
 		limit,
@@ -68,10 +65,14 @@ export default function Edit({ attributes, setAttributes }) {
 		setAttributes({ heading: !heading });
 	};
 	const onChangeLimit = (newLimit) => {
-		setAttributes({ limit: processNumber(newLimit) });
+		setAttributes({
+			limit: undefined === newLimit ? '' : newLimit,
+		});
 	};
 	const onChangeOffset = (newOffset) => {
-		setAttributes({ offset: processNumber(newOffset) });
+		setAttributes({
+			offset: undefined === newOffset ? '' : newOffset,
+		});
 	};
 	const toggleShowExcerpt = () => {
 		setAttributes({ show_excerpt: !show_excerpt });
@@ -288,10 +289,21 @@ export default function Edit({ attributes, setAttributes }) {
 			</InspectorControls>
 
 			<div {...blockProps}>
-				<ServerSideRender
-					block="contextual-related-posts/related-posts"
-					attributes={attributes}
-				/>
+				{!postId ? (
+					<Placeholder
+						icon={'list-view'}
+						label={__('Contextual Related Posts', 'contextual-related-posts')}
+						instructions={__(
+							'This is a placeholder for the related posts block. Visit the front end of your site to see the related posts.',
+							'contextual-related-posts'
+						)}
+					></Placeholder>
+				) : (
+					<ServerSideRender
+						block="contextual-related-posts/related-posts"
+						attributes={attributes}
+					/>
+				)}
 			</div>
 		</>
 	);
