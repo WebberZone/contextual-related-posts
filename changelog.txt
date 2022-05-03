@@ -2,6 +2,36 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 3.1.1 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-1-0/](https://webberzone.com/blog/contextual-related-posts-v3-1-0/)
+
+* Enhancements:
+    * Don't clear cache when saving settings. The cache can be cleared in the Tools page
+    * Default thumbnail is now prioritized over the site icon
+
+* Bug fixes:
+    * Limiting of characters didn't work properly
+    * Fixed link to Tools menu under Settings. Tools button link is better displayed
+    * Fixed activation when new blog is created on multisite
+
+= 3.1.0 =
+
+* Features:
+    * REST API support - you can now fetch the related posts via the REST API. Fetch posts at `/contextual-related-posts/v1/posts/<id>`
+    * New setting in the metabox to exclude specific terms
+
+* Enhancements/modifications:
+    * Thumbnail function uses the size instead of exact array of sizes to better select the appropriate thumbnail image size
+    * Use site icon if no other thumbnail is found
+    * Use both `post_title` and `post_content` fields for matching even when match content setting is off
+    * Passing `post_type` and `posts_per_page` arguments will be respected instead of being overridden
+
+* Bug fixes:
+    * Don't enqueue wp-editor on widgets.php
+    * [WP_Query stopwords](https://developer.wordpress.org/reference/classes/wp_query/get_search_stopwords/) are stripped from content that is matched
+    * Manual posts are added after the automatic posts are shuffled
+
 = 3.0.7 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-0-0/](https://webberzone.com/blog/contextual-related-posts-v3-0-0/)
