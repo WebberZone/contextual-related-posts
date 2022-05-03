@@ -2,13 +2,13 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 Requires at least: 5.6
 Tested up to: 5.9
 Requires PHP: 7.1
 License: GPLv2 or later
 
-Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!
+Related posts for your WordPress site with inbuilt caching. Supports blocks, shortcodes, widgets and custom post types!
 
 == Description ==
 
@@ -210,36 +210,6 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](htt
 * Bug fixes:
     * Current post was incorrectly being excluded in the translation functions
 
-= 3.1.1 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-1-0/](https://webberzone.com/blog/contextual-related-posts-v3-1-0/)
-
-* Enhancements:
-    * Don't clear cache when saving settings. The cache can be cleared in the Tools page
-    * Default thumbnail is now prioritized over the site icon
-
-* Bug fixes:
-    * Limiting of characters didn't work properly
-    * Fixed link to Tools menu under Settings. Tools button link is better displayed
-    * Fixed activation when new blog is created on multisite
-
-= 3.1.0 =
-
-* Features:
-    * REST API support - you can now fetch the related posts via the REST API. Fetch posts at `/contextual-related-posts/v1/posts/<id>`
-    * New setting in the metabox to exclude specific terms
-
-* Enhancements/modifications:
-    * Thumbnail function uses the size instead of exact array of sizes to better select the appropriate thumbnail image size
-    * Use site icon if no other thumbnail is found
-    * Use both `post_title` and `post_content` fields for matching even when match content setting is off
-    * Passing `post_type` and `posts_per_page` arguments will be respected instead of being overridden
-
-* Bug fixes:
-    * Don't enqueue wp-editor on widgets.php
-    * [WP_Query stopwords](https://developer.wordpress.org/reference/classes/wp_query/get_search_stopwords/) are stripped from content that is matched
-    * Manual posts are added after the automatic posts are shuffled
-
 = Earlier versions =
 
 For the changelog of earlier versions, please refer to the separate changelog.txt file or the [releases page on Github](https://github.com/WebberZone/contextual-related-posts/releases).
@@ -247,5 +217,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.2.2 =
-New featuers and enhancements. Please read the release post on https://webberzone.com
+= 3.2.3 =
+Bug fixes. Please read the release post on https://webberzone.com
