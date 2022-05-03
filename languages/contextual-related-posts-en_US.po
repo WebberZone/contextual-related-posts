@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-30 15:53+0100\n"
+"POT-Creation-Date: 2022-05-03 19:27+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/admin/admin.php:31
+#: includes/admin/admin.php:31 includes/blocks/related-posts/src/edit.js:295
 msgid "Contextual Related Posts"
 msgstr ""
 
@@ -258,7 +258,7 @@ msgid "Length of excerpt (in words)"
 msgstr ""
 
 #: includes/admin/default-settings.php:233
-#: includes/blocks/related-posts/src/edit.js:182
+#: includes/blocks/related-posts/src/edit.js:183
 msgid "Show date"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:240
-#: includes/blocks/related-posts/src/edit.js:165
+#: includes/blocks/related-posts/src/edit.js:166
 msgid "Show author"
 msgstr ""
 
@@ -378,13 +378,13 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:380
-#: includes/blocks/related-posts/src/edit.js:230
+#: includes/blocks/related-posts/src/edit.js:231
 #: includes/modules/class-crp-widget.php:128
 msgid "Order posts"
 msgstr ""
 
 #: includes/admin/default-settings.php:388
-#: includes/blocks/related-posts/src/edit.js:257
+#: includes/blocks/related-posts/src/edit.js:258
 msgid "Randomize posts"
 msgstr ""
 
@@ -542,7 +542,7 @@ msgstr ""
 
 #: includes/admin/default-settings.php:523
 #: includes/admin/default-settings.php:709
-#: includes/blocks/related-posts/src/edit.js:203
+#: includes/blocks/related-posts/src/edit.js:204
 msgid "Location of the post thumbnail"
 msgstr ""
 
@@ -758,17 +758,17 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:857
-#: includes/blocks/related-posts/src/edit.js:240
+#: includes/blocks/related-posts/src/edit.js:241
 msgid "By relevance"
 msgstr ""
 
 #: includes/admin/default-settings.php:858
-#: includes/blocks/related-posts/src/edit.js:244
+#: includes/blocks/related-posts/src/edit.js:245
 msgid "Randomly"
 msgstr ""
 
 #: includes/admin/default-settings.php:859
-#: includes/blocks/related-posts/src/edit.js:248
+#: includes/blocks/related-posts/src/edit.js:249
 msgid "By date"
 msgstr ""
 
@@ -1183,111 +1183,127 @@ msgstr ""
 msgid "Follow me"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:105
+#: includes/blocks/register-blocks.php:65
+msgid "Contextual Related Posts Block"
+msgstr ""
+
+#: includes/blocks/register-blocks.php:68
+msgid ""
+"No related posts were found or the block rendered empty. Please modify your "
+"block settings."
+msgstr ""
+
+#: includes/blocks/related-posts/src/edit.js:106
 msgid "Related Posts Settings"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:111
+#: includes/blocks/related-posts/src/edit.js:112
 msgid "Show heading"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:114
+#: includes/blocks/related-posts/src/edit.js:115
 msgid "Heading displayed"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:115
+#: includes/blocks/related-posts/src/edit.js:116
 msgid "No Heading displayed"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:125
+#: includes/blocks/related-posts/src/edit.js:126
 #: includes/modules/class-crp-rest-api.php:165
 msgid "Number of posts"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:129
+#: includes/blocks/related-posts/src/edit.js:130
 msgid "Maximum number of posts to display"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:138
+#: includes/blocks/related-posts/src/edit.js:139
 #: includes/modules/class-crp-widget.php:91
 msgid "Offset"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:142
+#: includes/blocks/related-posts/src/edit.js:143
 msgid "Number of posts to skip from the top"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:151
+#: includes/blocks/related-posts/src/edit.js:152
 msgid "Show excerpt"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:154
+#: includes/blocks/related-posts/src/edit.js:155
 msgid "Excerpt displayed"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:155
+#: includes/blocks/related-posts/src/edit.js:156
 msgid "No excerpt"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:169
+#: includes/blocks/related-posts/src/edit.js:170
 msgid "\"by Author Name\" displayed"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:172
+#: includes/blocks/related-posts/src/edit.js:173
 msgid "No author displayed"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:185
+#: includes/blocks/related-posts/src/edit.js:186
 msgid "Date of post displayed"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:187
+#: includes/blocks/related-posts/src/edit.js:188
 msgid "Date of post not displayed"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:199
+#: includes/blocks/related-posts/src/edit.js:200
 msgid "Thumbnail option"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:209
+#: includes/blocks/related-posts/src/edit.js:210
 msgid "Before title"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:213
+#: includes/blocks/related-posts/src/edit.js:214
 msgid "After title"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:217
+#: includes/blocks/related-posts/src/edit.js:218
 msgid "Only thumbnail"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:221
+#: includes/blocks/related-posts/src/edit.js:222
 msgid "Only text"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:234
+#: includes/blocks/related-posts/src/edit.js:235
 msgid "This option directly edits the query"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:261
+#: includes/blocks/related-posts/src/edit.js:262
 msgid "Posts are shuffled on each load"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:265
+#: includes/blocks/related-posts/src/edit.js:266
 msgid "Posts displayed based on above setting"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:277
+#: includes/blocks/related-posts/src/edit.js:278
 msgid "Other attributes"
 msgstr ""
 
-#: includes/blocks/related-posts/src/edit.js:281
+#: includes/blocks/related-posts/src/edit.js:282
 msgid ""
 "Enter other attributes in a URL-style string-query. e.g. post_types=post,"
 "page&link_nofollow=1&exclude_post_ids=5,6"
 msgstr ""
 
-#: includes/main-query.php:205
+#: includes/blocks/related-posts/src/edit.js:297
+msgid ""
+"This is a placeholder for the related posts block. Visit the front end of "
+"your site to see the related posts."
+msgstr ""
+
+#: includes/main-query.php:209
 #, php-format
 msgid ""
 "Powered by <a href=\"%s\" rel=\"nofollow\" style=\"float:none\">Contextual "
