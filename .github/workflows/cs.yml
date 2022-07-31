@@ -33,6 +33,7 @@ jobs:
       - name: 'Composer: set up PHPCS dependencies'
         run: |
           composer require --no-update squizlabs/php_codesniffer wp-coding-standards/wpcs phpcompatibility/phpcompatibility-wp dealerdirect/phpcodesniffer-composer-installer
+          composer config allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
