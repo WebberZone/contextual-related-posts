@@ -76,8 +76,8 @@ add_action( 'wp_enqueue_scripts', 'crp_heading_styles' );
 function crp_get_style( $style = '' ) {
 
 	$style_array  = array();
-	$thumb_width  = crp_get_option( 'thumb_width' );
-	$thumb_height = crp_get_option( 'thumb_height' );
+	$thumb_width  = crp_get_option( 'thumb_width', 150 );
+	$thumb_height = crp_get_option( 'thumb_height', 150 );
 	$crp_style    = ! empty( $style ) ? $style : crp_get_option( 'crp_styles' );
 
 	switch ( $crp_style ) {
