@@ -313,13 +313,46 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			$args['tax_query'] = $tax_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 
 			// Set date_query.
-			$args['date_query'] = array(
+			$date_query = array(
 				array(
 					'after'     => ( 0 === absint( $args['daily_range'] ) ) ? '' : gmdate( 'Y-m-d', strtotime( current_time( 'mysql' ) ) - ( absint( $args['daily_range'] ) * DAY_IN_SECONDS ) ),
 					'before'    => current_time( 'mysql' ),
 					'inclusive' => true,
 				),
 			);
+
+			/**
+			 * Filter the date_query passed to WP_Query.
+			 *
+			 * @since 3.3.0
+			 *
+			 * @param array   $date_query Array of date parameters to be passed to WP_Query.
+			 * @param array   $args       Arguments array.
+			 */
+			$args['date_query'] = apply_filters( 'crp_query_date_query', $date_query, $args );
+
+			/**
+			 * Filter the meta_query passed to WP_Query.
+			 *
+			 * @since 3.3.0
+			 *
+			 * @param array   $meta_query Array of meta_query parameters.
+			 * @param array   $args       Arguments array.
+			 */
+			$meta_query = apply_filters( 'crp_query_meta_query', array(), $args ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+
+			// Add a relation key if more than one $meta_query.
+			if ( count( $meta_query ) > 1 ) {
+				/**
+				 * Filter the meta_query relation parameter.
+				 *
+				 * @since 3.3.0
+				 *
+				 * @param string  $relation The logical relationship between each inner meta_query array when there is more than one. Default is 'AND'.
+				 * @param array   $args     Arguments array.
+				 */
+				$meta_query['relation'] = apply_filters( 'crp_query_meta_query_relation', 'AND', $args );
+			}
 
 			// Set post_status.
 			$args['post_status'] = empty( $args['post_status'] ) ? array( 'publish', 'inherit' ) : $args['post_status'];

@@ -171,6 +171,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Bug fixes:
     * Thumb width and height defaults to 150 in case the settings are missing
 
+* Developer:
+    * New filters: `crp_query_date_query`, `crp_query_meta_query`, `crp_query_meta_query_relation`
+
 = 3.2.3 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](https://webberzone.com/blog/contextual-related-posts-v3-2-0/)
