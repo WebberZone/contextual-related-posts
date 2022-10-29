@@ -32,7 +32,7 @@ function crp_options_page() {
 		<h1><?php esc_html_e( 'Contextual Related Posts Settings', 'contextual-related-posts' ); ?></h1>
 
 		<p>
-			<a class="crp_button" href="<?php echo admin_url( 'options-general.php?page=crp_tools_page' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+			<a class="crp_button" href="<?php echo admin_url( 'tools.php?page=crp_tools_page' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
 				<?php esc_html_e( 'Visit the Tools page', 'autoclose' ); ?>
 			</a>
 		<p>

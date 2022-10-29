@@ -4,7 +4,7 @@ Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: 3.2.3
 Requires at least: 5.6
-Tested up to: 5.9
+Tested up to: 6.1
 Requires PHP: 7.1
 License: GPLv2 or later
 
@@ -162,6 +162,11 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 
 == Changelog ==
+
+= 3.3.0 =
+
+* Enhancements/modifications:
+    * Moved Related Posts Tools page under Tools menu
 
 = 3.2.3 =
 

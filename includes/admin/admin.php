@@ -36,9 +36,9 @@ function crp_add_admin_pages_links() {
 	);
 	add_action( "load-$crp_settings_page", 'crp_settings_help' ); // Load the settings contextual help.
 
-	$crp_settings_tools = add_options_page(
+	$crp_settings_tools = add_management_page(
 		esc_html__( 'Contextual Related Posts Tools', 'contextual-related-posts' ),
-		esc_html__( 'Tools', 'contextual-related-posts' ),
+		esc_html__( 'Related Posts Tools', 'contextual-related-posts' ),
 		'manage_options',
 		'crp_tools_page',
 		'crp_tools_page'
@@ -178,11 +178,6 @@ function crp_admin_css() {
 	if ( ! is_customize_preview() ) {
 		$css = '
 			<style type="text/css">
-				#adminmenu a[href="options-general.php?page=crp_tools_page"]:before {
-					content: "\21B3";
-					margin-right: 0.5em;
-					opacity: 0.5;
-				}
 				a.crp_button {
 					background: green;
 					padding: 10px;
