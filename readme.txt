@@ -168,6 +168,9 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 * Enhancements/modifications:
     * Moved Related Posts Tools page under Tools menu
 
+* Bug fixes:
+    * Thumb width and height defaults to 150 in case the settings are missing
+
 = 3.2.3 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](https://webberzone.com/blog/contextual-related-posts-v3-2-0/)
