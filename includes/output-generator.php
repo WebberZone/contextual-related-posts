@@ -64,7 +64,8 @@ function crp_heading_title( $args ) {
 	$title = '';
 
 	if ( $args['heading'] && ! $args['is_widget'] ) {
-		$title = str_replace( '%postname%', $post->post_title, $args['title'] );    // Replace %postname% with the title of the current post.
+		$title = empty( $args['title'] ) ? crp_get_option( 'title', '' ) : $args['title'];
+		$title = str_replace( '%postname%', $post->post_title, $title );    // Replace %postname% with the title of the current post.
 	}
 
 	/**
