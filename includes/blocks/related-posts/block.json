@@ -20,6 +20,10 @@
 			"type": "boolean",
 			"default": false
 		},
+		"title": {
+			"type": "string",
+			"default": "<h3>Related Posts</h3>"
+		},
 		"limit": {
 			"type": "string",
 			"default": 6

@@ -165,8 +165,12 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 = 3.3.0 =
 
+* Features:
+    * Related posts block allows you to set a custom header above the related posts. Leave blank to get the one from the main settings page.
+
 * Enhancements/modifications:
     * Moved Related Posts Tools page under Tools menu
+    * Related Posts block is now wrapped in `Disabled` tags to prevent accidental clicking of links in the block editor
 
 * Bug fixes:
     * Thumb width and height defaults to 150 in case the settings are missing

@@ -16,6 +16,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 
 import {
+	Disabled,
 	TextControl,
 	TextareaControl,
 	ToggleControl,
@@ -49,6 +50,7 @@ export default function Edit({ attributes, setAttributes }) {
 			: wp.data.select('core/editor').getCurrentPostId();
 	const {
 		heading,
+		title,
 		limit,
 		offset,
 		show_excerpt,
@@ -63,6 +65,11 @@ export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
 	const toggleHeading = () => {
 		setAttributes({ heading: !heading });
+	};
+	const onChangeTitle = (newTitle) => {
+		setAttributes({
+			title: undefined === newTitle ? '' : newTitle,
+		});
 	};
 	const onChangeLimit = (newLimit) => {
 		setAttributes({
@@ -120,6 +127,19 @@ export default function Edit({ attributes, setAttributes }) {
 							/>
 						</fieldset>
 					</PanelRow>
+					{heading && (
+						<PanelRow>
+							<TextControl
+								label={__('Heading of posts', 'contextual-related-posts')}
+								value={title}
+								onChange={onChangeTitle}
+								help={__(
+									'Displayed before the list of the posts as a master heading. HTML allowed.',
+									'contextual-related-posts'
+								)}
+							/>
+						</PanelRow>
+					)}
 					<PanelRow>
 						<fieldset>
 							<TextControl
@@ -299,10 +319,12 @@ export default function Edit({ attributes, setAttributes }) {
 						)}
 					></Placeholder>
 				) : (
-					<ServerSideRender
-						block="contextual-related-posts/related-posts"
-						attributes={attributes}
-					/>
+					<Disabled>
+						<ServerSideRender
+							block="contextual-related-posts/related-posts"
+							attributes={attributes}
+						/>
+					</Disabled>
 				)}
 			</div>
 		</>
