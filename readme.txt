@@ -175,6 +175,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Bug fixes:
     * Thumb width and height defaults to 150 in case the settings are missing
+    * Setting the style to be text_only didn't enforce no thumbnail
 
 * Developer:
     * New filters: `crp_query_date_query`, `crp_query_meta_query`, `crp_query_meta_query_relation`
