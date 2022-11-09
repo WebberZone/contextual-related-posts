@@ -68,6 +68,22 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $crp_post_meta;
 
 		/**
+		 * Array of manual related post IDs.
+		 *
+		 * @since 3.3.0
+		 * @var array
+		 */
+		public $manual_related = array();
+
+		/**
+		 * Number of manual related posts.
+		 *
+		 * @since 3.3.0
+		 * @var int
+		 */
+		public $no_of_manual_related = 0;
+
+		/**
 		 * Fields to be matched.
 		 *
 		 * @since 3.0.0
@@ -170,6 +186,15 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			// Save post meta into a class-wide variable.
 			$this->crp_post_meta = get_post_meta( $source_post->ID, 'crp_post_meta', true );
+
+			if ( ! empty( $this->crp_post_meta['manual_related'] ) ) {
+				$this->manual_related = wp_parse_id_list( $this->crp_post_meta['manual_related'] );
+			}
+			if ( ! empty( $args['include_post_ids'] ) ) {
+				$include_post_ids     = wp_parse_id_list( $args['include_post_ids'] );
+				$this->manual_related = array_merge( $this->manual_related, $include_post_ids );
+			}
+			$this->no_of_manual_related = count( $this->manual_related );
 
 			// Set the random order and save it in a class-wide variable.
 			$random_order = ( $args['random_order'] || ( isset( $args['ordering'] ) && 'random' === $args['ordering'] ) ) ? true : false;
@@ -764,27 +789,36 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				return $posts;
 			}
 
+			$post_ids = array();
+
 			// Check the cache if there are any posts saved.
 			if ( ! empty( $this->query_args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 
 				$meta_key = crp_cache_get_key( $this->input_query_args );
 
-				$post_ids = get_crp_cache( $this->source_post->ID, $meta_key );
-
-				if ( ! empty( $post_ids ) ) {
-					$posts                = get_posts(
-						array(
-							'post__in'    => $post_ids,
-							'fields'      => $query->get( 'fields' ),
-							'orderby'     => 'post__in',
-							'numberposts' => $query->get( 'posts_per_page' ),
-							'post_type'   => $query->get( 'post_type' ),
-						)
-					);
-					$query->found_posts   = count( $posts );
-					$query->max_num_pages = ceil( $query->found_posts / $query->get( 'posts_per_page' ) );
-					$this->in_cache       = true;
+				$cached_data = get_crp_cache( $this->source_post->ID, $meta_key );
+				if ( ! empty( $cached_data ) ) {
+					$post_ids       = $cached_data;
+					$this->in_cache = true;
 				}
+			}
+
+			if ( ! empty( $this->manual_related ) && ( $this->no_of_manual_related >= $this->query_args['limit'] ) ) {
+				$post_ids = array_merge( $post_ids, $this->manual_related );
+			}
+
+			if ( ! empty( $post_ids ) ) {
+				$posts                = get_posts(
+					array(
+						'post__in'    => array_unique( $post_ids ),
+						'fields'      => $query->get( 'fields' ),
+						'orderby'     => 'post__in',
+						'numberposts' => $query->get( 'posts_per_page' ),
+						'post_type'   => $query->get( 'post_type' ),
+					)
+				);
+				$query->found_posts   = count( $posts );
+				$query->max_num_pages = ceil( $query->found_posts / $query->get( 'posts_per_page' ) );
 			}
 
 			/**
@@ -832,18 +866,13 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Manual Posts (manual_related - set via the Post Meta) or Include Posts (can be set as a parameter).
 			$post_ids = array();
 
-			if ( ! empty( $this->crp_post_meta['manual_related'] ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-				$manual_related = wp_parse_id_list( $this->crp_post_meta['manual_related'] );
-				$post_ids       = array_merge( $post_ids, $manual_related );
-			}
-			if ( ! empty( $this->query_args['include_post_ids'] ) ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-				$include_post_ids = wp_parse_id_list( $this->query_args['include_post_ids'] );
-				$post_ids         = array_merge( $post_ids, $include_post_ids );
+			if ( ! empty( $this->manual_related ) && ( $this->no_of_manual_related < $this->query_args['limit'] ) ) {
+				$post_ids = array_merge( $post_ids, $this->manual_related );
 			}
 			if ( ! empty( $post_ids ) ) {
 				$extra_posts = get_posts(
 					array(
-						'post__in'    => $post_ids,
+						'post__in'    => array_unique( $post_ids ),
 						'fields'      => $query->get( 'fields' ),
 						'orderby'     => 'post__in',
 						'numberposts' => '-1',
