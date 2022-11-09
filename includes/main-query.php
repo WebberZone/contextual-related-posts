@@ -112,8 +112,12 @@ function get_crp( $args = array() ) {
 		return $custom_template;
 	}
 
-	$style        = ( 'text_only' === $args['post_thumb_op'] ) ? 'text_only' : $args['crp_styles'];
-	$style_array  = crp_get_style( $style );
+	if ( 'text_only' === $args['post_thumb_op'] || 'text_only' === $args['crp_styles'] ) {
+		$args['crp_styles']    = 'text_only';
+		$args['post_thumb_op'] = 'text_only';
+	}
+	$style_array = crp_get_style( $args['crp_styles'] );
+
 	$post_classes = array(
 		'main'        => 'crp_related',
 		'widget'      => $args['is_widget'] ? 'crp_related_widget' : '',
