@@ -169,6 +169,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
     * Related posts block allows you to set a custom header above the related posts. Leave blank to get the one from the main settings page.
 
 * Enhancements/modifications:
+    * If the number of "Manual related posts" is greater than the number of related posts, then the database query is bypassed drastically improving perfomance
     * Moved Related Posts Tools page under Tools menu
     * Related Posts block is now wrapped in `Disabled` tags to prevent accidental clicking of links in the block editor
 
