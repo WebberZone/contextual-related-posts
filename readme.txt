@@ -167,6 +167,7 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 * Features:
     * Related posts block allows you to set a custom header above the related posts. Leave blank to get the one from the main settings page.
+    * New option "Related Meta Keys" under the List Tuning tab. You can enter a comma-separted list of meta keys. Posts that match the same value of the meta key are displayed before the other related posts.
 
 * Enhancements/modifications:
     * If the number of "Manual related posts" is greater than the number of related posts, then the database query is bypassed drastically improving perfomance
