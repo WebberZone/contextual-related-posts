@@ -457,6 +457,14 @@ function crp_settings_list() {
 			'options' => '1',
 			'min'     => '1',
 		),
+		'related_meta_keys'      => array(
+			'id'      => 'related_meta_keys',
+			'name'    => esc_html__( 'Related Meta Keys', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'Enter a comma-separated list of meta keys. Posts that match the same value of the meta key are displayed before the other related posts', 'contextual-related-posts' ),
+			'type'    => 'csv',
+			'options' => '',
+			'size'    => 'large',
+		),
 		'exclude_post_ids'       => array(
 			'id'      => 'exclude_post_ids',
 			'name'    => esc_html__( 'Post/page IDs to exclude', 'contextual-related-posts' ),

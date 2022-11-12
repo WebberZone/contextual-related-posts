@@ -28,11 +28,12 @@ function crp_shortcode( $atts, $content = null ) { // phpcs:ignore Generic.CodeA
 		array_merge(
 			$crp_settings,
 			array(
-				'heading'          => 1,
-				'is_shortcode'     => 1,
-				'offset'           => 0,
-				'include_cat_ids'  => '',
-				'include_post_ids' => '',
+				'heading'           => 1,
+				'is_shortcode'      => 1,
+				'offset'            => 0,
+				'include_cat_ids'   => '',
+				'include_post_ids'  => '',
+				'related_meta_keys' => '',
 			)
 		),
 		$atts,
@@ -42,5 +43,3 @@ function crp_shortcode( $atts, $content = null ) { // phpcs:ignore Generic.CodeA
 	return get_crp( $atts );
 }
 add_shortcode( 'crp', 'crp_shortcode' );
-
-

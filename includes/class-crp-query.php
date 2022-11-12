@@ -379,6 +379,8 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$meta_query['relation'] = apply_filters( 'crp_query_meta_query_relation', 'AND', $args );
 			}
 
+			$args['meta_query'] = $meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+
 			// Set post_status.
 			$args['post_status'] = empty( $args['post_status'] ) ? array( 'publish', 'inherit' ) : $args['post_status'];
 
@@ -861,6 +863,40 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Shuffle posts if random order is set.
 			if ( $this->random_order ) {
 				shuffle( $posts );
+			}
+
+			// Related posts by meta_key.
+			if ( ! empty( $this->query_args['related_meta_keys'] ) ) {
+				$related_meta_query = array();
+				$related_meta_keys  = wp_parse_list( $this->query_args['related_meta_keys'] );
+				foreach ( $related_meta_keys as $related_meta_key ) {
+					$related_meta_query[] = array(
+						'key'   => $related_meta_key,
+						'value' => (string) get_post_meta( $this->source_post->ID, $related_meta_key, true ),
+					);
+				}
+
+				if ( count( $related_meta_query ) > 1 ) {
+					/**
+					 * Filter the meta_query relation parameter for related posts by meta_key.
+					 *
+					 * @since 3.3.0
+					 *
+					 * @param string  $relation The logical relationship between each inner meta_query array when there is more than one. Default is 'OR'.
+					 */
+					$related_meta_query['relation'] = apply_filters( 'crp_query_related_meta_query_relation', 'OR' );
+				}
+
+				$meta_posts = get_posts(
+					array(
+						'post__not_in' => (array) $this->source_post->ID,
+						'fields'       => $query->get( 'fields' ),
+						'numberposts'  => $query->get( 'posts_per_page' ),
+						'post_type'    => $query->get( 'post_type' ),
+						'meta_query'   => $related_meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					)
+				);
+				$posts      = array_merge( $meta_posts, $posts );
 			}
 
 			// Manual Posts (manual_related - set via the Post Meta) or Include Posts (can be set as a parameter).
