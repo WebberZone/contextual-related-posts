@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.2.3
+Stable tag: 3.3.0
 Requires at least: 5.6
 Tested up to: 6.1
 Requires PHP: 7.1
@@ -164,6 +164,8 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 == Changelog ==
 
 = 3.3.0 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](https://webberzone.com/blog/contextual-related-posts-v3-3-0/)
 
 * Features:
     * Related posts block allows you to set a custom header above the related posts. Leave blank to get the one from the main settings page.
