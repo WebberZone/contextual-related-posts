@@ -385,23 +385,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			$args['post_status'] = empty( $args['post_status'] ) ? array( 'publish', 'inherit' ) : $args['post_status'];
 
 			// Set post__not_in for WP_Query using exclude_post_ids.
-			$exclude_post_ids = empty( $args['exclude_post_ids'] ) ? array() : wp_parse_id_list( $args['exclude_post_ids'] );
-
-			/**
-			 * Filter exclude post IDs array.
-			 *
-			 * @since 2.3.0
-			 * @since 2.9.3 Added $args
-			 * @since 3.2.0 Added $source_post
-			 *
-			 * @param array   $exclude_post_ids Array of post IDs.
-			 * @param array   $args             Arguments array.
-			 * @param WP_Post $source_post      Source post.
-			 */
-			$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args, $source_post );
-
-			$exclude_post_ids[]   = $source_post->ID;
-			$args['post__not_in'] = $exclude_post_ids;
+			$args['post__not_in'] = $this->exclude_post_ids( $args );
 
 			// Same author.
 			if ( isset( $args['same_author'] ) && $args['same_author'] ) {
@@ -870,10 +854,13 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$related_meta_query = array();
 				$related_meta_keys  = wp_parse_list( $this->query_args['related_meta_keys'] );
 				foreach ( $related_meta_keys as $related_meta_key ) {
-					$related_meta_query[] = array(
-						'key'   => $related_meta_key,
-						'value' => (string) get_post_meta( $this->source_post->ID, $related_meta_key, true ),
-					);
+					$related_meta_value = (string) get_post_meta( $this->source_post->ID, $related_meta_key, true );
+					if ( ! empty( $related_meta_value ) ) {
+						$related_meta_query[] = array(
+							'key'   => $related_meta_key,
+							'value' => $related_meta_value,
+						);
+					}
 				}
 
 				if ( count( $related_meta_query ) > 1 ) {
@@ -887,16 +874,18 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 					$related_meta_query['relation'] = apply_filters( 'crp_query_related_meta_query_relation', 'OR' );
 				}
 
-				$meta_posts = get_posts(
-					array(
-						'post__not_in' => (array) $this->source_post->ID,
-						'fields'       => $query->get( 'fields' ),
-						'numberposts'  => $query->get( 'posts_per_page' ),
-						'post_type'    => $query->get( 'post_type' ),
-						'meta_query'   => $related_meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-					)
-				);
-				$posts      = array_merge( $meta_posts, $posts );
+				if ( ! empty( $related_meta_query ) ) {
+					$meta_posts = get_posts(
+						array(
+							'post__not_in' => $this->exclude_post_ids( $this->query_args ),
+							'fields'       => $query->get( 'fields' ),
+							'numberposts'  => $query->get( 'posts_per_page' ),
+							'post_type'    => $query->get( 'post_type' ),
+							'meta_query'   => $related_meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						)
+					);
+					$posts      = array_merge( $meta_posts, $posts );
+				}
 			}
 
 			// Manual Posts (manual_related - set via the Post Meta) or Include Posts (can be set as a parameter).
@@ -956,5 +945,34 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 */
 			return apply_filters( 'crp_query_the_posts', $posts, $this->query_args, $query );
 		}
+
+		/**
+		 * Exclude Post IDs. Allows other plugins/functions to hook onto this and extend the list.
+		 *
+		 * @param array $args Array of arguments for CRP_Query.
+		 * @return array Array of post IDs to exclude.
+		 */
+		public function exclude_post_ids( $args ) {
+
+			$exclude_post_ids = empty( $args['exclude_post_ids'] ) ? array() : wp_parse_id_list( $args['exclude_post_ids'] );
+
+			/**
+			 * Filter exclude post IDs array.
+			 *
+			 * @since 2.3.0
+			 * @since 2.9.3 Added $args
+			 * @since 3.2.0 Added $source_post
+			 *
+			 * @param array   $exclude_post_ids Array of post IDs.
+			 * @param array   $args             Arguments array.
+			 * @param WP_Post $source_post      Source post.
+			 */
+			$exclude_post_ids = apply_filters( 'crp_exclude_post_ids', $exclude_post_ids, $args, $this->source_post );
+
+			$exclude_post_ids[] = $this->source_post->ID;
+
+			return $exclude_post_ids;
+		}
+
 	}
 endif;
