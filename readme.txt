@@ -136,9 +136,13 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
-= 3.3.0 =
+= 3.3.1 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](https://webberzone.com/blog/contextual-related-posts-v3-3-0/)
+
+* Security fix in block
+
+= 3.3.0 =
 
 * Features:
     * Related posts block allows you to set a custom header above the related posts. Leave blank to get the one from the main settings page.

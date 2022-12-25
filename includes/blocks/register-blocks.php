@@ -35,7 +35,7 @@ add_action( 'init', 'crp_register_blocks' );
  */
 function render_crp_block( $attributes ) {
 
-	$attributes['extra_class'] = $attributes['className'];
+	$attributes['extra_class'] = esc_attr( $attributes['className'] );
 
 	$arguments = array_merge(
 		$attributes,
