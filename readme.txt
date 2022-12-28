@@ -214,5 +214,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.3.0 =
-Block updates and new settings. Please read the release post on https://webberzone.com
+= 3.3.1 =
+Security fix
