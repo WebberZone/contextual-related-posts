@@ -17,6 +17,11 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function crp_ajax_clearcache() {
 
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( 0 );
+	}
+	check_ajax_referer( 'crp-admin', 'security' );
+
 	crp_cache_delete();
 	exit(
 		wp_json_encode(
