@@ -131,6 +131,13 @@ function crp_load_admin_scripts( $hook ) {
 				),
 			)
 		);
+		wp_localize_script(
+			'crp-admin-js',
+			'crp_admin_data',
+			array(
+				'security' => wp_create_nonce( 'crp-admin' ),
+			)
+		);
 
 	}
 }

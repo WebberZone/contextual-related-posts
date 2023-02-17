@@ -2,7 +2,8 @@
 function crpClearCache() {
 	/**** since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php ****/
 	jQuery.post(ajaxurl, {
-		action: 'crp_clear_cache'
+		action: 'crp_clear_cache',
+		security: crp_admin_data.security
 	}, function (response, textStatus, jqXHR) {
 		alert(response.message);
 	}, 'json');
@@ -10,7 +11,7 @@ function crpClearCache() {
 
 jQuery(document).ready(function($) {
 	// Prompt the user when they leave the page without saving the form.
-	formmodified=0;
+	var formmodified=0;
 
 	function confirmFormChange() {
 		formmodified=1;
