@@ -2,9 +2,9 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.3.0
+Stable tag: 3.3.2
 Requires at least: 5.6
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.1
 License: GPLv2 or later
 
@@ -136,9 +136,13 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
-= 3.3.1 =
+= 3.3.2 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](https://webberzone.com/blog/contextual-related-posts-v3-3-0/)
+
+* Clearing cache security fix
+
+= 3.3.1 =
 
 * Security fix in block
 
@@ -214,5 +218,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.3.1 =
+= 3.3.2 =
 Security fix
