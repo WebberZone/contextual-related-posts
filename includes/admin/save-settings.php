@@ -147,7 +147,7 @@ function crp_settings_sanitize( $input = array() ) {
  * @return string  $value  Sanitized value
  */
 function crp_sanitize_text_field( $value ) {
-	return crp_sanitize_textarea_field( $value );
+	return wp_kses_post( wp_unslash( $value ) );
 }
 add_filter( 'crp_settings_sanitize_text', 'crp_sanitize_text_field' );
 
