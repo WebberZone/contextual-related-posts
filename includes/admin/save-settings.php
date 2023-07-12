@@ -320,7 +320,7 @@ function crp_change_settings_on_save( $settings ) {
 
 		foreach ( $exclude_cat_slugs as $slug ) {
 			// Pattern is Name (taxonomy:term_taxonomy_id).
-			preg_match( '/(.*)\((.*):(\d+)\)/i', $slug, $matches );
+			preg_match( '/(.*)\((.*):(\d+)\)/i', (string) $slug, $matches );
 			if ( isset( $matches[3] ) ) { // This holds the term_taxonomy_id.
 				$term = get_term_by( 'term_taxonomy_id', $matches[3] );
 			} else {
@@ -347,7 +347,7 @@ function crp_change_settings_on_save( $settings ) {
 
 		foreach ( $exclude_on_cat_slugs as $slug ) {
 			// Pattern is Name (taxonomy:term_taxonomy_id).
-			preg_match( '/(.*)\((.*):(\d+)\)/i', $slug, $matches );
+			preg_match( '/(.*)\((.*):(\d+)\)/i', (string) $slug, $matches );
 			if ( isset( $matches[3] ) ) { // This holds the term_taxonomy_id.
 				$term = get_term_by( 'term_taxonomy_id', $matches[3] );
 			} else {
