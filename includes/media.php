@@ -240,7 +240,9 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 			}
 		}
 
-		if ( function_exists( 'wp_img_tag_add_loading_attr' ) ) {
+		if ( function_exists( 'wp_img_tag_add_loading_optimization_attrs' ) ) {
+			$output = wp_img_tag_add_loading_optimization_attrs( $output, 'crp_thumbnail' );
+		} elseif ( function_exists( 'wp_img_tag_add_loading_attr' ) ) {
 			$output = wp_img_tag_add_loading_attr( $output, 'crp_thumbnail' );
 		}
 	}
