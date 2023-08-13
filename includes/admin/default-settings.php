@@ -43,7 +43,6 @@ function crp_get_registered_settings() {
 	 * @param array   $crp_settings Settings array
 	 */
 	return apply_filters( 'crp_registered_settings', $crp_settings );
-
 }
 
 
@@ -798,7 +797,6 @@ function crp_upgrade_settings() {
 	$settings['custom_css'] = $old_settings['custom_CSS'];
 
 	return $settings;
-
 }
 
 

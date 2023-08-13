@@ -256,7 +256,6 @@ function crp_process_settings_import() {
 		)
 	);
 	exit;
-
 }
 add_action( 'admin_init', 'crp_process_settings_import', 9 );
 

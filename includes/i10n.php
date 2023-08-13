@@ -101,4 +101,3 @@ function crp_object_id_cur_lang( $post ) {
 	 */
 	return apply_filters( 'crp_object_id_cur_lang', $post );
 }
-

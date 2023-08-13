@@ -177,7 +177,7 @@ function get_crp( $args = array() ) {
 				$output .= '<span class="crp_excerpt"> ' . crp_excerpt( $result->ID, $args['excerpt_length'], true, $args['more_link_text'] ) . '</span>';
 			}
 
-			$loop_counter++;
+			++$loop_counter;
 
 			$output .= crp_after_list_item( $args, $result );
 

@@ -26,7 +26,6 @@ function crp_plugin_actions_links( $links ) {
 		),
 		$links
 	);
-
 }
 add_filter( 'plugin_action_links_' . plugin_basename( CRP_PLUGIN_FILE ), 'crp_plugin_actions_links' );
 
@@ -55,4 +54,3 @@ function crp_plugin_actions( $links, $file ) {
 	return $links;
 }
 add_filter( 'plugin_row_meta', 'crp_plugin_actions', 10, 2 );
-

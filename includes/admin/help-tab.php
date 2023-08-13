@@ -67,6 +67,4 @@ function crp_settings_help() {
 	);
 
 	do_action( 'crp_settings_help', $screen );
-
 }
-

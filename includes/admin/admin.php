@@ -44,7 +44,6 @@ function crp_add_admin_pages_links() {
 		'crp_tools_page'
 	);
 	add_action( "load-$crp_settings_tools", 'crp_settings_help' );
-
 }
 add_action( 'admin_menu', 'crp_add_admin_pages_links', 99 );
 
@@ -154,7 +153,6 @@ function crp_customize_controls_enqueue_scripts() {
 	wp_enqueue_script( 'crp-suggest-js' );
 
 	wp_enqueue_style( 'crp-admin-customizer-css' );
-
 }
 add_action( 'customize_controls_enqueue_scripts', 'crp_customize_controls_enqueue_scripts', 99 );
 

@@ -64,5 +64,3 @@ function crp_exclude_categories_where( $where ) {
 	return $where;
 }
 add_filter( 'crp_posts_where', 'crp_exclude_categories_where' );
-
-

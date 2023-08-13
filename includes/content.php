@@ -96,7 +96,6 @@ function crp_generate_content( $content, $crp_code ) {
 	} else {
 		return crp_insert_after_paragraph( $content, $crp_code, $insert_after_paragraph );
 	}
-
 }
 
 /**
@@ -177,4 +176,3 @@ function echo_crp( $args = array() ) {
 
 	echo get_crp( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
-
