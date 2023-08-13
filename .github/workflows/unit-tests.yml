@@ -5,12 +5,12 @@ on:
   # Prevent the build from running when there are only irrelevant changes.
   push:
     paths-ignore:
-      - '**.md'
-      - '**.txt'
+      - "**.md"
+      - "**.txt"
   pull_request:
     paths-ignore:
-      - '**.md'
-      - '**.txt'
+      - "**.md"
+      - "**.txt"
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
@@ -23,25 +23,25 @@ jobs:
       matrix:
         # Notes regarding supported versions in WP:
         # The base matrix only contains the PHP versions which are supported on all supported WP versions.
-        php: ['7.1', '7.2', '7.3', '7.4']
-        wp: ['latest']
+        php: ["7.2", "7.3", "7.4", "8.0"]
+        wp: ["latest"]
         experimental: [false]
 
         include:
-          # Complement the builds run via the matrix with high/low WP builds for PHP 7.4 and 8.0.
-          # PHP 8.0 is sort of supported since WP 5.6.
-          # PHP 7.4 is supported since WP 5.3.
-          - php: '8.1'
-            wp: 'latest'
+          - php: "8.1"
+            wp: "trunk"
             experimental: true
-          - php: '8.0'
-            wp: '5.6'
+          - php: "8.2"
+            wp: "trunk"
             experimental: true
-          - php: '7.4'
-            wp: '5.5'
+          - php: "8.0"
+            wp: "5.6"
             experimental: true
-          - php: '7.4'
-            wp: 'nightly'
+          - php: "7.4"
+            wp: "5.5"
+            experimental: true
+          - php: "7.4"
+            wp: "latest"
             experimental: true
 
     name: "PHP ${{ matrix.php }} - WP ${{ matrix.wp }}"
@@ -65,57 +65,64 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          tools: phpunit-polyfills
           coverage: none
-          # The PHP 5.6 and 7.0 images don't include mysql[i] by default.
           extensions: mysqli
 
       - name: Set up WordPress
         run: phpunit/install.sh wordpress_test root '' 127.0.0.1:3306 ${{ matrix.wp }}
 
-      # On WP 5.2, PHPUnit 5.x, 6.x and 7.x are supported.
-      # On PHP >= 8.0, PHPUnit 7.5+ is needed, no matter what.
-      - name: Determine supported PHPUnit version
-        id: set_phpunit
+      # Determine the type of Composer install which is needed.
+      # 1. WP 5.9 or higher - all PHPUnit versions needed are supported, use the most appropriate one.
+      # 2. WP 5.9 or higher with PHP 8.2 (RC) - not all dependencies of PHPUnit have declared PHP 8.2 compatibility, so needs ignore platform.
+      # 3. WP < 5.9 with PHP < 8.0 - PHPUnit 5 - 7 supported, use the most appropriate one.
+      # 4. WP < 5.9 with PHP 8.0 or higher - PHPUnit 5 - 7 supported, needs ignore platform reqs to install PHPUnit 7 for PHP >= 8.0.
+      - name: Determine the type of Composer install to use
+        id: composer_toggle
         run: |
-          if [[ "${{ matrix.php }}" > "8.0" ]]; then
-            echo '::set-output name=PHPUNIT::9.*'
+          if [[ "${{ matrix.wp }}" =~ ^(trunk|latest|5\.9|[6789]\.[0-9])$ ]]; then
+            if [[ "${{ matrix.php }}" != "8.2" ]]; then
+              echo '::set-output name=TYPE::1'
+            else
+              echo '::set-output name=TYPE::2'
+            fi
+          elif [[ "${{ matrix.php }}" > "7.4" ]]; then
+            echo '::set-output name=TYPE::4'
           else
-            echo '::set-output name=PHPUNIT::5.7.*||6.*||7.5.*'
+            echo '::set-output name=TYPE::3'
           fi
 
-      - name: 'Composer: set up PHPUnit'
-        run: composer require --no-update phpunit/phpunit:"${{ steps.set_phpunit.outputs.PHPUNIT }}"
+      # Remove the PHPUnit requirement for WP 5.9 and higher in favour of letting the Polyfills manage it.
+      # The Composer command will exit with error code 2 as the package is not removed, so ignore "failure" of this step.
+      - name: Conditionally remove PHPUnit requirement
+        if: ${{ steps.composer_toggle.outputs.TYPE == '1' || steps.composer_toggle.outputs.TYPE == '2' }}
+        continue-on-error: true
+        run: composer remove --dev phpunit/phpunit --no-update --no-interaction || true
 
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
-      - name: Install Composer dependencies for PHP < 8.0
-        if: ${{ matrix.php < 8.0 }}
-        uses: "ramsey/composer-install@v1"
+      - name: Install Composer dependencies - normal
+        if: ${{ steps.composer_toggle.outputs.TYPE == '1' || steps.composer_toggle.outputs.TYPE == '3' }}
+        uses: "ramsey/composer-install@v2"
 
-      # For the PHP 8.0 and above, we need to install with ignore platform reqs as not all dependencies allow it yet.
-      - name: Install Composer dependencies for PHP >= 8.0
-        if: ${{ matrix.php >= 8.0 }}
-        uses: "ramsey/composer-install@v1"
+      # For PHP 8.0 and above on WP 5.2 - 5.8, we need to install with ignore platform reqs as not all dependencies allow it.
+      - name: Install Composer dependencies with ignore platform reqs
+        if: ${{ steps.composer_toggle.outputs.TYPE == '2' || steps.composer_toggle.outputs.TYPE == '4' }}
+        uses: "ramsey/composer-install@v2"
         with:
-          composer-options: --ignore-platform-reqs
-
-      - name: 'Run Composer Update'
-        run: |
-          composer update --ignore-platform-reqs
+          composer-options: --ignore-platform-req=php
 
       - name: Tool versions
+        continue-on-error: true
         run: |
           php --version
           composer --version
-          phpunit --version
-          which phpunit
+          vendor/bin/phpunit --version
 
       - name: Run the unit tests - single site
         run: vendor/bin/phpunit
