@@ -185,7 +185,6 @@ function crp_create_index() {
 	}
 
 	$wpdb->show_errors();
-
 }
 
 
@@ -210,7 +209,6 @@ function crp_delete_index() {
 	}
 
 	$wpdb->show_errors();
-
 }
 
 

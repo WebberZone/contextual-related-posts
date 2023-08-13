@@ -142,7 +142,6 @@ function crp_get_settings_sections() {
 	 * @param array $crp_settings_sections Settings array
 	 */
 	return apply_filters( 'crp_settings_sections', $crp_settings_sections );
-
 }
 
 

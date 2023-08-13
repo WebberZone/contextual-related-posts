@@ -973,6 +973,5 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			return $exclude_post_ids;
 		}
-
 	}
 endif;

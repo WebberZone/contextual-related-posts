@@ -46,7 +46,6 @@ function crp_link_attributes( $args, $result ) {
 	$link_attributes = implode( ' ', $link_attributes );
 
 	return $link_attributes;
-
 }
 
 
@@ -101,7 +100,6 @@ function crp_before_list( $args ) {
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_before_list', $before_list, $args );
-
 }
 
 
@@ -126,7 +124,6 @@ function crp_after_list( $args ) {
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_after_list', $after_list, $args );
-
 }
 
 
@@ -153,7 +150,6 @@ function crp_before_list_item( $args, $result ) {
 	 * @param   array   $args             Array of arguments
 	 */
 	return apply_filters( 'crp_before_list_item', $before_list_item, $result, $args );
-
 }
 
 
@@ -180,7 +176,6 @@ function crp_after_list_item( $args, $result ) {
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_after_list_item', $after_list_item, $result, $args );
-
 }
 
 
@@ -207,7 +202,6 @@ function crp_title( $args, $result ) {
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_title', $title, $result, $args );
-
 }
 
 
@@ -253,7 +247,6 @@ function crp_author( $args, $result ) {
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_author', $crp_author, $author_info, $result, $args );
-
 }
 
 
@@ -280,7 +273,6 @@ function crp_permalink( $args, $result ) {
 	 * @param   array   $args   Array of arguments
 	 */
 	return apply_filters( 'crp_permalink', $link, $result, $args );
-
 }
 
 

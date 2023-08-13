@@ -308,7 +308,6 @@ function crp_get_default_option( $key = '' ) {
 	} else {
 		return false;
 	}
-
 }
 
 
@@ -322,4 +321,3 @@ function crp_get_default_option( $key = '' ) {
 function crp_settings_reset() {
 	delete_option( 'crp_settings' );
 }
-

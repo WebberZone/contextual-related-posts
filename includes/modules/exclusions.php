@@ -38,7 +38,6 @@ function crp_exclude_post_ids( $exclude_post_ids, $args, $post ) {
 		}
 	}
 	return $exclude_post_ids;
-
 }
 add_filter( 'crp_exclude_post_ids', 'crp_exclude_post_ids', 10, 3 );
 

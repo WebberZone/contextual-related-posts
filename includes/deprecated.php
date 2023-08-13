@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @var string
  */
-$crp_url = plugins_url() . '/' . plugin_basename( dirname( __FILE__ ) );
+$crp_url = plugins_url() . '/' . plugin_basename( __DIR__ );
 
 /**
  * Main function to generate the related posts output
@@ -270,4 +270,3 @@ function crp_read_options() {
 	 */
 	return apply_filters( 'crp_read_options', $crp_settings );
 }
-

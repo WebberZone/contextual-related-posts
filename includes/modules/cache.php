@@ -57,7 +57,7 @@ function crp_cache_delete( $meta_keys = array() ) {
 	foreach ( $meta_keys as $meta_key ) {
 		$del_meta = delete_crp_cache_by_key( $meta_key );
 		if ( $del_meta ) {
-			$loop++;
+			++$loop;
 		}
 	}
 
@@ -167,7 +167,6 @@ function crp_delete_cache_post_save( $post_id ) {
 	foreach ( $meta_keys as $meta_key ) {
 		delete_post_meta( $post_id, $meta_key );
 	}
-
 }
 add_action( 'crp_save_meta_box', 'crp_delete_cache_post_save' );
 
@@ -302,4 +301,3 @@ function delete_crp_cache_by_key( $key ) {
 
 	return $result;
 }
-

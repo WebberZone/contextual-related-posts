@@ -48,5 +48,3 @@ function crp_manual_posts( $results ) {
 	return apply_filters( 'crp_manual_posts', $results );
 }
 add_filter( 'get_crp_posts_id', 'crp_manual_posts' );
-
-

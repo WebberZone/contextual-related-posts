@@ -134,7 +134,6 @@ function crp_settings_sanitize( $input = array() ) {
 	 * @param array $input Input settings array.
 	 */
 	return apply_filters( 'crp_settings_sanitize', $output, $input );
-
 }
 
 
@@ -247,7 +246,6 @@ function crp_sanitize_textarea_field( $value ) {
 	$allowedtags = apply_filters( 'crp_sanitize_allowed_tags', $allowedtags, $value );
 
 	return wp_kses( wp_unslash( $value ), $allowedtags );
-
 }
 add_filter( 'crp_settings_sanitize_textarea', 'crp_sanitize_textarea_field' );
 
