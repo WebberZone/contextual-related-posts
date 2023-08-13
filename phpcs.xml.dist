@@ -25,6 +25,7 @@
 	<!-- Use WordPress ruleset. -->
 	<rule ref="WordPress">
 		<exclude name="WordPress.WP.I18n" />
+		<exclude name="Universal.Files.SeparateFunctionsFromOO.Mixed" />
 	</rule>
 	<rule ref="WordPress.Files.FileName">
 		<exclude-pattern>*/phpunit/tests/*\.php$</exclude-pattern>
