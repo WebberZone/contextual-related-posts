@@ -136,9 +136,14 @@ You can insert the related posts anywhere in your post using the `[crp]` shortco
 
 == Changelog ==
 
-= 3.3.3 =
+= 3.3.4 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](https://webberzone.com/blog/contextual-related-posts-v3-3-0/)
+
+* Bug Fixes:
+    * Fix duplicate display of related posts when using reusable blocks or a plugin that inserts pages
+
+= 3.3.3 =
 
 * Fixes permission issues with HTML settings
 

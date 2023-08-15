@@ -34,10 +34,19 @@ add_action( 'template_redirect', 'crp_content_prepare_filter' );
  */
 function crp_content_filter( $content ) {
 
-	global $post, $crp_settings;
+	global $post, $crp_settings, $wp_filters;
+
+	// Track the number of times this function  is called.
+	static $filter_calls = 0;
+	++$filter_calls;
 
 	// Return if it's not in the loop or in the main query.
-	if ( ! in_the_loop() || ! is_main_query() ) {
+	if ( ! ( in_the_loop() && is_main_query() && (int) get_queried_object_id() === (int) $post->ID ) ) {
+		return $content;
+	}
+
+	// Check if this is the last call of the_content.
+	if ( doing_filter( 'the_content' ) && (int) $wp_filters['the_content'] !== $filter_calls ) {
 		return $content;
 	}
 
