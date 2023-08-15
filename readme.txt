@@ -176,53 +176,6 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](htt
 * Developer:
     * New filters: `crp_query_date_query`, `crp_query_meta_query`, `crp_query_meta_query_relation`
 
-= 3.2.3 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](https://webberzone.com/blog/contextual-related-posts-v3-2-0/)
-
-* Enhancements:
-    * Block shows a placeholder when used in non-Edit screens or when no content is generated
-
-* Bug fix:
-    * Missing text-only.min.css file
-    * Block settings were not saved
-
-= 3.2.2 =
-
-* Bug fix:
-    * Widget options were not saved properly
-    * Stylesheets and header styles have been fixed to be more specific
-
-= 3.2.1 =
-
-* Enhancements/modifications:
-    * If thumbnail is set as `text only`, then the style is also set as `text only` at runtime
-
-* Bug fix:
-    * PHP error thrown when using `get_crp_posts_id()`
-
-* Deprecated:
-    * `get_crp_posts_id()`. Use `get_crp_posts()` instead
-
-= 3.2.0 =
-
-* New feature:
-    * New option to limit posts to the primary category/term. The plugin checks if either Yoast, Rank Math, The SEO Framework or SEOPress are active. If none of these are active, the plugin will pick the first category provided by `get_the_terms()`
-    * New option to show the primary category/term
-    * New option in metabox to enter a comma-separated list of post IDs to exclude from the related posts
-    * New filter `crp_fill_random_posts` (default:false) which can be used to fill random posts if the number of related posts is less than the limit set
-
-* Enhancements/modifications:
-    * No widget is displayed if `get_crp()` is empty i.e. no related posts are found
-    * `post_title` and `post_content` fields are only used if *Use content* option is set
-    * Gutenberg block updated to the latest Blocks API
-    * The widget's "Only from categories" autocomplete replaced by ID list
-    * Wrapper `div` now always includes `crp_related` class name. Stylesheets have been updated to have more specific styles e.g. `.crp_related.crp-rounded-thumbs`
-    * *Exclude categories* and *Exclude on categories* renamed to *Exclude terms* and *Exclude on terms* as they now support all taxonomies and the accepted format has changed to "Term Name (taxonomy:term_taxonomy_id)"
-
-* Bug fixes:
-    * Current post was incorrectly being excluded in the translation functions
-
 = Earlier versions =
 
 For the changelog of earlier versions, please refer to the separate changelog.txt file or the [releases page on Github](https://github.com/WebberZone/contextual-related-posts/releases).
