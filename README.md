@@ -10,7 +10,9 @@
 
 __Requires:__ 5.6
 
-__Tested up to:__ 6.1
+__Tested up to:__ 6.3
+
+__Requires PHP:__ 7.2
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
@@ -97,4 +99,4 @@ More screenshots are available on the [WordPress plugin page](https://wordpress.
 
 Check out the [FAQ on the plugin page](https://wordpress.org/plugins/contextual-related-posts/faq/) or the [knowledge base](https://webberzone.com/support/section/contextual-related-posts/)
 
-If your question isn't listed there, please create a new post at the [WordPress.org support forum](https://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
+If your question isn't listed there, please create a new post at the [WordPress.org support forum](https://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly.

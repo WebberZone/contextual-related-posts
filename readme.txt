@@ -2,9 +2,9 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, Ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.3.3
+Stable tag: 3.3.4
 Requires at least: 5.6
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.2
 License: GPLv2 or later
 
@@ -105,7 +105,7 @@ Contextual Related Posts is available for [translation directly on WordPress.org
 
 == Frequently Asked Questions ==
 
-If your question isn't listed here, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly. I also provide [premium *paid* support via email](https://webberzone.com/support/).
+If your question isn't listed here, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly.
 
 = How can I customise the output? =
 
@@ -133,6 +133,16 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 You can insert the related posts anywhere in your post using the `[crp]` shortcode. View [this article in the knowledge base](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/) for more details.
 
+
+== Other Notes ==
+
+Contextual Related Posts is one of the many plugins developed by WebberZone. Check out our other plugins:
+
+* [Top 10](https://wordpress.org/plugins/top-10/) - Track daily and total visits on your blog posts and display the popular and trending posts
+* [WebberZone Snippetz](https://wordpress.org/plugins/add-to-all/) - The ultimate snippet manager for WordPress to create and manage custom HTML, CSS or JS code snippets
+* [Knowledge Base](https://wordpress.org/plugins/knowledgebase/) - Create a knowledge base or FAQ section on your WordPress site
+* [Better Search](https://wordpress.org/plugins/better-search/) - Enhance the default WordPress search with contextual results sorted by relevance
+* [Auto-Close](https://wordpress.org/plugins/autoclose/) - Automatically close comments, pingbacks and trackbacks and manage revisions
 
 == Changelog ==
 
