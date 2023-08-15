@@ -77,9 +77,10 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 	$post_title = esc_attr( $result->post_title );
 
-	$output    = '';
-	$postimage = '';
-	$pick      = '';
+	$output        = '';
+	$postimage     = '';
+	$pick          = '';
+	$attachment_id = '';
 
 	// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page.
 	if ( ! $postimage ) {
@@ -194,13 +195,43 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 
 		$class = $args['class'] . ' crp_' . $pick;
 
+		if ( empty( $attachment_id ) && ! in_array( $pick, array( 'video_thumb', 'default_thumb', 'site_icon_max', 'site_icon_min' ), true ) ) {
+			$attachment_id = crp_get_attachment_id_from_url( $postimage );
+		}
+
+		/**
+		 * Flag to use the image's alt text as the thumbnail alt text.
+		 *
+		 * @since 3.3.4
+		 *
+		 * @param bool $use_image_alt Flag to use the image's alt text as the thumbnail alt text.
+		 */
+		$use_image_alt = apply_filters( 'crp_thumb_use_image_alt', true );
+
+		/**
+		 * Flag to use the post title as the thumbnail alt text if no alt text is found.
+		 *
+		 * @since 3.3.4
+		 *
+		 * @param bool $alt_fallback Flag to use the post title as the thumbnail alt text if no alt text is found.
+		 */
+		$alt_fallback = apply_filters( 'crp_thumb_alt_fallback_post_title', true );
+
+		if ( ! empty( $attachment_id ) && $use_image_alt ) {
+			$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+		}
+
+		if ( empty( $alt ) ) {
+			$alt = $alt_fallback ? $post_title : '';
+		}
+
 		/**
 		 * Filters the thumbnail classes and allows a filter function to add any more classes if needed.
 		 *
 		 * @since   2.2.2
 		 *
 		 * @param   string  $thumb_html Thumbnail HTML
-		 * @param   array   $args Argument array
+		 * @param   array   $args       Arguments array
 		 */
 		$attr['class'] = apply_filters( 'crp_thumb_class', $class, $args );
 
@@ -209,10 +240,10 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 *
 		 * @since 2.5.0
 		 *
-		 * @param string $post_title Thumbnail alt attribute
-		 * @param array  $args       Argument array
+		 * @param string $alt    Thumbnail alt attribute
+		 * @param array  $args   Arguments array
 		 */
-		$attr['alt'] = apply_filters( 'crp_thumb_alt', $post_title, $args );
+		$attr['alt'] = apply_filters( 'crp_thumb_alt', $alt, $args );
 
 		/**
 		 * Filters the thumbnail title.
@@ -220,7 +251,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 * @since 2.6.0
 		 *
 		 * @param string $post_title Thumbnail title attribute
-		 * @param array  $args       Argument array
+		 * @param array  $args       Arguments array
 		 */
 		$attr['title'] = apply_filters( 'crp_thumb_title', $post_title, $args );
 
