@@ -195,5 +195,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.3.3 =
-Security fix
+= 3.3.4 =
+Multiple bug fixes and enhancements
