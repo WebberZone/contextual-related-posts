@@ -152,9 +152,11 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](htt
 
 * Enhancements/Modifications:
 	* When displaying the post thumbnail, the Media Handler will first use the image's alt tag set in the Media editor. If alt tag is empty, then it will use the post title as a fallback. Filter `tptn_thumb_use_image_alt` and set it to false to not use the alt tag. Filter `tptn_thumb_alt_fallback_post_title` and set it to false to disable the alt tag
+	* Orderby clause modified to ensure compatibility if any other plugin rewrites the WP_Query fields
 
 * Bug Fixes:
     * Fix duplicate display of related posts when using reusable blocks or a plugin that inserts pages
+    * `meta_query` argument was ignored
 
 = 3.3.3 =
 

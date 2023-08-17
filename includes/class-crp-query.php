@@ -356,6 +356,13 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 */
 			$args['date_query'] = apply_filters( 'crp_query_date_query', $date_query, $args );
 
+			// Meta Query.
+			if ( ! empty( $args['meta_query'] ) && is_array( $args['meta_query'] ) ) {
+				$meta_query = $args['meta_query'];
+			} else {
+				$meta_query = array();
+			}
+
 			/**
 			 * Filter the meta_query passed to WP_Query.
 			 *
@@ -364,7 +371,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 * @param array   $meta_query Array of meta_query parameters.
 			 * @param array   $args       Arguments array.
 			 */
-			$meta_query = apply_filters( 'crp_query_meta_query', array(), $args ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			$meta_query = apply_filters( 'crp_query_meta_query', $meta_query, $args ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 
 			// Add a relation key if more than one $meta_query.
 			if ( count( $meta_query ) > 1 ) {
@@ -687,7 +694,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			}
 
 			if ( $this->enable_relevance ) {
-				$orderby = ' score DESC ';
+				$orderby = ' ' . $this->get_match_sql() . ' DESC ';
 			}
 
 			// Set order by in case of date.
