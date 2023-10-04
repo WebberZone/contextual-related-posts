@@ -759,44 +759,10 @@ function crp_settings_feed() {
  * Upgrade pre v2.5.0 settings.
  *
  * @since 2.6.0
- * @return array|bool Settings array
+ * @return array Settings array
  */
 function crp_upgrade_settings() {
-	$old_settings = get_option( 'ald_crp_settings' );
-
-	if ( empty( $old_settings ) ) {
-		return false;
-	}
-
-	// Start will assigning all the old settings to the new settings and we will unset later on.
-	$settings = $old_settings;
-
-	$settings['add_to'] = array();
-
-	// Convert the add_to_{x} to the new settings format.
-	$add_to = array(
-		'single'            => 'add_to_content',
-		'page'              => 'add_to_page',
-		'feed'              => 'add_to_feed',
-		'home'              => 'add_to_home',
-		'category_archives' => 'add_to_category_archives',
-		'tag_archives'      => 'add_to_tag_archives',
-		'other_archives'    => 'add_to_archives',
-	);
-
-	foreach ( $add_to as $newkey => $oldkey ) {
-		if ( $old_settings[ $oldkey ] ) {
-			$settings['add_to'][ $newkey ] = $newkey;
-		}
-		unset( $settings[ $oldkey ] );
-	}
-
-	// Convert 'blank_output' to the new format: true = 'blank' and false = 'custom_text'.
-	$settings['blank_output'] = ! empty( $old_settings['blank_output'] ) ? 'blank' : 'custom_text';
-
-	$settings['custom_css'] = $old_settings['custom_CSS'];
-
-	return $settings;
+	return array();
 }
 
 
