@@ -66,9 +66,9 @@ function crp_settings_general() {
 		'cache'                        => array(
 			'id'      => 'cache',
 			'name'    => esc_html__( 'Cache HTML output', 'contextual-related-posts' ),
-			'desc'    => esc_html__( 'Only works if the previous option is disabled. Enabling this will cache the entire HTML generated when the post is visited the first time. The cache is cleaned when you save this page. Highly recommended particularly on busy sites.', 'contextual-related-posts' ),
+			'desc'    => esc_html__( 'Only works if the previous option is disabled. Enabling this will cache the entire HTML generated when the post is visited the first time. The cache is cleaned when you save this page. Highly recommended particularly on busy sites. Default is true.', 'contextual-related-posts' ),
 			'type'    => 'checkbox',
-			'options' => false,
+			'options' => true,
 		),
 		'add_to'                       => array(
 			'id'      => 'add_to',
