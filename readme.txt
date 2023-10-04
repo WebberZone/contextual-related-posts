@@ -146,12 +146,17 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 == Changelog ==
 
+= 3.4.0 =
+
+* Enhancements/Modifications:
+    * Caching of the entire HTML output is enabled by default. You can disable it in the settings page. This will reduce the number of database queries and improve performance. If you have customised the output, you will need to clear the cache for the changes to take effect. Applies to new installs and when you reset the settings
+
 = 3.3.4 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](https://webberzone.com/blog/contextual-related-posts-v3-3-0/)
 
 * Enhancements/Modifications:
-	* When displaying the post thumbnail, the Media Handler will first use the image's alt tag set in the Media editor. If alt tag is empty, then it will use the post title as a fallback. Filter `tptn_thumb_use_image_alt` and set it to false to not use the alt tag. Filter `tptn_thumb_alt_fallback_post_title` and set it to false to disable the alt tag
+	* When displaying the post thumbnail, the Media Handler will first use the image's alt tag set in the Media editor. If alt tag is empty, then it will use the post title as a fallback. Filter `crp_thumb_use_image_alt` and set it to false to not use the alt tag. Filter `crp_thumb_alt_fallback_post_title` and set it to false to disable the alt tag
 	* Orderby clause modified to ensure compatibility if any other plugin rewrites the WP_Query fields
 
 * Bug Fixes:
