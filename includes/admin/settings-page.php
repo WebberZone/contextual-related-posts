@@ -47,7 +47,7 @@ function crp_options_page() {
 
 					$active = $active_tab === $tab_id ? ' ' : '';
 
-					echo '<li><a href="#' . esc_attr( $tab_id ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab ' . sanitize_html_class( $active ) . '">';
+					echo '<li style="margin:0;"><a href="#' . esc_attr( $tab_id ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab ' . sanitize_html_class( $active ) . '">';
 						echo esc_html( $tab_name );
 					echo '</a></li>';
 
