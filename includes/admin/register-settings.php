@@ -25,11 +25,11 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 2.6.0
  *
- * @param string $key     Key of the option to fetch.
- * @param mixed  $default Default value to fetch if option is missing.
+ * @param string $key           Key of the option to fetch.
+ * @param mixed  $default_value Default value to fetch if option is missing.
  * @return mixed
  */
-function crp_get_option( $key = '', $default = null ) {
+function crp_get_option( $key = '', $default_value = null ) {
 
 	global $crp_settings;
 
@@ -37,11 +37,11 @@ function crp_get_option( $key = '', $default = null ) {
 		$crp_settings = crp_get_settings();
 	}
 
-	if ( is_null( $default ) ) {
-		$default = crp_get_default_option( $key );
+	if ( is_null( $default_value ) ) {
+		$default_value = crp_get_default_option( $key );
 	}
 
-	$value = isset( $crp_settings[ $key ] ) ? $crp_settings[ $key ] : $default;
+	$value = isset( $crp_settings[ $key ] ) ? $crp_settings[ $key ] : $default_value;
 
 	/**
 	 * Filter the value for the option being fetched.
@@ -50,9 +50,9 @@ function crp_get_option( $key = '', $default = null ) {
 	 *
 	 * @param mixed   $value   Value of the option
 	 * @param mixed   $key     Name of the option
-	 * @param mixed   $default Default value
+	 * @param mixed   $default_value Default value
 	 */
-	$value = apply_filters( 'crp_get_option', $value, $key, $default );
+	$value = apply_filters( 'crp_get_option', $value, $key, $default_value );
 
 	/**
 	 * Key specific filter for the value of the option being fetched.
@@ -61,9 +61,9 @@ function crp_get_option( $key = '', $default = null ) {
 	 *
 	 * @param mixed   $value   Value of the option
 	 * @param mixed   $key     Name of the option
-	 * @param mixed   $default Default value
+	 * @param mixed   $default_value Default value
 	 */
-	return apply_filters( 'crp_get_option_' . $key, $value, $key, $default );
+	return apply_filters( 'crp_get_option_' . $key, $value, $key, $default_value );
 }
 
 
@@ -172,7 +172,7 @@ function crp_register_settings() {
 
 		add_settings_section(
 			'crp_settings_' . $section, // ID used to identify this section and with which to register options, e.g. crp_settings_general.
-			__return_null(), // No title, we will handle this via a separate function.
+			__return_empty_string(), // No title, we will handle this via a separate function.
 			'__return_false', // No callback function needed. We'll process this separately.
 			'crp_settings_' . $section  // Page on which these options will be added.
 		);
@@ -210,7 +210,13 @@ function crp_register_settings() {
 	}
 
 	// Register the settings into the options table.
-	register_setting( 'crp_settings', 'crp_settings', 'crp_settings_sanitize' );
+	register_setting(
+		'crp_settings',
+		'crp_settings',
+		array(
+			'sanitize_callback' => 'crp_settings_sanitize',
+		)
+	);
 }
 add_action( 'admin_init', 'crp_register_settings' );
 

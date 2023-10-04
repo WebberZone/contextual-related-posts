@@ -1,0 +1,13 @@
+includes:
+	- phpstan-baseline.neon
+parameters:
+    level: 5
+    scanFiles:
+        - contextual-related-posts.php
+    scanDirectories:
+        - includes
+    paths:
+        - contextual-related-posts.php
+        - uninstall.php
+        - includes/
+    ignoreErrors:

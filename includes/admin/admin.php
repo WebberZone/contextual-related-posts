@@ -110,7 +110,7 @@ function crp_load_admin_scripts( $hook ) {
 	wp_register_style(
 		'crp-admin-customizer-css',
 		CRP_PLUGIN_URL . 'includes/admin/css/crp-customizer.min.css',
-		false,
+		array(),
 		CRP_VERSION
 	);
 

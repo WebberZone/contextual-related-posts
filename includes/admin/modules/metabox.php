@@ -15,8 +15,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since   1.9.1
  *
- * @param text   $post_type Post Type.
- * @param object $post Post object.
+ * @param string  $post_type Post Type.
+ * @param WP_Post $post      Post object.
  */
 function crp_add_meta_box( $post_type, $post ) {
 
@@ -40,8 +40,8 @@ function crp_add_meta_box( $post_type, $post ) {
 	 *
 	 * @since   2.2.0
 	 *
-	 * @param array $post_types Array of post types.
-	 * @param array $post_types Post object.
+	 * @param array   $post_types   Array of post types.
+	 * @param WP_Post $post         Post object.
 	 */
 	$post_types = apply_filters( 'crp_meta_box_post_types', $post_types, $post );
 
@@ -86,11 +86,11 @@ function crp_call_meta_box() {
 
 	// Manual related.
 	$manual_related       = isset( $post_meta['manual_related'] ) ? $post_meta['manual_related'] : '';
-	$manual_related_array = explode( ',', $manual_related );
+	$manual_related_array = array_map( 'absint', explode( ',', $manual_related ) );
 
 	// Exclude post IDs.
 	$exclude_post_ids       = isset( $post_meta['exclude_post_ids'] ) ? $post_meta['exclude_post_ids'] : '';
-	$exclude_post_ids_array = explode( ',', $exclude_post_ids );
+	$exclude_post_ids_array = array_map( 'absint', explode( ',', $exclude_post_ids ) );
 
 	// Keyword - word or phrase.
 	$keyword = isset( $post_meta['keyword'] ) ? $post_meta['keyword'] : '';

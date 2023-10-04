@@ -216,7 +216,7 @@ function crp_title( $args, $result ) {
  */
 function crp_author( $args, $result ) {
 
-	$author_info = get_userdata( $result->post_author );
+	$author_info = get_userdata( (int) $result->post_author );
 	$author_link = ( false === $author_info ) ? '' : get_author_posts_url( $author_info->ID );
 	$author_name = ( false === $author_info ) ? '' : ucwords( trim( stripslashes( $author_info->display_name ) ) );
 
@@ -364,18 +364,18 @@ function crp_date( $args, $result ) {
  *
  * @since 3.2.0
  *
- * @param int|WP_Post $post Post ID or WP_Post object.
- * @param string      $term Term name.
- * @param bool        $echo Echo or return.
- * @return string Term name if $echo is true, void if false.
+ * @param int|WP_Post $post         Post ID or WP_Post object.
+ * @param string      $term         Term name.
+ * @param bool        $echo_value   Echo or return.
+ * @return string|void Term name if $echo_value is true, void if false.
  */
-function crp_get_primary_term_name( $post, $term = 'category', $echo = false ) {
+function crp_get_primary_term_name( $post, $term = 'category', $echo_value = false ) {
 	$output       = '';
 	$primary_term = crp_get_primary_term( $post, $term );
 	if ( ! empty( $primary_term['primary'] ) ) {
 		$output = $primary_term['primary']->name;
 	}
-	if ( $echo ) {
+	if ( $echo_value ) {
 		echo esc_html( $output );
 	} else {
 		return $output;

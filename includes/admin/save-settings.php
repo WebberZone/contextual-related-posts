@@ -90,8 +90,8 @@ function crp_settings_sanitize( $input = array() ) {
 			 * Field type filter.
 			 *
 			 * @since 2.6.0
-			 * @param array $output[$key] Setting value.
-			 * @param array $key Setting key.
+			 * @param array  $output[$key] Setting value.
+			 * @param string $key Setting key.
 			 */
 			$output[ $key ] = apply_filters( 'crp_settings_sanitize_' . $type, $output[ $key ], $key );
 		}
@@ -100,8 +100,8 @@ function crp_settings_sanitize( $input = array() ) {
 		 * Field type filter for a specific key.
 		 *
 		 * @since 2.6.0
-		 * @param array $output[$key] Setting value.
-		 * @param array $key Setting key.
+		 * @param array  $output[$key] Setting value.
+		 * @param string $key Setting key.
 		 */
 		$output[ $key ] = apply_filters( 'crp_settings_sanitize' . $key, $output[ $key ], $key );
 
@@ -142,8 +142,8 @@ function crp_settings_sanitize( $input = array() ) {
  *
  * @since 2.6.0
  *
- * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @param  string $value The field value.
+ * @return string Sanitized value
  */
 function crp_sanitize_text_field( $value ) {
 	return wp_kses_post( wp_unslash( $value ) );
@@ -156,8 +156,8 @@ add_filter( 'crp_settings_sanitize_text', 'crp_sanitize_text_field' );
  *
  * @since 2.6.0
  *
- * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @param  string $value The field value.
+ * @return string Sanitized value
  */
 function crp_sanitize_number_field( $value ) {
 	return filter_var( $value, FILTER_SANITIZE_NUMBER_INT );
@@ -170,8 +170,8 @@ add_filter( 'crp_settings_sanitize_number', 'crp_sanitize_number_field' );
  *
  * @since 2.6.0
  *
- * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @param  string $value The field value.
+ * @return string Sanitized value
  */
 function crp_sanitize_csv_field( $value ) {
 
@@ -185,8 +185,8 @@ add_filter( 'crp_settings_sanitize_csv', 'crp_sanitize_csv_field' );
  *
  * @since 2.6.0
  *
- * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @param  string $value The field value.
+ * @return string Sanitized value
  */
 function crp_sanitize_numbercsv_field( $value ) {
 
@@ -200,8 +200,8 @@ add_filter( 'crp_settings_sanitize_numbercsv', 'crp_sanitize_numbercsv_field' );
  *
  * @since 2.6.0
  *
- * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @param  string $value The field value.
+ * @return string Sanitized value
  */
 function crp_sanitize_textarea_field( $value ) {
 
@@ -240,8 +240,8 @@ function crp_sanitize_textarea_field( $value ) {
 	 *
 	 * @since 2.6.0
 	 *
-	 * @param array $allowedtags Allowed tags array.
-	 * @param array $value The field value.
+	 * @param array  $allowedtags Allowed tags array.
+	 * @param string $value The field value.
 	 */
 	$allowedtags = apply_filters( 'crp_sanitize_allowed_tags', $allowedtags, $value );
 
@@ -255,8 +255,8 @@ add_filter( 'crp_settings_sanitize_textarea', 'crp_sanitize_textarea_field' );
  *
  * @since 2.6.0
  *
- * @param  array $value The field value.
- * @return string|int  $value  Sanitized value
+ * @param  string|int $value The field value.
+ * @return int Sanitized value
  */
 function crp_sanitize_checkbox_field( $value ) {
 
@@ -273,11 +273,11 @@ add_filter( 'crp_settings_sanitize_checkbox', 'crp_sanitize_checkbox_field' );
  * @since 2.6.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @return string Sanitized value
  */
 function crp_sanitize_posttypes_field( $value ) {
 
-	$post_types = is_array( $value ) ? array_map( 'sanitize_text_field', wp_unslash( $value ) ) : array();
+	$post_types = array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
 
 	return implode( ',', $post_types );
 }
@@ -290,11 +290,11 @@ add_filter( 'crp_settings_sanitize_posttypes', 'crp_sanitize_posttypes_field' );
  * @since 2.6.0
  *
  * @param  array $value The field value.
- * @return string  $value  Sanitized value
+ * @return string Sanitized value
  */
 function crp_sanitize_taxonomies_field( $value ) {
 
-	$taxonomies = is_array( $value ) ? array_map( 'sanitize_text_field', wp_unslash( $value ) ) : array();
+	$taxonomies = array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
 
 	return implode( ',', $taxonomies );
 }
@@ -307,7 +307,7 @@ add_filter( 'crp_settings_sanitize_taxonomies', 'crp_sanitize_taxonomies_field' 
  * @since 2.6.0
  *
  * @param  array $settings Settings array.
- * @return string  $settings  Sanitized settings array.
+ * @return array Sanitized settings array.
  */
 function crp_change_settings_on_save( $settings ) {
 

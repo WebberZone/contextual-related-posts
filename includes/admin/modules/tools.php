@@ -228,8 +228,10 @@ function crp_process_settings_import() {
 		return;
 	}
 
-	$filename  = 'import_settings_file';
-	$extension = isset( $_FILES[ $filename ]['name'] ) ? end( explode( '.', sanitize_file_name( wp_unslash( $_FILES[ $filename ]['name'] ) ) ) ) : '';
+	$filename = 'import_settings_file';
+
+	$tmp       = isset( $_FILES[ $filename ]['name'] ) ? explode( '.', sanitize_file_name( wp_unslash( $_FILES[ $filename ]['name'] ) ) ) : array();
+	$extension = end( $tmp );
 
 	if ( 'json' !== $extension ) {
 		wp_die( esc_html__( 'Please upload a valid .json file', 'contextual-related-posts' ) );
