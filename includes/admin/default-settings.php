@@ -759,7 +759,7 @@ function crp_settings_feed() {
  * Upgrade pre v2.5.0 settings.
  *
  * @since 2.6.0
- * @return array Settings array
+ * @return array|bool Settings array
  */
 function crp_upgrade_settings() {
 	$old_settings = get_option( 'ald_crp_settings' );
@@ -846,7 +846,7 @@ function crp_get_styles() {
 	 *
 	 * @since 2.6.0
 	 *
-	 * @param string $styles Different styles.
+	 * @param array $styles Different styles.
 	 */
 	return apply_filters( 'crp_get_styles', $styles );
 }
@@ -870,7 +870,7 @@ function crp_get_orderings() {
 	 *
 	 * @since 2.8.0
 	 *
-	 * @param string $orderings Order settings.
+	 * @param array $orderings Order settings.
 	 */
 	return apply_filters( 'crp_get_orderings', $orderings );
 }

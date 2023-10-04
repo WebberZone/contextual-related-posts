@@ -203,7 +203,7 @@ function crp_text_callback( $args ) {
 		$value = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	$size = sanitize_html_class( ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular' );
+	$size = sanitize_html_class( isset( $args['size'] ) ? $args['size'] : 'regular' );
 
 	$class = sanitize_html_class( $args['field_class'] );
 
@@ -314,7 +314,7 @@ function crp_checkbox_callback( $args ) {
 
 	$html  = sprintf( '<input type="hidden" name="crp_settings[%1$s]" value="-1" />', sanitize_key( $args['id'] ) );
 	$html .= sprintf( '<input type="checkbox" id="crp_settings[%1$s]" name="crp_settings[%1$s]" value="1" %2$s />', sanitize_key( $args['id'] ), $checked );
-	$html .= ( $set <> $default ) ? '<em style="color:orange"> ' . esc_html__( 'Modified from default setting', 'contextual-related-posts' ) . '</em>' : ''; // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+	$html .= ( (bool) $set !== (bool) $default ) ? '<em style="color:orange"> ' . esc_html__( 'Modified from default setting', 'contextual-related-posts' ) . '</em>' : ''; // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
 
 	/** This filter has been defined in settings-page.php */
@@ -504,7 +504,7 @@ function crp_number_callback( $args ) {
 	$min  = isset( $args['min'] ) ? $args['min'] : 0;
 	$step = isset( $args['step'] ) ? $args['step'] : 1;
 
-	$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
+	$size = isset( $args['size'] ) ? $args['size'] : 'regular';
 
 	$html  = sprintf( '<input type="number" step="%1$s" max="%2$s" min="%3$s" class="%4$s" id="crp_settings[%5$s]" name="crp_settings[%5$s]" value="%6$s"/>', esc_attr( $step ), esc_attr( $max ), esc_attr( $min ), sanitize_html_class( $size ) . '-text', sanitize_key( $args['id'] ), esc_attr( stripslashes( $value ) ) );
 	$html .= '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>';
@@ -590,13 +590,11 @@ function crp_posttypes_callback( $args ) {
 		$options = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-	if ( is_array( $options ) ) {
-		$post_types = $options;
-	} elseif ( ! is_array( $options ) && false === strpos( $options, '=' ) ) {
-		$post_types = explode( ',', $options );
+	// If post_types contains a query string then parse it with wp_parse_args.
+	if ( is_string( $options ) && strpos( $options, '=' ) ) {
+		$post_types = wp_parse_args( $options );
 	} else {
-		parse_str( $options, $post_types );
+		$post_types = wp_parse_list( $options );
 	}
 
 	$wp_post_types   = get_post_types(
@@ -641,13 +639,11 @@ function crp_taxonomies_callback( $args ) {
 		$options = isset( $args['options'] ) ? $args['options'] : '';
 	}
 
-	// If taxonomies is empty or contains a query string then use parse_str else consider it comma-separated.
-	if ( is_array( $options ) ) {
-		$taxonomies = $options;
-	} elseif ( ! is_array( $options ) && false === strpos( $options, '=' ) ) {
-		$taxonomies = explode( ',', $options );
+	// If taxonomies contains a query string then parse it with wp_parse_args.
+	if ( is_string( $options ) && strpos( $options, '=' ) ) {
+		$taxonomies = wp_parse_args( $options );
 	} else {
-		parse_str( $options, $taxonomies );
+		$taxonomies = wp_parse_list( $options );
 	}
 
 	/* Fetch taxonomies */
@@ -686,7 +682,7 @@ function crp_taxonomies_callback( $args ) {
 function crp_tags_search() {
 
 	if ( ! isset( $_REQUEST['tax'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		wp_die( 0 );
+		wp_die();
 	}
 
 	$tax      = '';
@@ -694,11 +690,11 @@ function crp_tags_search() {
 	if ( ! empty( $taxonomy ) ) {
 		$tax = get_taxonomy( $taxonomy );
 		if ( ! $tax ) {
-			wp_die( 0 );
+			wp_die();
 		}
 
 		if ( ! current_user_can( $tax->cap->assign_terms ) ) {
-			wp_die( -1 );
+			wp_die();
 		}
 	}
 	$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended

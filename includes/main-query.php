@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 1.0.1
  *
- * @param array $args Parameters in a query string format.
+ * @param string|array $args Parameters in a query string format.
  * @return string HTML formatted list of related posts
  */
 function get_crp( $args = array() ) {
@@ -99,10 +99,9 @@ function get_crp( $args = array() ) {
 	 *
 	 * @since 2.2.3
 	 *
-	 * @param   mixed              Default return value
+	 * @param   mixed   $template  Default return value
 	 * @param   array   $results   Array of IDs of related posts
 	 * @param   array   $args      Array of settings
-	 * @return  string             Custom HTML formatted list of related posts
 	 */
 	$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
 	if ( ! empty( $custom_template ) ) {
@@ -248,7 +247,7 @@ function get_crp( $args = array() ) {
  * @deprecated 3.2.0
  *
  * @param array $args Arguments array.
- * @return object $results Array of related post objects
+ * @return object|bool $results Array of related post objects or false if error or short circuit.
  */
 function get_crp_posts_id( $args = array() ) {
 	global $wpdb, $post, $crp_settings;
@@ -442,7 +441,7 @@ function get_crp_posts_id( $args = array() ) {
 		// Convert it back to string.
 		$exclude_post_ids = implode( ',', array_filter( array_filter( $exclude_post_ids, 'absint' ) ) );
 
-		if ( '' != $exclude_post_ids ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+		if ( $exclude_post_ids ) {
 			$where .= " AND $wpdb->posts.ID NOT IN ({$exclude_post_ids}) ";
 		}
 

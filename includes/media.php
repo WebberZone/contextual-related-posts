@@ -83,17 +83,15 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	$attachment_id = '';
 
 	// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page.
-	if ( ! $postimage ) {
-		$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );
-		$pick      = 'meta';
-		if ( $postimage ) {
-			$attachment_id = crp_get_attachment_id_from_url( $postimage );
+	$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );
+	$pick      = 'meta';
+	if ( $postimage ) {
+		$attachment_id = crp_get_attachment_id_from_url( $postimage );
 
-			$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-			if ( false !== $postthumb ) {
-				list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
-				$pick .= 'correct';
-			}
+		$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+		if ( false !== $postthumb ) {
+			list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
+			$pick .= 'correct';
 		}
 	}
 
@@ -121,8 +119,8 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 		 *
 		 * @since 2.2.2
 		 *
-		 * @param string $result->post_content Post content
-		 * @param object $result               Post Object
+		 * @param string   $post_content Post content
+		 * @param \WP_Post $result       Post Object
 		 */
 		$post_content = apply_filters( 'crp_thumb_post_content', $result->post_content, $result );
 
@@ -283,7 +281,7 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 	 *
 	 * @since   1.9
 	 *
-	 * @param   array   $output Formatted output
+	 * @param   string  $output Formatted output
 	 * @param   array   $args   Argument array
 	 */
 	return apply_filters( 'crp_get_the_post_thumbnail', $output, $args );
@@ -323,15 +321,15 @@ function crp_get_first_image( $post_id, $thumb_width, $thumb_height ) {
 			 *
 			 * @since 2.0.0
 			 *
-			 * @param array $image_attributes[0] URL of the image
-			 * @param int   $post_id             Post ID
-			 * @param int   $thumb_width         Thumb width
-			 * @param int   $thumb_height        Thumb height
+			 * @param string $image_attributes    URL of the image
+			 * @param int    $post_id             Post ID
+			 * @param int    $thumb_width         Thumb width
+			 * @param int    $thumb_height        Thumb height
 			 */
 			return apply_filters( 'crp_get_first_image', $image_attributes[0], $post_id, $thumb_width, $thumb_height );
 		}
 	} else {
-		return false;
+		return '';
 	}
 }
 
@@ -348,7 +346,7 @@ function crp_get_first_image( $post_id, $thumb_width, $thumb_height ) {
 function crp_get_image_html( $attachment_url, $attr = array() ) {
 
 	// If there is no url, return.
-	if ( '' == $attachment_url ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+	if ( ! $attachment_url ) {
 		return '';
 	}
 
@@ -472,7 +470,7 @@ function crp_get_attachment_id_from_url( $attachment_url = '' ) {
 
 	// If there is no url, return.
 	if ( '' === $attachment_url ) {
-		return;
+		return 0;
 	}
 
 	// Get the upload directory paths.
@@ -550,11 +548,15 @@ function crp_get_thumb_size( $size = 'thumbnail' ) {
  * Get all image sizes.
  *
  * @since   2.0.0
- * @param   string $size   Get specific image size.
- * @return  array   Image size names along with width, height and crop setting
+ * @param string|int[] $size Image size.
+ * @return array|bool  If a single size is specified, then the array with width, height and crop status
+ *                     or false if size is not found;
+ *                     If no size is specified then an Associative array of the registered image sub-sizes.
  */
 function crp_get_all_image_sizes( $size = '' ) {
 	global $_wp_additional_image_sizes;
+
+	$sizes = array();
 
 	/* Get the intermediate image sizes and add the full size to the array. */
 	$intermediate_image_sizes = get_intermediate_image_sizes();

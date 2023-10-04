@@ -18,6 +18,15 @@ if ( ! defined( 'WPINC' ) ) {
 class CRP_REST_API extends \WP_REST_Controller {
 
 	/**
+	 * Posts Route.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @var string Posts Route.
+	 */
+	public $posts_route;
+
+	/**
 	 * Main constructor.
 	 *
 	 * @since 3.1.0
@@ -58,9 +67,9 @@ class CRP_REST_API extends \WP_REST_Controller {
 	/**
 	 * Check if a given request has access to get items
 	 *
-	 * @param WP_REST_Request $request Full data about the request.
+	 * @param \WP_REST_Request $request Full data about the request.
 	 *
-	 * @return WP_Error|bool
+	 * @return \WP_Error|bool
 	 */
 	public function permissions_check( $request ) {
 		/**
@@ -68,8 +77,8 @@ class CRP_REST_API extends \WP_REST_Controller {
 		 *
 		 * @since 3.1.0
 		 *
-		 * @param bool             $flag    Permisions flag.
-		 * @param WP_REST_Response $request Array of post objects or post IDs.
+		 * @param bool              $flag    Permisions flag.
+		 * @param \WP_REST_Request  $request Array of post objects or post IDs.
 		 */
 		return apply_filters( 'crp_rest_api_permissions_check', true, $request );
 	}
@@ -141,7 +150,7 @@ class CRP_REST_API extends \WP_REST_Controller {
 	public function prepare_item( $related_post, $request ) {
 
 		// Need to prepare items for the rest response.
-		$posts_controller = new \WP_REST_Posts_Controller( $related_post->post_type, $request );
+		$posts_controller = new \WP_REST_Posts_Controller( $related_post->post_type );
 		$data             = $posts_controller->prepare_item_for_response( $related_post, $request );
 
 		return $this->prepare_response_for_collection( $data );

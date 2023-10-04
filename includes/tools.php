@@ -131,27 +131,26 @@ function crp_excerpt( $post, $excerpt_length = 0, $use_excerpt = true, $more_lin
  *
  * @since 2.4.0
  *
- * @param  string $string      String to truncate.
+ * @param  string $input      String to truncate.
  * @param  int    $count       Maximum number of characters to take.
- * @param  string $more        What to append if $string needs to be trimmed.
+ * @param  string $more        What to append if $input needs to be trimmed.
  * @param  bool   $break_words Optionally choose to break words.
  * @return string Truncated string.
  */
-function crp_trim_char( $string, $count = 60, $more = '&hellip;', $break_words = false ) {
+function crp_trim_char( $input, $count = 60, $more = '&hellip;', $break_words = false ) {
 
-	$string = wp_strip_all_tags( $string, true );
-	$count  = absint( $count );
+	$input = wp_strip_all_tags( $input, true );
+	$count = absint( $count );
 
-	if ( $count <= 0 ) {
-		return $string;
+	if ( 0 === $count ) {
+		return '';
 	}
-
-	if ( mb_strlen( $string ) > $count && $count > 0 ) {
+	if ( mb_strlen( $input ) > $count && $count > 0 ) {
+		$count -= min( $count, mb_strlen( $more ) );
 		if ( ! $break_words ) {
-			$string = preg_replace( '/\s+?(\S+)?$/u', '', mb_substr( $string, 0, $count + 1 ) );
+			$input = preg_replace( '/\s+?(\S+)?$/u', '', mb_substr( $input, 0, $count + 1 ) );
 		}
-
-		$string = mb_substr( $string, 0, $count ) . $more;
+		$input = mb_substr( $input, 0, $count ) . $more;
 	}
 
 	/**
@@ -159,12 +158,12 @@ function crp_trim_char( $string, $count = 60, $more = '&hellip;', $break_words =
 	 *
 	 * @since 2.4.0
 	 *
-	 * @param string $string String to truncate.
+	 * @param string $input String to truncate.
 	 * @param int $count Maximum number of characters to take.
-	 * @param string $more What to append if $string needs to be trimmed.
+	 * @param string $more What to append if $input needs to be trimmed.
 	 * @param bool $break_words Optionally choose to break words.
 	 */
-	return apply_filters( 'crp_trim_char', $string, $count, $more, $break_words );
+	return apply_filters( 'crp_trim_char', $input, $count, $more, $break_words );
 }
 
 /**
@@ -236,26 +235,26 @@ function crp_posts_table_engine() {
  *
  * @since 2.9.0
  *
- * @param array  $array Input string.
+ * @param array  $input Input string.
  * @param string $delimiter Delimiter.
  * @param string $enclosure Enclosure.
  * @param string $terminator Terminating string.
  * @return string CSV string.
  */
-function crp_str_putcsv( $array, $delimiter = ',', $enclosure = '"', $terminator = "\n" ) {
+function crp_str_putcsv( $input, $delimiter = ',', $enclosure = '"', $terminator = "\n" ) {
 	// First convert associative array to numeric indexed array.
 	$work_array = array();
-	foreach ( $array as $key => $value ) {
+	foreach ( $input as $key => $value ) {
 		$work_array[] = $value;
 	}
 
-	$string     = '';
-	$array_size = count( $work_array );
+	$input      = '';
+	$input_size = count( $work_array );
 
-	for ( $i = 0; $i < $array_size; $i++ ) {
+	for ( $i = 0; $i < $input_size; $i++ ) {
 		// Nested array, process nest item.
 		if ( is_array( $work_array[ $i ] ) ) {
-			$string .= crp_str_putcsv( $work_array[ $i ], $delimiter, $enclosure, $terminator );
+			$input .= crp_str_putcsv( $work_array[ $i ], $delimiter, $enclosure, $terminator );
 		} else {
 			switch ( gettype( $work_array[ $i ] ) ) {
 				// Manually set some strings.
@@ -283,12 +282,12 @@ function crp_str_putcsv( $array, $delimiter = ',', $enclosure = '"', $terminator
 					$sp_format = '';
 					break;
 			}
-			$string .= sprintf( '%2$s' . $sp_format . '%2$s', $work_array[ $i ], $enclosure );
-			$string .= ( $i < ( $array_size - 1 ) ) ? $delimiter : $terminator;
+			$input .= sprintf( '%2$s' . $sp_format . '%2$s', $work_array[ $i ], $enclosure );
+			$input .= ( $i < ( $input_size - 1 ) ) ? $delimiter : $terminator;
 		}
 	}
 
-	return $string;
+	return $input;
 }
 
 /**
@@ -315,7 +314,7 @@ function crp_get_primary_term( $post, $term = 'category', $return_all = false ) 
 
 	// Yoast primary term.
 	if ( class_exists( 'WPSEO_Primary_Term' ) ) {
-		$wpseo_primary_term = new WPSEO_Primary_Term( $term, $post->ID );
+		$wpseo_primary_term = new \WPSEO_Primary_Term( $term, $post->ID );
 		$primary_term       = $wpseo_primary_term->get_primary_term();
 		$primary_term       = get_term( $wpseo_primary_term->get_primary_term() );
 

@@ -15,7 +15,7 @@
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version:     3.3.4
+ * Version:     3.4.0-beta1
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -34,8 +34,6 @@ if ( ! defined( 'WPINC' ) ) {
  * Holds the version of Contextual Related Posts.
  *
  * @since 2.9.3
- *
- * @var string Contextual Related Posts Version.
  */
 if ( ! defined( 'CRP_VERSION' ) ) {
 	define( 'CRP_VERSION', '3.3.4' );
@@ -46,8 +44,6 @@ if ( ! defined( 'CRP_VERSION' ) ) {
  * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
  * @since 2.3.0
- *
- * @var string Plugin Root File
  */
 if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
 	define( 'CRP_PLUGIN_FILE', __FILE__ );
@@ -58,8 +54,6 @@ if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
  * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
  * @since 2.3.0
- *
- * @var string Plugin folder path
  */
 if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
 	define( 'CRP_PLUGIN_DIR', plugin_dir_path( CRP_PLUGIN_FILE ) );
@@ -69,8 +63,6 @@ if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
  * Holds the filesystem directory path (with trailing slash) for Contextual Related Posts.
  *
  * @since 2.3.0
- *
- * @var string Plugin folder URL
  */
 if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
 	define( 'CRP_PLUGIN_URL', plugin_dir_url( CRP_PLUGIN_FILE ) );
@@ -80,8 +72,6 @@ if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
  * Maximum words to match in the content.
  *
  * @since 2.3.0
- *
- * @var int Maximum number of words to match.
  */
 if ( ! defined( 'CRP_MAX_WORDS' ) ) {
 	define( 'CRP_MAX_WORDS', 100 );
@@ -91,8 +81,6 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
  * CRP Cache expiration time.
  *
  * @since 3.0.0
- *
- * @var int Cache time. Default is one month.
  */
 if ( ! defined( 'CRP_CACHE_TIME' ) ) {
 	define( 'CRP_CACHE_TIME', MONTH_IN_SECONDS );

@@ -431,7 +431,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 * @since 3.0.0
 			 *
 			 * @param array     $args The arguments of the query.
-			 * @param CRP_Query $this The CRP_Query instance (passed by reference).
+			 * @param CRP_Query $query The CRP_Query instance (passed by reference).
 			 */
 			$this->query_args = apply_filters_ref_array( 'crp_query_args', array( $args, &$this ) );
 		}
@@ -811,7 +811,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 					)
 				);
 				$query->found_posts   = count( $posts );
-				$query->max_num_pages = ceil( $query->found_posts / $query->get( 'posts_per_page' ) );
+				$query->max_num_pages = (int) ceil( $query->found_posts / $query->get( 'posts_per_page' ) );
 			}
 
 			/**
@@ -832,9 +832,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param WP_Post[] $posts Array of post objects.
-		 * @param WP_Query  $query The WP_Query instance (passed by reference).
-		 * @return string  Updated Array of post objects.
+		 * @param \WP_Post[] $posts Array of post objects.
+		 * @param \WP_Query  $query The WP_Query instance (passed by reference).
+		 * @return \WP_Post[] Updated Array of post objects.
 		 */
 		public function the_posts( $posts, $query ) {
 
@@ -907,7 +907,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 						'post__in'    => array_unique( $post_ids ),
 						'fields'      => $query->get( 'fields' ),
 						'orderby'     => 'post__in',
-						'numberposts' => '-1',
+						'numberposts' => -1,
 						'post_type'   => 'any',
 					)
 				);

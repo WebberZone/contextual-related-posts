@@ -94,7 +94,7 @@ function ald_crp_rss( $content ) {
  * @deprecated  2.2.0
  * @see echo_crp
  *
- * @param string $args Array of arguments.
+ * @param array $args Array of arguments.
  */
 function echo_ald_crp( $args = array() ) {
 

@@ -15,8 +15,6 @@ if ( ! class_exists( 'CRP_Widget' ) ) :
 	 * Create a WordPress Widget for CRP.
 	 *
 	 * @since 1.9
-	 *
-	 * @extends WP_Widget
 	 */
 	class CRP_Widget extends WP_Widget {
 

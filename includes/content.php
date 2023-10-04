@@ -172,7 +172,7 @@ add_filter( 'the_content_feed', 'crp_rss_filter' );
  *
  * @since 1.0.1
  *
- * @param string $args Array of arguments to control the output.
+ * @param array $args Array of arguments to control the output.
  */
 function echo_crp( $args = array() ) {
 
