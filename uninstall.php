@@ -14,16 +14,16 @@ global $wpdb;
 
 if ( is_multisite() ) {
 
-	// Get all blogs in the network and activate plugin on each one.
-	$blogids = $wpdb->get_col( //phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
-		"
-		SELECT blog_id FROM $wpdb->blogs
-		WHERE archived = '0' AND spam = '0' AND deleted = '0'
-	"
+	$sites = get_sites(
+		array(
+			'archived' => 0,
+			'spam'     => 0,
+			'deleted'  => 0,
+		)
 	);
 
-	foreach ( $blogids as $blogid ) {
-		switch_to_blog( $blogid );
+	foreach ( $sites as $site ) {
+		switch_to_blog( (int) $site->blog_id );
 		crp_delete_data();
 		restore_current_blog();
 	}
