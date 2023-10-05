@@ -22,6 +22,23 @@ if ( ! defined( 'WPINC' ) ) {
  */
 $crp_url = plugins_url() . '/' . plugin_basename( __DIR__ );
 
+
+/**
+ * Fetch related posts IDs.
+ *
+ * @since 1.9
+ * @deprecated 3.2.0
+ *
+ * @param array $args Arguments array.
+ * @return WP_Post[]|int[] — Array of post objects or post IDs.
+ */
+function get_crp_posts_id( $args = array() ) {
+	_deprecated_function( __FUNCTION__, '3.2.0', 'get_crp_posts' );
+
+	return get_crp_posts( $args );
+}
+
+
 /**
  * Main function to generate the related posts output
  *
