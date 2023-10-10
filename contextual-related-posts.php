@@ -128,6 +128,7 @@ if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/tools.php';
 	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/loader.php';
 	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/metabox.php';
+	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/class-bulk-edit.php';
 } // End if.
 
 
