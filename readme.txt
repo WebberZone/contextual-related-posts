@@ -150,6 +150,7 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 Features:
     * Bulk edit posts, pages and custom post types to add the manual relatd posts and/or exclude posts from the related posts list
+    * New argument `include_words` to include posts that match the words in the title and/or content.
 
 * Enhancements/Modifications:
     * The Manual Related Posts field in the meta box allows a user to live search for related posts
