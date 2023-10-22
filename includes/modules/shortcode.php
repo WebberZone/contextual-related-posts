@@ -34,6 +34,7 @@ function crp_shortcode( $atts, $content = null ) { // phpcs:ignore Generic.CodeA
 				'include_cat_ids'   => '',
 				'include_post_ids'  => '',
 				'related_meta_keys' => '',
+				'include_words'     => '',
 			)
 		),
 		$atts,

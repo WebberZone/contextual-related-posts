@@ -664,6 +664,28 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				}
 			}
 
+			// If $args['include_words'] is set, then we need to add it to the WHERE clause. Use OR if $args['include_words'] is set.
+			if ( isset( $this->query_args['include_words'] ) ) {
+
+				$n          = '%';
+				$includeand = '';
+				$include    = '';
+
+				$include_words = explode( ',', $this->query_args['include_words'] );
+				$include_words = array_filter( $include_words );
+				foreach ( (array) $include_words as $word ) {
+					$like_op    = 'LIKE';
+					$andor_op   = 'OR';
+					$like       = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
+					$include   .= $wpdb->prepare( "{$includeand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s))", $like, $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					$includeand = ' OR ';
+				}
+
+				if ( ! empty( $include ) ) {
+					$where .= " OR ({$include}) ";
+				}
+			}
+
 			/**
 			 * Filters the posts_where of CRP_Query after processing and before returning.
 			 *

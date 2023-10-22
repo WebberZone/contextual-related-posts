@@ -341,6 +341,7 @@ function crp_get_posts_action() {
 		'keyword'          => $search_term,
 		'exclude_post_ids' => $exclude_post_ids,
 		'manual_related'   => 0,
+		'include_words'    => $search_term,
 	);
 	$posts  = get_crp_posts( $args );
 	$result = array();
