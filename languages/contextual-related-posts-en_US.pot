@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-17 19:44+0100\n"
+"POT-Creation-Date: 2023-10-22 22:12+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -19,13 +19,15 @@ msgstr ""
 "X-Generator: Poedit 3.3.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
 
-#: includes/admin/admin.php:31 includes/blocks/related-posts/src/edit.js:315
+#: includes/admin/admin.php:31 includes/admin/modules/class-bulk-edit.php:82
+#: includes/blocks/related-posts/src/edit.js:315
 msgid "Contextual Related Posts"
 msgstr ""
 
 #: includes/admin/admin.php:32 includes/admin/default-settings.php:192
-#: includes/deprecated.php:147
+#: includes/deprecated.php:164
 msgid "Related Posts"
 msgstr ""
 
@@ -66,7 +68,7 @@ msgid ""
 "Only works if the previous option is disabled. Enabling this will cache the "
 "entire HTML generated when the post is visited the first time. The cache is "
 "cleaned when you save this page. Highly recommended particularly on busy "
-"sites."
+"sites. Default is true."
 msgstr ""
 
 #: includes/admin/default-settings.php:75
@@ -240,7 +242,7 @@ msgid ""
 "selected above."
 msgstr ""
 
-#: includes/admin/default-settings.php:212 includes/deprecated.php:149
+#: includes/admin/default-settings.php:212 includes/deprecated.php:166
 msgid "No related posts found"
 msgstr ""
 
@@ -381,7 +383,7 @@ msgstr ""
 
 #: includes/admin/default-settings.php:379
 #: includes/blocks/related-posts/src/edit.js:251
-#: includes/modules/class-crp-widget.php:128
+#: includes/modules/class-crp-widget.php:126
 msgid "Order posts"
 msgstr ""
 
@@ -421,7 +423,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/default-settings.php:411
-#: includes/modules/class-crp-widget.php:151
+#: includes/modules/class-crp-widget.php:149
 msgid "Post types to include"
 msgstr ""
 
@@ -597,13 +599,13 @@ msgstr ""
 
 #: includes/admin/default-settings.php:556
 #: includes/admin/default-settings.php:729
-#: includes/modules/class-crp-widget.php:125
+#: includes/modules/class-crp-widget.php:123
 msgid "Thumbnail width"
 msgstr ""
 
 #: includes/admin/default-settings.php:565
 #: includes/admin/default-settings.php:738
-#: includes/modules/class-crp-widget.php:120
+#: includes/modules/class-crp-widget.php:118
 msgid "Thumbnail height"
 msgstr ""
 
@@ -679,7 +681,7 @@ msgid ""
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 
-#: includes/admin/default-settings.php:623 includes/admin/settings-page.php:762
+#: includes/admin/default-settings.php:623 includes/admin/settings-page.php:758
 msgid "Default thumbnail"
 msgstr ""
 
@@ -716,70 +718,70 @@ msgid ""
 "way to style the related posts in the feed."
 msgstr ""
 
-#: includes/admin/default-settings.php:814
+#: includes/admin/default-settings.php:780
 msgid "No styles"
 msgstr ""
 
-#: includes/admin/default-settings.php:815
+#: includes/admin/default-settings.php:781
 msgid "Select this option if you plan to add your own styles"
 msgstr ""
 
-#: includes/admin/default-settings.php:819
+#: includes/admin/default-settings.php:785
 msgid "Text only"
 msgstr ""
 
-#: includes/admin/default-settings.php:820
+#: includes/admin/default-settings.php:786
 msgid "Disable thumbnails and no longer include the default style sheet"
 msgstr ""
 
-#: includes/admin/default-settings.php:824
+#: includes/admin/default-settings.php:790
 msgid "Rounded thumbnails"
 msgstr ""
 
-#: includes/admin/default-settings.php:825
+#: includes/admin/default-settings.php:791
 msgid ""
 "Enabling this option will turn on the thumbnails. It will also turn off the "
 "display of the author, excerpt and date if already enabled. Disabling this "
 "option will not revert any settings."
 msgstr ""
 
-#: includes/admin/default-settings.php:829
+#: includes/admin/default-settings.php:795
 msgid "Masonry"
 msgstr ""
 
-#: includes/admin/default-settings.php:830
+#: includes/admin/default-settings.php:796
 msgid "Enables a masonry style layout similar to one made famous by Pinterest."
 msgstr ""
 
-#: includes/admin/default-settings.php:834
+#: includes/admin/default-settings.php:800
 msgid "Grid"
 msgstr ""
 
-#: includes/admin/default-settings.php:835
+#: includes/admin/default-settings.php:801
 msgid "Uses CSS Grid for display. Might not work on older browsers."
 msgstr ""
 
-#: includes/admin/default-settings.php:839
+#: includes/admin/default-settings.php:805
 msgid "Rounded thumbnails with CSS grid"
 msgstr ""
 
-#: includes/admin/default-settings.php:840
+#: includes/admin/default-settings.php:806
 msgid ""
 "Uses CSS grid. It will also turn off the display of the author, excerpt and "
 "date if already enabled. Disabling this option will not revert any settings."
 msgstr ""
 
-#: includes/admin/default-settings.php:863
+#: includes/admin/default-settings.php:829
 #: includes/blocks/related-posts/src/edit.js:261
 msgid "By relevance"
 msgstr ""
 
-#: includes/admin/default-settings.php:864
+#: includes/admin/default-settings.php:830
 #: includes/blocks/related-posts/src/edit.js:265
 msgid "Randomly"
 msgstr ""
 
-#: includes/admin/default-settings.php:865
+#: includes/admin/default-settings.php:831
 #: includes/blocks/related-posts/src/edit.js:269
 msgid "By date"
 msgstr ""
@@ -846,6 +848,47 @@ msgid ""
 "href=\"%1$s\" target=\"_blank\">knowledgebase article</a>."
 msgstr ""
 
+#: includes/admin/modules/class-bulk-edit.php:104
+#: includes/admin/modules/metabox.php:129
+msgid "Manual related posts:"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:120
+msgid "Exclude from list:"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:147
+msgid "Manual Related Posts"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:150
+msgid "(0 to clear the manual posts)"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:155
+msgid "Comma-separated list of post IDs"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:158
+msgid "Exclude this post from related posts"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:160
+msgid "Exclude from related posts"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:162
+msgid "&mdash; No Change &mdash;"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:163
+msgid "Exclude"
+msgstr ""
+
+#: includes/admin/modules/class-bulk-edit.php:164
+msgid "Include"
+msgstr ""
+
 #: includes/admin/modules/loader.php:47 includes/admin/sidebar.php:60
 msgid "Support"
 msgstr ""
@@ -900,60 +943,44 @@ msgid ""
 "contains any of these terms then it will be excluded from the results."
 msgstr ""
 
-#: includes/admin/modules/metabox.php:129
-#: includes/admin/modules/metabox.php:137
-msgid "Manual related posts:"
+#: includes/admin/modules/metabox.php:130
+msgid "Start typing to find related posts"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:131
-msgid ""
-"Comma separated list of post, page or custom post type IDs. e.g. "
-"188,320,500. These will be given preference over the related posts generated "
-"by the plugin."
-msgstr ""
-
-#: includes/admin/modules/metabox.php:132
-msgid ""
-"Once you enter the list above and save this page, the plugin will display "
-"the titles of the posts below for your reference. Only IDs corresponding to "
-"published posts or custom post types will be retained."
-msgstr ""
-
-#: includes/admin/modules/metabox.php:148
-#: includes/admin/modules/metabox.php:177
-#, php-format
-msgid "This post type is: %s"
-msgstr ""
-
-#: includes/admin/modules/metabox.php:159
+#: includes/admin/modules/metabox.php:147
 msgid "Exclude post IDs:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:161
+#: includes/admin/modules/metabox.php:149
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500."
 msgstr ""
 
-#: includes/admin/modules/metabox.php:166
+#: includes/admin/modules/metabox.php:154
 msgid "Excluded posts:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:188
+#: includes/admin/modules/metabox.php:165
+#, php-format
+msgid "This post type is: %s"
+msgstr ""
+
+#: includes/admin/modules/metabox.php:176
 msgid "Location of thumbnail"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:190
+#: includes/admin/modules/metabox.php:178
 msgid ""
 "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This "
 "image will be used for the post. It will be resized to the thumbnail size "
 "set under Settings &raquo; Related Posts &raquo; Output Options"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:191
+#: includes/admin/modules/metabox.php:179
 msgid "The URL above is saved in the meta field:"
 msgstr ""
 
-#: includes/admin/modules/metabox.php:196
+#: includes/admin/modules/metabox.php:184
 msgid ""
 "You have Top 10 WordPress Plugin installed. If you are trying to modify the "
 "thumbnail, then you'll need to make the same change in the Top 10 meta box "
@@ -1045,11 +1072,11 @@ msgid ""
 "should do this only if you are comfortable with the new settings."
 msgstr ""
 
-#: includes/admin/modules/tools.php:235
+#: includes/admin/modules/tools.php:237
 msgid "Please upload a valid .json file"
 msgstr ""
 
-#: includes/admin/modules/tools.php:241
+#: includes/admin/modules/tools.php:243
 msgid "Please upload a file to import"
 msgstr ""
 
@@ -1133,19 +1160,19 @@ msgstr ""
 msgid " cropped"
 msgstr ""
 
-#: includes/admin/settings-page.php:706
+#: includes/admin/settings-page.php:702
 msgctxt "tag delimiter"
 msgid ","
 msgstr ""
 
-#: includes/admin/settings-page.php:784
+#: includes/admin/settings-page.php:780
 msgid ""
 "This option cannot be changed because of the selected related posts style. "
 "To modify this option, you will need to select No styles or Text only in the "
 "Styles tab"
 msgstr ""
 
-#: includes/admin/settings-page.php:788
+#: includes/admin/settings-page.php:784
 msgid ""
 "This option cannot be changed because of the selected related posts style. "
 "To modify this option, you will need to select No styles in the Styles tab"
@@ -1231,7 +1258,7 @@ msgid ""
 msgstr ""
 
 #: includes/blocks/related-posts/src/edit.js:146
-#: includes/modules/class-crp-rest-api.php:165
+#: includes/modules/class-crp-rest-api.php:174
 msgid "Number of posts"
 msgstr ""
 
@@ -1240,7 +1267,7 @@ msgid "Maximum number of posts to display"
 msgstr ""
 
 #: includes/blocks/related-posts/src/edit.js:159
-#: includes/modules/class-crp-widget.php:91
+#: includes/modules/class-crp-widget.php:89
 msgid "Offset"
 msgstr ""
 
@@ -1324,7 +1351,7 @@ msgid ""
 "your site to see the related posts."
 msgstr ""
 
-#: includes/main-query.php:213
+#: includes/main-query.php:212
 #, php-format
 msgid ""
 "Powered by <a href=\"%s\" rel=\"nofollow\" style=\"float:none\">Contextual "
@@ -1335,87 +1362,87 @@ msgstr ""
 msgid "Cache has been cleared"
 msgstr ""
 
-#: includes/modules/class-crp-rest-api.php:90
+#: includes/modules/class-crp-rest-api.php:99
 msgid "Invalid post ID."
 msgstr ""
 
-#: includes/modules/class-crp-rest-api.php:160
+#: includes/modules/class-crp-rest-api.php:169
 msgid "Post ID."
 msgstr ""
 
-#: includes/modules/class-crp-rest-api.php:170
+#: includes/modules/class-crp-rest-api.php:179
 msgid "Post types (comma separated)"
 msgstr ""
 
-#: includes/modules/class-crp-rest-api.php:174
+#: includes/modules/class-crp-rest-api.php:183
 msgid "Same post type"
 msgstr ""
 
-#: includes/modules/class-crp-rest-api.php:178
+#: includes/modules/class-crp-rest-api.php:187
 msgid "Same author"
 msgstr ""
 
-#: includes/modules/class-crp-rest-api.php:182
+#: includes/modules/class-crp-rest-api.php:191
 msgid "Post/page IDs to exclude (comma separated)"
 msgstr ""
 
-#: includes/modules/class-crp-rest-api.php:186
+#: includes/modules/class-crp-rest-api.php:195
 msgid "Taxonomy IDs from which posts are excluded (comma separated)"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:29
+#: includes/modules/class-crp-widget.php:27
 msgid "Related Posts [CRP]"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:31
+#: includes/modules/class-crp-widget.php:29
 msgid "Display Related Posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:81
+#: includes/modules/class-crp-widget.php:79
 msgid "Title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:86
+#: includes/modules/class-crp-widget.php:84
 msgid "No. of posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:96
+#: includes/modules/class-crp-widget.php:94
 msgid " Show excerpt?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:101
+#: includes/modules/class-crp-widget.php:99
 msgid " Show author?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:106
+#: includes/modules/class-crp-widget.php:104
 msgid " Show date?"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:110
+#: includes/modules/class-crp-widget.php:108
 msgid "Thumbnail options"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:112
+#: includes/modules/class-crp-widget.php:110
 msgid "Thumbnails inline, before title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:113
+#: includes/modules/class-crp-widget.php:111
 msgid "Thumbnails inline, after title"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:114
+#: includes/modules/class-crp-widget.php:112
 msgid "Only thumbnails, no text"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:115
+#: includes/modules/class-crp-widget.php:113
 msgid "No thumbnails, only text."
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:142
+#: includes/modules/class-crp-widget.php:140
 msgid " Randomize posts"
 msgstr ""
 
-#: includes/modules/class-crp-widget.php:147
+#: includes/modules/class-crp-widget.php:145
 msgid "Only from categories (comma-separated list of term taxonomy IDs)"
 msgstr ""
 
