@@ -16,6 +16,11 @@ parameters:
 			path: includes/admin/modules/class-bulk-edit.php
 
 		-
+			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
+			count: 2
+			path: includes/admin/modules/metabox.php
+
+		-
 			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
 			count: 1
 			path: includes/admin/modules/tools.php

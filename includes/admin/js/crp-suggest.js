@@ -29,19 +29,12 @@ jQuery(document).ready(function($) {
 				collision: 'none'
 			},
 			source: function( request, response ) {
-				var term;
-
 				if ( last === request.term ) {
 					response( cache );
 					return;
 				}
 
-				term = extractLast( request.term );
-
-				if ( last === request.term ) {
-					response( cache );
-					return;
-				}
+				var term = extractLast( request.term );
 
 				$.ajax({
 					type: 'POST',
