@@ -103,8 +103,9 @@ jQuery(document).ready(function ($) {
                 postItem.append(deleteButton);
                 postItem.append(' ');
                 postItem.append(selectedPost.label);
-                postItem.append('. ');
+                postItem.append(' (');
                 postItem.append(selectedPost.id);
+                postItem.append(')');
 
                 // Add the post item to the post list
                 postList.append(postItem);
