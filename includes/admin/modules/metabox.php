@@ -135,7 +135,7 @@ function crp_call_meta_box() {
 		if ( ! empty( $manual_related ) ) {
 			foreach ( $manual_related_array as $manual_related_post ) {
 				printf(
-					'<li class="widefat post-%1$d"><button class="ntdelbutton button-link" type="button"></button> %2$s. ID: %1$d</li>',
+					'<li class="widefat post-%1$d"><button class="ntdelbutton button-link" type="button"></button> %2$s (%1$d)</li>',
 					absint( $manual_related_post ),
 					esc_html( get_the_title( $manual_related_post ) )
 				);
@@ -361,6 +361,8 @@ add_action( 'wp_ajax_crp_get_posts_action', 'crp_get_posts_action' );
  */
 function crp_enqueue_admin_scripts_for_metabox() {
 
+	$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
 	// If metaboxes are disabled, then exit.
 	if ( ! crp_get_option( 'show_metabox' ) ) {
 		return;
@@ -375,7 +377,7 @@ function crp_enqueue_admin_scripts_for_metabox() {
 	if ( 'post' === $screen->base ) {
 		wp_enqueue_script(
 			'crp-admin-metabox',
-			CRP_PLUGIN_URL . 'includes/admin/js/metabox.js',
+			CRP_PLUGIN_URL . "includes/admin/js/metabox{$file_prefix}.js",
 			array( 'jquery', 'jquery-ui-autocomplete' ),
 			CRP_VERSION,
 			true
@@ -389,7 +391,7 @@ function crp_enqueue_admin_scripts_for_metabox() {
 		);
 		wp_enqueue_style(
 			'crp-admin-metabox',
-			CRP_PLUGIN_URL . 'includes/admin/css/admin-styles.css',
+			CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
 			array(),
 			CRP_VERSION
 		);
