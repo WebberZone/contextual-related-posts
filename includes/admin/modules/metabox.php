@@ -127,8 +127,8 @@ function crp_call_meta_box() {
 
 	<p>
 		<label for="manual_related"><strong><?php esc_html_e( 'Manual related posts:', 'contextual-related-posts' ); ?></strong></label>
-		<input type="text" id="crp-manual-related" name="manual-related-posts" value="" style="width:100%" placeholder="<?php esc_attr_e( 'Start typing to find related posts', 'contextual-related-posts' ); ?>" />
-		<input type="hidden" id="crp-manual-related-csv" name="manual_related" value="<?php echo esc_attr( $manual_related ); ?>" style="width:100%" />
+		<input type="text" id="crp-manual-related" name="manual-related-posts" value="" class="widefat" placeholder="<?php esc_attr_e( 'Start typing to find related posts', 'contextual-related-posts' ); ?>" />
+		<input type="hidden" id="crp-manual-related-csv" name="manual_related" value="<?php echo esc_attr( $manual_related ); ?>" class="widefat" />
 	</p>
 	<ul id="crp-post-list">
 		<?php
@@ -145,7 +145,7 @@ function crp_call_meta_box() {
 	</ul>
 	<p>
 		<label for="exclude_post_ids"><strong><?php esc_html_e( 'Exclude post IDs:', 'contextual-related-posts' ); ?></strong></label>
-		<input type="text" id="exclude_post_ids" name="exclude_post_ids" value="<?php echo esc_attr( $exclude_post_ids ); ?>" style="width:100%" />
+		<input type="text" id="exclude_post_ids" name="exclude_post_ids" value="<?php echo esc_attr( $exclude_post_ids ); ?>" class="widefat" />
 		<em><?php esc_html_e( 'Comma separated list of post, page or custom post type IDs. e.g. 188,320,500.', 'contextual-related-posts' ); ?></em>
 	</p>
 
@@ -174,7 +174,7 @@ function crp_call_meta_box() {
 
 	<p>
 		<label for="crp_thumb_meta"><strong><?php esc_html_e( 'Location of thumbnail', 'contextual-related-posts' ); ?>:</strong></label>
-		<input type="text" id="crp_thumb_meta" name="crp_thumb_meta" value="<?php echo esc_attr( $value ); ?>" style="width:100%" />
+		<input type="text" id="crp_thumb_meta" name="crp_thumb_meta" value="<?php echo esc_attr( $value ); ?>" class="widefat" />
 		<em><?php esc_html_e( "Enter the full URL to the image (JPG, PNG or GIF) you'd like to use. This image will be used for the post. It will be resized to the thumbnail size set under Settings &raquo; Related Posts &raquo; Output Options", 'contextual-related-posts' ); ?></em>
 		<em><?php esc_html_e( 'The URL above is saved in the meta field:', 'contextual-related-posts' ); ?></em> <strong><?php echo esc_html( crp_get_option( 'thumb_meta' ) ); ?></strong>
 	</p>
