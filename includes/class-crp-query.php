@@ -187,14 +187,20 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Save post meta into a class-wide variable.
 			$this->crp_post_meta = get_post_meta( $source_post->ID, 'crp_post_meta', true );
 
-			if ( ! empty( $this->crp_post_meta['manual_related'] ) ) {
-				$this->manual_related = wp_parse_id_list( $this->crp_post_meta['manual_related'] );
+			if ( ! isset( $args['manual_related'] ) ) {
+				$args['manual_related'] = ! empty( $this->crp_post_meta['manual_related'] ) ? $this->crp_post_meta['manual_related'] : '';
+				$this->manual_related   = wp_parse_id_list( $args['manual_related'] );
 			}
+
 			if ( ! empty( $args['include_post_ids'] ) ) {
 				$include_post_ids     = wp_parse_id_list( $args['include_post_ids'] );
 				$this->manual_related = array_merge( $this->manual_related, $include_post_ids );
 			}
 			$this->no_of_manual_related = count( $this->manual_related );
+
+			if ( empty( $args['keyword'] ) ) {
+				$args['keyword'] = ! empty( $this->crp_post_meta['keyword'] ) ? $this->crp_post_meta['keyword'] : '';
+			}
 
 			// Set the random order and save it in a class-wide variable.
 			$random_order = ( $args['random_order'] || ( isset( $args['ordering'] ) && 'random' === $args['ordering'] ) ) ? true : false;
@@ -460,9 +466,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$match_fields_content[] = $this->strip_stopwords( crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false ) );
 			}
 
-			if ( isset( $this->crp_post_meta['keyword'] ) ) {
+			if ( ! empty( $this->query_args['keyword'] ) ) {
 				$match_fields_content = array(
-					$this->crp_post_meta['keyword'],
+					$this->query_args['keyword'],
 				);
 			}
 
