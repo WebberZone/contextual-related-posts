@@ -152,6 +152,7 @@ class Bulk_Edit {
 							?>
 							<input type="text" name="crp_manual_related" class="widefat" value="">
 						</label>
+						<em><?php esc_html_e( 'Comma-separated list of post IDs', 'contextual-related-posts' ); ?></em>
 						<label class="inline-edit-group">
 							<?php if ( current_filter() === 'quick_edit_custom_box' ) { ?>
 								<input type="checkbox" name="crp_exclude_this_post"><?php esc_html_e( 'Exclude this post from related posts', 'contextual-related-posts' ); ?>								
