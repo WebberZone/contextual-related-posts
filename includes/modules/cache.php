@@ -137,39 +137,19 @@ function crp_cache_get_meta_keys( $post_id = 0 ) {
 	return apply_filters( 'crp_cache_get_meta_keys', $meta_keys );
 }
 
-
 /**
- * Function to clear cache on post save.
+ * Delete cache by post ID.
  *
- * @since   2.5.0
+ * @since 3.4.0
  *
- * @param mixed $post_id Post ID.
+ * @param int $post_id Post ID.
  */
-function crp_delete_cache_post_save( $post_id ) {
-
-	// Bail if we're doing an auto save.
-	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-		return;
-	}
-
-	// If our nonce isn't there, or we can't verify it, bail.
-	if ( ! isset( $_POST['crp_meta_box_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['crp_meta_box_nonce'] ), 'crp_meta_box' ) ) {
-		return;
-	}
-
-	// If our current user can't edit this post, bail.
-	if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		return;
-	}
-
-	// Clear cache of current post.
+function crp_delete_cache_by_post_id( $post_id ) {
 	$meta_keys = crp_cache_get_meta_keys( $post_id );
 	foreach ( $meta_keys as $meta_key ) {
 		delete_post_meta( $post_id, $meta_key );
 	}
 }
-add_action( 'crp_save_meta_box', 'crp_delete_cache_post_save' );
-
 
 /**
  * Get the meta key based on a list of parameters.

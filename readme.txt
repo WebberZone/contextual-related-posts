@@ -157,6 +157,9 @@ Features:
     * Caching of the entire HTML output is enabled by default. You can disable it in the settings page. This will reduce the number of database queries and improve performance. If you have customised the output, you will need to clear the cache for the changes to take effect. Applies to new installs and when you reset the settings
     * The plugin no longer check for pre v2.5 settings key
 
+* Bug Fixes:
+    * The post cache was not always cleared when a post was updated
+
 * Deprecated:
     * `get_crp_posts_id` has been completed deprecated and will use `get_crp_posts` instead. The function will continue to work but will be removed in a future version
 
