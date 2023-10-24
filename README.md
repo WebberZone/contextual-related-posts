@@ -22,7 +22,7 @@ Related posts for your WordPress site with inbuilt caching. Supports blocks, sho
 
 ## Description
 
-Contextual Related Posts is a powerful WordPress plugin that helps you increase your site's engagement by displaying a list of related posts that are relevant and interesting to your readers.
+[Contextual Related Posts](https://wordpress.org/plugins/contextual-related-posts/) is a powerful WordPress plugin that helps you increase your site's engagement by displaying a list of related posts that are relevant and interesting to your readers.
 
 Contextual Related Posts uses a smart algorithm that analyzes the title and/or content of your posts to find the most related ones. This way, you can show your visitors more of your awesome content and keep them on your site longer.
 

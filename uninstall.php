@@ -51,6 +51,7 @@ function crp_delete_data() {
 			DELETE FROM {$wpdb->postmeta}
 			WHERE `meta_key` LIKE 'crp_related_posts%'
 			OR `meta_key` LIKE '_crp_cache_%'
+			OR `meta_key` LIKE 'crp_post_meta%'
 		"
 		);
 	}
