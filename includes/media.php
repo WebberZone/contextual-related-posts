@@ -219,6 +219,11 @@ function crp_get_the_post_thumbnail( $args = array() ) {
 			$alt = get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
 		}
 
+		// If empty alt then try to get the title of the attachment.
+		if ( empty( $alt ) && ! empty( $attachment_id ) ) {
+			$alt = get_the_title( $attachment_id );
+		}
+
 		if ( empty( $alt ) ) {
 			$alt = $alt_fallback ? $post_title : '';
 		}
