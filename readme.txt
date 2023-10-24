@@ -142,7 +142,7 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 = 3.4.0 =
 
-Features:
+* Features:
     * Bulk edit posts, pages and custom post types to add the manual relatd posts and/or exclude posts from the related posts list
     * New argument `include_words` to include posts that match the words in the title and/or content.
 
@@ -150,6 +150,7 @@ Features:
     * The Manual Related Posts field in the meta box allows a user to live search for related posts
     * Caching of the entire HTML output is enabled by default. You can disable it in the settings page. This will reduce the number of database queries and improve performance. If you have customised the output, you will need to clear the cache for the changes to take effect. Applies to new installs and when you reset the settings
     * The plugin no longer check for pre v2.5 settings key
+    * The Media Handler will check the title of the image in case the alt tag text is empty before defaulting to the post title
 
 * Bug Fixes:
     * The post cache was not always cleared when a post was updated
