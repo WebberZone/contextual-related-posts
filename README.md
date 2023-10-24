@@ -22,36 +22,30 @@ Related posts for your WordPress site with inbuilt caching. Supports blocks, sho
 
 ## Description
 
-[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) is a powerful plugin for WordPress that allows you to display a list of related posts on your website and in your feed.
+Contextual Related Posts is a powerful WordPress plugin that helps you increase your site's engagement by displaying a list of related posts that are relevant and interesting to your readers.
 
-The list is based on the content of the title and/or content of the posts which makes them more relevant and more likely to be of interest to your readers. This allows you to retain visitors, reduce bounce rates and refresh old entries.
+Contextual Related Posts uses a smart algorithm that analyzes the title and/or content of your posts to find the most related ones. This way, you can show your visitors more of your awesome content and keep them on your site longer.
 
-Although several similar plugins exist today, Contextual Related Posts is one of the most feature rich plugins with support for thumbnails, shortcodes, widgets, custom post types and CSS styles. The inbuilt cache ensures that you have related posts without excessive load on your server.
+Contextual Related Posts also comes with many features and options that let you customize the look and feel of the related posts list. You can choose between different styles, layouts, thumbnails, excerpts, and more. You can also use widgets, shortcodes, Gutenberg blocks, or REST API to display the related posts anywhere on your site or in your feed.
 
-And the default inbuilt styles allow you to switch between gorgeous thumbnail-rich related posts or a similar text display!
+With Contextual Related Posts, you can easily boost your site's traffic, reduce bounce rates, and refresh old entries. It's fast, flexible, and easy to use. Try it today and see the difference for yourself!
 
 ### Key features
 
-* __Automatic__: CRP will start displaying related posts on your site and feed automatically after the content when you activate the plugin. No need to edit template files
-* __Manual install__: Want more control over placement? Check the [FAQ](http://wordpress.org/extend/plugins/contextual-related-posts/faq/) on which functions are available for manual install
-* __Gutenberg / Block Editor support__: You can find a block called "Related Posts [CRP]" with its own configurable set of options
-* __Widgets__: Add related posts to widgetized area of your theme. Lots of options available
-* __Shortcode__: Use `[crp]` to display the posts anywhere you want in the post content
-* __REST API__: Fetch related posts at `contextual-related-posts/v1/posts/<id>/`
-* __The algorithm__: Find related posts by title and/or content of the current post
-* __Caching__: Related posts output is automatically cached as visitors browse through your site
-* __Exclusions__: Exclude posts from categories from being displayed in the list. Or you can exclude posts or pages by ID
-* __Custom post types__: The related posts list lets you include posts, pages, attachments or any other custom post type!
-* __Thumbnail support__:
-  * Support for WordPress post thumbnails. CRP will create a custom image size (`crp_thumbnail`) with the dimensions specified in the Settings page
-  * Auto-extract the first image in your post to be displayed as a thumbnail
-  * Manually enter the URL of the thumbnail via [WordPress meta fields](http://codex.wordpress.org/Custom_Fields). Specify this using the meta box in your Edit screens.
-  * Optionally, use timthumb to resize images or use your own filter function to resize post images
-* __Styles__: The output is wrapped in CSS classes which allows you to easily style the list. You can enter your custom CSS styles from within WordPress Admin area or use the style included.
-* __Customisable output__:
-  * Display excerpts in post. You can select the length of the excerpt in words
-  * Customise which HTML tags to use for displaying the output in case you don't prefer the default `list` format
-* __Extendable code__: CRP has tonnes of filters and actions that allow any developer to easily add features, edit outputs, etc.
+* __Automatic__: Just activate the plugin and Contextual Related Posts will automatically display related posts on your site and feed after the content. No need to edit any template files.
+* __Manual install__: If you want more control over the placement of the related posts, you can use the FAQ to learn about the functions available for manual install.
+* __Gutenberg / Block Editor support__: You can easily add a block called "Related Posts [CRP]" to any post or page, with its own set of options and settings.
+* __Widgets__: Add related posts to any widgetized area of your theme, such as the sidebar or footer. You can configure the widget options to suit your needs.
+* __Shortcode__: Use `[crp]` to display the related posts anywhere within the post content.
+* __REST API__: Fetch related posts for any post ID using `contextual-related-posts/v1/posts/<id>/`. You can also use query parameters to filter or sort the results.
+* __The algorithm__: Find related posts based on the title and/or content of the current post. You can also find posts by tags, categories and selected custom fields.
+* __Caching__: Related posts output is automatically cached as visitors browse through your site, reducing the load on your server and improving performance.
+* __Exclusions__: Exclude posts from certain categories or tags from being displayed in the related posts list. Or you can exclude specific posts or pages by ID using a meta box in the edit screen.
+* __Custom post types__: The related posts list supports posts, pages, attachments, or any other custom post type that you have on your site.
+* __Thumbnail support__: Display thumbnails or not!
+* __Styles__: The output of the related posts list is wrapped in CSS classes that allow you to easily style it using custom CSS code. You can enter your custom CSS code from within the WordPress admin area or use one of the default styles included with the plugin.
+* __Customisable output__: Display post excerpts in the related posts list. You can set the length of the excerpt in words and also strip HTML tags if needed. Customise the HTML tags and attributes used for displaying the output of the related posts list. For example, you can use an ordered or unordered list, a div container, a span element, etc.
+* __Extendable code__: Contextual Related Posts has many filters and actions that allow developers to easily add features, modify outputs, or integrate with other plugins.
 
 ### mySQL FULLTEXT indices
 
