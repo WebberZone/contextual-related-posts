@@ -151,6 +151,7 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
     * Caching of the entire HTML output is enabled by default. You can disable it in the settings page. This will reduce the number of database queries and improve performance. If you have customised the output, you will need to clear the cache for the changes to take effect. Applies to new installs and when you reset the settings
     * The plugin no longer check for pre v2.5 settings key
     * The Media Handler will check the title of the image in case the alt tag text is empty before defaulting to the post title
+    * All the inbuilt styles have been updated for the `a` tags to have `:focus-visible` declared for accessibility
 
 * Bug Fixes:
     * The post cache was not always cleared when a post was updated
