@@ -85,21 +85,14 @@ Contextual Related Posts is available for [translation directly on WordPress.org
 
 == Screenshots ==
 
-1. CRP options in WP-Admin - General options
-2. CRP options in WP-Admin - List tuning options
-3. CRP options in WP-Admin - Output options
-4. CRP options in WP-Admin - Thumbnail options
-5. CRP options in WP-Admin - Styles
-6. CRP options in WP-Admin - Feed options
-7. Default style of Related Posts
-8. Contextual Related Post metabox in the Edit Posts screen
-9. CRP Widget
-10. Tools page
-11. Gutenberg block - Settings sidebar
+1. Related Posts (Rounded Thumbnails)
+2. Related Posts (Masonry)
+3. Related Posts (Grid)
+
 
 == Frequently Asked Questions ==
 
-If your question isn't listed here, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly.
+Visit the Contextual Related Posts [Knowledge Base](https://webberzone.com/support/knowledgebase/category/contextual-related-posts/) for FAQs. If your question isn't listed there, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly.
 
 = How can I customise the output? =
 
@@ -142,6 +135,8 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 = 3.4.0 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)
+
 * Features:
     * Bulk edit posts, pages and custom post types to add the manual relatd posts and/or exclude posts from the related posts list
     * New argument `include_words` to include posts that match the words in the title and/or content.
@@ -152,6 +147,7 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
     * The plugin no longer check for pre v2.5 settings key
     * The Media Handler will check the title of the image in case the alt tag text is empty before defaulting to the post title
     * All the inbuilt styles have been updated for the `a` tags to have `:focus-visible` declared for accessibility
+    * The `Heading of posts` setting will now use `<h2>` instead of `<h3>` for the heading by default
 
 * Bug Fixes:
     * The post cache was not always cleared when a post was updated
