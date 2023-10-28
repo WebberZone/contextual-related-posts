@@ -189,7 +189,7 @@ function crp_settings_output() {
 			'name'    => esc_html__( 'Heading of posts', 'contextual-related-posts' ),
 			'desc'    => esc_html__( 'Displayed before the list of the posts as a master heading', 'contextual-related-posts' ),
 			'type'    => 'text',
-			'options' => '<h3>' . esc_html__( 'Related Posts', 'contextual-related-posts' ) . ':</h3>',
+			'options' => '<h2>' . esc_html__( 'Related Posts', 'contextual-related-posts' ) . ':</h2>',
 			'size'    => 'large',
 		),
 		'blank_output'          => array(
