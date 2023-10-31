@@ -15,7 +15,7 @@ import Edit from './edit';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType('contextual-related-posts/related-posts', {
+registerBlockType( 'contextual-related-posts/related-posts', {
 	/**
 	 * @see ./edit.js
 	 */
@@ -24,4 +24,4 @@ registerBlockType('contextual-related-posts/related-posts', {
 	save() {
 		return null;
 	},
-});
+} );
