@@ -133,6 +133,11 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 == Changelog ==
 
+= 3.4.1 =
+
+* Bug fix:
+    * Fixed Request-URI Too Long error when searching for pages/posts
+
 = 3.4.0 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)

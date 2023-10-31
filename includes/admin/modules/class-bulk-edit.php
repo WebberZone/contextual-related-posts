@@ -119,7 +119,7 @@ class Bulk_Edit {
 				echo '<p>';
 				esc_html_e( 'Exclude from list:', 'contextual-related-posts' );
 				echo wp_kses_post( $exclude_this_post ? '<span class="dashicons dashicons-yes" style="color:green"></span>' : '<span class="dashicons dashicons-no" style="color:red"></span>' );
-				echo '<input type="hidden" name="crp_exclude_this_post" class="crp_exclude_this_post" value="' . esc_attr( $exclude_this_post ) . '">';
+				echo '<div class="hidden"><div class="crp_exclude_this_post">' . esc_attr( $exclude_this_post ) . '</div></div>';
 				echo '</p>';
 
 				break;
