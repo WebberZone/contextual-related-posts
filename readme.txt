@@ -1,6 +1,6 @@
 === Contextual Related Posts ===
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
-Contributors: webberzone, Ajay
+Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
 Stable tag: 3.4.0
 Requires at least: 5.9
@@ -137,6 +137,7 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 * Bug fix:
     * Fixed Request-URI Too Long error when searching for pages/posts
+    * Related Posts block threw an error when using on the widgets page
 
 = 3.4.0 =
 
