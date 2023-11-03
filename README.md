@@ -8,11 +8,11 @@
 [![Required PHP](https://img.shields.io/wordpress/plugin/required-php/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 
-__Requires:__ 5.6
+__Requires:__ 5.9
 
-__Tested up to:__ 6.3
+__Tested up to:__ 6.4
 
-__Requires PHP:__ 7.2
+__Requires PHP:__ 7.4
 
 __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
