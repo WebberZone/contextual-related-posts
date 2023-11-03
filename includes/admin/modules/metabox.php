@@ -338,7 +338,7 @@ function crp_get_posts_action() {
 		wp_send_json_error();
 	}
 
-	$args   = array(
+	$args = array(
 		'postid'           => $postid,
 		'posts_per_page'   => 5,
 		'keyword'          => $search_term,
@@ -346,6 +346,10 @@ function crp_get_posts_action() {
 		'manual_related'   => 0,
 		'include_words'    => $search_term,
 	);
+	if ( is_numeric( $search_term ) ) {
+		$args['include_post_ids'] = array( $search_term );
+	}
+
 	$posts  = get_crp_posts( $args );
 	$result = array();
 	foreach ( $posts as $post ) {
