@@ -2,10 +2,10 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.4.0
+Stable tag: 3.4.1
 Requires at least: 5.9
 Tested up to: 6.4
-Requires PHP: 7.2
+Requires PHP: 7.4
 License: GPLv2 or later
 
 Related posts for your WordPress site with inbuilt caching. Supports blocks, shortcodes, widgets and custom post types!
@@ -135,13 +135,13 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 = 3.4.1 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)
+
 * Bug fix:
     * Fixed Request-URI Too Long error when searching for pages/posts
     * Related Posts block threw an error when using on the widgets page
 
 = 3.4.0 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)
 
 * Features:
     * Bulk edit posts, pages and custom post types to add the manual relatd posts and/or exclude posts from the related posts list
@@ -210,5 +210,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.4.0 =
+= 3.4.1 =
 Major release: Bulk edit posts, new features, enhancements and bug fixes. Please read the release post for more details.
