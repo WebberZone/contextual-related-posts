@@ -135,6 +135,9 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 = 3.4.2 =
 
+* Enhancements:
+    * Live Search in the Manual Related Posts field now searches by post ID if you enter a number
+
 * Bug fix:
     * Bug in Include Words functionality where all post types were incorrectly included
     * Compatibility issue with PolyLang. Return the default post if pll_get_post returns false
