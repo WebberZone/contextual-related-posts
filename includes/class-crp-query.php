@@ -659,12 +659,17 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				}
 
 				if ( ! empty( $include ) ) {
-					$include = " OR ({$include}) ";
+					$include = " ({$include}) ";
 				}
 			}
 
-			if ( ! empty( $match ) || ! empty( $include ) ) {
-				$where .= " AND ( $match $include )";
+			// if both $match and $include are not empty, then join them using OR. Else, use the one that is not empty.
+			if ( ! empty( $match ) && ! empty( $include ) ) {
+				$where .= " AND ( $match OR $include )";
+			} elseif ( ! empty( $match ) ) {
+				$where .= " AND ( $match )";
+			} elseif ( ! empty( $include ) ) {
+				$where .= " AND ( 1=1 OR $include )";
 			}
 
 			if ( isset( $this->crp_post_meta['exclude_words'] ) ) {
