@@ -351,7 +351,7 @@ function crp_get_posts_action() {
 	foreach ( $posts as $post ) {
 		$result[] = array(
 			'id'    => $post->ID,
-			'title' => $post->post_title,
+			'title' => sprintf( '%1$s (%2$s)', $post->post_title, $post->ID ),
 		);
 	}
 	echo wp_json_encode( $result );

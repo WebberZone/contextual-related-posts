@@ -619,9 +619,12 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				return $where;
 			}
 
+			$match   = '';
+			$include = '';
+
 			if ( $this->enable_relevance ) {
 
-				$match = ' AND ' . $this->get_match_sql();
+				$match = $this->get_match_sql();
 
 				/**
 				 * Filter the MATCH clause of the query.
@@ -638,9 +641,30 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				 * @param array   $args         Arguments array.
 				 */
 				$match = apply_filters( 'crp_posts_match', $match, $this->stuff, $this->source_post, $this->match_fields, $this->query_args );
+			}
 
-				$where .= $match;
+			if ( isset( $this->query_args['include_words'] ) ) {
 
+				$n          = '%';
+				$includeand = '';
+
+				$include_words = explode( ',', $this->query_args['include_words'] );
+				$include_words = array_filter( $include_words );
+				foreach ( (array) $include_words as $word ) {
+					$like_op    = 'LIKE';
+					$andor_op   = 'OR';
+					$like       = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
+					$include   .= $wpdb->prepare( "{$includeand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s))", $like, $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					$includeand = ' OR ';
+				}
+
+				if ( ! empty( $include ) ) {
+					$include = " OR ({$include}) ";
+				}
+			}
+
+			if ( ! empty( $match ) || ! empty( $include ) ) {
+				$where .= " AND ( $match $include )";
 			}
 
 			if ( isset( $this->crp_post_meta['exclude_words'] ) ) {
@@ -661,28 +685,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 				if ( ! empty( $exclude ) ) {
 					$where .= " AND ({$exclude}) ";
-				}
-			}
-
-			// If $args['include_words'] is set, then we need to add it to the WHERE clause. Use OR if $args['include_words'] is set.
-			if ( isset( $this->query_args['include_words'] ) ) {
-
-				$n          = '%';
-				$includeand = '';
-				$include    = '';
-
-				$include_words = explode( ',', $this->query_args['include_words'] );
-				$include_words = array_filter( $include_words );
-				foreach ( (array) $include_words as $word ) {
-					$like_op    = 'LIKE';
-					$andor_op   = 'OR';
-					$like       = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
-					$include   .= $wpdb->prepare( "{$includeand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s))", $like, $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					$includeand = ' OR ';
-				}
-
-				if ( ! empty( $include ) ) {
-					$where .= " OR ({$include}) ";
 				}
 			}
 
