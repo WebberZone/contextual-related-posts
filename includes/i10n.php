@@ -72,8 +72,10 @@ function crp_object_id_cur_lang( $post ) {
 
 	// Polylang implementation.
 	if ( function_exists( 'pll_get_post' ) ) {
-		$post = pll_get_post( $post->ID );
-		$post = get_post( $post );
+		$translated_post = pll_get_post( $post->ID );
+		if ( $translated_post ) {
+			$post = get_post( $translated_post );
+		}
 	}
 
 	// WPML implementation.
@@ -88,8 +90,10 @@ function crp_object_id_cur_lang( $post ) {
 		 */
 		$return_original_if_missing = apply_filters( 'crp_wpml_return_original', $return_original_if_missing, $post->ID );
 
-		$post = apply_filters( 'wpml_object_id', $post->ID, $post->post_type, $return_original_if_missing, $current_lang );
-		$post = get_post( $post );
+		$translated_post = apply_filters( 'wpml_object_id', $post->ID, $post->post_type, $return_original_if_missing, $current_lang );
+		if ( $translated_post ) {
+			$post = get_post( $translated_post );
+		}
 	}
 
 	/**

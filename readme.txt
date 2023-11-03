@@ -133,6 +133,12 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 == Changelog ==
 
+= 3.4.2 =
+
+* Bug fix:
+    * Bug in Include Words functionality where all post types were incorrectly included
+    * Compatibility issue with PolyLang. Return the default post if pll_get_post returns false
+
 = 3.4.1 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)
