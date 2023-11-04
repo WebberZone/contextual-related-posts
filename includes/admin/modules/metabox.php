@@ -340,11 +340,12 @@ function crp_get_posts_action() {
 
 	$args = array(
 		'postid'           => $postid,
-		'posts_per_page'   => 5,
+		'posts_per_page'   => 7,
 		'keyword'          => $search_term,
 		'exclude_post_ids' => $exclude_post_ids,
 		'manual_related'   => 0,
 		'include_words'    => $search_term,
+		'match_content'    => false,
 	);
 	if ( is_numeric( $search_term ) ) {
 		$args['include_post_ids'] = array( $search_term );
