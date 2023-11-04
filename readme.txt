@@ -137,6 +137,7 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 * Enhancements:
     * Live Search in the Manual Related Posts field now searches by post ID if you enter a number
+    * Live Search will only search for posts titles and not content
 
 * Bug fix:
     * Bug in Include Words functionality where all post types were incorrectly included
