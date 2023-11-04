@@ -108,6 +108,14 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public $in_cache = false;
 
 		/**
+		 * Array of SQL LIKE statements when using the Include Words functionality.
+		 *
+		 * @since 3.4.2
+		 * @var array
+		 */
+		public $include_orderby_title = array();
+
+		/**
 		 * Main constructor.
 		 *
 		 * @since 3.0.0
@@ -619,8 +627,10 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				return $where;
 			}
 
-			$match   = '';
-			$include = '';
+			$match          = '';
+			$include        = '';
+			$exclude        = '';
+			$search_columns = array( 'post_title', 'post_excerpt', 'post_content' );
 
 			if ( $this->enable_relevance ) {
 
@@ -648,18 +658,22 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				$n          = '%';
 				$includeand = '';
 
-				$include_words = explode( ',', $this->query_args['include_words'] );
+				$include_words = preg_split( '/[,\s]+/', $this->query_args['include_words'] );
 				$include_words = array_filter( $include_words );
 				foreach ( (array) $include_words as $word ) {
-					$like_op    = 'LIKE';
-					$andor_op   = 'OR';
-					$like       = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
-					$include   .= $wpdb->prepare( "{$includeand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s))", $like, $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					$includeand = ' OR ';
-				}
+					$like_op  = 'LIKE';
+					$andor_op = 'OR';
 
-				if ( ! empty( $include ) ) {
-					$include = " ({$include}) ";
+					$like                          = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
+					$this->include_orderby_title[] = $wpdb->prepare( "{$wpdb->posts}.post_title LIKE %s", $like );
+
+					$search_columns_parts = array();
+					foreach ( $search_columns as $search_column ) {
+						$search_columns_parts[ $search_column ] = $wpdb->prepare( "({$wpdb->posts}.$search_column $like_op %s)", $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					}
+					$include .= "$includeand(" . implode( " $andor_op ", $search_columns_parts ) . ')';
+
+					$includeand = ' OR ';
 				}
 			}
 
@@ -676,15 +690,20 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 				$n          = '%';
 				$excludeand = '';
-				$exclude    = '';
 
-				$exclude_words = explode( ',', $this->crp_post_meta['exclude_words'] );
+				$exclude_words = preg_split( '/[,\s]+/', $this->crp_post_meta['exclude_words'] );
 				$exclude_words = array_filter( $exclude_words );
 				foreach ( (array) $exclude_words as $word ) {
-					$like_op    = 'NOT LIKE';
-					$andor_op   = 'AND';
-					$like       = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
-					$exclude   .= $wpdb->prepare( "{$excludeand}(({$wpdb->posts}.post_title $like_op %s) $andor_op ({$wpdb->posts}.post_content $like_op %s))", $like, $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					$like_op  = 'NOT LIKE';
+					$andor_op = 'AND';
+					$like     = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
+
+					$search_columns_parts = array();
+					foreach ( $search_columns as $search_column ) {
+						$search_columns_parts[ $search_column ] = $wpdb->prepare( "({$wpdb->posts}.$search_column $like_op %s)", $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					}
+					$exclude .= "$excludeand(" . implode( " $andor_op ", $search_columns_parts ) . ')';
+
 					$excludeand = ' AND ';
 				}
 
@@ -735,6 +754,13 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Set order by in case of date.
 			if ( isset( $this->query_args['ordering'] ) && 'date' === $this->query_args['ordering'] ) {
 				$orderby = " $wpdb->posts.post_date DESC ";
+			}
+
+			if ( ! empty( $this->query_args['include_words'] ) ) {
+				$include_orderby = $this->parse_include_words_order();
+				if ( ! empty( $include_orderby ) ) {
+					$orderby = $include_orderby . ', ' . $orderby;
+				}
 			}
 
 			/**
@@ -1014,6 +1040,55 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			$exclude_post_ids[] = $this->source_post->ID;
 
 			return $exclude_post_ids;
+		}
+
+		/**
+		 * Generates SQL for the ORDER BY condition based on passed include words.
+		 *
+		 * @since 3.4.2
+		 *
+		 * @global wpdb $wpdb WordPress database abstraction object.
+		 *
+		 * @return string ORDER BY clause.
+		 */
+		protected function parse_include_words_order() {
+			global $wpdb;
+
+			if ( ! isset( $this->query_args['include_words'] ) ) {
+				return '';
+			}
+
+			$num_terms = count( $this->include_orderby_title );
+
+			if ( $num_terms > 1 ) {
+
+				// If the search terms contain negative queries, don't bother ordering by sentence matches.
+				$like           = '%' . $wpdb->esc_like( $this->query_args['include_words'] ) . '%';
+				$search_orderby = $wpdb->prepare( "WHEN {$wpdb->posts}.post_title LIKE %s THEN 1 ", $like );
+
+				/*
+				 * Sanity limit, sort as sentence when more than 6 terms
+				 * (few searches are longer than 6 terms and most titles are not).
+				 */
+				if ( $num_terms < 7 ) {
+					// All words in title.
+					$search_orderby .= 'WHEN ' . implode( ' AND ', $this->include_orderby_title ) . ' THEN 2 ';
+					// Any word in title, not needed when $num_terms == 1.
+					if ( $num_terms > 1 ) {
+						$search_orderby .= 'WHEN ' . implode( ' OR ', $this->include_orderby_title ) . ' THEN 3 ';
+					}
+				}
+
+				// Sentence match in 'post_content' and 'post_excerpt'.
+				$search_orderby .= $wpdb->prepare( "WHEN {$wpdb->posts}.post_excerpt LIKE %s THEN 4 ", $like );
+				$search_orderby .= $wpdb->prepare( "WHEN {$wpdb->posts}.post_content LIKE %s THEN 5 ", $like );
+				$search_orderby  = '(CASE ' . $search_orderby . 'ELSE 6 END)';
+			} else {
+				// Single word or sentence search.
+				$search_orderby = reset( $this->include_orderby_title ) . ' DESC';
+			}
+
+			return $search_orderby;
 		}
 	}
 endif;
