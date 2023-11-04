@@ -12,7 +12,6 @@ jQuery(document).ready(function ($) {
             ajaxAction: 'crp_get_posts_action',
             postList: '#crp-post-list',
             hiddenField: '#crp-manual-related-csv',
-            inputField: '#crp-manual-related'
         };
 
         // Get the AJAX action and delete it from the options object
@@ -41,7 +40,6 @@ jQuery(document).ready(function ($) {
 
         // Initialize the autocomplete plugin
         options = $.extend({
-            minLength: 3,
             position: {
                 my: 'left top+2',
                 at: 'left bottom',
@@ -86,6 +84,17 @@ jQuery(document).ready(function ($) {
 
                 // Store the last request term
                 last = request.term;
+            },
+            search: function (event, ui) {
+                if (inputField.val().match(/^\d+$/)) {
+                    if (inputField.val().length < 2) {
+                        return false;
+                    }
+                } else {
+                    if (inputField.val().length < 3) {
+                        return false;
+                    }
+                }
             },
             focus: function (event, ui) {
                 // Prevent value inserted on focus.
