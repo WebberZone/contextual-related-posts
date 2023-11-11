@@ -2,7 +2,7 @@
 Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.4.1
+Stable tag: 3.4.2
 Requires at least: 5.9
 Tested up to: 6.4
 Requires PHP: 7.4
@@ -135,6 +135,8 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 = 3.4.2 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)
+
 * Enhancements:
     * Live Search in the Manual Related Posts field now searches by post ID if you enter a number
     * Live Search will only search for posts titles and not content
@@ -145,8 +147,6 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
     * Compatibility issue with PolyLang. Return the default post if pll_get_post returns false
 
 = 3.4.1 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)
 
 * Bug fix:
     * Fixed Request-URI Too Long error when searching for pages/posts
@@ -221,5 +221,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.4.1 =
+= 3.4.2 =
 Major release: Bulk edit posts, new features, enhancements and bug fixes. Please read the release post for more details.
