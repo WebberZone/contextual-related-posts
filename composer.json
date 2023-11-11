@@ -19,7 +19,7 @@
         }
     ],
     "requires": {
-        "php": ">=7.1"
+        "php": ">=7.4"
     },
     "require-dev": {
         "szepeviktor/phpstan-wordpress": "^1.3",
