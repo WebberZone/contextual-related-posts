@@ -7,6 +7,10 @@
  * @since 3.0.0
  */
 
+use WebberZone\Contextual_Related_Posts\Frontend\Display;
+use WebberZone\Contextual_Related_Posts\Util\Cache;
+use WebberZone\Contextual_Related_Posts\Util\Helpers;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -159,6 +163,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *     @type array|string  $include_post_ids An array or comma-separated string of post IDs.
 		 *     @type bool          $offset           Offset the related posts returned by this number.
 		 *     @type int           $postid           Get related posts for a specific post ID.
+		 *     @type int           $post_id          Alternative to postid.
 		 *     @type bool          $strict_limit     If this is set to false, then it will fetch 3x posts.
 		 * }
 		 */
@@ -171,6 +176,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				'include_post_ids' => 0,
 				'offset'           => 0,
 				'postid'           => false,
+				'post_id'          => false,
 				'strict_limit'     => true,
 			);
 			$defaults = array_merge( $defaults, $crp_settings );
@@ -186,7 +192,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			$this->input_query_args = $args;
 
 			// Set the source post.
-			$source_post = empty( $args['postid'] ) ? $post : get_post( $args['postid'] );
+			$source_post = empty( $args['postid'] ) && empty( $args['post_id'] ) ? $post : ( isset( $args['postid'] ) ? get_post( $args['postid'] ) : get_post( $args['post_id'] ) );
 			if ( ! $source_post ) {
 				$source_post = $post;
 			}
@@ -290,7 +296,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 				foreach ( (array) $post_taxonomies as $term ) {
 					if ( empty( $primary_term['primary'] ) ) {
-						$primary_term = crp_get_primary_term( $source_post, $term );
+						$primary_term = Helpers::get_primary_term( $source_post, $term );
 					}
 				}
 
@@ -471,7 +477,13 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			if ( $this->query_args['match_content'] ) {
 				$match_fields[]         = "$wpdb->posts.post_content";
-				$match_fields_content[] = $this->strip_stopwords( crp_excerpt( $this->source_post, min( $this->query_args['match_content_words'], CRP_MAX_WORDS ), false ) );
+				$match_fields_content[] = $this->strip_stopwords(
+					Display::get_the_excerpt(
+						$this->source_post,
+						min( $this->query_args['match_content_words'], CRP_MAX_WORDS ),
+						false
+					)
+				);
 			}
 
 			if ( ! empty( $this->query_args['keyword'] ) ) {
@@ -848,9 +860,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Check the cache if there are any posts saved.
 			if ( ! empty( $this->query_args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 
-				$meta_key = crp_cache_get_key( $this->input_query_args );
+				$meta_key = Cache::get_key( $this->input_query_args );
 
-				$cached_data = get_crp_cache( $this->source_post->ID, $meta_key );
+				$cached_data = Cache::get_cache( $this->source_post->ID, $meta_key );
 				if ( ! empty( $cached_data ) ) {
 					$post_ids       = $cached_data;
 					$this->in_cache = true;
@@ -906,10 +918,10 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			// Support caching to speed up retrieval.
 			if ( ! empty( $this->query_args['cache_posts'] ) && ! $this->in_cache && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-				$meta_key = crp_cache_get_key( $this->input_query_args );
+				$meta_key = Cache::get_key( $this->input_query_args );
 				$post_ids = wp_list_pluck( $query->posts, 'ID' );
 
-				set_crp_cache( $this->source_post->ID, $meta_key, $post_ids );
+				Cache::set_cache( $this->source_post->ID, $meta_key, $post_ids );
 			}
 
 			// Shuffle posts if random order is set.
@@ -1021,8 +1033,23 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 * @return array Array of post IDs to exclude.
 		 */
 		public function exclude_post_ids( $args ) {
+			global $wpdb;
 
 			$exclude_post_ids = empty( $args['exclude_post_ids'] ) ? array() : wp_parse_id_list( $args['exclude_post_ids'] );
+
+			// Exclude posts with exclude_this_post set to true or exclude_post_ids set.
+			$crp_post_metas = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta'", ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
+			foreach ( $crp_post_metas as $crp_post_meta ) {
+				$meta_value = maybe_unserialize( $crp_post_meta['meta_value'] );
+
+				if ( isset( $meta_value['exclude_this_post'] ) && $meta_value['exclude_this_post'] ) {
+					$exclude_post_ids[] = $crp_post_meta['post_id'];
+				}
+				if ( (int) $this->source_post->ID === (int) $crp_post_meta['post_id'] && isset( $meta_value['exclude_post_ids'] ) && $meta_value['exclude_post_ids'] ) {
+					$exclude_post_ids = array_merge( $exclude_post_ids, explode( ',', $meta_value['exclude_post_ids'] ) );
+				}
+			}
 
 			/**
 			 * Filter exclude post IDs array.
@@ -1062,7 +1089,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			if ( $num_terms > 1 ) {
 
-				// If the search terms contain negative queries, don't bother ordering by sentence matches.
+				// Sentence match in 'post_title'.
 				$like           = '%' . $wpdb->esc_like( $this->query_args['include_words'] ) . '%';
 				$search_orderby = $wpdb->prepare( "WHEN {$wpdb->posts}.post_title LIKE %s THEN 1 ", $like );
 
@@ -1073,10 +1100,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				if ( $num_terms < 7 ) {
 					// All words in title.
 					$search_orderby .= 'WHEN ' . implode( ' AND ', $this->include_orderby_title ) . ' THEN 2 ';
-					// Any word in title, not needed when $num_terms == 1.
-					if ( $num_terms > 1 ) {
-						$search_orderby .= 'WHEN ' . implode( ' OR ', $this->include_orderby_title ) . ' THEN 3 ';
-					}
+					$search_orderby .= 'WHEN ' . implode( ' OR ', $this->include_orderby_title ) . ' THEN 3 ';
 				}
 
 				// Sentence match in 'post_content' and 'post_excerpt'.

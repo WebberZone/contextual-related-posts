@@ -1,0 +1,148 @@
+<?php
+/**
+ * Functions run on activation / deactivation.
+ *
+ * @package Contextual_Related_Posts
+ */
+
+namespace WebberZone\Contextual_Related_Posts\Admin;
+
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
+/**
+ * Activator class
+ *
+ * @since 3.5.0
+ */
+class Activator {
+
+	/**
+	 * Constructor class.
+	 *
+	 * @since 3.5.0
+	 */
+	public function __construct() {
+		add_action( 'wp_initialize_site', array( $this, 'activate_new_site' ) );
+	}
+
+	/**
+	 * Fired when the plugin is Network Activated.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param    boolean $network_wide    True if WPMU superadmin uses
+	 *                                    "Network Activate" action, false if
+	 *                                    WPMU is disabled or plugin is
+	 *                                    activated on an individual blog.
+	 */
+	public static function activation_hook( $network_wide ) {
+
+		if ( is_multisite() && $network_wide ) {
+			$sites = get_sites(
+				array(
+					'archived' => 0,
+					'spam'     => 0,
+					'deleted'  => 0,
+				)
+			);
+
+			foreach ( $sites as $site ) {
+				switch_to_blog( (int) $site->blog_id );
+				self::single_activate();
+			}
+
+			// Switch back to the current blog.
+			restore_current_blog();
+
+		} else {
+			self::single_activate();
+		}
+	}
+
+	/**
+	 * Fired for each blog when the plugin is activated.
+	 *
+	 * @since 3.5.0
+	 */
+	public static function single_activate() {
+		global $wpdb;
+
+		// Create FULLTEXT indexes.
+		$wpdb->hide_errors();
+		Db::create_fulltext_indexes();
+		$wpdb->show_errors();
+	}
+
+	/**
+	 * Fired when a new site is activated with a WPMU environment.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param  int|\WP_Site $blog WordPress 5.1 passes a WP_Site object.
+	 */
+	public static function activate_new_site( $blog ) {
+
+		if ( ! is_plugin_active_for_network( plugin_basename( CRP_PLUGIN_FILE ) ) ) {
+			return;
+		}
+
+		if ( ! is_int( $blog ) ) {
+			$blog = $blog->id;
+		}
+
+		switch_to_blog( $blog );
+		self::single_activate();
+		restore_current_blog();
+	}
+
+	/**
+	 * Fired when the plugin is deactivated.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param    boolean $network_wide    True if WPMU superadmin uses
+	 *                                    "Network Deactivate" action, false if
+	 *                                    WPMU is disabled or plugin is
+	 *                                    deactivated on an individual blog.
+	 */
+	public static function deactivation_hook( $network_wide ) {
+
+		if ( is_multisite() && $network_wide ) {
+
+			// Get all blogs in the network and activate plugin on each one.
+			$sites = get_sites(
+				array(
+					'archived' => 0,
+					'spam'     => 0,
+					'deleted'  => 0,
+				)
+			);
+
+			foreach ( $sites as $site ) {
+				switch_to_blog( (int) $site->blog_id );
+				self::single_deactivate();
+			}
+
+			// Switch back to the current blog.
+			restore_current_blog();
+
+		} else {
+			self::single_deactivate();
+		}
+	}
+
+	/**
+	 * Fired for each blog when the plugin is deactivated.
+	 *
+	 * @since 3.5.0
+	 */
+	public static function single_deactivate() {
+		$settings = get_option( 'crp_settings' );
+
+		if ( ! empty( $settings['uninstall_indices_deactivate'] ) ) {
+			Db::delete_fulltext_indexes();
+		}
+	}
+}
