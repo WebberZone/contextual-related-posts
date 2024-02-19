@@ -14,3 +14,18 @@
 #crp-post-list .ntdelbutton:hover:before {
     color: #d63638;
 }
+
+a.crp_button {
+    background: green;
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+    text-shadow: none;
+    border-radius: 3px;
+    transition: all 0.3s ease 0s;
+    border: 1px solid green;
+}
+
+a.crp_button:hover {
+    box-shadow: 3px 3px 10px #666;
+}

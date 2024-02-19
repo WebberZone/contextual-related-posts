@@ -37,5 +37,9 @@
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
+    },
+    "scripts": {
+        "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
+        "phpstan-baseline": "vendor/bin/phpstan analyse --generate-baseline --memory-limit=2048M"
     }
 }
