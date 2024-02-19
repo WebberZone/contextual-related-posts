@@ -788,7 +788,7 @@ class Settings_API {
 		?>
 			<div class="wrap">
 				<h1><?php echo esc_html( $this->translation_strings['page_header'] ); ?></h1>
-			<?php do_action( $this->prefix . '_settings_page_header' ); ?>
+				<?php do_action( $this->prefix . '_settings_page_header' ); ?>
 
 				<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-2">
