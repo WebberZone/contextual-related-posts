@@ -132,7 +132,7 @@ class Cache {
 		FROM {$wpdb->postmeta}
 		WHERE `meta_key` LIKE '_crp_cache_%'
 		AND `meta_key` NOT LIKE '_crp_cache_expires_%'
-	";
+		";
 
 		if ( $post_id > 0 ) {
 			$sql .= $wpdb->prepare( ' AND post_id = %d ', $post_id );
