@@ -151,6 +151,7 @@ class Settings {
 
 		add_action( 'wp_ajax_nopriv_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
 		add_action( 'wp_ajax_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
+		add_action( 'crp_settings_page_header', array( $this, 'settings_page_header' ) );
 	}
 
 	/**
@@ -1395,5 +1396,21 @@ class Settings {
 
 		echo wp_json_encode( $results );
 		wp_die();
+	}
+
+	/**
+	 * Add a link to the Tools page from the settings page.
+	 *
+	 * @since 3.5.0
+	 */
+	public static function settings_page_header() {
+		?>
+		<p>
+			<a class="crp_button" href="<?php echo admin_url( 'tools.php?page=crp_tools_page' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+				<?php esc_html_e( 'Visit the Tools page', 'autoclose' ); ?>
+			</a>
+		</p>
+
+		<?php
 	}
 }
