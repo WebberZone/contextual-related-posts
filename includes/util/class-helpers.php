@@ -104,7 +104,7 @@ class Helpers {
 		$count  = absint( $count );
 
 		if ( 0 === $count ) {
-			return '';
+			return $input;
 		}
 		if ( mb_strlen( $output ) > $count && $count > 0 ) {
 			$count -= min( $count, mb_strlen( $more ) );
