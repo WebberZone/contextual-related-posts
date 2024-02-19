@@ -146,19 +146,6 @@ class Tools_Page {
 			<?php wp_nonce_field( 'crp_import_settings_nonce', 'crp_import_settings_nonce' ); ?>
 			</form>
 
-			<form method="post">
-
-				<h2 style="padding-left:0px"><?php esc_html_e( 'Other tools', 'contextual-related-posts' ); ?></h2>
-				<p>
-					<input name="crp_delete_old_settings" type="submit" id="crp_delete_old_settings" value="<?php esc_attr_e( 'Delete old settings', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="if (!confirm('<?php esc_attr_e( 'This will delete the settings before v2.6.x. Proceed?', 'contextual-related-posts' ); ?>')) return false;" />
-				</p>
-				<p class="description">
-				<?php esc_html_e( 'From v2.6.x, Contextual Related Posts stores the settings in a new key in the database. This will delete the old settings for the current blog. It is recommended that you do this at the earliest after upgrade. However, you should do this only if you are comfortable with the new settings.', 'contextual-related-posts' ); ?>
-				</p>
-
-			<?php wp_nonce_field( 'crp-tools-settings' ); ?>
-			</form>
-
 		</div><!-- /#post-body-content -->
 
 		<div id="postbox-container-1" class="postbox-container">
@@ -291,13 +278,15 @@ class Tools_Page {
 		$screen = get_current_screen();
 
 		if ( $this->parent_id === $screen->id ) {
-			wp_enqueue_style(
-				'crp-admin-styles',
-				CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
-				array(),
-				CRP_VERSION
+			wp_enqueue_script( 'crp-admin-js' );
+			wp_enqueue_style( 'crp-admin-ui-css' );
+			wp_localize_script(
+				'crp-admin-js',
+				'crp_admin_data',
+				array(
+					'security' => wp_create_nonce( 'crp-admin' ),
+				)
 			);
-
 		}
 	}
 }

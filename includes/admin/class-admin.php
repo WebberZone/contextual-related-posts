@@ -143,10 +143,11 @@ class Admin {
 	 * @since 3.0.0
 	 */
 	public function admin_enqueue_scripts() {
+		$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		wp_register_script(
 			'crp-admin-js',
-			CRP_PLUGIN_URL . 'includes/admin/js/admin-scripts.min.js',
+			CRP_PLUGIN_URL . "includes/admin/js/admin-scripts{$file_prefix}.js",
 			array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker' ),
 			CRP_VERSION,
 			true
@@ -160,7 +161,7 @@ class Admin {
 		);
 		wp_register_style(
 			'crp-admin-ui-css',
-			CRP_PLUGIN_URL . 'includes/admin/css/admin-styles.min.css',
+			CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
 			array(),
 			CRP_VERSION
 		);
