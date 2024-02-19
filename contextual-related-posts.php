@@ -9,13 +9,13 @@
  * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
- * @copyright 2009-2023 Ajay D'Souza
+ * @copyright 2009-2024 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version:     3.4.2
+ * Version:     3.5.0-beta1
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -25,7 +25,8 @@
  * GitHub Plugin URI: https://github.com/WebberZone/contextual-related-posts/
  */
 
-// If this file is called directly, abort.
+namespace WebberZone\Contextual_Related_Posts;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -36,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 2.9.3
  */
 if ( ! defined( 'CRP_VERSION' ) ) {
-	define( 'CRP_VERSION', '3.4.1' );
+	define( 'CRP_VERSION', '3.5.0' );
 }
 
 
@@ -86,59 +87,40 @@ if ( ! defined( 'CRP_CACHE_TIME' ) ) {
 	define( 'CRP_CACHE_TIME', MONTH_IN_SECONDS );
 }
 
+// Load the autoloader.
+require_once CRP_PLUGIN_DIR . 'includes/autoloader.php';
+
+/**
+ * The code that runs during plugin activation.
+ *
+ * @since 3.5.0
+ *
+ * @param bool $network_wide Whether the plugin is being activated network-wide.
+ */
+function activate_tptn( $network_wide ) {
+	\WebberZone\Contextual_Related_Posts\Admin\Activator::activation_hook( $network_wide );
+}
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_tptn' );
+
+/**
+ * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
+ *
+ * @since 3.5.0
+ */
+function load_tptn() {
+	\WebberZone\Contextual_Related_Posts\Main::get_instance();
+}
+add_action( 'plugins_loaded', __NAMESPACE__ . '\load_tptn' );
+
+
 /*
  *----------------------------------------------------------------------------
- * CRP modules & includes
+ * Include files
  *----------------------------------------------------------------------------
  */
-
-require_once CRP_PLUGIN_DIR . 'includes/admin/default-settings.php';
-require_once CRP_PLUGIN_DIR . 'includes/admin/register-settings.php';
-require_once CRP_PLUGIN_DIR . 'includes/plugin-activator.php';
-require_once CRP_PLUGIN_DIR . 'includes/i10n.php';
+require_once CRP_PLUGIN_DIR . 'includes/options-api.php';
 require_once CRP_PLUGIN_DIR . 'includes/class-crp-query.php';
-require_once CRP_PLUGIN_DIR . 'includes/main-query.php';
-require_once CRP_PLUGIN_DIR . 'includes/output-generator.php';
-require_once CRP_PLUGIN_DIR . 'includes/media.php';
-require_once CRP_PLUGIN_DIR . 'includes/tools.php';
-require_once CRP_PLUGIN_DIR . 'includes/header.php';
-require_once CRP_PLUGIN_DIR . 'includes/content.php';
-require_once CRP_PLUGIN_DIR . 'includes/modules/manual-posts.php';
-require_once CRP_PLUGIN_DIR . 'includes/modules/cache.php';
-require_once CRP_PLUGIN_DIR . 'includes/modules/shortcode.php';
-require_once CRP_PLUGIN_DIR . 'includes/modules/taxonomies.php';
-require_once CRP_PLUGIN_DIR . 'includes/modules/exclusions.php';
-require_once CRP_PLUGIN_DIR . 'includes/modules/class-crp-rest-api.php';
-require_once CRP_PLUGIN_DIR . 'includes/modules/class-crp-widget.php';
-require_once CRP_PLUGIN_DIR . 'includes/blocks/register-blocks.php';
-
-
-/*
- *----------------------------------------------------------------------------
- * Dashboard and Administrative Functionality
- *----------------------------------------------------------------------------
- */
-
-if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
-
-	require_once CRP_PLUGIN_DIR . 'includes/admin/admin.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/settings-page.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/save-settings.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/help-tab.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/tools.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/loader.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/metabox.php';
-	require_once CRP_PLUGIN_DIR . 'includes/admin/modules/class-bulk-edit.php';
-} // End if.
-
-
-/*
- *----------------------------------------------------------------------------
- * Deprecated functions
- *----------------------------------------------------------------------------
- */
-
-require_once CRP_PLUGIN_DIR . 'includes/deprecated.php';
+require_once CRP_PLUGIN_DIR . 'includes/functions.php';
 
 
 /**
@@ -150,27 +132,3 @@ require_once CRP_PLUGIN_DIR . 'includes/deprecated.php';
  */
 global $crp_settings;
 $crp_settings = crp_get_settings();
-
-
-/**
- * Get Settings.
- *
- * Retrieves all plugin settings
- *
- * @since  2.6.0
- * @return array Contextual Related Posts settings
- */
-function crp_get_settings() {
-
-	$settings = get_option( 'crp_settings' );
-
-	/**
-	 * Settings array
-	 *
-	 * Retrieves all plugin settings
-	 *
-	 * @since 2.0.0
-	 * @param array $settings Settings array
-	 */
-	return apply_filters( 'crp_get_settings', $settings );
-}
