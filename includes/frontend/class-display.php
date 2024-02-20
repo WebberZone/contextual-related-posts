@@ -957,30 +957,38 @@ class Display {
 	 * @since 3.5.0
 	 *
 	 * @param string $content Post content.
-	 * @param string $crp_code  CRP generated code.
-	 * @param string $paragraph_id Paragraph number to insert after.
+	 * @param string $crp_code CRP generated code.
+	 * @param int    $paragraph_id Paragraph number to insert after. A negative value indicates counting from the end.
 	 * @return string After the filter has been processed
 	 */
 	public static function insert_after_paragraph( $content, $crp_code, $paragraph_id ) {
 		$closing_p  = '</p>';
 		$paragraphs = explode( $closing_p, $content );
 
-		if ( count( $paragraphs ) >= $paragraph_id ) {
-			foreach ( $paragraphs as $index => $paragraph ) {
+		// Adjust paragraph_id if it's negative.
+		if ( $paragraph_id < 0 ) {
+			$paragraph_id = count( $paragraphs ) + $paragraph_id - 1;
+		} else {
+			--$paragraph_id; // Adjust for zero index.
+		}
 
+		if ( count( $paragraphs ) >= abs( $paragraph_id ) ) {
+			foreach ( $paragraphs as $index => &$paragraph ) {
 				if ( trim( $paragraph ) ) {
-					$paragraphs[ $index ] .= $closing_p;
+					$paragraph .= $closing_p;
 				}
 
-				if ( $index + 1 === (int) $paragraph_id ) {
-					$paragraphs[ $index ] .= $crp_code;
+				if ( abs( $paragraph_id ) === $index ) {
+					$paragraph .= $crp_code;
 				}
 			}
 
-			return implode( '', $paragraphs );
+			$content = implode( '', $paragraphs );
+		} else {
+			$content .= $crp_code;
 		}
 
-		return $content . $crp_code;
+		return $content;
 	}
 
 	/**
