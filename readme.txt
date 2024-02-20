@@ -139,6 +139,7 @@ Complete code rewrite using OOP, namespacing and autoloading. This will make it 
 
 * Bug fix:
     * `trim_char` function returned a blank string instead of the original string if length was 0
+    * Insert after paragraph used to insert after an extra paragraph than what was specified
 
 
 = 3.4.2 =
