@@ -336,10 +336,10 @@ class Settings {
 			'insert_after_paragraph'       => array(
 				'id'      => 'insert_after_paragraph',
 				'name'    => esc_html__( 'Insert after paragraph number', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Enter 0 to display the related posts before the post content, -1 to display this at the end or a number to insert it after that paragraph number. If your post has less paragraphs, related posts will be displayed at the end.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( "Enter 0 to display the related posts before the post content, -1 to display this at the end, or a number to insert after a specific paragraph. For negative numbers, the count starts from the end. If the paragraph number exceeds the post's count, they'll appear at the end.", 'contextual-related-posts' ) . '<br /><em>' . esc_html__( 'This ignores any other HTML tags and can get confused by p tags within other tags. Use with caution.', 'contextual-related-posts' ) . '</em>',
 				'type'    => 'number',
 				'options' => '-1',
-				'min'     => '-1',
+				'min'     => '-500',
 			),
 			'disable_on_mobile'            => array(
 				'id'      => 'disable_on_mobile',

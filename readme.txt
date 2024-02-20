@@ -137,10 +137,12 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 Complete code rewrite using OOP, namespacing and autoloading. This will make it easier to maintain and extend the plugin in the future.
 
+* Features:
+    * Enter a negative number in the "Insert after paragraph number" setting to insert the related posts from the bottom of the post
+
 * Bug fix:
     * `trim_char` function returned a blank string instead of the original string if length was 0
     * Insert after paragraph used to insert after an extra paragraph than what was specified
-
 
 = 3.4.2 =
 
