@@ -972,7 +972,7 @@ class Display {
 					$paragraphs[ $index ] .= $closing_p;
 				}
 
-				if ( (int) $paragraph_id === $index ) {
+				if ( $index + 1 === (int) $paragraph_id ) {
 					$paragraphs[ $index ] .= $crp_code;
 				}
 			}
