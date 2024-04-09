@@ -242,7 +242,7 @@ class Metabox {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param mixed $post_id Post ID.
+	 * @param int $post_id Post ID.
 	 */
 	public static function save_meta_box( $post_id ) {
 
@@ -435,6 +435,13 @@ class Metabox {
 				CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
 				array(),
 				CRP_VERSION
+			);
+			wp_enqueue_script(
+				'wz-taxonomy-suggest-js',
+				CRP_PLUGIN_URL . "includes/admin/settings/js/taxonomy-suggest{$file_prefix}.js",
+				array( 'jquery' ),
+				CRP_VERSION,
+				true
 			);
 		}
 	}
