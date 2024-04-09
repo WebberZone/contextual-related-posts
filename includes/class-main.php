@@ -72,6 +72,15 @@ final class Main {
 	public $language;
 
 	/**
+	 * Pro modules.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @var object Pro
+	 */
+	public $pro;
+
+	/**
 	 * Gets the instance of the class.
 	 *
 	 * @since 3.5.0
@@ -106,6 +115,7 @@ final class Main {
 		$this->styles     = new Frontend\Styles_Handler();
 		$this->shortcodes = new Frontend\Shortcodes();
 		$this->blocks     = new Frontend\Blocks\Blocks();
+		$this->pro        = new Pro\Pro();
 
 		$this->hooks();
 
@@ -126,6 +136,7 @@ final class Main {
 		add_filter( 'the_content', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
 		add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
 		add_filter( 'the_content_feed', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
+		add_action( 'parse_query', array( $this, 'parse_query' ) );
 	}
 
 	/**
@@ -165,5 +176,27 @@ final class Main {
 	 */
 	public function content_filter( $content ) {
 		return Display::content_filter( $content );
+	}
+
+	/**
+	 * Hook into WP_Query to check if crp_query is set and is true. If so, we load the CRP query.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param \WP_Query $query The WP_Query object.
+	 */
+	public function parse_query( $query ) {
+		if ( true === $query->get( 'crp_query' ) ) {
+			$crp_query = new \CRP_Query( $query->query_vars );
+
+			add_filter( 'pre_get_posts', array( $crp_query, 'pre_get_posts' ), 10 );
+			add_filter( 'posts_fields', array( $crp_query, 'posts_fields' ), 10, 2 );
+			add_filter( 'posts_join', array( $crp_query, 'posts_join' ), 10, 2 );
+			add_filter( 'posts_where', array( $crp_query, 'posts_where' ), 10, 2 );
+			add_filter( 'posts_orderby', array( $crp_query, 'posts_orderby' ), 10, 2 );
+			add_filter( 'posts_request', array( $crp_query, 'posts_request' ), 10, 2 );
+			add_filter( 'posts_pre_query', array( $crp_query, 'posts_pre_query' ), 10, 2 );
+			add_filter( 'the_posts', array( $crp_query, 'the_posts' ), 10, 2 );
+		}
 	}
 }
