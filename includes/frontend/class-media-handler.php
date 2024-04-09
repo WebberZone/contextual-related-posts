@@ -117,7 +117,7 @@ class Media_Handler {
 		$output        = '';
 		$postimage     = '';
 		$pick          = '';
-		$attachment_id = '';
+		$attachment_id = 0;
 
 		// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page.
 		$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );
@@ -297,7 +297,7 @@ class Media_Handler {
 			$attr['thumb_width']  = $args['thumb_width'];
 			$attr['thumb_height'] = $args['thumb_height'];
 
-			$output .= self::get_image_html( $postimage, $attr );
+			$output .= self::get_image_html( $postimage, $attr, $attachment_id );
 
 			if ( function_exists( 'wp_img_tag_add_srcset_and_sizes_attr' ) && ! empty( $attachment_id ) ) {
 				$output = wp_img_tag_add_srcset_and_sizes_attr( $output, self::$prefix . '_thumbnail', $attachment_id );
@@ -327,11 +327,12 @@ class Media_Handler {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param string $attachment_url Image URL.
-	 * @param array  $attr Attributes for the image markup.
+	 * @param string $attachment_url    Image URL.
+	 * @param array  $attr              Attributes for the image markup.
+	 * @param int    $attachment_id     Attachment ID.
 	 * @return string HTML img element or empty string on failure.
 	 */
-	public static function get_image_html( $attachment_url, $attr = array() ) {
+	public static function get_image_html( $attachment_url, $attr = array(), $attachment_id = 0 ) {
 		$get_option_callback = self::$prefix . '_get_option';
 
 		// If there is no url, return.
@@ -352,8 +353,11 @@ class Media_Handler {
 
 		// Generate 'srcset' and 'sizes' if not already present.
 		if ( empty( $attr['srcset'] ) ) {
-			$attachment_id = self::get_attachment_id_from_url( $attachment_url );
-			$image_meta    = wp_get_attachment_metadata( $attachment_id );
+			if ( ! $attachment_id ) {
+				$attachment_id = self::get_attachment_id_from_url( $attachment_url );
+			}
+
+			$image_meta = wp_get_attachment_metadata( $attachment_id );
 
 			if ( is_array( $image_meta ) ) {
 				$size_array = array( absint( $attr['thumb_width'] ), absint( $attr['thumb_height'] ) );
@@ -501,30 +505,15 @@ class Media_Handler {
 	 */
 	public static function get_attachment_id_from_url( $attachment_url = '' ) {
 
-		global $wpdb;
-		$attachment_id = false;
+		$attachment_id = 0;
 
-		// If there is no url, return.
-		if ( ! $attachment_url ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
-			return 0;
+		// If there is no URL, return.
+		if ( ! $attachment_url ) {
+			return $attachment_id;
 		}
 
-		// Get the upload directory paths.
-		$upload_dir_paths = wp_upload_dir();
-
-		// Make sure the upload path base directory exists in the attachment URL, to verify that we're working with a media library image.
-		if ( false !== strpos( $attachment_url, $upload_dir_paths['baseurl'] ) ) {
-
-			// If this is the URL of an auto-generated thumbnail, get the URL of the original image.
-			$attachment_url = preg_replace( '/-\d+x\d+(?=\.(jpg|jpeg|png|gif)$)/i', '', $attachment_url );
-
-			// Remove the upload path base directory from the attachment URL.
-			$attachment_url = str_replace( $upload_dir_paths['baseurl'] . '/', '', $attachment_url );
-
-			// Finally, run a custom database query to get the attachment ID from the modified attachment URL.
-			$attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = %s AND wposts.post_type = 'attachment'", $attachment_url ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-
-		}
+		// Attempt to retrieve the attachment ID from the URL.
+		$attachment_id = attachment_url_to_postid( $attachment_url );
 
 		/**
 		 * Filter the attachment ID from the attachment URL.
