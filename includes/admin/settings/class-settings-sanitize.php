@@ -243,4 +243,35 @@ class Settings_Sanitize {
 
 		return $output;
 	}
+
+	/**
+	 * Processes category/taxonomy slugs and adds a new element to the settings array containing the term taxonomy IDs.
+	 *
+	 * @param array  $settings The settings array containing the taxonomy slugs to sanitize.
+	 * @param string $source_key The key in the settings array containing the slugs. Pattern is Name (taxonomy:term_taxonomy_id).
+	 * @param string $target_key The key in the settings array to store the sanitized term taxonomy IDs.
+	 * @return void
+	 */
+	public static function sanitize_tax_slugs( &$settings, $source_key, $target_key ) {
+		if ( isset( $settings[ $source_key ] ) ) {
+			$slugs = array_unique( str_getcsv( $settings[ $source_key ] ) );
+
+			foreach ( $slugs as $slug ) {
+				// Pattern is Name (taxonomy:term_taxonomy_id).
+				preg_match( '/(.*)\((.*):(\d+)\)/i', (string) $slug, $matches );
+				if ( isset( $matches[3] ) ) {
+					$term = get_term_by( 'term_taxonomy_id', $matches[3] );
+				} else {
+					$term = get_term_by( 'name', $slug, 'category' );
+				}
+				if ( isset( $term->term_taxonomy_id ) ) {
+					$tax_ids[]   = $term->term_taxonomy_id;
+					$tax_slugs[] = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
+				}
+			}
+
+			$settings[ $target_key ] = isset( $tax_ids ) ? join( ',', $tax_ids ) : '';
+			$settings[ $source_key ] = isset( $tax_slugs ) ? self::str_putcsv( $tax_slugs ) : '';
+		}
+	}
 }

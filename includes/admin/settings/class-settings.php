@@ -1197,54 +1197,10 @@ class Settings {
 	public function change_settings_on_save( $settings ) {
 
 		// Sanitize exclude_cat_slugs to save a new entry of exclude_categories.
-		if ( isset( $settings['exclude_cat_slugs'] ) ) {
-
-			$exclude_cat_slugs = array_unique( str_getcsv( $settings['exclude_cat_slugs'] ) );
-
-			foreach ( $exclude_cat_slugs as $slug ) {
-				// Pattern is Name (taxonomy:term_taxonomy_id).
-				preg_match( '/(.*)\((.*):(\d+)\)/i', (string) $slug, $matches );
-				if ( isset( $matches[3] ) ) { // This holds the term_taxonomy_id.
-					$term = get_term_by( 'term_taxonomy_id', $matches[3] );
-				} else {
-					$term = get_term_by( 'name', $slug, 'category' );
-
-					// Fall back to slugs since that was the default format before v2.4.0.
-					if ( false === $term ) {
-						$term = get_term_by( 'slug', $slug, 'category' );
-					}
-				}
-				if ( isset( $term->term_taxonomy_id ) ) {
-					$exclude_categories[]       = $term->term_taxonomy_id;
-					$exclude_categories_slugs[] = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
-				}
-			}
-			$settings['exclude_categories'] = isset( $exclude_categories ) ? join( ',', $exclude_categories ) : '';
-			$settings['exclude_cat_slugs']  = isset( $exclude_categories_slugs ) ? Settings_Sanitize::str_putcsv( $exclude_categories_slugs ) : '';
-		}
+		Settings_Sanitize::sanitize_tax_slugs( $settings, 'exclude_cat_slugs', 'exclude_categories' );
 
 		// Sanitize exclude_on_cat_slugs to save a new entry of exclude_on_categories.
-		if ( isset( $settings['exclude_on_cat_slugs'] ) ) {
-
-			$exclude_on_cat_slugs = array_unique( str_getcsv( $settings['exclude_on_cat_slugs'] ) );
-
-			foreach ( $exclude_on_cat_slugs as $slug ) {
-				// Pattern is Name (taxonomy:term_taxonomy_id).
-				preg_match( '/(.*)\((.*):(\d+)\)/i', (string) $slug, $matches );
-				if ( isset( $matches[3] ) ) { // This holds the term_taxonomy_id.
-					$term = get_term_by( 'term_taxonomy_id', $matches[3] );
-				} else {
-					$term = get_term_by( 'name', $slug, 'category' );
-				}
-				if ( isset( $term->term_taxonomy_id ) ) {
-					$exclude_on_categories[]       = $term->term_taxonomy_id;
-					$exclude_on_categories_slugs[] = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
-				}
-			}
-			$settings['exclude_on_categories'] = isset( $exclude_on_categories ) ? join( ',', $exclude_on_categories ) : '';
-			$settings['exclude_on_cat_slugs']  = isset( $exclude_on_categories_slugs ) ? Settings_Sanitize::str_putcsv( $exclude_on_categories_slugs ) : '';
-
-		}
+		Settings_Sanitize::sanitize_tax_slugs( $settings, 'exclude_on_cat_slugs', 'exclude_on_categories' );
 
 		// Overwrite settings if rounded thumbnail style is selected.
 		if ( 'rounded_thumbs' === $settings['crp_styles'] || 'thumbs_grid' === $settings['crp_styles'] ) {
