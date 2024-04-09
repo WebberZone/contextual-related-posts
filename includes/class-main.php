@@ -115,7 +115,6 @@ final class Main {
 		$this->styles     = new Frontend\Styles_Handler();
 		$this->shortcodes = new Frontend\Shortcodes();
 		$this->blocks     = new Frontend\Blocks\Blocks();
-		$this->pro        = new Pro\Pro();
 
 		$this->hooks();
 
