@@ -83,9 +83,9 @@ class Display {
 		 *
 		 * @since 2.9.0
 		 *
-		 * @param bool   $short_circuit Short circuit filter.
-		 * @param object $post          Current Post object.
-		 * @param array  $args          Arguments array.
+		 * @param bool     $short_circuit Short circuit filter.
+		 * @param \WP_Post $post          Current Post object.
+		 * @param array    $args          Arguments array.
 		 */
 		$short_circuit = apply_filters( 'get_crp_short_circuit', $short_circuit, $post, $args );
 
@@ -119,7 +119,7 @@ class Display {
 		$results = self::get_posts(
 			array_merge(
 				array(
-					'postid'       => $post->ID,
+					'postid'       => isset( $args['postid'] ) ? $args['postid'] : $post->ID,
 					'strict_limit' => isset( $args['strict_limit'] ) ? $args['strict_limit'] : true,
 				),
 				$args
@@ -276,8 +276,7 @@ class Display {
 	 *
 	 * The defaults are as follows:
 	 *
-	 * @since 1.8.6
-	 * @since 3.0.0 Parameters have been dropped for a single $args parameter.
+	 * @since 3.5.0
 	 *
 	 * @see CRP_Query::prepare_query_args()
 	 *
@@ -285,13 +284,6 @@ class Display {
 	 * @return \WP_Post[]|int[] Array of post objects or post IDs.
 	 */
 	public static function get_posts( $args = array() ) {
-		// Backcompat if postid was passed in the pre-3.0.0 version.
-		if ( is_int( $args ) ) {
-			$args = array(
-				'postid' => $args,
-			);
-		}
-
 		$get_crp_posts = new \CRP_Query( $args );
 
 		/**
