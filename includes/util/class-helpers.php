@@ -197,4 +197,36 @@ class Helpers {
 		 */
 		return apply_filters( 'crp_get_primary_term', $return, $post, $term );
 	}
+
+	/**
+	 * Get all terms of a post.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param int|\WP_Post $post Post ID or WP_Post object.
+	 * @return array Array of taxonomies.
+	 */
+	public static function get_all_terms( $post ) {
+		$taxonomies = array();
+
+		if ( ! empty( $post ) ) {
+			$post = get_post( $post );
+		}
+
+		if ( ! empty( $post ) ) {
+			$taxonomies = get_object_taxonomies( $post );
+		}
+
+		$all_terms = array();
+
+		// Loop through the taxonomies and get the terms for the post for each taxonomy.
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_the_terms( $post, $taxonomy );
+			if ( $terms && ! is_wp_error( $terms ) ) {
+				$all_terms = array_merge( $all_terms, $terms );
+			}
+		}
+
+		return $all_terms;
+	}
 }
