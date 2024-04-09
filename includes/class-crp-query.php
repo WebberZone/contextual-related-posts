@@ -129,24 +129,29 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		public function __construct( $args = array() ) {
 			$this->prepare_query_args( $args );
 
-			add_filter( 'posts_fields', array( $this, 'posts_fields' ), 10, 2 );
-			add_filter( 'posts_join', array( $this, 'posts_join' ), 10, 2 );
-			add_filter( 'posts_where', array( $this, 'posts_where' ), 10, 2 );
-			add_filter( 'posts_orderby', array( $this, 'posts_orderby' ), 10, 2 );
-			add_filter( 'posts_request', array( $this, 'posts_request' ), 10, 2 );
-			add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 10, 2 );
-			add_filter( 'the_posts', array( $this, 'the_posts' ), 10, 2 );
+			if ( ! isset( $args['crp_query'] ) || true !== $args['crp_query'] ) {
 
-			parent::__construct( $this->query_args );
+				add_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ), 10 );
+				add_filter( 'posts_fields', array( $this, 'posts_fields' ), 10, 2 );
+				add_filter( 'posts_join', array( $this, 'posts_join' ), 10, 2 );
+				add_filter( 'posts_where', array( $this, 'posts_where' ), 10, 2 );
+				add_filter( 'posts_orderby', array( $this, 'posts_orderby' ), 10, 2 );
+				add_filter( 'posts_request', array( $this, 'posts_request' ), 10, 2 );
+				add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 10, 2 );
+				add_filter( 'the_posts', array( $this, 'the_posts' ), 10, 2 );
 
-			// Remove filters after use.
-			remove_filter( 'posts_fields', array( $this, 'posts_fields' ) );
-			remove_filter( 'posts_join', array( $this, 'posts_join' ) );
-			remove_filter( 'posts_where', array( $this, 'posts_where' ) );
-			remove_filter( 'posts_orderby', array( $this, 'posts_orderby' ) );
-			remove_filter( 'posts_request', array( $this, 'posts_request' ) );
-			remove_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ) );
-			remove_filter( 'the_posts', array( $this, 'the_posts' ) );
+				parent::__construct( $this->query_args );
+
+				// Remove filters after use.
+				remove_filter( 'pre_get_posts', array( $this, 'pre_get_posts' ) );
+				remove_filter( 'posts_fields', array( $this, 'posts_fields' ) );
+				remove_filter( 'posts_join', array( $this, 'posts_join' ) );
+				remove_filter( 'posts_where', array( $this, 'posts_where' ) );
+				remove_filter( 'posts_orderby', array( $this, 'posts_orderby' ) );
+				remove_filter( 'posts_request', array( $this, 'posts_request' ) );
+				remove_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ) );
+				remove_filter( 'the_posts', array( $this, 'the_posts' ) );
+			}
 		}
 
 		/**
@@ -163,7 +168,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 *     @type array|string  $include_post_ids An array or comma-separated string of post IDs.
 		 *     @type bool          $offset           Offset the related posts returned by this number.
 		 *     @type int           $postid           Get related posts for a specific post ID.
-		 *     @type int           $post_id          Alternative to postid.
 		 *     @type bool          $strict_limit     If this is set to false, then it will fetch 3x posts.
 		 * }
 		 */
@@ -176,7 +180,6 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 				'include_post_ids' => 0,
 				'offset'           => 0,
 				'postid'           => false,
-				'post_id'          => false,
 				'strict_limit'     => true,
 			);
 			$defaults = array_merge( $defaults, $crp_settings );
@@ -194,9 +197,21 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			// Set the source post.
 			$source_post = empty( $args['postid'] ) && empty( $args['post_id'] ) ? $post : ( isset( $args['postid'] ) ? get_post( $args['postid'] ) : get_post( $args['post_id'] ) );
 			if ( ! $source_post ) {
-				$source_post = $post;
+				$source_post = get_post();
 			}
 			$this->source_post = $source_post;
+
+			/**
+			 * Applies filters to the query arguments before executing the query.
+			 *
+			 * This function allows developers to modify the query arguments before the query is executed.
+			 *
+			 * @since 3.5.0
+			 *
+			 * @param array     $args         The query arguments.
+			 * @param \WP_Post  $source_post  The source post.
+			 */
+			$args = apply_filters( 'crp_query_args_before', $args, $source_post );
 
 			// Save post meta into a class-wide variable.
 			$this->crp_post_meta = get_post_meta( $source_post->ID, 'crp_post_meta', true );
@@ -344,9 +359,9 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			 *
 			 * @since 3.0.0
 			 *
-			 * @param array   $tax_query   Array of tax_query parameters.
-			 * @param WP_Post $source_post Source Post instance.
-			 * @param array   $args        Arguments array.
+			 * @param array    $tax_query   Array of tax_query parameters.
+			 * @param \WP_Post $source_post Source Post instance.
+			 * @param array    $args        Arguments array.
 			 */
 			$tax_query = apply_filters( 'crp_query_tax_query', $tax_query, $source_post, $args );
 
@@ -554,6 +569,47 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		}
 
 		/**
+		 * Modify the pre_get_posts clause.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param \WP_Query $query The WP_Query instance.
+		 */
+		public function pre_get_posts( $query ) {
+
+			if ( true === $query->get( 'crp_query' ) ) {
+				if ( ! empty( $this->query_args['date_query'] ) ) {
+					$query->set( 'date_query', $this->query_args['date_query'] );
+				}
+				if ( ! empty( $this->query_args['tax_query'] ) ) {
+					$query->set( 'tax_query', $this->query_args['tax_query'] );
+				}
+				if ( ! empty( $this->query_args['meta_query'] ) ) {
+					$query->set( 'meta_query', $this->query_args['meta_query'] );
+				}
+				if ( ! empty( $this->query_args['post_type'] ) ) {
+					$query->set( 'post_type', $this->query_args['post_type'] );
+				}
+				if ( ! empty( $this->query_args['post__not_in'] ) ) {
+					$query->set( 'post__not_in', $this->query_args['post__not_in'] );
+				}
+				if ( ! empty( $this->query_args['post_status'] ) ) {
+					$query->set( 'post_status', $this->query_args['post_status'] );
+				}
+				if ( ! empty( $this->query_args['posts_per_page'] ) ) {
+					$query->set( 'posts_per_page', $this->query_args['posts_per_page'] );
+				}
+				if ( ! empty( $this->query_args['author'] ) ) {
+					$query->set( 'author', $this->query_args['author'] );
+				}
+
+				$query->set( 'suppress_filters', false );
+				$query->set( 'no_found_rows', true );
+				$query->set( 'ignore_sticky_posts', true );
+			}
+		}
+
+		/**
 		 * Modify the SELECT clause - posts_fields.
 		 *
 		 * @since 3.0.0
@@ -756,6 +812,10 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			// If orderby is set, then this was done intentionally and we don't make any modifications.
 			if ( ! empty( $query->get( 'orderby' ) ) ) {
+				// if orderby is set to relevance, then we need to set the orderby to the match clause.
+				if ( 'relevance' === $query->get( 'orderby' ) || 'relatedness' === $query->get( 'orderby' ) ) {
+					$orderby = ' ' . $this->get_match_sql() . ' DESC ';
+				}
 				return $orderby;
 			}
 
