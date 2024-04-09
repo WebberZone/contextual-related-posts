@@ -37,19 +37,28 @@ class Shortcodes {
 	public static function related_posts( $atts, $content = null ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		$crp_settings = crp_get_settings();
 
+		$defaults = array(
+			'heading'           => 1,
+			'is_shortcode'      => 1,
+			'offset'            => 0,
+			'include_cat_ids'   => '',
+			'include_post_ids'  => '',
+			'related_meta_keys' => '',
+			'include_words'     => '',
+		);
+
+		/**
+		 * Filters the shortcode defaults.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param array $defaults Default shortcode settings.
+		 * @param array $atts     Shortcode attributes.
+		 */
+		$defaults = apply_filters( 'crp_shortcode_defaults', $defaults, $atts );
+
 		$atts = shortcode_atts(
-			array_merge(
-				$crp_settings,
-				array(
-					'heading'           => 1,
-					'is_shortcode'      => 1,
-					'offset'            => 0,
-					'include_cat_ids'   => '',
-					'include_post_ids'  => '',
-					'related_meta_keys' => '',
-					'include_words'     => '',
-				)
-			),
+			array_merge( $crp_settings, $defaults ),
 			$atts,
 			'crp'
 		);

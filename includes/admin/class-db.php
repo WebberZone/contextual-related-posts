@@ -39,6 +39,15 @@ class Db {
 			'crp_related_title' => '(post_title)',
 		);
 
+		/**
+		 * Filter the fulltext indexes.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param array $indexes Array of indexes.
+		 */
+		$indexes = apply_filters( 'crp_fulltext_indexes', $indexes );
+
 		foreach ( $indexes as $index => $columns ) {
 			$index_exists = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
