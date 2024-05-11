@@ -64,6 +64,16 @@ Bug reports are [welcomed on GitHub](https://github.com/WebberZone/contextual-re
 
 Contextual Related Posts is available for [translation directly on WordPress.org](https://translate.wordpress.org/projects/wp-plugins/contextual-related-posts). Check out the official [Translator Handbook](https://make.wordpress.org/polyglots/handbook/rosetta/theme-plugin-directories/) to contribute.
 
+= Other Plugins by WebberZone =
+
+Contextual Related Posts is one of the many plugins developed by WebberZone. Check out our other plugins:
+
+* [Top 10](https://wordpress.org/plugins/top-10/) - Track daily and total visits on your blog posts and display the popular and trending posts
+* [WebberZone Snippetz](https://wordpress.org/plugins/add-to-all/) - The ultimate snippet manager for WordPress to create and manage custom HTML, CSS or JS code snippets
+* [Knowledge Base](https://wordpress.org/plugins/knowledgebase/) - Create a knowledge base or FAQ section on your WordPress site
+* [Better Search](https://wordpress.org/plugins/better-search/) - Enhance the default WordPress search with contextual results sorted by relevance
+* [Auto-Close](https://wordpress.org/plugins/autoclose/) - Automatically close comments, pingbacks and trackbacks and manage revisions
+
 == Installation ==
 
 = WordPress install (The easy way) =
@@ -120,17 +130,6 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 You can insert the related posts anywhere in your post using the `[crp]` shortcode. View [this article in the knowledge base](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/) for more details.
 
-
-== Other Notes ==
-
-Contextual Related Posts is one of the many plugins developed by WebberZone. Check out our other plugins:
-
-* [Top 10](https://wordpress.org/plugins/top-10/) - Track daily and total visits on your blog posts and display the popular and trending posts
-* [WebberZone Snippetz](https://wordpress.org/plugins/add-to-all/) - The ultimate snippet manager for WordPress to create and manage custom HTML, CSS or JS code snippets
-* [Knowledge Base](https://wordpress.org/plugins/knowledgebase/) - Create a knowledge base or FAQ section on your WordPress site
-* [Better Search](https://wordpress.org/plugins/better-search/) - Enhance the default WordPress search with contextual results sorted by relevance
-* [Auto-Close](https://wordpress.org/plugins/autoclose/) - Automatically close comments, pingbacks and trackbacks and manage revisions
-
 == Changelog ==
 
 = 3.5.0 =
@@ -138,10 +137,11 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 Complete code rewrite using OOP, namespacing and autoloading. This will make it easier to maintain and extend the plugin in the future.
 
 * Features:
+    * Enter a negative number in the "Insert after paragraph number" setting to insert the related posts from the bottom of the post
     * [Pro] New Related Posts Query Block that allows you to query related posts using a block in the block or site editor
+    * [Pro] New feature to set the weight of the title, content and excerpt in the related posts algorithm
     * [Pro] New parameter `display_only_on_tax_ids` to display related posts only on specific taxonomy terms
     * [Pro] New option added to the Edit Post meta box mapped to `include_cat_ids` to include related posts from specific categories only
-    * Enter a negative number in the "Insert after paragraph number" setting to insert the related posts from the bottom of the post
 
 * Enhancements:
     * The plugin supports `WP_Query` directly if `crp_query` is set in the query arguments
