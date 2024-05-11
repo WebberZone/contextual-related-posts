@@ -68,6 +68,6 @@ jQuery(document).ready(function($) {
 	});
 	
 	$('.reset-default-thumb').click(function(){
-		document.getElementById("tptn_settings[thumb_default]").value = tptn_admin.thumb_default;
+		document.getElementById("crp_settings[thumb_default]").value = crp_admin.thumb_default;
 	});
 });

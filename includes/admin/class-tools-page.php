@@ -173,16 +173,25 @@ class Tools_Page {
 	public static function recreate_indices_sql() {
 		global $wpdb;
 
-		$sql  = "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related;";
-		$sql .= '<br />';
-		$sql .= "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title;";
-		$sql .= '<br />';
-		$sql .= "ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related (post_title, post_content);";
-		$sql .= '<br />';
-		$sql .= "ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_title (post_title);";
+		$sql = array(
+			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related",
+			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related (post_title, post_content)",
+			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title",
+			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_title (post_title)",
+		);
 
-		return $sql;
+		/**
+		 * Filter the SQL code to recreate the Fulltext indices.
+		 *
+		 * @since 3.5.0
+		 *
+		 * @param array $sql Array of SQL queries.
+		 */
+		$sql = apply_filters( 'crp_recreate_indices_sql', $sql );
+
+		return implode( '<br />', $sql );
 	}
+
 
 	/**
 	 * Process a settings export that generates a .json file of the shop settings

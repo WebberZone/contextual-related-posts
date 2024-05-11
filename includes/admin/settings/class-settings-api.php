@@ -183,6 +183,7 @@ class Settings_API {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_filter( $this->prefix . '_after_setting_output', array( $this, 'after_setting_output' ), 10, 2 );
 	}
 
 	/**
@@ -528,6 +529,7 @@ class Settings_API {
 						'field_class'      => '',
 						'field_attributes' => '',
 						'placeholder'      => '',
+						'pro'              => false,
 					)
 				);
 
@@ -948,5 +950,20 @@ class Settings_API {
 		foreach ( $this->help_tabs as $tab ) {
 			$screen->add_help_tab( $tab );
 		}
+	}
+
+	/**
+	 * Updated the settings fields to display a pro version link.
+	 *
+	 * @param string $output Settings field HTML.
+	 * @param array  $args   Settings field arguments.
+	 * @return string Updated HTML.
+	 */
+	public static function after_setting_output( $output, $args ) {
+		if ( isset( $args['pro'] ) && $args['pro'] ) {
+			$output .= '<a class="button" style="background-color: #FFBD59; color: #0A0A0A;" target="_blank" href="https://webberzone.com/plugins/contextual-related-posts/pro/" title="' . esc_attr__( 'Upgrade to Pro', 'contextual-related-posts' ) . '">' . esc_html__( 'Upgrade to Pro', 'contextual-related-posts' ) . '</a>';
+		}
+
+		return $output;
 	}
 }
