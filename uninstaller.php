@@ -5,12 +5,11 @@
  * @package Contextual_Related_Posts
  */
 
-if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+defined( 'ABSPATH' ) || exit;
+
+if ( ! ( defined( 'WP_UNINSTALL_PLUGIN' ) || defined( 'WP_FS__UNINSTALL_MODE' ) ) ) {
 	exit;
 }
-
-
-global $wpdb;
 
 if ( is_multisite() ) {
 
@@ -62,5 +61,8 @@ function crp_delete_data() {
 		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 
+		delete_option( 'crp_db_version' );
 	}
+
+	do_action( 'crp_delete_data' );
 }
