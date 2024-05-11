@@ -136,6 +136,8 @@ final class Main {
 		add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
 		add_filter( 'the_content_feed', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
 		add_action( 'parse_query', array( $this, 'parse_query' ) );
+		add_action( 'activated_plugin', array( $this, 'deactivate_other_instances' ) );
+		add_action( 'pre_current_active_plugins', array( $this, 'plugin_deactivated_notice' ) );
 	}
 
 	/**
@@ -186,16 +188,70 @@ final class Main {
 	 */
 	public function parse_query( $query ) {
 		if ( true === $query->get( 'crp_query' ) ) {
-			$crp_query = new \CRP_Query( $query->query_vars );
-
-			add_filter( 'pre_get_posts', array( $crp_query, 'pre_get_posts' ), 10 );
-			add_filter( 'posts_fields', array( $crp_query, 'posts_fields' ), 10, 2 );
-			add_filter( 'posts_join', array( $crp_query, 'posts_join' ), 10, 2 );
-			add_filter( 'posts_where', array( $crp_query, 'posts_where' ), 10, 2 );
-			add_filter( 'posts_orderby', array( $crp_query, 'posts_orderby' ), 10, 2 );
-			add_filter( 'posts_request', array( $crp_query, 'posts_request' ), 10, 2 );
-			add_filter( 'posts_pre_query', array( $crp_query, 'posts_pre_query' ), 10, 2 );
-			add_filter( 'the_posts', array( $crp_query, 'the_posts' ), 10, 2 );
+			new CRP( $query->query_vars );
 		}
+	}
+
+	/**
+	 * Checks if another version of CRP/CRP PRO is active and deactivates it.
+	 * Hooked on `activated_plugin` so other plugin is deactivated when current plugin is activated.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @param string $plugin The plugin being activated.
+	 */
+	public function deactivate_other_instances( $plugin ) {
+		if ( ! in_array( $plugin, array( 'contextual-related-posts/contextual-related-posts.php', 'contextual-related-posts-pro/contextual-related-posts.php' ), true ) ) {
+			return;
+		}
+
+		$plugin_to_deactivate  = 'contextual-related-posts/contextual-related-posts.php';
+		$deactivated_notice_id = '1';
+
+		// If we just activated the free version, deactivate the pro version.
+		if ( $plugin === $plugin_to_deactivate ) {
+			$plugin_to_deactivate  = 'contextual-related-posts-pro/contextual-related-posts.php';
+			$deactivated_notice_id = '2';
+		}
+
+		if ( is_multisite() && is_network_admin() ) {
+			$active_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
+			$active_plugins = array_keys( $active_plugins );
+		} else {
+			$active_plugins = (array) get_option( 'active_plugins', array() );
+		}
+
+		foreach ( $active_plugins as $plugin_basename ) {
+			if ( $plugin_to_deactivate === $plugin_basename ) {
+				set_transient( 'crp_deactivated_notice_id', $deactivated_notice_id, 1 * HOUR_IN_SECONDS );
+				deactivate_plugins( $plugin_basename );
+				return;
+			}
+		}
+	}
+
+	/**
+	 * Displays a notice when either ACF or ACF PRO is automatically deactivated.
+	 *
+	 * @since 3.5.0
+	 */
+	public function plugin_deactivated_notice() {
+		$deactivated_notice_id = (int) get_transient( 'crp_deactivated_notice_id' );
+		if ( ! in_array( $deactivated_notice_id, array( 1, 2 ), true ) ) {
+			return;
+		}
+
+		$message = __( "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated Contextual Related Posts.", 'contextual-related-posts' );
+		if ( 2 === $deactivated_notice_id ) {
+			$message = __( "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated Contextual Related Posts PRO.", 'contextual-related-posts' );
+		}
+
+		?>
+			<div class="updated" style="border-left: 4px solid #ffba00;">
+				<p><?php echo esc_html( $message ); ?></p>
+			</div>
+			<?php
+
+			delete_transient( 'crp_deactivated_notice_id' );
 	}
 }

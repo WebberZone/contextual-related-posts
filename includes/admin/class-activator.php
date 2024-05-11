@@ -25,6 +25,7 @@ class Activator {
 	 */
 	public function __construct() {
 		add_action( 'wp_initialize_site', array( $this, 'activate_new_site' ) );
+		add_action( 'init', array( $this, 'update_db_check' ) );
 	}
 
 	/**
@@ -73,6 +74,9 @@ class Activator {
 		$wpdb->hide_errors();
 		Db::create_fulltext_indexes();
 		$wpdb->show_errors();
+
+		// Set the database version.
+		update_option( 'crp_db_version', CRP_DB_VERSION );
 	}
 
 	/**
@@ -143,6 +147,20 @@ class Activator {
 
 		if ( ! empty( $settings['uninstall_indices_deactivate'] ) ) {
 			Db::delete_fulltext_indexes();
+			delete_option( 'crp_db_version' );
+		}
+	}
+
+	/**
+	 * Function to call install function if needed.
+	 *
+	 * @since 3.5.0
+	 */
+	public static function update_db_check() {
+		global $network_wide;
+
+		if ( get_option( 'crp_db_version' ) !== CRP_DB_VERSION ) {
+			self::activation_hook( $network_wide );
 		}
 	}
 }

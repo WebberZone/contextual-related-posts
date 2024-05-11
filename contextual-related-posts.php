@@ -15,7 +15,7 @@
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version:     3.5.0-beta1
+ * Version:     3.5.0-beta4
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -87,6 +87,18 @@ if ( ! defined( 'CRP_CACHE_TIME' ) ) {
 	define( 'CRP_CACHE_TIME', MONTH_IN_SECONDS );
 }
 
+/**
+ * CRP Database version.
+ *
+ * @since 3.5.0
+ */
+if ( ! defined( 'CRP_DB_VERSION' ) ) {
+	define( 'CRP_DB_VERSION', '1.0' );
+}
+
+// Load Freemius.
+require_once CRP_PLUGIN_DIR . 'includes/load-freemius.php';
+
 // Load the autoloader.
 require_once CRP_PLUGIN_DIR . 'includes/autoloader.php';
 
@@ -97,20 +109,20 @@ require_once CRP_PLUGIN_DIR . 'includes/autoloader.php';
  *
  * @param bool $network_wide Whether the plugin is being activated network-wide.
  */
-function activate_tptn( $network_wide ) {
+function activate( $network_wide ) {
 	\WebberZone\Contextual_Related_Posts\Admin\Activator::activation_hook( $network_wide );
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate_tptn' );
+register_activation_hook( __FILE__, __NAMESPACE__ . '\activate' );
 
 /**
  * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
  *
  * @since 3.5.0
  */
-function load_tptn() {
+function load() {
 	\WebberZone\Contextual_Related_Posts\Main::get_instance();
 }
-add_action( 'plugins_loaded', __NAMESPACE__ . '\load_tptn' );
+add_action( 'plugins_loaded', __NAMESPACE__ . '\load' );
 
 
 /*

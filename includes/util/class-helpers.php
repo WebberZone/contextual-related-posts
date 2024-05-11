@@ -7,6 +7,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Util;
 
+use WP_Query;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -228,5 +230,35 @@ class Helpers {
 		}
 
 		return $all_terms;
+	}
+
+	/**
+	 * Strip stopwords from text.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string|array $subject The string or an array with strings to search and replace. .
+	 * @param string|array $search  The pattern to search for. It can be either a string or an array with strings.
+	 * @param string|array $replace The string or an array with strings to replace.
+	 */
+	public static function strip_stopwords( $subject = '', $search = '', $replace = '' ) {
+
+		$pattern = array();
+		if ( empty( $search ) ) {
+			$get_search_stopwords = new \ReflectionMethod( 'WP_Query', 'get_search_stopwords' );
+			$get_search_stopwords->setAccessible( true );
+			$search = $get_search_stopwords->invoke( new WP_Query() );
+
+			array_push( $search, 'from', 'where' );
+		}
+
+		foreach ( (array) $search as $s ) {
+			$pattern[] = '/\b' . $s . '\b/ui';
+		}
+		$output = preg_replace( $pattern, $replace, $subject );
+		$output = preg_replace( '/\b[a-z\-]\b/i', '', $output );
+		$output = preg_replace( '/\s+/', ' ', $output );
+
+		return $output;
 	}
 }

@@ -5,13 +5,17 @@
  * @package WebberZone\Contextual_Related_Posts
  */
 
+use function WebberZone\Contextual_Related_Posts\crp_freemius;
+
 ?>
 <div class="postbox-container">
+	<?php if ( crp_freemius()->is_not_paying() ) { ?>
 	<div id="pro-upgrade-banner">
 		<div class="inside" style="text-align: center">
 			<a href="https://webberzone.com/plugins/contextual-related-posts/pro/" target="_blank"><img src="<?php echo esc_url( CRP_PLUGIN_URL . 'includes/admin/images/contextual-related-posts-pro-banner.jpg' ); ?>" alt="<?php esc_html_e( 'Contextual Related Posts Pro - Coming soon. Sign up to find out more', 'contextual-related-posts' ); ?>" width="300" height="300" style="max-width: 100%;" /></a>
 		</div>
 	</div>
+	<?php } ?>
 
 	<div id="donatediv" class="postbox meta-box-sortables">
 		<h2 class='hndle'><span><?php esc_attr_e( 'Support the development', 'contextual-related-posts' ); ?></span></h2>
