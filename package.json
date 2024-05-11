@@ -15,8 +15,25 @@
         "packages-update": "wp-scripts packages-update",
         "plugin-zip": "wp-scripts plugin-zip",
         "start": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/ --output-path=includes/pro/blocks/build/",
-        "start:query": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/query/ --output-path=includes/pro/blocks/build/query/"
+        "start:query": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/query/ --output-path=includes/pro/blocks/build/query/",
+        "zip": "wp-scripts plugin-zip"
     },
+    "files": [
+        "css",
+        "freemius",
+        "includes",
+        "languages",
+        "README.md",
+        "package.json",
+        "contextual-related-posts.php",
+        "index.php",
+        "uninstaller.php",
+        "changelog.txt",
+        "readme.txt",
+        "default.png",
+        "default2.png",
+        "wpml-config.xml"
+    ],
     "devDependencies": {
         "@wordpress/prettier-config": "^3.14.0",
         "@wordpress/scripts": "^27.8.0"
