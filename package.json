@@ -1,0 +1,28 @@
+{
+    "name": "@webberzone/contextual-related-posts",
+    "version": "3.5.0",
+    "description": "Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!",
+    "author": "WebberZone",
+    "license": "GPL-2.0-or-later",
+    "main": "index.js",
+    "scripts": {
+        "build": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/ --output-path=includes/pro/blocks/build/",
+        "build:query": "wp-scripts build --webpack-src-dir=includes/pro/blocks/src/query/ --output-path=includes/pro/blocks/build/query/",
+        "format": "wp-scripts format ./includes/pro/blocks/src/",
+        "format:crp": "wp-scripts format ./includes/frontend/blocks/related-posts/src/",
+        "lint:css": "wp-scripts lint-style ./includes/pro/blocks/src/",
+        "lint:js": "wp-scripts lint-js ./includes/pro/blocks/src/",
+        "packages-update": "wp-scripts packages-update",
+        "plugin-zip": "wp-scripts plugin-zip",
+        "start": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/ --output-path=includes/pro/blocks/build/",
+        "start:query": "wp-scripts start --webpack-src-dir=includes/pro/blocks/src/query/ --output-path=includes/pro/blocks/build/query/"
+    },
+    "devDependencies": {
+        "@wordpress/prettier-config": "^3.14.0",
+        "@wordpress/scripts": "^27.8.0"
+    },
+    "dependencies": {
+        "@wordpress/icons": "^9.48.0",
+        "uuid": "^9.0.1"
+    }
+}
