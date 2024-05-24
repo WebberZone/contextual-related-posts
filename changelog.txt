@@ -2,6 +2,74 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 3.4.1 =
+
+* Bug fix:
+    * Fixed Request-URI Too Long error when searching for pages/posts
+    * Related Posts block threw an error when using on the widgets page
+
+= 3.4.0 =
+
+* Features:
+    * Bulk edit posts, pages and custom post types to add the manual relatd posts and/or exclude posts from the related posts list
+    * New argument `include_words` to include posts that match the words in the title and/or content.
+
+* Enhancements/Modifications:
+    * The Manual Related Posts field in the meta box allows a user to live search for related posts
+    * Caching of the entire HTML output is enabled by default. You can disable it in the settings page. This will reduce the number of database queries and improve performance. If you have customised the output, you will need to clear the cache for the changes to take effect. Applies to new installs and when you reset the settings
+    * The plugin no longer check for pre v2.5 settings key
+    * The Media Handler will check the title of the image in case the alt tag text is empty before defaulting to the post title
+    * All the inbuilt styles have been updated for the `a` tags to have `:focus-visible` declared for accessibility
+    * The `Heading of posts` setting will now use `<h2>` instead of `<h3>` for the heading by default
+
+* Bug Fixes:
+    * The post cache was not always cleared when a post was updated
+
+* Deprecated:
+    * `get_crp_posts_id` has been completed deprecated and will use `get_crp_posts` instead. The function will continue to work but will be removed in a future version
+
+= 3.3.4 =
+
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](https://webberzone.com/blog/contextual-related-posts-v3-3-0/)
+
+* Enhancements/Modifications:
+	* When displaying the post thumbnail, the Media Handler will first use the image's alt tag set in the Media editor. If alt tag is empty, then it will use the post title as a fallback. Filter `crp_thumb_use_image_alt` and set it to false to not use the alt tag. Filter `crp_thumb_alt_fallback_post_title` and set it to false to disable the alt tag
+	* Orderby clause modified to ensure compatibility if any other plugin rewrites the WP_Query fields
+
+* Bug Fixes:
+    * Fix duplicate display of related posts when using reusable blocks or a plugin that inserts pages
+    * `meta_query` argument was ignored
+
+= 3.3.3 =
+
+* Fixes permission issues with HTML settings
+
+= 3.3.2 =
+
+* Clearing cache security fix
+
+= 3.3.1 =
+
+* Security fix in block
+
+= 3.3.0 =
+
+* Features:
+    * Related posts block allows you to set a custom header above the related posts. Leave blank to get the one from the main settings page.
+    * New option "Related Meta Keys" under the List Tuning tab. You can enter a comma-separted list of meta keys. Posts that match the same value of the meta key are displayed before the other related posts.
+
+* Enhancements/modifications:
+    * If the number of "Manual related posts" is greater than the number of related posts, then the database query is bypassed drastically improving perfomance
+    * Moved Related Posts Tools page under Tools menu
+    * Related Posts block is now wrapped in `Disabled` tags to prevent accidental clicking of links in the block editor
+
+* Bug fixes:
+    * Thumb width and height defaults to 150 in case the settings are missing
+    * Setting the style to be text_only didn't enforce no thumbnail
+
+* Developer:
+    * New filters: `crp_query_date_query`, `crp_query_meta_query`, `crp_query_meta_query_relation`
+	
 = 3.2.3 =
 
 Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](https://webberzone.com/blog/contextual-related-posts-v3-2-0/)

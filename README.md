@@ -8,9 +8,9 @@
 [![Required PHP](https://img.shields.io/wordpress/plugin/required-php/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 
-__Requires:__ 5.9
+__Requires:__ 6.2
 
-__Tested up to:__ 6.4
+__Tested up to:__ 6.5
 
 __Requires PHP:__ 7.4
 
@@ -47,11 +47,24 @@ With Contextual Related Posts, you can easily boost your site's traffic, reduce 
 * __Customisable output__: Display post excerpts in the related posts list. You can set the length of the excerpt in words and also strip HTML tags if needed. Customise the HTML tags and attributes used for displaying the output of the related posts list. For example, you can use an ordered or unordered list, a div container, a span element, etc.
 * __Extendable code__: Contextual Related Posts has many filters and actions that allow developers to easily add features, modify outputs, or integrate with other plugins.
 
+### Features in Contextual Related Posts Pro
+
+[CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) enhances your experience with an advanced query block, offering more precise customisation options, additional shortcode functionalities, and enhanced meta box settings.
+
+* [Advanced Algorith](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Set the relative weight of the post title, post content and post excerpt. This feature overrides the default equal weight algorithm of the free version and provides a greater degree of fine-tuning.
+* [Query Loop Block](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/#contextual-related-posts-query-loop-block): An advanced block that allows you to display the related posts based on specified parameters. You can use the pre-built block patterns or create your own block patterns for use within posts or the site editor.
+* [Extra shortcode parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customise the output of the related posts list.
+* [Additional Metabox settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customise the related posts output for each post.
+
 ### mySQL FULLTEXT indices
 
-On activation, the plugin creates three mySQL FULLTEXT indices (or indexes) that are then used to find the related posts in the `*_posts`. These are for `post_content`, `post_title` and `(post_title,post_content)`. If you're running a multisite installation, then this is created for each of the blogs on activation. All these indices occupy space in your mySQL database but are essential for the plugin to run.
+On activation, the plugin creates three mySQL FULLTEXT indices (or indexes) that are then used to find the related posts in the `*_posts`. These are for `post_content`, `post_title` and `(post_title,post_content)`. The Pro version also has an index for `post_excerpt`.
+
+If you're running a multisite installation, then this is created for each of the blogs on activation. All these indices occupy space in your mySQL database but are essential for the plugin to run.
 
 You have two sets of options in the settings page which allows you to remove these indices when you deactivate or delete the plugin. The latter is true by default.
+
+If you do not wish to use these indices, you can disable contextual matching in the settings page. You will need to turn on related posts by category, tags and/or custom taxonomies.
 
 ### GDPR
 

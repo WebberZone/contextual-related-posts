@@ -10,7 +10,6 @@ namespace WebberZone\Contextual_Related_Posts;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
 /**
  * Initialize Freemius SDK.
  */

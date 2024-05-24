@@ -9,14 +9,15 @@ use function WebberZone\Contextual_Related_Posts\crp_freemius;
 
 ?>
 <div class="postbox-container">
-	<?php if ( crp_freemius()->is_not_paying() ) { ?>
+	<?php if ( ! crp_freemius()->is_paying() ) { ?>
 	<div id="pro-upgrade-banner">
 		<div class="inside" style="text-align: center">
-			<a href="https://webberzone.com/plugins/contextual-related-posts/pro/" target="_blank"><img src="<?php echo esc_url( CRP_PLUGIN_URL . 'includes/admin/images/contextual-related-posts-pro-banner.jpg' ); ?>" alt="<?php esc_html_e( 'Contextual Related Posts Pro - Coming soon. Sign up to find out more', 'contextual-related-posts' ); ?>" width="300" height="300" style="max-width: 100%;" /></a>
+			<a href="https://webberzone.com/plugins/contextual-related-posts/pro/" target="_blank"><img src="<?php echo esc_url( CRP_PLUGIN_URL . 'includes/admin/images/crp-pro-banner.png' ); ?>" alt="<?php esc_html_e( 'Contextual Related Posts Pro - Coming soon. Sign up to find out more', 'contextual-related-posts' ); ?>" width="300" height="300" style="max-width: 100%;" /></a>
 		</div>
 	</div>
 	<?php } ?>
 
+	<?php if ( ! crp_freemius()->is_paying() ) { ?>
 	<div id="donatediv" class="postbox meta-box-sortables">
 		<h2 class='hndle'><span><?php esc_attr_e( 'Support the development', 'contextual-related-posts' ); ?></span></h2>
 
@@ -37,6 +38,7 @@ use function WebberZone\Contextual_Related_Posts\crp_freemius;
 			</div><!-- /#donate-form -->
 		</div><!-- /.inside -->
 	</div><!-- /.postbox -->
+	<?php } ?>
 
 	<div id="qlinksdiv" class="postbox meta-box-sortables">
 		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'Quick links', 'contextual-related-posts' ); ?></span></h2>
