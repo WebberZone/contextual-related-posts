@@ -24,7 +24,7 @@
         "includes",
         "languages",
         "README.md",
-        "package.json",
+        "composer.json",
         "contextual-related-posts.php",
         "index.php",
         "uninstaller.php",
@@ -35,11 +35,11 @@
         "wpml-config.xml"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^3.14.0",
-        "@wordpress/scripts": "^27.8.0"
+        "@wordpress/prettier-config": "^3.15.0",
+        "@wordpress/scripts": "^27.9.0"
     },
     "dependencies": {
-        "@wordpress/icons": "^9.48.0",
+        "@wordpress/icons": "^9.49.0",
         "uuid": "^9.0.1"
     }
 }

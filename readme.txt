@@ -1,10 +1,10 @@
 === Contextual Related Posts ===
-Tags: related posts, related, related articles, contextual related posts, similar posts, related posts widget
+Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.4.2
-Requires at least: 5.9
-Tested up to: 6.4
+Stable tag: 3.5.0
+Requires at least: 6.2
+Tested up to: 6.5
 Requires PHP: 7.4
 License: GPLv2 or later
 
@@ -20,7 +20,7 @@ Contextual Related Posts also comes with many features and options that let you 
 
 With Contextual Related Posts, you can easily boost your site's traffic, reduce bounce rates, and refresh old entries. It's fast, flexible, and easy to use. Try it today and see the difference for yourself!
 
-### Key features
+= Key features =
 
 * __Automatic__: Just activate the plugin and Contextual Related Posts will automatically display related posts on your site and feed after the content. No need to edit any template files.
 * __Manual install__: If you want more control over the placement of the related posts, you can use the FAQ to learn about the functions available for manual install.
@@ -37,11 +37,24 @@ With Contextual Related Posts, you can easily boost your site's traffic, reduce 
 * __Customisable output__: Display post excerpts in the related posts list. You can set the length of the excerpt in words and also strip HTML tags if needed. Customise the HTML tags and attributes used for displaying the output of the related posts list. For example, you can use an ordered or unordered list, a div container, a span element, etc.
 * __Extendable code__: Contextual Related Posts has many filters and actions that allow developers to easily add features, modify outputs, or integrate with other plugins.
 
+= Features in Contextual Related Posts Pro =
+
+[CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) enhances your experience with an advanced query block, offering more precise customisation options, additional shortcode functionalities, and enhanced meta box settings.
+
+* [Advanced Algorith](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Set the relative weight of the post title, post content and post excerpt. This feature overrides the default equal weight algorithm of the free version and provides a greater degree of fine-tuning.
+* [Query Loop Block](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/#contextual-related-posts-query-loop-block): An advanced block that allows you to display the related posts based on specified parameters. You can use the pre-built block patterns or create your own block patterns for use within posts or the site editor.
+* [Extra shortcode parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customise the output of the related posts list.
+* [Additional Metabox settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customise the related posts output for each post.
+
 = mySQL FULLTEXT indices =
 
-On activation, the plugin creates three mySQL FULLTEXT indices (or indexes) that are then used to find the related posts in the `*_posts`. These are for `post_content`, `post_title` and `(post_title,post_content)`. If you're running a multisite installation, then this is created for each of the blogs on activation. All these indices occupy space in your mySQL database but are essential for the plugin to run.
+On activation, the plugin creates three mySQL FULLTEXT indices (or indexes) that are then used to find the related posts in the `*_posts`. These are for `post_content`, `post_title` and `(post_title,post_content)`. The Pro version also has an index for `post_excerpt`.
+
+If you're running a multisite installation, then this is created for each of the blogs on activation. All these indices occupy space in your mySQL database but are essential for the plugin to run.
 
 You have two sets of options in the settings page which allows you to remove these indices when you deactivate or delete the plugin. The latter is true by default.
+
+If you do not wish to use these indices, you can disable contextual matching in the settings page. You will need to turn on related posts by category, tags and/or custom taxonomies.
 
 = GDPR =
 Contextual Related Posts is GDPR compliant as it doesn't collect any personal data about your visitors when installed out of the box. All posts are processed on your site and not sent to any external service.
@@ -164,73 +177,6 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](htt
     * Bug in Include Words functionality where all post types were incorrectly included
     * Compatibility issue with PolyLang. Return the default post if pll_get_post returns false
 
-= 3.4.1 =
-
-* Bug fix:
-    * Fixed Request-URI Too Long error when searching for pages/posts
-    * Related Posts block threw an error when using on the widgets page
-
-= 3.4.0 =
-
-* Features:
-    * Bulk edit posts, pages and custom post types to add the manual relatd posts and/or exclude posts from the related posts list
-    * New argument `include_words` to include posts that match the words in the title and/or content.
-
-* Enhancements/Modifications:
-    * The Manual Related Posts field in the meta box allows a user to live search for related posts
-    * Caching of the entire HTML output is enabled by default. You can disable it in the settings page. This will reduce the number of database queries and improve performance. If you have customised the output, you will need to clear the cache for the changes to take effect. Applies to new installs and when you reset the settings
-    * The plugin no longer check for pre v2.5 settings key
-    * The Media Handler will check the title of the image in case the alt tag text is empty before defaulting to the post title
-    * All the inbuilt styles have been updated for the `a` tags to have `:focus-visible` declared for accessibility
-    * The `Heading of posts` setting will now use `<h2>` instead of `<h3>` for the heading by default
-
-* Bug Fixes:
-    * The post cache was not always cleared when a post was updated
-
-* Deprecated:
-    * `get_crp_posts_id` has been completed deprecated and will use `get_crp_posts` instead. The function will continue to work but will be removed in a future version
-
-= 3.3.4 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-3-0/](https://webberzone.com/blog/contextual-related-posts-v3-3-0/)
-
-* Enhancements/Modifications:
-	* When displaying the post thumbnail, the Media Handler will first use the image's alt tag set in the Media editor. If alt tag is empty, then it will use the post title as a fallback. Filter `crp_thumb_use_image_alt` and set it to false to not use the alt tag. Filter `crp_thumb_alt_fallback_post_title` and set it to false to disable the alt tag
-	* Orderby clause modified to ensure compatibility if any other plugin rewrites the WP_Query fields
-
-* Bug Fixes:
-    * Fix duplicate display of related posts when using reusable blocks or a plugin that inserts pages
-    * `meta_query` argument was ignored
-
-= 3.3.3 =
-
-* Fixes permission issues with HTML settings
-
-= 3.3.2 =
-
-* Clearing cache security fix
-
-= 3.3.1 =
-
-* Security fix in block
-
-= 3.3.0 =
-
-* Features:
-    * Related posts block allows you to set a custom header above the related posts. Leave blank to get the one from the main settings page.
-    * New option "Related Meta Keys" under the List Tuning tab. You can enter a comma-separted list of meta keys. Posts that match the same value of the meta key are displayed before the other related posts.
-
-* Enhancements/modifications:
-    * If the number of "Manual related posts" is greater than the number of related posts, then the database query is bypassed drastically improving perfomance
-    * Moved Related Posts Tools page under Tools menu
-    * Related Posts block is now wrapped in `Disabled` tags to prevent accidental clicking of links in the block editor
-
-* Bug fixes:
-    * Thumb width and height defaults to 150 in case the settings are missing
-    * Setting the style to be text_only didn't enforce no thumbnail
-
-* Developer:
-    * New filters: `crp_query_date_query`, `crp_query_meta_query`, `crp_query_meta_query_relation`
 
 = Earlier versions =
 

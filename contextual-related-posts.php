@@ -12,10 +12,10 @@
  * @copyright 2009-2024 Ajay D'Souza
  *
  * @wordpress-plugin
- * Plugin Name: Contextual Related Posts
+ * Plugin Name: Contextual Related Posts Pro
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version:     3.5.0-beta4
+ * Version:     3.5.0-beta5
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -23,7 +23,8 @@
  * Text Domain: contextual-related-posts
  * Domain Path: /languages
  * GitHub Plugin URI: https://github.com/WebberZone/contextual-related-posts/
- */
+ *
+  */
 
 namespace WebberZone\Contextual_Related_Posts;
 
@@ -102,28 +103,17 @@ require_once CRP_PLUGIN_DIR . 'includes/load-freemius.php';
 // Load the autoloader.
 require_once CRP_PLUGIN_DIR . 'includes/autoloader.php';
 
-/**
- * The code that runs during plugin activation.
- *
- * @since 3.5.0
- *
- * @param bool $network_wide Whether the plugin is being activated network-wide.
- */
-function activate( $network_wide ) {
-	\WebberZone\Contextual_Related_Posts\Admin\Activator::activation_hook( $network_wide );
+if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
+	/**
+	 * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
+	 *
+	 * @since 3.5.0
+	 */
+	function load() {
+		\WebberZone\Contextual_Related_Posts\Main::get_instance();
+	}
+	add_action( 'plugins_loaded', __NAMESPACE__ . '\load' );
 }
-register_activation_hook( __FILE__, __NAMESPACE__ . '\activate' );
-
-/**
- * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
- *
- * @since 3.5.0
- */
-function load() {
-	\WebberZone\Contextual_Related_Posts\Main::get_instance();
-}
-add_action( 'plugins_loaded', __NAMESPACE__ . '\load' );
-
 
 /*
  *----------------------------------------------------------------------------
