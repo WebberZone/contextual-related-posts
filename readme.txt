@@ -1,4 +1,4 @@
-=== Contextual Related Posts ===
+=== Contextual Related Posts Pro ===
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
@@ -86,6 +86,8 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 * [Knowledge Base](https://wordpress.org/plugins/knowledgebase/) - Create a knowledge base or FAQ section on your WordPress site
 * [Better Search](https://wordpress.org/plugins/better-search/) - Enhance the default WordPress search with contextual results sorted by relevance
 * [Auto-Close](https://wordpress.org/plugins/autoclose/) - Automatically close comments, pingbacks and trackbacks and manage revisions
+* [Popular Authors](https://wordpress.org/plugins/popular-authors/) - Display popular authors in your WordPress widget
+* [Followed Posts](https://wordpress.org/plugins/where-did-they-go-from-here/) - Show a list of related posts based on what your users have read
 
 == Installation ==
 
@@ -115,11 +117,23 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 == Frequently Asked Questions ==
 
-Visit the Contextual Related Posts [Knowledge Base](https://webberzone.com/support/knowledgebase/category/contextual-related-posts/) for FAQs. If your question isn't listed there, please create a new post at the [WordPress.org support forum](http://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly.
+Check out the [FAQ on the plugin page](https://wordpress.org/plugins/contextual-related-posts/faq/) or the [Knowledge Base](https://webberzone.com/support/product/contextual-related-posts/).
+
+If your question isn't listed there, please create a new post at the [WordPress.org support forum](https://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly.
+
+Support for products sold and distributed by WebberZone is only available for those who have an active, paid extension license. You can [access our support form here](https://webberzone.com/request-support/).
 
 = How can I customise the output? =
 
 Contextual Related Posts is highly customizable. There are several configurable options in the Settings page and you can use CSS to customize the outputs. Learn more by reading [this article](https://webberzone.com/support/knowledgebase/customising-the-output-of-contextual-related-posts/).
+
+= Shortcodes =
+
+You can insert the related posts anywhere in your post using the `[crp]` shortcode. View [this article in the knowledge base](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/) for more details.
+
+= How can I report security bugs? =
+
+You can report security bugs through the Patchstack Vulnerability Disclosure Program. The Patchstack team help validate, triage and handle any security vulnerabilities. [Report a security vulnerability.](https://patchstack.com/database/vdp/contextual-related-posts)
 
 = How does the plugin select thumbnails? =
 
@@ -133,15 +147,9 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 4. First child image attached to the post
 
-5. Video Thumbnails: Meta field set by [Video Thumbnails plugin](https://wordpress.org/plugins/video-thumbnails/)
+5. Site Icon: this is typically set using Customizer
 
-6. Site Icon: this is typically set using Customizer
-
-7. Default Thumbnail: If enabled, it will use the default thumbnail that you specify in the Settings page
-
-= Shortcodes =
-
-You can insert the related posts anywhere in your post using the `[crp]` shortcode. View [this article in the knowledge base](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/) for more details.
+6. Default Thumbnail: If enabled, it will use the default thumbnail that you specify in the Settings page
 
 == Changelog ==
 
@@ -155,10 +163,12 @@ Complete code rewrite using OOP, namespacing and autoloading. This will make it 
     * [Pro] New feature to set the weight of the title, content and excerpt in the related posts algorithm
     * [Pro] New parameter `display_only_on_tax_ids` to display related posts only on specific taxonomy terms
     * [Pro] New option added to the Edit Post meta box mapped to `include_cat_ids` to include related posts from specific categories only
+    * [Pro] New *Clear cache* button in the settings page to clear the cache
 
 * Enhancements:
     * The plugin supports `WP_Query` directly if `crp_query` is set in the query arguments
     * Optimized media handler to reduce the number of queries
+    * Cache posts setting is changed to be true by default
 
 * Bug fix:
     * `trim_char` function returned a blank string instead of the original string if length was 0
@@ -185,5 +195,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.4.2 =
-Major release: Bulk edit posts, new features, enhancements and bug fixes. Please read the release post for more details.
+= 3.5.0 =
+Major release. Please read the release post for more details. New Pro version available with additional features.
