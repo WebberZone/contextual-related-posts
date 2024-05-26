@@ -23,8 +23,7 @@
  * Text Domain: contextual-related-posts
  * Domain Path: /languages
  * GitHub Plugin URI: https://github.com/WebberZone/contextual-related-posts/
- *
-  */
+ */
 
 namespace WebberZone\Contextual_Related_Posts;
 
@@ -124,6 +123,8 @@ require_once CRP_PLUGIN_DIR . 'includes/options-api.php';
 require_once CRP_PLUGIN_DIR . 'includes/class-crp-query.php';
 require_once CRP_PLUGIN_DIR . 'includes/functions.php';
 
+// Register deactivation hook.
+register_deactivation_hook( __FILE__, __NAMESPACE__ . '\Admin\Activator::deactivation_hook' );
 
 /**
  * Global variable holding the current settings for Contextual Related Posts
