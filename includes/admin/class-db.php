@@ -30,8 +30,10 @@ class Db {
 	 * Create fulltext indexes on the posts table.
 	 *
 	 * @since 3.5.0
+	 *
+	 * @param string $action Action to perform - create or delete.
 	 */
-	public static function create_fulltext_indexes() {
+	public static function fulltext_indexes( $action ) {
 		global $wpdb;
 
 		$indexes = array(
@@ -56,10 +58,24 @@ class Db {
 				)
 			);
 
-			if ( ! $index_exists ) {
-				$wpdb->query( 'ALTER TABLE ' . $wpdb->posts . ' ADD FULLTEXT ' . $index . ' ' . $columns . ';' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.NotPrepared
+			if ( 'create' === $action && ! $index_exists ) {
+				$index   = esc_sql( $index );
+				$columns = esc_sql( $columns );
+				$wpdb->query( "ALTER TABLE {$wpdb->posts} ADD FULLTEXT $index $columns" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			} elseif ( 'delete' === $action && $index_exists ) {
+				$index = esc_sql( $index );
+				$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX $index" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 			}
 		}
+	}
+
+	/**
+	 * Create fulltext indexes on the posts table.
+	 *
+	 * @since 3.5.0
+	 */
+	public static function create_fulltext_indexes() {
+		call_user_func( array( __CLASS__, 'fulltext_indexes' ), 'create' );
 	}
 
 	/**
@@ -68,21 +84,7 @@ class Db {
 	 * @since 3.5.0
 	 */
 	public static function delete_fulltext_indexes() {
-		global $wpdb;
-
-		$wpdb->hide_errors();
-
-		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related'" ) ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange
-		}
-		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_title'" ) ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange
-		}
-		if ( $wpdb->get_results( "SHOW INDEX FROM {$wpdb->posts} where Key_name = 'crp_related_content'" ) ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.SchemaChange
-		}
-
-		$wpdb->show_errors();
+		call_user_func( array( __CLASS__, 'fulltext_indexes' ), 'delete' );
 	}
 
 
