@@ -81,7 +81,7 @@ class Tools_Page {
 		<h1><?php esc_html_e( 'Contextual Related Posts Tools', 'contextual-related-posts' ); ?></h1>
 
 		<p>
-			<a class="crp_button" href="<?php echo admin_url( 'options-general.php?page=crp_options_page' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+			<a class="crp_button crp_button_blue" href="<?php echo esc_url( admin_url( 'options-general.php?page=crp_options_page' ) ); ?>">
 			<?php esc_html_e( 'Visit the Settings page', 'autoclose' ); ?>
 			</a>
 		<p>

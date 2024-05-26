@@ -145,13 +145,14 @@ class Settings {
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 11, 2 );
 		add_filter( 'plugin_action_links_' . plugin_basename( CRP_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
 		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
-		add_filter( 'crp_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
-		add_filter( 'crp_after_setting_output', array( $this, 'display_admin_thumbnail' ), 10, 2 );
-		add_filter( 'crp_setting_field_description', array( $this, 'reset_default_thumb_setting' ), 10, 2 );
+		add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
+		add_filter( self::$prefix . '_after_setting_output', array( $this, 'display_admin_thumbnail' ), 10, 2 );
+		add_filter( self::$prefix . '_setting_field_description', array( $this, 'reset_default_thumb_setting' ), 10, 2 );
 
 		add_action( 'wp_ajax_nopriv_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
 		add_action( 'wp_ajax_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
-		add_action( 'crp_settings_page_header', array( $this, 'settings_page_header' ) );
+		add_action( self::$prefix . '_settings_page_header', array( $this, 'settings_page_header' ) );
+		add_filter( self::$prefix . '_after_setting_output', array( $this, 'after_setting_output' ), 10, 2 );
 	}
 
 	/**
@@ -297,7 +298,7 @@ class Settings {
 				'name'    => esc_html__( 'Cache posts only', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'Enabling this will only cache the related posts but not the entire HTML output. This gives you more flexibility at marginally lower performance. Use this if you only have the related posts called with the same set of parameters.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
-				'options' => false,
+				'options' => true,
 			),
 			'cache'                        => array(
 				'id'      => 'cache',
@@ -611,7 +612,7 @@ class Settings {
 			'ordering'               => array(
 				'id'      => 'ordering',
 				'name'    => esc_html__( 'Order posts', 'contextual-related-posts' ),
-				'desc'    => '',
+				'desc'    => esc_html__( 'Select how you want the related posts to be ordered. Randomly does not work if you have caching enabled.', 'contextual-related-posts' ),
 				'type'    => 'radio',
 				'default' => 'relevance',
 				'options' => self::get_orderings(),
@@ -1138,12 +1139,10 @@ class Settings {
 	public function get_help_sidebar() {
 		$help_sidebar =
 			/* translators: 1: Plugin support site link. */
-			'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s">support site</a>.', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
-			/* translators: 1: WordPress.org support forums link. */
-			'<p>' . sprintf( __( 'Support queries should be posted in the <a href="%s">WordPress.org support forums</a>.', 'contextual-related-posts' ), esc_url( 'https://wordpress.org/support/plugin/contextual-related-posts' ) ) . '</p>' .
+			'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s" target="_blank">support site</a>.', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
 			'<p>' . sprintf(
 				/* translators: 1: Github issues link, 2: Github plugin page link. */
-				__( '<a href="%1$s">Post an issue</a> on <a href="%2$s">GitHub</a> (bug reports only).', 'contextual-related-posts' ),
+				__( '<a href="%1$s" target="_blank">Post an issue</a> on <a href="%2$s" target="_blank">GitHub</a> (bug reports only).', 'contextual-related-posts' ),
 				esc_url( 'https://github.com/WebberZone/contextual-related-posts/issues' ),
 				esc_url( 'https://github.com/WebberZone/contextual-related-posts' )
 			) . '</p>';
@@ -1173,7 +1172,7 @@ class Settings {
 				'<p>' . sprintf(
 				/* translators: 1: Link to Knowledge Base article. */
 					__( 'You can find detailed information on each of the settings in these <a href="%1$s" target="_blank">knowledgebase articles</a>.', 'contextual-related-posts' ),
-					esc_url( 'https://webberzone.com/support/section/contextual-related-posts/01-crp-getting-started/' )
+					esc_url( 'https://webberzone.com/support/product/contextual-related-posts/01-crp-getting-started/' )
 				) . '</p>',
 			),
 			array(
@@ -1300,9 +1299,15 @@ class Settings {
 	 * Enqueue scripts and styles.
 	 *
 	 * @since 3.5.0
+	 *
+	 * @param string $hook The current admin page.
 	 */
-	public function admin_enqueue_scripts() {
+	public function admin_enqueue_scripts( $hook ) {
 		$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+		if ( $this->settings_api->settings_page !== $hook ) {
+			return;
+		}
 
 		wp_enqueue_style(
 			'crp-admin-styles',
@@ -1315,6 +1320,15 @@ class Settings {
 			'crp_admin',
 			array(
 				'thumb_default' => CRP_PLUGIN_URL . 'default.png',
+			)
+		);
+
+		wp_enqueue_script( 'crp-admin-js' );
+		wp_localize_script(
+			'crp-admin-js',
+			'crp_admin_data',
+			array(
+				'security' => wp_create_nonce( 'crp-admin' ),
 			)
 		);
 	}
@@ -1390,13 +1404,34 @@ class Settings {
 	 * @since 3.5.0
 	 */
 	public static function settings_page_header() {
+		global $crp_freemius;
 		?>
 		<p>
-			<a class="crp_button" href="<?php echo admin_url( 'tools.php?page=crp_tools_page' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
-				<?php esc_html_e( 'Visit the Tools page', 'autoclose' ); ?>
+			<a class="crp_button crp_button_green" href="<?php echo esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ); ?>">
+				<?php esc_html_e( 'Visit the Tools page', 'contextual-related-posts' ); ?>
 			</a>
+			<?php if ( ! $crp_freemius->is_paying() ) { ?>
+			<a class="crp_button crp_button_gold" href="<?php echo esc_url( $crp_freemius->get_upgrade_url() ); ?>">
+				<?php esc_html_e( 'Upgrade to Pro', 'contextual-related-posts' ); ?>
+			</a>
+			<?php } ?>
 		</p>
 
 		<?php
+	}
+
+	/**
+	 * Updated the settings fields to display a pro version link.
+	 *
+	 * @param string $output Settings field HTML.
+	 * @param array  $args   Settings field arguments.
+	 * @return string Updated HTML.
+	 */
+	public static function after_setting_output( $output, $args ) {
+		if ( isset( $args['pro'] ) && $args['pro'] ) {
+			$output .= '<a class="crp_button crp_button_gold" target="_blank" href="https://webberzone.com/plugins/contextual-related-posts/pro/" title="' . esc_attr__( 'Upgrade to Pro', 'contextual-related-posts' ) . '">' . esc_html__( 'Upgrade to Pro', 'contextual-related-posts' ) . '</a>';
+		}
+
+		return $output;
 	}
 }

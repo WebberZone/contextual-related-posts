@@ -16,16 +16,59 @@
 }
 
 a.crp_button {
-    background: green;
     padding: 10px;
-    color: white;
     text-decoration: none;
     text-shadow: none;
     border-radius: 3px;
     transition: all 0.3s ease 0s;
-    border: 1px solid green;
+    margin-right: 10px;
+    display: inline-block;
 }
 
 a.crp_button:hover {
     box-shadow: 3px 3px 10px #666;
+}
+
+a.crp_button.crp_button_green {
+    color: #fff;
+    background: #008000;
+    border: 1px solid #003400;
+}
+
+a.crp_button.crp_button_green:hover {
+    color: #fff;
+    background: #006400;
+}
+
+a.crp_button.crp_button_red {
+    color: #fff;
+    background: #d63638;
+    border: 1px solid #b92c2e;
+}
+
+a.crp_button.crp_button_red:hover {
+    color: #fff;
+    background: #b92c2e;
+}
+
+a.crp_button.crp_button_blue {
+    color: #fff;
+    background: #032075;
+    border: 1px solid #001f5b;
+}
+
+a.crp_button.crp_button_blue:hover {
+    color: #fff;
+    background: #001f5b;
+}
+
+a.crp_button.crp_button_gold {
+    color: #000;
+    background: #FFBD59;
+    border: 1px solid #FFA500;
+}
+
+a.crp_button.crp_button_gold:hover {
+    color: #000;
+    background: #FFA500;
 }
