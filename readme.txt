@@ -1,4 +1,4 @@
-=== Contextual Related Posts Pro ===
+=== Contextual Related Posts ===
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
@@ -155,6 +155,8 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 = 3.5.0 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v3-5-0/](https://webberzone.com/blog/contextual-related-posts-v3-5-0/)
+
 Complete code rewrite using OOP, namespacing and autoloading. This will make it easier to maintain and extend the plugin in the future.
 
 * Features:
@@ -168,7 +170,8 @@ Complete code rewrite using OOP, namespacing and autoloading. This will make it 
 * Enhancements:
     * The plugin supports `WP_Query` directly if `crp_query` is set in the query arguments
     * Optimized media handler to reduce the number of queries
-    * Cache posts setting is changed to be true by default
+    * _Cache posts only_ setting is changed to be true by default
+    * _Cache HTML output_ will now cache the HTML output of the related posts list superseding the _Cache posts only_ setting
 
 * Bug fix:
     * `trim_char` function returned a blank string instead of the original string if length was 0

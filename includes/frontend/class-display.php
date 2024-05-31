@@ -374,7 +374,6 @@ class Display {
 	 */
 	public static function should_cache( $args ) {
 		return ! empty( $args['cache'] ) &&
-				empty( $args['cache_posts'] ) &&
 				! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) );
 	}
 

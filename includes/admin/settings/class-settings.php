@@ -303,7 +303,7 @@ class Settings {
 			'cache'                        => array(
 				'id'      => 'cache',
 				'name'    => esc_html__( 'Cache HTML output', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Only works if the previous option is disabled. Enabling this will cache the entire HTML generated when the post is visited the first time. The cache is cleaned when you save this page. Highly recommended particularly on busy sites. Default is true.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Enabling this will cache the entire HTML generated when the post is visited the first time. The cache is cleaned when you save this page. Highly recommended particularly on busy sites. Default is true.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'options' => true,
 			),
@@ -805,12 +805,7 @@ class Settings {
 			'thumb_size'         => array(
 				'id'      => 'thumb_size',
 				'name'    => esc_html__( 'Thumbnail size', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'You can choose from existing image sizes above or create a custom size. If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image. If you change the width and/or height below, existing images will not be automatically resized.' ) . '<br />' . sprintf(
-					/* translators: 1: OTF Regenerate plugin link, 2: Force regenerate plugin link. */
-					esc_html__( 'I recommend using %1$s or %2$s to regenerate all image sizes.', 'contextual-related-posts' ),
-					'<a href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=otf-regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" class="thickbox">OTF Regenerate Thumbnails</a>',
-					'<a href="' . esc_url( network_admin_url( 'plugin-install.php?tab=plugin-information&amp;plugin=regenerate-thumbnails&amp;TB_iframe=true&amp;width=600&amp;height=550' ) ) . '" class="thickbox">Regenerate Thumbnails</a>'
-				),
+				'desc'    => esc_html__( 'You can choose from existing image sizes above or create a custom size. If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image. If you change the width and/or height below, existing images will not be automatically resized. You will ned to regenerate the images using a plugin or using WP CLI: wp media regenerate.', 'contextual-related-posts' ),
 				'type'    => 'thumbsizes',
 				'default' => 'crp_thumbnail',
 				'options' => \WebberZone\Contextual_Related_Posts\Frontend\Media_Handler::get_all_image_sizes(),
