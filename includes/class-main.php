@@ -231,7 +231,7 @@ final class Main {
 	}
 
 	/**
-	 * Displays a notice when either ACF or ACF PRO is automatically deactivated.
+	 * Displays a notice when either CRP or CRP PRO is automatically deactivated.
 	 *
 	 * @since 3.5.0
 	 */
@@ -240,9 +240,9 @@ final class Main {
 		if ( ! in_array( $deactivated_notice_id, array( 1, 2 ), true ) ) {
 			return;
 		}
-		$message = __( "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated Contextual Related Posts.", 'contextual-related-posts' );
+		$message = __( "Contextual Related Posts and Contextual Related Posts Pro should not be active at the same time. We've automatically deactivated Contextual Related Posts.", 'contextual-related-posts' );
 		if ( 2 === $deactivated_notice_id ) {
-			$message = __( "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated Contextual Related Posts PRO.", 'contextual-related-posts' );
+			$message = __( "Contextual Related Posts and Contextual Related Posts Pro should not be active at the same time. We've automatically deactivated Contextual Related Posts Pro.", 'contextual-related-posts' );
 		}
 		?>
 			<div class="updated" style="border-left: 4px solid #ffba00;">

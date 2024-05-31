@@ -1,4 +1,4 @@
-# Contextual Related Posts Pro
+# Contextual Related Posts
 
 [![WordPress Plugin Version](https://github.com/WebberZone/contextual-related-posts/blob/03f671821226a6e32a7f6b09b12a7c3f138f17a1/wporg-assets/banner-1544x500.png)](https://wordpress.org/plugins/contextual-related-posts/)
 
