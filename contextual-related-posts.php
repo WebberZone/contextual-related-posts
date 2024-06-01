@@ -12,10 +12,10 @@
  * @copyright 2009-2024 Ajay D'Souza
  *
  * @wordpress-plugin
- * Plugin Name: Contextual Related Posts Pro
+ * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version:     3.5.0-RC1
+ * Version:     3.5.0
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
