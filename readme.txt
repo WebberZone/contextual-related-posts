@@ -155,7 +155,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 = 3.5.0 =
 
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-5-0/](https://webberzone.com/blog/contextual-related-posts-v3-5-0/)
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-5-0/](https://webberzone.com/announcements/contextual-related-posts-v3-5-0/)
 
 Complete code rewrite using OOP, namespacing and autoloading. This will make it easier to maintain and extend the plugin in the future.
 
@@ -179,7 +179,7 @@ Complete code rewrite using OOP, namespacing and autoloading. This will make it 
 
 = 3.4.2 =
 
-Release post: [https://webberzone.com/blog/contextual-related-posts-v3-4-0/](https://webberzone.com/blog/contextual-related-posts-v3-4-0/)
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-4-0/](https://webberzone.com/announcements/contextual-related-posts-v3-4-0/)
 
 * Enhancements:
     * Live Search in the Manual Related Posts field now searches by post ID if you enter a number
