@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 Requires at least: 6.2
 Tested up to: 6.5
 Requires PHP: 7.4
@@ -153,9 +153,14 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
-= 3.5.1 =
+= 3.5.2 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-5-0/](https://webberzone.com/announcements/contextual-related-posts-v3-5-0/)
+
+* Bug fix:
+    * Fixed PHP error on Network admin page
+
+= 3.5.1 =
 
 * Bug fix:
     * Fixed memory issue when using the crp shortcode
@@ -203,5 +208,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.5.1 =
+= 3.5.2 =
 Major release. Please read the release post for more details. New Pro version available with additional features.

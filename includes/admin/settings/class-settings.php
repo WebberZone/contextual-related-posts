@@ -1300,7 +1300,7 @@ class Settings {
 	public function admin_enqueue_scripts( $hook ) {
 		$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		if ( $this->settings_api->settings_page !== $hook ) {
+		if ( ! isset( $this->settings_api->settings_page ) || $this->settings_api->settings_page !== $hook ) {
 			return;
 		}
 
