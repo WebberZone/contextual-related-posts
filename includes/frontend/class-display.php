@@ -403,7 +403,7 @@ class Display {
 			$content = $post->post_content;
 		}
 
-		$output = do_shortcode( $content );
+		$output = strip_shortcodes( $content );
 		$output = wp_strip_all_tags( $output, true );
 
 		if ( $strip_stopwords ) {

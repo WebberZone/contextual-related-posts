@@ -153,9 +153,14 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
-= 3.5.0 =
+= 3.5.1 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-5-0/](https://webberzone.com/announcements/contextual-related-posts-v3-5-0/)
+
+* Bug fix:
+    * Fixed memory issue when using the crp shortcode
+
+= 3.5.0 =
 
 Complete code rewrite using OOP, namespacing and autoloading. This will make it easier to maintain and extend the plugin in the future.
 
