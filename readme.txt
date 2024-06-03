@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://ajaydsouza.com/donate/
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 Requires at least: 6.2
 Tested up to: 6.5
 Requires PHP: 7.4
@@ -203,5 +203,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.5.0 =
+= 3.5.1 =
 Major release. Please read the release post for more details. New Pro version available with additional features.
