@@ -60,19 +60,26 @@ class Styles_Handler {
 		$add_to     = crp_get_option( 'add_to', false );
 		$custom_css = stripslashes( crp_get_option( 'custom_css' ) );
 		if ( $custom_css ) {
-			if ( ( is_single() ) && ! empty( $add_to['single'] ) ) {
-				wp_add_inline_style( 'crp-custom-style', $custom_css );
-			} elseif ( ( is_page() ) && ! empty( $add_to['page'] ) ) {
-				wp_add_inline_style( 'crp-custom-style', $custom_css );
-			} elseif ( ( is_home() ) && ! empty( $add_to['home'] ) ) {
-				wp_add_inline_style( 'crp-custom-style', $custom_css );
-			} elseif ( ( is_category() ) && ! empty( $add_to['category_archives'] ) ) {
-				wp_add_inline_style( 'crp-custom-style', $custom_css );
-			} elseif ( ( is_tag() ) && ! empty( $add_to['tag_archives'] ) ) {
-				wp_add_inline_style( 'crp-custom-style', $custom_css );
-			} elseif ( ( ( is_tax() ) || ( is_author() ) || ( is_date() ) ) && ! empty( $add_to['other_archives'] ) ) {
-				wp_add_inline_style( 'crp-custom-style', $custom_css );
+			$enqueue_style = false;
+
+			if ( is_single() && ! empty( $add_to['single'] ) ) {
+				$enqueue_style = true;
+			} elseif ( is_page() && ! empty( $add_to['page'] ) ) {
+				$enqueue_style = true;
+			} elseif ( is_home() && ! empty( $add_to['home'] ) ) {
+				$enqueue_style = true;
+			} elseif ( is_category() && ! empty( $add_to['category_archives'] ) ) {
+				$enqueue_style = true;
+			} elseif ( is_tag() && ! empty( $add_to['tag_archives'] ) ) {
+				$enqueue_style = true;
+			} elseif ( ( is_tax() || is_author() || is_date() ) && ! empty( $add_to['other_archives'] ) ) {
+				$enqueue_style = true;
 			} elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
+				$enqueue_style = true;
+			}
+
+			if ( $enqueue_style ) {
+				wp_enqueue_style( 'crp-custom-style' );
 				wp_add_inline_style( 'crp-custom-style', $custom_css );
 			}
 		}
