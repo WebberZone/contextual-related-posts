@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-31 21:54+0100\n"
+"POT-Creation-Date: 2024-06-09 20:24+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -416,7 +416,7 @@ msgstr ""
 msgid "cropped"
 msgstr ""
 
-#: includes/admin/settings/class-settings-form.php:688
+#: includes/admin/settings/class-settings-form.php:692
 msgid "Choose File"
 msgstr ""
 
@@ -802,8 +802,8 @@ msgstr ""
 
 #: includes/admin/settings/class-settings.php:615
 msgid ""
-"Select how you want the related posts to be ordered. Randomly does not work "
-"if you have caching enabled."
+"Select how you want the related posts to be ordered. Randomly will shuffle "
+"the related posts and does not work if you have HTML caching enabled."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:622
@@ -813,10 +813,10 @@ msgstr ""
 
 #: includes/admin/settings/class-settings.php:623
 msgid ""
-"This shuffles the selected related posts. If you select to order by date in "
-"the previous option, then the related posts will first be sorted by date and "
-"the selected ones are shuffled. Does not work if Cache HTML output is "
-"enabled."
+"This shuffles the selected related posts, similar to choosing Randomly in "
+"the above option. If you select to order by date in the previous option, "
+"then the related posts will first be sorted by date and the selected ones "
+"are shuffled. Does not work if Cache HTML output is enabled."
 msgstr ""
 
 #: includes/admin/settings/class-settings.php:629
