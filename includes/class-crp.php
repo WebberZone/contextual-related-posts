@@ -819,23 +819,42 @@ class CRP {
 			if ( 'relevance' === $query->get( 'orderby' ) || 'relatedness' === $query->get( 'orderby' ) ) {
 				$orderby = ' ' . $this->get_match_sql() . ' DESC ';
 			}
-			return $orderby;
+			return apply_filters( 'crp_query_posts_orderby', $orderby, $query );
 		}
 
-		if ( $this->enable_relevance ) {
-			$orderby = ' ' . $this->get_match_sql() . ' DESC ';
+		// Initialize an array to build the orderby clauses.
+		$orderby_clauses = array();
+
+		// Add include_words at the beginning.
+		if ( ! empty( $this->query_args['include_words'] ) ) {
+			$include_orderby = $this->parse_include_words_order();
+			if ( ! empty( $include_orderby ) ) {
+				$orderby_clauses[] = $include_orderby;
+			}
+		}
+
+		if ( $this->enable_relevance && isset( $this->query_args['ordering'] ) && 'date' !== $this->query_args['ordering'] ) {
+			$orderby_clauses[] = ' ' . $this->get_match_sql() . ' DESC ';
 		}
 
 		// Set order by in case of date.
 		if ( isset( $this->query_args['ordering'] ) && 'date' === $this->query_args['ordering'] ) {
-			$orderby = " $wpdb->posts.post_date DESC ";
+			$orderby_clauses[] = " $wpdb->posts.post_date DESC ";
 		}
 
-		if ( ! empty( $this->query_args['include_words'] ) ) {
-			$include_orderby = $this->parse_include_words_order();
-			if ( ! empty( $include_orderby ) ) {
-				$orderby = $include_orderby . ', ' . $orderby;
-			}
+		/**
+		 * Filters the posts_orderby of CRP_Query after processing and before returning.
+		 *
+		 * @since 3.5.2
+		 *
+		 * @param string[]  $orderby_clauses The SELECT clause of the query.
+		 * @param \WP_Query $query           The WP_Query instance.
+		 */
+		$orderby_clauses = apply_filters( 'crp_query_posts_orderby_clauses', $orderby_clauses, $query );
+
+		// Combine all the orderby clauses.
+		if ( ! empty( $orderby_clauses ) ) {
+			$orderby = implode( ', ', $orderby_clauses );
 		}
 
 		/**
@@ -843,7 +862,7 @@ class CRP {
 		 *
 		 * @since 3.2.0
 		 *
-		 * @param string   $orderby The SELECT clause of the query.
+		 * @param string    $orderby The SELECT clause of the query.
 		 * @param \WP_Query $query   The WP_Query instance.
 		 */
 		$orderby = apply_filters( 'crp_query_posts_orderby', $orderby, $query );
