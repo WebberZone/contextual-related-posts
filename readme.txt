@@ -1,7 +1,7 @@
 === Contextual Related Posts ===
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
-Donate link: https://ajaydsouza.com/donate/
+Donate link: https://wzn.io/donate-crp
 Stable tag: 3.5.2
 Requires at least: 6.2
 Tested up to: 6.5
@@ -157,8 +157,14 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-5-0/](https://webberzone.com/announcements/contextual-related-posts-v3-5-0/)
 
+* Modifications:
+    * [Pro] If "Only from" same category/tag/taxonomy is enabled, the plugin will sort results by the number of matched taxonomies first, therby optimising the related posts further. The free version will continue to sort by date
+    * [Pro] If any of the weights are 0, then the algorithm will not consider that field for matching
+
 * Bug fix:
+    * Custom styles did not get enqueued on the front end
     * Fixed PHP error on Network admin page
+    * Fixed bug where post types and taxonomies settings retained the previous values if no option was selected
 
 = 3.5.1 =
 
@@ -186,20 +192,6 @@ Complete code rewrite using OOP, namespacing and autoloading. This will make it 
 * Bug fix:
     * `trim_char` function returned a blank string instead of the original string if length was 0
     * Insert after paragraph used to insert after an extra paragraph than what was specified
-
-= 3.4.2 =
-
-Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-4-0/](https://webberzone.com/announcements/contextual-related-posts-v3-4-0/)
-
-* Enhancements:
-    * Live Search in the Manual Related Posts field now searches by post ID if you enter a number
-    * Live Search will only search for posts titles and not content
-    * Include Words feature will now try to sort the posts by the number of words matched in the title, content and excerpt
-
-* Bug fix:
-    * Bug in Include Words functionality where all post types were incorrectly included
-    * Compatibility issue with PolyLang. Return the default post if pll_get_post returns false
-
 
 = Earlier versions =
 

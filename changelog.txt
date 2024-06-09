@@ -2,6 +2,19 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 3.4.2 =
+
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-4-0/](https://webberzone.com/announcements/contextual-related-posts-v3-4-0/)
+
+* Enhancements:
+    * Live Search in the Manual Related Posts field now searches by post ID if you enter a number
+    * Live Search will only search for posts titles and not content
+    * Include Words feature will now try to sort the posts by the number of words matched in the title, content and excerpt
+
+* Bug fix:
+    * Bug in Include Words functionality where all post types were incorrectly included
+    * Compatibility issue with PolyLang. Return the default post if pll_get_post returns false
+
 = 3.4.1 =
 
 * Bug fix:
