@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.4.0
+ * @version 2.5.0
  */
 #[\AllowDynamicProperties]
 class Settings_API {
@@ -31,7 +31,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	const VERSION = '2.4.0';
+	const VERSION = '2.5.0';
 
 	/**
 	 * Settings Key.

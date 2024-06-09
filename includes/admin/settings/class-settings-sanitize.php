@@ -159,7 +159,7 @@ class Settings_Sanitize {
 	 * @return string  $value  Sanitized value
 	 */
 	public function sanitize_posttypes_field( $value ) {
-		$post_types = array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
+		$post_types = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
 
 		return implode( ',', $post_types );
 	}
@@ -171,7 +171,7 @@ class Settings_Sanitize {
 	 * @return string  $value  Sanitized value
 	 */
 	public function sanitize_taxonomies_field( $value ) {
-		$taxonomies = array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
+		$taxonomies = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
 
 		return implode( ',', $taxonomies );
 	}

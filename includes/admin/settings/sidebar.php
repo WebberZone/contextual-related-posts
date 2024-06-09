@@ -45,10 +45,10 @@ use function WebberZone\Contextual_Related_Posts\crp_freemius;
 						<a href="https://wordpress.org/support/plugin/contextual-related-posts/reviews/" target="_blank"><?php esc_html_e( 'Reviews', 'contextual-related-posts' ); ?></a>
 					</li>
 					<li>
-						<a href="https://github.com/ajaydsouza/contextual-related-posts" target="_blank"><?php esc_html_e( 'Github repository', 'contextual-related-posts' ); ?></a>
+						<a href="https://github.com/webberzone/contextual-related-posts" target="_blank"><?php esc_html_e( 'Github repository', 'contextual-related-posts' ); ?></a>
 					</li>
 					<li>
-						<a href="https://ajaydsouza.com/"><?php esc_html_e( "Ajay's blog", 'contextual-related-posts' ); ?></a>
+						<a href="https://ajaydsouza.com/" target="_blank"><?php esc_html_e( "Ajay's blog", 'contextual-related-posts' ); ?></a>
 					</li>
 				</ul>
 			</div>
@@ -80,7 +80,7 @@ use function WebberZone\Contextual_Related_Posts\crp_freemius;
 		<h2 class='hndle'><span><?php esc_html_e( 'Follow us', 'contextual-related-posts' ); ?></span></h2>
 
 		<div class="inside" style="text-align: center">
-		<a href="https://twitter.com/webberzone/" target="_blank"><img src="<?php echo esc_url( CRP_PLUGIN_URL . 'includes/admin/images/x.png' ); ?>" width="100" height="100"></a>
+		<a href="https://x.com/webberzone/" target="_blank"><img src="<?php echo esc_url( CRP_PLUGIN_URL . 'includes/admin/images/x.png' ); ?>" width="100" height="100"></a>
 			<a href="https://facebook.com/webberzone/" target="_blank"><img src="<?php echo esc_url( CRP_PLUGIN_URL . 'includes/admin/images/fb.png' ); ?>" width="100" height="100"></a>
 		</div><!-- /.inside -->
 	</div><!-- /.postbox -->
