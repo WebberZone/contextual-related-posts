@@ -270,7 +270,7 @@ class Tools_Page {
 					'page'            => 'crp_tools_page',
 					'settings_import' => 'success',
 				),
-				admin_url( 'admin.php' )
+				admin_url( 'tools.php' )
 			)
 		);
 		exit;
