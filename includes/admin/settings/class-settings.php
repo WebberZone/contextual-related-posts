@@ -612,7 +612,7 @@ class Settings {
 			'ordering'               => array(
 				'id'      => 'ordering',
 				'name'    => esc_html__( 'Order posts', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Select how you want the related posts to be ordered. Randomly does not work if you have caching enabled.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Select how you want the related posts to be ordered. Randomly will shuffle the related posts and does not work if you have HTML caching enabled.', 'contextual-related-posts' ),
 				'type'    => 'radio',
 				'default' => 'relevance',
 				'options' => self::get_orderings(),
@@ -620,7 +620,7 @@ class Settings {
 			'random_order'           => array(
 				'id'      => 'random_order',
 				'name'    => esc_html__( 'Randomize posts', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'This shuffles the selected related posts. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if Cache HTML output is enabled.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'This shuffles the selected related posts, similar to choosing Randomly in the above option. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if Cache HTML output is enabled.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'options' => false,
 			),
@@ -1097,7 +1097,7 @@ class Settings {
 
 		return array_merge(
 			array(
-				'settings' => '<a href="' . admin_url( 'admin.php?page=' . $this->menu_slug ) . '">' . esc_html__( 'Settings', 'contextual-related-posts' ) . '</a>',
+				'settings' => '<a href="' . admin_url( 'options-general.php?page=' . $this->menu_slug ) . '">' . esc_html__( 'Settings', 'contextual-related-posts' ) . '</a>',
 			),
 			$links
 		);

@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Generates the settings form.
  *
- * @version 2.4.0
+ * @version 2.5.0
  */
 class Settings_Form {
 
@@ -325,7 +325,7 @@ class Settings_Form {
 		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
 
 		if ( ! empty( $args['options'] ) ) {
-			$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, $args['id'] );
+			$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, sanitize_key( $args['id'] ) );
 
 			foreach ( $args['options'] as $key => $option ) {
 				if ( isset( $value[ $key ] ) ) {
@@ -578,6 +578,8 @@ class Settings_Form {
 
 		$posts_types_inc = array_intersect( wp_list_pluck( $wp_post_types, 'name' ), $post_types );
 
+		$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, sanitize_key( $args['id'] ) );
+
 		foreach ( $wp_post_types as $wp_post_type ) {
 
 			$html .= sprintf(
@@ -625,6 +627,8 @@ class Settings_Form {
 		$wp_taxonomies = get_taxonomies( $argsc, $output, $operator );
 
 		$taxonomies_inc = array_intersect( wp_list_pluck( (array) $wp_taxonomies, 'name' ), $taxonomies );
+
+		$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, sanitize_key( $args['id'] ) );
 
 		foreach ( $wp_taxonomies as $wp_taxonomy ) {
 
