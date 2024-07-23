@@ -99,7 +99,7 @@ class Tools_Page {
 					<input type="button" name="cache_clear" id="cache_clear"  value="<?php esc_attr_e( 'Clear cache', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="return crpClearCache();" />
 				</p>
 				<p class="description">
-				<?php esc_html_e( 'Clear the Contextual Related Posts cache. This will also be cleared automatically when you save the settings page.', 'contextual-related-posts' ); ?>
+				<?php esc_html_e( 'Clear the Contextual Related Posts cache. This might take a while if you have a lot of posts.', 'contextual-related-posts' ); ?>
 				</p>
 
 				<h2 style="padding-left:0px"><?php esc_html_e( 'Recreate Indices', 'contextual-related-posts' ); ?></h2>
