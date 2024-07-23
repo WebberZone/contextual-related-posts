@@ -221,15 +221,20 @@ class CRP {
 		// Save post meta into a class-wide variable.
 		$this->crp_post_meta = get_post_meta( $source_post->ID, 'crp_post_meta', true );
 
-		if ( ! isset( $args['manual_related'] ) ) {
+		// Handle manual_related argument.
+		if ( isset( $args['manual_related'] ) ) {
+			$this->manual_related = ( 0 === (int) $args['manual_related'] ) ? array() : wp_parse_id_list( $args['manual_related'] );
+		} else {
 			$args['manual_related'] = ! empty( $this->crp_post_meta['manual_related'] ) ? $this->crp_post_meta['manual_related'] : '';
 			$this->manual_related   = wp_parse_id_list( $args['manual_related'] );
 		}
 
-		if ( ! empty( $args['include_post_ids'] ) ) {
-			$include_post_ids     = wp_parse_id_list( $args['include_post_ids'] );
+		// Handle include_post_ids argument.
+		if ( isset( $args['include_post_ids'] ) ) {
+			$include_post_ids     = ( 0 === (int) $args['include_post_ids'] ) ? array() : wp_parse_id_list( $args['include_post_ids'] );
 			$this->manual_related = array_merge( $this->manual_related, $include_post_ids );
 		}
+
 		$this->no_of_manual_related = count( $this->manual_related );
 
 		if ( empty( $args['keyword'] ) ) {
@@ -252,7 +257,9 @@ class CRP {
 		if ( empty( $args['post_type'] ) ) {
 
 			// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-			if ( ! empty( $args['post_types'] ) && false === strpos( $args['post_types'], '=' ) ) {
+			if ( ! empty( $args['post_types'] ) && is_array( $args['post_types'] ) ) {
+				$post_types = $args['post_types'];
+			} elseif ( ! empty( $args['post_types'] ) && false === strpos( $args['post_types'], '=' ) ) {
 				$post_types = explode( ',', $args['post_types'] );
 			} else {
 				parse_str( $args['post_types'], $post_types );  // Save post types in $post_types variable.
@@ -283,7 +290,6 @@ class CRP {
 			 * @param array   $args        Arguments array.
 			 */
 			$args['post_type'] = apply_filters( 'crp_posts_post_types', $post_types, $source_post, $args );
-
 		}
 
 		// Tax Query.
@@ -371,8 +377,16 @@ class CRP {
 		$tax_query = apply_filters( 'crp_query_tax_query', $tax_query, $source_post, $args );
 
 		// Add a relation key if more than one $tax_query.
-		if ( count( $tax_query ) > 1 ) {
-			$tax_query['relation'] = 'AND';
+		if ( count( $tax_query ) > 1 && ! isset( $tax_query['relation'] ) ) {
+			/**
+			 * Filter the tax_query relation parameter.
+			 *
+			 * @since 3.5.3
+			 *
+			 * @param string  $relation The logical relationship between each inner taxonomy array when there is more than one. Default is 'AND'.
+			 * @param array   $args     Arguments array.
+			 */
+			$tax_query['relation'] = apply_filters( 'crp_query_tax_query_relation', 'AND', $args );
 		}
 
 		$args['tax_query'] = $tax_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
@@ -539,9 +553,9 @@ class CRP {
 		 * @since 2.9.3 Added $args
 		 * @since 3.0.0 Changed second argument from post ID to WP_Post object.
 		 *
-		 * @param array   $match_fields Array of fields to be matched.
+		 * @param array    $match_fields Array of fields to be matched.
 		 * @param \WP_Post $source_post  Source Post instance.
-		 * @param array   $query_args   Arguments array.
+		 * @param array    $query_args   Arguments array.
 		 */
 		$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $this->source_post, $this->query_args );
 
@@ -633,11 +647,11 @@ class CRP {
 		}
 
 		/**
-		 * Filters the posts_fields of CRP_Query after processing and before returning.
+		 * Filters the fields returned by the SELECT clause.
 		 *
 		 * @since 3.2.0
 		 *
-		 * @param string   $fields The SELECT clause of the query.
+		 * @param string    $fields The fields returned by the SELECT clause.
 		 * @param \WP_Query $query  The WP_Query instance.
 		 */
 		$fields = apply_filters( 'crp_query_posts_fields', $fields, $query );
@@ -972,6 +986,7 @@ class CRP {
 					'orderby'     => 'post__in',
 					'numberposts' => $query->get( 'posts_per_page' ),
 					'post_type'   => $query->get( 'post_type' ),
+					'post_status' => $query->get( 'post_status' ),
 				)
 			);
 			$query->found_posts   = count( $posts );
@@ -1075,6 +1090,7 @@ class CRP {
 					'orderby'     => 'post__in',
 					'numberposts' => -1,
 					'post_type'   => 'any',
+					'post_status' => $query->get( 'post_status' ),
 				)
 			);
 			$posts       = array_merge( $extra_posts, $posts );
@@ -1085,7 +1101,7 @@ class CRP {
 		 *
 		 * @since 3.2.0
 		 *
-		 * @param bool      $fill_random_posts Fill random posts flag. Default false.
+		 * @param bool       $fill_random_posts Fill random posts flag. Default false.
 		 * @param \WP_Post[] $posts             Array of post objects.
 		 * @param \WP_Query  $query             The WP_Query instance.
 		 */
@@ -1100,13 +1116,12 @@ class CRP {
 						'orderby'     => 'rand',
 						'numberposts' => $no_of_random_posts,
 						'post_type'   => $query->get( 'post_type' ),
+						'post_status' => $query->get( 'post_status' ),
 					)
 				);
 				$posts        = array_merge( $posts, $random_posts );
 			}
 		}
-
-		remove_filter( 'the_posts', array( $this, 'the_posts' ) );
 
 		/**
 		 * Filter array of WP_Post objects before it is returned to the CRP_Query instance.
@@ -1118,7 +1133,11 @@ class CRP {
 		 * @param array     $args  Arguments array.
 		 * @param \WP_Query  $query The WP_Query instance.
 		 */
-		return apply_filters( 'crp_query_the_posts', $posts, $this->query_args, $query );
+		$posts = apply_filters( 'crp_query_the_posts', $posts, $this->query_args, $query );
+
+		remove_filter( 'the_posts', array( $this, 'the_posts' ) );
+
+		return $posts;
 	}
 
 	/**

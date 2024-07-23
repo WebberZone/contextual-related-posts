@@ -45,6 +45,7 @@ class Shortcodes {
 			'include_post_ids'  => '',
 			'related_meta_keys' => '',
 			'include_words'     => '',
+			'manual_related'    => '',
 		);
 
 		/**
