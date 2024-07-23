@@ -2,9 +2,9 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 3.5.2
-Requires at least: 6.2
-Tested up to: 6.5
+Stable tag: 3.5.3
+Requires at least: 6.3
+Tested up to: 6.6
 Requires PHP: 7.4
 License: GPLv2 or later
 
@@ -153,9 +153,25 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
-= 3.5.2 =
+= 3.5.3 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-5-0/](https://webberzone.com/announcements/contextual-related-posts-v3-5-0/)
+
+* Modifications:
+    * Updated Freemius SDK to 2.7.3
+    * Updated Contextual Related Posts block apiVersion to 3
+    * Increase background opacity for the Rounded Thumbs style's post title for better readability
+
+* Fixes:
+    * Allow `manual_related` attribute in shortcode
+    * Correctly handle manual_related and include_post_ids arguments when set to 0. Ensure manual_related is set to an empty array when 0 is passed.
+    * Correctly check if `relation` attribute is set for meta_query and tax_query
+    * Fixed links to settings and tools page in the admin area
+    * Pass `post_status` when using `get_posts()`
+    * Remove `the_posts` filter in CRP_Query
+    * [Pro] Fixed bug in the Query Loop where custom post types didn't appear in the dropdown
+
+= 3.5.2 =
 
 * Modifications:
     * [Pro] If "Only from" same category/tag/taxonomy is enabled, the plugin will sort results by the number of matched taxonomies first, therby optimising the related posts further. The free version will continue to sort by date
@@ -200,5 +216,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.5.2 =
-Major release. Please read the release post for more details. New Pro version available with additional features.
+= 3.5.3 =
+Multiple bugs fixed. Please upgrade to this version.
