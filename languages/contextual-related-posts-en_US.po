@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-09 20:24+0100\n"
+"POT-Creation-Date: 2024-07-23 20:01+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -321,14 +321,14 @@ msgid "Visit the Settings page"
 msgstr ""
 
 #: includes/admin/class-tools-page.php:97
-#: includes/admin/class-tools-page.php:99
+#: includes/admin/class-tools-page.php:99 includes/pro/class-pro.php:401
 msgid "Clear cache"
 msgstr ""
 
 #: includes/admin/class-tools-page.php:102
 msgid ""
-"Clear the Contextual Related Posts cache. This will also be cleared "
-"automatically when you save the settings page."
+"Clear the Contextual Related Posts cache. This might take a while if you "
+"have a lot of posts."
 msgstr ""
 
 #: includes/admin/class-tools-page.php:105
@@ -1393,18 +1393,18 @@ msgstr ""
 msgid "Follow us"
 msgstr ""
 
-#: includes/class-main.php:243
+#: includes/class-main.php:255
 msgid ""
-"Contextual Related Posts and Contextual Related Posts Pro should not be "
+"Contextual Related Posts and Contextual Related Posts PRO should not be "
 "active at the same time. We've automatically deactivated Contextual Related "
 "Posts."
 msgstr ""
 
-#: includes/class-main.php:245
+#: includes/class-main.php:257
 msgid ""
-"Contextual Related Posts and Contextual Related Posts Pro should not be "
+"Contextual Related Posts and Contextual Related Posts PRO should not be "
 "active at the same time. We've automatically deactivated Contextual Related "
-"Posts Pro."
+"Posts PRO."
 msgstr ""
 
 #: includes/frontend/blocks/class-blocks.php:85
@@ -1449,10 +1449,12 @@ msgstr ""
 
 #: includes/frontend/blocks/related-posts/src/edit.js:176
 #: includes/frontend/widgets/class-related-posts-widget.php:95
+#: includes/pro/blocks/src/query/components/post-offset-controls.js:13
 msgid "Offset"
 msgstr ""
 
 #: includes/frontend/blocks/related-posts/src/edit.js:182
+#: includes/pro/blocks/src/query/components/post-offset-controls.js:25
 msgid "Number of posts to skip from the top"
 msgstr ""
 
@@ -1593,6 +1595,7 @@ msgid "Display Related Posts"
 msgstr ""
 
 #: includes/frontend/widgets/class-related-posts-widget.php:85
+#: includes/pro/blocks/src/query/components/post-order-controls.js:30
 msgid "Title"
 msgstr ""
 
@@ -1638,6 +1641,191 @@ msgstr ""
 
 #: includes/frontend/widgets/class-related-posts-widget.php:151
 msgid "Only from categories (comma-separated list of term taxonomy IDs)"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-grid-posts.php:9
+msgctxt "Block pattern title"
+msgid "Related Posts Grid"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-grid-posts.php:10
+msgid ""
+"Display a grid of posts. The default layout includes the post title, excerpt "
+"and date"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-grid-posts.php:16
+msgid "Related Posts:"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-grid-thumb-posts.php:9
+msgctxt "Block pattern title"
+msgid "Related Posts in a Thumbnail Grid"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-grid-thumb-posts.php:10
+msgid "Display a grid of post thumbnails and titles."
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-image-title-excerpt.php:9
+msgctxt "Block pattern title"
+msgid "Related Posts: Image, Title, Excerpt"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-image-title-excerpt.php:10
+msgid ""
+"Display a list of related posts with image, title and excerpt in a single "
+"column."
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-left-thumbnail.php:9
+msgctxt "Block pattern title"
+msgid "Related Posts: Left Thumbnails"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-left-thumbnail.php:12
+msgid ""
+"Display a small image on the left and the post title, date and excerpt of "
+"related posts on the right in a two column format. Stacks on mobile."
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-rounded-thumbs.php:9
+msgctxt "Block pattern title"
+msgid "Rounded Thumbs"
+msgstr ""
+
+#: includes/pro/blocks/block-patterns/query-rounded-thumbs.php:10
+msgid "Display a grid of featured post rounded thumbnails."
+msgstr ""
+
+#: includes/pro/blocks/class-query.php:287
+msgctxt "Block pattern category"
+msgid "Related Posts"
+msgstr ""
+
+#: includes/pro/blocks/class-query.php:288
+msgid "Display your related posts in lists, grids or other layouts."
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/include-posts-controls.js:28
+msgid "Enter Post IDs"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/include-posts-controls.js:32
+msgid "Enter a comma-separated list of post IDs."
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-count-controls.js:18
+msgid "Number of Posts"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-control.js:67
+msgid "Start typing to search for a meta key."
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-control.js:72
+msgid "Meta Key"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-control.js:100
+#: includes/pro/blocks/src/query/components/post-order-controls.js:42
+msgid "Meta Value"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-control.js:120
+msgid "Meta Compare"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-control.js:164
+msgid "Remove meta query"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:63
+msgid "Post Meta Query"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:68
+msgid "Query Relationship"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:94
+msgid "Add a meta query to select post meta to query"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:149
+msgid "Add meta query"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:18
+msgid "Relevance"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:22
+msgid "Date"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:26
+msgid "Last Modified Date"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:34
+msgid "Author"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:38
+msgid "Random"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:46
+msgid "Meta Value Num"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:50
+msgid "Menu Order"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:54
+msgid "Post ID"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:62
+msgid "Order By"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:67
+msgid ""
+"Meta Value and Meta Value Num require that Meta Key is set in the Meta Query "
+"section."
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-order-controls.js:83
+msgid "Ascending Order"
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-type-controls.js:26
+msgid "These post types will be queried for related posts."
+msgstr ""
+
+#: includes/pro/blocks/src/query/components/post-type-controls.js:31
+msgid "Post Types"
+msgstr ""
+
+#: includes/pro/blocks/src/query/controls.js:81
+msgid "CRP Query Settings"
+msgstr ""
+
+#: includes/pro/blocks/src/query/index.js:19
+msgid "Contextual Related Posts Query Loop"
+msgstr ""
+
+#: includes/pro/blocks/src/query/index.js:23
+msgid ""
+"An advanced Contextual Related Posts block that allows displaying the "
+"related posts with a fully customizable layout"
+msgstr ""
+
+#: includes/pro/class-pro.php:237
+msgid "Only from categories (comma-separated list of term taxonomy IDs):"
 msgstr ""
 
 #: includes/util/class-cache.php:50
