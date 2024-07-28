@@ -42,10 +42,10 @@ class Shortcodes {
 			'is_shortcode'      => 1,
 			'offset'            => 0,
 			'include_cat_ids'   => '',
-			'include_post_ids'  => '',
+			'include_post_ids'  => null,
 			'related_meta_keys' => '',
 			'include_words'     => '',
-			'manual_related'    => '',
+			'manual_related'    => null,
 		);
 
 		/**
