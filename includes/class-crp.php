@@ -181,7 +181,7 @@ class CRP {
 
 		$defaults = array(
 			'include_cat_ids'  => 0,
-			'include_post_ids' => 0,
+			'include_post_ids' => null,
 			'offset'           => 0,
 			'postid'           => false,
 			'strict_limit'     => true,
