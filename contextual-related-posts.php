@@ -15,7 +15,7 @@
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates
- * Version:     3.5.4-beta1
+ * Version:     3.5.4
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 2.9.3
  */
 if ( ! defined( 'CRP_VERSION' ) ) {
-	define( 'CRP_VERSION', '3.5.3' );
+	define( 'CRP_VERSION', '3.5.4' );
 }
 
 
