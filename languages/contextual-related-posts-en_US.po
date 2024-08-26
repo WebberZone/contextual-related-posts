@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-23 20:01+0100\n"
+"POT-Creation-Date: 2024-08-26 13:22+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -412,11 +412,11 @@ msgstr ""
 msgid "The callback function used for the %1$s setting is missing."
 msgstr ""
 
-#: includes/admin/settings/class-settings-form.php:474
+#: includes/admin/settings/class-settings-form.php:476
 msgid "cropped"
 msgstr ""
 
-#: includes/admin/settings/class-settings-form.php:692
+#: includes/admin/settings/class-settings-form.php:694
 msgid "Choose File"
 msgstr ""
 
