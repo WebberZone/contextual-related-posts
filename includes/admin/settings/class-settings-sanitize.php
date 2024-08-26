@@ -155,7 +155,7 @@ class Settings_Sanitize {
 	/**
 	 * Sanitize post_types fields
 	 *
-	 * @param  array $value The field value.
+	 * @param  array|int $value The field value.
 	 * @return string  $value  Sanitized value
 	 */
 	public function sanitize_posttypes_field( $value ) {
@@ -167,7 +167,7 @@ class Settings_Sanitize {
 	/**
 	 * Sanitize post_types fields
 	 *
-	 * @param  array $value The field value.
+	 * @param  array|int $value The field value.
 	 * @return string  $value  Sanitized value
 	 */
 	public function sanitize_taxonomies_field( $value ) {
