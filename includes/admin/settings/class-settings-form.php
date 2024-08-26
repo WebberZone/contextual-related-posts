@@ -304,7 +304,7 @@ class Settings_Form {
 			$checked,
 			$disabled
 		);
-		$html .= ( (bool) $value !== (bool) $default ) ? '<em style="color:orange">' . $this->checkbox_modified_text . '</em>' : '';
+		$html .= ( (bool) $value !== (bool) $default ) ? '<em style="color:#9B0800">' . $this->checkbox_modified_text . '</em>' : '';
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
@@ -369,15 +369,17 @@ class Settings_Form {
 	public function callback_radio( $args ) {
 		$html = '';
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		foreach ( $args['options'] as $key => $option ) {
 			$html .= sprintf(
-				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s /> ',
+				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s %5$s /> ',
 				$this->settings_key,
 				sanitize_key( $args['id'] ),
 				$key,
-				checked( $value, $key, false )
+				checked( $value, $key, false ),
+				$disabled
 			);
 			$html .= sprintf(
 				'<label for="%1$s[%2$s][%3$s]">%4$s</label> <br />',

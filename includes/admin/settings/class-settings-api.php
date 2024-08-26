@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.5.0
+ * @version 2.5.1
  */
 #[\AllowDynamicProperties]
 class Settings_API {
@@ -31,7 +31,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	const VERSION = '2.5.0';
+	const VERSION = '2.5.1';
 
 	/**
 	 * Settings Key.
@@ -549,7 +549,14 @@ class Settings_API {
 		}
 
 		// Register the settings into the options table.
-		register_setting( $settings_key, $settings_key, array( $this, 'settings_sanitize' ) );
+		register_setting(
+			$settings_key,
+			$settings_key,
+			array(
+				'sanitize_callback' => array( $this, 'settings_sanitize' ),
+				'show_in_rest'      => true,
+			)
+		);
 	}
 
 	/**
