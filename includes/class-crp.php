@@ -153,6 +153,7 @@ class CRP {
 		add_filter( 'posts_join', array( $this, 'posts_join' ), 10, 2 );
 		add_filter( 'posts_where', array( $this, 'posts_where' ), 10, 2 );
 		add_filter( 'posts_orderby', array( $this, 'posts_orderby' ), 10, 2 );
+		add_filter( 'posts_groupby', array( $this, 'posts_groupby' ), 10, 2 );
 		add_filter( 'posts_request', array( $this, 'posts_request' ), 10, 2 );
 		add_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ), 10, 2 );
 		add_filter( 'the_posts', array( $this, 'the_posts' ), 10, 2 );
@@ -514,7 +515,7 @@ class CRP {
 		 * @param \WP_Post  $source_post Source Post instance.
 		 * @param array     $query_args  Arguments array.
 		 */
-		$match = apply_filters( 'crp_pre_get_match_sql', '', $this->source_post, $this->query_args );
+		$match = apply_filters( 'crp_query_pre_get_match_sql', '', $this->source_post, $this->query_args );
 
 		if ( ! empty( $match ) ) {
 			return $match;
@@ -889,6 +890,36 @@ class CRP {
 		remove_filter( 'posts_orderby', array( $this, 'posts_orderby' ) );
 
 		return $orderby;
+	}
+
+	/**
+	 * Modify the posts_groupby clause.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string   $groupby  The GROUP BY clause of the query.
+	 * @param WP_Query $query    The WP_Query instance.
+	 * @return string  Updated GROUP BY
+	 */
+	public function posts_groupby( $groupby, $query ) {
+
+		if ( true !== $query->get( 'crp_query' ) ) {
+			return $groupby;
+		}
+
+		/**
+		 * Filters the GROUP BY clause of the CRP_Query.
+		 *
+		 * @since 3.0.0
+		 *
+		 * @param string    $groupby The GROUP BY clause of the query.
+		 * @param \WP_Query $query   The WP_Query instance.
+		 */
+		$groupby = apply_filters_ref_array( 'crp_query_posts_groupby', array( $groupby, &$this ) );
+
+		remove_filter( 'posts_groupby', array( $this, 'posts_groupby' ) );
+
+		return $groupby;
 	}
 
 	/**
