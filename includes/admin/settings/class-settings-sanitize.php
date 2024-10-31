@@ -262,6 +262,7 @@ class Settings_Sanitize {
 				if ( isset( $matches[3] ) ) {
 					$term = get_term_by( 'term_taxonomy_id', $matches[3] );
 				} else {
+					// Fallback to fetching the category as this was the original format.
 					$term = get_term_by( 'name', $slug, 'category' );
 				}
 				if ( isset( $term->term_taxonomy_id ) ) {
