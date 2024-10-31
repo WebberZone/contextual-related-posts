@@ -37,6 +37,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			add_filter( 'posts_join', array( $crp, 'posts_join' ), 10, 2 );
 			add_filter( 'posts_where', array( $crp, 'posts_where' ), 10, 2 );
 			add_filter( 'posts_orderby', array( $crp, 'posts_orderby' ), 10, 2 );
+			add_filter( 'posts_groupby', array( $crp, 'posts_groupby' ), 10, 2 );
 			add_filter( 'posts_request', array( $crp, 'posts_request' ), 10, 2 );
 			add_filter( 'posts_pre_query', array( $crp, 'posts_pre_query' ), 10, 2 );
 			add_filter( 'the_posts', array( $crp, 'the_posts' ), 10, 2 );
@@ -49,6 +50,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 			remove_filter( 'posts_join', array( $crp, 'posts_join' ) );
 			remove_filter( 'posts_where', array( $crp, 'posts_where' ) );
 			remove_filter( 'posts_orderby', array( $crp, 'posts_orderby' ) );
+			remove_filter( 'posts_groupby', array( $crp, 'posts_groupby' ) );
 			remove_filter( 'posts_request', array( $crp, 'posts_request' ) );
 			remove_filter( 'posts_pre_query', array( $crp, 'posts_pre_query' ) );
 			remove_filter( 'the_posts', array( $crp, 'the_posts' ) );
