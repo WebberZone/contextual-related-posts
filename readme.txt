@@ -155,7 +155,9 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 = 3.5.5 =
 
-* Updated Freemius SDK to 2.9.0
+* Updated Freemius SDK to 2.9.0.
+* Added: Filter `crp_query_posts_groupby` to allow filtering of the GROUP BY clause in the SQL query.
+* Renamed: `crp_query_pre_get_match_sql` from `crp_pre_get_match_sql`.
 
 = 3.5.4 =
 
