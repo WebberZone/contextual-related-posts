@@ -2,9 +2,9 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 3.5.4
+Stable tag: 3.5.5
 Requires at least: 6.3
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
 License: GPLv2 or later
 
@@ -153,6 +153,10 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
+= 3.5.5 =
+
+* Updated Freemius SDK to 2.9.0
+
 = 3.5.4 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-5-0/](https://webberzone.com/announcements/contextual-related-posts-v3-5-0/)
@@ -221,5 +225,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.5.4 =
-Bugs squished. Please upgrade to this version.
+= 3.5.5 =
+Freemius SDK updated. Please upgrade to this version.
