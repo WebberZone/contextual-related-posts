@@ -25,7 +25,7 @@ class Language_Handler {
 	 * @since 3.5.0
 	 */
 	public function __construct() {
-		add_action( 'plugins_loaded', array( $this, 'load_plugin_textdomain' ) );
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'crp_query_the_posts', array( $this, 'translate_ids' ), 999 );
 	}
 
