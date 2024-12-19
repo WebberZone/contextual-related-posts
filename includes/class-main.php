@@ -128,9 +128,9 @@ final class Main {
 		add_action( 'init', array( $this, 'initiate_plugin' ) );
 		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
-		add_filter( 'the_content', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
-		add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
-		add_filter( 'the_content_feed', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority' ) );
+		add_filter( 'the_content', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
+		add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
+		add_filter( 'the_content_feed', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
 		add_action( 'parse_query', array( $this, 'parse_query' ) );
 		add_action(
 			'activated_plugin',
