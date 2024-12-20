@@ -1,7 +1,7 @@
 {
     "name": "webberzone/contextual-related-posts",
     "description": "Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!",
-    "version": "3.5.0",
+    "version": "3.6.0",
     "type": "wordpress-plugin",
     "keywords": [
         "related posts",
@@ -19,19 +19,19 @@
             "role": "Developer"
         }
     ],
-    "requires": {
+    "require": {
         "php": ">=7.4"
     },
     "require-dev": {
-        "szepeviktor/phpstan-wordpress": "^1.3",
-        "phpstan/extension-installer": "^1.3",
-        "phpstan/phpstan": "^1.10",
-        "php-stubs/wordpress-stubs": "^6.2",
-        "wp-coding-standards/wpcs": "^2.3",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
-        "phpcompatibility/phpcompatibility-wp": "^2.1",
-        "yoast/phpunit-polyfills": "^1.0",
-        "phpunit/phpunit": "^5.7.21 || ^6.5 || ^7.5"
+        "szepeviktor/phpstan-wordpress": "^1",
+        "phpstan/extension-installer": "^1",
+        "phpstan/phpstan": "^1",
+        "php-stubs/wordpress-stubs": "^6",
+        "wp-coding-standards/wpcs": "^3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1",
+        "phpcompatibility/phpcompatibility-wp": "^2",
+        "yoast/phpunit-polyfills": "^3",
+        "phpunit/phpunit": "^5.7.21 || ^6.5 || ^7.5 || ^8"
     },
     "config": {
         "allow-plugins": {
