@@ -35,11 +35,11 @@
         "wpml-config.xml"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.3.0",
+        "@wordpress/prettier-config": "^4.14.0",
         "@wordpress/scripts": "^27"
     },
     "dependencies": {
-        "@wordpress/icons": "^10.3.0",
-        "uuid": "^10.0.0"
+        "@wordpress/icons": "^10.14.0",
+        "uuid": "^11.0.3"
     }
 }
