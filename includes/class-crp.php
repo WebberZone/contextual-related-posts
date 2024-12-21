@@ -897,8 +897,8 @@ class CRP {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string   $groupby  The GROUP BY clause of the query.
-	 * @param WP_Query $query    The WP_Query instance.
+	 * @param string    $groupby  The GROUP BY clause of the query.
+	 * @param \WP_Query $query    The WP_Query instance.
 	 * @return string  Updated GROUP BY
 	 */
 	public function posts_groupby( $groupby, $query ) {
