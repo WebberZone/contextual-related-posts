@@ -9,6 +9,7 @@
 namespace WebberZone\Contextual_Related_Posts\Frontend\Blocks;
 
 use WebberZone\Contextual_Related_Posts\Frontend\Styles_Handler;
+use WebberZone\Contextual_Related_Posts\Admin\Settings\Settings;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -77,16 +78,21 @@ class Blocks {
 	 */
 	public static function render_block_related_posts( $attributes ) {
 
-		$attributes['extra_class'] = esc_attr( $attributes['className'] );
+		$attributes['extra_class'] = isset( $attributes['className'] ) ? esc_attr( $attributes['className'] ) : '';
 
-		$arguments = array_merge(
-			$attributes,
+		$defaults = array_merge(
+			\crp_settings_defaults(),
+			\crp_get_settings(),
 			array(
 				'is_block' => 1,
 			)
 		);
 
-		$arguments = wp_parse_args( $attributes['other_attributes'], $arguments );
+		$arguments = wp_parse_args( $attributes, $defaults );
+
+		if ( isset( $attributes['other_attributes'] ) ) {
+			$arguments = wp_parse_args( $attributes['other_attributes'], $arguments );
+		}
 
 		/**
 		 * Filters arguments passed to get_crp for the block.
@@ -97,6 +103,23 @@ class Blocks {
 		 * @param array $attributes Block attributes array.
 		 */
 		$arguments = apply_filters( 'crp_block_options', $arguments, $attributes );
+
+		// Enqueue the stylesheet for the selected style for this block.
+		$style_array = Styles_Handler::get_style( $arguments['crp_styles'] );
+
+		if ( ! empty( $style_array['name'] ) ) {
+			$style     = $style_array['name'];
+			$extra_css = $style_array['extra_css'];
+
+			wp_register_style(
+				"crp-style-{$style}",
+				plugins_url( "css/{$style}.min.css", CRP_PLUGIN_FILE ),
+				array(),
+				CRP_VERSION
+			);
+			wp_enqueue_style( "crp-style-{$style}" );
+			wp_add_inline_style( "crp-style-{$style}", $extra_css );
+		}
 
 		$output          = get_crp( $arguments );
 		$is_empty_output = empty( wp_strip_all_tags( $output ) );
@@ -121,20 +144,30 @@ class Blocks {
 	 */
 	public static function enqueue_block_editor_assets() {
 
-		$style_array = Styles_Handler::get_style();
+		$styles      = Settings::get_styles();
 		$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		if ( ! empty( $style_array['name'] ) ) {
-			$style     = $style_array['name'];
-			$extra_css = $style_array['extra_css'];
+		foreach ( $styles as $style ) {
 
-			wp_enqueue_style(
-				'related-posts-block-editor',
-				plugins_url( "css/{$style}{$file_prefix}.css", CRP_PLUGIN_FILE ),
-				array( 'wp-edit-blocks' ),
-				CRP_VERSION
-			);
-			wp_add_inline_style( 'related-posts-block-editor', $extra_css );
+			$style_array = Styles_Handler::get_style( $style['id'] );
+
+			if ( ! empty( $style_array['name'] ) ) {
+				$style     = $style_array['name'];
+				$extra_css = $style_array['extra_css'];
+
+				$pro = '';
+				if ( false !== strpos( $style, '-pro' ) ) {
+					$pro = 'pro/';
+				}
+
+				wp_enqueue_style(
+					"crp-block-editor-{$style}",
+					plugins_url( "css/{$pro}{$style}{$file_prefix}.css", CRP_PLUGIN_FILE ),
+					array( 'wp-edit-blocks' ),
+					CRP_VERSION
+				);
+				wp_add_inline_style( "crp-block-editor-{$style}", $extra_css );
+			}
 		}
 	}
 }

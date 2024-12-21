@@ -40,6 +40,9 @@
     "show_date": {
       "type": "boolean"
     },
+    "crp_styles": {
+      "type": "string"
+    },
     "post_thumb_op": {
       "type": "string"
     },
