@@ -108,7 +108,7 @@ class Helpers {
 		if ( 0 === $count ) {
 			return $input;
 		}
-		if ( mb_strlen( $output ) > $count && $count > 0 ) {
+		if ( mb_strlen( $output ) > $count ) {
 			$count -= min( $count, mb_strlen( $more ) );
 			if ( ! $break_words ) {
 				$output = preg_replace( '/\s+?(\S+)?$/u', '', mb_substr( $output, 0, $count + 1 ) );
