@@ -1,4 +1,4 @@
-=== Contextual Related Posts ===
+=== Contextual Related Posts Pro ===
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
@@ -156,6 +156,12 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 == Changelog ==
 
 = 3.6.0 =
+
+* Features:
+    * [Pro] New block: Contextual Related Posts Featured Image is an advanced featured image block that falls back to the first image, meta key, or a default image if no featured image is set.
+	* [Pro] Related Posts block now includes:
+		* Buttons to save and clear default block settings.
+		* Auto-insertion of default and global settings attributes, with an option to disable this in the **List tuning** tab.
 
 * Modifications:
     * Updated Freemius SDK to 2.10.1

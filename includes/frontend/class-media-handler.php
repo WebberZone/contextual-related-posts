@@ -83,16 +83,19 @@ class Media_Handler {
 	 * @return string  Image tag
 	 */
 	public static function get_the_post_thumbnail( $args = array() ) {
+		$get_option_callback = self::$prefix . '_get_option';
 
 		$defaults = array(
 			'post'               => '',
 			'size'               => 'thumbnail',
 			'thumb_meta'         => 'post-image',
 			'thumb_html'         => 'html',
-			'thumb_default'      => '',
+			'thumb_default'      => call_user_func( $get_option_callback, 'thumb_default', '' ),
 			'thumb_default_show' => true,
 			'scan_images'        => true,
+			'use_site_icon'      => true,
 			'class'              => self::$prefix . '_thumb',
+			'style'              => '',
 		);
 
 		// Parse incomming $args into an array and merge it with $defaults.
@@ -128,8 +131,8 @@ class Media_Handler {
 
 			$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
 			if ( false !== $postthumb ) {
-				list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
-				$pick .= 'correct';
+				$postimage = $postthumb[0];
+				$pick     .= 'correct';
 			}
 		}
 
@@ -140,8 +143,8 @@ class Media_Handler {
 
 				$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
 				if ( false !== $postthumb ) {
-					list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
-					$pick = 'featured';
+					$postimage = $postthumb[0];
+					$pick      = 'featured';
 				}
 			}
 			$pick = 'featured';
@@ -172,8 +175,8 @@ class Media_Handler {
 
 				$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
 				if ( false !== $postthumb ) {
-					list( $postimage, $args['thumb_width'], $args['thumb_height'] ) = $postthumb;
-					$pick .= 'correct';
+					$postimage = $postthumb[0];
+					$pick     .= 'correct';
 				}
 			}
 		}
@@ -191,18 +194,27 @@ class Media_Handler {
 		}
 
 		// If no thumb found and settings permit, use default thumb.
-		if ( ! $postimage && $args['thumb_default_show'] ) {
+		if ( ! $postimage && $args['thumb_default_show'] && $args['thumb_default'] ) {
 			$postimage = $args['thumb_default'];
 			$pick      = 'default_thumb';
+
+			if ( Display::get_default_thumbnail() !== $postimage ) {
+				$attachment_id = self::get_attachment_id_from_url( $postimage );
+				$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+				if ( false !== $postthumb ) {
+					$postimage = $postthumb[0];
+					$pick     .= 'correct';
+				}
+			}
 		}
 
 		// If no thumb found, use site icon.
-		if ( ! $postimage ) {
+		if ( ! $postimage && $args['use_site_icon'] ) {
 			$postimage = get_site_icon_url( max( $args['thumb_width'], $args['thumb_height'] ) );
 			$pick      = 'site_icon_max';
 		}
 
-		if ( ! $postimage ) {
+		if ( ! $postimage && $args['use_site_icon'] ) {
 			$postimage = get_site_icon_url( min( $args['thumb_width'], $args['thumb_height'] ) );
 			$pick      = 'site_icon_min';
 		}
@@ -267,6 +279,15 @@ class Media_Handler {
 			}
 
 			/**
+			 * Filters the thumbnail styles attribute.
+			 *
+			 * @since 3.6.0
+			 *
+			 * @param string $styles Thumbnail styles
+			 */
+			$attr['style'] = apply_filters( self::$prefix . '_thumb_styles', $args['style'] );
+
+			/**
 			 * Filters the thumbnail classes and allows a filter function to add any more classes if needed.
 			 *
 			 * @since 2.2.2
@@ -325,36 +346,61 @@ class Media_Handler {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param string $attachment_url    Image URL.
-	 * @param array  $attr              Attributes for the image markup.
-	 * @param int    $attachment_id     Attachment ID.
+	 * @param string       $attachment_url    Image URL.
+	 * @param array        $attr              Attributes for the image markup.
+	 * @param int          $attachment_id     Attachment ID.
+	 * @param string|int[] $size              Image size.
 	 * @return string HTML img element or empty string on failure.
 	 */
-	public static function get_image_html( $attachment_url, $attr = array(), $attachment_id = 0 ) {
-		$get_option_callback = self::$prefix . '_get_option';
+	public static function get_image_html( $attachment_url, $attr = array(), $attachment_id = 0, $size = '' ) {
+		// If there is an attachment ID, use wp_get_attachment_image().
+		if ( $attachment_id ) {
+			unset( $attr['thumb_html'], $attr['thumb_width'], $attr['thumb_height'] );
+			return wp_get_attachment_image( $attachment_id, $size, false, $attr );
+		}
 
-		// If there is no url, return.
-		if ( ! $attachment_url ) { // phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+		// If there is no URL, return an empty string.
+		if ( empty( $attachment_url ) ) {
 			return '';
 		}
 
+		$get_option_callback = self::$prefix . '_get_option';
+
+		// Define default attributes.
 		$default_attr = array(
 			'src'          => $attachment_url,
 			'thumb_html'   => call_user_func( $get_option_callback, 'thumb_html', 'html' ),
 			'thumb_width'  => call_user_func( $get_option_callback, 'thumb_width', 150 ),
 			'thumb_height' => call_user_func( $get_option_callback, 'thumb_height', 150 ),
+			'class'        => "attachment-$size size-$size",
 		);
 
+		// Merge default attributes with provided attributes.
 		$attr = wp_parse_args( $attr, $default_attr );
 
+		// Generate width and height string.
 		$hwstring = self::get_image_hwstring( $attr );
+
+		// Omit the `decoding` attribute if the value is invalid according to the spec.
+		if ( empty( $attr['decoding'] ) || ! in_array( $attr['decoding'], array( 'async', 'sync', 'auto' ), true ) ) {
+			unset( $attr['decoding'] );
+		}
+
+		/*
+		 * If the default value of `lazy` for the `loading` attribute is overridden
+		 * to omit the attribute for this image, ensure it is not included.
+		 */
+		if ( isset( $attr['loading'] ) && ! $attr['loading'] ) {
+			unset( $attr['loading'] );
+		}
+
+		// If the `fetchpriority` attribute is overridden and set to false or an empty string.
+		if ( isset( $attr['fetchpriority'] ) && ! $attr['fetchpriority'] ) {
+			unset( $attr['fetchpriority'] );
+		}
 
 		// Generate 'srcset' and 'sizes' if not already present.
 		if ( empty( $attr['srcset'] ) ) {
-			if ( ! $attachment_id ) {
-				$attachment_id = self::get_attachment_id_from_url( $attachment_url );
-			}
-
 			$image_meta = wp_get_attachment_metadata( $attachment_id );
 
 			if ( is_array( $image_meta ) ) {
@@ -372,15 +418,13 @@ class Media_Handler {
 			}
 		}
 
-		// Unset attributes we don't want to display.
-		unset( $attr['thumb_html'] );
-		unset( $attr['thumb_width'] );
-		unset( $attr['thumb_height'] );
+		// Unset attributes not needed in the final img tag.
+		unset( $attr['thumb_html'], $attr['thumb_width'], $attr['thumb_height'] );
 
 		/**
 		 * Filters the list of attachment image attributes.
 		 *
-		 * @since 2.7.0
+		 * @since 2.6.0
 		 *
 		 * @param array  $attr Attributes for the image markup.
 		 * @param string $attachment_url Image URL.
@@ -388,12 +432,12 @@ class Media_Handler {
 		$attr = apply_filters( self::$prefix . '_get_image_attributes', $attr, $attachment_url );
 		$attr = array_map( 'esc_attr', $attr );
 
+		// Construct the HTML img tag.
 		$html = '<img ' . $hwstring;
 		foreach ( $attr as $name => $value ) {
-			if ( '' === $value ) {
-				continue;
+			if ( '' !== $value ) {
+				$html .= " $name=\"$value\"";
 			}
-			$html .= " $name=" . '"' . $value . '"';
 		}
 		$html .= ' />';
 

@@ -1,76 +1,91 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 3
-			path: includes/admin/admin.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
+			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
 			count: 1
-			path: includes/admin/default-settings.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 1
-			path: includes/admin/modules/class-bulk-edit.php
+			path: includes/admin/class-admin.php
 
 		-
 			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
 			count: 2
-			path: includes/admin/modules/metabox.php
+			path: includes/admin/class-admin.php
 
 		-
-			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
+			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
 			count: 1
-			path: includes/admin/modules/tools.php
+			path: includes/admin/class-bulk-edit.php
 
 		-
 			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
 			count: 3
-			path: includes/admin/sidebar.php
+			path: includes/admin/class-metabox.php
+
+		-
+			message: "#^Variable \\$menu_page might not be defined\\.$#"
+			count: 1
+			path: includes/admin/settings/class-settings-api.php
+
+		-
+			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
+			count: 4
+			path: includes/admin/settings/class-settings.php
+
+		-
+			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
+			count: 4
+			path: includes/admin/settings/sidebar.php
 
 		-
 			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
-			count: 2
-			path: includes/blocks/register-blocks.php
-
-		-
-			message: "#^Call to function is_int\\(\\) with array will always evaluate to false\\.$#"
 			count: 1
-			path: includes/main-query.php
+			path: includes/autoloader.php
 
 		-
-			message: "#^Variable \\$meta_key might not be defined\\.$#"
-			count: 2
-			path: includes/main-query.php
-
-		-
-			message: "#^Elseif branch is unreachable because previous condition is always true\\.$#"
+			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
 			count: 1
-			path: includes/media.php
-
-		-
-			message: "#^Offset 'thumb_size' on \\*NEVER\\* in isset\\(\\) always exists and is always null\\.$#"
-			count: 1
-			path: includes/media.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: includes/modules/cache.php
-
-		-
-			message: "#^Variable \\$expires in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: includes/modules/cache.php
-
-		-
-			message: "#^Method CRP_Widget\\:\\:form\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: includes/modules/class-crp-widget.php
+			path: includes/frontend/class-display.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
 			count: 1
-			path: includes/tools.php
+			path: includes/frontend/class-display.php
+
+		-
+			message: "#^Variable \\$meta_key might not be defined\\.$#"
+			count: 2
+			path: includes/frontend/class-display.php
+
+		-
+			message: "#^Method WebberZone\\\\Contextual_Related_Posts\\\\Frontend\\\\Widgets\\\\Related_Posts_Widget\\:\\:form\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: includes/frontend/widgets/class-related-posts-widget.php
+
+		-
+			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
+			count: 1
+			path: includes/load-freemius.php
+
+		-
+			message: "#^Function fs_dynamic_init not found\\.$#"
+			count: 1
+			path: includes/load-freemius.php
+
+		-
+			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
+			count: 2
+			path: includes/pro/blocks/class-query.php
+
+		-
+			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
+			count: 2
+			path: includes/pro/blocks/class-query.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: includes/util/class-cache.php
+
+		-
+			message: "#^Variable \\$expires in empty\\(\\) always exists and is not falsy\\.$#"
+			count: 1
+			path: includes/util/class-cache.php
