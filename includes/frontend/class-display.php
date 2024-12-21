@@ -498,6 +498,17 @@ class Display {
 	}
 
 	/**
+	 * Get the default thumbnail.
+	 *
+	 * @since 3.6.0
+	 *
+	 * @return string Default thumbnail.
+	 */
+	public static function get_default_thumbnail() {
+		return CRP_PLUGIN_URL . 'default.png';
+	}
+
+	/**
 	 * Returns the link attributes.
 	 *
 	 * @since 3.5.0
@@ -900,7 +911,7 @@ class Display {
 		}
 
 		// Return if this is an amp page and disable on amp option is enabled.
-		if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() && \crp_get_option( 'disable_on_amp' ) ) {
+		if ( function_exists( 'is_amp_endpoint' ) && \is_amp_endpoint() && \crp_get_option( 'disable_on_amp' ) ) {
 			return $content;
 		}
 

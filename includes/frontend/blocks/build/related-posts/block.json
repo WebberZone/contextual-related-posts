@@ -17,52 +17,40 @@
   },
   "attributes": {
     "className": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     },
     "heading": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "title": {
-      "type": "string",
-      "default": "<h3>Related Posts</h3>"
+      "type": "string"
     },
     "limit": {
-      "type": "string",
-      "default": 6
+      "type": "string"
     },
     "offset": {
-      "type": "string",
-      "default": 0
+      "type": "string"
     },
     "show_excerpt": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "show_author": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "show_date": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "post_thumb_op": {
-      "type": "string",
-      "default": "inline"
+      "type": "string"
     },
     "ordering": {
-      "type": "string",
-      "default": "relevance"
+      "type": "string"
     },
     "random_order": {
-      "type": "boolean",
-      "default": false
+      "type": "boolean"
     },
     "other_attributes": {
-      "type": "string",
-      "default": ""
+      "type": "string"
     }
   },
   "textdomain": "contextual-related-posts",

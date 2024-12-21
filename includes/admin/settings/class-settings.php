@@ -592,6 +592,14 @@ class Settings {
 	 */
 	public static function settings_list() {
 		$settings = array(
+			'use_global_settings'    => array(
+				'id'      => 'use_global_settings',
+				'name'    => esc_html__( 'Use global settings in block', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If activated, the settings from this page are automatically inserted in the Related Posts block. This also applies to existing blocks which do not have any attributes set if the post is edited.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'options' => false,
+				'pro'     => true,
+			),
 			'limit'                  => array(
 				'id'      => 'limit',
 				'name'    => esc_html__( 'Number of posts to display', 'contextual-related-posts' ),
