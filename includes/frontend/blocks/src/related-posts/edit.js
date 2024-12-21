@@ -2,20 +2,19 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { select } from '@wordpress/data';
 import ServerSideRender from '@wordpress/server-side-render';
+import { applyFilters } from '@wordpress/hooks';
 import {
 	Disabled,
-	TextareaControl,
 	PanelBody,
-	PanelRow,
 	Placeholder,
 } from '@wordpress/components';
 
 import { postIcon } from './components/icons';
-import { HeadingControls } from './components/HeadingControls';
-import { PostDisplayControls } from './components/PostDisplayControls';
-import { PostLimitControls } from './components/PostLimitControls';
-import { OrderingControls } from './components/OrderingControls';
-import { ThumbnailControls } from './components/ThumbnailControls';
+import { HeadingControls } from './components/heading-controls';
+import { PostDisplayControls } from './components/post-display-controls';
+import { PostLimitControls } from './components/post-limit-controls';
+import { OrderingControls } from './components/ordering-controls';
+import { OtherAttributesControl } from './components/other-attributes-control';
 
 export default function Edit({ attributes, setAttributes }) {
 	const editor = select('core/editor');
@@ -45,14 +44,12 @@ export default function Edit({ attributes, setAttributes }) {
 						onChangeTitle={handleChange('title')}
 						toggleHeading={handleToggle('heading')}
 					/>
-
 					<PostLimitControls
 						limit={attributes.limit}
 						offset={attributes.offset}
 						onChangeLimit={handleChange('limit')}
 						onChangeOffset={handleChange('offset')}
 					/>
-
 					<PostDisplayControls
 						show_excerpt={attributes.show_excerpt}
 						show_author={attributes.show_author}
@@ -61,12 +58,6 @@ export default function Edit({ attributes, setAttributes }) {
 						toggleShowAuthor={handleToggle('show_author')}
 						toggleShowDate={handleToggle('show_date')}
 					/>
-
-					<ThumbnailControls
-						post_thumb_op={attributes.post_thumb_op}
-						onChangeThumbnail={handleChange('post_thumb_op')}
-					/>
-
 					<OrderingControls
 						ordering={attributes.ordering}
 						random_order={attributes.random_order}
@@ -74,20 +65,17 @@ export default function Edit({ attributes, setAttributes }) {
 						toggleRandomOrder={handleToggle('random_order')}
 					/>
 
-					<PanelRow>
-						<TextareaControl
-							label={__(
-								'Other attributes',
-								'contextual-related-posts'
-							)}
-							value={attributes.other_attributes}
-							onChange={handleChange('other_attributes')}
-							help={__(
-								'Enter other attributes in a URL-style string-query. e.g. post_types=post,page&link_nofollow=1&exclude_post_ids=5,6',
-								'contextual-related-posts'
-							)}
-						/>
-					</PanelRow>
+					{applyFilters(
+						'crp-edit-inspector-controls',
+						'',
+						attributes,
+						setAttributes
+					)}
+
+					<OtherAttributesControl
+						value={attributes.other_attributes}
+						onChange={handleChange('other_attributes')}
+					/>
 				</PanelBody>
 			</InspectorControls>
 
