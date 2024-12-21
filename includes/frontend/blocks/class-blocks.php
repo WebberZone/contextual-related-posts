@@ -8,6 +8,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Frontend\Blocks;
 
+use WebberZone\Contextual_Related_Posts\Frontend\Styles_Handler;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -35,14 +37,34 @@ class Blocks {
 	 * @since 3.5.0
 	 */
 	public function register_blocks() {
-		// Register Popular Posts block.
-		register_block_type_from_metadata(
-			CRP_PLUGIN_DIR . 'includes/frontend/blocks/related-posts/',
-			array(
-				'render_callback' => array( __CLASS__, 'render_block' ),
-			)
+		// Define an array of blocks with their paths and optional render callbacks.
+		$blocks = array(
+			'related-posts' => array(
+				'path'            => __DIR__ . '/build/related-posts/',
+				'render_callback' => array( $this, 'render_block_related_posts' ),
+			),
 		);
-	}
+
+		/**
+		 * Filters the blocks registered by the plugin.
+		 *
+		 * @since 3.6.0
+		 *
+		 * @param array $blocks Array of blocks registered by the plugin.
+		 */
+		$blocks = apply_filters( 'crp_register_blocks', $blocks );
+
+		// Loop through each block and register it.
+		foreach ( $blocks as $block_name => $block_data ) {
+			$args = array();
+
+			// If a render callback is provided, add it to the args.
+			if ( isset( $block_data['render_callback'] ) ) {
+				$args['render_callback'] = $block_data['render_callback'];
+			}
+
+			register_block_type( $block_data['path'], $args );
+		}   }
 
 
 	/**
@@ -53,7 +75,7 @@ class Blocks {
 	 *
 	 * @return string Returns the post content with popular posts added.
 	 */
-	public static function render_block( $attributes ) {
+	public static function render_block_related_posts( $attributes ) {
 
 		$attributes['extra_class'] = esc_attr( $attributes['className'] );
 
@@ -99,7 +121,7 @@ class Blocks {
 	 */
 	public static function enqueue_block_editor_assets() {
 
-		$style_array = \WebberZone\Contextual_Related_Posts\Frontend\Styles_Handler::get_style();
+		$style_array = Styles_Handler::get_style();
 		$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 		if ( ! empty( $style_array['name'] ) ) {
@@ -110,7 +132,7 @@ class Blocks {
 				'related-posts-block-editor',
 				plugins_url( "css/{$style}{$file_prefix}.css", CRP_PLUGIN_FILE ),
 				array( 'wp-edit-blocks' ),
-				filemtime( CRP_PLUGIN_DIR . "css/{$style}{$file_prefix}.css" )
+				CRP_VERSION
 			);
 			wp_add_inline_style( 'related-posts-block-editor', $extra_css );
 		}

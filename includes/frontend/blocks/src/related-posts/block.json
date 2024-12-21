@@ -2,11 +2,11 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "contextual-related-posts/related-posts",
-	"version": "2.0.0",
+	"version": "2.6.0",
 	"title": "Contextual Related Posts",
 	"category": "widgets",
 	"icon": "list-view",
-	"keywords": [ "related posts", "posts", "contextual" ],
+	"keywords": ["related posts", "posts", "contextual"],
 	"description": "Display the Related Posts",
 	"supports": {
 		"html": false
@@ -62,5 +62,5 @@
 		}
 	},
 	"textdomain": "contextual-related-posts",
-	"editorScript": "file:./build/index.js"
+	"editorScript": "file:./index.js"
 }
