@@ -16,6 +16,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 function crp_freemius() {
 	global $crp_freemius;
 	if ( ! isset( $crp_freemius ) ) {
+		// Activate multisite network integration.
+		if ( ! defined( 'WP_FS__PRODUCT_15040_MULTISITE' ) ) {
+			define( 'WP_FS__PRODUCT_15040_MULTISITE', true );
+		}
+
 		// Include Freemius SDK.
 		require_once CRP_PLUGIN_DIR . 'freemius/start.php';
 		$crp_freemius = \fs_dynamic_init(
