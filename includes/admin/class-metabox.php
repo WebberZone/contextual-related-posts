@@ -132,6 +132,15 @@ class Metabox {
 		// Exclude terms.
 		$exclude_words = isset( $post_meta['exclude_words'] ) ? $post_meta['exclude_words'] : '';
 
+		/**
+		 * Filter the relevance of manual related posts.
+		 *
+		 * @since 3.6.0
+		 *
+		 * @param int $manual_related_relevance Search for related posts using relevance or not. Default 1.
+		 */
+		$manual_related_relevance = apply_filters( 'crp_meta_box_manual_related_relevance', 1 );
+
 		?>
 	<p>
 		<label for="crp_disable_here"><strong><?php esc_html_e( 'Disable Related Posts display:', 'contextual-related-posts' ); ?></strong></label>
@@ -161,7 +170,7 @@ class Metabox {
 
 	<p>
 		<label for="manual_related"><strong><?php esc_html_e( 'Manual related posts:', 'contextual-related-posts' ); ?></strong></label>
-		<input type="text" id="crp-manual-related" name="manual-related-posts" value="" class="widefat" placeholder="<?php esc_attr_e( 'Start typing to find related posts', 'contextual-related-posts' ); ?>" />
+		<input type="text" id="crp-manual-related" name="manual-related-posts" value="" class="widefat" placeholder="<?php esc_attr_e( 'Start typing to find related posts', 'contextual-related-posts' ); ?>" data-wp-relevance="<?php echo absint( $manual_related_relevance ); ?>" />
 		<input type="hidden" id="crp-manual-related-csv" name="manual_related" value="<?php echo esc_attr( $manual_related ); ?>" class="widefat" />
 	</p>
 	<ul id="crp-post-list">
@@ -365,25 +374,42 @@ class Metabox {
 
 		$search_term      = isset( $_POST['search_term'] ) ? sanitize_text_field( wp_unslash( $_POST['search_term'] ) ) : '';
 		$postid           = isset( $_POST['postid'] ) ? absint( $_POST['postid'] ) : 0;
-		$exclude_post_ids = isset( $_POST['exclude_post_ids'] ) ? wp_parse_id_list( wp_unslash( $_POST['exclude_post_ids'] ) ) : '';
+		$exclude_post_ids = isset( $_POST['exclude_post_ids'] ) ? wp_parse_id_list( wp_unslash( $_POST['exclude_post_ids'] ) ) : array();
+		$relevance        = isset( $_POST['relevance'] ) ? (bool) $_POST['relevance'] : true;
+
 		if ( empty( $search_term ) || empty( $postid ) ) {
 			wp_send_json_error();
 		}
 
-		$args = array(
-			'postid'           => $postid,
-			'posts_per_page'   => 7,
-			'keyword'          => $search_term,
-			'exclude_post_ids' => $exclude_post_ids,
-			'manual_related'   => 0,
-			'include_words'    => $search_term,
-			'match_content'    => false,
-		);
-		if ( is_numeric( $search_term ) ) {
-			$args['include_post_ids'] = array( $search_term );
+		if ( ! $relevance ) {
+			$args = array(
+				'post_type'      => 'post',
+				'post_status'    => 'publish',
+				'posts_per_page' => 7,
+				's'              => $search_term,
+				'post__not_in'   => array_merge( array( $postid ), $exclude_post_ids ),
+			);
+			if ( is_numeric( $search_term ) ) {
+				$args['p'] = absint( $search_term );
+				unset( $args['s'] );
+			}
+			$posts = get_posts( $args );
+		} else {
+			$args = array(
+				'postid'           => $postid,
+				'posts_per_page'   => 7,
+				'keyword'          => $search_term,
+				'exclude_post_ids' => $exclude_post_ids,
+				'manual_related'   => 0,
+				'include_words'    => $search_term,
+				'match_content'    => false,
+			);
+			if ( is_numeric( $search_term ) ) {
+				$args['include_post_ids'] = array( $search_term );
+			}
+			$posts = \get_crp_posts( $args );
 		}
 
-		$posts  = \get_crp_posts( $args );
 		$result = array();
 		foreach ( $posts as $post ) {
 			$result[] = array(
@@ -391,6 +417,7 @@ class Metabox {
 				'title' => sprintf( '%1$s (%2$s)', $post->post_title, $post->ID ),
 			);
 		}
+
 		echo wp_json_encode( $result );
 		wp_die();
 	}
