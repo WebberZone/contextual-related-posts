@@ -8,9 +8,10 @@ export const OtherAttributesControl = ({ value, onChange }) => (
 			value={value}
 			onChange={onChange}
 			help={__(
-				'Enter other attributes in a URL-style string-query. e.g. post_types=post,page&link_nofollow=1&exclude_post_ids=5,6',
+				'Enter other attributes in a URL-style string-query. e.g. post_types=post,page&exclude_post_ids=5,6',
 				'contextual-related-posts'
 			)}
+			style={{ width: '100%' }}
 		/>
 	</PanelRow>
 );
