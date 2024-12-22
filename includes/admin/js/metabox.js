@@ -12,6 +12,7 @@ jQuery(document).ready(function ($) {
             ajaxAction: 'crp_get_posts_action',
             postList: '#crp-post-list',
             hiddenField: '#crp-manual-related-csv',
+            relevance: 1,
         };
 
         // Get the AJAX action and delete it from the options object
@@ -24,6 +25,7 @@ jQuery(document).ready(function ($) {
         delete (options.postList);
         const hiddenField = options.hiddenField ? $(options.hiddenField) : $(defaults.hiddenField);
         delete (options.hiddenField);
+        const relevance = options.relevance || $element.attr('data-wp-relevance') || defaults.relevance;
 
         // Get the post IDs from the hidden field
         function getManualRelatedIDs() {
@@ -62,7 +64,8 @@ jQuery(document).ready(function ($) {
                         search_term: request.term,
                         crp_get_posts_nonce: crp_metabox.nonce,
                         postid: postid,
-                        exclude_post_ids: getManualRelatedIDs()
+                        exclude_post_ids: getManualRelatedIDs(),
+                        relevance: relevance
                     }
                 }).done(function (data) {
                     // Map the response data to an array of post titles
