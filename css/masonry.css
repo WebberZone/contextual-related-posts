@@ -118,12 +118,12 @@
 	display: inline;
 }
 
-.crp_author, .crp_date, .crp_excerpt {
+.crp_related.crp-masonry .crp_author, .crp_related.crp-masonry .crp_date, .crp_related.crp-masonry .crp_excerpt {
 	display: block;
 	font-size: 0.9em;
 }
 
-.crp_title {
+.crp_related.crp-masonry .crp_title {
 	display: block;
 	margin: .25em 0;
 	color: #666;

@@ -167,6 +167,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
     * The "Manual related posts" field in the meta box can now be customized to perform searches without relevance. To disable relevance in searches, use the filter `crp_meta_box_manual_related_relevance` with the following code: `add_filter('crp_meta_box_manual_related_relevance', '__return_false');`.
     * Contextual Related Posts Block's Other attributes moved to Advanced panel.
     * Show admin notices when the Style is set to "Rounded Thumbnails", "Rounded Thumbnails with Grid", or "Text Only" in the Settings page. A notice will appear below the affected settings, indicating that these options cannot be modified.
+    * Updated "Rounded Thumbnails" style's post title line height to 1.1em and removed the padding.
     * Updated Freemius SDK to 2.10.1.
 
 * Bug fixes:
