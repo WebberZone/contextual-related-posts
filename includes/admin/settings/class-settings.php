@@ -1243,10 +1243,14 @@ class Settings {
 			if ( 'inline' !== $settings['post_thumb_op'] && 'thumbs_only' !== $settings['post_thumb_op'] ) {
 				$settings['post_thumb_op'] = 'inline';
 			}
+
+			add_settings_error( $this->prefix . '-notices', '', 'Note: Display of the author, excerpt and date has been disabled as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'updated' );
 		}
 		// Overwrite settings if text_only thumbnail style is selected.
 		if ( 'text_only' === $settings['crp_styles'] ) {
 			$settings['post_thumb_op'] = 'text_only';
+
+			add_settings_error( $this->prefix . '-notices', '', 'Note: Thumbnail location set to Text Only as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'updated' );
 		}
 
 		// Force thumb_width and thumb_height if either are zero.
@@ -1433,6 +1437,24 @@ class Settings {
 	public static function after_setting_output( $output, $args ) {
 		if ( isset( $args['pro'] ) && $args['pro'] ) {
 			$output .= '<a class="crp_button crp_button_gold" target="_blank" href="https://webberzone.com/plugins/contextual-related-posts/pro/" title="' . esc_attr__( 'Upgrade to Pro', 'contextual-related-posts' ) . '">' . esc_html__( 'Upgrade to Pro', 'contextual-related-posts' ) . '</a>';
+		}
+
+		// If $args['id'] is show_excerpt, show_author, show_date and global $crp_settings['crp_styles'] is rounded_thumbs or thumbs_grid then display a notice saying these can't be changed and the style can be changed in the Styles tab.
+		if ( in_array( $args['id'], array( 'show_excerpt', 'show_author', 'show_date' ), true ) ) {
+			global $crp_settings;
+			if ( in_array( $crp_settings['crp_styles'], array( 'rounded_thumbs', 'thumbs_grid' ), true ) ) {
+				$output .= '<p class="description" style="color:#9B0800;">' . esc_html__( 'Note: This setting cannot be changed as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'contextual-related-posts' ) . '</p>';
+			}
+		}
+
+		if ( in_array( $args['id'], array( 'post_thumb_op' ), true ) ) {
+			global $crp_settings;
+			if ( in_array( $crp_settings['crp_styles'], array( 'text_only' ), true ) ) {
+				$output .= '<p class="description" style="color:#9B0800;">' . esc_html__( 'Note: This setting cannot be changed as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'contextual-related-posts' ) . '</p>';
+			}
+			if ( in_array( $crp_settings['crp_styles'], array( 'rounded_thumbs', 'thumbs_grid' ), true ) ) {
+				$output .= '<p class="description" style="color:#9B0800;">' . esc_html__( 'Note: This setting cannot be changed as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'contextual-related-posts' ) . '</p>';
+			}
 		}
 
 		return $output;
