@@ -1,4 +1,4 @@
-=== Contextual Related Posts Pro ===
+=== Contextual Related Posts ===
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
@@ -164,6 +164,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 		* Auto-insertion of default and global settings attributes, with an option to disable this in the **List tuning** tab.
 
 * Modifications:
+    * Show admin notices when the Style is set to "Rounded Thumbnails", "Rounded Thumbnails with Grid", or "Text Only" in the Settings page. A notice will appear below the affected settings, indicating that these options cannot be modified.
     * Updated Freemius SDK to 2.10.1
 
 * Bug fixes:
