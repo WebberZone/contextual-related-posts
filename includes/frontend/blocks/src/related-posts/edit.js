@@ -72,11 +72,14 @@ export default function Edit({ attributes, setAttributes }) {
 						setAttributes
 					)}
 
-					<OtherAttributesControl
-						value={attributes.other_attributes}
-						onChange={handleChange('other_attributes')}
-					/>
 				</PanelBody>
+
+			</InspectorControls>
+			<InspectorControls group="advanced">
+				<OtherAttributesControl
+					value={attributes.other_attributes}
+					onChange={handleChange('other_attributes')}
+				/>
 			</InspectorControls>
 
 			<div {...useBlockProps()}>
