@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 3.5.5
+Stable tag: 3.6.0
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -157,6 +157,8 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 = 3.6.0 =
 
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-6-0/](https://webberzone.com/announcements/contextual-related-posts-v3-6-0/)
+
 * Features:
     * [Pro] New block: Contextual Related Posts Featured Image is an advanced featured image block that falls back to the first image, meta key, or a default image if no featured image is set.
 	* [Pro] Related Posts block now includes:
@@ -246,5 +248,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.5.5 =
-Freemius SDK updated. Please upgrade to this version.
+= 3.6.0 =
+New features and enhancements in this release. Please read the changelog for more details.

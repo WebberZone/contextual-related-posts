@@ -15,14 +15,13 @@
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.
- * Version:     3.6.0-beta1
+ * Version:     3.6.0
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: contextual-related-posts
  * Domain Path: /languages
- * GitHub Plugin URI: https://github.com/WebberZone/contextual-related-posts/
  */
 
 namespace WebberZone\Contextual_Related_Posts;
@@ -97,10 +96,10 @@ if ( ! defined( 'CRP_DB_VERSION' ) ) {
 }
 
 // Load Freemius.
-require_once CRP_PLUGIN_DIR . 'includes/load-freemius.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/load-freemius.php';
 
 // Load the autoloader.
-require_once CRP_PLUGIN_DIR . 'includes/autoloader.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/autoloader.php';
 
 if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
 	/**
@@ -119,9 +118,9 @@ if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
  * Include files
  *----------------------------------------------------------------------------
  */
-require_once CRP_PLUGIN_DIR . 'includes/options-api.php';
-require_once CRP_PLUGIN_DIR . 'includes/class-crp-query.php';
-require_once CRP_PLUGIN_DIR . 'includes/functions.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/options-api.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-crp-query.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/functions.php';
 
 // Register activation hook.
 register_activation_hook( __FILE__, __NAMESPACE__ . '\Admin\Activator::activation_hook' );
