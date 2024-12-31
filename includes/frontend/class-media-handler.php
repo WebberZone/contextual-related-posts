@@ -318,7 +318,7 @@ class Media_Handler {
 			$attr['thumb_width']  = $args['thumb_width'];
 			$attr['thumb_height'] = $args['thumb_height'];
 
-			$output .= self::get_image_html( $postimage, $attr, $attachment_id );
+			$output .= self::get_image_html( $postimage, $attr, $attachment_id, $args['size'] );
 
 			if ( function_exists( 'wp_img_tag_add_srcset_and_sizes_attr' ) && ! empty( $attachment_id ) ) {
 				$output = \wp_img_tag_add_srcset_and_sizes_attr( $output, self::$prefix . '_thumbnail', $attachment_id );

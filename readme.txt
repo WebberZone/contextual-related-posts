@@ -155,6 +155,10 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
+= 3.6.1 =
+
+* Bug fix: Corrected thumbnail images to return the specified image size instead of the full size.
+
 = 3.6.0 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-6-0/](https://webberzone.com/announcements/contextual-related-posts-v3-6-0/)
