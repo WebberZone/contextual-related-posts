@@ -39,7 +39,7 @@ function crp_freemius() {
 					'contact' => false,
 					'support' => false,
 					'parent'  => array(
-						'slug' => 'options-general.php',
+						'slug' => is_multisite() ? 'admin.php' : 'options-general.php',
 					),
 				),
 				'is_live'        => true,
