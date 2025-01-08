@@ -140,7 +140,7 @@ class Styles_Handler {
 				break;
 
 			case 'thumbs_grid':
-				$row_height = max( 0, $thumb_height - 50 );
+				$row_height = max( 0, (int) $thumb_height - 50 );
 
 				$style_array['name']      = 'thumbs-grid';
 				$style_array['extra_css'] = "
