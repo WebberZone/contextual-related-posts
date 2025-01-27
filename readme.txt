@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 3.6.1
+Stable tag: 3.6.2
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -155,6 +155,13 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
+= 3.6.2 =
+
+* Bug fixes:
+    * Fixed upgrade link in WordPress multisite.
+    * Fix type casting for row height calculation in thumbs_grid style in Styles Handler class.
+    * Updated Freemius SDK to v2.11.0.
+
 = 3.6.1 =
 
 * Bug fix: Corrected thumbnail images to return the specified image size instead of the full size.
@@ -252,5 +259,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 3.6.1 =
-New features and enhancements in this release. Please read the changelog for more details.
+= 3.6.2 =
+Bug fixes in this release. Please read the changelog for more details.
