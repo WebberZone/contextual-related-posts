@@ -29,15 +29,15 @@ jobs:
       - name: Create artifact
         uses: montudor/action-zip@v1
         with:
-          args: zip -X -r build/contextual-related-posts.zip . -x *.git* node_modules/\* .* "*/\.*" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md *.dist *.yml *.neon composer.* dev-helpers** build** wporg-assets** phpunit**
+          args: zip -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md *.dist *.yml *.neon composer.* package.json dev-helpers** build** wporg-assets** phpunit**
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-            name: contextual-related-posts
-            path: build/contextual-related-posts.zip
+          name: ${{ github.event.repository.name }}
+          path: build/${{ github.event.repository.name }}.zip
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: build/contextual-related-posts.zip application/zip
+          args: build/${{ github.event.repository.name }}.zip application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
