@@ -490,8 +490,8 @@ class CRP {
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param array     $args The arguments of the query.
-		 * @param CRP_Query $query The CRP_Query instance (passed by reference).
+		 * @param array      $args The arguments of the query.
+		 * @param \CRP_Query $query The CRP_Query instance (passed by reference).
 		 */
 		$this->query_args = apply_filters_ref_array( 'crp_query_args', array( $args, &$this ) );
 	}
