@@ -197,9 +197,14 @@ class Cache {
 	 *                  false on failure or if the value passed to the function
 	 *                  is the same as the one that is already in the database.
 	 */
-	public static function set_cache( $post_id, $key, $value, $expiration = CRP_CACHE_TIME ) {
+	public static function set_cache( $post_id, $key, $value, $expiration = 0 ) {
 
 		$expiration = (int) $expiration;
+
+		// If expiration is not set, use the get_cache_time method.
+		if ( 0 === $expiration ) {
+			$expiration = self::get_cache_time( $key, $post_id );
+		}
 
 		/**
 		 * Filters the expiration for a CRP Cache key before its value is set.
@@ -225,6 +230,44 @@ class Cache {
 	}
 
 	/**
+	 * Get the cache time to use.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string $key CRP Cache key.
+	 * @param int    $post_id Post ID.
+	 * @return int Cache time in seconds.
+	 */
+	public static function get_cache_time( $key = '', $post_id = 0 ) {
+		// If CRP_CACHE_TIME is defined and is false, disable caching.
+		if ( defined( 'CRP_CACHE_TIME' ) && false === CRP_CACHE_TIME ) {
+			return 0;
+		}
+
+		// Get default cache time from constant or use MONTH_IN_SECONDS.
+		$default_cache_time = defined( 'CRP_CACHE_TIME' ) ? CRP_CACHE_TIME : MONTH_IN_SECONDS;
+
+		// Get the cache time from settings. This takes priority over the default.
+		$cache_time = \crp_get_option( 'cache_time', $default_cache_time );
+
+		/**
+		 * Filters the expiration for a CRP Cache key before its value is set.
+		 *
+		 * The dynamic portion of the hook name, `$key`, refers to the CRP Cache key.
+		 *
+		 * @since 3.0.0
+		 * @since 4.0.0 Added $cache_time parameter.
+		 *
+		 * @param int    $cache_time Time until expiration in seconds. Use 0 for no expiration.
+		 * @param int    $post_id    Post ID.
+		 * @param string $key        CRP Cache key name.
+		 */
+		$cache_time = empty( $key ) ? $cache_time : apply_filters( "crp_cache_time_{$key}", $cache_time, $post_id, $key );
+
+		return (int) $cache_time;
+	}
+
+	/**
 	 * Get the value of the CRP cache for a post.
 	 *
 	 * @since 3.5.0
@@ -239,7 +282,11 @@ class Cache {
 
 		$value = get_post_meta( $post_id, $meta_key, true );
 
-		if ( ! CRP_CACHE_TIME ) {
+		// Get the cache time.
+		$cache_time = self::get_cache_time( $key, $post_id );
+
+		// If cache time is 0, caching is disabled.
+		if ( 0 === $cache_time ) {
 			return $value;
 		}
 
