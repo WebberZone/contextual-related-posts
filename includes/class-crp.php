@@ -189,6 +189,7 @@ class CRP {
 		);
 		$defaults = array_merge( $defaults, $crp_settings );
 		$args     = wp_parse_args( $args, $defaults );
+		$args     = Helpers::parse_wp_query_arguments( $args );
 
 		// Set necessary variables.
 		$args['crp_query']           = true;

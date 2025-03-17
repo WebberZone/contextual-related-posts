@@ -169,6 +169,9 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 * Features:
     * [Pro] Added MAX_EXECUTION_TIME hint to MySQL queries. You can now set the maximum execution time for CRP queries in the Settings page.
 
+* Enhancements:
+    * Added new `parse_wp_query_arguments` helper method to parse comma-separated list of IDs and convert them to arrays for WP_Query compatibility
+
 = 3.6.2 =
 
 * Bug fixes:
