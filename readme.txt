@@ -41,10 +41,19 @@ With Contextual Related Posts, you can quickly boost your site's traffic, reduce
 
 [CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) enhances your experience with an advanced query block, offering more precise customization options, additional shortcode functionalities, and enhanced meta box settings.
 
-* [Advanced Algorith](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Set the relative weight of the post title, post content and post excerpt. This feature overrides the default equal weight algorithm of the free version and provides a greater degree of fine-tuning.
-* [Query Loop Block](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/#contextual-related-posts-query-loop-block): An advanced block that allows you to display the related posts based on specified parameters. You can use the pre-built block patterns or create your block patterns for use within posts or the site editor.
-* [Extra shortcode parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customize the output of the related posts list.
-* [Additional Metabox settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customize the related posts output for each post.
+* [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Set the relative weight of the post title, post content and post excerpt. This feature overrides the default equal weight algorithm of the free version and provides a greater degree of fine-tuning.
+* [Block Editor Integration](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/):
+    * Query Loop Block with extensive customization.
+    * Pre-built block patterns:
+        * Grid Posts Layout.
+        * Grid with Thumbnails.
+        * Image with Title and Excerpt.
+        * Left-aligned Thumbnail.
+        * Rounded Thumbnails Grid.
+        * Clean Unordered List.
+    * Featured Image Block support.
+* [Extra Shortcode Parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customize the output of the related posts list.
+* [Additional Metabox Settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customize the related posts output for each post.
 
 = mySQL FULLTEXT indices =
 
@@ -154,6 +163,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 6. Default Thumbnail: If enabled, it will use the default thumbnail you specify in the Settings page.
 
 == Changelog ==
+
+= 4.0.0 =
+
+* Features:
+    * [Pro] Added MAX_EXECUTION_TIME hint to MySQL queries. You can now set the maximum execution time for CRP queries in the Settings page.
 
 = 3.6.2 =
 
