@@ -261,4 +261,41 @@ class Helpers {
 
 		return $output;
 	}
+
+	/**
+	 * Parse WP_Query variables to parse comma separated list of IDs and convert them to arrays as needed by WP_Query.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param array $query_vars Defined query variables.
+	 * @return array Complete query variables with undefined ones filled in empty.
+	 */
+	public static function parse_wp_query_arguments( $query_vars ) {
+
+		$array_keys = array(
+			'category__in',
+			'category__not_in',
+			'category__and',
+			'post__in',
+			'post__not_in',
+			'post_name__in',
+			'tag__in',
+			'tag__not_in',
+			'tag__and',
+			'tag_slug__in',
+			'tag_slug__and',
+			'post_parent__in',
+			'post_parent__not_in',
+			'author__in',
+			'author__not_in',
+		);
+
+		foreach ( $array_keys as $key ) {
+			if ( isset( $query_vars[ $key ] ) ) {
+				$query_vars[ $key ] = wp_parse_list( $query_vars[ $key ] );
+			}
+		}
+
+		return $query_vars;
+	}
 }
