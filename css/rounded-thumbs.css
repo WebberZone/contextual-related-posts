@@ -1,6 +1,6 @@
 .crp_related.crp-rounded-thumbs {
 	clear: both;
-	margin: 10px 0;
+	margin: 10px auto;
 }
 
 .crp_related.crp-rounded-thumbs h3, .crp_related.crp-rounded-thumbs figure {
@@ -57,7 +57,7 @@
 	background-color: rgba(0, 0, 0, 0.8);
 	border-radius: 7px;
 	width: 100%;
-	line-height: 1.1em;
+	line-height: 1.4em;
 }
 
 .crp_related.crp-rounded-thumbs li:hover .crp_title {
