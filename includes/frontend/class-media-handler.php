@@ -71,7 +71,7 @@ class Media_Handler {
 	 * @param string|array $args {
 	 *     Optional. Array or string of Query parameters.
 	 *
-	 *     @type int|WP_Post $post               Post ID or WP_Post object.
+	 *     @type int|\WP_Post $post               Post ID or \WP_Post object.
 	 *     @type string      $size               Thumbnail size. Should be a pre-defined image size.
 	 *     @type string      $thumb_meta         Meta field that is used to store the location of default thumbnail image.
 	 *     @type string      $thumb_html         Accepted arguments are `html` or `css`.
@@ -498,12 +498,12 @@ class Media_Handler {
 	 * Get the first child image in the post.
 	 *
 	 * @since   3.5.0
-	 * @param   mixed $postid Post ID.
-	 * @param   int   $thumb_width Thumb width.
-	 * @param   int   $thumb_height Thumb height.
-	 * @return  string  Location of thumbnail
+	 * @param   int|\WP_Post $postid Post ID or WP_Post object.
+	 * @param   int          $thumb_width Thumb width.
+	 * @param   int          $thumb_height Thumb height.
+	 * @return  string       Location of thumbnail.
 	 */
-	public static function get_first_image( $postid, $thumb_width, $thumb_height ) {
+	public static function get_first_image( $postid, int $thumb_width, int $thumb_height ): string {
 		$args = array(
 			'numberposts'    => 1,
 			'order'          => 'ASC',
@@ -515,25 +515,42 @@ class Media_Handler {
 
 		$attachments = get_children( $args );
 
-		if ( $attachments ) {
-			foreach ( $attachments as $attachment ) {
-				$image_attributes = wp_get_attachment_image_src( $attachment->ID, array( $thumb_width, $thumb_height ) ) ? wp_get_attachment_image_src( $attachment->ID, array( $thumb_width, $thumb_height ) ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
+		if ( empty( $attachments ) ) {
+			return '';
+		}
 
+		$attachment = reset( $attachments );
+		$image_size = array( $thumb_width, $thumb_height );
+
+		if ( 0 < $attachment->ID ) {
+			$image_attributes = wp_get_attachment_image_src( $attachment->ID, $image_size );
+
+			if ( empty( $image_attributes ) ) {
+				$image_attributes = wp_get_attachment_image_src( $attachment->ID, 'full' );
+			}
+
+			if ( ! empty( $image_attributes ) ) {
 				/**
-				 * Filters first child attachment from the post.
+				 * Filter the first child image URL.
 				 *
 				 * @since 2.0.0
 				 *
-				 * @param string $image_attributes[0] URL of the image
-				 * @param int    $postid              Post ID
-				 * @param int    $thumb_width         Thumb width
-				 * @param int    $thumb_height        Thumb height
+				 * @param string       $image_url     URL of the image.
+				 * @param int|\WP_Post $postid        Post ID or WP_Post object.
+				 * @param int          $thumb_width   Thumb width.
+				 * @param int          $thumb_height  Thumb height.
 				 */
-				return apply_filters( self::$prefix . '_get_first_image', $image_attributes[0], $postid, $thumb_width, $thumb_height );
+				return apply_filters(
+					self::$prefix . '_get_first_image',
+					$image_attributes[0],
+					$postid,
+					$thumb_width,
+					$thumb_height
+				);
 			}
-		} else {
-			return '';
 		}
+
+		return '';
 	}
 
 
