@@ -51,10 +51,19 @@ With Contextual Related Posts, you can quickly boost your site's traffic, reduce
 
 [CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) enhances your experience with an advanced query block, offering more precise customization options, additional shortcode functionalities, and enhanced meta box settings.
 
-* [Advanced Algorith](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Set the relative weight of the post title, post content and post excerpt. This feature overrides the default equal weight algorithm of the free version and provides a greater degree of fine-tuning.
-* [Query Loop Block](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/#contextual-related-posts-query-loop-block): An advanced block that allows you to display the related posts based on specified parameters. You can use the pre-built block patterns or create your block patterns for use within posts or the site editor.
-* [Extra shortcode parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customize the output of the related posts list.
-* [Additional Metabox settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customize the related posts output for each post.
+* [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Set the relative weight of the post title, post content and post excerpt. This feature overrides the default equal weight algorithm of the free version and provides a greater degree of fine-tuning.
+* [Block Editor Integration](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/):
+  * Query Loop Block with extensive customization.
+  * Pre-built block patterns:
+    * Grid Posts Layout.
+    * Grid with Thumbnails.
+    * Image with Title and Excerpt.
+    * Left-aligned Thumbnail.
+    * Rounded Thumbnails Grid.
+    * Clean Unordered List.
+  * Featured Image Block support.
+* [Extra Shortcode Parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customize the output of the related posts list.
+* [Additional Metabox Settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customize the related posts output for each post.
 
 ### mySQL FULLTEXT indices
 
