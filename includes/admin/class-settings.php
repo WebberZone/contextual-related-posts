@@ -38,7 +38,7 @@ class Settings {
 	 *
 	 * @var string Prefix.
 	 */
-	public static string $prefix;
+	public static string $prefix = 'crp';
 
 	/**
 	 * Settings Key.
@@ -47,7 +47,7 @@ class Settings {
 	 *
 	 * @var string Settings Key.
 	 */
-	public string $settings_key;
+	public string $settings_key = 'crp_settings';
 
 	/**
 	 * The slug name to refer to this menu by (should be unique for this menu).
@@ -56,7 +56,7 @@ class Settings {
 	 *
 	 * @var string Menu slug.
 	 */
-	public string $menu_slug;
+	public string $menu_slug = 'crp_options_page';
 
 	/**
 	 * Main constructor class.
@@ -64,10 +64,6 @@ class Settings {
 	 * @since 3.5.0
 	 */
 	public function __construct() {
-		$this->settings_key = 'crp_settings';
-		self::$prefix       = 'crp';
-		$this->menu_slug    = 'crp_options_page';
-
 		add_action( 'admin_menu', array( $this, 'initialise_settings' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 11, 2 );
 		add_filter( 'plugin_action_links_' . plugin_basename( CRP_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
