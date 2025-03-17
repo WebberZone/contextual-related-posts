@@ -28,7 +28,7 @@ parameters:
 		-
 			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
 			count: 4
-			path: includes/admin/settings/class-settings.php
+			path: includes/admin/class-settings.php
 
 		-
 			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
@@ -59,11 +59,6 @@ parameters:
 			message: "#^Method WebberZone\\\\Contextual_Related_Posts\\\\Frontend\\\\Widgets\\\\Related_Posts_Widget\\:\\:form\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: includes/frontend/widgets/class-related-posts-widget.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
-			count: 1
-			path: includes/load-freemius.php
 
 		-
 			message: "#^Function fs_dynamic_init not found\\.$#"

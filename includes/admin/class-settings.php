@@ -8,7 +8,7 @@
  * @package WebberZone\Contextual_Related_Posts\Admin
  */
 
-namespace WebberZone\Contextual_Related_Posts\Admin\Settings;
+namespace WebberZone\Contextual_Related_Posts\Admin;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -22,87 +22,14 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Settings {
 
-
 	/**
-	 * Admin Dashboard.
+	 * Settings API instance.
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var object Admin Dashboard.
+	 * @var Settings\Settings_API
 	 */
-	public $admin_dashboard;
-
-	/**
-	 * Settings API.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var object Settings API.
-	 */
-	public $settings_api;
-
-	/**
-	 * Statistics table.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var object Statistics table.
-	 */
-	public $statistics;
-
-	/**
-	 * Activator class.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var object Activator class.
-	 */
-	public $activator;
-
-	/**
-	 * Admin Columns.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var object Admin Columns.
-	 */
-	public $admin_columns;
-
-	/**
-	 * Metabox functions.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var object Metabox functions.
-	 */
-	public $metabox;
-
-	/**
-	 * Import Export functions.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var object Import Export functions.
-	 */
-	public $import_export;
-
-	/**
-	 * Tools page.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var object Tools page.
-	 */
-	public $tools_page;
-
-	/**
-	 * Settings Page in Admin area.
-	 *
-	 * @since 3.5.0
-	 *
-	 * @var string Settings Page.
-	 */
-	public $settings_page;
+	public Settings\Settings_API $settings_api;
 
 	/**
 	 * Prefix which is used for creating the unique filters and actions.
@@ -111,7 +38,7 @@ class Settings {
 	 *
 	 * @var string Prefix.
 	 */
-	public static $prefix;
+	public static string $prefix;
 
 	/**
 	 * Settings Key.
@@ -120,7 +47,7 @@ class Settings {
 	 *
 	 * @var string Settings Key.
 	 */
-	public $settings_key;
+	public string $settings_key;
 
 	/**
 	 * The slug name to refer to this menu by (should be unique for this menu).
@@ -129,7 +56,7 @@ class Settings {
 	 *
 	 * @var string Menu slug.
 	 */
-	public $menu_slug;
+	public string $menu_slug;
 
 	/**
 	 * Main constructor class.
@@ -177,7 +104,7 @@ class Settings {
 			'upgraded_settings'   => array(),
 		);
 
-		$this->settings_api = new Settings_API( $this->settings_key, self::$prefix, $args );
+		$this->settings_api = new Settings\Settings_API( $this->settings_key, self::$prefix, $args );
 	}
 
 	/**
@@ -254,7 +181,6 @@ class Settings {
 		 */
 		return apply_filters( self::$prefix . '_settings_sections', $settings_sections );
 	}
-
 
 	/**
 	 * Retrieve the array of plugin settings
@@ -409,7 +335,6 @@ class Settings {
 		 */
 		return apply_filters( self::$prefix . '_settings_general', $settings );
 	}
-
 
 	/**
 	 * Retrieve the array of Output settings
@@ -581,7 +506,6 @@ class Settings {
 		 */
 		return apply_filters( self::$prefix . '_settings_output', $settings );
 	}
-
 
 	/**
 	 * Retrieve the array of List Tuning settings
@@ -787,7 +711,6 @@ class Settings {
 		return apply_filters( self::$prefix . '_settings_list', $settings );
 	}
 
-
 	/**
 	 * Retrieve the array of Thumbnail settings
 	 *
@@ -904,7 +827,6 @@ class Settings {
 		 */
 		return apply_filters( self::$prefix . '_settings_thumbnail', $settings );
 	}
-
 
 	/**
 	 * Retrieve the array of Styles settings
@@ -1202,7 +1124,6 @@ class Settings {
 		return apply_filters( self::$prefix . '_settings_help', $help_tabs );
 	}
 
-
 	/**
 	 * Add footer text on the plugin page.
 	 *
@@ -1229,10 +1150,10 @@ class Settings {
 	public function change_settings_on_save( $settings ) {
 
 		// Sanitize exclude_cat_slugs to save a new entry of exclude_categories.
-		Settings_Sanitize::sanitize_tax_slugs( $settings, 'exclude_cat_slugs', 'exclude_categories' );
+		Settings\Settings_Sanitize::sanitize_tax_slugs( $settings, 'exclude_cat_slugs', 'exclude_categories' );
 
 		// Sanitize exclude_on_cat_slugs to save a new entry of exclude_on_categories.
-		Settings_Sanitize::sanitize_tax_slugs( $settings, 'exclude_on_cat_slugs', 'exclude_on_categories' );
+		Settings\Settings_Sanitize::sanitize_tax_slugs( $settings, 'exclude_on_cat_slugs', 'exclude_on_categories' );
 
 		// Overwrite settings if rounded thumbnail style is selected.
 		if ( 'rounded_thumbs' === $settings['crp_styles'] || 'thumbs_grid' === $settings['crp_styles'] ) {

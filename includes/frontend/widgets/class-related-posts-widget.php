@@ -7,7 +7,7 @@
 
 namespace WebberZone\Contextual_Related_Posts\Frontend\Widgets;
 
-use WebberZone\Contextual_Related_Posts\Admin\Settings\Settings;
+use WebberZone\Contextual_Related_Posts\Admin\Settings;
 use WebberZone\Contextual_Related_Posts\Util\Helpers;
 
 // If this file is called directly, abort.

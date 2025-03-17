@@ -9,7 +9,7 @@
 namespace WebberZone\Contextual_Related_Posts\Frontend\Blocks;
 
 use WebberZone\Contextual_Related_Posts\Frontend\Styles_Handler;
-use WebberZone\Contextual_Related_Posts\Admin\Settings\Settings;
+use WebberZone\Contextual_Related_Posts\Admin\Settings;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;

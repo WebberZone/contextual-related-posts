@@ -15,7 +15,7 @@
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.
- * Version:     3.6.2
+ * Version:     4.0.0-beta1
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 2.9.3
  */
 if ( ! defined( 'CRP_VERSION' ) ) {
-	define( 'CRP_VERSION', '3.6.2' );
+	define( 'CRP_VERSION', '4.0.0-beta1' );
 }
 
 
@@ -95,20 +95,33 @@ if ( ! defined( 'CRP_DB_VERSION' ) ) {
 	define( 'CRP_DB_VERSION', '1.0' );
 }
 
-// Load Freemius.
+// Finally load Freemius integration.
 require_once plugin_dir_path( __FILE__ ) . 'includes/load-freemius.php';
 
-// Load the autoloader.
+// Load custom autoloader.
 require_once plugin_dir_path( __FILE__ ) . 'includes/autoloader.php';
+
+if ( ! function_exists( 'wz_crp' ) ) {
+	/**
+	 * Returns the instance of the Contextual Related Posts main class.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return \WebberZone\Contextual_Related_Posts\Main The Contextual Related Posts Main instance.
+	 */
+	function wz_crp() {
+		return \WebberZone\Contextual_Related_Posts\Main::get_instance();
+	}
+}
 
 if ( ! function_exists( __NAMESPACE__ . '\load' ) ) {
 	/**
-	 * The main function responsible for returning the one true WebberZone Snippetz instance to functions everywhere.
+	 * The main function responsible for returning the one true WebberZone Contextual Related Posts instance to functions everywhere.
 	 *
 	 * @since 3.5.0
 	 */
-	function load() {
-		\WebberZone\Contextual_Related_Posts\Main::get_instance();
+	function load(): void {
+		wz_crp();
 	}
 	add_action( 'plugins_loaded', __NAMESPACE__ . '\load' );
 }
@@ -136,4 +149,4 @@ register_deactivation_hook( __FILE__, __NAMESPACE__ . '\Admin\Activator::deactiv
  * @var array
  */
 global $crp_settings;
-$crp_settings = crp_get_settings();
+$crp_settings = \crp_get_settings();

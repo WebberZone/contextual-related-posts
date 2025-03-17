@@ -46,7 +46,7 @@ class REST_API extends \WP_REST_Controller {
 	public function register_routes() {
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->posts_route,
+			"/{$this->posts_route}",
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_items' ),
@@ -56,7 +56,7 @@ class REST_API extends \WP_REST_Controller {
 		);
 		register_rest_route(
 			$this->namespace,
-			'/' . $this->posts_route . '/(?P<id>[\d]+)',
+			"/{$this->posts_route}/(?P<id>[\d]+)",
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_items' ),
