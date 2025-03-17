@@ -41,6 +41,8 @@
     },
     "scripts": {
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
-        "phpstan-baseline": "vendor/bin/phpstan analyse --generate-baseline --memory-limit=2048M"
+        "phpstan-baseline": "vendor/bin/phpstan analyse --generate-baseline --memory-limit=2048M",
+        "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
+        "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')"
     }
 }

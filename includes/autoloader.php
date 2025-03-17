@@ -1,6 +1,6 @@
 <?php
 /**
- * Autoloads classes from the WebberZone\Snippetz namespace.
+ * Autoloads classes from the WebberZone\Contextual_Related_Posts namespace.
  *
  * @package WebberZone\Contextual_Related_Posts
  */
@@ -10,13 +10,17 @@ namespace WebberZone\Contextual_Related_Posts;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Autoloader for WebberZone\Snippetz classes.
+ * Autoloader for WebberZone\Contextual_Related_Posts classes.
  *
  * @param string $class_name The name of the class to load.
  */
 function autoload( $class_name ) {
 	$namespace         = __NAMESPACE__;
 	$classes_subfolder = 'includes';
+
+	if ( class_exists( $class_name, false ) ) {
+		return;
+	}
 
 	if ( false !== strpos( $class_name, $namespace ) ) {
 		$classes_dir = realpath( CRP_PLUGIN_DIR ) . DIRECTORY_SEPARATOR . $classes_subfolder . DIRECTORY_SEPARATOR;

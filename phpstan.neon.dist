@@ -8,6 +8,6 @@ parameters:
         - includes
     paths:
         - contextual-related-posts.php
-        - uninstall.php
+        - uninstaller.php
         - includes/
     ignoreErrors:

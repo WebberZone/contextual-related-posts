@@ -26,54 +26,54 @@ class Admin {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var object Settings API.
+	 * @var Settings Settings API.
 	 */
-	public $settings;
+	public Settings $settings;
 
 	/**
 	 * Activator class.
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var object Activator class.
+	 * @var Activator Activator class.
 	 */
-	public $activator;
+	public Activator $activator;
 
 	/**
 	 * Metabox functions.
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var object Metabox functions.
+	 * @var Metabox Metabox functions.
 	 */
-	public $metabox;
+	public Metabox $metabox;
 
 	/**
 	 * Tools page.
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var object Tools page.
+	 * @var Tools_Page Tools page.
 	 */
-	public $tools_page;
+	public Tools_Page $tools_page;
 
 	/**
 	 * Cache.
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var object Cache.
+	 * @var Cache Cache.
 	 */
-	public $cache;
+	public Cache $cache;
 
 	/**
 	 * Bulk Edit.
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var object Bulk Edit.
+	 * @var Bulk_Edit Bulk Edit.
 	 */
-	public $bulk_edit;
+	public Bulk_Edit $bulk_edit;
 
 	/**
 	 * Settings Page in Admin area.
@@ -82,7 +82,7 @@ class Admin {
 	 *
 	 * @var string Settings Page.
 	 */
-	public $settings_page;
+	public string $settings_page;
 
 	/**
 	 * Prefix which is used for creating the unique filters and actions.
@@ -91,7 +91,7 @@ class Admin {
 	 *
 	 * @var string Prefix.
 	 */
-	public static $prefix;
+	public static string $prefix;
 
 	/**
 	 * Settings Key.
@@ -100,7 +100,7 @@ class Admin {
 	 *
 	 * @var string Settings Key.
 	 */
-	public $settings_key;
+	public string $settings_key;
 
 	/**
 	 * The slug name to refer to this menu by (should be unique for this menu).
@@ -109,7 +109,7 @@ class Admin {
 	 *
 	 * @var string Menu slug.
 	 */
-	public $menu_slug;
+	public string $menu_slug;
 
 	/**
 	 * Main constructor class.
@@ -120,7 +120,7 @@ class Admin {
 		$this->hooks();
 
 		// Initialise admin classes.
-		$this->settings   = new Settings\Settings();
+		$this->settings   = new Settings();
 		$this->activator  = new Activator();
 		$this->metabox    = new Metabox();
 		$this->tools_page = new Tools_Page();

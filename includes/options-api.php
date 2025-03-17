@@ -183,7 +183,7 @@ function crp_get_registered_settings_types() {
 	$options = array();
 
 	// Populate some default values.
-	foreach ( \WebberZone\Contextual_Related_Posts\Admin\Settings\Settings::get_registered_settings() as $tab => $settings ) {
+	foreach ( \WebberZone\Contextual_Related_Posts\Admin\Settings::get_registered_settings() as $tab => $settings ) {
 		foreach ( $settings as $option ) {
 			$options[ $option['id'] ] = $option['type'];
 		}
@@ -212,7 +212,7 @@ function crp_settings_defaults() {
 	$options = array();
 
 	// Populate some default values.
-	foreach ( \WebberZone\Contextual_Related_Posts\Admin\Settings\Settings::get_registered_settings() as $tab => $settings ) {
+	foreach ( \WebberZone\Contextual_Related_Posts\Admin\Settings::get_registered_settings() as $tab => $settings ) {
 		foreach ( $settings as $option ) {
 			// When checkbox is set to true, set this to 1.
 			if ( 'checkbox' === $option['type'] && ! empty( $option['options'] ) ) {
