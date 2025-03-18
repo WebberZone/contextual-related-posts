@@ -15,6 +15,43 @@
     color: #d63638;
 }
 
+/* Drag and drop styling */
+#crp-post-list {
+    margin-top: 5px;
+}
+
+#crp-post-list li {
+    cursor: move;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #dcdcde;
+    background: #fff;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#crp-post-list li:hover {
+    border-color: #8c8f94;
+}
+
+.crp-drag-handle {
+    color: #787c82;
+    margin-right: 5px;
+    cursor: move;
+}
+
+.crp-drag-handle:hover {
+    color: #2271b1;
+}
+
+.crp-sortable-placeholder {
+    border: 1px dashed #b4b9be;
+    background: #f8f8f8;
+    height: 35px;
+    margin-bottom: 5px;
+}
+
 a.crp_button {
     padding: 10px;
     text-decoration: none;

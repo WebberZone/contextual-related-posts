@@ -178,9 +178,10 @@ class Metabox {
 		if ( ! empty( $manual_related ) ) {
 			foreach ( $manual_related_array as $manual_related_post ) {
 				printf(
-					'<li class="widefat post-%1$d"><button class="ntdelbutton button-link" type="button"></button> %2$s (%1$d)</li>',
+					'<li class="widefat post-%1$d"><span class="crp-drag-handle dashicons dashicons-menu" title="%3$s"></span><button class="ntdelbutton button-link" type="button"></button> %2$s (%1$d)</li>',
 					absint( $manual_related_post ),
-					esc_html( get_the_title( $manual_related_post ) )
+					esc_html( get_the_title( $manual_related_post ) ),
+					esc_attr__( 'Drag to reorder', 'contextual-related-posts' )
 				);
 			}
 		}
@@ -446,7 +447,7 @@ class Metabox {
 			wp_enqueue_script(
 				'crp-admin-metabox',
 				CRP_PLUGIN_URL . "includes/admin/js/metabox{$file_prefix}.js",
-				array( 'jquery', 'jquery-ui-autocomplete' ),
+				array( 'jquery', 'jquery-ui-autocomplete', 'jquery-ui-sortable' ),
 				CRP_VERSION,
 				true
 			);
@@ -460,7 +461,7 @@ class Metabox {
 			wp_enqueue_style(
 				'crp-admin-styles',
 				CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
-				array(),
+				array( 'dashicons' ),
 				CRP_VERSION
 			);
 			wp_enqueue_script(

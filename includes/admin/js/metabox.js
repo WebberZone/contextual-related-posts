@@ -40,6 +40,22 @@ jQuery(document).ready(function ($) {
             return manualRelatedIDs;
         }
 
+        // Update the hidden field with the current order of posts
+        function updateHiddenField() {
+            const manualRelatedIDs = getManualRelatedIDs();
+            hiddenField.val(manualRelatedIDs.join(','));
+        }
+
+        // Initialize sortable functionality
+        postList.sortable({
+            placeholder: 'crp-sortable-placeholder',
+            opacity: 0.7,
+            cursor: 'move',
+            update: function() {
+                updateHiddenField();
+            }
+        }).disableSelection();
+
         // Initialize the autocomplete plugin
         options = $.extend({
             position: {
@@ -110,8 +126,10 @@ jQuery(document).ready(function ($) {
                 // Add the post to the post list
                 const postItem = $('<li>').addClass('widefat post-' + selectedPost.id);
                 const deleteButton = $('<button>').text('').addClass('ntdelbutton button-link').attr('type', 'button');
+                const dragHandle = $('<span>').addClass('crp-drag-handle dashicons dashicons-menu').attr('title', 'Drag to reorder');
 
-                // Add the delete button and post title to the post item
+                // Add the drag handle, delete button and post title to the post item
+                postItem.append(dragHandle);
                 postItem.append(deleteButton);
                 postItem.append(' ');
                 postItem.append(selectedPost.label);
@@ -119,18 +137,8 @@ jQuery(document).ready(function ($) {
                 // Add the post item to the post list
                 postList.append(postItem);
 
-                // Save the selectedPost.id to the hidden input field which is comma-separated and called crp_manual_related. If the field is empty, just add the post ID. If it's not empty, append the post ID to the existing value.
-                const manualRelatedIDs = getManualRelatedIDs();
-                if (manualRelatedIDs.length === 0) {
-                    hiddenField.val(selectedPost.id);
-                } else {
-                    const hiddenFieldValue = hiddenField.val();
-                    if (hiddenFieldValue === '') {
-                        hiddenField.val(selectedPost.id);
-                    } else {
-                        hiddenField.val(hiddenFieldValue + ',' + selectedPost.id);
-                    }
-                }
+                // Update the hidden field with the new list of posts
+                updateHiddenField();
 
                 // Clear the input field
                 inputField.val('');
@@ -154,21 +162,10 @@ jQuery(document).ready(function ($) {
         // Delete a post from the post list when the delete button is clicked. Also remove the post ID from the hidden field.
         postList.on('click', '.ntdelbutton', function () {
             const postItem = $(this).parent();
-            const postID = postItem.attr('class').match(/post-(\d+)/)[1];
             postItem.remove();
 
-            // Get the post IDs from the post list
-            const manualRelatedIDs = getManualRelatedIDs();
-
-            // Remove the post ID from the array
-            const index = manualRelatedIDs.indexOf(postID);
-            if (index > -1) {
-                manualRelatedIDs.splice(index, 1);
-            }
-
-            // Update the hidden field called crp_manual_related
-            hiddenField.val(manualRelatedIDs.join(','));
-
+            // Update the hidden field
+            updateHiddenField();
         });
     };
 
