@@ -22,7 +22,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 3.0.0
  */
-class CRP {
+class CRP_Core_Query {
 
 	/**
 	 * Source Post to find related posts for.
@@ -1220,7 +1220,7 @@ class CRP {
 	 *
 	 * @since 3.4.2
 	 *
-	 * @global wpdb $wpdb WordPress database abstraction object.
+	 * @global \wpdb $wpdb WordPress database abstraction object.
 	 *
 	 * @return string ORDER BY clause.
 	 */

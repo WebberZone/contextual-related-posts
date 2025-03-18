@@ -170,9 +170,10 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
     * [Pro] Added MAX_EXECUTION_TIME hint to MySQL queries. You can now set the maximum execution time for CRP queries in the Settings page.
     * [Pro] New setting to configure cache time for related posts with options ranging from 1 hour to 1 year
 
-* Enhancements:
+* Enhancements/Modifications:
     * Enabled drag-and-drop functionality for reordering manual posts in the Metabox.
-    * Added new `parse_wp_query_arguments` helper method to parse comma-separated list of IDs and convert them to arrays for WP_Query compatibility
+    * Added new `parse_wp_query_arguments` helper method to parse the comma-separated list of IDs and convert them to arrays for WP_Query compatibility
+    * Renamed class CRP() to CRP_Core_Query()
 
 = 3.6.2 =
 

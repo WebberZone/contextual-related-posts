@@ -6,7 +6,7 @@
  * @since 3.0.0
  */
 
-use WebberZone\Contextual_Related_Posts\CRP;
+use WebberZone\Contextual_Related_Posts\CRP_Core_Query;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -30,7 +30,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 		 */
 		public function __construct( $args = array() ) {
 			$args = wp_parse_args( $args, array( 'is_crp_query' => true ) );
-			$crp  = new CRP( $args );
+			$crp  = new CRP_Core_Query( $args );
 
 			add_filter( 'pre_get_posts', array( $crp, 'pre_get_posts' ), 10 );
 			add_filter( 'posts_fields', array( $crp, 'posts_fields' ), 10, 2 );
