@@ -190,7 +190,7 @@ final class Main {
 	 */
 	public function parse_query( \WP_Query $query ): void {
 		if ( true === $query->get( 'crp_query' ) ) {
-			new CRP( $query->query_vars );
+			new CRP_Core_Query( $query->query_vars );
 		}
 	}
 
