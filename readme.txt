@@ -171,6 +171,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
     * [Pro] New setting to configure cache time for related posts with options ranging from 1 hour to 1 year
 
 * Enhancements:
+    * Enabled drag-and-drop functionality for reordering manual posts in the Metabox.
     * Added new `parse_wp_query_arguments` helper method to parse comma-separated list of IDs and convert them to arrays for WP_Query compatibility
 
 = 3.6.2 =
