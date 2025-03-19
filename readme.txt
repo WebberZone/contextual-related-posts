@@ -168,7 +168,12 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 * Features:
     * [Pro] Added MAX_EXECUTION_TIME hint to MySQL queries. You can now set the maximum execution time for CRP queries in the Settings page.
-    * [Pro] New setting to configure cache time for related posts with options ranging from 1 hour to 1 year
+    * [Pro] New setting to configure cache time for related posts with options ranging from 1 hour to 1 year.
+    * [Pro] Added new setting to add tracking parameters to related post URLs. The following UTM parameters will be added:
+        * `utm_source`: `contextual-related-posts`
+        * `utm_medium`: `related-posts`
+        * `utm_campaign`: `crp-plugin`
+        * `utm_content`: `{source-post-id}-to-{target-post-id}`
 
 * Enhancements/Modifications:
     * Enabled drag-and-drop functionality for reordering manual posts in the Metabox.
