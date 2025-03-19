@@ -484,6 +484,14 @@ class Settings {
 				'type'    => 'checkbox',
 				'options' => false,
 			),
+			'track_pixels'          => array(
+				'id'      => 'track_pixels',
+				'name'    => esc_html__( 'Add tracking parameters to URLs', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Adds tracking parameters to the URLs so you can track when they are clicked in Google Analytics.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'options' => false,
+				'pro'     => true,
+			),
 			'exclude_output_header' => array(
 				'id'   => 'exclude_output_header',
 				'name' => '<h3>' . esc_html__( 'Exclusion settings', 'contextual-related-posts' ) . '</h3>',
@@ -568,6 +576,12 @@ class Settings {
 	 */
 	public static function settings_list() {
 		$settings = array(
+			'list_general_header'    => array(
+				'id'   => 'list_general_header',
+				'name' => '<h3>' . esc_html__( 'General List Settings', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'General settings for the related posts list', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
 			'use_global_settings'    => array(
 				'id'      => 'use_global_settings',
 				'name'    => esc_html__( 'Use global settings in block', 'contextual-related-posts' ),
@@ -607,6 +621,12 @@ class Settings {
 				'desc'    => esc_html__( 'This shuffles the selected related posts, similar to choosing Randomly in the above option. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if Cache HTML output is enabled.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'options' => false,
+			),
+			'relevance_header'       => array(
+				'id'   => 'relevance_header',
+				'name' => '<h3>' . esc_html__( 'Relevance Matching', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Settings for content matching and relevance scoring', 'contextual-related-posts' ),
+				'type' => 'header',
 			),
 			'weight_title'           => array(
 				'id'      => 'weight_title',
@@ -655,6 +675,12 @@ class Settings {
 				'min'     => '0',
 				'max'     => CRP_MAX_WORDS,
 			),
+			'post_filter_header'     => array(
+				'id'   => 'post_filter_header',
+				'name' => '<h3>' . esc_html__( 'Post Selection Criteria', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Settings for controlling which posts to include', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
 			'post_types'             => array(
 				'id'      => 'post_types',
 				'name'    => esc_html__( 'Post types to include', 'contextual-related-posts' ),
@@ -675,6 +701,12 @@ class Settings {
 				'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same author of the current post.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'options' => false,
+			),
+			'taxonomy_header'        => array(
+				'id'   => 'taxonomy_header',
+				'name' => '<h3>' . esc_html__( 'Taxonomy & Term Filtering', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Settings for controlling taxonomy and term relationships', 'contextual-related-posts' ),
+				'type' => 'header',
 			),
 			'primary_term'           => array(
 				'id'      => 'primary_term',
@@ -713,6 +745,12 @@ class Settings {
 				'options' => '',
 				'size'    => 'large',
 			),
+			'exclusion_header'       => array(
+				'id'   => 'exclusion_header',
+				'name' => '<h3>' . esc_html__( 'Exclusion Rules', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Settings for excluding posts and terms', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
 			'exclude_post_ids'       => array(
 				'id'      => 'exclude_post_ids',
 				'name'    => esc_html__( 'Post/page IDs to exclude', 'contextual-related-posts' ),
@@ -737,19 +775,40 @@ class Settings {
 				'options'  => '',
 				'readonly' => true,
 			),
+			'advanced_header'        => array(
+				'id'   => 'advanced_header',
+				'name' => '<h3>' . esc_html__( 'Advanced Options', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Advanced settings for contextual matching', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
 			'disable_contextual'     => array(
 				'id'      => 'disable_contextual',
 				'name'    => esc_html__( 'Disable contextual matching', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Selecting this option will turn off contextual matching. This is only useful if you activate the option: "Only from same" from the General tab. Otherwise, you will end up with the same set of related posts on all pages with no relevance.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Select to disable contextual matching. This will disable the content matching described above. You can choose to fallback to just the first X posts from the selected categories mentioned below.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'options' => false,
 			),
 			'disable_contextual_cpt' => array(
-				'id'      => 'disable_contextual_cpt',
-				'name'    => esc_html__( 'Disable contextual matching ONLY on attachments and custom post types', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Applies only if the previous option is checked. Selecting this option will retain contextual matching for posts and pages but disable this on any custom post types.', 'contextual-related-posts' ),
-				'type'    => 'checkbox',
-				'options' => true,
+				'id'          => 'disable_contextual_cpt',
+				'name'        => esc_html__( 'Disable contextual matching ONLY for custom post types', 'contextual-related-posts' ),
+				'desc'        => esc_html__( 'Checking this option will disable contextual matching only for custom post types. For WordPress inbuilt post types, the plugin will continue as per your settings above. If you enable this option, make sure that Manual related posts or Randomize posts are selected above for meaningful results.', 'contextual-related-posts' ),
+				'type'        => 'checkbox',
+				'options'     => false,
+				'field_class' => 'crp_admin_cascading',
+			),
+			'include_words'          => array(
+				'id'      => 'include_words',
+				'name'    => esc_html__( 'Include only posts that contain these words:', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If entered, the related posts will include only posts that contain any of the specified words. Separate words with commas and no spaces. e.g. samsung,apple,nokia', 'contextual-related-posts' ),
+				'type'    => 'csv',
+				'options' => '',
+			),
+			'exclude_words'          => array(
+				'id'      => 'exclude_words',
+				'name'    => esc_html__( 'Exclude posts that contain these words:', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If entered, the related posts will exclude posts that contain any of the specified words. Separate words with commas and no spaces. e.g. samsung,apple,nokia', 'contextual-related-posts' ),
+				'type'    => 'csv',
+				'options' => '',
 			),
 		);
 
