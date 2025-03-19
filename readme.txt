@@ -54,6 +54,9 @@ With Contextual Related Posts, you can quickly boost your site's traffic, reduce
     * Featured Image Block support.
 * [Extra Shortcode Parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customize the output of the related posts list.
 * [Additional Metabox Settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customize the related posts output for each post.
+* [Cornerstone Posts](https://webberzone.com/support/knowledgebase/cornerstone-posts/): Designate cornerstone posts, which are key articles or pages on your site. These cornerstone posts will appear at random positions in the related posts list, ensuring they receive more visibility and help guide your audience to the most important content on your site.
+* [Cache Setting](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/): Configure cache time for related posts with options ranging from 1 hour to 1 year.
+* [Tracking Parameters](https://webberzone.com/support/knowledgebase/tracking-parameters/): Add tracking parameters to related post URLs, including `utm_source`, `utm_medium`, `utm_campaign`, and `utm_content`.
 
 = mySQL FULLTEXT indices =
 
@@ -174,6 +177,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
         * `utm_medium`: `related-posts`
         * `utm_campaign`: `crp-plugin`
         * `utm_content`: `{source-post-id}-to-{target-post-id}`
+    * [Pro] Introduced a feature to designate cornerstone posts, which are key articles or pages on your site. These cornerstone posts will appear at random positions in the related posts list, ensuring they receive more visibility and help guide your audience to the most important content on your site.
 
 * Enhancements/Modifications:
     * Enabled drag-and-drop functionality for reordering manual posts in the Metabox.
