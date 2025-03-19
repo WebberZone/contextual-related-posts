@@ -688,6 +688,14 @@ class Settings {
 				'type'    => 'posttypes',
 				'options' => 'post,page',
 			),
+			'cornerstone_post_ids'   => array(
+				'id'      => 'cornerstone_post_ids',
+				'name'    => esc_html__( 'Cornerstone IDs', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Comma separated list of post/page or custom post type IDs to be used as cornerstone posts. Posts with these IDs will be randomly selected and then included in the list of related posts. Roughly 20% of the related posts will be selected from this list.', 'contextual-related-posts' ),
+				'type'    => 'numbercsv',
+				'options' => '',
+				'pro'     => true,
+			),
 			'same_post_type'         => array(
 				'id'      => 'same_post_type',
 				'name'    => esc_html__( 'Limit to same post type', 'contextual-related-posts' ),
