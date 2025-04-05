@@ -2,6 +2,103 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 3.6.2 =
+
+* Bug fixes:
+    * Fixed upgrade link in WordPress multisite.
+    * Fix type casting for row height calculation in thumbs_grid style in Styles Handler class.
+    * Updated Freemius SDK to v2.11.0.
+
+= 3.6.1 =
+
+* Bug fix: Corrected thumbnail images to return the specified image size instead of the full size.
+
+= 3.6.0 =
+
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-6-0/](https://webberzone.com/announcements/contextual-related-posts-v3-6-0/)
+
+* Features:
+    * [Pro] New block: Contextual Related Posts Featured Image is an advanced featured image block that falls back to the first image, meta key, or a default image if no featured image is set.
+	* [Pro] Related Posts block now includes:
+		* Buttons to save and clear default block settings.
+		* Auto-insertion of default and global settings attributes, with an option to disable this in the **List tuning** tab.
+
+* Modifications:
+    * The "Manual related posts" field in the meta box can now be customized to perform searches without relevance. To disable relevance in searches, use the filter `crp_meta_box_manual_related_relevance` with the following code: `add_filter('crp_meta_box_manual_related_relevance', '__return_false');`.
+    * Contextual Related Posts Block's Other attributes moved to Advanced panel.
+    * Show admin notices when the Style is set to "Rounded Thumbnails", "Rounded Thumbnails with Grid", or "Text Only" in the Settings page. A notice will appear below the affected settings, indicating that these options cannot be modified.
+    * Updated "Rounded Thumbnails" style's post title line height to 1.1em and removed the padding.
+    * Updated Freemius SDK to 2.10.1.
+
+* Bug fixes:
+    * Fixed warning message about language files being initiated too early.
+
+= 3.5.5 =
+
+* Modifications:
+    * Updated Freemius SDK to 2.9.0
+
+= 3.5.4 =
+
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-5-0/](https://webberzone.com/announcements/contextual-related-posts-v3-5-0/)
+
+* Fixes:
+    * `include_post_ids` and `manual_related` were not being passed correctly to the query
+
+= 3.5.3 =
+
+* Modifications:
+    * Updated Freemius SDK to 2.7.3
+    * Updated Contextual Related Posts block apiVersion to 3
+    * Increase background opacity for the Rounded Thumbs style's post title for better readability
+
+* Fixes:
+    * Allow `manual_related` attribute in shortcode
+    * Correctly handle manual_related and include_post_ids arguments when set to 0. Ensure manual_related is set to an empty array when 0 is passed.
+    * Correctly check if `relation` attribute is set for meta_query and tax_query
+    * Fixed links to settings and tools page in the admin area
+    * Pass `post_status` when using `get_posts()`
+    * Remove `the_posts` filter in CRP_Query
+    * [Pro] Fixed bug in the Query Loop where custom post types didn't appear in the dropdown
+
+= 3.5.2 =
+
+* Modifications:
+    * [Pro] If "Only from" same category/tag/taxonomy is enabled, the plugin will sort results by the number of matched taxonomies first, then optimize the related posts further. The free version will continue to sort by date
+    * [Pro] If any of the weights are 0, then the algorithm will not consider that field for matching
+
+* Bug fix:
+    * Custom styles did not get enqueued on the front end
+    * Fixed PHP error on the Network admin page
+    * Fixed bug where post types and taxonomies settings retained the previous values if no option was selected
+
+= 3.5.1 =
+
+* Bug fix:
+    * Fixed memory issue when using the crp shortcode
+
+= 3.5.0 =
+
+Complete code rewrite using OOP, namespacing and autoloading. This will make it easier to maintain and extend the plugin in the future.
+
+* Features:
+    * Enter a negative number in the "Insert after paragraph number" setting to insert the related posts from the bottom of the post
+    * [Pro] New Related Posts Query Block that allows you to query related posts using a block in the block or site editor
+    * [Pro] New feature to set the weight of the title, content and excerpt in the related posts algorithm
+    * [Pro] New parameter `display_only_on_tax_ids` to display related posts only on specific taxonomy terms
+    * [Pro] New option added to the Edit Post meta box mapped to `include_cat_ids` to include related posts from specific categories only
+    * [Pro] New *Clear cache* button in the settings page to clear the cache
+
+* Enhancements:
+    * The plugin supports `WP_Query` directly if `crp_query` is set in the query arguments
+    * Optimized media handler to reduce the number of queries
+    * _Cache posts only_ setting is changed to be true by default
+    * _Cache HTML output_ will now cache the HTML output of the related posts list, superseding the _Cache posts only_ setting
+
+* Bug fix:
+    * `trim_char` function returned a blank string instead of the original string if the length was 0
+    * Insert after paragraph used to insert after an extra paragraph than what was specified
+
 = 3.4.2 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v3-4-0/](https://webberzone.com/announcements/contextual-related-posts-v3-4-0/)
@@ -281,7 +378,7 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v2-9-0/](htt
 * Enhancements:
     * New function: `crp_get_thumb_size()` to get the correct size of the thumbnail
     * Only run a get_post query if only the post ID is passed to `crp_get_the_post_thumbnail()`
-    * `$match_fields` parameter added to `crp_posts_match` filter
+    * `$match_fields` parameter added to `crp_query_posts_match` filter
     * Updated WPML functions to use latest filters
 	* Admin scripts are no longer loaded into the head - but using a separate JavaScript file
 	* Implemented CodeMirror to format custom styles box

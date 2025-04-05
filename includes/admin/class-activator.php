@@ -77,6 +77,18 @@ class Activator {
 
 		// Set the database version.
 		update_option( 'crp_db_version', CRP_DB_VERSION );
+
+		// Create PRO custom tables if the class exists.
+		if ( class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Table_Manager' ) ) {
+			$table_manager = new \WebberZone\Contextual_Related_Posts\Pro\Table_Manager();
+			$table_manager->create_tables();
+
+			// Update the Pro extension's DB version.
+			update_option(
+				\WebberZone\Contextual_Related_Posts\Pro\Table_Manager::$db_version_option,
+				\WebberZone\Contextual_Related_Posts\Pro\Table_Manager::$db_version
+			);
+		}
 	}
 
 	/**

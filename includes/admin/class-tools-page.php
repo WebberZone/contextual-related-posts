@@ -79,12 +79,12 @@ class Tools_Page {
 		?>
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Contextual Related Posts Tools', 'contextual-related-posts' ); ?></h1>
-
+		<?php do_action( 'crp_tools_page_header' ); ?>
 		<p>
 			<a class="crp_button crp_button_blue" href="<?php echo esc_url( admin_url( 'options-general.php?page=crp_options_page' ) ); ?>">
-			<?php esc_html_e( 'Visit the Settings page', 'autoclose' ); ?>
+			<?php esc_html_e( 'Visit the Settings page', 'contextual-related-posts' ); ?>
 			</a>
-		<p>
+		</p>
 
 		<?php settings_errors(); ?>
 
@@ -92,59 +92,80 @@ class Tools_Page {
 		<div id="post-body" class="metabox-holder columns-2">
 		<div id="post-body-content">
 
-			<form method="post" >
+			<div class="postbox">
+				<h2 class="hndle"><span><?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?></span></h2>
+				<div class="inside">
+					<p>
+						<input type="button" name="cache_clear" id="cache_clear"  value="<?php esc_attr_e( 'Clear cache', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="return crpClearCache();" />
+					</p>
+					<p class="description">
+					<?php esc_html_e( 'Clear the Contextual Related Posts cache. This might take a while if you have a lot of posts.', 'contextual-related-posts' ); ?>
+					</p>
+				</div>
+			</div>
 
-				<h2 style="padding-left:0px"><?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?></h2>
-				<p>
-					<input type="button" name="cache_clear" id="cache_clear"  value="<?php esc_attr_e( 'Clear cache', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="return crpClearCache();" />
-				</p>
-				<p class="description">
-				<?php esc_html_e( 'Clear the Contextual Related Posts cache. This might take a while if you have a lot of posts.', 'contextual-related-posts' ); ?>
-				</p>
+			<div class="postbox">
+				<h2 class="hndle"><span><?php esc_html_e( 'Recreate Indices', 'contextual-related-posts' ); ?></span></h2>
+				<div class="inside">
+					<form method="post">
+						<p>
+							<input name="crp_recreate_indices" type="submit" id="crp_recreate_indices" value="<?php esc_attr_e( 'Recreate Indices', 'contextual-related-posts' ); ?>" class="button button-secondary" />
+						</p>
+						<p class="description">
+						<?php esc_html_e( 'Deletes and recreates the FULLTEXT index in the posts table. If the above function gives an error, then you can run the below code in phpMyAdmin or Adminer. Remember to backup your database first!', 'contextual-related-posts' ); ?>
+						</p>
+						<div class="crp-code-wrapper">
+							<?php $sql_queries = self::recreate_indices_sql(); ?>
+							<pre id="crp-indices-sql"><code><?php echo implode( "\n", array_map( 'esc_html', $sql_queries ) ); ?></code></pre>
+						</div>
+						<script>
+							jQuery(document).ready(function($) {
+								crpAddCopyButton('crp-indices-sql');
+							});
+						</script>
+						<?php wp_nonce_field( 'crp-tools-settings' ); ?>
+					</form>
+				</div>
+			</div>
 
-				<h2 style="padding-left:0px"><?php esc_html_e( 'Recreate Indices', 'contextual-related-posts' ); ?></h2>
-				<p>
-					<input name="crp_recreate_indices" type="submit" id="crp_recreate_indices" value="<?php esc_attr_e( 'Recreate Indices', 'contextual-related-posts' ); ?>" class="button button-secondary" />
-				</p>
-				<p class="description">
-				<?php esc_html_e( 'Deletes and recreates the FULLTEXT index in the posts table. If the above function gives an error, then you can run the below code in phpMyAdmin or Adminer. Remember to backup your database first!', 'contextual-related-posts' ); ?>
-				</p>
-				<p>
-					<code style="display:block;"><?php echo self::recreate_indices_sql(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></code>
-				</p>
+			<div class="postbox">
+				<h2 class="hndle"><span><?php esc_html_e( 'Export/Import settings', 'contextual-related-posts' ); ?></span></h2>
+				<div class="inside">
+					<form method="post">
+						<p class="description">
+						<?php esc_html_e( 'Export the plugin settings for this site as a .json file. This allows you to easily import the configuration into another site.', 'contextual-related-posts' ); ?>
+						</p>
+						<p><input type="hidden" name="crp_action" value="export_settings" /></p>
+						<p>
+						<?php submit_button( esc_html__( 'Export Settings', 'contextual-related-posts' ), 'primary', 'crp_export_settings', false ); ?>
+						</p>
+						<?php wp_nonce_field( 'crp_export_settings_nonce', 'crp_export_settings_nonce' ); ?>
+					</form>
 
-			<?php wp_nonce_field( 'crp-tools-settings' ); ?>
-			</form>
+					<form method="post" enctype="multipart/form-data">
+						<p class="description">
+						<?php esc_html_e( 'Import the plugin settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.', 'contextual-related-posts' ); ?>
+						</p>
+						<p>
+							<input type="file" name="import_settings_file" />
+						</p>
+						<p>
+						<?php submit_button( esc_html__( 'Import Settings', 'contextual-related-posts' ), 'primary', 'crp_import_settings', false ); ?>
+						</p>
+						<input type="hidden" name="crp_action" value="import_settings" />
+						<?php wp_nonce_field( 'crp_import_settings_nonce', 'crp_import_settings_nonce' ); ?>
+					</form>
+				</div>
+			</div>
 
-			<form method="post">
-
-				<h2 style="padding-left:0px"><?php esc_html_e( 'Export/Import settings', 'contextual-related-posts' ); ?></h2>
-				<p class="description">
-				<?php esc_html_e( 'Export the plugin settings for this site as a .json file. This allows you to easily import the configuration into another site.', 'contextual-related-posts' ); ?>
-				</p>
-				<p><input type="hidden" name="crp_action" value="export_settings" /></p>
-				<p>
-				<?php submit_button( esc_html__( 'Export Settings', 'contextual-related-posts' ), 'primary', 'crp_export_settings', false ); ?>
-				</p>
-
-			<?php wp_nonce_field( 'crp_export_settings_nonce', 'crp_export_settings_nonce' ); ?>
-			</form>
-
-			<form method="post" enctype="multipart/form-data">
-
-				<p class="description">
-				<?php esc_html_e( 'Import the plugin settings from a .json file. This file can be obtained by exporting the settings on another site using the form above.', 'contextual-related-posts' ); ?>
-				</p>
-				<p>
-					<input type="file" name="import_settings_file" />
-				</p>
-				<p>
-				<?php submit_button( esc_html__( 'Import Settings', 'contextual-related-posts' ), 'primary', 'crp_import_settings', false ); ?>
-				</p>
-
-				<input type="hidden" name="crp_action" value="import_settings" />
-			<?php wp_nonce_field( 'crp_import_settings_nonce', 'crp_import_settings_nonce' ); ?>
-			</form>
+			<?php
+			/**
+			 * Action hook to add additional tools page content.
+			 *
+			 * @since 4.0.0
+			 */
+			do_action( 'crp_admin_tools_page_content' );
+			?>
 
 		</div><!-- /#post-body-content -->
 
@@ -174,10 +195,10 @@ class Tools_Page {
 		global $wpdb;
 
 		$sql = array(
-			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related",
-			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related (post_title, post_content)",
-			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title",
-			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_title (post_title)",
+			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related;",
+			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related (post_title, post_content);",
+			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title;",
+			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_title (post_title);",
 		);
 
 		/**
@@ -189,7 +210,7 @@ class Tools_Page {
 		 */
 		$sql = apply_filters( 'crp_recreate_indices_sql', $sql );
 
-		return implode( '<br />', $sql );
+		return $sql;
 	}
 
 
@@ -280,13 +301,13 @@ class Tools_Page {
 	 * Enqueue scripts and styles.
 	 *
 	 * @since 3.5.0
+	 *
+	 * @param string $hook The current screen hook.
 	 */
-	public function admin_enqueue_scripts() {
-		$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
+	public function admin_enqueue_scripts( $hook ) {
 		$screen = get_current_screen();
 
-		if ( $this->parent_id === $screen->id ) {
+		if ( $this->parent_id === $screen->id || $this->parent_id === $hook ) {
 			wp_enqueue_script( 'crp-admin-js' );
 			wp_enqueue_style( 'crp-admin-ui-css' );
 			wp_localize_script(

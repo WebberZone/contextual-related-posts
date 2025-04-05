@@ -21,14 +21,14 @@ parameters:
 			path: includes/admin/class-metabox.php
 
 		-
-			message: "#^Variable \\$menu_page might not be defined\\.$#"
-			count: 1
-			path: includes/admin/settings/class-settings-api.php
-
-		-
 			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
 			count: 4
 			path: includes/admin/class-settings.php
+
+		-
+			message: "#^Variable \\$menu_page might not be defined\\.$#"
+			count: 1
+			path: includes/admin/settings/class-settings-api.php
 
 		-
 			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
@@ -76,7 +76,12 @@ parameters:
 			path: includes/pro/blocks/class-query.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: includes/util/class-cache.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between false and 2592000 will always evaluate to false\\.$#"
 			count: 1
 			path: includes/util/class-cache.php
 

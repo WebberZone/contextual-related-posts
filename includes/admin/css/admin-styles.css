@@ -109,3 +109,94 @@ a.crp_button.crp_button_gold:hover {
     color: #000;
     background: #FFA500;
 }
+
+/* Reindexing styles */
+.dashicons.spin {
+    -webkit-animation: crp-spin 2s infinite linear;
+    animation: crp-spin 2s infinite linear;
+}
+
+@-webkit-keyframes crp-spin {
+    0% {
+        -webkit-transform: rotate( 0deg );
+        transform: rotate( 0deg );
+    }
+    100% {
+        -webkit-transform: rotate( 360deg );
+        transform: rotate( 360deg );
+    }
+}
+
+@keyframes crp-spin {
+    0% {
+        -webkit-transform: rotate( 0deg );
+        transform: rotate( 0deg );
+    }
+    100% {
+        -webkit-transform: rotate( 360deg );
+        transform: rotate( 360deg );
+    }
+}
+
+#crp-reindex-progress-container {
+    background-color: #f0f0f1;
+    border: 1px solid #c3c4c7;
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 10px;
+}
+
+#crp-progress-bar {
+    background-color: #2271b1;
+    height: 100%;
+    -webkit-transition: width 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out;
+    width: 0;
+}
+
+#crp-reindex-status {
+    color: #3c434a;
+    margin: 10px 0;
+}
+
+#crp-reindex-status.error {
+    color: #d63638;
+}
+
+#crp-reindex-status.success {
+    color: #00a32a;
+}
+
+/* Copy to clipboard button */
+.crp-code-wrapper {
+    position: relative;
+}
+
+.crp-code-wrapper pre {
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.crp-code-wrapper code {
+    display: block;
+}
+
+.crp-copy-button {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #2271b1;
+    transition: color 0.1s ease-in-out;
+}
+
+.crp-copy-button:hover {
+    color: #135e96;
+}
+
+.crp-copy-button.copied {
+    color: #00a32a;
+}
