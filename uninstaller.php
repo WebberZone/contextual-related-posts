@@ -64,5 +64,11 @@ function crp_delete_data() {
 		delete_option( 'crp_db_version' );
 	}
 
+	if ( ! empty( $settings['uninstall_tables'] ) && class_exists( 'WebberZone\\Contextual_Related_Posts\\Pro\\Custom_Tables\\Table_Manager' ) ) {
+		$table_manager = new \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager();
+		$table_manager->drop_tables();
+		delete_option( \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager::$db_version_option );
+	}
+
 	do_action( 'crp_delete_data' );
 }

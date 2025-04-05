@@ -126,11 +126,12 @@ class Helpers {
 	 *
 	 * @param int|\WP_Post $post       Post ID or WP_Post object.
 	 * @param string       $term       Term name.
-	 * @param bool         $return_all Whether to return all categories.
+	 * @param bool         $return_all Whether to return all terms.
+	 * @param bool         $return_first Whether to return the first term.
 	 * @return array Primary term object at `primary` and array of term
 	 *               objects at `all` if $return_all is true.
 	 */
-	public static function get_primary_term( $post, $term = 'category', $return_all = false ) {
+	public static function get_primary_term( $post, $term = 'category', $return_all = false, $return_first = true ) {
 		$return = array(
 			'primary' => '',
 			'all'     => array(),
@@ -177,13 +178,15 @@ class Helpers {
 		}
 
 		if ( empty( $return['primary'] ) || $return_all ) {
-			$categories = get_the_terms( $post, $term );
+			$terms = get_the_terms( $post, $term );
 
-			if ( ! empty( $categories ) ) {
-				if ( empty( $return['primary'] ) ) {
-					$return['primary'] = $categories[0];
+			if ( ! empty( $terms ) ) {
+				if ( empty( $return['primary'] ) && $return_first ) {
+					$return['primary'] = $terms[0];
 				}
-				$return['all'] = ( $return_all ) ? $categories : array();
+				if ( $return_all ) {
+					$return['all'] = $terms;
+				}
 			}
 		}
 
@@ -237,29 +240,32 @@ class Helpers {
 	 *
 	 * @since 3.1.0
 	 *
-	 * @param string|array $subject The string or an array with strings to search and replace. .
-	 * @param string|array $search  The pattern to search for. It can be either a string or an array with strings.
-	 * @param string|array $replace The string or an array with strings to replace.
+	 * @param string|array $subject The string or an array with strings to search and replace.
+	 * @param string|array $search  Optional. The pattern to search for. It can be either a string or an array with strings.
+	 * @param string|array $replace Optional. The string to replace with. Default empty string.
+	 *
+	 * @return string Processed text with stopwords removed.
 	 */
-	public static function strip_stopwords( $subject = '', $search = '', $replace = '' ) {
-
-		$pattern = array();
+	public static function strip_stopwords( $subject = '', $search = '', $replace = '' ): string {
+		// If no search terms provided, get WordPress stopwords.
 		if ( empty( $search ) ) {
 			$get_search_stopwords = new \ReflectionMethod( 'WP_Query', 'get_search_stopwords' );
 			$get_search_stopwords->setAccessible( true );
 			$search = $get_search_stopwords->invoke( new WP_Query() );
-
-			array_push( $search, 'from', 'where' );
+			$search = array_merge( $search, array( 'from', 'where' ) );
 		}
 
-		foreach ( (array) $search as $s ) {
-			$pattern[] = '/\b' . $s . '\b/ui';
-		}
-		$output = preg_replace( $pattern, $replace, $subject );
+		// Build regex pattern for all stopwords at once.
+		$pattern = '/\b(' . implode( '|', array_map( 'preg_quote', (array) $search ) ) . ')\b/ui';
+
+		// Remove stopwords.
+		$output = preg_replace( $pattern, $replace, (string) $subject );
+
+		// Remove single characters and normalize whitespace.
 		$output = preg_replace( '/\b[a-z\-]\b/i', '', $output );
 		$output = preg_replace( '/\s+/', ' ', $output );
 
-		return $output;
+		return trim( $output );
 	}
 
 	/**
@@ -297,5 +303,45 @@ class Helpers {
 		}
 
 		return $query_vars;
+	}
+
+	/**
+	 * Get a message about MySQL/MariaDB compatibility issues.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @return string Message about compatibility or empty string if compatible.
+	 */
+	public static function get_database_compatibility_message() {
+		global $wpdb;
+
+		$db_version = $wpdb->get_var( 'SELECT VERSION()' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
+		$is_mariadb = strpos( $db_version, 'MariaDB' ) !== false;
+
+		// Extract version number.
+		if ( $is_mariadb ) {
+			preg_match( '/([0-9]+\.[0-9]+\.[0-9]+)/', $db_version, $matches );
+			$version     = $matches[1] ?? '0.0.0';
+			$min_version = '10.2.3';
+			$db_name     = 'MariaDB';
+		} else {
+			// MySQL.
+			preg_match( '/([0-9]+\.[0-9]+\.[0-9]+)/', $db_version, $matches );
+			$version     = $matches[1] ?? '0.0.0';
+			$min_version = '5.7.8';
+			$db_name     = 'MySQL';
+		}
+
+		if ( version_compare( $version, $min_version, '<' ) ) {
+			return sprintf(
+				/* translators: 1: Database type (MySQL/MariaDB) 2: Current database version 3: Required database version */
+				__( '⚠️ Your %1$s version (%2$s) does not support all custom table features. %1$s %3$s or higher is required for optimal performance. The plugin will continue to use standard WordPress tables.', 'contextual-related-posts' ),
+				esc_html( $db_name ),
+				esc_html( $version ),
+				esc_html( $min_version )
+			);
+		}
+
+		return '';
 	}
 }

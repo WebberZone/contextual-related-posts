@@ -121,6 +121,10 @@ final class Main {
 
 		if ( is_admin() ) {
 			$this->admin = new Admin\Admin();
+			if ( is_multisite() ) {
+				new Admin\Network\Admin();
+			}
+		}
 		}
 	}
 

@@ -104,6 +104,14 @@ class CRP_Core_Query {
 	public $match_fields = '';
 
 	/**
+	 * Match SQL.
+	 *
+	 * @since 4.0.0
+	 * @var string
+	 */
+	public $match_sql = '';
+
+	/**
 	 * Holds the text to be matched.
 	 *
 	 * @since 3.0.0
@@ -257,7 +265,6 @@ class CRP_Core_Query {
 		}
 
 		if ( empty( $args['post_type'] ) ) {
-
 			// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
 			if ( ! empty( $args['post_types'] ) && is_array( $args['post_types'] ) ) {
 				$post_types = $args['post_types'];
@@ -551,28 +558,24 @@ class CRP_Core_Query {
 		/**
 		 * Filter the fields that are to be matched.
 		 *
-		 * @since 2.2.0
-		 * @since 2.9.3 Added $args
-		 * @since 3.0.0 Changed second argument from post ID to WP_Post object.
+		 * @since 4.0.0
 		 *
 		 * @param array    $match_fields Array of fields to be matched.
 		 * @param \WP_Post $source_post  Source Post instance.
 		 * @param array    $query_args   Arguments array.
 		 */
-		$match_fields = apply_filters( 'crp_posts_match_fields', $match_fields, $this->source_post, $this->query_args );
+		$match_fields = apply_filters( 'crp_query_posts_match_fields', $match_fields, $this->source_post, $this->query_args );
 
 		/**
 		 * Filter the content of the fields that are to be matched.
 		 *
-		 * @since 2.2.0
-		 * @since 2.9.3 Added $args
-		 * @since 3.0.0 Changed second argument from post ID to WP_Post object.
+		 * @since 4.0.0
 		 *
 		 * @param array $match_fields_content Array of content of fields to be matched
 		 * @param \WP_Post $source_post  Source Post instance.
 		 * @param array   $query_args   Arguments array.
 		 */
-		$match_fields_content = apply_filters( 'crp_posts_match_fields_content', $match_fields_content, $this->source_post, $this->query_args );
+		$match_fields_content = apply_filters( 'crp_query_posts_match_fields_content', $match_fields_content, $this->source_post, $this->query_args );
 
 		// Convert our arrays into their corresponding strings after they have been filtered.
 		$this->match_fields = implode( ',', $match_fields );
@@ -581,7 +584,18 @@ class CRP_Core_Query {
 		// Create the base MATCH clause.
 		$match = $wpdb->prepare( ' MATCH (' . $this->match_fields . ') AGAINST (%s) ', $this->stuff ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
 
-		return $match;
+		/**
+		 * Filter the match SQL.
+		 *
+		 * @since 4.0.0
+		 *
+		 * @param string   $match       The match SQL.
+		 * @param \WP_Post $source_post Source Post instance.
+		 * @param array    $query_args  Arguments array.
+		 * @param string   $match_fields The fields to be matched.
+		 * @param string   $stuff      The content of the fields to be matched.
+		 */
+		return apply_filters( 'crp_query_match_sql', $match, $this->source_post, $this->query_args, $this->match_fields, $this->stuff );
 	}
 
 	/**
@@ -632,8 +646,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string    $fields The SELECT clause of the query.
-	 * @param \WP_Query $query  The WP_Query instance.
+	 * @param string               $fields The SELECT clause of the query.
+	 * @param \WP_Query|\CRP_Query $query  The WP_Query or CRP_Query instance.
 	 * @return string  Updated Fields
 	 */
 	public function posts_fields( $fields, $query ) {
@@ -644,7 +658,11 @@ class CRP_Core_Query {
 		}
 
 		if ( $this->enable_relevance ) {
-			$match   = ', ' . $this->get_match_sql() . ' as score ';
+			if ( empty( $this->match_sql ) ) {
+				$this->match_sql = $this->get_match_sql();
+			}
+
+			$match   = ', ' . $this->match_sql . ' as score ';
 			$fields .= $match;
 		}
 
@@ -652,11 +670,13 @@ class CRP_Core_Query {
 		 * Filters the fields returned by the SELECT clause.
 		 *
 		 * @since 3.2.0
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param string    $fields The fields returned by the SELECT clause.
-		 * @param \WP_Query $query  The WP_Query instance.
+		 * @param string                $fields The fields returned by the SELECT clause.
+		 * @param \WP_Query|\CRP_Query  $query  The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query        $instance The CRP_Core_Query instance.
 		 */
-		$fields = apply_filters( 'crp_query_posts_fields', $fields, $query );
+		$fields = apply_filters_ref_array( 'crp_query_posts_fields', array( $fields, $query, &$this ) );
 
 		remove_filter( 'posts_fields', array( $this, 'posts_fields' ) );
 
@@ -668,8 +688,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string    $join  The JOIN clause of the query.
-	 * @param \WP_Query $query The WP_Query instance.
+	 * @param string               $join  The JOIN clause of the query.
+	 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance.
 	 * @return string  Updated JOIN
 	 */
 	public function posts_join( $join, $query ) {
@@ -680,20 +700,30 @@ class CRP_Core_Query {
 			return $join;
 		}
 
-		if ( ! empty( $this->query_args['match_all'] ) || ( isset( $this->query_args['no_of_common_terms'] ) && absint( $this->query_args['no_of_common_terms'] ) > 1 ) ) {
-			$join .= " INNER JOIN $wpdb->term_relationships AS crp_tr ON ($wpdb->posts.ID = crp_tr.object_id) ";
-			$join .= " INNER JOIN $wpdb->term_taxonomy AS crp_tt ON (crp_tr.term_taxonomy_id = crp_tt.term_taxonomy_id) ";
+		if (
+			! empty( $this->query_args['match_all'] ) ||
+			( isset( $this->query_args['no_of_common_terms'] ) && absint( $this->query_args['no_of_common_terms'] ) > 1 )
+		) {
+			if ( strpos( $join, 'crp_tr' ) === false ) {
+				$join .= " INNER JOIN $wpdb->term_relationships AS crp_tr ON ($wpdb->posts.ID = crp_tr.object_id) ";
+			}
+
+			if ( strpos( $join, 'crp_tt' ) === false ) {
+				$join .= " INNER JOIN $wpdb->term_taxonomy AS crp_tt ON (crp_tr.term_taxonomy_id = crp_tt.term_taxonomy_id) ";
+			}
 		}
 
 		/**
 		 * Filters the posts_join of CRP_Query after processing and before returning.
 		 *
 		 * @since 3.2.0
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param string   $join  The JOIN clause of the query.
-		 * @param \WP_Query $query The WP_Query instance.
+		 * @param string                $join  The JOIN clause of the query.
+		 * @param \WP_Query|\CRP_Query  $query The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query        $instance The CRP_Core_Query instance.
 		 */
-		$join = apply_filters( 'crp_query_posts_join', $join, $query );
+		$join = apply_filters_ref_array( 'crp_query_posts_join', array( $join, $query, &$this ) );
 
 		remove_filter( 'posts_join', array( $this, 'posts_join' ) );
 
@@ -705,8 +735,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string    $where The WHERE clause of the query.
-	 * @param \WP_Query $query The WP_Query instance.
+	 * @param string               $where The WHERE clause of the query.
+	 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance.
 	 * @return string  Updated WHERE
 	 */
 	public function posts_where( $where, $query ) {
@@ -717,30 +747,26 @@ class CRP_Core_Query {
 			return $where;
 		}
 
-		$match          = '';
+		$match_clause   = '';
 		$include        = '';
 		$exclude        = '';
 		$search_columns = array( 'post_title', 'post_excerpt', 'post_content' );
 
 		if ( $this->enable_relevance ) {
 
-			$match = $this->get_match_sql();
+			$match_clause = ! empty( $this->match_sql ) ? $this->match_sql : $this->get_match_sql();
 
 			/**
-			 * Filter the MATCH clause of the query.
+			 * Filter the MATCH clause of the WHERE clause of the query.
 			 *
-			 * @since 2.1.0
-			 * @since 2.9.0 Added $match_fields
-			 * @since 2.9.3 Added $args
-			 * @since 3.0.0 Changed third argument from post ID to WP_Post object.
+			 * @since 4.0.0
 			 *
-			 * @param string  $match        The MATCH section of the WHERE clause of the query.
-			 * @param string  $stuff        String to match fulltext with.
-			 * @param \WP_Post $source_post  Source Post instance.
-			 * @param string  $match_fields Fields to match.
-			 * @param array   $args         Arguments array.
+			 * @param string               $match_clause    The MATCH section of the WHERE clause of the query.
+			 * @param string               $where           The WHERE clause of the query.
+			 * @param \WP_Query|\CRP_Query $query           The WP_Query or CRP_Query instance.
+			 * @param CRP_Core_Query       $instance        The CRP_Core_Query instance.
 			 */
-			$match = apply_filters( 'crp_posts_match', $match, $this->stuff, $this->source_post, $this->match_fields, $this->query_args );
+			$match_clause = apply_filters_ref_array( 'crp_query_posts_where_match', array( $match_clause, $where, $query, &$this ) );
 		}
 
 		if ( isset( $this->query_args['include_words'] ) ) {
@@ -768,10 +794,10 @@ class CRP_Core_Query {
 		}
 
 		// if both $match and $include are not empty, then join them using OR. Else, use the one that is not empty.
-		if ( ! empty( $match ) && ! empty( $include ) ) {
-			$where .= " AND ( $match OR $include )";
-		} elseif ( ! empty( $match ) ) {
-			$where .= " AND ( $match )";
+		if ( ! empty( $match_clause ) && ! empty( $include ) ) {
+			$where .= " AND ( $match_clause OR $include )";
+		} elseif ( ! empty( $match_clause ) ) {
+			$where .= " AND ( $match_clause )";
 		} elseif ( ! empty( $include ) ) {
 			$where .= " AND ( 1=1 OR $include )";
 		}
@@ -806,11 +832,13 @@ class CRP_Core_Query {
 		 * Filters the posts_where of CRP_Query after processing and before returning.
 		 *
 		 * @since 3.2.0
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param string   $where The WHERE clause of the query.
-		 * @param \WP_Query $query  The WP_Query instance.
+		 * @param string                $where The WHERE clause of the query.
+		 * @param \WP_Query|\CRP_Query  $query  The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query        $instance The CRP_Core_Query instance.
 		 */
-		$where = apply_filters( 'crp_query_posts_where', $where, $query );
+		$where = apply_filters_ref_array( 'crp_query_posts_where', array( $where, $query, &$this ) );
 
 		remove_filter( 'posts_where', array( $this, 'posts_where' ) );
 
@@ -822,8 +850,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string    $orderby  The ORDER BY clause of the query.
-	 * @param \WP_Query $query The WP_Query instance.
+	 * @param string               $orderby  The ORDER BY clause of the query.
+	 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance.
 	 * @return string  Updated ORDER BY
 	 */
 	public function posts_orderby( $orderby, $query ) {
@@ -838,7 +866,10 @@ class CRP_Core_Query {
 		if ( ! empty( $query->get( 'orderby' ) ) ) {
 			// if orderby is set to relevance, then we need to set the orderby to the match clause.
 			if ( 'relevance' === $query->get( 'orderby' ) || 'relatedness' === $query->get( 'orderby' ) ) {
-				$orderby = ' ' . $this->get_match_sql() . ' DESC ';
+				if ( empty( $this->match_sql ) ) {
+					$this->match_sql = $this->get_match_sql();
+				}
+				$orderby = ' ' . $this->match_sql . ' DESC ';
 			}
 			return apply_filters( 'crp_query_posts_orderby', $orderby, $query );
 		}
@@ -855,7 +886,10 @@ class CRP_Core_Query {
 		}
 
 		if ( $this->enable_relevance && isset( $this->query_args['ordering'] ) && 'date' !== $this->query_args['ordering'] ) {
-			$orderby_clauses[] = ' ' . $this->get_match_sql() . ' DESC ';
+			if ( empty( $this->match_sql ) ) {
+				$this->match_sql = $this->get_match_sql();
+			}
+			$orderby_clauses[] = ' ' . $this->match_sql . ' DESC ';
 		}
 
 		// Set order by in case of date.
@@ -867,11 +901,13 @@ class CRP_Core_Query {
 		 * Filters the posts_orderby of CRP_Query after processing and before returning.
 		 *
 		 * @since 3.5.2
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param string[]  $orderby_clauses The SELECT clause of the query.
-		 * @param \WP_Query $query           The WP_Query instance.
+		 * @param string[]             $orderby_clauses The SELECT clause of the query.
+		 * @param \WP_Query|\CRP_Query $query           The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query       $instance The CRP_Core_Query instance.
 		 */
-		$orderby_clauses = apply_filters( 'crp_query_posts_orderby_clauses', $orderby_clauses, $query );
+		$orderby_clauses = apply_filters_ref_array( 'crp_query_posts_orderby_clauses', array( $orderby_clauses, $query, &$this ) );
 
 		// Combine all the orderby clauses.
 		if ( ! empty( $orderby_clauses ) ) {
@@ -882,11 +918,13 @@ class CRP_Core_Query {
 		 * Filters the posts_orderby of CRP_Query after processing and before returning.
 		 *
 		 * @since 3.2.0
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param string    $orderby The SELECT clause of the query.
-		 * @param \WP_Query $query   The WP_Query instance.
+		 * @param string               $orderby The SELECT clause of the query.
+		 * @param \WP_Query|\CRP_Query $query   The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query       $instance The CRP_Core_Query instance.
 		 */
-		$orderby = apply_filters( 'crp_query_posts_orderby', $orderby, $query );
+		$orderby = apply_filters_ref_array( 'crp_query_posts_orderby', array( $orderby, $query, &$this ) );
 
 		remove_filter( 'posts_orderby', array( $this, 'posts_orderby' ) );
 
@@ -898,8 +936,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string    $groupby  The GROUP BY clause of the query.
-	 * @param \WP_Query $query    The WP_Query instance.
+	 * @param string               $groupby  The GROUP BY clause of the query.
+	 * @param \WP_Query|\CRP_Query $query    The WP_Query or CRP_Query instance.
 	 * @return string  Updated GROUP BY
 	 */
 	public function posts_groupby( $groupby, $query ) {
@@ -912,11 +950,13 @@ class CRP_Core_Query {
 		 * Filters the GROUP BY clause of the CRP_Query.
 		 *
 		 * @since 3.0.0
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param string    $groupby The GROUP BY clause of the query.
-		 * @param \WP_Query $query   The WP_Query instance.
+		 * @param string               $groupby The GROUP BY clause of the query.
+		 * @param \WP_Query|\CRP_Query $query   The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query       $instance The CRP_Core_Query instance.
 		 */
-		$groupby = apply_filters_ref_array( 'crp_query_posts_groupby', array( $groupby, &$this ) );
+		$groupby = apply_filters_ref_array( 'crp_query_posts_groupby', array( $groupby, $query, &$this ) );
 
 		remove_filter( 'posts_groupby', array( $this, 'posts_groupby' ) );
 
@@ -928,8 +968,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param string    $sql  The complete SQL query.
-	 * @param \WP_Query $query The WP_Query instance.
+	 * @param string               $sql   The complete SQL query.
+	 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance.
 	 * @return string  Updated SQL query.
 	 */
 	public function posts_request( $sql, $query ) {
@@ -965,11 +1005,13 @@ class CRP_Core_Query {
 		 * Filters the posts_request of CRP_Query after processing and before returning.
 		 *
 		 * @since 3.2.0
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param string   $sql   The SQL Query.
-		 * @param \WP_Query $query The WP_Query instance.
+		 * @param string               $sql   The SQL Query.
+		 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query       $instance The CRP_Core_Query instance.
 		 */
-		$sql = apply_filters( 'crp_query_posts_request', $sql, $query );
+		$sql = apply_filters_ref_array( 'crp_query_posts_request', array( $sql, $query, &$this ) );
 
 		remove_filter( 'posts_request', array( $this, 'posts_request' ) );
 
@@ -981,8 +1023,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param \WP_Post[] $posts Array of post data.
-	 * @param \WP_Query  $query The WP_Query instance.
+	 * @param \WP_Post[]           $posts Array of post data.
+	 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance.
 	 * @return \WP_Post[] Updated Array of post objects.
 	 */
 	public function posts_pre_query( $posts, $query ) {
@@ -1029,11 +1071,13 @@ class CRP_Core_Query {
 		 * Filters the posts_pre_query of CRP_Query after processing and before returning.
 		 *
 		 * @since 3.2.0
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param \WP_Post[] $posts Array of post data.
-		 * @param \WP_Query  $query The WP_Query instance.
+		 * @param \WP_Post[]    $posts    Array of post data.
+		 * @param \WP_Query     $query    The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query $instance The CRP_Core_Query instance.
 		 */
-		$posts = apply_filters( 'crp_query_posts_pre_query', $posts, $query );
+		$posts = apply_filters_ref_array( 'crp_query_posts_pre_query', array( $posts, $query, &$this ) );
 
 		remove_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ) );
 
@@ -1045,8 +1089,8 @@ class CRP_Core_Query {
 	 *
 	 * @since 3.0.0
 	 *
-	 * @param \WP_Post[] $posts Array of post objects.
-	 * @param \WP_Query  $query The WP_Query instance (passed by reference).
+	 * @param \WP_Post[]           $posts Array of post objects.
+	 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance (passed by reference).
 	 * @return \WP_Post[] Updated Array of post objects.
 	 */
 	public function the_posts( $posts, $query ) {
@@ -1133,9 +1177,9 @@ class CRP_Core_Query {
 		 *
 		 * @since 3.2.0
 		 *
-		 * @param bool       $fill_random_posts Fill random posts flag. Default false.
-		 * @param \WP_Post[] $posts             Array of post objects.
-		 * @param \WP_Query  $query             The WP_Query instance.
+		 * @param bool                  $fill_random_posts Fill random posts flag. Default false.
+		 * @param \WP_Post[]            $posts             Array of post objects.
+		 * @param \WP_Query|\CRP_Query  $query The WP_Query or CRP_Query instance.
 		 */
 		$fill_random_posts = apply_filters( 'crp_fill_random_posts', false, $posts, $query );
 
@@ -1160,12 +1204,14 @@ class CRP_Core_Query {
 		 *
 		 * @since 1.9
 		 * @since 2.9.3 Added $args
+		 * @since 4.0.0 Added $instance
 		 *
-		 * @param \WP_Post[] $posts Array of post objects.
-		 * @param array     $args  Arguments array.
-		 * @param \WP_Query  $query The WP_Query instance.
+		 * @param \WP_Post[]       $posts    Array of post objects.
+		 * @param array            $args     Arguments array.
+		 * @param \WP_Query|\CRP_Query $query   The WP_Query or CRP_Query instance.
+		 * @param CRP_Core_Query   $instance The CRP_Core_Query instance.
 		 */
-		$posts = apply_filters( 'crp_query_the_posts', $posts, $this->query_args, $query );
+		$posts = apply_filters_ref_array( 'crp_query_the_posts', array( $posts, $this->query_args, $query, &$this ) );
 
 		remove_filter( 'the_posts', array( $this, 'the_posts' ) );
 
@@ -1179,12 +1225,26 @@ class CRP_Core_Query {
 	 * @return array Array of post IDs to exclude.
 	 */
 	public function exclude_post_ids( $args ) {
+		static $exclude_post_ids_cache = array();
+
+		$post_id = absint( $this->source_post->ID );
+
+		if ( isset( $exclude_post_ids_cache[ $post_id ] ) ) {
+			return $exclude_post_ids_cache[ $post_id ];
+		}
+
 		global $wpdb;
 
 		$exclude_post_ids = empty( $args['exclude_post_ids'] ) ? array() : wp_parse_id_list( $args['exclude_post_ids'] );
 
 		// Exclude posts with exclude_this_post set to true or exclude_post_ids set.
-		$crp_post_metas = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta'", ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$crp_post_metas = $wpdb->get_results(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->prepare(
+				"SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta' AND post_id = %d",
+				$post_id
+			),
+			ARRAY_A
+		);
 
 		foreach ( $crp_post_metas as $crp_post_meta ) {
 			$meta_value = maybe_unserialize( $crp_post_meta['meta_value'] );
@@ -1192,7 +1252,7 @@ class CRP_Core_Query {
 			if ( isset( $meta_value['exclude_this_post'] ) && $meta_value['exclude_this_post'] ) {
 				$exclude_post_ids[] = $crp_post_meta['post_id'];
 			}
-			if ( (int) $this->source_post->ID === (int) $crp_post_meta['post_id'] && isset( $meta_value['exclude_post_ids'] ) && $meta_value['exclude_post_ids'] ) {
+			if ( isset( $meta_value['exclude_post_ids'] ) && $meta_value['exclude_post_ids'] ) {
 				$exclude_post_ids = array_merge( $exclude_post_ids, explode( ',', $meta_value['exclude_post_ids'] ) );
 			}
 		}
@@ -1212,7 +1272,9 @@ class CRP_Core_Query {
 
 		$exclude_post_ids[] = $this->source_post->ID;
 
-		return $exclude_post_ids;
+		$exclude_post_ids_cache[ $post_id ] = array_unique( $exclude_post_ids );
+
+		return $exclude_post_ids_cache[ $post_id ];
 	}
 
 	/**

@@ -38,8 +38,9 @@ function crp_freemius() {
 					'slug'    => 'crp_options_page',
 					'contact' => false,
 					'support' => false,
+					'network' => true,
 					'parent'  => array(
-						'slug' => is_multisite() ? 'admin.php' : 'options-general.php',
+						'slug' => is_multisite() ? 'crp_options_page' : 'options-general.php',
 					),
 				),
 				'is_live'        => true,

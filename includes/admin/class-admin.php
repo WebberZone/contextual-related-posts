@@ -76,6 +76,15 @@ class Admin {
 	public Bulk_Edit $bulk_edit;
 
 	/**
+	 * Admin notices.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @var Admin_Notices Admin notices.
+	 */
+	public Admin_Notices $admin_notices;
+
+	/**
 	 * Settings Page in Admin area.
 	 *
 	 * @since 3.5.0
@@ -120,12 +129,13 @@ class Admin {
 		$this->hooks();
 
 		// Initialise admin classes.
-		$this->settings   = new Settings();
-		$this->activator  = new Activator();
-		$this->metabox    = new Metabox();
-		$this->tools_page = new Tools_Page();
-		$this->cache      = new Cache();
-		$this->bulk_edit  = new Bulk_Edit();
+		$this->settings      = new Settings();
+		$this->activator     = new Activator();
+		$this->metabox       = new Metabox();
+		$this->tools_page    = new Tools_Page();
+		$this->cache         = new Cache();
+		$this->bulk_edit     = new Bulk_Edit();
+		$this->admin_notices = new Admin_Notices();
 	}
 
 	/**
@@ -154,9 +164,12 @@ class Admin {
 		);
 		wp_localize_script(
 			'crp-admin-js',
-			'crp_admin',
+			'crpAdmin',
 			array(
-				'nonce' => wp_create_nonce( 'crp_admin_nonce' ),
+				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
+				'nonce'           => wp_create_nonce( 'crp_admin_nonce' ),
+				'copied'          => __( 'Copied!', 'contextual-related-posts' ),
+				'copyToClipboard' => __( 'Copy to clipboard', 'contextual-related-posts' ),
 			)
 		);
 		wp_register_style(

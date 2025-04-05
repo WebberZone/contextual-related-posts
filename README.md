@@ -18,74 +18,82 @@ __License:__ [GPL-2.0+](http://www.gnu.org/licenses/gpl-2.0.html)
 
 __Plugin page:__ [Contextual Related Posts home page](https://webberzone.com/plugins/contextual-related-posts/) | [WordPress.org listing](https://wordpress.org/plugins/contextual-related-posts/)
 
-Display related posts for your WordPress site with inbuilt caching. It supports blocks, shortcodes, widgets, and custom post types!
+Keep visitors on your site longer with intelligent, fast-loading contextually related posts. Block, shortcode, custom post type and widget ready.
 
 ## Description
 
-[Contextual Related Posts](https://wordpress.org/plugins/contextual-related-posts/) is a powerful WordPress plugin that helps you increase your site's engagement by displaying a list of related posts that are relevant and interesting to your readers.
-
-Contextual Related Posts uses an intelligent algorithm that analyzes your posts' title and/or content to find the most related ones. This way, you can show your visitors more awesome content and keep them on your site longer.
-
-Contextual Related Posts also comes with many features and options that let you customize the look and feel of the related posts list. You can choose between different styles, layouts, thumbnails, excerpts, and more. You can also use widgets, shortcodes, Gutenberg blocks, or REST API to display the related posts anywhere on your site or in your feed.
-
-With Contextual Related Posts, you can quickly boost your site's traffic, reduce bounce rates, and refresh old entries. It's fast, flexible, and easy to use. Try it today and see the difference for yourself!
+[Contextual Related Posts](https://wordpress.org/plugins/contextual-related-posts/) is a powerful WordPress plugin that displays fast, intelligent related posts to keep users on your site longer. Improve SEO, increase pageviews, and lower bounce rates — no setup needed.
 
 ### Key features
 
-* __Automatic__: Activate the plugin. Contextual Related Posts automatically displays related posts on your site and feed after the content. There is no need to edit any template files.
-* __Manual install__: If you want more control over the placement of the related posts, you can use the FAQ to learn about the functions available for manual installation.
-* __Gutenberg / Block Editor support__: You can easily add a "Related Posts [CRP]" block to any post or page with its options and settings.
-* __Widgets__: Add related posts to any widgetized theme area, such as the sidebar or footer. You can configure the widget options to suit your needs.
-* __Shortcode__: Use `[crp]` to display the related posts anywhere within the post content.
+* __Activate and Forget__: Activate the plugin. Contextual Related Posts automatically displays related posts on your site and feed after the content. There is no need to edit any template files.
+* __Custom Control with Manual Install__: Want placement control? You have multiple options available:
+  * __Gutenberg / Block Editor support__: You can easily add a "Related Posts [CRP]" block to any post or page with its options and settings.
+  * __Widgets__: Add related posts to any widgetized theme area, such as the sidebar or footer. You can configure the widget options to suit your needs.
+  * __Shortcode__: Use `[crp]` to display the related posts anywhere within the post content.
 * __REST API__: Fetch related posts for any post ID using `contextual-related-posts/v1/posts/<id>/`. You can also use query parameters to filter or sort the results.
 * __The algorithm__: Find related posts based on the current post's title and/or content. You can also find posts by tags, categories and selected custom fields.
 * __Caching__: Related posts output is automatically cached as visitors browse through your site, reducing the load on your server and improving performance.
-* __Exclusions__: Exclude posts from specific categories or tags from being displayed in the related posts list. You can exclude specific posts or pages by ID using a meta box on the edit screen.
+
+__[View Demo](https://demo.webberzone.com)__
+
+Contextual Related Posts uses an intelligent algorithm that analyzes your post's title and/or content to find the most related ones. This way, you can show your visitors more awesome content and keep them on your site longer.
+
+With Contextual Related Posts, you can quickly boost your site's traffic, reduce bounce rates, and refresh old entries. It's fast, flexible, and easy to use. Try it today and see the difference for yourself!
+
+Additional features include:
+
+* __Exclusions__: Exclude posts from specific categories or tags from being displayed in the related posts list.
 * __Custom post types__: The related posts list supports posts, pages, attachments, or any other custom post type on your site.
 * __Thumbnail support__: Display thumbnails or not!
-* __Styles__: The output of the related posts list is wrapped in CSS classes that allow you to style it easily using custom CSS code. You can enter your custom CSS code from within the WordPress admin area or use one of the default styles included with the plugin.
-* __Customizable output__: Display post excerpts in the related posts list. You can set the excerpt's length in words and strip HTML tags if needed. Customize the HTML tags and attributes used to display the output of the related posts list. For example, you can use an ordered or unordered list, a div container, a span element, etc.
-* __Extendable code__: Contextual Related Posts has many filters and actions that allow developers to easily add features, modify outputs, or integrate with other plugins.
+* __Styles__: The output of the related posts list is wrapped in CSS classes that allow you to style it easily using custom CSS code.
+* __Customizable output__: Display post excerpts in the related posts list. Customize the HTML tags and attributes used to display the output.
+* __Extendable code__: Many filters and actions allow developers to easily add features, modify outputs, or integrate with other plugins.
 
-### Features in Contextual Related Posts Pro
+### 💼 Features Exclusive to CRP Pro
 
-[CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) enhances your experience with an advanced query block, offering more precise customization options, additional shortcode functionalities, and enhanced meta box settings.
+[CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) supercharges your related posts with advanced customization, better performance, and powerful content strategy tools.
 
-* [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Set the relative weight of the post title, post content and post excerpt. This feature overrides the default equal weight algorithm of the free version and provides a greater degree of fine-tuning.
-* [Block Editor Integration](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/):
-  * Query Loop Block with extensive customization.
-  * Pre-built block patterns:
-    * Grid Posts Layout.
-    * Grid with Thumbnails.
-    * Image with Title and Excerpt.
-    * Left-aligned Thumbnail.
-    * Rounded Thumbnails Grid.
-    * Clean Unordered List.
-  * Featured Image Block support.
-* [Extra Shortcode Parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Additional parameters for the shortcode that allow you to customize the output of the related posts list.
-* [Additional Metabox Settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Additional settings in the post edit screen that allow you to customize the related posts output for each post.
+#### 🚀 Performance Enhancements
 
-### mySQL FULLTEXT indices
+* [Efficient Content Storage and Indexing](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/): Speed up your site with optimized custom tables and efficient database indices for lightning-fast queries.
+* [Cache Setting](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/): Fine-tune your performance with configurable cache times from 1 hour to 1 year.
 
-On activation, the plugin creates three mySQL FULLTEXT indices (or indexes), which are leveraged to find the related posts in the `*_posts`. These are for `post_content`, `post_title` and `(post_title,post_content)`. The Pro version also has an index for `post_excerpt`.
+#### 🎯 Smarter Content Matching
 
-If you're running a multisite installation, this is created for each blog on activation. All these indices occupy space in your mySQL database but are essential for running the plugin.
+* [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Control exactly how relevant content is found by adjusting weights for title, content, and excerpt.
+* [Taxonomy Weight System](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#weighting-categories-tags-and-taxonomies): Refine your matches with precise taxonomy weighting for perfect content relationships.
 
-Two options on the settings page allow you to remove these indices when you deactivate or delete the plugin. The latter is true by default.
+#### 🎨 Advanced Design & Display Options
 
-You can turn off contextual matching on the settings page if you do not wish to use these indices. You must turn on related posts by category, tags and/or custom taxonomies.
+* [Block Editor Integration](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/): Create beautiful layouts with the Query Loop Block and ready-to-use block patterns including Grid, Image with Title, and more.
+* [Extra Shortcode Parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/): Unlock additional customization options for complete control over your related posts display.
+
+#### 📊 Analytics & Content Strategy Tools
+
+* [Tracking Parameters](https://webberzone.com/support/knowledgebase/tracking-parameters/): Measure content performance with automatic UTM tracking for all related post clicks.
+* [Cornerstone Posts](https://webberzone.com/support/knowledgebase/cornerstone-posts-in-contextual-related-posts/): Guide visitors to your most important content by featuring key articles in your related posts lists.
+* [Additional Metabox Settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Control related content at the individual post level for perfect content relationships.
+
+### MySQL FULLTEXT indices
+
+On activation, the plugin creates three MySQL FULLTEXT indices (or indexes), which are leveraged to find the related posts. [Learn more about how the algorithm works](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/).
+
+If you're running a multisite installation, an index is created for each blog upon activation. These indices occupy space in your MySQL database but are essential for running the plugin.
+
+Two options on the settings page allow you to remove these indices when deactivating or deleting the plugin. The latter is true by default.
 
 ### GDPR
 
-Contextual Related Posts is GDPR compliant as it doesn't collect personal data about your visitors when installed out of the box. All posts are processed on your site and not sent to any external service.
+Contextual Related Posts doesn’t collect personal data or send information to external services — making it GDPR-friendly by default.
 
-YOU ARE RESPONSIBLE FOR ENSURING THAT YOU MEET ALL GDPR REQUIREMENTS ON YOUR WEBSITE.
+⚠️ You’re responsible for ensuring your site’s overall GDPR compliance.
 
 ### Donations
 
-I spend much of my free time maintaining, updating and, more importantly, supporting this plugin. Those who have sought support in the support forums know I have done my best to answer your question and solve your problem.
-Consider donating if you have been using this plugin and find it helpful. All donations help me pay for my hosting and domains.
-Alternatively, please look at Contextual Related Posts Pro, which will allow me to sustain the plugin's development.
+Love Contextual Related Posts? Help keep it alive!
+
+You can [donate](https://wzn.io/donate-crp) or upgrade to [CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) — both help support development and support.
 
 ### Translations
 
@@ -94,7 +102,7 @@ Contextual Related Posts is available for [translation directly on WordPress.org
 ## Screenshots
 
 ![General Options](https://raw.github.com/WebberZone/contextual-related-posts/master/wporg-assets/screenshot-1.png)
-*Contextual Related Posts - General Options*
+_Contextual Related Posts - General Options_
 
 More screenshots are available on the [WordPress plugin page](https://wordpress.org/plugins/contextual-related-posts/screenshots/)
 
@@ -129,8 +137,6 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 Check out the [FAQ on the plugin page](https://wordpress.org/plugins/contextual-related-posts/faq/) or the [Knowledge Base](https://webberzone.com/support/product/contextual-related-posts/).
 
 If your question isn't listed there, please create a new post at the [WordPress.org support forum](https://wordpress.org/support/plugin/contextual-related-posts). It is the fastest way to get support as I monitor the forums regularly.
-
-Support for products sold and distributed by WebberZone is only available for those who have an active, paid extension license. You can [access our support form here](https://webberzone.com/request-support/).
 
 ## How can I report security bugs?
 
