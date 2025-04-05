@@ -125,7 +125,6 @@ final class Main {
 				new Admin\Network\Admin();
 			}
 		}
-		}
 	}
 
 	/**
