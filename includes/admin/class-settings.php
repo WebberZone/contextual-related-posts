@@ -1100,6 +1100,7 @@ class Settings {
 				'type'    => 'checkbox',
 				'options' => false,
 				'default' => false,
+				'pro'     => true,
 			),
 			'optimization_header'  => array(
 				'id'   => 'optimization_header',
