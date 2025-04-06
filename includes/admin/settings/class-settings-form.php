@@ -527,19 +527,16 @@ class Settings_Form {
 	 * @return void
 	 */
 	public function callback_select( $args ) {
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
-
-		if ( isset( $args['chosen'] ) ) {
-			$chosen = 'class="chosen"';
-		} else {
-			$chosen = '';
-		}
+		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled' : '';
+		$chosen   = isset( $args['chosen'] ) ? 'class="chosen"' : '';
 
 		$html = sprintf(
-			'<select id="%1$s[%2$s]" name="%1$s[%2$s]" %3$s />',
+			'<select id="%1$s[%2$s]" name="%1$s[%2$s]" %3$s %4$s />',
 			$this->settings_key,
 			sanitize_key( $args['id'] ),
-			$chosen
+			$chosen,
+			$disabled
 		);
 
 		foreach ( $args['options'] as $option => $name ) {
