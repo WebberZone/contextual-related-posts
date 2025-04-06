@@ -322,13 +322,15 @@ class Helpers {
 		if ( $is_mariadb ) {
 			preg_match( '/([0-9]+\.[0-9]+\.[0-9]+)/', $db_version, $matches );
 			$version     = $matches[1] ?? '0.0.0';
-			$min_version = '10.2.3';
+			$min_version = '10.5.7';
+			$rec_version = '10.7.1';
 			$db_name     = 'MariaDB';
 		} else {
 			// MySQL.
 			preg_match( '/([0-9]+\.[0-9]+\.[0-9]+)/', $db_version, $matches );
 			$version     = $matches[1] ?? '0.0.0';
 			$min_version = '5.7.8';
+			$rec_version = '8.0.13';
 			$db_name     = 'MySQL';
 		}
 
@@ -339,6 +341,16 @@ class Helpers {
 				esc_html( $db_name ),
 				esc_html( $version ),
 				esc_html( $min_version )
+			);
+		}
+
+		if ( version_compare( $version, $rec_version, '<' ) ) {
+			return sprintf(
+				/* translators: 1: Database type (MySQL/MariaDB) 2: Current database version 3: Recommended database version */
+				__( '⚠️ Your %1$s version (%2$s) is below the recommended version %3$s. While the plugin will work, upgrading your database is recommended for better performance.', 'contextual-related-posts' ),
+				esc_html( $db_name ),
+				esc_html( $version ),
+				esc_html( $rec_version )
 			);
 		}
 
