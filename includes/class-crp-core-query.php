@@ -538,7 +538,7 @@ class CRP_Core_Query {
 			Helpers::strip_stopwords( $this->source_post->post_title ),
 		);
 
-		if ( $this->query_args['match_content'] ) {
+		if ( isset( $this->query_args['match_content'] ) && $this->query_args['match_content'] ) {
 			$match_fields[]         = "$wpdb->posts.post_content";
 			$match_fields_content[] = Helpers::strip_stopwords(
 				Display::get_the_excerpt(
