@@ -10,7 +10,7 @@
 
 __Requires:__ 6.3
 
-__Tested up to:__ 6.7
+__Tested up to:__ 6.8
 
 __Requires PHP:__ 7.4
 
