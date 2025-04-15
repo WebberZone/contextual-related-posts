@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-10 19:29+0100\n"
+"POT-Creation-Date: 2025-04-15 21:36+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -23,12 +23,22 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 "X-Poedit-SearchPathExcluded-2: phpunit\n"
 
-#: includes/admin/class-admin.php:171
+#: includes/admin/class-admin.php:172
 msgid "Copied!"
 msgstr ""
 
-#: includes/admin/class-admin.php:172
+#: includes/admin/class-admin.php:173
 msgid "Copy to clipboard"
+msgstr ""
+
+#: includes/admin/class-admin.php:208
+msgid ""
+"Contextual Related Posts: Some fulltext indexes are missing, which will "
+"affect the related posts."
+msgstr ""
+
+#: includes/admin/class-admin.php:210
+msgid "Click here to recreate indexes."
 msgstr ""
 
 #: includes/admin/class-bulk-edit.php:82
@@ -75,6 +85,14 @@ msgstr ""
 
 #: includes/admin/class-bulk-edit.php:164
 msgid "Include"
+msgstr ""
+
+#: includes/admin/class-db.php:152
+msgid "Installed"
+msgstr ""
+
+#: includes/admin/class-db.php:153
+msgid "Not Installed"
 msgstr ""
 
 #: includes/admin/class-metabox.php:146
@@ -229,7 +247,6 @@ msgid "Thumbnail"
 msgstr ""
 
 #: includes/admin/class-settings.php:168
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:76
 msgid "Styles"
 msgstr ""
 
@@ -1215,7 +1232,6 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-settings.php:1180
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:42
 msgid "No styles"
 msgstr ""
 
@@ -1224,7 +1240,6 @@ msgid "Select this option if you plan to add your own styles"
 msgstr ""
 
 #: includes/admin/class-settings.php:1185
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:46
 msgid "Text only"
 msgstr ""
 
@@ -1233,7 +1248,6 @@ msgid "Disable thumbnails and no longer include the default style sheet"
 msgstr ""
 
 #: includes/admin/class-settings.php:1190
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:51
 msgid "Rounded thumbnails"
 msgstr ""
 
@@ -1245,7 +1259,6 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-settings.php:1195
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:57
 msgid "Masonry"
 msgstr ""
 
@@ -1254,7 +1267,6 @@ msgid "Enables a masonry style layout similar to one made famous by Pinterest."
 msgstr ""
 
 #: includes/admin/class-settings.php:1200
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:61
 msgid "Grid"
 msgstr ""
 
@@ -1420,7 +1432,7 @@ msgid "Visit the Settings page"
 msgstr ""
 
 #: includes/admin/class-tools-page.php:96
-#: includes/admin/class-tools-page.php:99 includes/pro/class-pro.php:310
+#: includes/admin/class-tools-page.php:99
 msgid "Clear cache"
 msgstr ""
 
@@ -1466,11 +1478,11 @@ msgstr ""
 msgid "Import Settings"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:274
+#: includes/admin/class-tools-page.php:276
 msgid "Please upload a valid .json file"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:280
+#: includes/admin/class-tools-page.php:282
 msgid "Please upload a file to import"
 msgstr ""
 
@@ -1607,14 +1619,14 @@ msgstr ""
 msgid "Follow us"
 msgstr ""
 
-#: includes/class-main.php:259
+#: includes/class-main.php:237
 msgid ""
 "Contextual Related Posts and Contextual Related Posts PRO should not be "
 "active at the same time. We've automatically deactivated Contextual Related "
 "Posts."
 msgstr ""
 
-#: includes/class-main.php:261
+#: includes/class-main.php:239
 msgid ""
 "Contextual Related Posts and Contextual Related Posts PRO should not be "
 "active at the same time. We've automatically deactivated Contextual Related "
@@ -1709,12 +1721,10 @@ msgstr ""
 
 #: includes/frontend/blocks/src/related-posts/components/post-limit-controls.js:24
 #: includes/frontend/widgets/class-related-posts-widget.php:95
-#: includes/pro/blocks/src/query/components/post-offset-controls.js:13
 msgid "Offset"
 msgstr ""
 
 #: includes/frontend/blocks/src/related-posts/components/post-limit-controls.js:28
-#: includes/pro/blocks/src/query/components/post-offset-controls.js:25
 msgid "Number of posts to skip from the top"
 msgstr ""
 
@@ -1789,7 +1799,6 @@ msgid "Display Related Posts"
 msgstr ""
 
 #: includes/frontend/widgets/class-related-posts-widget.php:85
-#: includes/pro/blocks/src/query/components/post-order-controls.js:30
 msgid "Title"
 msgstr ""
 
@@ -1835,538 +1844,6 @@ msgstr ""
 
 #: includes/frontend/widgets/class-related-posts-widget.php:151
 msgid "Only from categories (comma-separated list of term taxonomy IDs)"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-grid-posts.php:9
-msgctxt "Block pattern title"
-msgid "Related Posts Grid"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-grid-posts.php:10
-msgid ""
-"Display a grid of posts. The default layout includes the post title, excerpt "
-"and date"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-grid-posts.php:16
-msgid "Related Posts:"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-grid-thumb-posts.php:9
-msgctxt "Block pattern title"
-msgid "Related Posts in a Thumbnail Grid"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-grid-thumb-posts.php:10
-msgid "Display a grid of post thumbnails and titles."
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-image-title-excerpt.php:9
-msgctxt "Block pattern title"
-msgid "Related Posts: Image, Title, Excerpt"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-image-title-excerpt.php:10
-msgid ""
-"Display a list of related posts with image, title and excerpt in a single "
-"column."
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-left-thumbnail.php:9
-msgctxt "Block pattern title"
-msgid "Related Posts: Left Thumbnails"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-left-thumbnail.php:12
-msgid ""
-"Display a small image on the left and the post title, date and excerpt of "
-"related posts on the right in a two column format. Stacks on mobile."
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-rounded-thumbs.php:9
-msgctxt "Block pattern title"
-msgid "Rounded Thumbs"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-rounded-thumbs.php:10
-msgid "Display a grid of featured post rounded thumbnails."
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-unordered-list.php:9
-msgctxt "Block pattern title"
-msgid "Related Posts: unordered List"
-msgstr ""
-
-#: includes/pro/blocks/block-patterns/query-unordered-list.php:10
-msgid ""
-"Display a list of post titles in a unordered list. The list numbering is "
-"styled using CSS."
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:97
-#, php-format
-msgid "Untitled post %d"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:226
-#: includes/pro/blocks/src/query/components/post-order-controls.js:54
-msgid "Post ID"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:235
-msgid "Use the first image in the post"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:241
-msgid "Use image from meta key"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:247
-msgid "Meta key for image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:253
-msgid "Use a custom image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:259
-msgid "URL of the custom image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:265
-msgid "Use the default image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:271
-msgid "Use the site icon"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:277
-msgid "Image size slug"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:283
-msgid "Aspect ratio"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:289
-msgid "Width of the image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:295
-msgid "Height of the image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:301
-msgid "Scale of the image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:307
-msgid "Style of the image"
-msgstr ""
-
-#: includes/pro/blocks/class-featured-image.php:331
-msgid "No post ID provided."
-msgstr ""
-
-#: includes/pro/blocks/class-query.php:288
-msgctxt "Block pattern category"
-msgid "Related Posts"
-msgstr ""
-
-#: includes/pro/blocks/class-query.php:289
-msgid "Display your related posts in lists, grids or other layouts."
-msgstr ""
-
-#: includes/pro/blocks/class-related-posts-pro.php:50
-msgid "Related Posts Block Default Settings"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/custom-image-controls.js:23
-msgid "Use Custom Image"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/custom-image-controls.js:25
-#: includes/pro/blocks/src/featured-image/components/custom-image-controls.js:38
-msgid ""
-"The custom image will be prioritised after the featured image and before the "
-"other settings below."
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/custom-image-controls.js:46
-msgid "Change Image"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/custom-image-controls.js:50
-msgid "Select Image"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/custom-image-controls.js:63
-msgid "Remove Image"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/default-image-controls.js:15
-msgid "Use Default Image"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/default-image-controls.js:17
-msgid "You can set this in the Contextual Related Posts Pro Settings screen."
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/first-image-controls.js:15
-msgid "Use First Image from Post"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/meta-key-image-controls.js:19
-msgid "Use Image from Meta Key"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/meta-key-image-controls.js:30
-msgid "Override Image Meta Key"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/meta-key-image-controls.js:36
-msgid ""
-"Enter the meta key name for the image. The meta key should contain the full "
-"image URL."
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/site-icon-controls.js:15
-msgid "Use Site Icon"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/site-icon-controls.js:17
-msgid "You can set this in Settings > General"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/size-controls.js:30
-msgid "Image size"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/components/size-controls.js:34
-msgid "Default"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/controls.js:62
-msgid "Contextual Related Posts Featured Image Settings"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/index.js:20
-msgid "Contextual Related Posts Featured Image"
-msgstr ""
-
-#: includes/pro/blocks/src/featured-image/index.js:24
-msgid ""
-"An advanced featured image block that falls back to the first image, meta "
-"key, or a default image if no featured image is set."
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/include-posts-controls.js:28
-msgid "Enter Post IDs"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/include-posts-controls.js:32
-msgid "Enter a comma-separated list of post IDs."
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-count-controls.js:18
-msgid "Number of Posts"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-control.js:67
-msgid "Start typing to search for a meta key."
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-control.js:72
-msgid "Meta Key"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-control.js:100
-#: includes/pro/blocks/src/query/components/post-order-controls.js:42
-msgid "Meta Value"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-control.js:120
-msgid "Meta Compare"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-control.js:164
-msgid "Remove meta query"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:63
-msgid "Post Meta Query"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:68
-msgid "Query Relationship"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:94
-msgid "Add a meta query to select post meta to query"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-meta-query-controls.js:149
-msgid "Add meta query"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:18
-msgid "Relevance"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:22
-msgid "Date"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:26
-msgid "Last Modified Date"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:34
-msgid "Author"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:38
-msgid "Random"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:46
-msgid "Meta Value Num"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:50
-msgid "Menu Order"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:62
-msgid "Order By"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:67
-msgid ""
-"Meta Value and Meta Value Num require that Meta Key is set in the Meta Query "
-"section."
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-order-controls.js:83
-msgid "Ascending Order"
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-type-controls.js:26
-msgid "These post types will be queried for related posts."
-msgstr ""
-
-#: includes/pro/blocks/src/query/components/post-type-controls.js:31
-msgid "Post Types"
-msgstr ""
-
-#: includes/pro/blocks/src/query/controls.js:81
-msgid "CRP Query Settings"
-msgstr ""
-
-#: includes/pro/blocks/src/query/index.js:19
-msgid "Contextual Related Posts Query Loop"
-msgstr ""
-
-#: includes/pro/blocks/src/query/index.js:23
-msgid ""
-"An advanced Contextual Related Posts block that allows displaying the "
-"related posts with a fully customizable layout"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/index.js:86
-msgid "Settings saved."
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/index.js:89
-msgid "Failed to save settings."
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/index.js:106
-msgid "Settings cleared."
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/index.js:109
-msgid "Failed to clear settings."
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/index.js:118
-msgid "Pro Settings"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/index.js:122
-msgid "Save as Default"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/index.js:125
-msgid "Clear Default"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:66
-msgid "Grid with thumbnails"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:80
-msgid ""
-"Select the style of the Related Posts. Selecting \"Text only\" will change "
-"the below option for Thumbnail location to \"No Thumbnail\"."
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:87
-msgid "- Select a style -"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:97
-msgid "Thumbnail location"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:101
-msgid ""
-"Location of the post thumbnail. Selecting \"No thumbnail\" will change the "
-"above option for Styles to \"Text only\"."
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:108
-msgid "- Select a location -"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:115
-msgid "Before title"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:122
-msgid "After title"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:129
-msgid "Only thumbnail"
-msgstr ""
-
-#: includes/pro/blocks/src/related-posts-pro/style-controls.js:136
-msgid "No thumbnail"
-msgstr ""
-
-#: includes/pro/class-pro.php:170
-msgid "Only from categories (comma-separated list of term taxonomy IDs):"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:107
-msgid ""
-"Custom tables reindexing has been scheduled. This may take some time "
-"depending on the number of posts on your site."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:130
-#, php-format
-msgid ""
-"You have enabled custom tables for Contextual Related Posts, but the tables "
-"appear to be empty. This will cause errors when fetching related posts. "
-"Please run the reindexing tool from the %1$sCRP Tools page%2$s."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:165
-msgid "Contextual Related Posts Pro: Enhanced Content Search Index Available!"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:168
-#, php-format
-msgid ""
-"Speed up your related posts by enabling the Enhanced Content Search Index "
-"feature in the %1$sPerformance tab%2$s. This creates a custom table for "
-"faster and more relevant related posts."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:193
-#: includes/pro/custom-tables/class-custom-tables-admin.php:291
-#: includes/pro/custom-tables/class-custom-tables-admin.php:377
-msgid "Reindex Custom Tables"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:195
-msgid ""
-"Use this tool to reindex all posts in the custom tables. This is useful if "
-"you have just enabled the custom tables feature or if you suspect that the "
-"tables are out of sync."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:199
-msgid "Select Sites to Reindex"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:200
-msgid "Leave all unchecked to reindex all sites."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:204
-msgid "Select All"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:238
-msgid "Current Status:"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:249
-#, php-format
-msgid "Indexing in progress: %s"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:268
-#, php-format
-msgid "Content Table: %1$d entries"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:274
-#, php-format
-msgid "Published Posts: %1$d, Index Status: %2$d%%"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:287
-msgid ""
-"Force complete reindex (Deletes all existing data and reindexes all posts)"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:296
-msgid "Preparing to reindex..."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:374
-msgid "Starting reindex process..."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:375
-msgid "Reindexing complete!"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:376
-msgid "An error occurred during reindexing. Please try again."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:378
-msgid "Reindexing... Click to Stop"
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:404
-#: includes/pro/custom-tables/class-custom-tables-admin.php:411
-msgid "You do not have permission to perform this action."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:521
-#, php-format
-msgid "Processed %1$d of %2$d posts (%3$d%%)..."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:625
-msgid "Security check failed."
-msgstr ""
-
-#: includes/pro/custom-tables/class-custom-tables-admin.php:630
-msgid "No reindex in progress."
-msgstr ""
-
-#: includes/pro/custom-tables/class-table-manager.php:77
-msgid ""
-"Failed to create Contextual Related Posts custom tables. Please check your "
-"mySQL version."
 msgstr ""
 
 #: includes/util/class-cache.php:50
