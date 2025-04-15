@@ -145,6 +145,7 @@ class Admin {
 	 */
 	public function hooks() {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_action( 'admin_notices', array( $this, 'fulltext_index_notice' ) );
 	}
 
 	/**
@@ -187,5 +188,30 @@ class Admin {
 	 */
 	public static function display_admin_sidebar() {
 		require_once CRP_PLUGIN_DIR . 'includes/admin/settings/sidebar.php';
+	}
+
+	/**
+	 * Display admin notice if the fulltext indexes are not created.
+	 *
+	 * @since 4.0.0
+	 */
+	public function fulltext_index_notice() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		// Check if all indexes are installed.
+		if ( ! Db::is_fulltext_index_installed() ) {
+			?>
+			<div class="notice notice-warning">
+				<p>
+					<?php esc_html_e( 'Contextual Related Posts: Some fulltext indexes are missing, which will affect the related posts.', 'contextual-related-posts' ); ?>
+					<a href="<?php echo esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ); ?>">
+						<?php esc_html_e( 'Click here to recreate indexes.', 'contextual-related-posts' ); ?>
+					</a>
+				</p>
+			</div>
+			<?php
+		}
 	}
 }

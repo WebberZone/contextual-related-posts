@@ -199,6 +199,8 @@ class Tools_Page {
 			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related (post_title, post_content);",
 			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_title;",
 			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_title (post_title);",
+			"ALTER TABLE {$wpdb->posts} DROP INDEX crp_related_content;",
+			"ALTER TABLE {$wpdb->posts} ADD FULLTEXT crp_related_content (post_content);",
 		);
 
 		/**
