@@ -164,6 +164,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
+= 4.0.2 =
+
+* Bug fixes:
+    * Fixed an issue where Exclude Posts stopped working.
+
 = 4.0.1 =
 
 * Modifications:
