@@ -492,6 +492,10 @@ class CRP_Core_Query {
 		unset( $args['after_list'] );
 		unset( $args['before_list_item'] );
 		unset( $args['after_list_item'] );
+		unset( $args['more_link_text'] );
+		unset( $args['extra_class'] );
+		unset( $args['className'] );
+		unset( $args['other_attributes'] );
 
 		/**
 		 * Filters the arguments of the query.
