@@ -1,12 +1,36 @@
 // Function to clear the cache.
 function crpClearCache() {
-	/**** since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php ****/
-	jQuery.post(ajaxurl, {
-		action: 'crp_clear_cache',
-		security: crp_admin_data.security
-	}, function (response, textStatus, jqXHR) {
-		alert(response.message);
-	}, 'json');
+    // Get the button
+    const button = document.getElementById('cache_clear');
+
+    // Disable button and change text
+    if (button) {
+        button.disabled = true;
+        button.textContent = crp_admin_data.clearing_cache;
+    }
+
+    // Send AJAX request
+    jQuery.post(ajaxurl, {
+        action: 'crp_clear_cache',
+        security: crp_admin_data.security
+    }, function (response, textStatus, jqXHR) {
+        // Re-enable button and restore text
+        if (button) {
+            button.disabled = false;
+            button.textContent = crp_admin_data.clear_cache;
+        }
+
+        // Show response message
+        alert(response.message);
+    }, 'json').fail(function () {
+        // Re-enable button and restore text on error
+        if (button) {
+            button.disabled = false;
+            button.textContent = crp_admin_data.clear_cache;
+        }
+    });
+
+    return false;
 }
 
 /**
