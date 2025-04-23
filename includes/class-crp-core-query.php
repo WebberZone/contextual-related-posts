@@ -1238,13 +1238,7 @@ class CRP_Core_Query {
 		$exclude_post_ids = empty( $args['exclude_post_ids'] ) ? array() : wp_parse_id_list( $args['exclude_post_ids'] );
 
 		// Exclude posts with exclude_this_post set to true or exclude_post_ids set.
-		$crp_post_metas = $wpdb->get_results(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->prepare(
-				"SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta' AND post_id = %d",
-				$post_id
-			),
-			ARRAY_A
-		);
+		$crp_post_metas = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta'", ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		foreach ( $crp_post_metas as $crp_post_meta ) {
 			$meta_value = maybe_unserialize( $crp_post_meta['meta_value'] );
