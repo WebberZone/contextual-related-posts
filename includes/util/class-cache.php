@@ -41,13 +41,23 @@ class Cache {
 		}
 		check_ajax_referer( 'crp-admin', 'security' );
 
-		self::delete();
+		$count = self::delete();
 
 		exit(
 			wp_json_encode(
 				array(
 					'success' => 1,
-					'message' => __( 'Cache has been cleared', 'contextual-related-posts' ),
+					'message' => sprintf(
+						// translators: %d is the number of cache entries cleared.
+						_n(
+							'%d cache entry has been cleared',
+							'%d cache entries have been cleared',
+							$count,
+							'contextual-related-posts'
+						),
+						$count
+					),
+					'count'   => $count,
 				)
 			)
 		);
@@ -57,40 +67,36 @@ class Cache {
 	 * Delete the entire CRP cache.
 	 *
 	 * @since 3.5.0
+	 * @since 4.0.0 Optimized with direct SQL for better performance.
 	 *
-	 * @param array $meta_keys  Array of meta keys that hold the cache.
 	 * @return int Number of keys deleted.
 	 */
-	public static function delete( $meta_keys = array() ) {
-		$loop = 0;
+	public static function delete(): int {
+		global $wpdb;
 
-		$default_meta_keys = self::get_meta_keys();
+		// Start transaction.
+		$wpdb->query( 'START TRANSACTION' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 
-		if ( ! empty( $meta_keys ) ) {
-			$meta_keys = array_intersect( $default_meta_keys, (array) $meta_keys );
-		} else {
-			$meta_keys = $default_meta_keys;
-		}
+		// Delete all cache entries and get count of deleted rows.
+		$delete_sql = "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '_crp_cache_%'";
 
-		foreach ( $meta_keys as $meta_key ) {
-			$del_meta = self::delete_by_key( $meta_key );
-			if ( $del_meta ) {
-				++$loop;
-			}
-		}
+		// Execute the deletion and get count of affected rows.
+		$count = (int) $wpdb->query( $delete_sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
 
-		return $loop;
+		// Commit transaction.
+		$wpdb->query( 'COMMIT' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
+
+		return intval( $count / 2 );
 	}
-
 
 	/**
 	 * Get array of cache keys.
 	 *
 	 * @since 3.5.0
 	 *
-	 * @return array $keys Array of cache keys.
+	 * @return array Array of cache keys.
 	 */
-	public static function get_keys() {
+	public static function get_keys(): array {
 
 		$keys = self::get_meta_keys();
 
@@ -104,7 +110,6 @@ class Cache {
 		return apply_filters( 'crp_cache_keys', $keys );
 	}
 
-
 	/**
 	 * Get the _crp_cache keys.
 	 *
@@ -113,7 +118,7 @@ class Cache {
 	 * @param int $post_id Post ID. Optional.
 	 * @return array Array of _crp_cache keys.
 	 */
-	public static function get_meta_keys( $post_id = 0 ) {
+	public static function get_meta_keys( $post_id = 0 ): array {
 		global $wpdb;
 
 		$meta_keys = array(
@@ -125,20 +130,16 @@ class Cache {
 			'crp_related_posts_block',
 		);
 
-		$keys = array();
-
-		$sql = "
-		SELECT meta_key
-		FROM {$wpdb->postmeta}
-		WHERE `meta_key` LIKE '_crp_cache_%'
-		AND `meta_key` NOT LIKE '_crp_cache_expires_%'
-		";
+		// Always query the database for fresh keys.
+		$sql = "SELECT meta_key FROM {$wpdb->postmeta} 
+			WHERE meta_key LIKE '_crp_cache_%'
+			AND meta_key NOT LIKE '_crp_cache_expires_%'";
 
 		if ( $post_id > 0 ) {
 			$sql .= $wpdb->prepare( ' AND post_id = %d ', $post_id );
 		}
 
-		$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$results = $wpdb->get_results( $sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
 
 		$keys = wp_list_pluck( $results, 'meta_key' );
 
@@ -176,13 +177,12 @@ class Cache {
 	 * @param mixed $attr Array of attributes typically.
 	 * @return string Cache meta key
 	 */
-	public static function get_key( $attr ) {
+	public static function get_key( $attr ): string {
 
 		$meta_key = md5( wp_json_encode( $attr ) );
 
 		return $meta_key;
 	}
-
 
 	/**
 	 * Sets/updates the value of the CRP cache for a post.
@@ -303,7 +303,6 @@ class Cache {
 		}
 	}
 
-
 	/**
 	 * Delete the value of the CRP cache for a post.
 	 *
@@ -313,7 +312,7 @@ class Cache {
 	 * @param string $key     CRP Cache key.
 	 * @return bool True on success, False on failure.
 	 */
-	public static function delete_by_post_id_and_key( $post_id, $key ) {
+	public static function delete_by_post_id_and_key( $post_id, $key ): bool {
 		$meta_key      = '_crp_cache_' . $key;
 		$cache_expires = '_crp_cache_expires_' . $key;
 
@@ -325,7 +324,6 @@ class Cache {
 		return $result;
 	}
 
-
 	/**
 	 * Delete the value of the CRP cache by cache key.
 	 *
@@ -334,7 +332,7 @@ class Cache {
 	 * @param string $key CRP Cache key.
 	 * @return bool True on success, False on failure.
 	 */
-	public static function delete_by_key( $key ) {
+	public static function delete_by_key( $key ): bool {
 		$key           = str_replace( '_crp_cache_expires_', '', $key );
 		$key           = str_replace( '_crp_cache_', '', $key );
 		$meta_key      = '_crp_cache_' . $key;

@@ -96,7 +96,9 @@ class Tools_Page {
 				<h2 class="hndle"><span><?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?></span></h2>
 				<div class="inside">
 					<p>
-						<input type="button" name="cache_clear" id="cache_clear"  value="<?php esc_attr_e( 'Clear cache', 'contextual-related-posts' ); ?>" class="button button-secondary" onclick="return crpClearCache();" />
+						<button type="button" name="cache_clear" id="cache_clear" class="button button-secondary" onclick="return crpClearCache();">
+							<?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?>
+						</button>
 					</p>
 					<p class="description">
 					<?php esc_html_e( 'Clear the Contextual Related Posts cache. This might take a while if you have a lot of posts.', 'contextual-related-posts' ); ?>
@@ -316,7 +318,9 @@ class Tools_Page {
 				'crp-admin-js',
 				'crp_admin_data',
 				array(
-					'security' => wp_create_nonce( 'crp-admin' ),
+					'security'       => wp_create_nonce( 'crp-admin' ),
+					'clear_cache'    => __( 'Clear cache', 'contextual-related-posts' ),
+					'clearing_cache' => __( 'Clearing cache', 'contextual-related-posts' ),
 				)
 			);
 		}

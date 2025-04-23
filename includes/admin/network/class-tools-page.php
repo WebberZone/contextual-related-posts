@@ -120,7 +120,9 @@ class Tools_Page {
 				'crp-admin-js',
 				'crp_admin_data',
 				array(
-					'security' => wp_create_nonce( 'crp-admin' ),
+					'security'       => wp_create_nonce( 'crp-admin' ),
+					'clear_cache'    => __( 'Clear cache', 'contextual-related-posts' ),
+					'clearing_cache' => __( 'Clearing cache', 'contextual-related-posts' ),
 				)
 			);
 		}
