@@ -167,7 +167,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 = 4.0.2 =
 
 * Enhancements:
-    * Optimized cache clearing operations by using direct SQL queries. The cache clear button will also return the number of keys deleted.
+    * Optimized cache clearing operations by using direct SQL queries. The cache clear button will also return the number of keys deleted. Optimized cache key generation to improve performance and reduce number of cache keys.
 
 * Bug fixes:
     * Fixed an issue where Exclude Posts stopped working.

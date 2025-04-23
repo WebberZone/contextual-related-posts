@@ -170,7 +170,7 @@ class Cache {
 	}
 
 	/**
-	 * Get the meta key based on a list of parameters.
+	 * Get the cache key based on a list of parameters.
 	 *
 	 * @since 3.5.0
 	 *
@@ -178,10 +178,100 @@ class Cache {
 	 * @return string Cache meta key
 	 */
 	public static function get_key( $attr ): string {
+		$args = (array) $attr;
 
-		$meta_key = md5( wp_json_encode( $attr ) );
+		// Remove args that don't affect query results (sorted alphabetically).
+		unset(
+			$args['after_list'],
+			$args['after_list_item'],
+			$args['before_list'],
+			$args['before_list_item'],
+			$args['blank_output'],
+			$args['blank_output_text'],
+			$args['cache'],
+			$args['cache_posts'],
+			$args['className'],
+			$args['crp_query'],
+			$args['echo'],
+			$args['excerpt_length'],
+			$args['extra_class'],
+			$args['ignore_sticky_posts'],
+			$args['is_crp_query'],
+			$args['link_new_window'],
+			$args['link_nofollow'],
+			$args['more_link_text'],
+			$args['no_found_rows'],
+			$args['other_attributes'],
+			$args['post_types'],
+			$args['same_post_type'],
+			$args['show_author'],
+			$args['show_date'],
+			$args['show_excerpt'],
+			$args['strict_limit'],
+			$args['suppress_filters'],
+			$args['title'],
+			$args['title_length']
+		);
 
-		return $meta_key;
+		// Define arrays for sorting (aligned with WP_Query).
+		$id_arrays = array(
+			'include_post_ids',
+			'include_cat_ids',
+			'exclude_post_ids',
+			'manual_related',
+			'post__in',
+			'post__not_in',
+			'category__in',
+			'category__not_in',
+			'category__and',
+			'tag__in',
+			'tag__not_in',
+			'tag__and',
+			'tag_slug__in',
+			'tag_slug__and',
+			'post_parent__in',
+			'post_parent__not_in',
+			'author__in',
+			'author__not_in',
+			'exclude_categories',
+		);
+
+		$string_arrays = array(
+			'post_type',
+			'post_status',
+			'post_name__in',
+			'same_taxes',
+		);
+
+		// Handle ID-based arrays (convert to integers, sort numerically).
+		foreach ( $id_arrays as $key ) {
+			if ( isset( $args[ $key ] ) ) {
+				$args[ $key ] = is_array( $args[ $key ] ) ? $args[ $key ] : wp_parse_id_list( $args[ $key ] );
+				$args[ $key ] = array_unique( array_map( 'absint', $args[ $key ] ) );
+				sort( $args[ $key ] );
+			}
+		}
+
+		// Handle string-based arrays (convert to strings, sort lexicographically).
+		foreach ( $string_arrays as $key ) {
+			if ( isset( $args[ $key ] ) ) {
+				if ( is_string( $args[ $key ] ) && strpos( $args[ $key ], '=' ) !== false ) {
+					parse_str( $args[ $key ], $parsed );
+					$args[ $key ] = array_keys( $parsed );
+				} elseif ( is_string( $args[ $key ] ) ) {
+					$args[ $key ] = explode( ',', $args[ $key ] );
+				}
+				$args[ $key ] = is_array( $args[ $key ] ) ? $args[ $key ] : array( $args[ $key ] );
+				$args[ $key ] = array_unique( array_map( 'strval', $args[ $key ] ) );
+				sort( $args[ $key ] );
+			}
+		}
+
+		// Sort top-level arguments.
+		ksort( $args );
+
+		// Generate cache key.
+		return md5( wp_json_encode( $args ) );
 	}
 
 	/**
@@ -218,7 +308,13 @@ class Cache {
 		 * @param string $key        CRP Cache key name.
 		 * @param mixed  $value      New value of CRP Cache key.
 		 */
-		$expiration = apply_filters( "crp_cache_time_{$key}", $expiration, $post_id, $key, $value );
+		$expiration = apply_filters(
+			"crp_cache_time_{$key}",
+			$expiration,
+			$post_id,
+			$key,
+			$value
+		);
 
 		$meta_key      = '_crp_cache_' . $key;
 		$cache_expires = '_crp_cache_expires_' . $key;
@@ -262,7 +358,12 @@ class Cache {
 		 * @param int    $post_id    Post ID.
 		 * @param string $key        CRP Cache key name.
 		 */
-		$cache_time = empty( $key ) ? $cache_time : apply_filters( "crp_cache_time_{$key}", $cache_time, $post_id, $key );
+		$cache_time = empty( $key ) ? $cache_time : apply_filters(
+			"crp_cache_time_{$key}",
+			$cache_time,
+			$post_id,
+			$key
+		);
 
 		return (int) $cache_time;
 	}
