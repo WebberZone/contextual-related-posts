@@ -164,6 +164,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
+= 4.0.3 =
+
+* Bug fixes:
+    * Fixed an issue where shortcode attributes were not properly sanitized.
+
 = 4.0.2 =
 
 * Enhancements:

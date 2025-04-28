@@ -306,6 +306,23 @@ class Helpers {
 	}
 
 	/**
+	 * Sanitize args.
+	 *
+	 * @since 4.0.3
+	 *
+	 * @param array $args Array of arguments.
+	 * @return array Sanitized array of arguments.
+	 */
+	public static function sanitize_args( $args ): array {
+		foreach ( $args as $key => $value ) {
+			if ( is_string( $value ) ) {
+				$args[ $key ] = wp_kses_post( $value );
+			}
+		}
+		return $args;
+	}
+
+	/**
 	 * Get a message about MySQL/MariaDB compatibility issues.
 	 *
 	 * @since 4.0.0
