@@ -168,6 +168,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 * Bug fixes:
     * Fixed an issue where shortcode attributes were not properly sanitized.
+    * Fixed an issue where cache keys were not being generated correctly resulting in duplicate cache keys.
 
 = 4.0.2 =
 
