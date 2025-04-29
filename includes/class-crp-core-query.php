@@ -1043,7 +1043,7 @@ class CRP_Core_Query {
 		// Check the cache if there are any posts saved.
 		if ( ! empty( $this->query_args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 
-			$meta_key = Cache::get_key( $this->query_args );
+			$meta_key = Cache::get_key( $this->input_query_args );
 
 			$cached_data = Cache::get_cache( $this->source_post->ID, $meta_key );
 			if ( ! empty( $cached_data ) ) {
@@ -1106,7 +1106,7 @@ class CRP_Core_Query {
 
 		// Support caching to speed up retrieval.
 		if ( ! empty( $this->query_args['cache_posts'] ) && ! $this->in_cache && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-			$meta_key = Cache::get_key( $this->query_args );
+			$meta_key = Cache::get_key( $this->input_query_args );
 			$post_ids = wp_list_pluck( $query->posts, 'ID' );
 
 			Cache::set_cache( $this->source_post->ID, $meta_key, $post_ids );
