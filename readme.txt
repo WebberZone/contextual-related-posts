@@ -167,8 +167,9 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 = 4.0.3 =
 
 * Bug fixes:
-    * Fixed an issue where shortcode attributes were not properly sanitized.
-    * Fixed an issue where cache keys were not being generated correctly resulting in duplicate cache keys.
+    * Shortcode attributes were not properly sanitized.
+    * Cache keys were not being generated correctly resulting in duplicate cache keys.
+    * Custom CSS styles were not loaded correctly when using the Related Posts Widget only.
 
 = 4.0.2 =
 

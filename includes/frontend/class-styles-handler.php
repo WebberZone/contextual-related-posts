@@ -74,7 +74,7 @@ class Styles_Handler {
 				$enqueue_style = true;
 			} elseif ( ( is_tax() || is_author() || is_date() ) && ! empty( $add_to['other_archives'] ) ) {
 				$enqueue_style = true;
-			} elseif ( is_active_widget( false, false, 'CRP_Widget', true ) ) {
+			} elseif ( is_active_widget( false, false, 'widget_crp', true ) ) {
 				$enqueue_style = true;
 			}
 
