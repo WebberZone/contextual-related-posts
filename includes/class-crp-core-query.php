@@ -199,6 +199,12 @@ class CRP_Core_Query {
 		$args     = wp_parse_args( $args, $defaults );
 		$args     = Helpers::parse_wp_query_arguments( $args );
 
+		// Set the postid if it's different from the queried object.
+		$queried_object_post_id = get_queried_object_id();
+		if ( is_main_query() && $queried_object_post_id && empty( $args['postid'] ) ( $queried_object_post_id !== $args['postid'] ) ) {
+			$args['postid'] = $queried_object_post_id;
+		}
+
 		// Set necessary variables.
 		$args['crp_query']           = true;
 		$args['suppress_filters']    = false;
