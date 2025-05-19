@@ -201,7 +201,7 @@ class CRP_Core_Query {
 
 		// Set the postid if it's different from the queried object.
 		$queried_object_post_id = get_queried_object_id();
-		if ( is_main_query() && $queried_object_post_id && empty( $args['postid'] ) ( $queried_object_post_id !== $args['postid'] ) ) {
+		if ( is_main_query() && $queried_object_post_id && empty( $args['postid'] ) && ( $queried_object_post_id !== $args['postid'] ) ) {
 			$args['postid'] = $queried_object_post_id;
 		}
 
