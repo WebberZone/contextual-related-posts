@@ -164,6 +164,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
+= 4.0.4 =
+
+* Bug fixes:
+    * Fixed ordering issue on pages when "Same taxonomies" is selected.
+
 = 4.0.3 =
 
 * Bug fixes:
