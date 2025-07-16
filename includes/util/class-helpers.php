@@ -354,7 +354,7 @@ class Helpers {
 		if ( version_compare( $version, $min_version, '<' ) ) {
 			return sprintf(
 				/* translators: 1: Database type (MySQL/MariaDB) 2: Current database version 3: Required database version */
-				__( '⚠️ Your %1$s version (%2$s) does not support all custom table features. %1$s %3$s or higher is required for optimal performance. The plugin will continue to use standard WordPress tables.', 'contextual-related-posts' ),
+				__( '⚠️ Your %1$s version (%2$s) does not support all custom table features. %1$s %3$s or higher is required for optimal performance. The plugin might not be able to deliver the best results. Please consider upgrading your database version.', 'contextual-related-posts' ),
 				esc_html( $db_name ),
 				esc_html( $version ),
 				esc_html( $min_version )

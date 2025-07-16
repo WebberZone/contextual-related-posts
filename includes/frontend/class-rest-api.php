@@ -39,7 +39,7 @@ class REST_API extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Initialises the Top 10 REST API adding the necessary routes.
+	 * Initialises the Contextual Related Posts REST API adding the necessary routes.
 	 *
 	 * @since 3.5.0
 	 */
@@ -163,7 +163,7 @@ class REST_API extends \WP_REST_Controller {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @return array Top 10 REST API related posts arguments.
+	 * @return array Contextual Related Posts REST API related posts arguments.
 	 */
 	public function get_item_params() {
 		$args = array(
