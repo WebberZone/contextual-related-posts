@@ -166,8 +166,14 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 = 4.0.4 =
 
+* Modifications:
+    * New function `crp_get_blog_option()` to fetch an option from a specific blog in WordPress multisite.
+    * Better handling of options if they haven't been set.
+
 * Bug fixes:
     * Fixed ordering issue on pages when "Same taxonomies" is selected.
+    * Set the postid if it's different from the queried object in the Core Query class.
+    * Fixed conflict with WPML showing current post incorrectly.
 
 = 4.0.3 =
 

@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 function crp_get_settings() {
 
-	$settings = get_option( 'crp_settings' );
+	$settings = get_option( 'crp_settings', array() );
 
 	/**
 	 * Settings array
@@ -47,17 +47,13 @@ function crp_get_settings() {
  * @return mixed
  */
 function crp_get_option( $key = '', $default_value = null ) {
-	global $crp_settings;
+	$crp_settings = crp_get_settings();
 
-	if ( empty( $crp_settings ) ) {
-		$crp_settings = crp_get_settings();
-	}
-
-	if ( is_null( $default_value ) ) {
+	if ( null === $default_value ) {
 		$default_value = crp_get_default_option( $key );
 	}
 
-	$value = isset( $crp_settings[ $key ] ) ? $crp_settings[ $key ] : $default_value;
+	$value = $crp_settings[ $key ] ?? $default_value;
 
 	/**
 	 * Filter the value for the option being fetched.
@@ -80,6 +76,48 @@ function crp_get_option( $key = '', $default_value = null ) {
 	 * @param mixed   $default_value Default value
 	 */
 	return apply_filters( 'crp_get_option_' . $key, $value, $key, $default_value );
+}
+
+/**
+ * Get an option from a specific blog in a multisite network.
+ *
+ * @since 4.0.4
+ *
+ * @param int    $blog_id       Blog ID to fetch the option from.
+ * @param string $key           Key of the option to fetch.
+ * @param mixed  $default_value Default value to fetch if option is missing.
+ * @return mixed
+ */
+function crp_get_blog_option( $blog_id, $key = '', $default_value = false ) {
+
+	$blog_id = (int) $blog_id;
+
+	if ( empty( $blog_id ) ) {
+		$blog_id = get_current_blog_id();
+	}
+
+	if ( get_current_blog_id() === $blog_id ) {
+		return crp_get_option( $key, $default_value );
+	}
+
+	if ( is_multisite() ) {
+		switch_to_blog( $blog_id );
+		$value = crp_get_option( $key, $default_value );
+		restore_current_blog();
+	} else {
+		$value = crp_get_option( $key, $default_value );
+	}
+
+	/**
+	 * Filters a blog option value.
+	 *
+	 * @since 4.0.4
+	 *
+	 * @param mixed  $value   The option value.
+	 * @param int    $blog_id Blog ID.
+	 * @param string $key     Option key.
+	 */
+	return apply_filters( "crp_blog_option_{$key}", $value, $blog_id, $key );
 }
 
 

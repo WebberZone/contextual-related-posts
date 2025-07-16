@@ -51,7 +51,7 @@ class Language_Handler {
 	public static function translate_ids( $results ) {
 		global $post;
 
-		$processed_ids     = array();
+		$processed_ids     = ! empty( $post->ID ) ? array( $post->ID ) : array();
 		$processed_results = array();
 
 		foreach ( $results as $result ) {
