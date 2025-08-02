@@ -15,7 +15,7 @@
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.
- * Version:     4.0.4-beta1
+ * Version:     4.0.4-beta2
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -35,8 +35,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @since 2.9.3
  */
-if ( ! defined( 'CRP_VERSION' ) ) {
-	define( 'CRP_VERSION', '4.0.3' );
+if ( ! defined( 'WZ_CRP_VERSION' ) ) {
+	define( 'WZ_CRP_VERSION', '4.0.4' );
 }
 
 
@@ -45,8 +45,8 @@ if ( ! defined( 'CRP_VERSION' ) ) {
  *
  * @since 2.3.0
  */
-if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
-	define( 'CRP_PLUGIN_FILE', __FILE__ );
+if ( ! defined( 'WZ_CRP_PLUGIN_FILE' ) ) {
+	define( 'WZ_CRP_PLUGIN_FILE', __FILE__ );
 }
 
 
@@ -55,8 +55,8 @@ if ( ! defined( 'CRP_PLUGIN_FILE' ) ) {
  *
  * @since 2.3.0
  */
-if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
-	define( 'CRP_PLUGIN_DIR', plugin_dir_path( CRP_PLUGIN_FILE ) );
+if ( ! defined( 'WZ_CRP_PLUGIN_DIR' ) ) {
+	define( 'WZ_CRP_PLUGIN_DIR', plugin_dir_path( WZ_CRP_PLUGIN_FILE ) );
 }
 
 /**
@@ -64,8 +64,8 @@ if ( ! defined( 'CRP_PLUGIN_DIR' ) ) {
  *
  * @since 2.3.0
  */
-if ( ! defined( 'CRP_PLUGIN_URL' ) ) {
-	define( 'CRP_PLUGIN_URL', plugin_dir_url( CRP_PLUGIN_FILE ) );
+if ( ! defined( 'WZ_CRP_PLUGIN_URL' ) ) {
+	define( 'WZ_CRP_PLUGIN_URL', plugin_dir_url( WZ_CRP_PLUGIN_FILE ) );
 }
 
 /**
