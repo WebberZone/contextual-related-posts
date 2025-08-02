@@ -167,8 +167,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 = 4.0.4 =
 
 * Modifications:
+    * Renamed `CRP_VERSION`, `CRP_PLUGIN_FILE`, CRP_PLUGIN_DIR` and `CRP_PLUGIN_URL` constants to `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR` and `WZ_CRP_PLUGIN_URL` respectively to avoid conflicts with other plugins.
     * New function `crp_get_blog_option()` to fetch an option from a specific blog in WordPress multisite.
     * Better handling of options if they haven't been set.
+    * [Pro] Improved the UI and functionality of the Custom Table indexing process.
+    * [Pro] Multsite Settings page for Enhanced Content Search Index (ECSI) has been modified.
 
 * Bug fixes:
     * Fixed ordering issue on pages when "Same taxonomies" is selected.

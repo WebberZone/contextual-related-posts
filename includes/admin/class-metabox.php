@@ -446,9 +446,9 @@ class Metabox {
 		if ( 'post' === $screen->base ) {
 			wp_enqueue_script(
 				'crp-admin-metabox',
-				CRP_PLUGIN_URL . "includes/admin/js/metabox{$file_prefix}.js",
+				WZ_CRP_PLUGIN_URL . "includes/admin/js/metabox{$file_prefix}.js",
 				array( 'jquery', 'jquery-ui-autocomplete', 'jquery-ui-sortable' ),
-				CRP_VERSION,
+				WZ_CRP_VERSION,
 				true
 			);
 			wp_localize_script(
@@ -460,15 +460,15 @@ class Metabox {
 			);
 			wp_enqueue_style(
 				'crp-admin-styles',
-				CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
+				WZ_CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
 				array( 'dashicons' ),
-				CRP_VERSION
+				WZ_CRP_VERSION
 			);
 			wp_enqueue_script(
 				'wz-taxonomy-suggest-js',
-				CRP_PLUGIN_URL . "includes/admin/settings/js/taxonomy-suggest{$file_prefix}.js",
+				WZ_CRP_PLUGIN_URL . "includes/admin/settings/js/taxonomy-suggest{$file_prefix}.js",
 				array( 'jquery' ),
-				CRP_VERSION,
+				WZ_CRP_VERSION,
 				true
 			);
 		}

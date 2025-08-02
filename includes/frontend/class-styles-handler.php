@@ -37,7 +37,7 @@ class Styles_Handler {
 			'crp-custom-style',
 			false,
 			array(),
-			CRP_VERSION
+			WZ_CRP_VERSION
 		);
 
 		$style_array = self::get_style();
@@ -48,9 +48,9 @@ class Styles_Handler {
 
 			wp_register_style(
 				"crp-style-{$style}",
-				plugins_url( "css/{$style}.min.css", CRP_PLUGIN_FILE ),
+				plugins_url( "css/{$style}.min.css", WZ_CRP_PLUGIN_FILE ),
 				array(),
-				CRP_VERSION
+				WZ_CRP_VERSION
 			);
 			wp_enqueue_style( "crp-style-{$style}" );
 			wp_add_inline_style( "crp-style-{$style}", $extra_css );

@@ -37,7 +37,7 @@ class Language_Handler {
 	 * @return void
 	 */
 	public static function load_plugin_textdomain() {
-		load_plugin_textdomain( 'contextual-related-posts', false, dirname( plugin_basename( CRP_PLUGIN_FILE ) ) . '/languages/' );
+		load_plugin_textdomain( 'contextual-related-posts', false, dirname( plugin_basename( WZ_CRP_PLUGIN_FILE ) ) . '/languages/' );
 	}
 
 	/**

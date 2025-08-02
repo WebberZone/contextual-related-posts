@@ -44,9 +44,9 @@ class Bulk_Edit {
 
 		wp_enqueue_script(
 			'crp-bulk-edit',
-			CRP_PLUGIN_URL . "includes/admin/js/bulk-edit{$file_prefix}.js",
+			WZ_CRP_PLUGIN_URL . "includes/admin/js/bulk-edit{$file_prefix}.js",
 			array( 'jquery' ),
-			CRP_VERSION,
+			WZ_CRP_VERSION,
 			true
 		);
 		wp_localize_script(

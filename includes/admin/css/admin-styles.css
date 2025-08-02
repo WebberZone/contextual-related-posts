@@ -138,33 +138,97 @@ a.crp_button.crp_button_gold:hover {
     }
 }
 
-#crp-reindex-progress-container {
-    background-color: #f0f0f1;
-    border: 1px solid #c3c4c7;
+/* Reindex Status Styling */
+#crp-reindex-status {
     margin: 10px 0;
+    padding: 10px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-left: 4px solid #72aee6;
+    background-color: #f6f7f7;
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+/* Success state - green with high contrast */
+#crp-reindex-status.success {
+    border-left-color: #00843c;
+    background-color: #e6f6ed;
+    color: #095228;
+}
+
+/* Error state - red with high contrast */
+#crp-reindex-status.error {
+    border-left-color: #b91c1c;
+    background-color: #fce8e8;
+    color: #7f1d1d;
+}
+
+/* Preparing state - blue with animation */
+#crp-reindex-status.preparing {
+    border-left-color: #2271b1;
+    background-color: #f0f6fc;
+    color: #135e96;
+}
+
+/* Progress bar animation */
+@keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+
+/* Hover and focus states for better accessibility */
+#crp-reindex-status:hover,
+#crp-reindex-status:focus {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+#crp-reindex-progress-container {
+    display: none;
+    margin-top: 10px;
+}
+
+#crp-reindex-progress-container.active {
+    display: block;
+}
+
+.crp-progress-bar-wrapper {
+    background: #e5e5e5;
+    height: 25px;
+    position: relative;
+    border-radius: 3px;
     overflow: hidden;
-    padding: 10px;
 }
 
 #crp-progress-bar {
-    background-color: #2271b1;
+    background: #2271b1;
     height: 100%;
-    -webkit-transition: width 0.5s ease-in-out;
-    transition: width 0.5s ease-in-out;
-    width: 0;
+    transition: width 0.3s ease-in-out;
+    border-radius: 3px;
 }
 
-#crp-reindex-status {
-    color: #3c434a;
-    margin: 10px 0;
+#crp-progress-bar.preparing {
+    background-image: linear-gradient(45deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+    animation: progress-bar-stripes 2s linear infinite;
 }
 
-#crp-reindex-status.error {
-    color: #d63638;
-}
-
-#crp-reindex-status.success {
-    color: #00a32a;
+#crp-progress-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    color: #fff;
+    text-align: center;
+    line-height: 25px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
 }
 
 /* Copy to clipboard button */
@@ -199,4 +263,76 @@ a.crp_button.crp_button_gold:hover {
 
 .crp-copy-button.copied {
     color: #00a32a;
+}
+
+/* Custom Tables Reindex Button Loading Animation */
+#crp-start-reindex.loading.initial-loading {
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+#crp-start-reindex.loading:after,
+.crp-reindex-progress.loading:after {
+	content: '';
+	display: inline-flex;
+	width: 1em;
+	height: 1em;
+	border: 3px solid var(--wp-admin-theme-color, #ffffff);
+	border-top-color: var(--wp-admin-theme-color-darker-20, #333333);
+	border-right-color: var(--wp-admin-theme-color-darker-20, #333333);
+	border-radius: 50%;
+	animation: spin 2s linear infinite;
+	-webkit-animation: spin 2s linear infinite;
+	transform-origin: center center;
+	vertical-align: middle;
+	box-sizing: border-box;
+	margin-left: 0.5em;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@-webkit-keyframes spin {
+	from {
+		-webkit-transform: rotate(0deg);
+	}
+
+	to {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+/* Network Tools Index Status Progress Bars */
+.crp-index-status {
+	position: relative;
+	width: 100%;
+	height: 24px;
+	background: #f0f0f0;
+	border-radius: 4px;
+	overflow: hidden;
+}
+
+.crp-index-bar {
+	height: 100%;
+	transition: width 0.4s ease;
+}
+
+.crp-index-status span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+	line-height: 24px;
+	font-weight: bold;
+	color: #000;
+	text-shadow: 0 0 2px rgba(255, 255, 255, 0.8);
 }
