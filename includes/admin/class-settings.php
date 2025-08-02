@@ -66,7 +66,7 @@ class Settings {
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'initialise_settings' ) );
 		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 11, 2 );
-		add_filter( 'plugin_action_links_' . plugin_basename( CRP_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( WZ_CRP_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
 		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
 		add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
 		add_filter( self::$prefix . '_after_setting_output', array( $this, 'display_admin_thumbnail' ), 10, 2 );
@@ -936,7 +936,7 @@ class Settings {
 				'name'    => esc_html__( 'Default thumbnail', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'Enter the full URL of the image that you wish to display if no thumbnail is found. This image will be displayed below.', 'contextual-related-posts' ),
 				'type'    => 'file',
-				'options' => CRP_PLUGIN_URL . 'default.png',
+				'options' => WZ_CRP_PLUGIN_URL . 'default.png',
 				'size'    => 'large',
 			),
 		);
@@ -1442,7 +1442,7 @@ class Settings {
 
 		$thumb_default = \crp_get_option( 'thumb_default' );
 
-		if ( 'thumb_default' === $args['id'] && CRP_PLUGIN_URL . 'default.png' !== $thumb_default ) {
+		if ( 'thumb_default' === $args['id'] && WZ_CRP_PLUGIN_URL . 'default.png' !== $thumb_default ) {
 			$html = '<span class="dashicons dashicons-undo reset-default-thumb" style="cursor: pointer;" title="' . __( 'Reset' ) . '"></span> <br />' . $html;
 		}
 
@@ -1465,15 +1465,15 @@ class Settings {
 
 		wp_enqueue_style(
 			'crp-admin-styles',
-			CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
+			WZ_CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
 			array(),
-			CRP_VERSION
+			WZ_CRP_VERSION
 		);
 		wp_localize_script(
 			'wz-admin-js',
 			'crp_admin',
 			array(
-				'thumb_default' => CRP_PLUGIN_URL . 'default.png',
+				'thumb_default' => WZ_CRP_PLUGIN_URL . 'default.png',
 			)
 		);
 

@@ -508,7 +508,7 @@ class Display {
 	 * @return string Default thumbnail.
 	 */
 	public static function get_default_thumbnail() {
-		return CRP_PLUGIN_URL . 'default.png';
+		return WZ_CRP_PLUGIN_URL . 'default.png';
 	}
 
 	/**

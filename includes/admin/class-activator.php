@@ -100,7 +100,7 @@ class Activator {
 	 */
 	public static function activate_new_site( $blog ) {
 
-		if ( ! is_plugin_active_for_network( plugin_basename( CRP_PLUGIN_FILE ) ) ) {
+		if ( ! is_plugin_active_for_network( plugin_basename( WZ_CRP_PLUGIN_FILE ) ) ) {
 			return;
 		}
 

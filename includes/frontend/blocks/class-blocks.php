@@ -113,9 +113,9 @@ class Blocks {
 
 			wp_register_style(
 				"crp-style-{$style}",
-				plugins_url( "css/{$style}.min.css", CRP_PLUGIN_FILE ),
+				plugins_url( "css/{$style}.min.css", WZ_CRP_PLUGIN_FILE ),
 				array(),
-				CRP_VERSION
+				WZ_CRP_VERSION
 			);
 			wp_enqueue_style( "crp-style-{$style}" );
 			wp_add_inline_style( "crp-style-{$style}", $extra_css );
@@ -162,9 +162,9 @@ class Blocks {
 
 				wp_enqueue_style(
 					"crp-block-editor-{$style}",
-					plugins_url( "css/{$pro}{$style}{$file_prefix}.css", CRP_PLUGIN_FILE ),
+					plugins_url( "css/{$pro}{$style}{$file_prefix}.css", WZ_CRP_PLUGIN_FILE ),
 					array( 'wp-edit-blocks' ),
-					CRP_VERSION
+					WZ_CRP_VERSION
 				);
 				wp_add_inline_style( "crp-block-editor-{$style}", $extra_css );
 			}

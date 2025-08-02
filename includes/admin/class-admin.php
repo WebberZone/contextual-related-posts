@@ -8,6 +8,9 @@
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
 use WebberZone\Contextual_Related_Posts\Util\Cache;
+use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
+use WebberZone\Contextual_Related_Posts\Admin\Admin_Notices;
+use WebberZone\Contextual_Related_Posts\Admin\Admin_Notices_API;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -85,6 +88,15 @@ class Admin {
 	public Admin_Notices $admin_notices;
 
 	/**
+	 * Admin notices API.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @var Admin_Notices_API Admin notices API.
+	 */
+	public Admin_Notices_API $admin_notices_api;
+
+	/**
 	 * Settings Page in Admin area.
 	 *
 	 * @since 3.5.0
@@ -129,13 +141,14 @@ class Admin {
 		$this->hooks();
 
 		// Initialise admin classes.
-		$this->settings      = new Settings();
-		$this->activator     = new Activator();
-		$this->metabox       = new Metabox();
-		$this->tools_page    = new Tools_Page();
-		$this->cache         = new Cache();
-		$this->bulk_edit     = new Bulk_Edit();
-		$this->admin_notices = new Admin_Notices();
+		$this->settings          = new Settings();
+		$this->activator         = new Activator();
+		$this->metabox           = new Metabox();
+		$this->tools_page        = new Tools_Page();
+		$this->cache             = new Cache();
+		$this->bulk_edit         = new Bulk_Edit();
+		$this->admin_notices_api = new Admin_Notices_API();
+		$this->admin_notices     = new Admin_Notices();
 	}
 
 	/**
@@ -144,8 +157,7 @@ class Admin {
 	 * @since 3.5.0
 	 */
 	public function hooks() {
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		add_action( 'admin_notices', array( $this, 'fulltext_index_notice' ) );
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**
@@ -158,9 +170,9 @@ class Admin {
 
 		wp_register_script(
 			'crp-admin-js',
-			CRP_PLUGIN_URL . "includes/admin/js/admin-scripts{$file_prefix}.js",
+			WZ_CRP_PLUGIN_URL . "includes/admin/js/admin-scripts{$file_prefix}.js",
 			array( 'jquery', 'jquery-ui-tabs', 'jquery-ui-datepicker' ),
-			CRP_VERSION,
+			WZ_CRP_VERSION,
 			true
 		);
 		wp_localize_script(
@@ -171,13 +183,14 @@ class Admin {
 				'nonce'           => wp_create_nonce( 'crp_admin_nonce' ),
 				'copied'          => __( 'Copied!', 'contextual-related-posts' ),
 				'copyToClipboard' => __( 'Copy to clipboard', 'contextual-related-posts' ),
+				'copyError'       => __( 'Error copying to clipboard', 'contextual-related-posts' ),
 			)
 		);
 		wp_register_style(
 			'crp-admin-ui-css',
-			CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
+			WZ_CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
 			array(),
-			CRP_VERSION
+			WZ_CRP_VERSION
 		);
 	}
 
@@ -187,31 +200,6 @@ class Admin {
 	 * @since 3.5.0
 	 */
 	public static function display_admin_sidebar() {
-		require_once CRP_PLUGIN_DIR . 'includes/admin/settings/sidebar.php';
-	}
-
-	/**
-	 * Display admin notice if the fulltext indexes are not created.
-	 *
-	 * @since 4.0.0
-	 */
-	public function fulltext_index_notice() {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		// Check if all indexes are installed.
-		if ( ! Db::is_fulltext_index_installed() ) {
-			?>
-			<div class="notice notice-warning">
-				<p>
-					<?php esc_html_e( 'Contextual Related Posts: Some fulltext indexes are missing, which will affect the related posts.', 'contextual-related-posts' ); ?>
-					<a href="<?php echo esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ); ?>">
-						<?php esc_html_e( 'Click here to recreate indexes.', 'contextual-related-posts' ); ?>
-					</a>
-				</p>
-			</div>
-			<?php
-		}
+		require_once WZ_CRP_PLUGIN_DIR . 'includes/admin/settings/sidebar.php';
 	}
 }

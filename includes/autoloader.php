@@ -23,7 +23,7 @@ function autoload( $class_name ) {
 	}
 
 	if ( false !== strpos( $class_name, $namespace ) ) {
-		$classes_dir = realpath( CRP_PLUGIN_DIR ) . DIRECTORY_SEPARATOR . $classes_subfolder . DIRECTORY_SEPARATOR;
+		$classes_dir = realpath( WZ_CRP_PLUGIN_DIR ) . DIRECTORY_SEPARATOR . $classes_subfolder . DIRECTORY_SEPARATOR;
 
 		// Project namespace.
 		$project_namespace = $namespace . '\\';
