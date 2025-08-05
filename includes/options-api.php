@@ -81,7 +81,7 @@ function crp_get_option( $key = '', $default_value = null ) {
 /**
  * Get an option from a specific blog in a multisite network.
  *
- * @since 4.0.4
+ * @since 4.1.0
  *
  * @param int    $blog_id       Blog ID to fetch the option from.
  * @param string $key           Key of the option to fetch.
@@ -111,7 +111,7 @@ function crp_get_blog_option( $blog_id, $key = '', $default_value = false ) {
 	/**
 	 * Filters a blog option value.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 *
 	 * @param mixed  $value   The option value.
 	 * @param int    $blog_id Blog ID.
