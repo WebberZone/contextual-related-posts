@@ -17,14 +17,14 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Class to handle admin notices.
  *
- * @since 4.0.4
+ * @since 4.1.0
  */
 class Admin_Notices_API {
 
 	/**
 	 * Array of registered notices.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 *
 	 * @var array Registered notices.
 	 */
@@ -33,7 +33,7 @@ class Admin_Notices_API {
 	/**
 	 * Constructor class.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 */
 	public function __construct() {
 		Hook_Registry::add_action( 'admin_notices', array( $this, 'display_notices' ) );
@@ -43,7 +43,7 @@ class Admin_Notices_API {
 	/**
 	 * Register a new notice.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 *
 	 * @param array $notice {
 	 *     Notice arguments.
@@ -82,7 +82,7 @@ class Admin_Notices_API {
 	/**
 	 * Display registered notices.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 */
 	public function display_notices() {
 		$screen = get_current_screen();
@@ -130,7 +130,7 @@ class Admin_Notices_API {
 	/**
 	 * Print scripts for notice dismissal.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 */
 	private function print_scripts() {
 		static $printed = false;
@@ -164,7 +164,7 @@ class Admin_Notices_API {
 	/**
 	 * Handle notice dismissal via AJAX.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 */
 	public function handle_notice_dismissal() {
 		check_ajax_referer( 'crp_dismiss_notice', 'nonce' );
@@ -192,7 +192,7 @@ class Admin_Notices_API {
 	/**
 	 * Check if a notice has been dismissed.
 	 *
-	 * @since 4.0.4
+	 * @since 4.1.0
 	 *
 	 * @param string $notice_id Notice ID.
 	 * @return bool Whether the notice has been dismissed.

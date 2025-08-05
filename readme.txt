@@ -2,8 +2,8 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.0.3
-Requires at least: 6.3
+Stable tag: 4.1.0
+Requires at least: 6.5
 Tested up to: 6.8
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -164,12 +164,13 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
-= 4.0.4 =
+= 4.1.0 =
 
 * Modifications:
     * Renamed `CRP_VERSION`, `CRP_PLUGIN_FILE`, CRP_PLUGIN_DIR` and `CRP_PLUGIN_URL` constants to `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR` and `WZ_CRP_PLUGIN_URL` respectively to avoid conflicts with other plugins.
     * New function `crp_get_blog_option()` to fetch an option from a specific blog in WordPress multisite.
     * Better handling of options if they haven't been set.
+	* Fulltext indexes are now named `wz_title_content`, `wz_title`, and `wz_content` to ensure compatibility and optimize database space, especially when using Contextual Related Posts. After updating to this version, please recreate the indexes to benefit from the changes—until then, the plugin will use the previous index names.
     * [Pro] Improved the UI and functionality of the Custom Table indexing process.
     * [Pro] Multsite Settings page for Enhanced Content Search Index (ECSI) has been modified.
 
@@ -229,5 +230,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.0.3 =
-Bugs fixed. Please read the changelog and the release post for more details.
+= 4.1.0 =
+Important plugin constants renamed to prevent conflicts, improved multisite support, and fixes for ordering issues, WPML conflicts, and Exclude Posts functionality. Custom Table indexing UI enhanced in Pro version.
