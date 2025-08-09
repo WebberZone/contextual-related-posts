@@ -29,7 +29,7 @@ function crp_freemius() {
 				'premium_slug'   => 'contextual-related-posts-pro',
 				'type'           => 'plugin',
 				'public_key'     => 'pk_4aec305b9c97637276da2e55b723f',
-				'is_premium'     => true,
+				'is_premium'     => false,
 				'premium_suffix' => 'Pro',
 				'has_addons'     => false,
 				'has_paid_plans' => true,
@@ -65,9 +65,6 @@ function crp_freemius_get_plugin_icon() {
  */
 function crp_freemius_uninstall() {
 	require_once __DIR__ . '/uninstaller.php';
-	if ( crp_freemius()->can_use_premium_code__premium_only() ) {
-		\WebberZone\Contextual_Related_Posts\Pro\Pro::uninstall_pro();
-	}
 }
 
 // Init Freemius.
