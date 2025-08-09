@@ -23,7 +23,7 @@ parameters:
 		-
 			message: "#^Function fs_dynamic_init not found\\.$#"
 			count: 1
-			path: includes/load-freemius.php
+			path: load-freemius.php
 
 		-
 			message: "#^Result of && is always false\\.$#"

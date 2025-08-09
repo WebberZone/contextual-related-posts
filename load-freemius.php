@@ -1,6 +1,6 @@
 <?php
 /**
- * Autoloads classes from the WebberZone\Snippetz namespace.
+ * Initializes Freemius SDK for Contextual Related Posts Pro.
  *
  * @package WebberZone\Contextual_Related_Posts
  */
@@ -21,7 +21,7 @@ function crp_freemius() {
 			define( 'WP_FS__PRODUCT_15040_MULTISITE', true );
 		}
 		// Include Freemius SDK.
-		require_once dirname( __DIR__ ) . '/vendor/freemius/start.php';
+		require_once __DIR__ . '/vendor/freemius/start.php';
 		$crp_freemius = \fs_dynamic_init(
 			array(
 				'id'             => '15040',
@@ -29,7 +29,7 @@ function crp_freemius() {
 				'premium_slug'   => 'contextual-related-posts-pro',
 				'type'           => 'plugin',
 				'public_key'     => 'pk_4aec305b9c97637276da2e55b723f',
-				'is_premium'     => false,
+				'is_premium'     => true,
 				'premium_suffix' => 'Pro',
 				'has_addons'     => false,
 				'has_paid_plans' => true,
@@ -57,14 +57,17 @@ function crp_freemius() {
  * @return string
  */
 function crp_freemius_get_plugin_icon() {
-	return __DIR__ . '/admin/images/crp-icon.png';
+	return __DIR__ . '/includes/admin/images/crp-icon.png';
 }
 
 /**
  * Uninstall the plugin.
  */
 function crp_freemius_uninstall() {
-	require_once dirname( __DIR__ ) . '/uninstaller.php';
+	require_once __DIR__ . '/uninstaller.php';
+	if ( crp_freemius()->can_use_premium_code__premium_only() ) {
+		\WebberZone\Contextual_Related_Posts\Pro\Pro::uninstall_pro();
+	}
 }
 
 // Init Freemius.
