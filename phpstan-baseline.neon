@@ -1,49 +1,14 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
+			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
-			path: includes/admin/class-admin.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 2
-			path: includes/admin/class-admin.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 1
-			path: includes/admin/class-bulk-edit.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 3
-			path: includes/admin/class-metabox.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 4
-			path: includes/admin/class-settings.php
+			path: includes/admin/class-settings-wizard.php
 
 		-
 			message: "#^Variable \\$menu_page might not be defined\\.$#"
 			count: 1
 			path: includes/admin/settings/class-settings-api.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 4
-			path: includes/admin/settings/sidebar.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
-			count: 1
-			path: includes/autoloader.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 1
-			path: includes/frontend/class-display.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
@@ -56,24 +21,9 @@ parameters:
 			path: includes/frontend/class-display.php
 
 		-
-			message: "#^Method WebberZone\\\\Contextual_Related_Posts\\\\Frontend\\\\Widgets\\\\Related_Posts_Widget\\:\\:form\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: includes/frontend/widgets/class-related-posts-widget.php
-
-		-
 			message: "#^Function fs_dynamic_init not found\\.$#"
 			count: 1
 			path: includes/load-freemius.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_DIR not found\\.$#"
-			count: 2
-			path: includes/pro/blocks/class-query.php
-
-		-
-			message: "#^Constant CRP_PLUGIN_URL not found\\.$#"
-			count: 2
-			path: includes/pro/blocks/class-query.php
 
 		-
 			message: "#^Result of && is always false\\.$#"

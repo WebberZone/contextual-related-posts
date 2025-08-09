@@ -76,6 +76,7 @@ class Settings {
 		add_action( 'wp_ajax_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
 		add_action( self::$prefix . '_settings_page_header', array( $this, 'settings_page_header' ) );
 		add_filter( self::$prefix . '_after_setting_output', array( $this, 'after_setting_output' ), 10, 2 );
+		add_action( self::$prefix . '_settings_form_buttons', array( $this, 'add_wizard_button' ) );
 	}
 
 	/**
@@ -1607,5 +1608,20 @@ class Settings {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Add a button to the settings page to start the settings wizard.
+	 *
+	 * @since 4.1.0
+	 */
+	public function add_wizard_button() {
+		printf(
+			'<br /><a aria-label="%s" class="button button-secondary" href="%s" title="%s" style="margin-top: 10px;">%s</a>',
+			esc_attr__( 'Start Settings Wizard', 'contextual-related-posts' ),
+			esc_url( admin_url( 'admin.php?page=crp_wizard' ) ),
+			esc_attr__( 'Start Settings Wizard', 'contextual-related-posts' ),
+			esc_html__( 'Start Settings Wizard', 'contextual-related-posts' )
+		);
 	}
 }
