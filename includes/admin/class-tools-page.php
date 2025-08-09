@@ -9,6 +9,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -32,10 +34,10 @@ class Tools_Page {
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-		add_action( 'admin_init', array( $this, 'process_settings_export' ) );
-		add_action( 'admin_init', array( $this, 'process_settings_import' ), 9 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		Hook_Registry::add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		Hook_Registry::add_action( 'admin_init', array( $this, 'process_settings_export' ) );
+		Hook_Registry::add_action( 'admin_init', array( $this, 'process_settings_import' ), 9 );
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
 
 	/**

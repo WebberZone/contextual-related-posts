@@ -9,9 +9,12 @@ namespace WebberZone\Contextual_Related_Posts;
 
 use WebberZone\Contextual_Related_Posts\Admin\Activator;
 use WebberZone\Contextual_Related_Posts\Frontend\Display;
+use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
+
 if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
+
 /**
  * Main plugin class.
  *
@@ -71,6 +74,15 @@ final class Main {
 	public Frontend\Language_Handler $language;
 
 	/**
+	 * Pro modules.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @var Pro\Pro|null
+	 */
+	public ?Pro\Pro $pro = null;
+
+	/**
 	 * Gets the instance of the class.
 	 *
 	 * @since 3.5.0
@@ -82,6 +94,7 @@ final class Main {
 			self::$instance = new self();
 			self::$instance->init();
 		}
+
 		return self::$instance;
 	}
 
@@ -104,7 +117,16 @@ final class Main {
 		$this->styles     = new Frontend\Styles_Handler();
 		$this->shortcodes = new Frontend\Shortcodes();
 		$this->blocks     = new Frontend\Blocks\Blocks();
+
 		$this->hooks();
+
+		if ( crp_freemius()->is__premium_only() ) {
+			if ( crp_freemius()->can_use_premium_code() ) {
+				$this->pro = new Pro\Pro();
+			}
+			Pro\Pro::free_hooks();
+		}
+
 		if ( is_admin() ) {
 			$this->admin = new Admin\Admin();
 			if ( is_multisite() ) {
@@ -119,20 +141,16 @@ final class Main {
 	 * @since 3.5.0
 	 */
 	public function hooks(): void {
-		add_action( 'init', array( $this, 'initiate_plugin' ) );
-		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
-		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
-		add_filter( 'the_content', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
-		add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
-		add_filter( 'the_content_feed', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
-		add_action( 'parse_query', array( $this, 'parse_query' ) );
-		add_action(
-			'activated_plugin',
-			array( $this, 'activated_plugin' ),
-			10,
-			2
-		);
-		add_action( 'pre_current_active_plugins', array( $this, 'plugin_deactivated_notice' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'initiate_plugin' ) );
+		Hook_Registry::add_action( 'widgets_init', array( $this, 'register_widgets' ) );
+		Hook_Registry::add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+		Hook_Registry::add_filter( 'the_content', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
+		Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
+		Hook_Registry::add_filter( 'the_content_feed', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
+		Hook_Registry::add_action( 'parse_query', array( $this, 'parse_query' ) );
+
+		Hook_Registry::add_action( 'activated_plugin', array( $this, 'activated_plugin' ), 10, 2 );
+		Hook_Registry::add_action( 'pre_current_active_plugins', array( $this, 'plugin_deactivated_notice' ) );
 	}
 
 	/**
@@ -145,14 +163,13 @@ final class Main {
 	}
 
 	/**
-	 * Initialise the Top 10 widgets.
+	 * Initialise the Contextual Related Posts widgets.
 	 *
 	 * @since 3.5.0
 	 */
 	public function register_widgets(): void {
-		register_widget( '\\WebberZone\\Contextual_Related_Posts\\Frontend\\Widgets\\Related_Posts_Widget' );
+		register_widget( '\WebberZone\Contextual_Related_Posts\Frontend\Widgets\Related_Posts_Widget' );
 	}
-
 	/**
 	 * Function to register our new routes from the controller.
 	 *
@@ -201,20 +218,25 @@ final class Main {
 		if ( ! in_array( $plugin, array( 'contextual-related-posts/contextual-related-posts.php', 'contextual-related-posts-pro/contextual-related-posts.php' ), true ) ) {
 			return;
 		}
+
 		Activator::activation_hook( $network_wide );
+
 		$plugin_to_deactivate  = 'contextual-related-posts/contextual-related-posts.php';
 		$deactivated_notice_id = '1';
+
 		// If we just activated the free version, deactivate the pro version.
 		if ( $plugin === $plugin_to_deactivate ) {
 			$plugin_to_deactivate  = 'contextual-related-posts-pro/contextual-related-posts.php';
 			$deactivated_notice_id = '2';
 		}
+
 		if ( is_multisite() && is_network_admin() ) {
 			$active_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
 			$active_plugins = array_keys( $active_plugins );
 		} else {
 			$active_plugins = (array) get_option( 'active_plugins', array() );
 		}
+
 		foreach ( $active_plugins as $plugin_basename ) {
 			if ( $plugin_to_deactivate === $plugin_basename ) {
 				set_transient( 'crp_deactivated_notice_id', $deactivated_notice_id, 1 * HOUR_IN_SECONDS );
@@ -234,19 +256,18 @@ final class Main {
 		if ( ! in_array( $deactivated_notice_id, array( 1, 2 ), true ) ) {
 			return;
 		}
+
 		$message = __( "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated Contextual Related Posts.", 'contextual-related-posts' );
 		if ( 2 === $deactivated_notice_id ) {
 			$message = __( "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated Contextual Related Posts PRO.", 'contextual-related-posts' );
 		}
+
 		?>
 			<div class="updated" style="border-left: 4px solid #ffba00;">
-				<p>
-					<?php
-					echo esc_html( $message );
-					?>
-				</p>
+				<p><?php echo esc_html( $message ); ?></p>
 			</div>
 			<?php
+
 			delete_transient( 'crp_deactivated_notice_id' );
 	}
 }
