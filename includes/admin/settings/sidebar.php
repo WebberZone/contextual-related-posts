@@ -5,12 +5,12 @@
  * @package WebberZone\Contextual_Related_Posts
  */
 
-use WebberZone\Contextual_Related_Posts\Main;
+use WebberZone\Contextual_Related_Posts\Admin\Admin;
 use function WebberZone\Contextual_Related_Posts\crp_freemius;
 
 ?>
 <div class="postbox-container">
-	<?php Main::pro_upgrade_banner(); ?>
+	<?php Admin::pro_upgrade_banner(); ?>
 
 	<div id="qlinksdiv" class="postbox meta-box-sortables">
 		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'Quick links', 'contextual-related-posts' ); ?></span></h2>

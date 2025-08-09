@@ -213,4 +213,33 @@ class Admin {
 	public static function display_admin_sidebar() {
 		require_once WZ_CRP_PLUGIN_DIR . 'includes/admin/settings/sidebar.php';
 	}
+
+	/**
+	 * Display the pro upgrade banner.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param bool   $donate        Whether to show the donate banner.
+	 * @param string $custom_text   Custom text to show in the banner.
+	 */
+	public static function pro_upgrade_banner( $donate = true, $custom_text = '' ) {
+		if ( function_exists( __NAMESPACE__ . '\crp_freemius' ) && ! \WebberZone\Contextual_Related_Posts\crp_freemius()->is_paying() ) {
+			?>
+				<div id="pro-upgrade-banner">
+					<div class="inside">
+						<?php if ( ! empty( $custom_text ) ) : ?>
+							<p><?php echo wp_kses_post( $custom_text ); ?></p>
+						<?php endif; ?>
+
+						<p><a href="https://webberzone.com/plugins/contextual-related-posts/pro/" target="_blank"><img src="<?php echo esc_url( WZ_CRP_PLUGIN_URL . 'includes/admin/images/crp-pro-banner.png' ); ?>" alt="<?php esc_html_e( 'Contextual Related Posts Pro - Buy now!', 'contextual-related-posts' ); ?>" width="300" height="300" style="max-width: 100%;" /></a></p>
+
+						<?php if ( $donate ) : ?>							
+							<p style="text-align:center;"><?php esc_html_e( 'OR', 'contextual-related-posts' ); ?></p>
+							<p><a href="https://wzn.io/donate-crp" target="_blank"><img src="<?php echo esc_url( WZ_CRP_PLUGIN_URL . 'includes/admin/images/support.webp' ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'contextual-related-posts' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
+						<?php endif; ?>
+					</div>
+				</div>
+			<?php
+		}
+	}
 }
