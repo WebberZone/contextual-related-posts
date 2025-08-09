@@ -5,6 +5,7 @@ parameters:
     paths:
         - contextual-related-posts.php
         - uninstaller.php
+        - load-freemius.php
         - includes/
     scanFiles:
         - contextual-related-posts.php

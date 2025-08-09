@@ -5,19 +5,12 @@
  * @package WebberZone\Contextual_Related_Posts
  */
 
+use WebberZone\Contextual_Related_Posts\Main;
 use function WebberZone\Contextual_Related_Posts\crp_freemius;
 
 ?>
 <div class="postbox-container">
-	<?php if ( ! crp_freemius()->is_paying() ) { ?>
-	<div id="pro-upgrade-banner">
-		<div class="inside" style="text-align: center">
-			<p><a href="https://webberzone.com/plugins/contextual-related-posts/pro/" target="_blank"><img src="<?php echo esc_url( WZ_CRP_PLUGIN_URL . 'includes/admin/images/crp-pro-banner.png' ); ?>" alt="<?php esc_html_e( 'Contextual Related Posts Pro - Buy now!', 'contextual-related-posts' ); ?>" width="300" height="300" style="max-width: 100%;" /></a></p>
-			<p><?php esc_html_e( 'OR' ); ?></p>
-			<p><a href="https://wzn.io/donate-crp" target="_blank"><img src="<?php echo esc_url( WZ_CRP_PLUGIN_URL . 'includes/admin/images/support.webp' ); ?>" alt="<?php esc_html_e( 'Support the development - Send us a donation today.', 'contextual-related-posts' ); ?>" width="300" height="169" style="max-width: 100%;" /></a></p>
-		</div>
-	</div>
-	<?php } ?>
+	<?php Main::pro_upgrade_banner(); ?>
 
 	<div id="qlinksdiv" class="postbox meta-box-sortables">
 		<h2 class='hndle metabox-holder'><span><?php esc_html_e( 'Quick links', 'contextual-related-posts' ); ?></span></h2>
