@@ -144,13 +144,14 @@ final class Main {
 		Hook_Registry::add_action( 'init', array( $this, 'initiate_plugin' ) );
 		Hook_Registry::add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 		Hook_Registry::add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
-		Hook_Registry::add_filter( 'the_content', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
-		Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
-		Hook_Registry::add_filter( 'the_content_feed', array( $this, 'content_filter' ), \crp_get_option( 'content_filter_priority', 10 ) );
 		Hook_Registry::add_action( 'parse_query', array( $this, 'parse_query' ) );
 
 		Hook_Registry::add_action( 'activated_plugin', array( $this, 'activated_plugin' ), 10, 2 );
 		Hook_Registry::add_action( 'pre_current_active_plugins', array( $this, 'plugin_deactivated_notice' ) );
+
+		Hook_Registry::add_filter( 'the_content', array( $this, 'content_filter' ), (int) \crp_get_option( 'content_filter_priority', 10 ) );
+		Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), (int) \crp_get_option( 'content_filter_priority', 10 ) );
+		Hook_Registry::add_filter( 'the_content_feed', array( $this, 'content_filter' ), (int) \crp_get_option( 'content_filter_priority', 10 ) );
 	}
 
 	/**
