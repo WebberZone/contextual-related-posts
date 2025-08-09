@@ -1,0 +1,383 @@
+/**
+ * Settings Wizard Styles
+ *
+ * @package Contextual_Related_Posts
+ * @since 4.1.0
+ */
+
+/* Wizard Container */
+.wizard-wrap {
+	max-width: 95%;
+	margin: 20px auto;
+	background: #fff;
+	border: 1px solid #ccd0d4;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.wizard-wrap h1 {
+	background: #f1f1f1;
+	border-bottom: 1px solid #ccd0d4;
+	margin: 0;
+	padding: 20px 30px;
+	font-size: 24px;
+	font-weight: 400;
+	color: #23282d;
+}
+
+/* Progress Bar */
+.wizard-progress {
+	padding: 20px 30px;
+	border-bottom: 1px solid #eee;
+	background: #fafafa;
+}
+
+.wizard-progress-bar {
+	width: 100%;
+	height: 8px;
+	background: #ddd;
+	border-radius: 4px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.wizard-progress-fill {
+	height: 100%;
+	background: linear-gradient(90deg, #005c8a 0%, #007ba1 100%);
+	border-radius: 4px;
+	transition: width 0.3s ease;
+}
+
+.wizard-step-counter {
+	margin: 0;
+	font-size: 14px;
+	color: #595959;
+	text-align: center;
+}
+
+/* Content Area */
+.wizard-content {
+	padding: 30px;
+}
+
+.wizard-step h2 {
+	margin: 0 0 10px 0;
+	font-size: 20px;
+	font-weight: 600;
+	color: #23282d;
+}
+
+.wizard-step-description {
+	margin: 0 0 30px 0;
+	font-size: 16px;
+	line-height: 1.5;
+	color: #444;
+}
+
+/* Form Fields */
+.wizard-fields {
+	margin-bottom: 30px;
+}
+
+.wizard-field {
+	margin-bottom: 25px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.wizard-field:last-child {
+	border-bottom: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.wizard-field label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: #23282d;
+}
+
+.wizard-field input[type="text"],
+.wizard-field input[type="number"],
+.wizard-field input[type="email"],
+.wizard-field input[type="url"],
+.wizard-field textarea,
+.wizard-field select {
+	width: 100%;
+	max-width: 400px;
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.wizard-field input[type="checkbox"],
+.wizard-field input[type="radio"] {
+	margin-right: 8px;
+}
+
+.wizard-field .description {
+	margin: 8px 0 0 0;
+	font-size: 13px;
+	color: #595959;
+	font-style: italic;
+}
+
+/* Multi-select styling */
+.wizard-field select[multiple] {
+	height: 120px;
+}
+
+/* Checkbox and Radio Groups */
+.wizard-field .checkbox-group,
+.wizard-field .radio-group {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.wizard-field .checkbox-group label,
+.wizard-field .radio-group label {
+	display: flex;
+	align-items: center;
+	font-weight: normal;
+	margin-bottom: 0;
+}
+
+/* Actions */
+.wizard-actions {
+	border-top: 1px solid #eee;
+	padding-top: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.wizard-button-group {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.wizard-button-group .button-link {
+	text-decoration: none;
+	color: #595959;
+	margin-left: 15px;
+}
+
+.wizard-button-group .button-link:hover {
+	color: #005c8a;
+}
+
+/* Completion Page */
+.wizard-complete {
+	text-align: center;
+}
+
+.wizard-completion-header {
+	padding: 40px 30px 30px;
+	border-bottom: 1px solid #eee;
+}
+
+.wizard-completion-header h1 {
+	background: none;
+	border: none;
+	padding: 0;
+	margin: 0 0 15px 0;
+	color: #005c8a;
+	font-size: 28px;
+}
+
+.wizard-completion-message {
+	font-size: 16px;
+	color: #444;
+	margin: 0;
+	line-height: 1.5;
+}
+
+.wizard-completion-content {
+	padding: 30px;
+}
+
+.wizard-completion-features {
+	margin-bottom: 30px;
+	text-align: left;
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wizard-completion-features h3 {
+	margin: 0 0 15px 0;
+	font-size: 18px;
+	color: #23282d;
+}
+
+.wizard-completion-features ul {
+	margin: 0;
+	padding-left: 20px;
+}
+
+.wizard-completion-features li {
+	margin-bottom: 8px;
+	line-height: 1.4;
+}
+
+.wizard-completion-actions {
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* Welcome Step Styling */
+.wizard-step.welcome-step {
+	text-align: center;
+	padding: 40px 20px;
+}
+
+.wizard-step.welcome-step h2 {
+	font-size: 24px;
+	margin-bottom: 20px;
+	color: #005c8a;
+}
+
+.wizard-step.welcome-step .wizard-step-description {
+	font-size: 18px;
+	line-height: 1.6;
+	max-width: 600px;
+	margin: 0 auto 40px auto;
+}
+
+/* Notice Styles */
+.bsearch-wizard-notice {
+	border-left-color: #005c8a;
+}
+
+.bsearch-wizard-notice p {
+	margin: 0.5em 0;
+}
+
+.bsearch-wizard-notice .button {
+	margin-right: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 782px) {
+	.wizard-wrap {
+		margin: 10px;
+		border: none;
+		box-shadow: none;
+	}
+
+	.wizard-wrap h1 {
+		padding: 15px 20px;
+		font-size: 20px;
+	}
+
+	.wizard-progress {
+		padding: 15px 20px;
+	}
+
+	.wizard-content {
+		padding: 20px;
+	}
+
+	.wizard-actions {
+		flex-direction: column;
+		gap: 15px;
+	}
+
+	.wizard-button-group {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.wizard-completion-actions {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.wizard-completion-actions .button {
+		width: 100%;
+		max-width: 300px;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 600px) {
+
+	.wizard-field input[type="text"],
+	.wizard-field input[type="number"],
+	.wizard-field input[type="email"],
+	.wizard-field input[type="url"],
+	.wizard-field textarea,
+	.wizard-field select {
+		max-width: 100%;
+	}
+
+	.wizard-step.welcome-step {
+		padding: 20px 10px;
+	}
+
+	.wizard-step.welcome-step h2 {
+		font-size: 20px;
+	}
+
+	.wizard-step.welcome-step .wizard-step-description {
+		font-size: 16px;
+	}
+}
+
+/* Animation for step transitions */
+.wizard-step {
+	animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Focus styles for accessibility */
+.wizard-field input:focus,
+.wizard-field textarea:focus,
+.wizard-field select:focus {
+	border-color: #005c8a;
+	box-shadow: 0 0 0 1px #005c8a;
+	outline: none;
+}
+
+/* Loading state */
+.wizard-loading {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.wizard-loading::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 20px;
+	height: 20px;
+	margin: -10px 0 0 -10px;
+	border: 2px solid #005c8a;
+	border-radius: 50%;
+	border-top-color: transparent;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}

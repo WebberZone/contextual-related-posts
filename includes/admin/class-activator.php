@@ -89,6 +89,13 @@ class Activator {
 				\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager::$db_version
 			);
 		}
+
+		/**
+		 * Fires after plugin activation.
+		 *
+		 * @since 4.1.0
+		 */
+		do_action( 'crp_activate' );
 	}
 
 	/**

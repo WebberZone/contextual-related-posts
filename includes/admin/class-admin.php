@@ -11,6 +11,7 @@ use WebberZone\Contextual_Related_Posts\Util\Cache;
 use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
 use WebberZone\Contextual_Related_Posts\Admin\Admin_Notices;
 use WebberZone\Contextual_Related_Posts\Admin\Admin_Notices_API;
+use WebberZone\Contextual_Related_Posts\Admin\Settings_Wizard;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
@@ -97,6 +98,15 @@ class Admin {
 	public Admin_Notices_API $admin_notices_api;
 
 	/**
+	 * Settings wizard.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @var Settings_Wizard Settings wizard.
+	 */
+	public Settings_Wizard $settings_wizard;
+
+	/**
 	 * Settings Page in Admin area.
 	 *
 	 * @since 3.5.0
@@ -149,6 +159,7 @@ class Admin {
 		$this->bulk_edit         = new Bulk_Edit();
 		$this->admin_notices_api = new Admin_Notices_API();
 		$this->admin_notices     = new Admin_Notices();
+		$this->settings_wizard   = new Settings_Wizard();
 	}
 
 	/**
