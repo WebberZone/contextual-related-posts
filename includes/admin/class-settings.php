@@ -10,6 +10,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -64,19 +66,19 @@ class Settings {
 	 * @since 3.5.0
 	 */
 	public function __construct() {
-		add_action( 'admin_menu', array( $this, 'initialise_settings' ) );
-		add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 11, 2 );
-		add_filter( 'plugin_action_links_' . plugin_basename( WZ_CRP_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
-		add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
-		add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
-		add_filter( self::$prefix . '_after_setting_output', array( $this, 'display_admin_thumbnail' ), 10, 2 );
-		add_filter( self::$prefix . '_setting_field_description', array( $this, 'reset_default_thumb_setting' ), 10, 2 );
+		Hook_Registry::add_action( 'admin_menu', array( $this, 'initialise_settings' ) );
+		Hook_Registry::add_filter( 'plugin_row_meta', array( $this, 'plugin_row_meta' ), 11, 2 );
+		Hook_Registry::add_filter( 'plugin_action_links_' . plugin_basename( WZ_CRP_PLUGIN_FILE ), array( $this, 'plugin_actions_links' ) );
+		Hook_Registry::add_filter( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 99 );
+		Hook_Registry::add_filter( self::$prefix . '_settings_sanitize', array( $this, 'change_settings_on_save' ), 99 );
+		Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'display_admin_thumbnail' ), 10, 2 );
+		Hook_Registry::add_filter( self::$prefix . '_setting_field_description', array( $this, 'reset_default_thumb_setting' ), 10, 2 );
 
-		add_action( 'wp_ajax_nopriv_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
-		add_action( 'wp_ajax_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
-		add_action( self::$prefix . '_settings_page_header', array( $this, 'settings_page_header' ) );
-		add_filter( self::$prefix . '_after_setting_output', array( $this, 'after_setting_output' ), 10, 2 );
-		add_action( self::$prefix . '_settings_form_buttons', array( $this, 'add_wizard_button' ) );
+		Hook_Registry::add_action( 'wp_ajax_nopriv_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
+		Hook_Registry::add_action( 'wp_ajax_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
+		Hook_Registry::add_action( self::$prefix . '_settings_page_header', array( $this, 'settings_page_header' ) );
+		Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'after_setting_output' ), 10, 2 );
+		Hook_Registry::add_action( self::$prefix . '_settings_form_buttons', array( $this, 'add_wizard_button' ) );
 	}
 
 	/**

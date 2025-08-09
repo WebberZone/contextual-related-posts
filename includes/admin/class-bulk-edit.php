@@ -7,6 +7,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -22,12 +24,12 @@ class Bulk_Edit {
 	 * CRP_Bulk_Edit constructor.
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'add_custom_columns' ), 99 );
-		add_action( 'bulk_edit_custom_box', array( $this, 'quick_edit_custom_box' ) );
-		add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ) );
-		add_action( 'save_post', array( $this, 'save_post_meta' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'wp_ajax_crp_save_bulk_edit', array( $this, 'save_bulk_edit' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'add_custom_columns' ), 99 );
+		Hook_Registry::add_action( 'bulk_edit_custom_box', array( $this, 'quick_edit_custom_box' ) );
+		Hook_Registry::add_action( 'quick_edit_custom_box', array( $this, 'quick_edit_custom_box' ) );
+		Hook_Registry::add_action( 'save_post', array( $this, 'save_post_meta' ) );
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		Hook_Registry::add_action( 'wp_ajax_crp_save_bulk_edit', array( $this, 'save_bulk_edit' ) );
 	}
 
 	/**
@@ -67,8 +69,8 @@ class Bulk_Edit {
 
 		// For each post type, add the bulk edit functionality and the columns.
 		foreach ( $post_types as $post_type ) {
-			add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'add_admin_columns' ) );
-			add_action( 'manage_' . $post_type . '_posts_custom_column', array( $this, 'populate_custom_columns' ), 10, 2 );
+			Hook_Registry::add_filter( 'manage_' . $post_type . '_posts_columns', array( $this, 'add_admin_columns' ) );
+			Hook_Registry::add_action( 'manage_' . $post_type . '_posts_custom_column', array( $this, 'populate_custom_columns' ), 10, 2 );
 		}
 	}
 

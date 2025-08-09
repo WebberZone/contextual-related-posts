@@ -10,6 +10,7 @@ namespace WebberZone\Contextual_Related_Posts\Frontend\Blocks;
 
 use WebberZone\Contextual_Related_Posts\Frontend\Styles_Handler;
 use WebberZone\Contextual_Related_Posts\Admin\Settings;
+use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -26,8 +27,8 @@ class Blocks {
 	 * Register widget with WordPress.
 	 */
 	public function __construct() {
-		add_action( 'init', array( $this, 'register_blocks' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
+		Hook_Registry::add_action( 'init', array( $this, 'register_blocks' ) );
+		Hook_Registry::add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_block_editor_assets' ) );
 	}
 
 	/**
