@@ -153,15 +153,25 @@ class Settings_Sanitize {
 	}
 
 	/**
+	 * Sanitize multicheck fields
+	 *
+	 * @param  array|int $value The field value.
+	 * @return string  $value  Sanitized value
+	 */
+	public function sanitize_multicheck_field( $value ) {
+		$values = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
+
+		return implode( ',', $values );
+	}
+
+	/**
 	 * Sanitize post_types fields
 	 *
 	 * @param  array|int $value The field value.
 	 * @return string  $value  Sanitized value
 	 */
 	public function sanitize_posttypes_field( $value ) {
-		$post_types = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
-
-		return implode( ',', $post_types );
+		return $this->sanitize_multicheck_field( $value );
 	}
 
 	/**
@@ -171,9 +181,7 @@ class Settings_Sanitize {
 	 * @return string  $value  Sanitized value
 	 */
 	public function sanitize_taxonomies_field( $value ) {
-		$taxonomies = ( -1 === (int) $value ) ? array() : array_map( 'sanitize_text_field', (array) wp_unslash( $value ) );
-
-		return implode( ',', $taxonomies );
+		return $this->sanitize_multicheck_field( $value );
 	}
 
 	/**

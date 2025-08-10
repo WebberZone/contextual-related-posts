@@ -1149,8 +1149,8 @@ class Settings {
 			),
 			'max_execution_time'   => array(
 				'id'      => 'max_execution_time',
-				'name'    => esc_html__( 'Max Execution Time', 'top-10' ),
-				'desc'    => esc_html__( 'Maximum execution time for MySQL queries in milliseconds. Set to 0 to disable. Default is 3000 (3 seconds).', 'top-10' ),
+				'name'    => esc_html__( 'Max Execution Time', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Maximum execution time for MySQL queries in milliseconds. Set to 0 to disable. Default is 3000 (3 seconds).', 'contextual-related-posts' ),
 				'type'    => 'number',
 				'options' => 3000,
 				'min'     => 0,
@@ -1361,7 +1361,7 @@ class Settings {
 	public static function get_admin_footer_text() {
 		return sprintf(
 			/* translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link. */
-			__( 'Thank you for using %1$sContextual Related Posts by WebberZone%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s', 'knowledgebase' ),
+			__( 'Thank you for using %1$sContextual Related Posts by WebberZone%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s', 'contextual-related-posts' ),
 			'<a href="https://webberzone.com/plugins/contextual-related-posts/" target="_blank">',
 			'</a>',
 			'<a href="https://wordpress.org/support/plugin/contextual-related-posts/reviews/#new-post" target="_blank">'
@@ -1446,7 +1446,7 @@ class Settings {
 		$thumb_default = \crp_get_option( 'thumb_default' );
 
 		if ( 'thumb_default' === $args['id'] && WZ_CRP_PLUGIN_URL . 'default.png' !== $thumb_default ) {
-			$html = '<span class="dashicons dashicons-undo reset-default-thumb" style="cursor: pointer;" title="' . __( 'Reset' ) . '"></span> <br />' . $html;
+			$html = '<span class="dashicons dashicons-undo reset-default-thumb" style="cursor: pointer;" title="' . __( 'Reset', 'contextual-related-posts' ) . '"></span> <br />' . $html;
 		}
 
 		return $html;
@@ -1519,7 +1519,7 @@ class Settings {
 		}
 		$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-		$comma = _x( ',', 'tag delimiter' );
+		$comma = _x( ',', 'tag delimiter', 'contextual-related-posts' );
 		if ( ',' !== $comma ) {
 			$s = str_replace( $comma, ',', $s );
 		}

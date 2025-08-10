@@ -194,6 +194,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'previous_step'   => __( 'Previous Step', 'contextual-related-posts' ),
 			'finish_setup'    => __( 'Finish Setup', 'contextual-related-posts' ),
 			'skip_wizard'     => __( 'Skip Wizard', 'contextual-related-posts' ),
+			/* translators: %1$d: Current step number, %2$d: Total number of steps */
 			'step_of'         => __( 'Step %1$d of %2$d', 'contextual-related-posts' ),
 			'wizard_complete' => __( 'Setup Complete!', 'contextual-related-posts' ),
 			'setup_complete'  => __( 'Your Contextual Related Posts plugin has been configured successfully. You can now start seeing related posts on your site!', 'contextual-related-posts' ),

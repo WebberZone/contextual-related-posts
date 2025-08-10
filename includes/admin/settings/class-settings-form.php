@@ -115,7 +115,10 @@ class Settings_Form {
 	 */
 	public function callback_missing( $args ) {
 		/* translators: 1: Code. */
-		printf( esc_html__( 'The callback function used for the %1$s setting is missing.' ), '<strong>' . esc_attr( $args['id'] ) . '</strong>' );
+		printf(
+			'The callback function used for the %1$s setting is missing.',
+			'<strong>' . esc_attr( $args['id'] ) . '</strong>'
+		);
 	}
 
 	/**
@@ -322,25 +325,28 @@ class Settings_Form {
 	public function callback_multicheck( $args ) {
 		$html = '';
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$value_array = wp_parse_list( $value );
+		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		if ( ! empty( $args['options'] ) ) {
 			$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, sanitize_key( $args['id'] ) );
 
 			foreach ( $args['options'] as $key => $option ) {
-				if ( isset( $value[ $key ] ) ) {
+				if ( in_array( $key, $value_array, true ) ) {
 					$enabled = $key;
 				} else {
 					$enabled = null;
 				}
 
 				$html .= sprintf(
-					'<input name="%1$s[%2$s][%3$s]" id="%1$s[%2$s][%3$s]" type="checkbox" value="%4$s" %5$s /> ',
+					'<input name="%1$s[%2$s][%3$s]" id="%1$s[%2$s][%3$s]" type="checkbox" value="%4$s" %5$s %6$s /> ',
 					$this->settings_key,
 					sanitize_key( $args['id'] ),
 					sanitize_key( $key ),
 					esc_attr( $key ),
-					checked( $key, $enabled, false )
+					checked( $key, $enabled, false ),
+					$disabled
 				);
 				$html .= sprintf(
 					'<label for="%1$s[%2$s][%3$s]">%4$s</label> <br />',
@@ -350,9 +356,8 @@ class Settings_Form {
 					$option
 				);
 			}
-
-			$html .= $this->get_field_description( $args );
 		}
+		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
 		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -407,25 +412,28 @@ class Settings_Form {
 	public function callback_radiodesc( $args ) {
 		$html = '';
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		foreach ( $args['options'] as $option ) {
 			$html .= sprintf(
-				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s /> ',
+				'<input name="%1$s[%2$s]" id="%1$s[%2$s][%3$s]" type="radio" value="%3$s" %4$s %5$s /> ',
 				$this->settings_key,
 				sanitize_key( $args['id'] ),
 				$option['id'],
-				checked( $value, $option['id'], false )
+				checked( $value, $option['id'], false ),
+				$disabled
 			);
 			$html .= sprintf(
-				'<label for="%1$s[%2$s][%3$s]">%4$s</label>',
+				'<label for="%1$s[%2$s][%3$s]">%4$s: <em>%5$s</em></label>',
 				$this->settings_key,
 				sanitize_key( $args['id'] ),
 				$option['id'],
-				$option['name']
+				$option['name'],
+				wp_kses_post( $option['description'] )
 			);
 
-			$html .= ': <em>' . wp_kses_post( $option['description'] ) . '</em> <br />';
+			$html .= '<br />';
 		}
 
 		$html .= $this->get_field_description( $args );
@@ -473,7 +481,7 @@ class Settings_Form {
 				$name,
 				(int) $option['width'],
 				(int) $option['height'],
-				(bool) $option['crop'] ? ' ' . __( 'cropped' ) : ''
+				(bool) $option['crop'] ? ' cropped' : ''
 			);
 		}
 
@@ -528,8 +536,13 @@ class Settings_Form {
 	 */
 	public function callback_select( $args ) {
 		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
-		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled' : '';
-		$chosen   = isset( $args['chosen'] ) ? 'class="chosen"' : '';
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
+
+		if ( isset( $args['chosen'] ) ) {
+			$chosen = 'class="chosen"';
+		} else {
+			$chosen = '';
+		}
 
 		$html = sprintf(
 			'<select id="%1$s[%2$s]" name="%1$s[%2$s]" %3$s %4$s />',
@@ -559,7 +572,8 @@ class Settings_Form {
 	public function callback_posttypes( $args ) {
 		$html = '';
 
-		$options = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$options  = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		// If post_types contains a query string then parse it with wp_parse_args.
 		if ( is_string( $options ) && strpos( $options, '=' ) ) {
@@ -577,17 +591,22 @@ class Settings_Form {
 
 		$posts_types_inc = array_intersect( wp_list_pluck( $wp_post_types, 'name' ), $post_types );
 
-		$html .= sprintf( '<input type="hidden" name="%1$s[%2$s]" value="-1" />', $this->settings_key, sanitize_key( $args['id'] ) );
+		$html .= sprintf(
+			'<input type="hidden" name="%1$s[%2$s]" value="-1" />',
+			$this->settings_key,
+			sanitize_key( $args['id'] )
+		);
 
 		foreach ( $wp_post_types as $wp_post_type ) {
 
 			$html .= sprintf(
-				'<label for="%4$s[%1$s][%2$s]"><input name="%4$s[%1$s][%2$s]" id="%4$s[%1$s][%2$s]" type="checkbox" value="%2$s" %3$s /> %5$s</label><br />',
+				'<label for="%4$s[%1$s][%2$s]"><input name="%4$s[%1$s][%2$s]" id="%4$s[%1$s][%2$s]" type="checkbox" value="%2$s" %3$s %6$s /> %5$s</label><br />',
 				sanitize_key( $args['id'] ),
 				esc_attr( $wp_post_type->name ),
 				checked( true, in_array( $wp_post_type->name, $posts_types_inc, true ), false ),
 				$this->settings_key,
-				$wp_post_type->label
+				$wp_post_type->label,
+				$disabled
 			);
 
 		}
@@ -688,7 +707,7 @@ class Settings_Form {
 		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
 		$size  = sanitize_html_class( isset( $args['size'] ) ? $args['size'] : 'regular' );
 		$class = sanitize_html_class( $args['field_class'] );
-		$label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : __( 'Choose File' );
+		$label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : 'Choose File';
 
 		$html  = sprintf(
 			'<input type="text" class="%1$s" id="%2$s[%3$s]" name="%2$s[%3$s]" value="%4$s"/>',

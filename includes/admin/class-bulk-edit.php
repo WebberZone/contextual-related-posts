@@ -161,9 +161,9 @@ class Bulk_Edit {
 							<?php } else { ?>
 								<?php esc_html_e( 'Exclude from related posts', 'contextual-related-posts' ); ?>
 								<select name="crp_exclude_this_post">
-									<option value="-1"><?php esc_html_e( '&mdash; No Change &mdash;' ); ?></option>
-									<option value="1"><?php esc_html_e( 'Exclude' ); ?></option>
-									<option value="0"><?php esc_html_e( 'Include' ); ?></option>
+									<option value="-1"><?php esc_html_e( '&mdash; No Change &mdash;', 'contextual-related-posts' ); ?></option>
+									<option value="1"><?php esc_html_e( 'Exclude', 'contextual-related-posts' ); ?></option>
+									<option value="0"><?php esc_html_e( 'Include', 'contextual-related-posts' ); ?></option>
 								</select>
 							<?php } ?>
 						</label>
