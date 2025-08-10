@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-15 21:36+0100\n"
+"POT-Creation-Date: 2025-08-10 21:51+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -10,87 +10,112 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
-"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
-"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"translate_nooped_plural\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: "
+"__;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;translate_nooped_plural\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: vendor\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 "X-Poedit-SearchPathExcluded-2: phpunit\n"
 
-#: includes/admin/class-admin.php:172
-msgid "Copied!"
-msgstr ""
-
-#: includes/admin/class-admin.php:173
-msgid "Copy to clipboard"
-msgstr ""
-
-#: includes/admin/class-admin.php:208
+#: includes/admin/class-admin-notices.php:84
 msgid ""
 "Contextual Related Posts: Some fulltext indexes are missing, which will "
 "affect the related posts."
 msgstr ""
 
-#: includes/admin/class-admin.php:210
+#: includes/admin/class-admin-notices.php:86
 msgid "Click here to recreate indexes."
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:82
-#: includes/admin/network/class-admin.php:109
+#: includes/admin/class-admin-notices.php:117
+msgid ""
+"Contextual Related Posts: Custom tables are missing, which will affect "
+"related posts performance."
+msgstr ""
+
+#: includes/admin/class-admin-notices.php:119
+msgid "Click here to recreate tables."
+msgstr ""
+
+#: includes/admin/class-admin.php:195
+msgid "Copied!"
+msgstr ""
+
+#: includes/admin/class-admin.php:196
+msgid "Copy to clipboard"
+msgstr ""
+
+#: includes/admin/class-admin.php:197
+msgid "Error copying to clipboard"
+msgstr ""
+
+#: includes/admin/class-admin.php:234
+msgid "Contextual Related Posts Pro - Buy now!"
+msgstr ""
+
+#: includes/admin/class-admin.php:237
+msgid "OR"
+msgstr ""
+
+#: includes/admin/class-admin.php:238
+msgid "Support the development - Send us a donation today."
+msgstr ""
+
+#: includes/admin/class-bulk-edit.php:84
+#: includes/admin/network/class-admin.php:71
 #: includes/frontend/blocks/src/related-posts/edit.js:90
 msgid "Contextual Related Posts"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:104 includes/admin/class-metabox.php:172
+#: includes/admin/class-bulk-edit.php:106 includes/admin/class-metabox.php:172
 msgid "Manual related posts:"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:120
+#: includes/admin/class-bulk-edit.php:122
 msgid "Exclude from list:"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:147
+#: includes/admin/class-bulk-edit.php:149
 msgid "Manual Related Posts"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:150
+#: includes/admin/class-bulk-edit.php:152
 msgid "(0 to clear the manual posts)"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:155
+#: includes/admin/class-bulk-edit.php:157
 msgid "Comma-separated list of post IDs"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:158
+#: includes/admin/class-bulk-edit.php:160
 msgid "Exclude this post from related posts"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:160
+#: includes/admin/class-bulk-edit.php:162
 msgid "Exclude from related posts"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:162
+#: includes/admin/class-bulk-edit.php:164
 msgid "&mdash; No Change &mdash;"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:163
+#: includes/admin/class-bulk-edit.php:165
 msgid "Exclude"
 msgstr ""
 
-#: includes/admin/class-bulk-edit.php:164
+#: includes/admin/class-bulk-edit.php:166
 msgid "Include"
 msgstr ""
 
-#: includes/admin/class-db.php:152
+#: includes/admin/class-db.php:192
 msgid "Installed"
 msgstr ""
 
-#: includes/admin/class-db.php:153
+#: includes/admin/class-db.php:193
 msgid "Not Installed"
 msgstr ""
 
@@ -184,138 +209,339 @@ msgid ""
 "on this page."
 msgstr ""
 
-#: includes/admin/class-settings.php:115 includes/admin/class-settings.php:146
+#: includes/admin/class-settings-wizard.php:117
+msgid "Welcome to Contextual Related Posts"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:118
+msgid ""
+"Thank you for installing Contextual Related Posts! This wizard will help you "
+"configure the essential settings to get your related posts working perfectly."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:122
+msgid "Basic Settings"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:123
+msgid "Configure the fundamental behavior of your related posts display."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:127
+msgid "Display Options"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:128
+msgid ""
+"Customize how your related posts will look and what information to display."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:132
+msgid "Content Tuning"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:133
+msgid "Fine-tune which content is included and how related posts are matched."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:137
+msgid "Pro Settings"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:138
+msgid ""
+"Upgrade to Contextual Related Posts Pro to unlock advanced features such as "
+"custom tables, advanced weighting, and more. <strong>Take your related posts "
+"to the next level!</strong>"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:138
+msgid "Learn more about Pro"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:146
+msgid "Index Custom Tables"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:147
+msgid ""
+"Custom tables have been enabled. Index your content to improve search "
+"performance and enable advanced features."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:191
+msgid "Contextual Related Posts Setup Wizard"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:192
+msgid "Setup Wizard"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:193
+msgid "Next Step"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:194
+msgid "Previous Step"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:195
+msgid "Finish Setup"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:196
+msgid "Skip Wizard"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:198
+#, php-format
+msgid "Step %1$d of %2$d"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:199
+msgid "Setup Complete!"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:200
+msgid ""
+"Your Contextual Related Posts plugin has been configured successfully. You "
+"can now start seeing related posts on your site!"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:201
+#: includes/admin/class-settings-wizard.php:577
+msgid "Go to Settings"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:237
+msgid ""
+"Welcome to Contextual Related Posts! Would you like to run the setup wizard "
+"to configure the plugin?"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:239
+msgid "Run Setup Wizard"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:300
+msgid "Starting reindex process..."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:301
+msgid "Reindexing complete!"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:302
+msgid "An error occurred during reindexing. Please try again."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:303
+msgid "Reindex Custom Tables"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:304
+msgid "Reindexing... Click to Stop"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:398
+msgid "Custom tables functionality is not available."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:409
+msgid "Custom tables are not available."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:432
+msgid "Current Index Status"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:437
+#, php-format
+msgid "Content Table: %1$d entries"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:443
+#, php-format
+msgid "Published Posts: %1$d, Index Status: %2$d%%"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:457
+msgid "Index Management"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:458
+msgid ""
+"Click the button below to start indexing your content for improved "
+"performance."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:463
+msgid "Start Indexing"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:467
+msgid "Force reindex (clear existing data)"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:484
+msgid "Note:"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:484
+msgid ""
+"You can skip this step and index your content later from the Tools page if "
+"needed."
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:567
+msgid "What's Next?"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:569
+msgid "Visit your site to see related posts in action"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:570
+msgid "Customize the display using the settings page"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:571
+msgid "Check the Tools page for maintenance options"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:580
+msgid "View Tools"
+msgstr ""
+
+#: includes/admin/class-settings-wizard.php:583
+msgid "Visit Site"
+msgstr ""
+
+#: includes/admin/class-settings.php:118 includes/admin/class-settings.php:149
 msgid "Contextual Related Posts Settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:116
-#: includes/admin/settings/class-settings-api.php:242
+#: includes/admin/class-settings.php:119
 msgid ""
 "Settings have been reset to their default values. Reload this page to view "
 "the updated settings."
 msgstr ""
 
-#: includes/admin/class-settings.php:117
-#: includes/admin/settings/class-settings-api.php:243
+#: includes/admin/class-settings.php:120
 msgid "Settings updated."
 msgstr ""
 
-#: includes/admin/class-settings.php:118
-#: includes/admin/network/class-admin.php:185
-#: includes/admin/settings/class-settings-api.php:244
+#: includes/admin/class-settings.php:121
 msgid "Save Changes"
 msgstr ""
 
-#: includes/admin/class-settings.php:119
-#: includes/admin/settings/class-settings-api.php:245
+#: includes/admin/class-settings.php:122
 msgid "Reset all settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:120
-#: includes/admin/settings/class-settings-api.php:246
+#: includes/admin/class-settings.php:123
 msgid "Do you really want to reset all these settings to their default values?"
 msgstr ""
 
-#: includes/admin/class-settings.php:121
-#: includes/admin/settings/class-settings-api.php:247
+#: includes/admin/class-settings.php:124
 msgid "Modified from default setting"
 msgstr ""
 
-#: includes/admin/class-settings.php:147 includes/admin/class-settings.php:361
+#: includes/admin/class-settings.php:150 includes/admin/class-settings.php:364
 msgid "Related Posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:163
+#: includes/admin/class-settings.php:166
 msgid "General"
 msgstr ""
 
-#: includes/admin/class-settings.php:164
+#: includes/admin/class-settings.php:167
 msgid "Performance"
 msgstr ""
 
-#: includes/admin/class-settings.php:165
+#: includes/admin/class-settings.php:168
 msgid "List tuning"
 msgstr ""
 
-#: includes/admin/class-settings.php:166
+#: includes/admin/class-settings.php:169
 msgid "Output"
 msgstr ""
 
-#: includes/admin/class-settings.php:167
+#: includes/admin/class-settings.php:170
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/admin/class-settings.php:168
+#: includes/admin/class-settings.php:171
 msgid "Styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:169
+#: includes/admin/class-settings.php:172
 msgid "Feed"
 msgstr ""
 
-#: includes/admin/class-settings.php:221
+#: includes/admin/class-settings.php:224
 msgid "General settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:222
+#: includes/admin/class-settings.php:225
 msgid "General settings for the related posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:227
+#: includes/admin/class-settings.php:230
 msgid "Automatically add related posts to"
 msgstr ""
 
-#: includes/admin/class-settings.php:229
+#: includes/admin/class-settings.php:232
 #, php-format
 msgid ""
 "If you choose to disable this, please add %1$s to your template file where "
 "you want it displayed"
 msgstr ""
 
-#: includes/admin/class-settings.php:236
+#: includes/admin/class-settings.php:239
 msgid "Posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:237
+#: includes/admin/class-settings.php:240
 msgid "Pages"
 msgstr ""
 
-#: includes/admin/class-settings.php:238
+#: includes/admin/class-settings.php:241
 msgid "Home page"
 msgstr ""
 
-#: includes/admin/class-settings.php:239
+#: includes/admin/class-settings.php:242
 msgid "Feeds"
 msgstr ""
 
-#: includes/admin/class-settings.php:240
+#: includes/admin/class-settings.php:243
 msgid "Category archives"
 msgstr ""
 
-#: includes/admin/class-settings.php:241
+#: includes/admin/class-settings.php:244
 msgid "Tag archives"
 msgstr ""
 
-#: includes/admin/class-settings.php:242
+#: includes/admin/class-settings.php:245
 msgid "Other archives"
 msgstr ""
 
-#: includes/admin/class-settings.php:247
+#: includes/admin/class-settings.php:250
 msgid "Display location priority"
 msgstr ""
 
-#: includes/admin/class-settings.php:248
+#: includes/admin/class-settings.php:251
 msgid ""
 "Select the relative position of the related posts in the post content. A "
 "higher number pushes the related posts later in the content. Any number "
 "below 10 is not recommended."
 msgstr ""
 
-#: includes/admin/class-settings.php:254
+#: includes/admin/class-settings.php:257
 msgid "Insert after paragraph number"
 msgstr ""
 
-#: includes/admin/class-settings.php:255
+#: includes/admin/class-settings.php:258
 msgid ""
 "Enter 0 to display the related posts before the post content, -1 to display "
 "this at the end, or a number to insert after a specific paragraph. For "
@@ -323,331 +549,331 @@ msgid ""
 "exceeds the post's count, they'll appear at the end."
 msgstr ""
 
-#: includes/admin/class-settings.php:255
+#: includes/admin/class-settings.php:258
 msgid ""
 "This ignores any other HTML tags and can get confused by p tags within other "
 "tags. Use with caution."
 msgstr ""
 
-#: includes/admin/class-settings.php:262
+#: includes/admin/class-settings.php:265
 msgid "Disable on mobile devices"
 msgstr ""
 
-#: includes/admin/class-settings.php:263
+#: includes/admin/class-settings.php:266
 msgid ""
 "Disable display of related posts on mobile devices. Might not always work "
 "with caching plugins."
 msgstr ""
 
-#: includes/admin/class-settings.php:269
+#: includes/admin/class-settings.php:272
 msgid "Disable on AMP pages"
 msgstr ""
 
-#: includes/admin/class-settings.php:270
+#: includes/admin/class-settings.php:273
 msgid "Disable display of related posts on AMP pages."
 msgstr ""
 
-#: includes/admin/class-settings.php:276
+#: includes/admin/class-settings.php:279
 msgid "Uninstall settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:277
+#: includes/admin/class-settings.php:280
 msgid "Settings for uninstalling the plugin"
 msgstr ""
 
-#: includes/admin/class-settings.php:282
+#: includes/admin/class-settings.php:285
 msgid "Delete options on uninstall"
 msgstr ""
 
-#: includes/admin/class-settings.php:283
+#: includes/admin/class-settings.php:286
 msgid ""
 "If this is checked, all settings related to Contextual Related Posts are "
 "removed from the database if you choose to uninstall/delete the plugin."
 msgstr ""
 
-#: includes/admin/class-settings.php:289
+#: includes/admin/class-settings.php:292
 msgid "Delete FULLTEXT indices on uninstall"
 msgstr ""
 
-#: includes/admin/class-settings.php:290
+#: includes/admin/class-settings.php:293
 msgid ""
 "If this is checked, FULLTEXT indices generated by Contextual Related Posts "
 "are removed from the database if you choose to uninstall/delete the plugin."
 msgstr ""
 
-#: includes/admin/class-settings.php:296
+#: includes/admin/class-settings.php:299
 msgid "Delete custom tables on uninstall"
 msgstr ""
 
-#: includes/admin/class-settings.php:297
+#: includes/admin/class-settings.php:300
 msgid ""
 "If this is checked, custom tables created by Contextual Related Posts Pro "
 "will be deleted when you uninstall/delete the plugin."
 msgstr ""
 
-#: includes/admin/class-settings.php:303
+#: includes/admin/class-settings.php:306
 msgid "Delete FULLTEXT indices on deactivate"
 msgstr ""
 
-#: includes/admin/class-settings.php:304
+#: includes/admin/class-settings.php:307
 msgid ""
 "If this is checked, FULLTEXT indices generated by Contextual Related Posts "
 "are removed from the database if you choose to deactivate the plugin."
 msgstr ""
 
-#: includes/admin/class-settings.php:310
+#: includes/admin/class-settings.php:313
 msgid "Miscellaneous"
 msgstr ""
 
-#: includes/admin/class-settings.php:311
+#: includes/admin/class-settings.php:314
 msgid "Miscellaneous settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:316
+#: includes/admin/class-settings.php:319
 msgid "Show metabox"
 msgstr ""
 
-#: includes/admin/class-settings.php:317
+#: includes/admin/class-settings.php:320
 msgid ""
 "This will add the Contextual Related Posts metabox on Edit Posts or Add New "
 "Posts screens. Also applies to Pages and Custom Post Types."
 msgstr ""
 
-#: includes/admin/class-settings.php:323
+#: includes/admin/class-settings.php:326
 msgid "Limit meta box to Admins only"
 msgstr ""
 
-#: includes/admin/class-settings.php:324
+#: includes/admin/class-settings.php:327
 msgid ""
 "If selected, the meta box will be hidden from anyone who is not an Admin. By "
 "default, Contributors and above will be able to see the meta box. Applies "
 "only if the above option is selected."
 msgstr ""
 
-#: includes/admin/class-settings.php:330
+#: includes/admin/class-settings.php:333
 msgid "Link to Contextual Related Posts plugin page"
 msgstr ""
 
-#: includes/admin/class-settings.php:331
+#: includes/admin/class-settings.php:334
 msgid ""
 "A no-follow link to the plugin homepage will be added as the last item of "
 "the related posts."
 msgstr ""
 
-#: includes/admin/class-settings.php:358
+#: includes/admin/class-settings.php:361
 #: includes/frontend/blocks/src/related-posts/components/heading-controls.js:26
 msgid "Heading of posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:359
+#: includes/admin/class-settings.php:362
 msgid "Displayed before the list of the posts as a master heading"
 msgstr ""
 
-#: includes/admin/class-settings.php:366
+#: includes/admin/class-settings.php:369
 msgid "Show when no posts are found"
 msgstr ""
 
-#: includes/admin/class-settings.php:372
+#: includes/admin/class-settings.php:375
 msgid "Blank output"
 msgstr ""
 
-#: includes/admin/class-settings.php:373
+#: includes/admin/class-settings.php:376
 msgid "Display custom text"
 msgstr ""
 
-#: includes/admin/class-settings.php:378
+#: includes/admin/class-settings.php:381
 msgid "Custom text"
 msgstr ""
 
-#: includes/admin/class-settings.php:379
+#: includes/admin/class-settings.php:382
 msgid ""
 "Enter the custom text that will be displayed if the second option is "
 "selected above."
 msgstr ""
 
-#: includes/admin/class-settings.php:381
+#: includes/admin/class-settings.php:384
 msgid "No related posts found"
 msgstr ""
 
-#: includes/admin/class-settings.php:385 includes/admin/class-settings.php:1018
+#: includes/admin/class-settings.php:388 includes/admin/class-settings.php:1021
 msgid "Show post excerpt"
 msgstr ""
 
-#: includes/admin/class-settings.php:386
+#: includes/admin/class-settings.php:389
 msgid ""
 "If the post does not have an excerpt, the plugin will automatically create "
 "one containing the number of words specified in the next option."
 msgstr ""
 
-#: includes/admin/class-settings.php:392
+#: includes/admin/class-settings.php:395
 msgid "Length of excerpt (in words)"
 msgstr ""
 
-#: includes/admin/class-settings.php:401
+#: includes/admin/class-settings.php:404
 #: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:42
 msgid "Show date"
 msgstr ""
 
-#: includes/admin/class-settings.php:402
+#: includes/admin/class-settings.php:405
 msgid ""
 "Displays the date of the post. Uses the same date format set in General "
 "Options."
 msgstr ""
 
-#: includes/admin/class-settings.php:408
+#: includes/admin/class-settings.php:411
 #: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:27
 msgid "Show author"
 msgstr ""
 
-#: includes/admin/class-settings.php:415
+#: includes/admin/class-settings.php:418
 msgid "Show primary category/term"
 msgstr ""
 
-#: includes/admin/class-settings.php:416
+#: includes/admin/class-settings.php:419
 msgid ""
 "This will display the primary category/term. This is usually set via your "
 "SEO plugin and will default to the first category/term returned by WordPress"
 msgstr ""
 
-#: includes/admin/class-settings.php:422
+#: includes/admin/class-settings.php:425
 msgid "Limit post title length (in characters)"
 msgstr ""
 
-#: includes/admin/class-settings.php:423
+#: includes/admin/class-settings.php:426
 msgid ""
 "Any title longer than the number of characters set above will be cut and "
 "appended with an ellipsis (&hellip;)"
 msgstr ""
 
-#: includes/admin/class-settings.php:431
+#: includes/admin/class-settings.php:434
 msgid "Open links in new window"
 msgstr ""
 
-#: includes/admin/class-settings.php:438
+#: includes/admin/class-settings.php:441
 msgid "Add nofollow to links"
 msgstr ""
 
-#: includes/admin/class-settings.php:445
+#: includes/admin/class-settings.php:448
 msgid "Add tracking parameters to URLs"
 msgstr ""
 
-#: includes/admin/class-settings.php:446
+#: includes/admin/class-settings.php:449
 msgid ""
 "Adds tracking parameters to the URLs so you can track when they are clicked "
 "in Google Analytics."
 msgstr ""
 
-#: includes/admin/class-settings.php:453
+#: includes/admin/class-settings.php:456
 msgid "Exclusion settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:459
+#: includes/admin/class-settings.php:462
 msgid "Exclude display on these posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:460
+#: includes/admin/class-settings.php:463
 msgid ""
 "Comma separated list of post, page or custom post type IDs. e.g. 188,320,500"
 msgstr ""
 
-#: includes/admin/class-settings.php:466
+#: includes/admin/class-settings.php:469
 msgid "Exclude display on these post types"
 msgstr ""
 
-#: includes/admin/class-settings.php:467
+#: includes/admin/class-settings.php:470
 msgid ""
 "The related posts will not display on any of the above selected post types."
 msgstr ""
 
-#: includes/admin/class-settings.php:473
+#: includes/admin/class-settings.php:476
 msgid "Exclude on Terms"
 msgstr ""
 
-#: includes/admin/class-settings.php:474 includes/admin/class-settings.php:776
+#: includes/admin/class-settings.php:477 includes/admin/class-settings.php:779
 msgid ""
 "The field above has an autocomplete so simply start typing in the starting "
 "letters and it will prompt you with options. This field requires a specific "
 "format as displayed by the autocomplete."
 msgstr ""
 
-#: includes/admin/class-settings.php:482
+#: includes/admin/class-settings.php:485
 msgid "HTML to display"
 msgstr ""
 
-#: includes/admin/class-settings.php:488
+#: includes/admin/class-settings.php:491
 msgid "Before the list of posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:495
+#: includes/admin/class-settings.php:498
 msgid "After the list of posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:502
+#: includes/admin/class-settings.php:505
 msgid "Before each list item"
 msgstr ""
 
-#: includes/admin/class-settings.php:509
+#: includes/admin/class-settings.php:512
 msgid "After each list item"
 msgstr ""
 
-#: includes/admin/class-settings.php:537
+#: includes/admin/class-settings.php:540
 msgid "General List Settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:538
+#: includes/admin/class-settings.php:541
 msgid "General settings for the related posts list"
 msgstr ""
 
-#: includes/admin/class-settings.php:543
+#: includes/admin/class-settings.php:546
 msgid "Use global settings in block"
 msgstr ""
 
-#: includes/admin/class-settings.php:544
+#: includes/admin/class-settings.php:547
 msgid ""
 "If activated, the settings from this page are automatically inserted in the "
 "Related Posts block. This also applies to existing blocks which do not have "
 "any attributes set if the post is edited."
 msgstr ""
 
-#: includes/admin/class-settings.php:551 includes/admin/class-settings.php:1009
+#: includes/admin/class-settings.php:554 includes/admin/class-settings.php:1012
 msgid "Number of posts to display"
 msgstr ""
 
-#: includes/admin/class-settings.php:552
+#: includes/admin/class-settings.php:555
 msgid ""
 "Maximum number of posts that will be displayed in the list. This option is "
 "used if you do not specify the number of posts in the widget or shortcodes"
 msgstr ""
 
-#: includes/admin/class-settings.php:560
+#: includes/admin/class-settings.php:563
 msgid "Related posts should be newer than"
 msgstr ""
 
-#: includes/admin/class-settings.php:561
+#: includes/admin/class-settings.php:564
 msgid ""
 "This sets the cut-off period for which posts will be displayed. e.g. setting "
 "it to 365 will show related posts from the last year only. Set to 0 to "
 "disable limiting posts by date."
 msgstr ""
 
-#: includes/admin/class-settings.php:568
+#: includes/admin/class-settings.php:571
 #: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:13
 #: includes/frontend/widgets/class-related-posts-widget.php:132
 msgid "Order posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:569
+#: includes/admin/class-settings.php:572
 msgid ""
 "Select how you want the related posts to be ordered. Randomly will shuffle "
 "the related posts and does not work if you have HTML caching enabled."
 msgstr ""
 
-#: includes/admin/class-settings.php:576
+#: includes/admin/class-settings.php:579
 #: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:38
 msgid "Randomize posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:577
+#: includes/admin/class-settings.php:580
 msgid ""
 "This shuffles the selected related posts, similar to choosing Randomly in "
 "the above option. If you select to order by date in the previous option, "
@@ -655,134 +881,134 @@ msgid ""
 "are shuffled. Does not work if Cache HTML output is enabled."
 msgstr ""
 
-#: includes/admin/class-settings.php:583
+#: includes/admin/class-settings.php:586
 msgid "Relevance Matching"
 msgstr ""
 
-#: includes/admin/class-settings.php:584
+#: includes/admin/class-settings.php:587
 msgid "Settings for content matching and relevance scoring"
 msgstr ""
 
-#: includes/admin/class-settings.php:589
+#: includes/admin/class-settings.php:592
 msgid "Weight for post title"
 msgstr ""
 
-#: includes/admin/class-settings.php:590
+#: includes/admin/class-settings.php:593
 msgid ""
 "The weight to give to the post title when calculating the relevance of the "
 "post."
 msgstr ""
 
-#: includes/admin/class-settings.php:599
+#: includes/admin/class-settings.php:602
 msgid "Weight for post content"
 msgstr ""
 
-#: includes/admin/class-settings.php:600
+#: includes/admin/class-settings.php:603
 msgid ""
 "The weight to give to the post content when calculating the relevance of the "
 "post. This may make your query take longer to process."
 msgstr ""
 
-#: includes/admin/class-settings.php:609
+#: includes/admin/class-settings.php:612
 msgid "Weight for post excerpt"
 msgstr ""
 
-#: includes/admin/class-settings.php:610
+#: includes/admin/class-settings.php:613
 msgid ""
 "The weight to give to the post excerpt when calculating the relevance of the "
 "post."
 msgstr ""
 
-#: includes/admin/class-settings.php:619
+#: includes/admin/class-settings.php:622
 msgid "Weight for categories"
 msgstr ""
 
-#: includes/admin/class-settings.php:620
+#: includes/admin/class-settings.php:623
 msgid "Weight to give category matches when calculating relevance."
 msgstr ""
 
-#: includes/admin/class-settings.php:629
+#: includes/admin/class-settings.php:632
 msgid "Weight for tags"
 msgstr ""
 
-#: includes/admin/class-settings.php:630
+#: includes/admin/class-settings.php:633
 msgid "Weight to give tag matches when calculating relevance."
 msgstr ""
 
-#: includes/admin/class-settings.php:639
+#: includes/admin/class-settings.php:642
 msgid "Default taxonomy weight"
 msgstr ""
 
-#: includes/admin/class-settings.php:640
+#: includes/admin/class-settings.php:643
 msgid "Weight to give other taxonomy matches when calculating relevance."
 msgstr ""
 
-#: includes/admin/class-settings.php:649
+#: includes/admin/class-settings.php:652
 msgid "Primary term boost"
 msgstr ""
 
-#: includes/admin/class-settings.php:650
+#: includes/admin/class-settings.php:653
 msgid "Additional weight multiplier for primary terms."
 msgstr ""
 
-#: includes/admin/class-settings.php:659
+#: includes/admin/class-settings.php:662
 msgid "Use precomputed taxonomy score"
 msgstr ""
 
-#: includes/admin/class-settings.php:660
+#: includes/admin/class-settings.php:663
 msgid ""
 "Enable to use precomputed taxonomy score for relevance calculation. This can "
 "improve performance but will ignore the above weights for taxonomies when "
 "running live queries."
 msgstr ""
 
-#: includes/admin/class-settings.php:667
+#: includes/admin/class-settings.php:670
 msgid "Related posts based on title and content"
 msgstr ""
 
-#: includes/admin/class-settings.php:668
+#: includes/admin/class-settings.php:671
 msgid ""
 "If unchecked, only posts titles are used. Enable the cache if enabling this "
 "option for better performance. Each site is different, so toggle this option "
 "to see which setting gives you better quality related posts."
 msgstr ""
 
-#: includes/admin/class-settings.php:674
+#: includes/admin/class-settings.php:677
 msgid "Limit content to be compared"
 msgstr ""
 
-#: includes/admin/class-settings.php:676
+#: includes/admin/class-settings.php:679
 #, php-format
 msgid ""
 "This sets the maximum words of the post content that will be matched. Set to "
 "0 for no limit. Max value: %1$s."
 msgstr ""
 
-#: includes/admin/class-settings.php:684
+#: includes/admin/class-settings.php:687
 msgid "Post Selection Criteria"
 msgstr ""
 
-#: includes/admin/class-settings.php:685
+#: includes/admin/class-settings.php:688
 msgid "Settings for controlling which posts to include"
 msgstr ""
 
-#: includes/admin/class-settings.php:690
+#: includes/admin/class-settings.php:693
 #: includes/frontend/widgets/class-related-posts-widget.php:155
 msgid "Post types to include"
 msgstr ""
 
-#: includes/admin/class-settings.php:691
+#: includes/admin/class-settings.php:694
 msgid ""
 "At least one option should be selected above. Select which post types you "
 "want to include in the list of posts. This field can be overridden using a "
 "comma separated list of post types when using the manual display."
 msgstr ""
 
-#: includes/admin/class-settings.php:697
+#: includes/admin/class-settings.php:700
 msgid "Cornerstone IDs"
 msgstr ""
 
-#: includes/admin/class-settings.php:698
+#: includes/admin/class-settings.php:701
 #, no-php-format
 msgid ""
 "Comma separated list of post/page or custom post type IDs to be used as "
@@ -791,112 +1017,112 @@ msgid ""
 "be selected from this list."
 msgstr ""
 
-#: includes/admin/class-settings.php:705
+#: includes/admin/class-settings.php:708
 msgid "Limit to same post type"
 msgstr ""
 
-#: includes/admin/class-settings.php:706
+#: includes/admin/class-settings.php:709
 msgid ""
 "If checked, the related posts will only be selected from the same post type "
 "of the current post."
 msgstr ""
 
-#: includes/admin/class-settings.php:712
+#: includes/admin/class-settings.php:715
 msgid "Limit to same author"
 msgstr ""
 
-#: includes/admin/class-settings.php:713
+#: includes/admin/class-settings.php:716
 msgid ""
 "If checked, the related posts will only be selected from the same author of "
 "the current post."
 msgstr ""
 
-#: includes/admin/class-settings.php:719
+#: includes/admin/class-settings.php:722
 msgid "Taxonomy & Term Filtering"
 msgstr ""
 
-#: includes/admin/class-settings.php:720
+#: includes/admin/class-settings.php:723
 msgid "Settings for controlling taxonomy and term relationships"
 msgstr ""
 
-#: includes/admin/class-settings.php:725
+#: includes/admin/class-settings.php:728
 msgid "Limit to same primary term"
 msgstr ""
 
-#: includes/admin/class-settings.php:726
+#: includes/admin/class-settings.php:729
 msgid ""
 "If enabled, then it will only select posts from the primary category/term. "
 "This is usually set via your SEO plugin and will default to the first "
 "category/term returned by WordPress"
 msgstr ""
 
-#: includes/admin/class-settings.php:732
+#: includes/admin/class-settings.php:735
 msgid "Only from same"
 msgstr ""
 
-#: includes/admin/class-settings.php:733
+#: includes/admin/class-settings.php:736
 msgid ""
 "Limit the related posts only to the categories, tags, and/or taxonomies of "
 "the current post."
 msgstr ""
 
-#: includes/admin/class-settings.php:739
+#: includes/admin/class-settings.php:742
 msgid "Match all taxonomies"
 msgstr ""
 
-#: includes/admin/class-settings.php:740
+#: includes/admin/class-settings.php:743
 msgid ""
 "If enabled, then it will only select posts that match all the above selected "
 "taxonomies. This can result in no related posts being found."
 msgstr ""
 
-#: includes/admin/class-settings.php:746
+#: includes/admin/class-settings.php:749
 msgid "Number of common terms"
 msgstr ""
 
-#: includes/admin/class-settings.php:747
+#: includes/admin/class-settings.php:750
 msgid ""
 "Enter the minimum number of common terms that have to be matched before a "
 "post is considered related."
 msgstr ""
 
-#: includes/admin/class-settings.php:754
+#: includes/admin/class-settings.php:757
 msgid "Related Meta Keys"
 msgstr ""
 
-#: includes/admin/class-settings.php:755
+#: includes/admin/class-settings.php:758
 msgid ""
 "Enter a comma-separated list of meta keys. Posts that match the same value "
 "of the meta key are displayed before the other related posts"
 msgstr ""
 
-#: includes/admin/class-settings.php:762
+#: includes/admin/class-settings.php:765
 msgid "Exclusion Rules"
 msgstr ""
 
-#: includes/admin/class-settings.php:763
+#: includes/admin/class-settings.php:766
 msgid "Settings for excluding posts and terms"
 msgstr ""
 
-#: includes/admin/class-settings.php:768
+#: includes/admin/class-settings.php:771
 msgid "Post/page IDs to exclude"
 msgstr ""
 
-#: includes/admin/class-settings.php:769
+#: includes/admin/class-settings.php:772
 msgid ""
 "Comma-separated list of post or page IDs to exclude from the list. e.g. "
 "188,320,500"
 msgstr ""
 
-#: includes/admin/class-settings.php:775
+#: includes/admin/class-settings.php:778
 msgid "Exclude Terms"
 msgstr ""
 
-#: includes/admin/class-settings.php:784
+#: includes/admin/class-settings.php:787
 msgid "Exclude Term Taxonomy IDs"
 msgstr ""
 
-#: includes/admin/class-settings.php:785
+#: includes/admin/class-settings.php:788
 msgid ""
 "This is a readonly field that is automatically populated based on the above "
 "input when the settings are saved. These might differ from the IDs visible "
@@ -904,30 +1130,30 @@ msgid ""
 "the term_taxonomy_id which is unique to this taxonomy."
 msgstr ""
 
-#: includes/admin/class-settings.php:792
+#: includes/admin/class-settings.php:795
 msgid "Advanced Options"
 msgstr ""
 
-#: includes/admin/class-settings.php:793
+#: includes/admin/class-settings.php:796
 msgid "Advanced settings for contextual matching"
 msgstr ""
 
-#: includes/admin/class-settings.php:798
+#: includes/admin/class-settings.php:801
 msgid "Disable contextual matching"
 msgstr ""
 
-#: includes/admin/class-settings.php:799
+#: includes/admin/class-settings.php:802
 msgid ""
 "Select to disable contextual matching. This will disable the content "
 "matching described above. You can choose to fallback to just the first X "
 "posts from the selected categories mentioned below."
 msgstr ""
 
-#: includes/admin/class-settings.php:805
+#: includes/admin/class-settings.php:808
 msgid "Disable contextual matching ONLY for custom post types"
 msgstr ""
 
-#: includes/admin/class-settings.php:806
+#: includes/admin/class-settings.php:809
 msgid ""
 "Checking this option will disable contextual matching only for custom post "
 "types. For WordPress inbuilt post types, the plugin will continue as per "
@@ -935,53 +1161,53 @@ msgid ""
 "related posts or Randomize posts are selected above for meaningful results."
 msgstr ""
 
-#: includes/admin/class-settings.php:813
+#: includes/admin/class-settings.php:816
 msgid "Include only posts that contain these words:"
 msgstr ""
 
-#: includes/admin/class-settings.php:814
+#: includes/admin/class-settings.php:817
 msgid ""
 "If entered, the related posts will include only posts that contain any of "
-"the specified words. Separate words with commas and no spaces. e.g. samsung,"
-"apple,nokia"
+"the specified words. Separate words with commas and no spaces. e.g. "
+"samsung,apple,nokia"
 msgstr ""
 
-#: includes/admin/class-settings.php:820
+#: includes/admin/class-settings.php:823
 msgid "Exclude posts that contain these words:"
 msgstr ""
 
-#: includes/admin/class-settings.php:821
+#: includes/admin/class-settings.php:824
 msgid ""
 "If entered, the related posts will exclude posts that contain any of the "
-"specified words. Separate words with commas and no spaces. e.g. samsung,"
-"apple,nokia"
+"specified words. Separate words with commas and no spaces. e.g. "
+"samsung,apple,nokia"
 msgstr ""
 
-#: includes/admin/class-settings.php:848 includes/admin/class-settings.php:1025
+#: includes/admin/class-settings.php:851 includes/admin/class-settings.php:1028
 msgid "Location of the post thumbnail"
 msgstr ""
 
-#: includes/admin/class-settings.php:853 includes/admin/class-settings.php:1030
+#: includes/admin/class-settings.php:856 includes/admin/class-settings.php:1033
 msgid "Display thumbnails inline with posts, before title"
 msgstr ""
 
-#: includes/admin/class-settings.php:854 includes/admin/class-settings.php:1031
+#: includes/admin/class-settings.php:857 includes/admin/class-settings.php:1034
 msgid "Display thumbnails inline with posts, after title"
 msgstr ""
 
-#: includes/admin/class-settings.php:855 includes/admin/class-settings.php:1032
+#: includes/admin/class-settings.php:858 includes/admin/class-settings.php:1035
 msgid "Display only thumbnails, no text"
 msgstr ""
 
-#: includes/admin/class-settings.php:856 includes/admin/class-settings.php:1033
+#: includes/admin/class-settings.php:859 includes/admin/class-settings.php:1036
 msgid "Do not display thumbnails, only text"
 msgstr ""
 
-#: includes/admin/class-settings.php:861
+#: includes/admin/class-settings.php:864
 msgid "Thumbnail size"
 msgstr ""
 
-#: includes/admin/class-settings.php:862
+#: includes/admin/class-settings.php:865
 msgid ""
 "You can choose from existing image sizes above or create a custom size. If "
 "you have chosen Custom size above, then enter the width, height and crop "
@@ -991,118 +1217,118 @@ msgid ""
 "CLI: wp media regenerate."
 msgstr ""
 
-#: includes/admin/class-settings.php:869 includes/admin/class-settings.php:1038
+#: includes/admin/class-settings.php:872 includes/admin/class-settings.php:1041
 #: includes/frontend/widgets/class-related-posts-widget.php:129
 msgid "Thumbnail width"
 msgstr ""
 
-#: includes/admin/class-settings.php:878 includes/admin/class-settings.php:1047
+#: includes/admin/class-settings.php:881 includes/admin/class-settings.php:1050
 #: includes/frontend/widgets/class-related-posts-widget.php:124
 msgid "Thumbnail height"
 msgstr ""
 
-#: includes/admin/class-settings.php:887
+#: includes/admin/class-settings.php:890
 msgid "Hard crop thumbnails"
 msgstr ""
 
-#: includes/admin/class-settings.php:888
+#: includes/admin/class-settings.php:891
 msgid ""
 "Check this box to hard crop the thumbnails. i.e. force the width and height "
 "above vs. maintaining proportions."
 msgstr ""
 
-#: includes/admin/class-settings.php:894
+#: includes/admin/class-settings.php:897
 msgid "Generate thumbnail sizes"
 msgstr ""
 
-#: includes/admin/class-settings.php:895
+#: includes/admin/class-settings.php:898
 msgid ""
 "If you select this option and Custom size is selected above, the plugin will "
 "register the image size with WordPress to create new thumbnails. Does not "
 "update old images as explained above."
 msgstr ""
 
-#: includes/admin/class-settings.php:901
+#: includes/admin/class-settings.php:904
 msgid "Thumbnail size attributes"
 msgstr ""
 
-#: includes/admin/class-settings.php:907
+#: includes/admin/class-settings.php:910
 #, php-format
 msgid "Use CSS to set the width and height: e.g. %s"
 msgstr ""
 
-#: includes/admin/class-settings.php:909
+#: includes/admin/class-settings.php:912
 #, php-format
 msgid "Use HTML attributes to set the width and height: e.g. %s"
 msgstr ""
 
-#: includes/admin/class-settings.php:910
+#: includes/admin/class-settings.php:913
 msgid ""
 "No width or height set. You will need to use external styles to force any "
 "width or height of your choice."
 msgstr ""
 
-#: includes/admin/class-settings.php:915
+#: includes/admin/class-settings.php:918
 msgid "Thumbnail meta field name"
 msgstr ""
 
-#: includes/admin/class-settings.php:916
+#: includes/admin/class-settings.php:919
 msgid ""
 "The value of this field should contain the URL of the image and can be set "
 "in the metabox in the Edit Post screen"
 msgstr ""
 
-#: includes/admin/class-settings.php:922
+#: includes/admin/class-settings.php:925
 msgid "Get first image"
 msgstr ""
 
-#: includes/admin/class-settings.php:923
+#: includes/admin/class-settings.php:926
 msgid ""
 "The plugin will fetch the first image in the post content if this is "
 "enabled. This can slow down the loading of your page if the first image in "
 "the followed posts is large in file-size."
 msgstr ""
 
-#: includes/admin/class-settings.php:929
+#: includes/admin/class-settings.php:932
 msgid "Use default thumbnail?"
 msgstr ""
 
-#: includes/admin/class-settings.php:930
+#: includes/admin/class-settings.php:933
 msgid ""
 "If checked, when no thumbnail is found, show a default one from the URL "
 "below. If not checked and no thumbnail is found, no image will be shown."
 msgstr ""
 
-#: includes/admin/class-settings.php:936 includes/admin/class-settings.php:1426
+#: includes/admin/class-settings.php:939 includes/admin/class-settings.php:1429
 msgid "Default thumbnail"
 msgstr ""
 
-#: includes/admin/class-settings.php:937
+#: includes/admin/class-settings.php:940
 msgid ""
 "Enter the full URL of the image that you wish to display if no thumbnail is "
 "found. This image will be displayed below."
 msgstr ""
 
-#: includes/admin/class-settings.php:965
+#: includes/admin/class-settings.php:968
 msgid "Related Posts style"
 msgstr ""
 
-#: includes/admin/class-settings.php:973
+#: includes/admin/class-settings.php:976
 msgid "Custom CSS"
 msgstr ""
 
-#: includes/admin/class-settings.php:975
+#: includes/admin/class-settings.php:978
 #, php-format
 msgid ""
 "Do not include %3$sstyle%4$s tags. Check out the %1$sFAQ%2$s for available "
 "CSS classes to style."
 msgstr ""
 
-#: includes/admin/class-settings.php:1003
+#: includes/admin/class-settings.php:1006
 msgid "About this tab"
 msgstr ""
 
-#: includes/admin/class-settings.php:1004
+#: includes/admin/class-settings.php:1007
 msgid ""
 "Below options override the related posts settings for your blog feed. These "
 "only apply if you have selected to add related posts to Feeds in the General "
@@ -1110,7 +1336,7 @@ msgid ""
 "way to style the related posts in the feed."
 msgstr ""
 
-#: includes/admin/class-settings.php:1076
+#: includes/admin/class-settings.php:1079
 #, php-format
 msgid ""
 "Efficient Content Storage and Indexing (ECSI) creates a dedicated database "
@@ -1119,33 +1345,33 @@ msgid ""
 "create the ECSI tables, visit the %1$sTools tab%2$s."
 msgstr ""
 
-#: includes/admin/class-settings.php:1092
+#: includes/admin/class-settings.php:1095
 msgid "Efficient Content Storage and Indexing (ECSI)"
 msgstr ""
 
-#: includes/admin/class-settings.php:1098
+#: includes/admin/class-settings.php:1101
 msgid "Use Custom Tables"
 msgstr ""
 
-#: includes/admin/class-settings.php:1099
+#: includes/admin/class-settings.php:1102
 msgid ""
 "Use dedicated custom tables for related posts queries. This can "
 "significantly improve performance on large sites with many posts."
 msgstr ""
 
-#: includes/admin/class-settings.php:1107
+#: includes/admin/class-settings.php:1110
 msgid "Optimization"
 msgstr ""
 
-#: includes/admin/class-settings.php:1108
+#: includes/admin/class-settings.php:1111
 msgid "Settings for optimizing performance"
 msgstr ""
 
-#: includes/admin/class-settings.php:1113
+#: includes/admin/class-settings.php:1116
 msgid "Cache posts only"
 msgstr ""
 
-#: includes/admin/class-settings.php:1114
+#: includes/admin/class-settings.php:1117
 msgid ""
 "Enabling this will only cache the related posts but not the entire HTML "
 "output. This gives you more flexibility at marginally lower performance. Use "
@@ -1153,382 +1379,381 @@ msgid ""
 "parameters."
 msgstr ""
 
-#: includes/admin/class-settings.php:1120
+#: includes/admin/class-settings.php:1123
 msgid "Cache HTML output"
 msgstr ""
 
-#: includes/admin/class-settings.php:1121
+#: includes/admin/class-settings.php:1124
 msgid ""
 "Enabling this will cache the entire HTML generated when the post is visited "
 "the first time. The cache is cleaned when you save this page. Highly "
 "recommended particularly on busy sites. Default is true."
 msgstr ""
 
-#: includes/admin/class-settings.php:1127
+#: includes/admin/class-settings.php:1130
 msgid "Cache Time"
 msgstr ""
 
-#: includes/admin/class-settings.php:1128
+#: includes/admin/class-settings.php:1131
 msgid "How long should the related posts be cached for. Default is 30 days."
 msgstr ""
 
-#: includes/admin/class-settings.php:1132
+#: includes/admin/class-settings.php:1135
 msgid "No expiry"
 msgstr ""
 
-#: includes/admin/class-settings.php:1133
+#: includes/admin/class-settings.php:1136
 msgid "1 Hour"
 msgstr ""
 
-#: includes/admin/class-settings.php:1134
+#: includes/admin/class-settings.php:1137
 msgid "6 Hours"
 msgstr ""
 
-#: includes/admin/class-settings.php:1135
+#: includes/admin/class-settings.php:1138
 msgid "12 Hours"
 msgstr ""
 
-#: includes/admin/class-settings.php:1136
+#: includes/admin/class-settings.php:1139
 msgid "1 Day"
 msgstr ""
 
-#: includes/admin/class-settings.php:1137
+#: includes/admin/class-settings.php:1140
 msgid "3 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:1138
+#: includes/admin/class-settings.php:1141
 msgid "1 Week"
 msgstr ""
 
-#: includes/admin/class-settings.php:1139
+#: includes/admin/class-settings.php:1142
 msgid "2 Weeks"
 msgstr ""
 
-#: includes/admin/class-settings.php:1140
+#: includes/admin/class-settings.php:1143
 msgid "30 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:1141
+#: includes/admin/class-settings.php:1144
 msgid "60 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:1142
+#: includes/admin/class-settings.php:1145
 msgid "90 Days"
 msgstr ""
 
-#: includes/admin/class-settings.php:1143
+#: includes/admin/class-settings.php:1146
 msgid "1 Year"
 msgstr ""
 
-#: includes/admin/class-settings.php:1149
+#: includes/admin/class-settings.php:1152
 msgid "Max Execution Time"
 msgstr ""
 
-#: includes/admin/class-settings.php:1150
+#: includes/admin/class-settings.php:1153
 msgid ""
 "Maximum execution time for MySQL queries in milliseconds. Set to 0 to "
 "disable. Default is 3000 (3 seconds)."
 msgstr ""
 
-#: includes/admin/class-settings.php:1180
+#: includes/admin/class-settings.php:1183
 msgid "No styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:1181
+#: includes/admin/class-settings.php:1184
 msgid "Select this option if you plan to add your own styles"
 msgstr ""
 
-#: includes/admin/class-settings.php:1185
+#: includes/admin/class-settings.php:1188
 msgid "Text only"
 msgstr ""
 
-#: includes/admin/class-settings.php:1186
+#: includes/admin/class-settings.php:1189
 msgid "Disable thumbnails and no longer include the default style sheet"
 msgstr ""
 
-#: includes/admin/class-settings.php:1190
+#: includes/admin/class-settings.php:1193
 msgid "Rounded thumbnails"
 msgstr ""
 
-#: includes/admin/class-settings.php:1191
+#: includes/admin/class-settings.php:1194
 msgid ""
 "Enabling this option will turn on the thumbnails. It will also turn off the "
 "display of the author, excerpt and date if already enabled. Disabling this "
 "option will not revert any settings."
 msgstr ""
 
-#: includes/admin/class-settings.php:1195
+#: includes/admin/class-settings.php:1198
 msgid "Masonry"
 msgstr ""
 
-#: includes/admin/class-settings.php:1196
+#: includes/admin/class-settings.php:1199
 msgid "Enables a masonry style layout similar to one made famous by Pinterest."
 msgstr ""
 
-#: includes/admin/class-settings.php:1200
+#: includes/admin/class-settings.php:1203
 msgid "Grid"
 msgstr ""
 
-#: includes/admin/class-settings.php:1201
+#: includes/admin/class-settings.php:1204
 msgid "Uses CSS Grid for display. Might not work on older browsers."
 msgstr ""
 
-#: includes/admin/class-settings.php:1205
+#: includes/admin/class-settings.php:1208
 msgid "Rounded thumbnails with CSS grid"
 msgstr ""
 
-#: includes/admin/class-settings.php:1206
+#: includes/admin/class-settings.php:1209
 msgid ""
 "Uses CSS grid. It will also turn off the display of the author, excerpt and "
 "date if already enabled. Disabling this option will not revert any settings."
 msgstr ""
 
-#: includes/admin/class-settings.php:1229
+#: includes/admin/class-settings.php:1232
 #: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:23
 msgid "By relevance"
 msgstr ""
 
-#: includes/admin/class-settings.php:1230
+#: includes/admin/class-settings.php:1233
 #: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:27
 msgid "Randomly"
 msgstr ""
 
-#: includes/admin/class-settings.php:1231
+#: includes/admin/class-settings.php:1234
 #: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:31
 msgid "By date"
 msgstr ""
 
-#: includes/admin/class-settings.php:1256
-#: includes/admin/class-settings.php:1320
-#: includes/admin/network/class-admin.php:119
+#: includes/admin/class-settings.php:1259
+#: includes/admin/class-settings.php:1323
+#: includes/admin/network/class-admin.php:81
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-settings.php:1275
-#: includes/admin/settings/sidebar.php:37
-#: includes/admin/settings/sidebar.php:41
+#: includes/admin/class-settings.php:1278
+#: includes/admin/settings/sidebar.php:30
+#: includes/admin/settings/sidebar.php:34
 msgid "Support"
 msgstr ""
 
-#: includes/admin/class-settings.php:1276
+#: includes/admin/class-settings.php:1279
 msgid "Donate"
 msgstr ""
 
-#: includes/admin/class-settings.php:1277
+#: includes/admin/class-settings.php:1280
 msgid "Contribute"
 msgstr ""
 
-#: includes/admin/class-settings.php:1293
+#: includes/admin/class-settings.php:1296
 #, php-format
 msgid ""
 "For more information or how to get support visit the <a href=\"%s\" "
 "target=\"_blank\">support site</a>."
 msgstr ""
 
-#: includes/admin/class-settings.php:1296
+#: includes/admin/class-settings.php:1299
 #, php-format
 msgid ""
 "<a href=\"%1$s\" target=\"_blank\">Post an issue</a> on <a href=\"%2$s\" "
 "target=\"_blank\">GitHub</a> (bug reports only)."
 msgstr ""
 
-#: includes/admin/class-settings.php:1322
+#: includes/admin/class-settings.php:1325
 msgid ""
 "This screen provides the various settings for configuring Contextual Related "
 "Posts."
 msgstr ""
 
-#: includes/admin/class-settings.php:1325
+#: includes/admin/class-settings.php:1328
 #, php-format
 msgid ""
 "You can find detailed information on each of the settings in these <a "
 "href=\"%1$s\" target=\"_blank\">knowledgebase articles</a>."
 msgstr ""
 
-#: includes/admin/class-settings.php:1331
+#: includes/admin/class-settings.php:1334
 #: includes/admin/network/class-tools-page.php:50
 msgid "Tools"
 msgstr ""
 
-#: includes/admin/class-settings.php:1333
+#: includes/admin/class-settings.php:1336
 msgid ""
 "This screen provides some tools that help maintain certain features of "
 "Contextual Related Posts."
 msgstr ""
 
-#: includes/admin/class-settings.php:1334
+#: includes/admin/class-settings.php:1337
 msgid ""
 "Clear the cache, recreate the fulltext indices (including code to manually "
 "run this in phpMyAdmin), export/import settings and delete the older "
 "settings."
 msgstr ""
 
-#: includes/admin/class-settings.php:1337
+#: includes/admin/class-settings.php:1340
 #, php-format
 msgid ""
 "You can find more information on each of these tools in this <a "
 "href=\"%1$s\" target=\"_blank\">knowledgebase article</a>."
 msgstr ""
 
-#: includes/admin/class-settings.php:1361
+#: includes/admin/class-settings.php:1364
 #, php-format
 msgid ""
 "Thank you for using %1$sContextual Related Posts by WebberZone%2$s! Please "
 "%3$srate us%2$s on %3$sWordPress.org%2$s"
 msgstr ""
 
-#: includes/admin/class-settings.php:1446
+#: includes/admin/class-settings.php:1449
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/class-settings.php:1517
+#: includes/admin/class-settings.php:1489
+#: includes/admin/class-tools-page.php:98
+#: includes/admin/class-tools-page.php:102
+#: includes/admin/class-tools-page.php:342
+#: includes/admin/network/class-admin.php:148
+#: includes/admin/network/class-tools-page.php:124
+msgid "Clear cache"
+msgstr ""
+
+#: includes/admin/class-settings.php:1490
+#: includes/admin/class-tools-page.php:343
+#: includes/admin/network/class-admin.php:149
+#: includes/admin/network/class-tools-page.php:125
+msgid "Clearing cache"
+msgstr ""
+
+#: includes/admin/class-settings.php:1522
 msgctxt "tag delimiter"
 msgid ","
 msgstr ""
 
-#: includes/admin/class-settings.php:1565
+#: includes/admin/class-settings.php:1570
 msgid "Visit the Tools page"
 msgstr ""
 
-#: includes/admin/class-settings.php:1569
-#: includes/admin/class-settings.php:1586
+#: includes/admin/class-settings.php:1574
+#: includes/admin/class-settings.php:1591
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/admin/class-settings.php:1593
-#: includes/admin/class-settings.php:1603
+#: includes/admin/class-settings.php:1598
+#: includes/admin/class-settings.php:1608
 msgid ""
 "Note: This setting cannot be changed as the Thumbnail style is set to "
 "Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style "
 "in the Styles tab."
 msgstr ""
 
-#: includes/admin/class-settings.php:1600
+#: includes/admin/class-settings.php:1605
 msgid ""
 "Note: This setting cannot be changed as the Thumbnail style is set to Text "
 "Only. You can change the style in the Styles tab."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:49
-#: includes/admin/class-tools-page.php:81
+#: includes/admin/class-settings.php:1623
+#: includes/admin/class-settings.php:1625
+#: includes/admin/class-settings.php:1626
+msgid "Start Settings Wizard"
+msgstr ""
+
+#: includes/admin/class-tools-page.php:51
+#: includes/admin/class-tools-page.php:83
 msgid "Contextual Related Posts Tools"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:50
+#: includes/admin/class-tools-page.php:52
 msgid "Related Posts Tools"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:70
+#: includes/admin/class-tools-page.php:72
 msgid "Indices have been recreated"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:75
+#: includes/admin/class-tools-page.php:77
 msgid "Settings have been imported successfully"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:85
+#: includes/admin/class-tools-page.php:87
 msgid "Visit the Settings page"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:96
-#: includes/admin/class-tools-page.php:99
-msgid "Clear cache"
-msgstr ""
-
-#: includes/admin/class-tools-page.php:102
+#: includes/admin/class-tools-page.php:106
 msgid ""
 "Clear the Contextual Related Posts cache. This might take a while if you "
 "have a lot of posts."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:108
 #: includes/admin/class-tools-page.php:112
-msgid "Recreate Indices"
+msgid "Recreate FULLTEXT index"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:115
+#: includes/admin/class-tools-page.php:119
+msgid "Are you sure you want to recreate the index?"
+msgstr ""
+
+#: includes/admin/class-tools-page.php:120
+msgid "Recreate Index"
+msgstr ""
+
+#: includes/admin/class-tools-page.php:125
 msgid ""
-"Deletes and recreates the FULLTEXT index in the posts table. If the above "
-"function gives an error, then you can run the below code in phpMyAdmin or "
-"Adminer. Remember to backup your database first!"
+"Recreate the FULLTEXT index that Contextual Related Posts uses to get the "
+"relevant related posts. This might take a lot of time to regenerate if you "
+"have a lot of posts."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:132
+#: includes/admin/class-tools-page.php:127
+msgid ""
+"If the Recreate Index button fails, please run the following queries in "
+"phpMyAdmin or Adminer. Remember to backup your database first!"
+msgstr ""
+
+#: includes/admin/class-tools-page.php:143
 msgid "Export/Import settings"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:136
+#: includes/admin/class-tools-page.php:147
 msgid ""
 "Export the plugin settings for this site as a .json file. This allows you to "
 "easily import the configuration into another site."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:140
+#: includes/admin/class-tools-page.php:151
 msgid "Export Settings"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:147
+#: includes/admin/class-tools-page.php:158
 msgid ""
 "Import the plugin settings from a .json file. This file can be obtained by "
 "exporting the settings on another site using the form above."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:153
+#: includes/admin/class-tools-page.php:164
 msgid "Import Settings"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:276
+#: includes/admin/class-tools-page.php:298
 msgid "Please upload a valid .json file"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:282
+#: includes/admin/class-tools-page.php:304
 msgid "Please upload a file to import"
 msgstr ""
 
-#: includes/admin/network/class-admin.php:96
-msgid "Network settings updated successfully."
-msgstr ""
-
-#: includes/admin/network/class-admin.php:108
+#: includes/admin/network/class-admin.php:70
 msgid "Contextual Related Posts Multisite Dashboard"
 msgstr ""
 
-#: includes/admin/network/class-admin.php:118
-#: includes/admin/network/class-admin.php:134
+#: includes/admin/network/class-admin.php:80
+#: includes/admin/network/class-admin.php:96
 msgid "Contextual Related Posts Multisite Settings"
 msgstr ""
 
-#: includes/admin/network/class-admin.php:135
+#: includes/admin/network/class-admin.php:97
 msgid ""
 "This page allows you to configure the settings for Contextual Related Posts "
 "on your multisite network."
-msgstr ""
-
-#: includes/admin/network/class-admin.php:146
-msgid "Performance Settings"
-msgstr ""
-
-#: includes/admin/network/class-admin.php:150
-#: includes/admin/network/class-admin.php:154
-msgid "ECSI Settings"
-msgstr ""
-
-#: includes/admin/network/class-admin.php:159
-msgid "Enable Enhanced Content Search Index on all sites"
-msgstr ""
-
-#: includes/admin/network/class-admin.php:165
-msgid "Disable Enhanced Content Search Index on all sites"
-msgstr ""
-
-#: includes/admin/network/class-admin.php:171
-msgid "Let each site control its own ECSI setting"
-msgstr ""
-
-#: includes/admin/network/class-admin.php:175
-msgid ""
-"Choose how to manage Enhanced Content Search Index (ECSI) across your "
-"network. Sites will need to reindex their content after enabling this option."
 msgstr ""
 
 #: includes/admin/network/class-tools-page.php:49
@@ -1536,107 +1761,82 @@ msgstr ""
 msgid "Contextual Related Posts Multisite Tools"
 msgstr ""
 
-#: includes/admin/settings/class-settings-form.php:118
-#, php-format
-msgid "The callback function used for the %1$s setting is missing."
-msgstr ""
-
-#: includes/admin/settings/class-settings-form.php:476
-msgid "cropped"
-msgstr ""
-
-#: includes/admin/settings/class-settings-form.php:691
-msgid "Choose File"
-msgstr ""
-
-#: includes/admin/settings/sidebar.php:15
-msgid "Contextual Related Posts Pro - Buy now!"
-msgstr ""
-
 #: includes/admin/settings/sidebar.php:16
-msgid "OR"
-msgstr ""
-
-#: includes/admin/settings/sidebar.php:17
-msgid "Support the development - Send us a donation today."
-msgstr ""
-
-#: includes/admin/settings/sidebar.php:23
 msgid "Quick links"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:29
+#: includes/admin/settings/sidebar.php:22
 msgid "Contextual Related Posts homepage"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:33
-#: includes/admin/settings/sidebar.php:66
+#: includes/admin/settings/sidebar.php:26
+#: includes/admin/settings/sidebar.php:59
 msgid "Knowledge Base"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:45
+#: includes/admin/settings/sidebar.php:38
 msgid "Reviews"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:48
+#: includes/admin/settings/sidebar.php:41
 msgid "Github repository"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:51
+#: includes/admin/settings/sidebar.php:44
 msgid "Ajay's blog"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:59
+#: includes/admin/settings/sidebar.php:52
 msgid "WebberZone plugins"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:64
+#: includes/admin/settings/sidebar.php:57
 msgid "Top 10"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:65
+#: includes/admin/settings/sidebar.php:58
 msgid "Better Search"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:67
+#: includes/admin/settings/sidebar.php:60
 msgid "Snippetz"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:68
+#: includes/admin/settings/sidebar.php:61
 msgid "Followed Posts"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:69
+#: includes/admin/settings/sidebar.php:62
 msgid "Popular Authors"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:70
+#: includes/admin/settings/sidebar.php:63
 msgid "Auto Close"
 msgstr ""
 
-#: includes/admin/settings/sidebar.php:80
+#: includes/admin/settings/sidebar.php:73
 msgid "Follow us"
 msgstr ""
 
-#: includes/class-main.php:237
+#: includes/class-hook-loader.php:198
 msgid ""
 "Contextual Related Posts and Contextual Related Posts PRO should not be "
 "active at the same time. We've automatically deactivated Contextual Related "
 "Posts."
 msgstr ""
 
-#: includes/class-main.php:239
+#: includes/class-hook-loader.php:200
 msgid ""
 "Contextual Related Posts and Contextual Related Posts PRO should not be "
 "active at the same time. We've automatically deactivated Contextual Related "
 "Posts PRO."
 msgstr ""
 
-#: includes/frontend/blocks/class-blocks.php:130
+#: includes/frontend/blocks/class-blocks.php:131
 msgid "Contextual Related Posts Block"
 msgstr ""
 
-#: includes/frontend/blocks/class-blocks.php:133
+#: includes/frontend/blocks/class-blocks.php:134
 msgid ""
 "No related posts were found or the block rendered empty. Please modify your "
 "block settings."
@@ -1677,8 +1877,8 @@ msgstr ""
 
 #: includes/frontend/blocks/src/related-posts/components/other-attributes-control.js:11
 msgid ""
-"Enter other attributes in a URL-style string-query. e.g. post_types=post,"
-"page&exclude_post_ids=5,6"
+"Enter other attributes in a URL-style string-query. e.g. "
+"post_types=post,page&exclude_post_ids=5,6"
 msgstr ""
 
 #: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:15
@@ -1737,27 +1937,27 @@ msgid ""
 "your site to see the related posts."
 msgstr ""
 
-#: includes/frontend/class-display.php:244
+#: includes/frontend/class-display.php:247
 #, php-format
 msgid ""
 "Powered by <a href=\"%s\" rel=\"nofollow\" style=\"float:none\">Contextual "
 "Related Posts</a>"
 msgstr ""
 
-#: includes/frontend/class-display.php:447
+#: includes/frontend/class-display.php:450
 #, php-format
 msgid "Continue reading %s"
 msgstr ""
 
-#: includes/frontend/class-display.php:455
+#: includes/frontend/class-display.php:458
 msgid "(more&hellip;)"
 msgstr ""
 
-#: includes/frontend/class-display.php:483
+#: includes/frontend/class-display.php:486
 msgid "There is no excerpt because this is a protected post."
 msgstr ""
 
-#: includes/frontend/class-display.php:731
+#: includes/frontend/class-display.php:734
 msgid " by "
 msgstr ""
 
@@ -1845,19 +2045,23 @@ msgstr ""
 msgid "Only from categories (comma-separated list of term taxonomy IDs)"
 msgstr ""
 
-#: includes/util/class-cache.php:50
-msgid "Cache has been cleared"
-msgstr ""
+#: includes/util/class-cache.php:53
+#, php-format
+msgid "%d cache entry has been cleared"
+msgid_plural "%d cache entries have been cleared"
+msgstr[0] ""
+msgstr[1] ""
 
-#: includes/util/class-helpers.php:340
+#: includes/util/class-helpers.php:357
 #, php-format
 msgid ""
 "⚠️ Your %1$s version (%2$s) does not support all custom table features. %1$s "
-"%3$s or higher is required for optimal performance. The plugin will continue "
-"to use standard WordPress tables."
+"%3$s or higher is required for optimal performance. The plugin might not be "
+"able to deliver the best results. Please consider upgrading your database "
+"version."
 msgstr ""
 
-#: includes/util/class-helpers.php:350
+#: includes/util/class-helpers.php:367
 #, php-format
 msgid ""
 "⚠️ Your %1$s version (%2$s) is below the recommended version %3$s. While the "
