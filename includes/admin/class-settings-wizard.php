@@ -138,27 +138,16 @@ class Settings_Wizard extends Settings_Wizard_API {
 				'description' => __( 'Upgrade to Contextual Related Posts Pro to unlock advanced features such as custom tables, advanced weighting, and more. <strong>Take your related posts to the next level!</strong>', 'contextual-related-posts' ) . '<br /><br /><a href="https://webberzone.com/plugins/contextual-related-posts/pro/" target="_blank" class="button button-primary">' . __( 'Learn more about Pro', 'contextual-related-posts' ) . '</a>',
 				'settings'    => $this->build_step_settings( $pro_features_keys, $all_settings ),
 			),
-			'completion'      => array(
-				'title'       => __( 'Setup Complete!', 'contextual-related-posts' ),
-				'description' => __( 'Your Contextual Related Posts plugin has been configured successfully.', 'contextual-related-posts' ),
-				'settings'    => array(),
-			),
 		);
 
 		// Add custom tables indexing step if custom tables are enabled.
 		if ( crp_get_option( 'use_custom_tables', false ) ) {
-			// Insert the custom tables step before completion.
-			$completion_step = $steps['completion'];
-			unset( $steps['completion'] );
-
 			$steps['custom_tables_index'] = array(
 				'title'       => __( 'Index Custom Tables', 'contextual-related-posts' ),
 				'description' => __( 'Custom tables have been enabled. Index your content to improve search performance and enable advanced features.', 'contextual-related-posts' ),
 				'settings'    => array(),
 				'custom_step' => true, // Flag to indicate this needs custom rendering.
 			);
-
-			$steps['completion'] = $completion_step;
 		}
 
 		/**
@@ -574,7 +563,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 
 			<div class="wizard-completion-content">
 				<div class="wizard-completion-features">
-					<h3><?php esc_html_e( 'What\'s Next?', 'contextual-related-posts' ); ?></h3>
+					<h3><?php esc_html_e( "What's Next?", 'contextual-related-posts' ); ?></h3>
 					<ul>
 						<li><?php esc_html_e( 'Visit your site to see related posts in action', 'contextual-related-posts' ); ?></li>
 						<li><?php esc_html_e( 'Customize the display using the settings page', 'contextual-related-posts' ); ?></li>
