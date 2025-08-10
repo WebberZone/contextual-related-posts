@@ -166,6 +166,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 = 4.1.0 =
 
+Release post: [https://webberzone.com/blog/contextual-related-posts-v4-1-0/](https://webberzone.com/blog/contextual-related-posts-v4-1-0/)
+
+* Features:
+    * New Wizard to guide users through the setup process.
+
 * Modifications:
     * Renamed `CRP_VERSION`, `CRP_PLUGIN_FILE`, CRP_PLUGIN_DIR` and `CRP_PLUGIN_URL` constants to `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR` and `WZ_CRP_PLUGIN_URL` respectively to avoid conflicts with other plugins.
     * New function `crp_get_blog_option()` to fetch an option from a specific blog in WordPress multisite.
@@ -178,50 +183,6 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
     * Fixed ordering issue on pages when "Same taxonomies" is selected.
     * Set the postid if it's different from the queried object in the Core Query class.
     * Fixed conflict with WPML showing current post incorrectly.
-
-= 4.0.3 =
-
-* Bug fixes:
-    * Shortcode attributes were not properly sanitized.
-    * Cache keys were not being generated correctly resulting in duplicate cache keys.
-    * Custom CSS styles were not loaded correctly when using the Related Posts Widget only.
-
-= 4.0.2 =
-
-* Enhancements:
-    * Optimized cache clearing operations by using direct SQL queries. The cache clear button will also return the number of keys deleted. Optimized cache key generation to improve performance and reduce number of cache keys.
-
-* Bug fixes:
-    * Fixed an issue where Exclude Posts stopped working.
-
-= 4.0.1 =
-
-* Modifications:
-    * Added new admin notice if any fulltext indexes are missing.
-
-* Bug fixes:
-    * The `post_content` index was not created.
-
-= 4.0.0 =
-
-Release post: [https://webberzone.com/blog/contextual-related-posts-v4-0-0/](https://webberzone.com/blog/contextual-related-posts-v4-0-0/)
-
-* Features:
-    * [Pro] New: Efficient Content Storage and Indexing - Custom tables implementation for better performance and query optimization while maintaining the same relevance algorithm
-    * [Pro] Added MAX_EXECUTION_TIME hint to MySQL queries. You can now set the maximum execution time for CRP queries in the Settings page.
-    * [Pro] New setting to configure cache time for related posts with options ranging from 1 hour to 1 year.
-    * [Pro] Added new setting to add tracking parameters to related post URLs. The following UTM parameters will be added:
-        * `utm_source`: `contextual-related-posts`
-        * `utm_medium`: `related-posts`
-        * `utm_campaign`: `crp-plugin`
-        * `utm_content`: `{source-post-id}-to-{target-post-id}`
-    * [Pro] Introduced a feature to designate cornerstone posts, which are key articles or pages on your site. These cornerstone posts will appear at random positions in the related posts list, ensuring they receive more visibility and help guide your audience to the most important content on your site.
-    * [Pro] New: Taxonomy weight system for more precise matching
-
-* Enhancements/Modifications:
-    * Enabled drag-and-drop functionality for reordering manual posts in the Metabox.
-    * Added new `parse_wp_query_arguments` helper method to parse the comma-separated list of IDs and convert them to arrays for WP_Query compatibility
-    * Renamed class CRP() to CRP_Core_Query()
 
 = Earlier versions =
 
