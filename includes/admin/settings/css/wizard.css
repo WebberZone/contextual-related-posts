@@ -172,7 +172,7 @@
 
 /* Completion Page */
 .wizard-complete {
-	text-align: center;
+	text-align: left;
 }
 
 .wizard-completion-header {
@@ -204,8 +204,6 @@
 	margin-bottom: 30px;
 	text-align: left;
 	max-width: 500px;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .wizard-completion-features h3 {
@@ -217,11 +215,13 @@
 .wizard-completion-features ul {
 	margin: 0;
 	padding-left: 20px;
+	list-style-type: disc;
 }
 
 .wizard-completion-features li {
 	margin-bottom: 8px;
 	line-height: 1.4;
+	list-style-type: disc;
 }
 
 .wizard-completion-actions {

@@ -293,8 +293,8 @@ class Settings_Wizard_API {
 
 			case 'finish_setup':
 				$this->process_current_step();
-				$this->complete_wizard();
-				$this->redirect_to_admin();
+				$this->mark_wizard_completed();
+				$this->redirect_to_step( $this->total_steps + 1 );
 				break;
 
 			case 'skip_wizard':
@@ -432,9 +432,9 @@ class Settings_Wizard_API {
 	}
 
 	/**
-	 * Complete the wizard.
+	 * Mark the wizard as completed without redirecting.
 	 */
-	protected function complete_wizard() {
+	protected function mark_wizard_completed() {
 		update_option( "{$this->prefix}_wizard_completed", true );
 		update_option( "{$this->prefix}_wizard_completed_date", current_time( 'mysql' ) );
 
@@ -448,6 +448,13 @@ class Settings_Wizard_API {
 		 * @param string $prefix Plugin prefix.
 		 */
 		do_action( "{$this->prefix}_wizard_completed", $this->prefix );
+	}
+
+	/**
+	 * Complete the wizard.
+	 */
+	protected function complete_wizard() {
+		$this->mark_wizard_completed();
 
 		// Redirect to completion page or main settings.
 		wp_safe_redirect( $this->get_completion_redirect_url() );
@@ -464,9 +471,9 @@ class Settings_Wizard_API {
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended
 		if ( isset( $_GET['step'] ) ) {
 			$step = absint( $_GET['step'] );
-			if ( $step > 0 && $step <= $this->total_steps ) {
+			if ( $step > 0 && $step <= $this->total_steps + 1 ) {
 				$this->current_step = $step;
-				$this->update_current_step(); // Update the database to match URL.
+				$this->update_current_step();
 				return $this->current_step;
 			}
 		}
