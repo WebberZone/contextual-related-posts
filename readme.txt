@@ -166,7 +166,7 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 = 4.1.0 =
 
-Release post: [https://webberzone.com/blog/contextual-related-posts-v4-1-0/](https://webberzone.com/blog/contextual-related-posts-v4-1-0/)
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-1-0/](https://webberzone.com/announcements/contextual-related-posts-v4-1-0/)
 
 * Features:
     * New Wizard to guide users through the setup process.
@@ -192,4 +192,4 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 == Upgrade Notice ==
 
 = 4.1.0 =
-Important plugin constants renamed to prevent conflicts, improved multisite support, and fixes for ordering issues, WPML conflicts, and Exclude Posts functionality. Custom Table indexing UI enhanced in Pro version.
+New Wizard for guided setup, renamed constants with WZ_ prefix, improved multisite support, optimized indexes, and fixed various bugs.
