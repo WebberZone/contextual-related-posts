@@ -91,8 +91,8 @@ if ( ! defined( 'CRP_CACHE_TIME' ) ) {
  *
  * @since 3.5.0
  */
-if ( ! defined( 'CRP_DB_VERSION' ) ) {
-	define( 'CRP_DB_VERSION', '1.0' );
+if ( ! defined( 'WZ_CRP_DB_VERSION' ) ) {
+	define( 'WZ_CRP_DB_VERSION', '1.0' );
 }
 
 // Finally load Freemius integration.

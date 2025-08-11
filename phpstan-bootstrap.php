@@ -29,14 +29,14 @@ if ( ! defined( 'CRP_CACHE_TIME' ) ) {
 	define( 'CRP_CACHE_TIME', 0 );
 }
 
-if ( ! defined( 'CRP_DB_VERSION' ) ) {
-	define( 'CRP_DB_VERSION', '0.0.0' );
+if ( ! defined( 'WZ_CRP_DB_VERSION' ) ) {
+	define( 'WZ_CRP_DB_VERSION', '0.0.0' );
 }
 
 if ( ! defined( 'CRP_CACHE_TIME' ) ) {
 	define( 'CRP_CACHE_TIME', 0 );
 }
 
-if ( ! defined( 'CRP_DB_VERSION' ) ) {
-	define( 'CRP_DB_VERSION', '0.0.0' );
+if ( ! defined( 'WZ_CRP_DB_VERSION' ) ) {
+	define( 'WZ_CRP_DB_VERSION', '0.0.0' );
 }
