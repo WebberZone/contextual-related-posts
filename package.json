@@ -1,7 +1,7 @@
 {
     "name": "@webberzone/contextual-related-posts",
-    "version": "3.6.0",
-    "description": "Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!",
+    "version": "4.1.0",
+    "description": "Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.",
     "author": "WebberZone",
     "license": "GPL-2.0-or-later",
     "main": "index.js",
@@ -28,11 +28,13 @@
     },
     "files": [
         "css",
-        "vendor/freemius",
         "includes",
         "languages",
+        "vendor/freemius",
         "README.md",
+        "security.md",
         "contextual-related-posts.php",
+        "load-freemius.php",
         "index.php",
         "uninstaller.php",
         "changelog.txt",
@@ -42,11 +44,11 @@
         "wpml-config.xml"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.21.0",
+        "@wordpress/prettier-config": "^4.20.0",
         "@wordpress/scripts": "^27"
     },
     "dependencies": {
-        "@wordpress/icons": "^10.21.0",
+        "@wordpress/icons": "^10.20.0",
         "uuid": "^11.1.0"
     }
 }
