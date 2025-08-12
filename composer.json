@@ -1,7 +1,7 @@
 {
     "name": "webberzone/contextual-related-posts",
-    "description": "Add related posts to your WordPress site with inbuilt caching. Supports thumbnails, shortcodes, widgets and custom post types!",
-    "version": "3.6.0",
+    "description": "Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.",
+    "version": "4.1.0",
     "type": "wordpress-plugin",
     "keywords": [
         "related posts",
@@ -12,7 +12,8 @@
         "related posts widget",
         "contextual"
     ],
-    "license": "GPL-2.0-or-later",
+    "license": "gpl-2.0-or-later",
+    "homepage": "https://webberzone.com/plugins/contextual-related-posts/",
     "authors": [
         {
             "name": "WebberZone",
@@ -31,7 +32,7 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
         "phpcompatibility/phpcompatibility-wp": "^2",
         "yoast/phpunit-polyfills": "^3",
-        "phpunit/phpunit": "^5.7.21 || ^6.5 || ^7.5 || ^8"
+        "phpunit/phpunit": "^9 || ^10 || ^11 || ^12"
     },
     "config": {
         "allow-plugins": {
@@ -41,7 +42,7 @@
     },
     "scripts": {
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
-        "phpstan-baseline": "vendor/bin/phpstan analyse --generate-baseline --memory-limit=2048M",
+        "phpstan-baseline": "vendor/bin/phpstan analyse --memory-limit=2048M --generate-baseline",
         "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
         "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')"
     }
