@@ -223,7 +223,7 @@ class Admin {
 	 * @param string $custom_text   Custom text to show in the banner.
 	 */
 	public static function pro_upgrade_banner( $donate = true, $custom_text = '' ) {
-		if ( function_exists( __NAMESPACE__ . '\crp_freemius' ) && ! \WebberZone\Contextual_Related_Posts\crp_freemius()->is_paying() ) {
+		if ( function_exists( '\WebberZone\Contextual_Related_Posts\crp_freemius' ) && ! \WebberZone\Contextual_Related_Posts\crp_freemius()->is_paying() ) {
 			?>
 				<div id="pro-upgrade-banner">
 					<div class="inside">
