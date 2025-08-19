@@ -94,6 +94,8 @@ class Admin {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Contextual Related Posts Multisite Settings', 'contextual-related-posts' ); ?></h1>
+			<?php do_action( 'crp_network_admin_settings_page_content_header' ); ?>
+
 			<p><?php esc_html_e( 'This page allows you to configure the settings for Contextual Related Posts on your multisite network.', 'contextual-related-posts' ); ?></p>
 
 			<?php settings_errors(); ?>
@@ -101,6 +103,17 @@ class Admin {
 			<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-2">
 			<div id="post-body-content">
+				<?php
+					\WebberZone\Contextual_Related_Posts\Admin\Admin::pro_upgrade_banner(
+						false,
+						sprintf(
+							/* translators: 1: link to Network Plugins page, 2: link to account page */
+							__( 'If you are running Contextual Related Posts Pro and see the upgrade banner instead of the settings, you may need to activate your license. Go to the %1$s, locate Contextual Related Posts Pro, and activate your license from there. View your %2$s to check the status of your license after activation.', 'contextual-related-posts' ),
+							'<a href="' . esc_url( network_admin_url( 'plugins.php' ) ) . '" target="_blank">' . esc_html__( 'Network Plugins page', 'contextual-related-posts' ) . '</a>',
+							'<a href="' . esc_url( \WebberZone\Contextual_Related_Posts\crp_freemius()->get_account_url() ) . '" target="_blank">' . esc_html__( 'account page', 'contextual-related-posts' ) . '</a>'
+						)
+					);
+				?>
 
 				<?php
 				/**
