@@ -95,7 +95,7 @@ class Tools_Page {
 		<div id="post-body-content">
 
 			<div class="postbox">
-				<h2 class="hndle"><span><?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?></span></h2>
+				<h2><span><?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?></span></h2>
 				<div class="inside">
 					<p>
 						<button type="button" name="cache_clear" id="cache_clear" class="button button-secondary" onclick="return crpClearCache();">
@@ -109,7 +109,7 @@ class Tools_Page {
 			</div>
 
 			<div class="postbox">
-				<h2 class="hndle"><span><?php esc_html_e( 'Recreate FULLTEXT index', 'contextual-related-posts' ); ?></span></h2>
+				<h2><span><?php esc_html_e( 'Recreate FULLTEXT index', 'contextual-related-posts' ); ?></span></h2>
 				<div class="inside">
 					<form method="post">
 						<p>
@@ -140,7 +140,7 @@ class Tools_Page {
 			</div>
 
 			<div class="postbox">
-				<h2 class="hndle"><span><?php esc_html_e( 'Export/Import settings', 'contextual-related-posts' ); ?></span></h2>
+				<h2><span><?php esc_html_e( 'Export/Import settings', 'contextual-related-posts' ); ?></span></h2>
 				<div class="inside">
 					<form method="post">
 						<p class="description">
