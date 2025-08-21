@@ -114,7 +114,16 @@ final class Main {
 		$this->blocks     = new Frontend\Blocks\Blocks();
 		// Load all hooks.
 		new Hook_Loader();
-		// Initialize admin.
+		// Initialize admin on init action to ensure translations are loaded.
+		add_action( 'init', array( $this, 'init_admin' ) );
+	}
+
+	/**
+	 * Initialize admin components.
+	 *
+	 * @since 4.1.0
+	 */
+	public function init_admin(): void {
 		if ( is_admin() ) {
 			$this->admin = new Admin\Admin();
 			if ( is_multisite() ) {

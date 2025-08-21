@@ -23,7 +23,7 @@ function autoload( $class_name ) {
 	}
 
 	if ( false !== strpos( $class_name, $namespace ) ) {
-		$classes_dir = realpath( WZ_CRP_PLUGIN_DIR ) . DIRECTORY_SEPARATOR . $classes_subfolder . DIRECTORY_SEPARATOR;
+		$classes_dir = realpath( dirname( __DIR__ ) ) . DIRECTORY_SEPARATOR . $classes_subfolder . DIRECTORY_SEPARATOR;
 
 		// Project namespace.
 		$project_namespace = $namespace . '\\';
@@ -48,4 +48,7 @@ function autoload( $class_name ) {
 		require_once $location;
 	}
 }
-spl_autoload_register( __NAMESPACE__ . '\autoload' );
+$autoload_functions = spl_autoload_functions();
+if ( ! in_array( __NAMESPACE__ . '\autoload', $autoload_functions ? $autoload_functions : array(), true ) ) {
+	spl_autoload_register( __NAMESPACE__ . '\autoload' );
+}
