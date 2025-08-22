@@ -183,6 +183,7 @@ Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-
     * Fixed ordering issue on pages when "Same taxonomies" is selected.
     * Set the postid if it's different from the queried object in the Core Query class.
     * Fixed conflict with WPML showing current post incorrectly.
+	* Fixed an issue where activating the Pro plugin while the Free plugin was active, or vice versa, would cause a fatal error.
 
 = Earlier versions =
 
@@ -192,4 +193,4 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 == Upgrade Notice ==
 
 = 4.1.0 =
-New Wizard for guided setup, renamed constants with WZ_ prefix, improved multisite support, optimized indexes, and fixed various bugs.
+Important plugin constants renamed to prevent conflicts, improved multisite support, and fixes for ordering issues, WPML conflicts, and Exclude Posts functionality. Custom Table indexing UI enhanced in Pro version.
