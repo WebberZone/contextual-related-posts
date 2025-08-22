@@ -172,7 +172,7 @@ Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-
     * New Wizard to guide users through the setup process.
 
 * Modifications:
-    * Renamed `CRP_VERSION`, `CRP_PLUGIN_FILE`, CRP_PLUGIN_DIR` and `CRP_PLUGIN_URL` constants to `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR` and `WZ_CRP_PLUGIN_URL` respectively to avoid conflicts with other plugins.
+    * Renamed `CRP_VERSION`, `CRP_PLUGIN_FILE`, `CRP_PLUGIN_DIR` and `CRP_PLUGIN_URL` constants to `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR` and `WZ_CRP_PLUGIN_URL` respectively to avoid conflicts with other plugins.
     * New function `crp_get_blog_option()` to fetch an option from a specific blog in WordPress multisite.
     * Better handling of options if they haven't been set.
 	* Fulltext indexes are now named `wz_title_content`, `wz_title`, and `wz_content` to ensure compatibility and optimize database space, especially when using Contextual Related Posts. After updating to this version, please recreate the indexes to benefit from the changes—until then, the plugin will use the previous index names.
