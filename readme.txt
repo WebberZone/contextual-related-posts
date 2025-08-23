@@ -177,12 +177,12 @@ Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-
     * Better handling of options if they haven't been set.
 	* Fulltext indexes are now named `wz_title_content`, `wz_title`, and `wz_content` to ensure compatibility and optimize database space, especially when using Contextual Related Posts. After updating to this version, please recreate the indexes to benefit from the changes—until then, the plugin will use the previous index names.
     * [Pro] Improved the UI and functionality of the Custom Table indexing process.
-    * [Pro] Multsite Settings page for Enhanced Content Search Index (ECSI) has been modified.
+    * [Pro] Multisite Settings page for Enhanced Content Search Index (ECSI) has been modified.
 
 * Bug fixes:
     * Fixed ordering issue on pages when "Same taxonomies" is selected.
     * Set the postid if it's different from the queried object in the Core Query class.
-    * Fixed conflict with WPML showing current post incorrectly.
+    * Fixed conflict with WPML showing the current post incorrectly.
 	* Fixed an issue where activating the Pro plugin while the Free plugin was active, or vice versa, would cause a fatal error.
 
 = Earlier versions =
