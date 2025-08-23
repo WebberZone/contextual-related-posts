@@ -923,16 +923,17 @@ class Display {
 			return $content;
 		}
 
-		$add_to = \crp_get_option( 'add_to', false );
+		$add_to = \crp_get_option( 'add_to', array( 'single', 'page' ) );
+		$add_to = wp_parse_list( $add_to );
 
 		// Else add the content.
 		switch ( true ) {
-			case is_single() && ! empty( $add_to['single'] ):
-			case is_page() && ! empty( $add_to['page'] ):
-			case is_home() && ! empty( $add_to['home'] ):
-			case is_category() && ! empty( $add_to['category_archives'] ):
-			case is_tag() && ! empty( $add_to['tag_archives'] ):
-			case ( is_tax() || is_author() || is_date() ) && ! empty( $add_to['other_archives'] ):
+			case is_single() && in_array( 'single', $add_to, true ):
+			case is_page() && in_array( 'page', $add_to, true ):
+			case is_home() && in_array( 'home', $add_to, true ):
+			case is_category() && in_array( 'category_archives', $add_to, true ):
+			case is_tag() && in_array( 'tag_archives', $add_to, true ):
+			case ( is_tax() || is_author() || is_date() ) && in_array( 'other_archives', $add_to, true ):
 				return self::generate_content( $content, self::related_posts() );
 			default:
 				return $content;
@@ -1012,13 +1013,14 @@ class Display {
 	 */
 	public static function rss_filter( $content ) {
 
-		$add_to = \crp_get_option( 'add_to', false );
+		$add_to = \crp_get_option( 'add_to', array( 'single', 'page' ) );
+		$add_to = wp_parse_list( $add_to );
 
 		$limit_feed         = \crp_get_option( 'limit_feed' );
 		$show_excerpt_feed  = \crp_get_option( 'show_excerpt_feed' );
 		$post_thumb_op_feed = \crp_get_option( 'post_thumb_op_feed' );
 
-		if ( isset( $add_to['feed'] ) && $add_to['feed'] ) {
+		if ( in_array( 'feed', $add_to, true ) ) {
 			$output  = $content;
 			$output .= get_crp( 'is_widget=0&limit=' . $limit_feed . '&show_excerpt=' . $show_excerpt_feed . '&post_thumb_op=' . $post_thumb_op_feed );
 			return $output;
