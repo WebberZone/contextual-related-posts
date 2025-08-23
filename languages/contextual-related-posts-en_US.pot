@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Contextual Related Posts\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-10 21:51+0100\n"
+"POT-Creation-Date: 2025-08-23 10:18+0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ajay D'Souza\n"
 "Language-Team: WebberZone\n"
@@ -14,12 +14,19 @@ msgstr ""
 "X-Poedit-KeywordsList: "
 "__;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;translate_nooped_plural\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.7\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: vendor\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 "X-Poedit-SearchPathExcluded-2: phpunit\n"
+
+#: contextual-related-posts.php:149
+#, php-format
+msgid ""
+"Contextual Related Posts and Contextual Related Posts PRO should not be "
+"active at the same time. We've automatically deactivated %s."
+msgstr ""
 
 #: includes/admin/class-admin-notices.php:84
 msgid ""
@@ -1009,7 +1016,6 @@ msgid "Cornerstone IDs"
 msgstr ""
 
 #: includes/admin/class-settings.php:701
-#, no-php-format
 msgid ""
 "Comma separated list of post/page or custom post type IDs to be used as "
 "cornerstone posts. Posts with these IDs will be randomly selected and then "
@@ -1611,14 +1617,14 @@ msgstr ""
 #: includes/admin/class-tools-page.php:98
 #: includes/admin/class-tools-page.php:102
 #: includes/admin/class-tools-page.php:342
-#: includes/admin/network/class-admin.php:148
+#: includes/admin/network/class-admin.php:161
 #: includes/admin/network/class-tools-page.php:124
 msgid "Clear cache"
 msgstr ""
 
 #: includes/admin/class-settings.php:1490
 #: includes/admin/class-tools-page.php:343
-#: includes/admin/network/class-admin.php:149
+#: includes/admin/network/class-admin.php:162
 #: includes/admin/network/class-tools-page.php:125
 msgid "Clearing cache"
 msgstr ""
@@ -1750,10 +1756,27 @@ msgstr ""
 msgid "Contextual Related Posts Multisite Settings"
 msgstr ""
 
-#: includes/admin/network/class-admin.php:97
+#: includes/admin/network/class-admin.php:99
 msgid ""
 "This page allows you to configure the settings for Contextual Related Posts "
 "on your multisite network."
+msgstr ""
+
+#: includes/admin/network/class-admin.php:111
+#, php-format
+msgid ""
+"If you are running Contextual Related Posts Pro and see the upgrade banner "
+"instead of the settings, you may need to activate your license. Go to the "
+"%1$s, locate Contextual Related Posts Pro, and activate your license from "
+"there. View your %2$s to check the status of your license after activation."
+msgstr ""
+
+#: includes/admin/network/class-admin.php:112
+msgid "Network Plugins page"
+msgstr ""
+
+#: includes/admin/network/class-admin.php:113
+msgid "account page"
 msgstr ""
 
 #: includes/admin/network/class-tools-page.php:49
@@ -1816,20 +1839,6 @@ msgstr ""
 
 #: includes/admin/settings/sidebar.php:73
 msgid "Follow us"
-msgstr ""
-
-#: includes/class-hook-loader.php:198
-msgid ""
-"Contextual Related Posts and Contextual Related Posts PRO should not be "
-"active at the same time. We've automatically deactivated Contextual Related "
-"Posts."
-msgstr ""
-
-#: includes/class-hook-loader.php:200
-msgid ""
-"Contextual Related Posts and Contextual Related Posts PRO should not be "
-"active at the same time. We've automatically deactivated Contextual Related "
-"Posts PRO."
 msgstr ""
 
 #: includes/frontend/blocks/class-blocks.php:131
