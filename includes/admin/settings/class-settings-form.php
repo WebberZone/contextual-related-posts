@@ -160,7 +160,7 @@ class Settings_Form {
 	 */
 	public function callback_text( $args ) {
 
-		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$size        = sanitize_html_class( isset( $args['size'] ) ? $args['size'] : 'regular' );
 		$class       = sanitize_html_class( $args['field_class'] );
 		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
@@ -240,7 +240,7 @@ class Settings_Form {
 	 */
 	public function callback_textarea( $args ) {
 
-		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$class       = sanitize_html_class( $args['field_class'] );
 		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
 		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
@@ -290,9 +290,9 @@ class Settings_Form {
 	 */
 	public function callback_checkbox( $args ) {
 
-		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value    = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$checked  = ! empty( $value ) ? checked( 1, $value, false ) : '';
-		$default  = isset( $args['options'] ) ? (int) $args['options'] : '';
+		$default  = isset( $args['default'] ) ? (int) $args['default'] : '';
 		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		$html  = sprintf(
@@ -500,7 +500,7 @@ class Settings_Form {
 	 * @return void
 	 */
 	public function callback_number( $args ) {
-		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value       = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$max         = isset( $args['max'] ) ? intval( $args['max'] ) : 999999;
 		$min         = isset( $args['min'] ) ? intval( $args['min'] ) : 0;
 		$step        = isset( $args['step'] ) ? intval( $args['step'] ) : 1;
@@ -572,7 +572,7 @@ class Settings_Form {
 	public function callback_posttypes( $args ) {
 		$html = '';
 
-		$options  = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$options  = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 
 		// If post_types contains a query string then parse it with wp_parse_args.
@@ -627,7 +627,7 @@ class Settings_Form {
 	public function callback_taxonomies( $args ) {
 		$html = '';
 
-		$options = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$options = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 
 		// If taxonomies contains a query string then parse it with wp_parse_args.
 		if ( is_string( $options ) && strpos( $options, '=' ) ) {
@@ -675,7 +675,7 @@ class Settings_Form {
 	 */
 	public function callback_wysiwyg( $args ) {
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$size  = isset( $args['size'] ) ? $args['size'] : '500px';
 
 		echo '<div style="max-width: ' . esc_attr( $size ) . ';">';
@@ -704,7 +704,7 @@ class Settings_Form {
 	 */
 	public function callback_file( $args ) {
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$size  = sanitize_html_class( isset( $args['size'] ) ? $args['size'] : 'regular' );
 		$class = sanitize_html_class( $args['field_class'] );
 		$label = isset( $args['options']['button_label'] ) ? $args['options']['button_label'] : 'Choose File';
@@ -730,7 +730,7 @@ class Settings_Form {
 	 */
 	public function callback_password( $args ) {
 
-		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['options'] );
+		$value = isset( $args['value'] ) ? $args['value'] : $this->get_option( $args['id'], $args['default'] );
 		$size  = sanitize_html_class( isset( $args['size'] ) ? $args['size'] : 'regular' );
 		$class = sanitize_html_class( $args['field_class'] );
 

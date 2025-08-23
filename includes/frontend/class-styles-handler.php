@@ -59,22 +59,24 @@ class Styles_Handler {
 		}
 
 		// Add custom CSS to header.
-		$add_to     = crp_get_option( 'add_to', false );
+		$add_to = \crp_get_option( 'add_to', array( 'single', 'page' ) );
+		$add_to = wp_parse_list( $add_to );
+
 		$custom_css = stripslashes( crp_get_option( 'custom_css' ) );
 		if ( $custom_css ) {
 			$enqueue_style = false;
 
-			if ( is_single() && ! empty( $add_to['single'] ) ) {
+			if ( is_single() && in_array( 'single', $add_to, true ) ) {
 				$enqueue_style = true;
-			} elseif ( is_page() && ! empty( $add_to['page'] ) ) {
+			} elseif ( is_page() && in_array( 'page', $add_to, true ) ) {
 				$enqueue_style = true;
-			} elseif ( is_home() && ! empty( $add_to['home'] ) ) {
+			} elseif ( is_home() && in_array( 'home', $add_to, true ) ) {
 				$enqueue_style = true;
-			} elseif ( is_category() && ! empty( $add_to['category_archives'] ) ) {
+			} elseif ( is_category() && in_array( 'category_archives', $add_to, true ) ) {
 				$enqueue_style = true;
-			} elseif ( is_tag() && ! empty( $add_to['tag_archives'] ) ) {
+			} elseif ( is_tag() && in_array( 'tag_archives', $add_to, true ) ) {
 				$enqueue_style = true;
-			} elseif ( ( is_tax() || is_author() || is_date() ) && ! empty( $add_to['other_archives'] ) ) {
+			} elseif ( ( is_tax() || is_author() || is_date() ) && in_array( 'other_archives', $add_to, true ) ) {
 				$enqueue_style = true;
 			} elseif ( is_active_widget( false, false, 'widget_crp', true ) ) {
 				$enqueue_style = true;
