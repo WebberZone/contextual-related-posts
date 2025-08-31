@@ -356,7 +356,7 @@ class Settings {
 			'title'                 => array(
 				'id'      => 'title',
 				'name'    => esc_html__( 'Heading of posts', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Displayed before the list of the posts as a master heading', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Displayed before the list of posts as a master heading', 'contextual-related-posts' ),
 				'type'    => 'text',
 				'default' => '<h2>' . esc_html__( 'Related Posts', 'contextual-related-posts' ) . ':</h2>',
 				'size'    => 'large',
@@ -428,7 +428,7 @@ class Settings {
 			),
 			'link_new_window'       => array(
 				'id'      => 'link_new_window',
-				'name'    => esc_html__( 'Open links in new window', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Open links in a new window', 'contextual-related-posts' ),
 				'desc'    => '',
 				'type'    => 'checkbox',
 				'default' => false,
@@ -457,7 +457,7 @@ class Settings {
 			'exclude_on_post_ids'   => array(
 				'id'      => 'exclude_on_post_ids',
 				'name'    => esc_html__( 'Exclude display on these posts', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Comma separated list of post, page or custom post type IDs. e.g. 188,320,500', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Comma-separated list of post, page or custom post type IDs. e.g. 188,320,500', 'contextual-related-posts' ),
 				'type'    => 'numbercsv',
 				'default' => '',
 			),
@@ -471,7 +471,7 @@ class Settings {
 			'exclude_on_cat_slugs'  => array(
 				'id'          => 'exclude_on_cat_slugs',
 				'name'        => esc_html__( 'Exclude on Terms', 'contextual-related-posts' ),
-				'desc'        => esc_html__( 'The field above has an autocomplete so simply start typing in the starting letters and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
+				'desc'        => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
 				'type'        => 'csv',
 				'default'     => '',
 				'size'        => 'large',
@@ -566,7 +566,7 @@ class Settings {
 			'ordering'                  => array(
 				'id'      => 'ordering',
 				'name'    => esc_html__( 'Order posts', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Select how you want the related posts to be ordered. Randomly will shuffle the related posts and does not work if you have HTML caching enabled.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Select how you want the related posts to be ordered. Selecting "Randomly" will not work with Caching HTML and could also increase the time it takes to execute the query.', 'contextual-related-posts' ),
 				'type'    => 'radio',
 				'default' => 'relevance',
 				'options' => self::get_orderings(),
@@ -574,7 +574,7 @@ class Settings {
 			'random_order'              => array(
 				'id'      => 'random_order',
 				'name'    => esc_html__( 'Randomize posts', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'This shuffles the selected related posts, similar to choosing Randomly in the above option. If you select to order by date in the previous option, then the related posts will first be sorted by date and the selected ones are shuffled. Does not work if Cache HTML output is enabled.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Shuffles the selected related posts, similar to choosing "Randomly" in the above option. If you select to order by date in the previous option, then the related posts will first be sorted by date, and the selected ones are shuffled. Does not work if "Cache HTML" output is enabled.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
@@ -583,6 +583,13 @@ class Settings {
 				'name' => '<h3>' . esc_html__( 'Relevance Matching', 'contextual-related-posts' ) . '</h3>',
 				'desc' => esc_html__( 'Settings for content matching and relevance scoring', 'contextual-related-posts' ),
 				'type' => 'header',
+			),
+			'match_content'             => array(
+				'id'      => 'match_content',
+				'name'    => esc_html__( 'Related posts based on title and content', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If unchecked, only the post titles are used. Each site is different, so toggle this option to see which setting gives you better quality related posts. Sometimes, fewer words will provide more relevant results.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
 			),
 			'weight_title'              => array(
 				'id'      => 'weight_title',
@@ -597,7 +604,7 @@ class Settings {
 			'weight_content'            => array(
 				'id'      => 'weight_content',
 				'name'    => __( 'Weight for post content', 'contextual-related-posts' ),
-				'desc'    => __( 'The weight to give to the post content when calculating the relevance of the post. This may make your query take longer to process.', 'contextual-related-posts' ),
+				'desc'    => __( 'The weight to give to the post content when calculating the relevance of the post. This may make the query take longer to process.', 'contextual-related-posts' ),
 				'type'    => 'number',
 				'default' => 0,
 				'min'     => '0',
@@ -647,7 +654,7 @@ class Settings {
 			'weight_primary_term_boost' => array(
 				'id'      => 'weight_primary_term_boost',
 				'name'    => __( 'Primary term boost', 'contextual-related-posts' ),
-				'desc'    => __( 'Additional weight multiplier for primary terms.', 'contextual-related-posts' ),
+				'desc'    => __( 'Additional weight multiplier for primary terms. This is usually set using your SEO plugin and will default to the first category/term returned by WordPress. CRP supports Yoast, Rank Math SEO, The SEO Framework and SEOExpress plugins that allow you to set a primary category.', 'contextual-related-posts' ),
 				'type'    => 'number',
 				'default' => 0,
 				'min'     => '0',
@@ -657,21 +664,14 @@ class Settings {
 			'use_precomputed_tax_score' => array(
 				'id'      => 'use_precomputed_tax_score',
 				'name'    => __( 'Use precomputed taxonomy score', 'contextual-related-posts' ),
-				'desc'    => __( 'Enable to use precomputed taxonomy score for relevance calculation. This can improve performance but will ignore the above weights for taxonomies when running live queries.', 'contextual-related-posts' ),
+				'desc'    => __( 'Enable the use of the precomputed taxonomy score for relevance calculation. This can improve performance, but will ignore the above weights for taxonomies when running live queries. This only works if you have ECSI enabled in the Performance tab.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => false,
 				'pro'     => true,
 			),
-			'match_content'             => array(
-				'id'      => 'match_content',
-				'name'    => esc_html__( 'Related posts based on title and content', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'If unchecked, only posts titles are used. Enable the cache if enabling this option for better performance. Each site is different, so toggle this option to see which setting gives you better quality related posts.', 'contextual-related-posts' ),
-				'type'    => 'checkbox',
-				'default' => true,
-			),
 			'match_content_words'       => array(
 				'id'      => 'match_content_words',
-				'name'    => esc_html__( 'Limit content to be compared', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Limit the content to be compared', 'contextual-related-posts' ),
 				/* translators: 1: Number. */
 				'desc'    => sprintf( esc_html__( 'This sets the maximum words of the post content that will be matched. Set to 0 for no limit. Max value: %1$s.', 'contextual-related-posts' ), CRP_MAX_WORDS ),
 				'type'    => 'number',
@@ -688,29 +688,34 @@ class Settings {
 			'post_types'                => array(
 				'id'      => 'post_types',
 				'name'    => esc_html__( 'Post types to include', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'At least one option should be selected above. Select which post types you want to include in the list of posts. This field can be overridden using a comma separated list of post types when using the manual display.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'At least one option should be selected above. Select which post types you want to include in the list of posts. This field can be overridden using a comma-separated list of post types when using the manual display.', 'contextual-related-posts' ),
 				'type'    => 'posttypes',
 				'default' => 'post,page',
 			),
 			'cornerstone_post_ids'      => array(
 				'id'      => 'cornerstone_post_ids',
 				'name'    => esc_html__( 'Cornerstone IDs', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Comma separated list of post/page or custom post type IDs to be used as cornerstone posts. Posts with these IDs will be randomly selected and then included in the list of related posts. Roughly 20% of the related posts will be selected from this list.', 'contextual-related-posts' ),
+				'desc'    => sprintf(
+					/* translators: 1: Opening anchor tag, 2: Closing anchor tag */
+					esc_html__( 'Comma-separated list of post/page or custom post type IDs to be used as cornerstone posts. Posts with these IDs will be randomly selected and then included in the list of related posts. Roughly 20%% of the related posts will be chosen from this list. Learn more about %1$sCornerstone Posts%2$s.', 'contextual-related-posts' ),
+					'<a href="https://webberzone.com/support/knowledgebase/cornerstone-posts-in-contextual-related-posts/" target="_blank">',
+					'</a>'
+				),
 				'type'    => 'numbercsv',
 				'default' => '',
 				'pro'     => true,
 			),
 			'same_post_type'            => array(
 				'id'      => 'same_post_type',
-				'name'    => esc_html__( 'Limit to same post type', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same post type of the current post.', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Limit to the same post type', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same post type as the current post.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
 			'same_author'               => array(
 				'id'      => 'same_author',
-				'name'    => esc_html__( 'Limit to same author', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same author of the current post.', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Limit to the same author', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If checked, the related posts will only be selected from the same author as the current post.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
@@ -722,14 +727,14 @@ class Settings {
 			),
 			'primary_term'              => array(
 				'id'      => 'primary_term',
-				'name'    => esc_html__( 'Limit to same primary term', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Limit to the same primary term', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'If enabled, then it will only select posts from the primary category/term. This is usually set via your SEO plugin and will default to the first category/term returned by WordPress', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
 			'same_taxes'                => array(
 				'id'      => 'same_taxes',
-				'name'    => esc_html__( 'Only from same', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Only from the same', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'Limit the related posts only to the categories, tags, and/or taxonomies of the current post.', 'contextual-related-posts' ),
 				'type'    => 'taxonomies',
 				'default' => '',
@@ -752,7 +757,7 @@ class Settings {
 			'related_meta_keys'         => array(
 				'id'      => 'related_meta_keys',
 				'name'    => esc_html__( 'Related Meta Keys', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Enter a comma-separated list of meta keys. Posts that match the same value of the meta key are displayed before the other related posts', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Enter a comma-separated list of meta keys. Posts that match the exact value of the meta key are displayed before the other related posts.', 'contextual-related-posts' ),
 				'type'    => 'csv',
 				'default' => '',
 				'size'    => 'large',
@@ -773,7 +778,7 @@ class Settings {
 			'exclude_cat_slugs'         => array(
 				'id'          => 'exclude_cat_slugs',
 				'name'        => esc_html__( 'Exclude Terms', 'contextual-related-posts' ),
-				'desc'        => esc_html__( 'The field above has an autocomplete so simply start typing in the starting letters and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
+				'desc'        => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
 				'type'        => 'csv',
 				'default'     => '',
 				'size'        => 'large',
@@ -782,7 +787,7 @@ class Settings {
 			'exclude_categories'        => array(
 				'id'       => 'exclude_categories',
 				'name'     => esc_html__( 'Exclude Term Taxonomy IDs', 'contextual-related-posts' ),
-				'desc'     => esc_html__( 'This is a readonly field that is automatically populated based on the above input when the settings are saved. These might differ from the IDs visible in the Categories page which use the term_id. Contextual Related Posts uses the term_taxonomy_id which is unique to this taxonomy.', 'contextual-related-posts' ),
+				'desc'     => esc_html__( 'This field is read-only and will be filled automatically based on your selections above when you save the settings. Note: The values here are term taxonomy IDs, which are different from the term IDs shown on the Categories page. Each term taxonomy ID uniquely identifies the term within its taxonomy, which Contextual Related Posts requires for accuracy.', 'contextual-related-posts' ),
 				'type'     => 'text',
 				'default'  => '',
 				'readonly' => true,
@@ -796,28 +801,28 @@ class Settings {
 			'disable_contextual'        => array(
 				'id'      => 'disable_contextual',
 				'name'    => esc_html__( 'Disable contextual matching', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Select to disable contextual matching. This will disable the content matching described above. You can choose to fallback to just the first X posts from the selected categories mentioned below.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'This will disable the content matching described above. You can choose to fall back to just the first X posts from the selected categories mentioned below.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => false,
 			),
 			'disable_contextual_cpt'    => array(
 				'id'          => 'disable_contextual_cpt',
 				'name'        => esc_html__( 'Disable contextual matching ONLY for custom post types', 'contextual-related-posts' ),
-				'desc'        => esc_html__( 'Checking this option will disable contextual matching only for custom post types. For WordPress inbuilt post types, the plugin will continue as per your settings above. If you enable this option, make sure that Manual related posts or Randomize posts are selected above for meaningful results.', 'contextual-related-posts' ),
+				'desc'        => esc_html__( "Checking this option will disable contextual matching only for custom post types. For WordPress' built-in post types, the plugin will continue as per your settings above. If you enable this option, ensure that you select either Manual related posts or Randomize posts above to achieve meaningful results.", 'contextual-related-posts' ),
 				'type'        => 'checkbox',
 				'default'     => false,
 				'field_class' => 'crp_admin_cascading',
 			),
 			'include_words'             => array(
 				'id'      => 'include_words',
-				'name'    => esc_html__( 'Include only posts that contain these words:', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Include only posts that contain these words', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'If entered, the related posts will include only posts that contain any of the specified words. Separate words with commas and no spaces. e.g. samsung,apple,nokia', 'contextual-related-posts' ),
 				'type'    => 'csv',
 				'default' => '',
 			),
 			'exclude_words'             => array(
 				'id'      => 'exclude_words',
-				'name'    => esc_html__( 'Exclude posts that contain these words:', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Exclude posts that contain these words', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'If entered, the related posts will exclude posts that contain any of the specified words. Separate words with commas and no spaces. e.g. samsung,apple,nokia', 'contextual-related-posts' ),
 				'type'    => 'csv',
 				'default' => '',
@@ -850,8 +855,8 @@ class Settings {
 				'type'    => 'radio',
 				'default' => 'inline',
 				'options' => array(
-					'inline'      => esc_html__( 'Display thumbnails inline with posts, before title', 'contextual-related-posts' ),
-					'after'       => esc_html__( 'Display thumbnails inline with posts, after title', 'contextual-related-posts' ),
+					'inline'      => esc_html__( 'Display thumbnails inline with posts, before the title', 'contextual-related-posts' ),
+					'after'       => esc_html__( 'Display thumbnails inline with posts, after the title', 'contextual-related-posts' ),
 					'thumbs_only' => esc_html__( 'Display only thumbnails, no text', 'contextual-related-posts' ),
 					'text_only'   => esc_html__( 'Do not display thumbnails, only text', 'contextual-related-posts' ),
 				),
@@ -859,7 +864,7 @@ class Settings {
 			'thumb_size'         => array(
 				'id'      => 'thumb_size',
 				'name'    => esc_html__( 'Thumbnail size', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'You can choose from existing image sizes above or create a custom size. If you have chosen Custom size above, then enter the width, height and crop settings below. For best results, use a cropped image. If you change the width and/or height below, existing images will not be automatically resized. You will need to regenerate the images using a plugin or using WP CLI: wp media regenerate.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Select from existing image sizes or create a custom size. If using a custom size, enter the width, height, and crop settings below. For best results, use a cropped image. Changing the width or height will not automatically resize existing images; you will need to regenerate them using a plugin or WP CLI: wp media regenerate.', 'contextual-related-posts' ),
 				'type'    => 'thumbsizes',
 				'default' => 'crp_thumbnail',
 				'options' => \WebberZone\Contextual_Related_Posts\Frontend\Media_Handler::get_all_image_sizes(),
@@ -892,7 +897,7 @@ class Settings {
 			'thumb_create_sizes' => array(
 				'id'      => 'thumb_create_sizes',
 				'name'    => esc_html__( 'Generate thumbnail sizes', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'If you select this option and Custom size is selected above, the plugin will register the image size with WordPress to create new thumbnails. Does not update old images as explained above.', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If enabled and a custom size is selected above, the plugin will register the image size with WordPress to create new thumbnails. Does not update old images.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => true,
 			),
@@ -919,7 +924,7 @@ class Settings {
 			),
 			'scan_images'        => array(
 				'id'      => 'scan_images',
-				'name'    => esc_html__( 'Get first image', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Get the first image', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'The plugin will fetch the first image in the post content if this is enabled. This can slow down the loading of your page if the first image in the followed posts is large in file-size.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => true,

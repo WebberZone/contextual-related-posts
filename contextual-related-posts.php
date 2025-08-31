@@ -152,7 +152,7 @@ if ( ! has_action( 'admin_notices', __NAMESPACE__ . '\crp_show_deactivation_noti
 				<p><?php echo esc_html( $message ); ?></p>
 			</div>
 				<?php
-					delete_transient( 'crp_deactivated_notice' );
+				delete_transient( 'crp_deactivated_notice' );
 			}
 		}
 	);
