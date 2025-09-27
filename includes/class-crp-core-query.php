@@ -220,6 +220,9 @@ class CRP_Core_Query {
 		if ( ! $source_post ) {
 			$source_post = get_post();
 		}
+		if ( ! $source_post ) {
+			return;
+		}
 		$this->source_post = $source_post;
 
 		/**
