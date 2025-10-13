@@ -24,6 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Settings {
 
+
 	/**
 	 * Settings API instance.
 	 *
@@ -696,7 +697,7 @@ class Settings {
 				'id'      => 'cornerstone_post_ids',
 				'name'    => esc_html__( 'Cornerstone IDs', 'contextual-related-posts' ),
 				'desc'    => sprintf(
-					/* translators: 1: Opening anchor tag, 2: Closing anchor tag */
+							/* translators: 1: Opening anchor tag, 2: Closing anchor tag */
 					esc_html__( 'Comma-separated list of post/page or custom post type IDs to be used as cornerstone posts. Posts with these IDs will be randomly selected and then included in the list of related posts. Roughly 20%% of the related posts will be chosen from this list. Learn more about %1$sCornerstone Posts%2$s.', 'contextual-related-posts' ),
 					'<a href="https://webberzone.com/support/knowledgebase/cornerstone-posts-in-contextual-related-posts/" target="_blank">',
 					'</a>'
@@ -1077,7 +1078,7 @@ class Settings {
 	 */
 	public static function settings_performance() {
 		$custom_tables_desc = sprintf(
-			/* translators: 1: Opening a tag, 2: Closing a tag */
+		/* translators: 1: Opening a tag, 2: Closing a tag */
 			esc_html__( 'Efficient Content Storage and Indexing (ECSI) creates a dedicated database table optimized for related content queries. This enhances performance, particularly on sites with a large number of posts or high traffic. To create the ECSI tables, visit the %1$sTools tab%2$s.', 'contextual-related-posts' ),
 			'<a href="' . esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ) . '" target="_blank">',
 			'</a>'
@@ -1173,7 +1174,7 @@ class Settings {
 	/**
 	 * Get the various styles.
 	 *
-	 * @since 3.5.0
+	 * @since  3.5.0
 	 * @return array Associative array of styles.
 	 */
 	public static function get_styles() {
@@ -1224,7 +1225,7 @@ class Settings {
 	/**
 	 * Get the various order settings.
 	 *
-	 * @since 3.5.0
+	 * @since  3.5.0
 	 * @return array Order settings.
 	 */
 	public static function get_orderings() {
@@ -1250,7 +1251,7 @@ class Settings {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param array $links Array of links.
+	 * @param  array $links Array of links.
 	 * @return array
 	 */
 	public function plugin_actions_links( $links ) {
@@ -1268,8 +1269,8 @@ class Settings {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param array  $links Array of Links.
-	 * @param string $file Current file.
+	 * @param  array  $links Array of Links.
+	 * @param  string $file  Current file.
 	 * @return array
 	 */
 	public function plugin_row_meta( $links, $file ) {
@@ -1293,14 +1294,14 @@ class Settings {
 	 */
 	public function get_help_sidebar() {
 		$help_sidebar =
-			/* translators: 1: Plugin support site link. */
-			'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s" target="_blank">support site</a>.', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
-			'<p>' . sprintf(
-				/* translators: 1: Github issues link, 2: Github plugin page link. */
-				__( '<a href="%1$s" target="_blank">Post an issue</a> on <a href="%2$s" target="_blank">GitHub</a> (bug reports only).', 'contextual-related-posts' ),
-				esc_url( 'https://github.com/WebberZone/contextual-related-posts/issues' ),
-				esc_url( 'https://github.com/WebberZone/contextual-related-posts' )
-			) . '</p>';
+		/* translators: 1: Plugin support site link. */
+		'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s" target="_blank">support site</a>.', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
+		'<p>' . sprintf(
+		/* translators: 1: Github issues link, 2: Github plugin page link. */
+			__( '<a href="%1$s" target="_blank">Post an issue</a> on <a href="%2$s" target="_blank">GitHub</a> (bug reports only).', 'contextual-related-posts' ),
+			esc_url( 'https://github.com/WebberZone/contextual-related-posts/issues' ),
+			esc_url( 'https://github.com/WebberZone/contextual-related-posts' )
+		) . '</p>';
 
 		/**
 		 * Filter to modify the help sidebar content.
@@ -1335,12 +1336,12 @@ class Settings {
 				'title'   => __( 'Tools', 'contextual-related-posts' ),
 				'content' =>
 				'<p>' . __( 'This screen provides some tools that help maintain certain features of Contextual Related Posts.', 'contextual-related-posts' ) . '</p>' .
-					'<p>' . __( 'Clear the cache, recreate the fulltext indices (including code to manually run this in phpMyAdmin), export/import settings and delete the older settings.', 'contextual-related-posts' ) . '</p>' .
-					'<p>' . sprintf(
-					/* translators: 1: Link to Knowledge Base article. */
-						__( 'You can find more information on each of these tools in this <a href="%1$s" target="_blank">knowledgebase article</a>.', 'contextual-related-posts' ),
-						esc_url( 'https://webberzone.com/support/knowledgebase/contextual-related-posts-settings-tools/' )
-					) . '</p>',
+							'<p>' . __( 'Clear the cache, recreate the fulltext indices (including code to manually run this in phpMyAdmin), export/import settings and delete the older settings.', 'contextual-related-posts' ) . '</p>' .
+							'<p>' . sprintf(
+							/* translators: 1: Link to Knowledge Base article. */
+								__( 'You can find more information on each of these tools in this <a href="%1$s" target="_blank">knowledgebase article</a>.', 'contextual-related-posts' ),
+								esc_url( 'https://webberzone.com/support/knowledgebase/contextual-related-posts-settings-tools/' )
+							) . '</p>',
 			),
 		);
 
@@ -1361,7 +1362,7 @@ class Settings {
 	 */
 	public static function get_admin_footer_text() {
 		return sprintf(
-			/* translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link. */
+		/* translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link. */
 			__( 'Thank you for using %1$sContextual Related Posts by WebberZone%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s', 'contextual-related-posts' ),
 			'<a href="https://webberzone.com/plugins/contextual-related-posts/" target="_blank">',
 			'</a>',
@@ -1399,13 +1400,13 @@ class Settings {
 				$settings['post_thumb_op'] = 'inline';
 			}
 
-			add_settings_error( self::prefix . '-notices', '', 'Note: Display of the author, excerpt and date has been disabled as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'updated' );
+			add_settings_error( self::$prefix . '-notices', '', 'Note: Display of the author, excerpt and date has been disabled as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'updated' );
 		}
 		// Overwrite settings if text_only thumbnail style is selected.
 		if ( 'text_only' === $style ) {
 			$settings['post_thumb_op'] = 'text_only';
 
-			add_settings_error( self::prefix . '-notices', '', 'Note: Thumbnail location set to Text Only as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'updated' );
+			add_settings_error( self::$prefix . '-notices', '', 'Note: Thumbnail location set to Text Only as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'updated' );
 		}
 
 		// Force thumb_width and thumb_height if either are zero.
@@ -1534,13 +1535,15 @@ class Settings {
 		}
 		$s = trim( $s );
 
-		/** This filter has been defined in /wp-admin/includes/ajax-actions.php */
+		/**
+	* This filter has been defined in /wp-admin/includes/ajax-actions.php
+*/
 		$term_search_min_chars = (int) apply_filters( 'term_search_min_chars', 2, $tax, $s );
 
 		/*
-		 * Require $term_search_min_chars chars for matching (default: 2)
-		 * ensure it's a non-negative, non-zero integer.
-		 */
+		* Require $term_search_min_chars chars for matching (default: 2)
+		* ensure it's a non-negative, non-zero integer.
+		*/
 		if ( ( 0 === $term_search_min_chars ) || ( strlen( $s ) < $term_search_min_chars ) ) {
 			wp_die();
 		}
@@ -1572,13 +1575,13 @@ class Settings {
 		?>
 		<p>
 			<a class="crp_button crp_button_green" href="<?php echo esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ); ?>">
-				<?php esc_html_e( 'Visit the Tools page', 'contextual-related-posts' ); ?>
+		<?php esc_html_e( 'Visit the Tools page', 'contextual-related-posts' ); ?>
 			</a>
-			<?php if ( ! $crp_freemius->is_paying() ) { ?>
+		<?php if ( ! $crp_freemius->is_paying() ) { ?>
 			<a class="crp_button crp_button_gold" href="<?php echo esc_url( $crp_freemius->get_upgrade_url() ); ?>">
-				<?php esc_html_e( 'Upgrade to Pro', 'contextual-related-posts' ); ?>
+			<?php esc_html_e( 'Upgrade to Pro', 'contextual-related-posts' ); ?>
 			</a>
-			<?php } ?>
+		<?php } ?>
 		</p>
 
 		<?php
@@ -1587,8 +1590,8 @@ class Settings {
 	/**
 	 * Updated the settings fields to display a pro version link.
 	 *
-	 * @param string $output Settings field HTML.
-	 * @param array  $args   Settings field arguments.
+	 * @param  string $output Settings field HTML.
+	 * @param  array  $args   Settings field arguments.
 	 * @return string Updated HTML.
 	 */
 	public static function after_setting_output( $output, $args ) {
