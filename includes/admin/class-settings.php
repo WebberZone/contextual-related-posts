@@ -1399,13 +1399,13 @@ class Settings {
 				$settings['post_thumb_op'] = 'inline';
 			}
 
-			add_settings_error( $this->prefix . '-notices', '', 'Note: Display of the author, excerpt and date has been disabled as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'updated' );
+			add_settings_error( self::prefix . '-notices', '', 'Note: Display of the author, excerpt and date has been disabled as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'updated' );
 		}
 		// Overwrite settings if text_only thumbnail style is selected.
 		if ( 'text_only' === $style ) {
 			$settings['post_thumb_op'] = 'text_only';
 
-			add_settings_error( $this->prefix . '-notices', '', 'Note: Thumbnail location set to Text Only as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'updated' );
+			add_settings_error( self::prefix . '-notices', '', 'Note: Thumbnail location set to Text Only as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'updated' );
 		}
 
 		// Force thumb_width and thumb_height if either are zero.
