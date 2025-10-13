@@ -164,6 +164,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
+= 4.1.1 =
+
+* Bug fixes:
+    * Fixed PHP warning when saving settings in PHP 8.3 and above.
+
 = 4.1.0 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-1-0/](https://webberzone.com/announcements/contextual-related-posts-v4-1-0/)
