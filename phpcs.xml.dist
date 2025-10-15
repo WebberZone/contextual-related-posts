@@ -38,4 +38,8 @@
 	<rule ref="Generic.Commenting.Todo"/>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
 
+	<!-- Check for PHP 7.4+ compatibility. -->
+	<config name="testVersion" value="7.4-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
 </ruleset>

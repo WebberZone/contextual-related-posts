@@ -353,7 +353,7 @@ class Metabox_API {
 				$ids   = array();
 				$names = array();
 
-				$taxes = array_unique( str_getcsv( $settings[ $key ] ) );
+				$taxes = array_unique( str_getcsv( $settings[ $key ], ',', '"', '\\' ) );
 
 				foreach ( $taxes as $tax ) {
 					$tax_name = get_term_by( 'name', $tax, $fields['tax'] );
