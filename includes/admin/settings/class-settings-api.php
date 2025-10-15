@@ -416,8 +416,6 @@ class Settings_API {
 	 * Add admin menu.
 	 */
 	public function admin_menu() {
-		global ${$this->prefix . '_menu_pages'};
-
 		foreach ( $this->menus as $menu ) {
 			$menu_page = $this->add_custom_menu_page( $menu );
 
@@ -426,7 +424,6 @@ class Settings_API {
 				$this->settings_page = $menu_page;
 			}
 		}
-		${$this->prefix . '_menu_pages'} = $this->menu_pages;
 
 		// Load the settings contextual help.
 		add_action( 'load-' . $this->settings_page, array( $this, 'settings_help' ) );
