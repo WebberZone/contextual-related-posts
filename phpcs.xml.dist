@@ -38,8 +38,10 @@
 	<rule ref="Generic.Commenting.Todo"/>
 	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
 
-	<!-- Check for PHP 7.4+ compatibility. -->
-	<config name="testVersion" value="7.4-"/>
-	<rule ref="PHPCompatibilityWP"/>
+
+
+	<!-- Note: PHP Compatibility checks are run in a separate GitHub Actions workflow
+	     (.github/workflows/phpcompat.yml) due to dependency conflicts between
+	     WPCS 3.x (requires PHPCS 3.x) and PHPCompatibility 10.x (requires PHPCS 4.x) -->
 
 </ruleset>

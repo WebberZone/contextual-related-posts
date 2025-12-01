@@ -30,8 +30,6 @@
         "php-stubs/wordpress-stubs": "^6",
         "wp-coding-standards/wpcs": "^3",
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
-        "phpcompatibility/phpcompatibility-wp": "*",
-        "phpcompatibility/php-compatibility": "dev-develop as 9.99.99",
         "yoast/phpunit-polyfills": "^3",
         "phpunit/phpunit": "^9 || ^10 || ^11 || ^12"
     },
