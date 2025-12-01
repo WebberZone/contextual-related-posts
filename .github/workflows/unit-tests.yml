@@ -22,28 +22,22 @@ jobs:
       fail-fast: false
       matrix:
         # Notes regarding supported versions in WP:
-        # The base matrix only contains the PHP versions which are supported on all supported WP versions.
-        php: ['8.0', '8.1', '7.4']
+        # Testing against stable PHP versions with WordPress 6.6+
+        php: ['7.4', '8.1', '8.2', '8.3']
         wp: ['latest']
         experimental: [false]
 
         include:
-          # Complement the builds run via the matrix with high/low WP builds for PHP 7.4 and 8.0.
-          # PHP 8.0 is sort of supported since WP 5.6.
-          # PHP 7.4 is supported since WP 5.3.
+          # Test against older supported WordPress version
           - php: '8.3'
+            wp: '6.6'
+          # Experimental builds for upcoming PHP versions
+          - php: '8.5'
             wp: 'latest'
             experimental: true
-          - php: '8.2'
+          - php: '8.4'
             wp: 'latest'
             experimental: true
-          - php: '8.2'
-            wp: '6.3'
-            experimental: true
-          - php: '8.0'
-            wp: '5.9'
-            experimental: true
-
     name: "PHP ${{ matrix.php }} - WP ${{ matrix.wp }}"
 
     continue-on-error: ${{ matrix.experimental }}
