@@ -271,7 +271,7 @@ class Media_Handler {
 
 			// If empty alt then try to get the title of the attachment.
 			if ( empty( $alt ) && ! empty( $attachment_id ) ) {
-				$alt = get_the_title( $attachment_id );
+				$alt = get_post_field( 'post_title', $attachment_id );
 			}
 
 			if ( empty( $alt ) ) {
