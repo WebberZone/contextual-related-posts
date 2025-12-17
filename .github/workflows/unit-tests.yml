@@ -1,8 +1,6 @@
 name: Unit Tests
 
 on:
-  # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
   push:
     paths-ignore:
       - '**.md'
@@ -11,7 +9,6 @@ on:
     paths-ignore:
       - '**.md'
       - '**.txt'
-  # Allow manually triggering the workflow.
   workflow_dispatch:
 
 jobs:
@@ -21,58 +18,43 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Notes regarding supported versions in WP:
-        # Testing against stable PHP versions with WordPress 6.6+
         php: ['7.4', '8.1', '8.2', '8.3']
         wp: ['latest']
-        experimental: [false]
+        mysql: ['8.0']
 
         include:
-          # Test against older supported WordPress version
           - php: '8.3'
             wp: '6.6'
-          # Experimental builds for upcoming PHP versions
-          - php: '8.5'
-            wp: 'latest'
-            experimental: true
+            mysql: '8.0'
           - php: '8.4'
             wp: 'latest'
+            mysql: '8.0'
+            experimental: true
+          - php: '8.5'
+            wp: 'latest'
+            mysql: '8.0'
             experimental: true
 
-    name: "PHP ${{ matrix.php }} - WP ${{ matrix.wp }}"
-
+    name: "PHP ${{ matrix.php }} - WP ${{ matrix.wp }} - MySQL ${{ matrix.mysql }}"
     continue-on-error: ${{ matrix.experimental == true }}
-
-    services:
-      mysql:
-        # WP 5.4 is the first WP version which largely supports MySQL 8.0.
-        # See: https://core.trac.wordpress.org/ticket/49344
-        # During the setting up of these tests, it became clear that MySQL 8.0
-        # in combination with PHP < 7.4 is not properly/sufficiently supported
-        # within WP Core.
-        # See: https://core.trac.wordpress.org/ticket/52496
-        image: mysql:${{ ( matrix.wp == 5.3 && '5.6' ) || ( (matrix.wp < 5.4 || matrix.php < 7.4) && '5.7' ) || '8.0' }}
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: false
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup MySQL
+        uses: ankane/setup-mysql@v1
+        with:
+          mysql-version: ${{ matrix.mysql }}
+
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mysqli, mysql
+          extensions: mysqli
           coverage: none
 
-      # On WP 5.2, PHPUnit 5.x, 6.x and 7.x are supported.
-      # On PHP >= 8.0, PHPUnit 7.5+ is needed, no matter what.
-      - name: Determine supported PHPUnit version
-        id: set_phpunit
+      - name: Set PHPUnit version
         run: |
           if [[ "${{ matrix.php }}" > "8.0" ]]; then
             echo "PHPUNIT=9.*" >> $GITHUB_ENV
@@ -80,41 +62,28 @@ jobs:
             echo "PHPUNIT=5.7.*||6.*||7.5.*||8.5.*" >> $GITHUB_ENV
           fi
 
-      - name: 'Composer: set up PHPUnit'
-        env:
-          PHPUNIT: ${{ env.PHPUNIT }}
-        run: composer require --no-update phpunit/phpunit:"${{ env.PHPUNIT }}"
+      - name: Set up PHPUnit
+        run: composer require --no-update phpunit/phpunit:"$PHPUNIT"
 
-      # Install dependencies and handle caching in one go.
-      # @link https://github.com/marketplace/actions/install-composer-dependencies
-      - name: Install Composer dependencies for PHP < 8.0
+      - name: Install dependencies for PHP < 8.0
         if: ${{ matrix.php < 8.0 }}
-        uses: "ramsey/composer-install@v2"
+        uses: ramsey/composer-install@v3
 
-      # For the PHP 8.0 and above, we need to install with ignore platform reqs as not all dependencies allow it yet.
-      - name: Install Composer dependencies for PHP >= 8.0
+      - name: Install dependencies for PHP >= 8.0
         if: ${{ matrix.php >= 8.0 }}
-        uses: "ramsey/composer-install@v2"
+        uses: ramsey/composer-install@v3
         with:
           composer-options: --ignore-platform-reqs
 
-      - name: Install Subversion
-        run: sudo apt-get install subversion
-
-      - name: Set up WordPress
-        run: phpunit/install.sh wordpress_test root '' 127.0.0.1:3306 ${{ matrix.wp }}
-
-      - name: Tool versions
+      - name: Set up WordPress test environment
         run: |
-          php --version
-          composer --version
-          ./vendor/bin/phpunit --version
-          which ./vendor/bin/phpunit
+          sudo apt-get install -y subversion
+          bash phpunit/install.sh wordpress_test root '' 127.0.0.1:3306 ${{ matrix.wp }}
 
-      - name: Run the unit tests - single site
-        run: ./vendor/bin/phpunit
+      - name: Run tests (single site)
+        run: vendor/bin/phpunit
 
-      - name: Run the unit tests - multisite
+      - name: Run tests (multisite)
         env:
           WP_MULTISITE: 1
-        run: ./vendor/bin/phpunit
+        run: vendor/bin/phpunit
