@@ -46,6 +46,6 @@
         "phpstan-baseline": "vendor/bin/phpstan analyse --memory-limit=2048M --generate-baseline",
         "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
         "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
-        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php'"
+        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php'"
     }
 }
