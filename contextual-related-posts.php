@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 2.9.3
  */
 if ( ! defined( 'WZ_CRP_VERSION' ) ) {
-	define( 'WZ_CRP_VERSION', '4.1.1' );
+	define( 'WZ_CRP_VERSION', '4.2.0-beta1' );
 }
 
 
@@ -66,6 +66,15 @@ if ( ! defined( 'WZ_CRP_PLUGIN_DIR' ) ) {
  */
 if ( ! defined( 'WZ_CRP_PLUGIN_URL' ) ) {
 	define( 'WZ_CRP_PLUGIN_URL', plugin_dir_url( WZ_CRP_PLUGIN_FILE ) );
+}
+
+/**
+ * Holds the default thumbnail URL for Contextual Related Posts.
+ *
+ * @since 4.2.0
+ */
+if ( ! defined( 'WZ_CRP_DEFAULT_THUMBNAIL_URL' ) ) {
+	define( 'WZ_CRP_DEFAULT_THUMBNAIL_URL', WZ_CRP_PLUGIN_URL . 'default.png' );
 }
 
 /**
