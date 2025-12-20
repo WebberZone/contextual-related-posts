@@ -211,7 +211,7 @@ class Admin {
 	 * @since 3.5.0
 	 */
 	public static function display_admin_sidebar() {
-		require_once WZ_CRP_PLUGIN_DIR . 'includes/admin/settings/sidebar.php';
+		require_once WZ_CRP_PLUGIN_DIR . 'includes/admin/sidebar.php';
 	}
 
 	/**

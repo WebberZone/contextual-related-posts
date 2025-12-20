@@ -183,7 +183,7 @@ class Tools_Page {
 		<div id="postbox-container-1" class="postbox-container">
 
 			<div id="side-sortables" class="meta-box-sortables ui-sortable">
-			<?php include_once 'settings/sidebar.php'; ?>
+			<?php include_once 'sidebar.php'; ?>
 			</div><!-- /#side-sortables -->
 
 		</div><!-- /#postbox-container-1 -->
@@ -334,13 +334,16 @@ class Tools_Page {
 		if ( $this->parent_id === $screen->id || $this->parent_id === $hook ) {
 			wp_enqueue_script( 'crp-admin-js' );
 			wp_enqueue_style( 'crp-admin-ui-css' );
+			wp_enqueue_style( 'wp-spinner' );
 			wp_localize_script(
 				'crp-admin-js',
 				'crp_admin_data',
 				array(
-					'security'       => wp_create_nonce( 'crp-admin' ),
-					'clear_cache'    => __( 'Clear cache', 'contextual-related-posts' ),
-					'clearing_cache' => __( 'Clearing cache', 'contextual-related-posts' ),
+					'security' => wp_create_nonce( 'crp-admin' ),
+					'strings'  => array(
+						'clear_cache'    => __( 'Clear cache', 'contextual-related-posts' ),
+						'clearing_cache' => __( 'Clearing cache', 'contextual-related-posts' ),
+					),
 				)
 			);
 		}

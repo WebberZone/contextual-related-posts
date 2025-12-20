@@ -1,8 +1,5 @@
 /**
  * Settings Wizard Styles
- *
- * @package Contextual_Related_Posts
- * @since 4.1.0
  */
 
 /* Wizard Container */
@@ -13,6 +10,95 @@
 	border: 1px solid #ccd0d4;
 	border-radius: 4px;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Steps Navigation */
+.wizard-steps-nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 20px 30px;
+	background: #f9f9f9;
+	border-bottom: 1px solid #eee;
+	list-style: none;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.wizard-steps-nav li {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	padding: 10px 15px;
+	border-radius: 6px;
+	background: #fff;
+	border: 2px solid #ddd;
+	min-width: 120px;
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+.wizard-steps-nav li.active {
+	border-color: #005c8a;
+	background: #f0f8ff;
+	color: #005c8a;
+	font-weight: 600;
+}
+
+.wizard-steps-nav li.done {
+	border-color: #46b450;
+	background: #f0fff0;
+	color: #46b450;
+}
+
+.wizard-steps-nav li.done::before {
+	content: "✓";
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	width: 20px;
+	height: 20px;
+	background: #46b450;
+	color: #fff;
+	border-radius: 50%;
+	font-size: 12px;
+	line-height: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.wizard-steps-nav .step-number {
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 4px;
+	color: #666;
+}
+
+.wizard-steps-nav li.active .step-number {
+	color: #005c8a;
+}
+
+.wizard-steps-nav li.done .step-number {
+	color: #46b450;
+}
+
+.wizard-steps-nav .step-name {
+	display: block;
+	font-size: 12px;
+	line-height: 1.2;
+	color: #333;
+}
+
+.wizard-steps-nav li.active .step-name {
+	color: #005c8a;
+	font-weight: 600;
+}
+
+.wizard-steps-nav li.done .step-name {
+	color: #46b450;
 }
 
 .wizard-wrap h1 {
@@ -276,6 +362,20 @@
 		font-size: 20px;
 	}
 
+	.wizard-steps-nav {
+		padding: 15px 20px;
+		gap: 10px;
+	}
+
+	.wizard-steps-nav li {
+		min-width: 80px;
+		padding: 8px 10px;
+	}
+
+	.wizard-steps-nav .step-name {
+		font-size: 11px;
+	}
+
 	.wizard-progress {
 		padding: 15px 20px;
 	}
@@ -307,7 +407,6 @@
 }
 
 @media screen and (max-width: 600px) {
-
 	.wizard-field input[type="text"],
 	.wizard-field input[type="number"],
 	.wizard-field input[type="email"],
@@ -363,7 +462,7 @@
 }
 
 .wizard-loading::after {
-	content: '';
+	content: "";
 	position: absolute;
 	top: 50%;
 	left: 50%;

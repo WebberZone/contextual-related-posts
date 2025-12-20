@@ -61,6 +61,10 @@ class Settings_Wizard extends Settings_Wizard_API {
 		Hook_Registry::add_action( 'crp_activate', array( $this, 'trigger_wizard_on_activation' ) );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'register_wizard_notice' ) );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_custom_scripts' ) );
+
+		// Register Tom Select AJAX handlers for wizard taxonomy fields.
+		Hook_Registry::add_action( 'wp_ajax_nopriv_' . $this->prefix . '_taxonomy_search_tom_select', array( Settings::class, 'taxonomy_search_tom_select' ) );
+		Hook_Registry::add_action( 'wp_ajax_' . $this->prefix . '_taxonomy_search_tom_select', array( Settings::class, 'taxonomy_search_tom_select' ) );
 	}
 
 	/**
@@ -243,11 +247,14 @@ class Settings_Wizard extends Settings_Wizard_API {
 				'capability'  => 'manage_options',
 				'conditions'  => array(
 					function () {
+						$page = sanitize_key( (string) filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+
 						// Only show if wizard is not completed, not dismissed, and activation flag is set.
 						// Check both transient and option to ensure it works in multisite environments.
 						return ! $this->is_wizard_completed() &&
 							! get_option( 'crp_wizard_notice_dismissed', false ) &&
-							( get_transient( 'crp_show_wizard_activation_redirect' ) || get_option( 'crp_show_wizard', false ) );
+							( get_transient( 'crp_show_wizard_activation_redirect' ) || get_option( 'crp_show_wizard', false ) ) &&
+							'crp_wizard' !== $page;
 					},
 				),
 			)
