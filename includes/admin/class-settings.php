@@ -76,6 +76,9 @@ class Settings {
 
 		Hook_Registry::add_action( 'wp_ajax_nopriv_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
 		Hook_Registry::add_action( 'wp_ajax_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
+		Hook_Registry::add_action( 'wp_ajax_nopriv_' . self::$prefix . '_taxonomy_search_tom_select', array( __CLASS__, 'taxonomy_search_tom_select' ) );
+		Hook_Registry::add_action( 'wp_ajax_' . self::$prefix . '_taxonomy_search_tom_select', array( __CLASS__, 'taxonomy_search_tom_select' ) );
+
 		Hook_Registry::add_action( self::$prefix . '_settings_page_header', array( $this, 'settings_page_header' ) );
 		Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'after_setting_output' ), 10, 2 );
 		Hook_Registry::add_action( self::$prefix . '_settings_form_buttons', array( $this, 'add_wizard_button' ) );
@@ -172,6 +175,10 @@ class Settings {
 			'feed'        => __( 'Feed', 'contextual-related-posts' ),
 		);
 
+		if ( \crp_is_woocommerce_active() ) {
+			$settings_sections['woocommerce'] = __( 'WooCommerce', 'contextual-related-posts' );
+		}
+
 		/**
 		 * Filter the array containing the settings' sections.
 		 *
@@ -196,7 +203,8 @@ class Settings {
 		foreach ( $sections as $section => $value ) {
 			$method_name = 'settings_' . $section;
 			if ( method_exists( __CLASS__, $method_name ) ) {
-				$settings[ $section ] = self::$method_name();
+				$instance             = new self();
+				$settings[ $section ] = $instance->$method_name();
 			}
 		}
 
@@ -217,7 +225,7 @@ class Settings {
 	 *
 	 * @return array General settings array
 	 */
-	public static function settings_general() {
+	public function settings_general() {
 		$settings = array(
 			'list_general_header'          => array(
 				'id'   => 'list_general_header',
@@ -351,7 +359,7 @@ class Settings {
 	 *
 	 * @return array Output settings array
 	 */
-	public static function settings_output() {
+	public function settings_output() {
 		$settings = array(
 			'title'                 => array(
 				'id'      => 'title',
@@ -469,13 +477,14 @@ class Settings {
 				'default' => '',
 			),
 			'exclude_on_cat_slugs'  => array(
-				'id'          => 'exclude_on_cat_slugs',
-				'name'        => esc_html__( 'Exclude on Terms', 'contextual-related-posts' ),
-				'desc'        => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
-				'type'        => 'csv',
-				'default'     => '',
-				'size'        => 'large',
-				'field_class' => 'category_autocomplete',
+				'id'               => 'exclude_on_cat_slugs',
+				'name'             => esc_html__( 'Exclude on Terms', 'contextual-related-posts' ),
+				'desc'             => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
+				'type'             => 'csv',
+				'default'          => '',
+				'size'             => 'large',
+				'field_class'      => 'ts_autocomplete',
+				'field_attributes' => self::get_taxonomy_search_field_attributes( 'category' ),
 			),
 			'html_wrapper_header'   => array(
 				'id'   => 'html_wrapper_header',
@@ -530,7 +539,7 @@ class Settings {
 	 *
 	 * @return array List Tuning settings array
 	 */
-	public static function settings_list() {
+	public function settings_list() {
 		$settings = array(
 			'list_general_header'       => array(
 				'id'   => 'list_general_header',
@@ -755,12 +764,19 @@ class Settings {
 				'min'     => '1',
 			),
 			'related_meta_keys'         => array(
-				'id'      => 'related_meta_keys',
-				'name'    => esc_html__( 'Related Meta Keys', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Enter a comma-separated list of meta keys. Posts that match the exact value of the meta key are displayed before the other related posts.', 'contextual-related-posts' ),
-				'type'    => 'csv',
-				'default' => '',
-				'size'    => 'large',
+				'id'               => 'related_meta_keys',
+				'name'             => esc_html__( 'Related Meta Keys', 'contextual-related-posts' ),
+				'desc'             => esc_html__( 'Enter a comma-separated list of meta keys. Posts that match the exact value of the meta key are displayed before the other related posts.', 'contextual-related-posts' ),
+				'type'             => 'csv',
+				'default'          => '',
+				'size'             => 'large',
+				'field_class'      => 'ts_autocomplete',
+				'field_attributes' => self::get_meta_keys_search_field_attributes(
+					array(
+						'create'       => true,
+						'createOnBlur' => true,
+					)
+				),
 			),
 			'exclusion_header'          => array(
 				'id'   => 'exclusion_header',
@@ -776,13 +792,14 @@ class Settings {
 				'default' => '',
 			),
 			'exclude_cat_slugs'         => array(
-				'id'          => 'exclude_cat_slugs',
-				'name'        => esc_html__( 'Exclude Terms', 'contextual-related-posts' ),
-				'desc'        => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
-				'type'        => 'csv',
-				'default'     => '',
-				'size'        => 'large',
-				'field_class' => 'category_autocomplete',
+				'id'               => 'exclude_cat_slugs',
+				'name'             => esc_html__( 'Exclude Terms', 'contextual-related-posts' ),
+				'desc'             => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
+				'type'             => 'csv',
+				'default'          => '',
+				'size'             => 'large',
+				'field_class'      => 'ts_autocomplete',
+				'field_attributes' => self::get_taxonomy_search_field_attributes( 'category' ),
 			),
 			'exclude_categories'        => array(
 				'id'       => 'exclude_categories',
@@ -846,7 +863,7 @@ class Settings {
 	 *
 	 * @return array Thumbnail settings array
 	 */
-	public static function settings_thumbnail() {
+	public function settings_thumbnail() {
 		$settings = array(
 			'post_thumb_op'      => array(
 				'id'      => 'post_thumb_op',
@@ -963,15 +980,15 @@ class Settings {
 	 *
 	 * @return array Styles settings array
 	 */
-	public static function settings_styles() {
+	public function settings_styles() {
 		$settings = array(
 			'crp_styles' => array(
 				'id'      => 'crp_styles',
 				'name'    => esc_html__( 'Related Posts style', 'contextual-related-posts' ),
 				'desc'    => '',
-				'type'    => 'radiodesc',
+				'type'    => 'select',
 				'default' => 'rounded_thumbs',
-				'options' => self::get_styles(),
+				'options' => wp_list_pluck( self::get_styles(), 'name', 'id' ),
 			),
 			'custom_css' => array(
 				'id'          => 'custom_css',
@@ -1001,7 +1018,7 @@ class Settings {
 	 *
 	 * @return array Feed settings array
 	 */
-	public static function settings_feed() {
+	public function settings_feed() {
 		$settings = array(
 			'feed_options_desc'  => array(
 				'id'   => 'feed_options_desc',
@@ -1069,13 +1086,208 @@ class Settings {
 	}
 
 	/**
+	 * Retrieve the array of WooCommerce settings
+	 *
+	 * @since 4.2.0
+	 *
+	 * @return array WooCommerce settings array
+	 */
+	public function settings_woocommerce() {
+		$settings = array(
+			'wc_header'               => array(
+				'id'   => 'wc_header',
+				'name' => '<h3>' . esc_html__( 'WooCommerce Integration', 'contextual-related-posts' ) . '</h3>',
+				'desc' => sprintf(
+					/* translators: 1: Opening a tag, 2: Closing a tag */
+					esc_html__( 'Settings for WooCommerce product indexing and related products. This feature requires ECSI to be enabled under the %1$sPerformance%2$s tab and the custom tables to be created via the Tools page.', 'contextual-related-posts' ),
+					'<strong>',
+					'</strong>'
+				),
+				'type' => 'header',
+			),
+			'wc_enable'               => array(
+				'id'      => 'wc_enable',
+				'name'    => esc_html__( 'Enable WooCommerce integration', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Enable enhanced indexing for WooCommerce products. This indexes product descriptions, attributes, SKUs, and taxonomies for better related product matching.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+			),
+			'wc_indexing_header'      => array(
+				'id'   => 'wc_indexing_header',
+				'name' => '<h3>' . esc_html__( 'Product Indexing', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Control what product data is indexed', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
+			'wc_index_sku'            => array(
+				'id'      => 'wc_index_sku',
+				'name'    => esc_html__( 'Index product SKU', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Include product SKU in searchable content for improved recall.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+			),
+			'wc_index_attributes'     => array(
+				'id'      => 'wc_index_attributes',
+				'name'    => esc_html__( 'Index product attributes', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Include product attributes (color, size, etc.) in searchable content.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+			),
+			'wc_index_purchase_note'  => array(
+				'id'      => 'wc_index_purchase_note',
+				'name'    => esc_html__( 'Index purchase note', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Include the WooCommerce purchase note in searchable content.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
+			'wc_display_header'       => array(
+				'id'   => 'wc_display_header',
+				'name' => '<h3>' . esc_html__( 'Display Settings', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Control how related products are displayed', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
+			'wc_display_mode'         => array(
+				'id'      => 'wc_display_mode',
+				'name'    => esc_html__( 'Related products display mode', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Choose whether CRP should replace WooCommerce\'s native related products section or display in addition to it.', 'contextual-related-posts' ),
+				'type'    => 'radio',
+				'default' => 'replace',
+				'options' => array(
+					'replace' => esc_html__( 'Replace (disable WooCommerce related products and use CRP instead)', 'contextual-related-posts' ),
+					'coexist' => esc_html__( 'Coexist (keep WooCommerce related products and also display CRP)', 'contextual-related-posts' ),
+				),
+			),
+			'wc_limit'                => array(
+				'id'      => 'wc_limit',
+				'name'    => esc_html__( 'Number of related products to display', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Maximum number of products to display in the related products section.', 'contextual-related-posts' ),
+				'type'    => 'number',
+				'default' => 4,
+				'min'     => 0,
+				'size'    => 'small',
+				'pro'     => true,
+			),
+			'wc_related_heading'      => array(
+				'id'      => 'wc_related_heading',
+				'name'    => esc_html__( 'Related products heading', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Heading text displayed above the related products list. Leave empty to hide the heading.', 'contextual-related-posts' ),
+				'type'    => 'text',
+				'default' => esc_html__( 'Related products', 'contextual-related-posts' ),
+				'size'    => 'regular',
+				'pro'     => true,
+			),
+			'wc_output_header'        => array(
+				'id'   => 'wc_output_header',
+				'name' => '<h3>' . esc_html__( 'Output Customisation', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Control what is displayed in the related products list.', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
+			'wc_show_thumbnail'       => array(
+				'id'      => 'wc_show_thumbnail',
+				'name'    => esc_html__( 'Show product thumbnail', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Display product thumbnail in the related products list.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_show_sale_flash'      => array(
+				'id'      => 'wc_show_sale_flash',
+				'name'    => esc_html__( 'Show sale badge', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Display the WooCommerce sale badge (e.g. “Sale!”) in the related products list.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_show_price'           => array(
+				'id'      => 'wc_show_price',
+				'name'    => esc_html__( 'Show product price', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Display product price in related posts list for WooCommerce products.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_show_rating'          => array(
+				'id'      => 'wc_show_rating',
+				'name'    => esc_html__( 'Show product rating', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Display product rating in related posts list for WooCommerce products.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_show_add_to_cart'     => array(
+				'id'      => 'wc_show_add_to_cart',
+				'name'    => esc_html__( 'Show add to cart button', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Display the add to cart button in the related products list.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_filter_header'        => array(
+				'id'   => 'wc_filter_header',
+				'name' => '<h3>' . esc_html__( 'Product Filtering', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Control which products appear in related products', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
+			'wc_exclude_hidden'       => array(
+				'id'      => 'wc_exclude_hidden',
+				'name'    => esc_html__( 'Exclude hidden products', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Do not show products excluded from catalog or search (product visibility).', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_exclude_out_of_stock' => array(
+				'id'      => 'wc_exclude_out_of_stock',
+				'name'    => esc_html__( 'Exclude out of stock products', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Do not show out of stock products in related products.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_same_category'        => array(
+				'id'      => 'wc_same_category',
+				'name'    => esc_html__( 'Limit to same product category', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Only show products that share at least one product category with the current product.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'wc_same_tag'             => array(
+				'id'      => 'wc_same_tag',
+				'name'    => esc_html__( 'Limit to same product tag', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Only show products that share at least one product tag with the current product.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
+			'wc_enable_archives'      => array(
+				'id'      => 'wc_enable_archives',
+				'name'    => esc_html__( 'Enable WooCommerce integration on shop and archive pages', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Allow WooCommerce-specific query filtering to apply on product archives (shop, product categories and tags). This does not automatically display related products on archive pages.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
+		);
+
+		/**
+		 * Filters the WooCommerce settings array
+		 *
+		 * @since 4.2.0
+		 *
+		 * @param array $settings WooCommerce settings array
+		 */
+		return apply_filters( self::$prefix . '_settings_woocommerce', $settings );
+	}
+
+	/**
 	 * Retrieve the array of Performance settings
 	 *
 	 * @since 4.0.0
 	 *
 	 * @return array Performance settings array
 	 */
-	public static function settings_performance() {
+	public function settings_performance() {
 		$custom_tables_desc = sprintf(
 			/* translators: 1: Opening a tag, 2: Closing a tag */
 			esc_html__( 'Efficient Content Storage and Indexing (ECSI) creates a dedicated database table optimized for related content queries. This enhances performance, particularly on sites with a large number of posts or high traffic. To create the ECSI tables, visit the %1$sTools tab%2$s.', 'contextual-related-posts' ),
@@ -1094,7 +1306,7 @@ class Settings {
 		$settings = array(
 			'custom_tables_header' => array(
 				'id'   => 'custom_tables_header',
-				'name' => '<h3>' . esc_html__( 'Efficient Content Storage and Indexing (ECSI)', 'contextual-related-posts' ) . '</h3>',
+				'name' => '<h3>' . esc_html__( 'ECSI', 'contextual-related-posts' ) . '</h3>',
 				'desc' => $custom_tables_desc,
 				'type' => 'header',
 			),
@@ -1105,6 +1317,22 @@ class Settings {
 				'type'    => 'checkbox',
 				'default' => false,
 				'pro'     => true,
+			),
+			'index_meta_keys'      => array(
+				'id'               => 'index_meta_keys',
+				'name'             => esc_html__( 'Meta keys to index', 'contextual-related-posts' ),
+				'desc'             => esc_html__( 'Comma-separated list of post meta keys to include in searchable content column of the custom table.', 'contextual-related-posts' ),
+				'type'             => 'csv',
+				'default'          => '',
+				'size'             => 'large',
+				'field_class'      => 'ts_autocomplete',
+				'field_attributes' => self::get_meta_keys_search_field_attributes(
+					array(
+						'create'       => true,
+						'createOnBlur' => true,
+					)
+				),
+				'pro'              => true,
 			),
 			'optimization_header'  => array(
 				'id'   => 'optimization_header',
@@ -1293,14 +1521,14 @@ class Settings {
 	 */
 	public function get_help_sidebar() {
 		$help_sidebar =
-			/* translators: 1: Plugin support site link. */
-			'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s" target="_blank">support site</a>.', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
-			'<p>' . sprintf(
-				/* translators: 1: Github issues link, 2: Github plugin page link. */
-				__( '<a href="%1$s" target="_blank">Post an issue</a> on <a href="%2$s" target="_blank">GitHub</a> (bug reports only).', 'contextual-related-posts' ),
-				esc_url( 'https://github.com/WebberZone/contextual-related-posts/issues' ),
-				esc_url( 'https://github.com/WebberZone/contextual-related-posts' )
-			) . '</p>';
+		/* translators: 1: Plugin support site link. */
+		'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s" target="_blank">support site</a>.', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
+		'<p>' . sprintf(
+			/* translators: 1: Github issues link, 2: Github plugin page link. */
+			__( '<a href="%1$s" target="_blank">Post an issue</a> on <a href="%2$s" target="_blank">GitHub</a> (bug reports only).', 'contextual-related-posts' ),
+			esc_url( 'https://github.com/WebberZone/contextual-related-posts/issues' ),
+			esc_url( 'https://github.com/WebberZone/contextual-related-posts' )
+		) . '</p>';
 
 		/**
 		 * Filter to modify the help sidebar content.
@@ -1361,7 +1589,7 @@ class Settings {
 	 */
 	public static function get_admin_footer_text() {
 		return sprintf(
-			/* translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link. */
+		/* translators: 1: Opening achor tag with Plugin page link, 2: Closing anchor tag, 3: Opening anchor tag with review link. */
 			__( 'Thank you for using %1$sContextual Related Posts by WebberZone%2$s! Please %3$srate us%2$s on %3$sWordPress.org%2$s', 'contextual-related-posts' ),
 			'<a href="https://webberzone.com/plugins/contextual-related-posts/" target="_blank">',
 			'</a>',
@@ -1399,7 +1627,7 @@ class Settings {
 				$settings['post_thumb_op'] = 'inline';
 			}
 
-			add_settings_error( self::$prefix . '-notices', '', 'Note: Display of the author, excerpt and date has been disabled as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'updated' );
+			add_settings_error( self::$prefix . '-notices', '', 'Note: Display of the author, excerpt and date has been disabled as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'warning' );
 		}
 		// Overwrite settings if text_only thumbnail style is selected.
 		if ( 'text_only' === $style ) {
@@ -1490,9 +1718,28 @@ class Settings {
 			'crp-admin-js',
 			'crp_admin_data',
 			array(
-				'security'       => wp_create_nonce( 'crp-admin' ),
-				'clear_cache'    => __( 'Clear cache', 'contextual-related-posts' ),
-				'clearing_cache' => __( 'Clearing cache', 'contextual-related-posts' ),
+				'security' => wp_create_nonce( 'crp-admin' ),
+				'strings'  => array(
+					'clear_cache'           => __( 'Clear cache', 'contextual-related-posts' ),
+					'clearing_cache'        => __( 'Clearing cache', 'contextual-related-posts' ),
+					'rounded_style_message' => __( 'Note: This setting cannot be changed as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'contextual-related-posts' ),
+					'text_only_message'     => __( 'Note: This setting cannot be changed as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'contextual-related-posts' ),
+				),
+			)
+		);
+
+		// Localize CRP-specific Tom Select settings for taxonomy search.
+		wp_localize_script(
+			'wz-crp-tom-select-init',
+			'CRPTomSelectSettings',
+			array(
+				'action'   => self::$prefix . '_taxonomy_search_tom_select',
+				'nonce'    => wp_create_nonce( self::$prefix . '_taxonomy_search_tom_select' ),
+				'endpoint' => 'category',
+				'strings'  => array(
+					/* translators: %s: search keyword. */
+					'no_results' => esc_html__( 'No results found for "%s"', 'contextual-related-posts' ),
+				),
 			)
 		);
 	}
@@ -1563,6 +1810,118 @@ class Settings {
 	}
 
 	/**
+	 * AJAX handler for Tom Select taxonomy search.
+	 *
+	 * @since 3.5.0
+	 *
+	 * @return void
+	 */
+	public static function taxonomy_search_tom_select() {
+		// Verify nonce.
+		if ( ! isset( $_REQUEST['nonce'] ) ) {
+			wp_send_json_error( array( 'message' => 'Missing nonce' ) );
+		}
+
+		$nonce_valid = wp_verify_nonce( sanitize_key( $_REQUEST['nonce'] ), self::$prefix . '_taxonomy_search_tom_select' );
+
+		if ( ! $nonce_valid ) {
+			wp_send_json_error(
+				array(
+					'message'         => 'Invalid nonce',
+					'received_nonce'  => sanitize_key( $_REQUEST['nonce'] ),
+					'expected_action' => self::$prefix . '_taxonomy_search_tom_select',
+				)
+			);
+		}
+
+		if ( ! isset( $_REQUEST['endpoint'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			wp_send_json_error( 'Missing endpoint' );
+		}
+
+		$endpoint = sanitize_key( $_REQUEST['endpoint'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$search_term = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		$comma = _x( ',', 'tag delimiter', 'contextual-related-posts' );
+		if ( ',' !== $comma ) {
+			$search_term = str_replace( $comma, ',', $search_term );
+		}
+		if ( false !== strpos( $search_term, ',' ) ) {
+			$search_term = explode( ',', $search_term );
+			$search_term = $search_term[ count( $search_term ) - 1 ];
+		}
+		$search_term = trim( $search_term );
+
+		if ( 'meta_keys' === $endpoint ) {
+			if ( ! current_user_can( 'manage_options' ) ) {
+				wp_send_json_error( 'Insufficient permissions' );
+			}
+
+			if ( strlen( $search_term ) < 2 ) {
+				wp_send_json_success( array() );
+			}
+
+			global $wpdb;
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$keys = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT DISTINCT meta_key FROM {$wpdb->postmeta} WHERE meta_key LIKE %s ORDER BY meta_key ASC LIMIT 20",
+					'%' . $wpdb->esc_like( $search_term ) . '%'
+				)
+			);
+
+			$results = array();
+			foreach ( (array) $keys as $meta_key ) {
+				if ( is_string( $meta_key ) && '' !== $meta_key ) {
+					$results[] = array(
+						'value' => $meta_key,
+						'text'  => $meta_key,
+					);
+				}
+			}
+
+			wp_send_json_success( $results );
+		}
+
+		$taxonomy = $endpoint;
+		$tax      = get_taxonomy( $taxonomy );
+
+		if ( ! $tax || ! current_user_can( $tax->cap->assign_terms ) ) {
+			wp_send_json_error( 'Invalid taxonomy or insufficient permissions' );
+		}
+
+		/** This filter has been defined in /wp-admin/includes/ajax-actions.php */
+		$term_search_min_chars = (int) apply_filters( 'term_search_min_chars', 2, $tax, $search_term );
+
+		/*
+		 * Require $term_search_min_chars chars for matching (default: 2)
+		 * ensure it's a non-negative, non-zero integer.
+		 */
+		if ( ( 0 === $term_search_min_chars ) || ( strlen( $search_term ) < $term_search_min_chars ) ) {
+			wp_send_json_success( array() );
+		}
+
+		$terms = get_terms(
+			array(
+				'taxonomy'   => $taxonomy,
+				'name__like' => $search_term,
+				'hide_empty' => false,
+			)
+		);
+
+		$results = array();
+		foreach ( (array) $terms as $term ) {
+			$formatted_string = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
+			$results[]        = array(
+				'value' => $formatted_string,
+				'text'  => $term->name,
+			);
+		}
+
+		wp_send_json_success( $results );
+	}
+
+	/**
 	 * Add a link to the Tools page from the settings page.
 	 *
 	 * @since 3.5.0
@@ -1572,9 +1931,9 @@ class Settings {
 		?>
 		<p>
 			<a class="crp_button crp_button_green" href="<?php echo esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ); ?>">
-				<?php esc_html_e( 'Visit the Tools page', 'contextual-related-posts' ); ?>
+			<?php esc_html_e( 'Visit the Tools page', 'contextual-related-posts' ); ?>
 			</a>
-			<?php if ( ! $crp_freemius->is_paying() ) { ?>
+		<?php if ( ! $crp_freemius->is_paying() ) { ?>
 			<a class="crp_button crp_button_gold" href="<?php echo esc_url( $crp_freemius->get_upgrade_url() ); ?>">
 				<?php esc_html_e( 'Upgrade to Pro', 'contextual-related-posts' ); ?>
 			</a>
@@ -1596,25 +1955,20 @@ class Settings {
 			$output .= '<a class="crp_button crp_button_gold" target="_blank" href="https://webberzone.com/plugins/contextual-related-posts/pro/" title="' . esc_attr__( 'Upgrade to Pro', 'contextual-related-posts' ) . '">' . esc_html__( 'Upgrade to Pro', 'contextual-related-posts' ) . '</a>';
 		}
 
-		// If $args['id'] is show_excerpt, show_author, show_date and style is rounded_thumbs or thumbs_grid then display a note. Guard for missing setting on reset.
-		if ( in_array( $args['id'], array( 'show_excerpt', 'show_author', 'show_date' ), true ) ) {
+		if ( isset( $args['id'] ) && 'wc_enable' === $args['id'] ) {
 			global $crp_settings;
-			$style = isset( $crp_settings['crp_styles'] ) ? $crp_settings['crp_styles'] : null;
-			if ( in_array( $style, array( 'rounded_thumbs', 'thumbs_grid' ), true ) ) {
-				$output .= '<p class="description" style="color:#9B0800;">' . esc_html__( 'Note: This setting cannot be changed as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'contextual-related-posts' ) . '</p>';
+
+			$wc_enabled       = ! empty( $crp_settings['wc_enable'] );
+			$custom_tables_on = ! empty( $crp_settings['use_custom_tables'] );
+
+			if ( $wc_enabled && ! $custom_tables_on ) {
+				$output .= '<p class="description" style="color:#9B0800;">' . esc_html__( 'Note: WooCommerce related products require Efficient Content Storage and Indexing (ECSI). Enable Custom Tables under the Performance tab and create tables via Tools.', 'contextual-related-posts' ) . '</p>';
 			}
 		}
 
-		if ( in_array( $args['id'], array( 'post_thumb_op' ), true ) ) {
-			global $crp_settings;
-			$style = isset( $crp_settings['crp_styles'] ) ? $crp_settings['crp_styles'] : null;
-			if ( in_array( $style, array( 'text_only' ), true ) ) {
-				$output .= '<p class="description" style="color:#9B0800;">' . esc_html__( 'Note: This setting cannot be changed as the Thumbnail style is set to Text Only. You can change the style in the Styles tab.', 'contextual-related-posts' ) . '</p>';
-			}
-			if ( in_array( $style, array( 'rounded_thumbs', 'thumbs_grid' ), true ) ) {
-				$output .= '<p class="description" style="color:#9B0800;">' . esc_html__( 'Note: This setting cannot be changed as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab.', 'contextual-related-posts' ) . '</p>';
-			}
-		}
+		// Note: Warning message for show_excerpt, show_author, show_date removed as JavaScript now handles disabling dynamically.
+
+		// Note: Warning messages for post_thumb_op removed as JavaScript now handles disabling and messaging dynamically.
 
 		return $output;
 	}
@@ -1632,5 +1986,52 @@ class Settings {
 			esc_attr__( 'Start Settings Wizard', 'contextual-related-posts' ),
 			esc_html__( 'Start Settings Wizard', 'contextual-related-posts' )
 		);
+	}
+
+	/**
+	 * Get field attributes for Tom Select taxonomy search fields.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param string $taxonomy  The taxonomy to search.
+	 * @param array  $ts_config Optional Tom Select configuration.
+	 * @return array Field attributes array.
+	 */
+	private static function get_taxonomy_search_field_attributes( string $taxonomy, array $ts_config = array() ): array {
+		$attributes = array(
+			'data-wp-prefix'   => strtoupper( self::$prefix ),
+			'data-wp-action'   => self::$prefix . '_taxonomy_search_tom_select',
+			'data-wp-nonce'    => wp_create_nonce( self::$prefix . '_taxonomy_search_tom_select' ),
+			'data-wp-endpoint' => $taxonomy,
+		);
+
+		if ( ! empty( $ts_config ) ) {
+			$attributes['data-ts-config'] = wp_json_encode( $ts_config );
+		}
+
+		return $attributes;
+	}
+
+	/**
+	 * Get field attributes for Tom Select meta key search fields.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param array $ts_config Optional Tom Select configuration.
+	 * @return array Field attributes array.
+	 */
+	private static function get_meta_keys_search_field_attributes( array $ts_config = array() ): array {
+		$attributes = array(
+			'data-wp-prefix'   => strtoupper( self::$prefix ),
+			'data-wp-action'   => self::$prefix . '_taxonomy_search_tom_select',
+			'data-wp-nonce'    => wp_create_nonce( self::$prefix . '_taxonomy_search_tom_select' ),
+			'data-wp-endpoint' => 'meta_keys',
+		);
+
+		if ( ! empty( $ts_config ) ) {
+			$attributes['data-ts-config'] = wp_json_encode( $ts_config );
+		}
+
+		return $attributes;
 	}
 }

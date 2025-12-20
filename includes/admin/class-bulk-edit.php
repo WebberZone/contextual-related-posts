@@ -149,7 +149,7 @@ class Bulk_Edit {
 							<?php esc_html_e( 'Manual Related Posts', 'contextual-related-posts' ); ?>
 							<?php
 							if ( current_filter() === 'bulk_edit_custom_box' ) {
-								echo ' ' . esc_html__( '(0 to clear the manual posts)', 'contextual-related-posts' );
+								echo ' ' . esc_html_e( '(0 to clear the manual posts)', 'contextual-related-posts' );
 							}
 							?>
 							<input type="text" name="crp_manual_related" class="widefat" value="">

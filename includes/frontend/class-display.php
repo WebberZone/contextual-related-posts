@@ -501,17 +501,6 @@ class Display {
 	}
 
 	/**
-	 * Get the default thumbnail.
-	 *
-	 * @since 3.6.0
-	 *
-	 * @return string Default thumbnail.
-	 */
-	public static function get_default_thumbnail() {
-		return WZ_CRP_PLUGIN_URL . 'default.png';
-	}
-
-	/**
 	 * Returns the link attributes.
 	 *
 	 * @since 3.5.0

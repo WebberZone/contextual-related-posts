@@ -249,9 +249,19 @@ class Helpers {
 	public static function strip_stopwords( $subject = '', $search = '', $replace = '' ): string {
 		// If no search terms provided, get WordPress stopwords.
 		if ( empty( $search ) ) {
-			$get_search_stopwords = new \ReflectionMethod( 'WP_Query', 'get_search_stopwords' );
-			$get_search_stopwords->setAccessible( true );
-			$search = $get_search_stopwords->invoke( new WP_Query() );
+			if ( method_exists( WP_Query::class, 'get_search_stopwords' ) ) {
+				$wp_query = new WP_Query();
+				$getter   = \Closure::bind(
+					function (): array {
+						return $this->get_search_stopwords();
+					},
+					$wp_query,
+					WP_Query::class
+				);
+				$search   = $getter();
+			} else {
+				$search = array();
+			}
 			$search = array_merge( $search, array( 'from', 'where' ) );
 		}
 

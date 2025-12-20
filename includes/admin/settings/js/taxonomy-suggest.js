@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 		options = options || {};
 
 		var taxonomy = options.taxonomy || $element.attr( 'data-wp-taxonomy' ) || 'category';
-		var tag_search = options.tag_search || $element.attr( 'data-wp-action' ) || 'crp_tag_search';
+		var tag_search = options.tag_search || $element.attr( 'data-wp-action' ) || 'wz_tags_search';
 		delete( options.taxonomy );
 		delete( options.tag_search );
 
@@ -104,9 +104,5 @@ jQuery(document).ready(function($) {
 
 	$( '.category_autocomplete' ).each( function ( i, element ) {
 		$( element ).WZTagsSuggest();
-	});
-
-	$('.widget-liquid-right, #customize-controls').on( 'click', '.category_autocomplete', function() {
-		$( '.category_autocomplete' ).WZTagsSuggest();
 	});
 });
