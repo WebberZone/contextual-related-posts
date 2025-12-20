@@ -612,6 +612,65 @@ class CRP_Core_Query {
 	}
 
 	/**
+	 * Check if MySQL is currently under heavy load.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @return bool True if the database is considered backlogged.
+	 */
+	public function is_backlogged() {
+
+		$threshold = absint( $this->query_args['backlog_threshold'] ?? 0 );
+
+		// Threshold disabled.
+		if ( 0 === $threshold ) {
+			return false;
+		}
+
+		static $cached_running = null;
+		static $cache_time     = 0;
+
+		// Reuse the cached value if it is less than 1 second old.
+		if ( null !== $cached_running && ( time() - $cache_time ) < 1 ) {
+			$running = $cached_running;
+		} else {
+			global $wpdb;
+
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$row = $wpdb->get_row(
+				"SHOW GLOBAL STATUS WHERE Variable_name = 'Threads_running'",
+				ARRAY_A
+			);
+
+			// Fail open. If we cannot read the value, assume not backlogged.
+			$running = isset( $row['Value'] ) ? (int) $row['Value'] : 0;
+
+			$cached_running = $running;
+			$cache_time     = time();
+		}
+
+		$is_backlogged = $running >= $threshold;
+
+		/**
+		 * Filter whether CRP should consider the database backlogged.
+		 *
+		 * @since 4.2.0
+		 *
+		 * @param bool $is_backlogged Whether the database is backlogged.
+		 * @param int  $running      Current Threads_running value.
+		 * @param int  $threshold    Configured threshold.
+		 * @param self $query        Current query instance.
+		 */
+		return (bool) apply_filters(
+			'crp_is_backlogged',
+			$is_backlogged,
+			$running,
+			$threshold,
+			$this
+		);
+	}
+
+	/**
 	 * Modify the pre_get_posts clause.
 	 *
 	 * @since 3.5.0
@@ -1045,6 +1104,10 @@ class CRP_Core_Query {
 		// Return if it is not a CRP_Query.
 		if ( true !== $query->get( 'crp_query' ) ) {
 			return $posts;
+		}
+
+		if ( $this->is_backlogged() ) {
+			return array();
 		}
 
 		$post_ids = array();
