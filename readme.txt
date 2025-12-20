@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.1.0
+Stable tag: 4.2.0
 Requires at least: 6.5
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -50,12 +50,17 @@ Two options on the settings page allow you to remove these indices when deactiva
 
 ### 💼 Features Exclusive to CRP Pro
 
+#### 🛡️ Traffic Controls
+
+* [Bot Protection](https://webberzone.com/support/knowledgebase/contextual-related-posts-bot-protection/): Skip CRP processing for known bots and crawlers using an extensible signature list, saving server resources.
+
 [CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) supercharges your related posts with advanced customization, better performance, and powerful content strategy tools.
 
 #### 🚀 Performance Enhancements
 
 * [Efficient Content Storage and Indexing](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/): Speed up your site with optimized custom tables and efficient database indices for lightning-fast queries.
 * [Cache Setting](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/): Fine-tune your performance with configurable cache times from 1 hour to 1 year.
+* [Server Load Threshold](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/): Prevent CRP from running queries when the database is under heavy load.
 
 #### 🎯 Smarter Content Matching
 
@@ -164,31 +169,22 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 
 == Changelog ==
 
-= 4.1.1 =
-
-* Bug fixes:
-    * Fixed PHP warning when saving settings in PHP 8.3 and above.
-
-= 4.1.0 =
-
-Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-1-0/](https://webberzone.com/announcements/contextual-related-posts-v4-1-0/)
+= 4.2.0 =
 
 * Features:
-    * New Wizard to guide users through the setup process.
+	* [Pro] Multisite tool to copy Contextual Related Posts settings between sites from the Network Settings page.
+	* [Pro] WooCommerce integration with ECSI-powered product indexing and related posts output on product pages. WooCommerce related products output customisation options (thumbnail, sale badge, price, rating, add to cart) and product filtering options.
+	* [Pro] Server Load Threshold setting to skip CRP queries when MySQL is backlogged. [Learn more](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/).
+	* [Pro] Bot Protection setting to short-circuit CRP for known crawlers and bots, preserving resources and analytics integrity.
 
 * Modifications:
-    * Renamed `CRP_VERSION`, `CRP_PLUGIN_FILE`, `CRP_PLUGIN_DIR` and `CRP_PLUGIN_URL` constants to `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR` and `WZ_CRP_PLUGIN_URL` respectively to avoid conflicts with other plugins.
-    * New function `crp_get_blog_option()` to fetch an option from a specific blog in WordPress multisite.
-    * Better handling of options if they haven't been set.
-	* Fulltext indexes are now named `wz_title_content`, `wz_title`, and `wz_content` to ensure compatibility and optimize database space, especially when using Contextual Related Posts. After updating to this version, please recreate the indexes to benefit from the changes—until then, the plugin will use the previous index names.
-    * [Pro] Improved the UI and functionality of the Custom Table indexing process.
-    * [Pro] Multisite Settings page for Enhanced Content Search Index (ECSI) has been modified.
+	* Improved Media Handler to reduce recursion, generate more reliable resized thumbnails, and better detect image alt text and attributes.
+	* Settings framework refactored from static to instance methods with Tom Select powered AJAX taxonomy search for a smoother admin experience.
+	* Updated bundled Freemius SDK to version 2.13.0.
 
 * Bug fixes:
-    * Fixed ordering issue on pages when "Same taxonomies" is selected.
-    * Set the postid if it's different from the queried object in the Core Query class.
-    * Fixed conflict with WPML showing the current post incorrectly.
-	* Fixed an issue where activating the Pro plugin while the Free plugin was active, or vice versa, would cause a fatal error.
+	* Fixed a missing `echo` in the Media Handler that could prevent some image markup from being printed in specific cases.
+	* Improved translation string handling in the settings UI and adjusted Plugin Check rules to avoid false positives.
 
 = Earlier versions =
 

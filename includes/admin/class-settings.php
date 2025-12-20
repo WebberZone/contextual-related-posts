@@ -279,6 +279,14 @@ class Settings {
 				'type'    => 'checkbox',
 				'default' => false,
 			),
+			'bot_protection'               => array(
+				'id'      => 'bot_protection',
+				'name'    => esc_html__( 'Enable bot protection', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Prevents Contextual Related Posts from running on known bots and crawlers.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
 			'uninstall_settings_header'    => array(
 				'id'   => 'uninstall_settings_header',
 				'name' => '<h3>' . esc_html__( 'Uninstall settings', 'contextual-related-posts' ) . '</h3>',
@@ -1384,6 +1392,16 @@ class Settings {
 				'default' => 3000,
 				'min'     => 0,
 				'step'    => 100,
+				'pro'     => true,
+			),
+			'backlog_threshold'    => array(
+				'id'      => 'backlog_threshold',
+				'name'    => esc_html__( 'Server Load Threshold', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Skip CRP query execution when MySQL has too many active threads to prevent server overload. Set to 0 to disable this check. Useful for high-traffic sites where database performance is critical.', 'contextual-related-posts' ) . ' <a href="https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/" aria-label="Learn more about Server Load Threshold setting" target="_blank">Learn more</a>.',
+				'type'    => 'number',
+				'default' => 0,
+				'min'     => 0,
+				'size'    => 'small',
 				'pro'     => true,
 			),
 		);
