@@ -46,6 +46,21 @@
         "phpstan-baseline": "vendor/bin/phpstan analyse --memory-limit=2048M --generate-baseline",
         "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
         "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
-        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'test-tools**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php'"
+        "phpcompat:setup": [
+            "@php -r \"if (!is_dir('phpcompat-tools')) { mkdir('phpcompat-tools'); }\"",
+            "@composer config --working-dir=phpcompat-tools allow-plugins.dealerdirect/phpcodesniffer-composer-installer true 2>/dev/null || true",
+            "@composer require --working-dir=phpcompat-tools --dev --quiet --no-interaction squizlabs/php_codesniffer:^4.0 phpcompatibility/php-compatibility:dev-develop dealerdirect/phpcodesniffer-composer-installer:^1.0 2>/dev/null || true"
+        ],
+        "phpcompat": [
+            "@phpcompat:setup",
+            "phpcompat-tools/vendor/bin/phpcs -p --standard=PHPCompatibility --runtime-set testVersion 7.4-8.5 --extensions=php --ignore=*/vendor/*,*/node_modules/*,*/tests/*,*/phpunit/*,*/freemius/*,*/phpcompat-tools/* ."
+        ],
+        "phpcompat:clean": "rm -rf phpcompat-tools",
+        "test": [
+            "@phpcs",
+            "@phpcompat",
+            "@phpstan"
+        ],
+        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'test-tools**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php' 'phpcompat-tools**'"
     }
 }
