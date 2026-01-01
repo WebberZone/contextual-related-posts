@@ -101,23 +101,39 @@ class Helpers {
 	 * @return string Truncated string.
 	 */
 	public static function trim_char( $input, $count = 60, $more = '&hellip;', $break_words = false ) {
-
-		$output = wp_strip_all_tags( $input, true );
-		$count  = absint( $count );
-
+		$count = absint( $count );
 		if ( 0 === $count ) {
 			return $input;
 		}
-		if ( mb_strlen( $output ) > $count ) {
-			$count -= min( $count, mb_strlen( $more ) );
+
+		// Decode HTML entities and strip tags.
+		$output = html_entity_decode( $input, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		$output = wp_strip_all_tags( $output, true );
+
+		// Normalize Unicode if intl extension is available.
+		if ( class_exists( '\Normalizer' ) && ! \Normalizer::isNormalized( $output, \Normalizer::FORM_C ) ) {
+			$output = \Normalizer::normalize( $output, \Normalizer::FORM_C );
+		}
+
+		$output_length = mb_strlen( $output, 'UTF-8' );
+
+		if ( $output_length > $count ) {
+			$count -= min( $count, mb_strlen( $more, 'UTF-8' ) );
+
 			if ( ! $break_words ) {
-				$output = preg_replace( '/\s+?(\S+)?$/u', '', mb_substr( $output, 0, $count + 1 ) );
+				$output = preg_replace(
+					'/\s+?(\S+)?$/u',
+					'',
+					mb_substr( $output, 0, $count + 1, 'UTF-8' )
+				);
 			}
-			$output = mb_substr( $output, 0, $count ) . $more;
+
+			$output = mb_substr( $output, 0, $count, 'UTF-8' ) . $more;
 		}
 
 		return $output;
 	}
+
 
 	/**
 	 * Get the primary term for a given post.

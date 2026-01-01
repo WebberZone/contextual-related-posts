@@ -72,14 +72,6 @@ class CRP_Core_Query {
 	public $random_order = false;
 
 	/**
-	 * CRP Post Meta.
-	 *
-	 * @since 3.0.0
-	 * @var mixed
-	 */
-	public $crp_post_meta;
-
-	/**
 	 * Array of manual related post IDs.
 	 *
 	 * @since 3.3.0
@@ -136,6 +128,14 @@ class CRP_Core_Query {
 	public $include_orderby_title = array();
 
 	/**
+	 * Static flag to prevent recursive instantiation.
+	 *
+	 * @since 4.2.0
+	 * @var bool
+	 */
+	private static $recursion_guard = false;
+
+	/**
 	 * Main constructor.
 	 *
 	 * @since 3.0.0
@@ -143,11 +143,18 @@ class CRP_Core_Query {
 	 * @param array|string $args The Query variables. Accepts an array or a query string.
 	 */
 	public function __construct( $args = array() ) {
+		// Prevent recursive instantiation when parse_query hook triggers.
+		if ( self::$recursion_guard ) {
+			return;
+		}
+
+		self::$recursion_guard = true;
 		$this->prepare_query_args( $args );
 
 		if ( isset( $args['crp_query'] ) && true === $args['crp_query'] && ! $this->is_crp_query ) {
 			$this->hooks();
 		}
+		self::$recursion_guard = false;
 	}
 
 	/**
@@ -177,33 +184,59 @@ class CRP_Core_Query {
 	 * @param string|array $args {
 	 *     Optional. Array or string of Query parameters.
 	 *
-	 *     @type array|string  $include_cat_ids  An array or comma-separated string of category or custom taxonomy term_taxonoy_id.
-	 *     @type array|string  $include_post_ids An array or comma-separated string of post IDs.
-	 *     @type bool          $offset           Offset the related posts returned by this number.
-	 *     @type int           $postid           Get related posts for a specific post ID.
-	 *     @type bool          $strict_limit     If this is set to false, then it will fetch 3x posts.
+	 *     @type array|string                $include_cat_ids  An array or comma-separated string of category or custom taxonomy term_taxonomy_id.
+	 *     @type array|string                $include_post_ids An array or comma-separated string of post IDs.
+	 *     @type int                         $offset           Offset the related posts returned by this number.
+	 *     @type int|string|\WP_Post|false   $post_id          Post ID or object to find related posts for.
 	 * }
 	 */
 	public function prepare_query_args( $args = array() ) {
 		global $post;
+
 		$crp_settings = crp_get_settings();
 
 		$defaults = array(
 			'include_cat_ids'  => 0,
 			'include_post_ids' => null,
 			'offset'           => 0,
-			'postid'           => false,
-			'strict_limit'     => true,
+			'post_id'          => false,
 		);
 		$defaults = array_merge( $defaults, $crp_settings );
 		$args     = wp_parse_args( $args, $defaults );
-		$args     = Helpers::parse_wp_query_arguments( $args );
 
-		// Set the postid if it's different from the queried object.
-		$queried_object_post_id = get_queried_object_id();
-		if ( is_main_query() && $queried_object_post_id && empty( $args['postid'] ) && ( $queried_object_post_id !== $args['postid'] ) ) {
-			$args['postid'] = $queried_object_post_id;
+		// Set the source post.
+		$post_id = $args['post_id'] ?? $args['postid'] ?? null;
+
+		if ( ! empty( $post_id ) ) {
+			// Handle WP_Post object, int, or string.
+			$source_post = ( $post_id instanceof \WP_Post ) ? $post_id : get_post( $post_id );
+
+			// Deprecated argument handling.
+			if ( ! empty( $args['postid'] ) ) {
+				_deprecated_argument( __CLASS__ . '::' . __FUNCTION__, '4.2.0', 'The "postid" parameter is deprecated. Use "post_id" instead.' );
+			}
+		} elseif ( is_main_query() && get_queried_object() instanceof \WP_Post ) {
+			$source_post = get_queried_object();
+		} elseif ( ! empty( $post ) ) {
+			$source_post = $post;
+		} else {
+			$source_post = get_post();
 		}
+
+		if ( ! $source_post instanceof \WP_Post ) {
+			return;
+		}
+
+		// Defensive check: correct the source post if we're in main query without explicit post_id.
+		$queried_object = get_queried_object();
+		if ( is_main_query() && empty( $post_id ) && $queried_object instanceof \WP_Post && $queried_object->ID !== $source_post->ID ) {
+			$source_post = $queried_object;
+		}
+
+		$this->source_post = $source_post;
+		$args['post_id']   = $source_post->ID;
+
+		$args = Helpers::parse_wp_query_arguments( $args );
 
 		// Set necessary variables.
 		$args['crp_query']           = true;
@@ -213,17 +246,7 @@ class CRP_Core_Query {
 
 		// Store query args before we manipulate them.
 		$this->input_query_args = $args;
-		$this->is_crp_query     = isset( $this->input_query_args['is_crp_query'] ) ? $this->input_query_args['is_crp_query'] : false;
-
-		// Set the source post.
-		$source_post = empty( $args['postid'] ) && empty( $args['post_id'] ) ? $post : ( isset( $args['postid'] ) ? get_post( $args['postid'] ) : get_post( $args['post_id'] ) );
-		if ( ! $source_post ) {
-			$source_post = get_post();
-		}
-		if ( ! $source_post ) {
-			return;
-		}
-		$this->source_post = $source_post;
+		$this->is_crp_query     = isset( $args['is_crp_query'] ) ? (bool) $args['is_crp_query'] : false;
 
 		/**
 		 * Applies filters to the query arguments before executing the query.
@@ -235,21 +258,18 @@ class CRP_Core_Query {
 		 * @param array     $args         The query arguments.
 		 * @param \WP_Post  $source_post  The source post.
 		 */
-		$args = apply_filters( 'crp_query_args_before', $args, $source_post );
-
-		// Save post meta into a class-wide variable.
-		$this->crp_post_meta = get_post_meta( $source_post->ID, 'crp_post_meta', true );
+		$args = apply_filters( 'crp_query_args_before', $args, $this->source_post );
 
 		// Handle manual_related argument.
-		if ( isset( $args['manual_related'] ) ) {
+		if ( ! empty( $args['manual_related'] ) ) {
 			$this->manual_related = ( 0 === (int) $args['manual_related'] ) ? array() : wp_parse_id_list( $args['manual_related'] );
 		} else {
-			$args['manual_related'] = ! empty( $this->crp_post_meta['manual_related'] ) ? $this->crp_post_meta['manual_related'] : '';
-			$this->manual_related   = wp_parse_id_list( $args['manual_related'] );
+			$args['manual_related'] = crp_get_meta( $source_post->ID, 'manual_related' );
+			$this->manual_related   = ! empty( $args['manual_related'] ) ? wp_parse_id_list( $args['manual_related'] ) : array();
 		}
 
 		// Handle include_post_ids argument.
-		if ( isset( $args['include_post_ids'] ) ) {
+		if ( ! empty( $args['include_post_ids'] ) ) {
 			$include_post_ids     = ( 0 === (int) $args['include_post_ids'] ) ? array() : wp_parse_id_list( $args['include_post_ids'] );
 			$this->manual_related = array_merge( $this->manual_related, $include_post_ids );
 		}
@@ -257,21 +277,12 @@ class CRP_Core_Query {
 		$this->no_of_manual_related = count( $this->manual_related );
 
 		if ( empty( $args['keyword'] ) ) {
-			$args['keyword'] = ! empty( $this->crp_post_meta['keyword'] ) ? $this->crp_post_meta['keyword'] : '';
+			$args['keyword'] = crp_get_meta( $this->source_post->ID, 'keyword' );
 		}
 
 		// Set the random order and save it in a class-wide variable.
-		$random_order = ( $args['random_order'] || ( isset( $args['ordering'] ) && 'random' === $args['ordering'] ) ) ? true : false;
-		// If we need to order randomly then set strict_limit to false.
-		if ( $random_order ) {
-			$args['strict_limit'] = false;
-		}
+		$random_order       = ( $args['random_order'] || ( isset( $args['ordering'] ) && 'random' === $args['ordering'] ) ) ? true : false;
 		$this->random_order = $random_order;
-
-		// Set the number of posts to be retrieved. Use posts_per_page if set else use limit.
-		if ( empty( $args['posts_per_page'] ) ) {
-			$args['posts_per_page'] = ( $args['strict_limit'] ) ? absint( $args['limit'] ) : ( absint( $args['limit'] ) * 3 );
-		}
 
 		if ( empty( $args['post_type'] ) ) {
 			// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
@@ -294,7 +305,7 @@ class CRP_Core_Query {
 
 			// If we only want posts from the same post type.
 			if ( $args['same_post_type'] ) {
-				$post_types = (array) $source_post->post_type;
+				$post_types = (array) $this->source_post->post_type;
 			}
 
 			/**
@@ -307,7 +318,7 @@ class CRP_Core_Query {
 			 * @param \WP_Post $source_post Source Post instance.
 			 * @param array   $args        Arguments array.
 			 */
-			$args['post_type'] = apply_filters( 'crp_posts_post_types', $post_types, $source_post, $args );
+			$args['post_type'] = apply_filters( 'crp_posts_post_types', $post_types, $this->source_post, $args );
 		}
 
 		// Tax Query.
@@ -336,11 +347,11 @@ class CRP_Core_Query {
 
 		if ( ! empty( $args['primary_term'] ) ) {
 			// Get the taxonomies used by the post type.
-			$post_taxonomies = get_object_taxonomies( $source_post );
+			$post_taxonomies = get_object_taxonomies( $this->source_post );
 
 			foreach ( (array) $post_taxonomies as $term ) {
 				if ( empty( $primary_term['primary'] ) ) {
-					$primary_term = Helpers::get_primary_term( $source_post, $term );
+					$primary_term = Helpers::get_primary_term( $this->source_post, $term );
 				}
 			}
 
@@ -360,7 +371,7 @@ class CRP_Core_Query {
 
 			// Get the taxonomies used by the post type.
 			if ( empty( $post_taxonomies ) ) {
-				$post_taxonomies = get_object_taxonomies( $source_post );
+				$post_taxonomies = get_object_taxonomies( $this->source_post );
 			}
 
 			// Only limit the taxonomies to what is selected for the current post.
@@ -370,7 +381,7 @@ class CRP_Core_Query {
 			$args['taxonomy_count'] = count( $current_taxonomies );
 
 			// Get the terms for the current post.
-			$terms = wp_get_object_terms( $source_post->ID, (array) $current_taxonomies );
+			$terms = wp_get_object_terms( $this->source_post->ID, (array) $current_taxonomies );
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
 				$term_taxonomy_ids = array_unique( wp_list_pluck( $terms, 'term_taxonomy_id' ) );
 
@@ -392,7 +403,7 @@ class CRP_Core_Query {
 		 * @param \WP_Post $source_post Source Post instance.
 		 * @param array    $args        Arguments array.
 		 */
-		$tax_query = apply_filters( 'crp_query_tax_query', $tax_query, $source_post, $args );
+		$tax_query = apply_filters( 'crp_query_tax_query', $tax_query, $this->source_post, $args );
 
 		// Add a relation key if more than one $tax_query.
 		if ( count( $tax_query ) > 1 && ! isset( $tax_query['relation'] ) ) {
@@ -468,8 +479,12 @@ class CRP_Core_Query {
 		// Set post_status.
 		$args['post_status'] = empty( $args['post_status'] ) ? array( 'publish', 'inherit' ) : $args['post_status'];
 
-		// Set post__not_in for WP_Query using exclude_post_ids.
-		$args['post__not_in'] = $this->exclude_post_ids( $args );
+		// Increase posts_per_page to fetch more posts to account for PHP exclusions.
+		if ( ! isset( $args['posts_per_page'] ) || empty( $args['posts_per_page'] ) ) {
+			$args['posts_per_page'] = $args['limit'] * 3;
+		} else {
+			$args['posts_per_page'] = max( $args['posts_per_page'] * 3, $args['limit'] * 3 );
+		}
 
 		// Same author.
 		if ( isset( $args['same_author'] ) && $args['same_author'] ) {
@@ -874,12 +889,14 @@ class CRP_Core_Query {
 			$where .= " AND ( 1=1 OR $include )";
 		}
 
-		if ( isset( $this->crp_post_meta['exclude_words'] ) ) {
+		$exclude_words_meta = crp_get_meta( $this->source_post->ID, 'exclude_words' );
+
+		if ( ! empty( $exclude_words_meta ) ) {
 
 			$n          = '%';
 			$excludeand = '';
 
-			$exclude_words = preg_split( '/[,\s]+/', $this->crp_post_meta['exclude_words'] );
+			$exclude_words = preg_split( '/[,\s]+/', $exclude_words_meta );
 			$exclude_words = array_filter( $exclude_words );
 			foreach ( (array) $exclude_words as $word ) {
 				$like_op  = 'NOT LIKE';
@@ -1113,7 +1130,7 @@ class CRP_Core_Query {
 		$post_ids = array();
 
 		// Check the cache if there are any posts saved.
-		if ( ! empty( $this->query_args['cache_posts'] ) && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
+		if ( $this->should_cache() ) {
 
 			$meta_key = Cache::get_key( $this->input_query_args );
 
@@ -1176,13 +1193,8 @@ class CRP_Core_Query {
 			return $posts;
 		}
 
-		// Support caching to speed up retrieval.
-		if ( ! empty( $this->query_args['cache_posts'] ) && ! $this->in_cache && ! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
-			$meta_key = Cache::get_key( $this->input_query_args );
-			$post_ids = wp_list_pluck( $query->posts, 'ID' );
-
-			Cache::set_cache( $this->source_post->ID, $meta_key, $post_ids );
-		}
+		// Define excluded IDs for PHP filtering to comply with WordPress VIP guidelines.
+		$excluded_ids = $this->exclude_post_ids( $this->query_args );
 
 		// Shuffle posts if random order is set.
 		if ( $this->random_order ) {
@@ -1217,11 +1229,10 @@ class CRP_Core_Query {
 			if ( ! empty( $related_meta_query ) ) {
 				$meta_posts = get_posts(
 					array(
-						'post__not_in' => $this->exclude_post_ids( $this->query_args ),
-						'fields'       => $query->get( 'fields' ),
-						'numberposts'  => $query->get( 'posts_per_page' ),
-						'post_type'    => $query->get( 'post_type' ),
-						'meta_query'   => $related_meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						'fields'      => $query->get( 'fields' ),
+						'numberposts' => $query->get( 'posts_per_page' ),
+						'post_type'   => $query->get( 'post_type' ),
+						'meta_query'  => $related_meta_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					)
 				);
 				$posts      = array_merge( $meta_posts, $posts );
@@ -1275,6 +1286,31 @@ class CRP_Core_Query {
 			}
 		}
 
+		// Final filtering and slicing for PHP exclusions to comply with WordPress VIP guidelines.
+		if ( ! empty( $excluded_ids ) ) {
+			$posts = array_values(
+				array_filter(
+					$posts,
+					static fn( $post ) => ! in_array( $post->ID, $excluded_ids, true )
+				)
+			);
+		}
+
+		$limit = $this->query_args['limit'];
+		$posts = array_slice( $posts, 0, $limit );
+
+		// Support caching to speed up retrieval - set cache AFTER final limiting.
+		if ( ! $this->in_cache && $this->should_cache() ) {
+			$meta_key = Cache::get_key( $this->input_query_args );
+			$post_ids = wp_list_pluck( $posts, 'ID' );
+
+			Cache::set_cache( $this->source_post->ID, $meta_key, $post_ids );
+		}
+
+		// Update query properties for consistency.
+		$query->found_posts   = count( $posts );
+		$query->max_num_pages = 1;
+
 		/**
 		 * Filter array of WP_Post objects before it is returned to the CRP_Query instance.
 		 *
@@ -1313,18 +1349,22 @@ class CRP_Core_Query {
 
 		$exclude_post_ids = empty( $args['exclude_post_ids'] ) ? array() : wp_parse_id_list( $args['exclude_post_ids'] );
 
-		// Exclude posts with exclude_this_post set to true or exclude_post_ids set.
-		$crp_post_metas = $wpdb->get_results( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE `meta_key` = 'crp_post_meta'", ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		// Exclude posts with exclude_this_post set to true.
+		$exclude_this_post_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$wpdb->prepare(
+				"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
+				'_crp_exclude_this_post',
+				'1'
+			)
+		);
 
-		foreach ( $crp_post_metas as $crp_post_meta ) {
-			$meta_value = maybe_unserialize( $crp_post_meta['meta_value'] );
+		$exclude_post_ids = array_merge( $exclude_post_ids, $exclude_this_post_ids );
 
-			if ( isset( $meta_value['exclude_this_post'] ) && $meta_value['exclude_this_post'] ) {
-				$exclude_post_ids[] = $crp_post_meta['post_id'];
-			}
-			if ( isset( $meta_value['exclude_post_ids'] ) && $meta_value['exclude_post_ids'] ) {
-				$exclude_post_ids = array_merge( $exclude_post_ids, explode( ',', $meta_value['exclude_post_ids'] ) );
-			}
+		// Exclude posts with exclude_post_ids set.
+		$exclude_post_ids_meta = crp_get_meta( $post_id, 'exclude_post_ids' );
+
+		if ( ! empty( $exclude_post_ids_meta ) ) {
+			$exclude_post_ids = array_merge( $exclude_post_ids, wp_parse_id_list( $exclude_post_ids_meta ) );
 		}
 
 		/**
@@ -1342,7 +1382,7 @@ class CRP_Core_Query {
 
 		$exclude_post_ids[] = $this->source_post->ID;
 
-		$exclude_post_ids_cache[ $post_id ] = array_unique( $exclude_post_ids );
+		$exclude_post_ids_cache[ $post_id ] = array_unique( wp_parse_id_list( $exclude_post_ids ) );
 
 		return $exclude_post_ids_cache[ $post_id ];
 	}
@@ -1391,5 +1431,17 @@ class CRP_Core_Query {
 		}
 
 		return $search_orderby;
+	}
+
+	/**
+	 * Check if the output should be cached.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @return bool True if the output should be cached.
+	 */
+	public function should_cache() {
+		return ! empty( $this->query_args['cache_posts'] ) &&
+				! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) );
 	}
 }

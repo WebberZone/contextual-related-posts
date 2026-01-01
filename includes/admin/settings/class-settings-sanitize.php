@@ -180,7 +180,7 @@ class Settings_Sanitize {
 		 *
 		 * @param array $allowedtags Allowed tags array.
 		 */
-		$allowedtags = apply_filters( 'wz_sanitize_allowed_tags', $allowedtags );
+		$allowedtags = apply_filters( $this->prefix . '_sanitize_allowed_tags', $allowedtags );
 
 		return wp_kses( wp_unslash( $value ), $allowedtags );
 	}

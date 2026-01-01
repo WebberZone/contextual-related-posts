@@ -3,6 +3,7 @@
         <key name="crp_settings">
             <key name="title" />
             <key name="blank_output_text" />
+            <key name="wc_related_heading" />
         </key>
     </admin-texts>
 </wpml-config>

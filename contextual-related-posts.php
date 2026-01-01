@@ -92,7 +92,7 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
  * @since 3.0.0
  */
 if ( ! defined( 'CRP_CACHE_TIME' ) ) {
-	define( 'CRP_CACHE_TIME', MONTH_IN_SECONDS );
+	define( 'CRP_CACHE_TIME', WEEK_IN_SECONDS );
 }
 
 /**

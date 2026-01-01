@@ -255,9 +255,9 @@ class Related_Posts_Widget extends \WP_Widget {
 
 		// Get the post meta.
 		if ( isset( $post ) ) {
-			$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
+			$crp_disable_here = crp_get_meta( $post->ID, 'disable_here' );
 
-			if ( isset( $crp_post_meta['disable_here'] ) && $crp_post_meta['disable_here'] ) {
+			if ( $crp_disable_here ) {
 				return;
 			}
 		}

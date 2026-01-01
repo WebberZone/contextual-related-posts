@@ -244,14 +244,6 @@ class Settings_Wizard_API {
 
 		$minimize = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		// Core scripts and styles.
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_media();
-		wp_enqueue_script( 'wp-color-picker' );
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-ui-autocomplete' );
-		wp_enqueue_script( 'jquery-ui-tabs' );
-
 		// Wizard styles.
 		wp_enqueue_style(
 			"{$this->prefix}-wizard-css",
@@ -260,6 +252,9 @@ class Settings_Wizard_API {
 			$this->get_version(),
 			'all'
 		);
+
+		// Use Settings_API to enqueue common scripts and styles.
+		Settings_API::enqueue_scripts_styles( $this->prefix );
 
 		// Tom Select assets for taxonomy fields.
 		wp_register_style(
@@ -289,18 +284,18 @@ class Settings_Wizard_API {
 		// Localize Tom Select settings for wizard.
 		wp_localize_script(
 			'wz-' . $this->prefix . '-tom-select-init',
-			'CRPTomSelectSettings',
+			'WZKBTomSelectSettings',
 			array(
 				'action'   => $this->prefix . '_taxonomy_search_tom_select',
 				'nonce'    => wp_create_nonce( $this->prefix . '_taxonomy_search_tom_select' ),
 				'endpoint' => 'category',
 				'strings'  => array(
+					// translators: %s: Search query.
 					'no_results' => esc_html( $this->translation_strings['tom_select_no_results'] ),
 				),
 			)
 		);
 	}
-
 
 	/**
 	 * Process wizard step submission.
@@ -696,6 +691,15 @@ class Settings_Wizard_API {
 	}
 
 	/**
+	 * Get the skip wizard link URL.
+	 *
+	 * @return string Skip wizard link URL.
+	 */
+	protected function get_skip_link_url() {
+		return admin_url( 'index.php' );
+	}
+
+	/**
 	 * Render wizard navigation buttons.
 	 */
 	protected function render_wizard_buttons() {
@@ -717,9 +721,9 @@ class Settings_Wizard_API {
 				</button>
 			<?php endif; ?>
 
-			<button type="submit" name="wizard_action" value="skip_wizard" class="button button-link">
+			<a href="<?php echo esc_url( $this->get_skip_link_url() ); ?>" class="button wizard-button-skip">
 				<?php echo esc_html( $this->translation_strings['skip_wizard'] ); ?>
-			</button>
+			</a>
 		</div>
 		<?php
 	}
@@ -826,7 +830,7 @@ class Settings_Wizard_API {
 	protected function render_wizard_steps_navigation() {
 		$step_keys = array_keys( $this->steps );
 		?>
-		<ol class="wizard-steps-nav" role="tablist" aria-label="<?php echo esc_attr( $this->translation_strings['wizard_steps_label'] ?? 'Setup Wizard Steps' ); ?>">
+		<ol class="wizard-steps-nav" role="tablist" aria-label="<?php esc_attr_e( 'Setup Wizard Steps', 'knowledgebase' ); ?>">
 			<?php
 			foreach ( $step_keys as $index => $step_key ) :
 				$step_number  = $index + 1;
@@ -845,14 +849,37 @@ class Settings_Wizard_API {
 				$class = implode( ' ', $class_parts );
 				?>
 				<li class="<?php echo esc_attr( $class ); ?>"<?php echo $aria_current; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-					<span class="step-number"><?php echo esc_html( (string) $step_number ); ?></span>
-					<span class="step-name"><?php echo esc_html( $step_config['title'] ?? '' ); ?></span>
+					<?php if ( $is_completed ) : ?>
+						<a href="<?php echo esc_url( $this->get_step_url( $step_number ) ); ?>" class="step-link">
+							<span class="step-number"><?php echo esc_html( (string) $step_number ); ?></span>
+							<span class="step-name"><?php echo esc_html( $step_config['title'] ?? '' ); ?></span>
+						</a>
+					<?php else : ?>
+						<span class="step-number"><?php echo esc_html( (string) $step_number ); ?></span>
+						<span class="step-name"><?php echo esc_html( $step_config['title'] ?? '' ); ?></span>
+					<?php endif; ?>
 				</li>
 				<?php
 			endforeach;
 			?>
 		</ol>
 		<?php
+	}
+
+	/**
+	 * Get the URL for a specific wizard step.
+	 *
+	 * @param int $step Step number.
+	 * @return string Step URL.
+	 */
+	protected function get_step_url( $step ) {
+		return add_query_arg(
+			array(
+				'page' => $this->page_slug,
+				'step' => $step,
+			),
+			admin_url( 'admin.php' )
+		);
 	}
 
 	/**
