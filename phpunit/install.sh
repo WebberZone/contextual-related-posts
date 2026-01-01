@@ -16,12 +16,38 @@ TMPDIR=$(echo $TMPDIR | sed -e "s/\/$//")
 WP_TESTS_DIR=${WP_TESTS_DIR-$TMPDIR/wordpress-tests-lib}
 WP_CORE_DIR=${WP_CORE_DIR-$TMPDIR/wordpress/}
 
+RETRIES=5
+SLEEP=10
+
+# retry_run: run a command and retry on failure
+retry_run() {
+	local n=0
+	until "$@"; do
+		n=$((n+1))
+		if [ $n -ge $RETRIES ]; then
+			echo "Command failed after $RETRIES attempts: $@" >&2
+			return 1
+		fi
+		echo "Command failed. Retrying in $SLEEP seconds... ($n/$RETRIES)" >&2
+		sleep $SLEEP
+	done
+	return 0
+}
+
 if [[ $WP_VERSION =~ ^[0-9]+\.[0-9]+$ ]]; then
 	WP_TESTS_TAG="branches/$WP_VERSION"
 elif [[ $WP_VERSION == 'trunk' ]]; then
 	WP_TESTS_TAG="trunk"
 else
-	LATEST_VERSION=$( curl -s https://api.wordpress.org/core/version-check/1.1/ | tail -1 )
+	# fetch the latest version with retries
+	TMP_VER_FILE=$(mktemp)
+	if ! retry_run curl -sSL https://api.wordpress.org/core/version-check/1.1/ -o "$TMP_VER_FILE"; then
+		echo "Latest WordPress version could not be fetched after $RETRIES attempts" >&2
+		rm -f "$TMP_VER_FILE"
+		exit 1
+	fi
+	LATEST_VERSION=$(tail -1 "$TMP_VER_FILE")
+	rm -f "$TMP_VER_FILE"
 	if [[ -z "$LATEST_VERSION" ]]; then
 		echo "Latest WordPress version could not be found"
 		exit 1
@@ -35,19 +61,22 @@ install_wp_and_test_suite() {
 	# setup up WordPress
 	if [ ! -d $WP_CORE_DIR ]; then
 		mkdir -p $WP_CORE_DIR
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/src/ $WP_CORE_DIR
+		# Retry svn checkout in case of transient network issues
+		retry_run svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/src/ $WP_CORE_DIR
 	fi
 
 	# set up testing suite if it doesn't yet exist
 	if [ ! -d $WP_TESTS_DIR ]; then
 		# set up testing suite
 		mkdir -p $WP_TESTS_DIR
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
-		svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/data/ $WP_TESTS_DIR/data
+		# Retry svn checkouts for includes and data
+		retry_run svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/includes/ $WP_TESTS_DIR/includes
+		retry_run svn co --quiet https://develop.svn.wordpress.org/${WP_TESTS_TAG}/tests/phpunit/data/ $WP_TESTS_DIR/data
 	fi
 
 	if [ ! -f wp-tests-config.php ]; then
-		curl -s https://develop.svn.wordpress.org/${WP_TESTS_TAG}/wp-tests-config-sample.php > "$WP_TESTS_DIR"/wp-tests-config.php
+		# download wp-tests-config-sample.php with retries
+		retry_run curl -sSL https://develop.svn.wordpress.org/${WP_TESTS_TAG}/wp-tests-config-sample.php -o "$WP_TESTS_DIR/wp-tests-config.php"
 		# remove all forward slashes in the end
 		WP_CORE_DIR=$(echo $WP_CORE_DIR | sed "s:/\+$::")
 		sed -i "s:dirname( __FILE__ ) . '/src/':'$WP_CORE_DIR/':" "$WP_TESTS_DIR"/wp-tests-config.php
