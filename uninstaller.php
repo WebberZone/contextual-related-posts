@@ -60,14 +60,16 @@ function crp_delete_data() {
 		// Delete block settings.
 		delete_option( 'crp_related_posts_pro_blocks_settings' );
 
+		// Delete other options set by the plugin.
+		delete_option( 'crp_meta_migration_done' );
+
 		// Delete post meta data.
 		$wpdb->query( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			"
 			DELETE FROM {$wpdb->postmeta}
 			WHERE `meta_key` LIKE 'crp_related_posts%'
-			OR `meta_key` LIKE '_crp_cache_%'
+			OR `meta_key` LIKE '_crp%'
 			OR `meta_key` LIKE 'crp_post_meta%'
-			OR `meta_key` LIKE '_crp_include_cat_%'
 		"
 		);
 

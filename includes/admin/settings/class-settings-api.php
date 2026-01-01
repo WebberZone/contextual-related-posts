@@ -27,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.7.1';
+	public const VERSION = '2.7.2';
 
 	/**
 	 * Settings Key.
@@ -545,14 +545,16 @@ class Settings_API {
 		);
 
 		if ( $hook === $this->settings_page ) {
-			$this->enqueue_scripts_styles();
+			self::enqueue_scripts_styles( $this->prefix );
 		}
 	}
 
 	/**
 	 * Enqueues all scripts, styles, settings, and templates necessary to use the Settings API.
+	 *
+	 * @param string $prefix Prefix which is used for creating the unique filters and actions.
 	 */
-	public function enqueue_scripts_styles() {
+	public static function enqueue_scripts_styles( $prefix ) {
 
 		wp_enqueue_style( 'wp-color-picker' );
 
@@ -572,28 +574,28 @@ class Settings_API {
 			)
 		);
 
-		wp_enqueue_script( 'wz-' . $this->prefix . '-admin' );
-		wp_enqueue_script( 'wz-' . $this->prefix . '-codemirror' );
-		wp_enqueue_script( 'wz-' . $this->prefix . '-taxonomy-suggest' );
-		wp_enqueue_script( 'wz-' . $this->prefix . '-media-selector' );
+		wp_enqueue_script( 'wz-' . $prefix . '-admin' );
+		wp_enqueue_script( 'wz-' . $prefix . '-codemirror' );
+		wp_enqueue_script( 'wz-' . $prefix . '-taxonomy-suggest' );
+		wp_enqueue_script( 'wz-' . $prefix . '-media-selector' );
 
 		// Enqueue Tom Select.
-		wp_enqueue_style( 'wz-' . $this->prefix . '-tom-select' );
-		wp_enqueue_script( 'wz-' . $this->prefix . '-tom-select' );
+		wp_enqueue_style( 'wz-' . $prefix . '-tom-select' );
+		wp_enqueue_script( 'wz-' . $prefix . '-tom-select' );
 
 		// Localize Tom Select settings.
 		wp_localize_script(
-			'wz-' . $this->prefix . '-tom-select-init',
+			'wz-' . $prefix . '-tom-select-init',
 			'WZTomSelectSettings',
 			array(
-				'action'   => $this->prefix . '_taxonomy_search_tom_select',
-				'nonce'    => wp_create_nonce( $this->prefix . '_taxonomy_search_tom_select' ),
+				'action'   => $prefix . '_taxonomy_search_tom_select',
+				'nonce'    => wp_create_nonce( $prefix . '_taxonomy_search_tom_select' ),
 				'endpoint' => 'forms',
 			)
 		);
-		wp_enqueue_script( 'wz-' . $this->prefix . '-tom-select-init' );
+		wp_enqueue_script( 'wz-' . $prefix . '-tom-select-init' );
 
-		wp_enqueue_style( 'wz-' . $this->prefix . '-admin' );
+		wp_enqueue_style( 'wz-' . $prefix . '-admin' );
 	}
 
 	/**

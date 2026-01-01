@@ -10,6 +10,7 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Util\Cache;
 use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
 
 // If this file is called directly, abort.
@@ -1249,7 +1250,7 @@ class Settings {
 				'name'    => esc_html__( 'Exclude out of stock products', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'Do not show out of stock products in related products.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
-				'default' => true,
+				'default' => false,
 				'pro'     => true,
 			),
 			'wc_same_category'        => array(
@@ -1264,14 +1265,6 @@ class Settings {
 				'id'      => 'wc_same_tag',
 				'name'    => esc_html__( 'Limit to same product tag', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'Only show products that share at least one product tag with the current product.', 'contextual-related-posts' ),
-				'type'    => 'checkbox',
-				'default' => false,
-				'pro'     => true,
-			),
-			'wc_enable_archives'      => array(
-				'id'      => 'wc_enable_archives',
-				'name'    => esc_html__( 'Enable WooCommerce integration on shop and archive pages', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'Allow WooCommerce-specific query filtering to apply on product archives (shop, product categories and tags). This does not automatically display related products on archive pages.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => false,
 				'pro'     => true,
@@ -1367,7 +1360,7 @@ class Settings {
 				'name'    => esc_html__( 'Cache Time', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'How long should the related posts be cached for. Default is 30 days.', 'contextual-related-posts' ),
 				'type'    => 'select',
-				'default' => MONTH_IN_SECONDS,
+				'default' => WEEK_IN_SECONDS,
 				'options' => array(
 					0                    => esc_html__( 'No expiry', 'contextual-related-posts' ),
 					HOUR_IN_SECONDS      => esc_html__( '1 Hour', 'contextual-related-posts' ),
@@ -1657,6 +1650,20 @@ class Settings {
 		// Force thumb_width and thumb_height if either are zero.
 		if ( empty( $settings['thumb_width'] ) || empty( $settings['thumb_height'] ) ) {
 			list( $settings['thumb_width'], $settings['thumb_height'] ) = \WebberZone\Contextual_Related_Posts\Frontend\Media_Handler::get_thumb_size( $settings['thumb_size'] );
+		}
+
+		if ( isset( $_POST['crp_save_clear_cache'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$count = Cache::delete();
+			add_settings_error(
+				self::$prefix . '-notices',
+				'crp-cache-cleared',
+				sprintf(
+					/* translators: %d is the number of cache entries cleared. */
+					esc_html__( 'Cache cleared. %d entries removed.', 'contextual-related-posts' ),
+					$count
+				),
+				'updated'
+			);
 		}
 
 		return $settings;

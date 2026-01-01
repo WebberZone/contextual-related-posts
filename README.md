@@ -8,9 +8,9 @@
 [![Required PHP](https://img.shields.io/wordpress/plugin/required-php/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 [![Active installs](https://img.shields.io/wordpress/plugin/installs/contextual-related-posts?style=flat-square)](https://wordpress.org/plugins/contextual-related-posts/)
 
-__Requires:__ 6.3
+__Requires:__ 6.6
 
-__Tested up to:__ 6.8
+__Tested up to:__ 6.9
 
 __Requires PHP:__ 7.4
 
@@ -26,7 +26,7 @@ Keep visitors on your site longer with intelligent, fast-loading contextually re
 
 ### Key features
 
-* __Activate and Forget__: Activate the plugin. Contextual Related Posts automatically displays related posts on your site and feed after the content. There is no need to edit any template files.
+* __Activate and Forget__: Activate the plugin. Contextual Related Posts automatically displays related posts on your site and in your feed after the content. There is no need to edit any template files.
 * __Custom Control with Manual Install__: Want placement control? You have multiple options available:
   * __Gutenberg / Block Editor support__: You can easily add a "Related Posts [CRP]" block to any post or page with its options and settings.
   * __Widgets__: Add related posts to any widgetized theme area, such as the sidebar or footer. You can configure the widget options to suit your needs.
@@ -50,6 +50,14 @@ Additional features include:
 * __Customizable output__: Display post excerpts in the related posts list. Customize the HTML tags and attributes used to display the output.
 * __Extendable code__: Many filters and actions allow developers to easily add features, modify outputs, or integrate with other plugins.
 
+### MySQL FULLTEXT indices
+
+On activation, the plugin creates three MySQL FULLTEXT indices (or indexes), which are leveraged to find the related posts. [Learn more about how the algorithm works](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/).
+
+If you're running a multisite installation, an index is created for each blog upon activation. These indices occupy space in your MySQL database but are essential for running the plugin.
+
+Two options on the settings page allow you to remove these indices when deactivating or deleting the plugin. The latter is true by default.
+
 ### 💼 Features Exclusive to CRP Pro
 
 [CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) supercharges your related posts with advanced customization, better performance, and powerful content strategy tools.
@@ -58,11 +66,37 @@ Additional features include:
 
 * [Efficient Content Storage and Indexing](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/): Speed up your site with optimized custom tables and efficient database indices for lightning-fast queries.
 * [Cache Setting](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/): Fine-tune your performance with configurable cache times from 1 hour to 1 year.
+* [Server Load Threshold](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/): Prevent CRP from running queries when the database is under heavy load.
+* [Bot Protection](https://webberzone.com/support/knowledgebase/contextual-related-posts-bot-protection/): Skip CRP processing for known bots and crawlers using an extensible signature list, saving server resources.
 
 #### 🎯 Smarter Content Matching
 
 * [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Control exactly how relevant content is found by adjusting weights for title, content, and excerpt.
 * [Taxonomy Weight System](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#weighting-categories-tags-and-taxonomies): Refine your matches with precise taxonomy weighting for perfect content relationships.
+
+#### 🛒 WooCommerce Integration
+
+* __Related Products for WooCommerce__: Seamlessly integrate with WooCommerce to show related products.
+* __Product Matching & Filtering__: Index SKUs and attributes, filter by stock status, and use category-based recommendations with native WooCommerce styling.
+* __Display Customization__: Toggle prices, ratings, and choose to replace or complement WooCommerce's related products.
+
+[📖 WooCommerce Related Products Documentation](https://webberzone.com/support/knowledgebase/woocommerce-related-products/)
+
+[📖 WooCommerce Related Products Documentation](https://webberzone.com/support/knowledgebase/woocommerce-related-products/)
+
+### WP-CLI Support
+
+Contextual Related Posts Pro includes comprehensive WP-CLI commands for advanced management and automation. Perfect for developers, agencies, and site administrators who need powerful command-line tools.
+
+__Key WP-CLI Features:__
+
+* __Database Management__: Migrate post meta, check index status, and manage database operations
+* __Cache Control__: Clear, warm, enable/disable cache with multisite support
+* __Custom Table Operations__: Sync content and manage FULLTEXT indexes for optimal performance
+* __Content Processing__: Reprocess posts and manage related content in bulk
+* __Multisite Ready__: All commands support `--network` flag for multisite installations
+
+[📖 Complete CLI Documentation](https://webberzone.com/support/knowledgebase/contextual-related-posts-wp-cli/)
 
 #### 🎨 Advanced Design & Display Options
 
@@ -75,14 +109,6 @@ Additional features include:
 * [Cornerstone Posts](https://webberzone.com/support/knowledgebase/cornerstone-posts-in-contextual-related-posts/): Guide visitors to your most important content by featuring key articles in your related posts lists.
 * [Additional Metabox Settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Control related content at the individual post level for perfect content relationships.
 
-### MySQL FULLTEXT indices
-
-On activation, the plugin creates three MySQL FULLTEXT indices (or indexes), which are leveraged to find the related posts. [Learn more about how the algorithm works](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/).
-
-If you're running a multisite installation, an index is created for each blog upon activation. These indices occupy space in your MySQL database but are essential for running the plugin.
-
-Two options on the settings page allow you to remove these indices when deactivating or deleting the plugin. The latter is true by default.
-
 ### GDPR
 
 Contextual Related Posts doesn’t collect personal data or send information to external services — making it GDPR-friendly by default.
@@ -94,6 +120,13 @@ Contextual Related Posts doesn’t collect personal data or send information to 
 Love Contextual Related Posts? Help keep it alive!
 
 You can [donate](https://wzn.io/donate-crp) or upgrade to [CRP Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) — both help support development and support.
+
+### Contribute
+
+Contextual Related Posts is also available on [Github](https://github.com/WebberZone/contextual-related-posts).
+So, if you've got some cool feature you'd like to implement into the plugin or a bug you've been able to fix, consider forking the project and sending me a pull request.
+
+Bug reports are [welcomed on Github](https://github.com/WebberZone/contextual-related-posts/issues). Please note Github is _not_ a support forum, and issues that aren't suitably qualified as bugs will be closed.
 
 ### Translations
 

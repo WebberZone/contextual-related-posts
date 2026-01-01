@@ -127,7 +127,12 @@ final class Hook_Loader {
 	 * @param \WP_Query $query The WP_Query object.
 	 */
 	public function parse_query( \WP_Query $query ): void {
-		if ( true === $query->get( 'crp_query' ) ) {
+		// Don't create CRP_Core_Query if we're already in a CRP_Query context.
+		if ( isset( $query->query_vars['is_crp_query'] ) && true === $query->query_vars['is_crp_query'] ) {
+			return;
+		}
+
+		if ( isset( $query->query_vars['crp_query'] ) && true === $query->query_vars['crp_query'] ) {
 			new CRP_Core_Query( $query->query_vars );
 		}
 	}

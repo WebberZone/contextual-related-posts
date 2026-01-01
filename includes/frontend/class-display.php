@@ -51,11 +51,7 @@ class Display {
 	 * @return string The formatted list of related posts.
 	 */
 	public static function related_posts( $args = array() ) {
-		global $post, $crp_settings;
-
-		if ( ! $post ) {
-			return '';
-		}
+		global $crp_settings;
 
 		$crp_settings = crp_get_settings();
 
@@ -77,6 +73,30 @@ class Display {
 
 		// Sanitize args.
 		$args = Helpers::sanitize_args( $args );
+
+		// Set the post object like CRP_Core_Query::prepare_query_args().
+		$post_id = $args['post_id'] ?? $args['postid'] ?? null;
+
+		if ( ! empty( $post_id ) ) {
+			// Handle WP_Post object, int, or string.
+			$post = ( $post_id instanceof \WP_Post ) ? $post_id : get_post( $post_id );
+		} else {
+			global $post;
+		}
+
+		if ( ! $post instanceof \WP_Post ) {
+			return '';
+		}
+
+		// Ensure we use the queried object ID if we are in the main query and no explicit post_id was provided.
+		$queried_object = get_queried_object();
+		if ( is_main_query() && empty( $post_id ) && $queried_object instanceof \WP_Post && $queried_object->ID !== $post->ID ) {
+			$post = $queried_object; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+		}
+
+		if ( ! $post instanceof \WP_Post ) {
+			return '';
+		}
 
 		// Short circuit flag.
 		$short_circuit = false;
@@ -101,15 +121,10 @@ class Display {
 			return ''; // Exit without adding related posts.
 		}
 
-		// WPML & PolyLang support - change strict limit to false.
-		if ( class_exists( 'SitePress' ) || function_exists( 'pll_get_post' ) ) {
-			$args['strict_limit'] = false;
-		}
-
 		// Support caching to speed up retrieval.
+		$meta_key = Cache::get_key( $args );
 		if ( self::should_cache( $args ) ) {
-			$meta_key = Cache::get_key( $args );
-			$output   = Cache::get_cache( $post->ID, $meta_key );
+			$output = Cache::get_cache( $post->ID, $meta_key, 'html' );
 			if ( $output ) {
 				return $output;
 			}
@@ -122,8 +137,7 @@ class Display {
 		$results = self::get_posts(
 			array_merge(
 				array(
-					'postid'       => isset( $args['postid'] ) ? $args['postid'] : $post->ID,
-					'strict_limit' => isset( $args['strict_limit'] ) ? $args['strict_limit'] : true,
+					'post_id' => isset( $args['post_id'] ) ? $args['post_id'] : $post->ID,
 				),
 				$args
 			)
@@ -260,7 +274,7 @@ class Display {
 
 		// Support caching to speed up retrieval.
 		if ( self::should_cache( $args ) ) {
-			Cache::set_cache( $post->ID, $meta_key, $output );
+			Cache::set_cache( $post->ID, $meta_key, $output, 0, 'html' );
 		}
 
 		/**
@@ -351,13 +365,7 @@ class Display {
 		if ( ( isset( $args['is_shortcode'] ) && ! $args['is_shortcode'] ) &&
 		( isset( $args['is_manual'] ) && ! $args['is_manual'] ) &&
 		( isset( $args['is_block'] ) && ! $args['is_block'] ) ) {
-			$crp_post_meta = get_post_meta( $post->ID, 'crp_post_meta', true );
-
-			if ( isset( $crp_post_meta['crp_disable_here'] ) ) {
-				$crp_disable_here = $crp_post_meta['crp_disable_here'];
-			} else {
-				$crp_disable_here = 0;
-			}
+			$crp_disable_here = crp_get_meta( $post->ID, 'disable_here' );
 
 			if ( $crp_disable_here ) {
 				return true;

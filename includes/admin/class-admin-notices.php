@@ -63,6 +63,7 @@ class Admin_Notices {
 
 		$this->register_fulltext_index_notice();
 		$this->register_missing_table_notice();
+		$this->register_migration_pending_notice();
 	}
 
 	/**
@@ -128,6 +129,40 @@ class Admin_Notices {
 								! ( new \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager() )->is_table_installed(
 									( new \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager() )->content_table
 								);
+					},
+				),
+			)
+		);
+	}
+
+	/**
+	 * Register migration pending notice.
+	 *
+	 * @since 4.2.0
+	 */
+	private function register_migration_pending_notice() {
+		// Check if admin_notices_api is available.
+		if ( ! $this->admin_notices_api ) {
+			return;
+		}
+
+		$this->admin_notices_api->register_notice(
+			array(
+				'id'          => 'crp_migration_pending',
+				'message'     => sprintf(
+					'<p>%s <a href="%s">%s</a></p>',
+					esc_html__( 'Contextual Related Posts: Post meta migration is required to keep data in sync.', 'contextual-related-posts' ),
+					esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ),
+					esc_html__( 'Click here to run the migration.', 'contextual-related-posts' )
+				),
+				'type'        => 'warning',
+				'dismissible' => true,
+				'capability'  => 'manage_options',
+				'conditions'  => array(
+					function () {
+						return current_user_can( 'manage_options' ) &&
+								false === get_option( 'crp_meta_migration_done', false ) &&
+								Tools_Page::get_migration_count() > 0;
 					},
 				),
 			)

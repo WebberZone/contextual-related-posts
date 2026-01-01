@@ -1,7 +1,7 @@
 {
     "name": "webberzone/contextual-related-posts",
     "description": "Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.",
-    "version": "4.1.0",
+    "version": "4.2.0",
     "type": "wordpress-plugin",
     "keywords": [
         "related posts",
@@ -31,7 +31,9 @@
         "wp-coding-standards/wpcs": "^3",
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
         "yoast/phpunit-polyfills": "^3",
-        "phpunit/phpunit": "^9 || ^10 || ^11 || ^12"
+        "phpunit/phpunit": "^9 || ^10 || ^11 || ^12",
+        "php-stubs/woocommerce-stubs": "^10.4",
+        "php-stubs/wp-cli-stubs": "^2.12"
     },
     "config": {
         "allow-plugins": {

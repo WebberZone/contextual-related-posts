@@ -6,32 +6,12 @@ parameters:
 			path: includes/admin/class-settings-wizard.php
 
 		-
-			message: "#^Variable \\$menu_page might not be defined\\.$#"
-			count: 1
-			path: includes/admin/settings/class-settings-api.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
 			count: 1
 			path: includes/frontend/class-display.php
 
 		-
-			message: "#^Variable \\$meta_key might not be defined\\.$#"
-			count: 2
-			path: includes/frontend/class-display.php
-
-		-
-			message: "#^Function fs_dynamic_init not found\\.$#"
-			count: 1
-			path: load-freemius.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: includes/util/class-cache.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between false and 2592000 will always evaluate to false\\.$#"
+			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: includes/util/class-cache.php
 

@@ -94,27 +94,30 @@ class REST_API extends \WP_REST_Controller {
 	 * @return mixed|\WP_REST_Response Array of post objects or post IDs.
 	 */
 	public function get_items( $request ) {
-		$id = absint( $request->get_param( 'id' ) );
-
-		$error = new \WP_Error(
-			'rest_post_invalid_id',
-			__( 'Invalid post ID.', 'contextual-related-posts' ),
-			array( 'status' => 404 )
-		);
-
-		if ( $id <= 0 ) {
-			return $error;
-		}
+		$id   = absint( $request->get_param( 'id' ) );
+		$args = $request->get_params();
 
 		$post = get_post( $id );
-		if ( empty( $post ) || empty( $post->ID ) || ! $this->check_read_permission( $post ) ) {
-			return $error;
+
+		if ( empty( $post ) || ! $this->check_read_permission( $post ) ) {
+			return new \WP_Error(
+				'rest_post_invalid_id',
+				__( 'Invalid post ID.', 'contextual-related-posts' ),
+				array( 'status' => 404 )
+			);
 		}
 
 		$related_posts = array();
 
-		$args           = $request->get_params();
-		$args['postid'] = $id;
+		$args['post_id'] = $post;
+
+		if ( isset( $args['id'] ) ) {
+			unset( $args['id'] );
+		}
+
+		if ( isset( $args['postid'] ) ) {
+			unset( $args['postid'] );
+		}
 
 		/**
 		 * Filter the REST API arguments before they passed to get_crp_posts().
