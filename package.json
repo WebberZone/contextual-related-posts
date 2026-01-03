@@ -52,7 +52,7 @@
         "terser": "^5.44.1"
     },
     "dependencies": {
-        "@wordpress/icons": "^11.3.0",
+        "@wordpress/icons": "^11.4.0",
         "clsx": "^2.1.1",
         "uuid": "^13.0.0"
     }

@@ -1955,9 +1955,6 @@ class Settings {
 		global $crp_freemius;
 		?>
 		<p>
-			<a class="crp_button crp_button_green" href="<?php echo esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ); ?>">
-			<?php esc_html_e( 'Visit the Tools page', 'contextual-related-posts' ); ?>
-			</a>
 		<?php if ( ! $crp_freemius->is_paying() ) { ?>
 			<a class="crp_button crp_button_gold" href="<?php echo esc_url( $crp_freemius->get_upgrade_url() ); ?>">
 				<?php esc_html_e( 'Upgrade to Pro', 'contextual-related-posts' ); ?>
