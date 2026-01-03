@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-01T12:40:11+00:00\n"
+"POT-Creation-Date: 2026-01-03T10:03:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: contextual-related-posts\n"
@@ -44,7 +44,7 @@ msgid "https://webberzone.com"
 msgstr ""
 
 #. translators: %s: Name of the deactivated plugin
-#: contextual-related-posts.php:160
+#: contextual-related-posts.php:158
 #, php-format
 msgid "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated %s."
 msgstr ""
@@ -73,28 +73,65 @@ msgstr ""
 msgid "Click here to run the migration."
 msgstr ""
 
-#: includes/admin/class-admin.php:195
+#: includes/admin/class-admin.php:205
 msgid "Copied!"
 msgstr ""
 
-#: includes/admin/class-admin.php:196
+#: includes/admin/class-admin.php:206
 msgid "Copy to clipboard"
 msgstr ""
 
-#: includes/admin/class-admin.php:197
+#: includes/admin/class-admin.php:207
 msgid "Error copying to clipboard"
 msgstr ""
 
-#: includes/admin/class-admin.php:234
+#: includes/admin/class-admin.php:244
 msgid "Contextual Related Posts Pro - Buy now!"
 msgstr ""
 
-#: includes/admin/class-admin.php:237
+#: includes/admin/class-admin.php:247
 msgid "OR"
 msgstr ""
 
-#: includes/admin/class-admin.php:238
+#: includes/admin/class-admin.php:248
 msgid "Support the development - Send us a donation today."
+msgstr ""
+
+#: includes/admin/class-admin.php:276
+msgid "Contextual Related Posts quick links"
+msgstr ""
+
+#: includes/admin/class-admin.php:277
+msgid "Contextual Related Posts admin shortcuts"
+msgstr ""
+
+#: includes/admin/class-admin.php:278
+msgid "WebberZone Contextual Related Posts"
+msgstr ""
+
+#: includes/admin/class-admin.php:279
+msgid "Display related posts automatically on your site."
+msgstr ""
+
+#: includes/admin/class-admin.php:280
+msgid "Jump to your most-used Contextual Related Posts tools, manage content faster, and explore more WebberZone plugins."
+msgstr ""
+
+#: includes/admin/class-admin.php:284
+#: includes/admin/class-settings.php:1499
+#: includes/admin/class-settings.php:1563
+#: includes/admin/network/class-admin.php:81
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-admin.php:290
+#: includes/admin/class-settings.php:1574
+#: includes/admin/network/class-tools-page.php:50
+msgid "Tools"
+msgstr ""
+
+#: includes/admin/class-admin.php:296
+msgid "WebberZone Plugins"
 msgstr ""
 
 #: includes/admin/class-bulk-edit.php:106
@@ -1602,12 +1639,6 @@ msgstr ""
 msgid "By date"
 msgstr ""
 
-#: includes/admin/class-settings.php:1499
-#: includes/admin/class-settings.php:1563
-#: includes/admin/network/class-admin.php:81
-msgid "Settings"
-msgstr ""
-
 #: includes/admin/class-settings.php:1518
 #: includes/admin/sidebar.php:30
 #: includes/admin/sidebar.php:34
@@ -1644,11 +1675,6 @@ msgstr ""
 msgid "You can find detailed information on each of the settings in these <a href=\"%1$s\" target=\"_blank\">knowledgebase articles</a>."
 msgstr ""
 
-#: includes/admin/class-settings.php:1574
-#: includes/admin/network/class-tools-page.php:50
-msgid "Tools"
-msgstr ""
-
 #: includes/admin/class-settings.php:1576
 msgid "This screen provides some tools that help maintain certain features of Contextual Related Posts."
 msgstr ""
@@ -1680,16 +1706,16 @@ msgid "Reset"
 msgstr ""
 
 #: includes/admin/class-settings.php:1748
-#: includes/admin/class-tools-page.php:109
-#: includes/admin/class-tools-page.php:113
-#: includes/admin/class-tools-page.php:526
+#: includes/admin/class-tools-page.php:104
+#: includes/admin/class-tools-page.php:108
+#: includes/admin/class-tools-page.php:521
 #: includes/admin/network/class-admin.php:162
 #: includes/admin/network/class-tools-page.php:126
 msgid "Clear cache"
 msgstr ""
 
 #: includes/admin/class-settings.php:1749
-#: includes/admin/class-tools-page.php:527
+#: includes/admin/class-tools-page.php:522
 #: includes/admin/network/class-admin.php:163
 #: includes/admin/network/class-tools-page.php:127
 msgid "Clearing cache"
@@ -1715,22 +1741,18 @@ msgctxt "tag delimiter"
 msgid ","
 msgstr ""
 
-#: includes/admin/class-settings.php:1959
-msgid "Visit the Tools page"
-msgstr ""
-
-#: includes/admin/class-settings.php:1963
-#: includes/admin/class-settings.php:1980
+#: includes/admin/class-settings.php:1960
+#: includes/admin/class-settings.php:1977
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/admin/class-settings.php:1990
+#: includes/admin/class-settings.php:1987
 msgid "Note: WooCommerce related products require Efficient Content Storage and Indexing (ECSI). Enable Custom Tables under the Performance tab and create tables via Tools."
 msgstr ""
 
+#: includes/admin/class-settings.php:2006
+#: includes/admin/class-settings.php:2008
 #: includes/admin/class-settings.php:2009
-#: includes/admin/class-settings.php:2011
-#: includes/admin/class-settings.php:2012
 msgid "Start Settings Wizard"
 msgstr ""
 
@@ -1751,160 +1773,156 @@ msgstr ""
 msgid "Settings have been imported successfully"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:98
-msgid "Visit the Settings page"
-msgstr ""
-
-#: includes/admin/class-tools-page.php:117
+#: includes/admin/class-tools-page.php:112
 msgid "Clear the Contextual Related Posts cache. This might take a while if you have a lot of posts."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:123
+#: includes/admin/class-tools-page.php:118
 msgid "Recreate FULLTEXT index"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:130
+#: includes/admin/class-tools-page.php:125
 msgid "Are you sure you want to recreate the index?"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:131
+#: includes/admin/class-tools-page.php:126
 msgid "Recreate Index"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:136
+#: includes/admin/class-tools-page.php:131
 msgid "Recreate the FULLTEXT index that Contextual Related Posts uses to get the relevant related posts. This might take a lot of time to regenerate if you have a lot of posts."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:138
+#: includes/admin/class-tools-page.php:133
 msgid "If the Recreate Index button fails, please run the following queries in phpMyAdmin or Adminer. Remember to backup your database first!"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:154
+#: includes/admin/class-tools-page.php:149
 msgid "Export/Import settings"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:158
+#: includes/admin/class-tools-page.php:153
 msgid "Export the plugin settings for this site as a .json file. This allows you to easily import the configuration into another site."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:162
+#: includes/admin/class-tools-page.php:157
 msgid "Export Settings"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:169
+#: includes/admin/class-tools-page.php:164
 msgid "Import the plugin settings from a .json file. This file can be obtained by exporting the settings on another site using the form above."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:175
+#: includes/admin/class-tools-page.php:170
 msgid "Import Settings"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:185
+#: includes/admin/class-tools-page.php:180
 msgid "Migrate Post Meta"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:188
+#: includes/admin/class-tools-page.php:183
 msgid "This tool migrates the old crp_post_meta array storage to individual meta keys for better performance and cleaner data structure."
 msgstr ""
 
 #. translators: %s: number of posts
-#: includes/admin/class-tools-page.php:194
+#: includes/admin/class-tools-page.php:189
 #, php-format
 msgid "%s posts need migration."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:200
+#: includes/admin/class-tools-page.php:195
 msgid "Start Migration"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:204
+#: includes/admin/class-tools-page.php:199
 msgid "Migration in progress..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:245
+#: includes/admin/class-tools-page.php:240
 msgid "Migration Complete"
 msgstr ""
 
+#: includes/admin/class-tools-page.php:250
 #: includes/admin/class-tools-page.php:255
-#: includes/admin/class-tools-page.php:260
 msgid "Migration failed. Please try again."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:271
+#: includes/admin/class-tools-page.php:266
 msgid "Migration Status"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:274
+#: includes/admin/class-tools-page.php:269
 msgid "Migration completed. You can undo if needed."
 msgstr ""
 
 #. translators: %s: number of posts
-#: includes/admin/class-tools-page.php:280
+#: includes/admin/class-tools-page.php:275
 #, php-format
 msgid "%s posts can be undone."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:286
+#: includes/admin/class-tools-page.php:281
 msgid "Undo Migration"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:290
+#: includes/admin/class-tools-page.php:285
 msgid "Undo in progress..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:304
+#: includes/admin/class-tools-page.php:299
 msgid "Are you sure you want to undo the migration? This will revert to the old array storage."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:328
+#: includes/admin/class-tools-page.php:323
 msgid "Undo Complete"
 msgstr ""
 
+#: includes/admin/class-tools-page.php:333
 #: includes/admin/class-tools-page.php:338
-#: includes/admin/class-tools-page.php:343
 msgid "Undo failed. Please try again."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:480
+#: includes/admin/class-tools-page.php:475
 msgid "Please upload a valid .json file"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:486
+#: includes/admin/class-tools-page.php:481
 msgid "Please upload a file to import"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:570
-#: includes/admin/class-tools-page.php:604
-#: includes/admin/class-tools-page.php:688
+#: includes/admin/class-tools-page.php:565
+#: includes/admin/class-tools-page.php:599
+#: includes/admin/class-tools-page.php:683
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:584
+#: includes/admin/class-tools-page.php:579
 msgid "Migration completed successfully!"
 msgstr ""
 
 #. translators: %d: Number of posts migrated.
-#: includes/admin/class-tools-page.php:587
+#: includes/admin/class-tools-page.php:582
 #, php-format
 msgid "Migrated %d posts. Continuing..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:659
+#: includes/admin/class-tools-page.php:654
 msgid "Undo completed successfully!"
 msgstr ""
 
 #. translators: %d: Number of posts undone.
-#: includes/admin/class-tools-page.php:670
+#: includes/admin/class-tools-page.php:665
 #, php-format
 msgid "Undone %d posts. Continuing..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:702
+#: includes/admin/class-tools-page.php:697
 msgid "Rollback completed successfully!"
 msgstr ""
 
 #. translators: %d: Number of posts rolled back.
-#: includes/admin/class-tools-page.php:705
+#: includes/admin/class-tools-page.php:700
 #, php-format
 msgid "Rolled back %d posts. Continuing..."
 msgstr ""

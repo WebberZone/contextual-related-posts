@@ -93,11 +93,6 @@ class Tools_Page {
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Contextual Related Posts Tools', 'contextual-related-posts' ); ?></h1>
 		<?php do_action( 'crp_tools_page_header' ); ?>
-		<p>
-			<a class="crp_button crp_button_blue" href="<?php echo esc_url( admin_url( 'options-general.php?page=crp_options_page' ) ); ?>">
-			<?php esc_html_e( 'Visit the Settings page', 'contextual-related-posts' ); ?>
-			</a>
-		</p>
 
 		<?php settings_errors(); ?>
 
