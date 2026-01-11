@@ -409,7 +409,8 @@ class Settings_Wizard extends Settings_Wizard_API {
 		}
 
 		// Get table manager instance with lazy admin initialization.
-		$custom_tables = wz_crp()->pro->custom_tables ?? null;
+		$pro           = wz_crp()->pro;
+		$custom_tables = $pro ? ( $pro->custom_tables ?? null ) : null;
 		if ( ! $custom_tables ) {
 			?>
 			<div class="notice notice-error inline">
