@@ -200,6 +200,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 	* [Pro] Server Load Threshold setting to skip CRP queries when MySQL is backlogged. [Learn more](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/).
 	* [Pro] Bot Protection setting to short-circuit CRP for known crawlers and bots, preserving resources and analytics integrity.
 	* [Pro] Comprehensive WP-CLI command suite for advanced management including database operations, cache management, custom table indexing, and content processing. Commands include `wp crp db`, `wp crp cache`, `wp crp tables indexes`, and more with full multisite support.
+	* [Pro] If Pro is active, the plugin renames "Exclude Categories" and "Exclude on Categories" to "Exclude Terms" and "Exclude on Terms" with support for all public custom taxonomies.
 
 * Modifications:
 	* [Pro] Added a "Save & Clear Cache" button on the settings page to purge cached results immediately after saving changes.

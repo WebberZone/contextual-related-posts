@@ -126,6 +126,7 @@ class Settings_Wizard_API {
 	 *     @type array  $translation_strings  Translation strings.
 	 *     @type string $page_slug            Wizard page slug.
 	 *     @type array  $menu_args           Menu arguments array with parent and capability.
+	 *     @type bool   $hide_when_completed Whether to hide the wizard submenu item after completion.
 	 * }
 	 */
 	public function __construct( $settings_key, $prefix, $args = array() ) {
@@ -138,6 +139,7 @@ class Settings_Wizard_API {
 			'translation_strings' => array(),
 			'admin_menu_position' => 999,
 			'page_slug'           => "{$prefix}_wizard",
+			'hide_when_completed' => true,
 			'menu_args'           => array(
 				'parent'     => '', // Empty for dashboard, or parent slug for submenu.
 				'capability' => 'manage_options',
@@ -223,13 +225,38 @@ class Settings_Wizard_API {
 		$parent     = ! empty( $this->menu_args['parent'] ) ? $this->menu_args['parent'] : 'index.php';
 
 		$this->page_id = add_submenu_page(
-			$this->is_wizard_completed() ? 'options.php' : $parent,
-			$this->translation_strings['page_title'],
-			$this->translation_strings['menu_title'],
+			$parent,
+			(string) $this->translation_strings['page_title'],
+			(string) $this->translation_strings['menu_title'],
 			$capability,
 			$this->page_slug,
 			array( $this, 'render_wizard_page' )
 		);
+
+		$hide_when_completed = isset( $this->args['hide_when_completed'] ) ? (bool) $this->args['hide_when_completed'] : true;
+		if ( $hide_when_completed && $this->is_wizard_completed() ) {
+			add_action( 'admin_head', array( $this, 'hide_completed_wizard_submenu' ) );
+		}
+	}
+
+	/**
+	 * Hide wizard submenu item when the wizard is completed.
+	 *
+	 * @return void
+	 */
+	public function hide_completed_wizard_submenu() {
+		if ( ! $this->is_wizard_completed() ) {
+			return;
+		}
+		$slug = sanitize_key( $this->page_slug );
+		?>
+		<style>
+			#adminmenu a[href$="page=<?php echo esc_attr( $slug ); ?>"],
+			#adminmenu a[href*="page=<?php echo esc_attr( $slug ); ?>&"] {
+				display: none;
+			}
+		</style>
+		<?php
 	}
 
 	/**
@@ -444,12 +471,14 @@ class Settings_Wizard_API {
 	 * @param int $step Step number to redirect to.
 	 */
 	protected function redirect_to_step( $step ) {
-		$url = add_query_arg(
+		$parent = ! empty( $this->menu_args['parent'] ) ? $this->menu_args['parent'] : 'admin.php';
+		$base   = admin_url( $parent );
+		$url    = add_query_arg(
 			array(
 				'page' => $this->page_slug,
 				'step' => $step,
 			),
-			admin_url( 'admin.php' )
+			$base
 		);
 		wp_safe_redirect( $url );
 		exit;
@@ -872,12 +901,14 @@ class Settings_Wizard_API {
 	 * @return string Step URL.
 	 */
 	protected function get_step_url( $step ) {
+		$parent = ! empty( $this->menu_args['parent'] ) ? $this->menu_args['parent'] : 'admin.php';
+		$base   = admin_url( $parent );
 		return add_query_arg(
 			array(
 				'page' => $this->page_slug,
 				'step' => $step,
 			),
-			admin_url( 'admin.php' )
+			$base
 		);
 	}
 
