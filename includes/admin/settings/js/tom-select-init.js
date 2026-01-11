@@ -21,6 +21,8 @@
 
             const options = endpoint === 'forms' ? forms : (endpoint === 'tags' ? tags : (endpoint === 'custom_fields' ? custom_fields : []));
 
+            const isTaxonomyEndpoint = endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax') || endpoint === 'public_taxonomies';
+
             if (!options || !Array.isArray(options)) {
                 console.error('Invalid options for endpoint:', endpoint);
                 return;
@@ -31,14 +33,14 @@
             const savedIds = element.value.split(',').map(id => id.trim()).filter(Boolean);
 
             // For taxonomy endpoints, add saved values as options so Tom Select can display them
-            if ((endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) && savedIds.length > 0) {
+            if (isTaxonomyEndpoint && savedIds.length > 0) {
                 const savedOptions = savedIds.map(savedValue => {
                     // Extract term name from formatted string "Name (taxonomy:id)"
                     const match = savedValue.match(/^(.*)\s+\(.*:\d+\)$/);
                     const termName = match ? match[1] : savedValue;
                     return { value: savedValue, text: termName };
                 });
-                
+
                 // Merge saved options with existing options, avoiding duplicates
                 const allOptions = [...formattedOptions];
                 savedOptions.forEach(savedOption => {
@@ -46,14 +48,14 @@
                         allOptions.push(savedOption);
                     }
                 });
-                
+
                 // Replace formattedOptions with merged options
                 formattedOptions.length = 0;
                 formattedOptions.push(...allOptions);
             }
 
             // For non-taxonomy endpoints, add saved values as options so Tom Select can display them.
-            if (!(endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) && savedIds.length > 0) {
+            if (!isTaxonomyEndpoint && savedIds.length > 0) {
                 savedIds.forEach(savedValue => {
                     if (!formattedOptions.some(opt => opt.value === savedValue)) {
                         formattedOptions.push({ value: savedValue, text: savedValue });
@@ -64,7 +66,7 @@
             // Get any custom config from data attributes
             let customConfig = {};
             const configAttr = element.getAttribute('data-ts-config');
-            
+
             if (configAttr) {
                 try {
                     customConfig = JSON.parse(configAttr);
@@ -89,7 +91,7 @@
                     no_results: (data, escape) => `<div class="no-results">${strings.no_results.replace('%s', escape(data.input))}</div>`,
                     option: (data, escape) => {
                         // For taxonomy endpoints, display only the formatted value to avoid duplication
-                        if (endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) {
+                        if (isTaxonomyEndpoint) {
                             return `<div>${escape(data.value)}</div>`;
                         }
                         // Avoid showing "value (value)" when value and text are identical.
@@ -100,7 +102,7 @@
                     },
                     item: (data, escape) => {
                         // For taxonomy endpoints, display only the formatted value to avoid duplication
-                        if (endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) {
+                        if (isTaxonomyEndpoint) {
                             return `<div>${escape(data.value)}</div>`;
                         }
                         // Avoid showing "value (value)" when value and text are identical.

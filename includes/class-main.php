@@ -118,6 +118,14 @@ final class Main {
 		// Load all hooks.
 		new Hook_Loader();
 
+		// Initialize pro features.
+		if ( crp_freemius()->is__premium_only() ) {
+			if ( crp_freemius()->can_use_premium_code() ) {
+				$this->pro = new Pro\Pro();
+			}
+			Pro\Pro::free_hooks();
+		}
+
 		// Initialize admin on init action to ensure translations are loaded.
 		add_action( 'init', array( $this, 'init_admin' ) );
 	}

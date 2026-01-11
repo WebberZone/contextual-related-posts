@@ -487,7 +487,7 @@ class Settings {
 			),
 			'exclude_on_cat_slugs'  => array(
 				'id'               => 'exclude_on_cat_slugs',
-				'name'             => esc_html__( 'Exclude on Terms', 'contextual-related-posts' ),
+				'name'             => esc_html__( 'Exclude on Categories', 'contextual-related-posts' ),
 				'desc'             => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
 				'type'             => 'csv',
 				'default'          => '',
@@ -802,21 +802,13 @@ class Settings {
 			),
 			'exclude_cat_slugs'         => array(
 				'id'               => 'exclude_cat_slugs',
-				'name'             => esc_html__( 'Exclude Terms', 'contextual-related-posts' ),
+				'name'             => esc_html__( 'Exclude Categories', 'contextual-related-posts' ),
 				'desc'             => esc_html__( 'The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.', 'contextual-related-posts' ),
 				'type'             => 'csv',
 				'default'          => '',
 				'size'             => 'large',
 				'field_class'      => 'ts_autocomplete',
 				'field_attributes' => self::get_taxonomy_search_field_attributes( 'category' ),
-			),
-			'exclude_categories'        => array(
-				'id'       => 'exclude_categories',
-				'name'     => esc_html__( 'Exclude Term Taxonomy IDs', 'contextual-related-posts' ),
-				'desc'     => esc_html__( 'This field is read-only and will be filled automatically based on your selections above when you save the settings. Note: The values here are term taxonomy IDs, which are different from the term IDs shown on the Categories page. Each term taxonomy ID uniquely identifies the term within its taxonomy, which Contextual Related Posts requires for accuracy.', 'contextual-related-posts' ),
-				'type'     => 'text',
-				'default'  => '',
-				'readonly' => true,
 			),
 			'advanced_header'           => array(
 				'id'   => 'advanced_header',
@@ -1908,11 +1900,39 @@ class Settings {
 			wp_send_json_success( $results );
 		}
 
-		$taxonomy = $endpoint;
-		$tax      = get_taxonomy( $taxonomy );
+		if ( 'public_taxonomies' === $endpoint ) {
+			$taxonomies = (array) get_taxonomies( array( 'public' => true ), 'objects' );
+			$taxonomy   = array();
+			$tax        = null;
 
-		if ( ! $tax || ! current_user_can( $tax->cap->assign_terms ) ) {
-			wp_send_json_error( 'Invalid taxonomy or insufficient permissions' );
+			foreach ( $taxonomies as $taxonomy_name => $taxonomy_object ) {
+				if ( ! is_string( $taxonomy_name ) || '' === $taxonomy_name ) {
+					continue;
+				}
+
+				if ( ! $taxonomy_object || empty( $taxonomy_object->cap->assign_terms ) ) {
+					continue;
+				}
+
+				if ( ! current_user_can( $taxonomy_object->cap->assign_terms ) ) {
+					continue;
+				}
+
+				$taxonomy[] = $taxonomy_name;
+			}
+
+			if ( empty( $taxonomy ) ) {
+				wp_send_json_success( array() );
+			}
+
+			$tax = get_taxonomy( $taxonomy[0] );
+		} else {
+			$taxonomy = $endpoint;
+			$tax      = get_taxonomy( $taxonomy );
+
+			if ( ! $tax || ! current_user_can( $tax->cap->assign_terms ) ) {
+				wp_send_json_error( 'Invalid taxonomy or insufficient permissions' );
+			}
 		}
 
 		/** This filter has been defined in /wp-admin/includes/ajax-actions.php */
@@ -1930,6 +1950,9 @@ class Settings {
 			array(
 				'taxonomy'   => $taxonomy,
 				'name__like' => $search_term,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+				'number'     => 20,
 				'hide_empty' => false,
 			)
 		);
@@ -2019,7 +2042,7 @@ class Settings {
 	 * @param array  $ts_config Optional Tom Select configuration.
 	 * @return array Field attributes array.
 	 */
-	private static function get_taxonomy_search_field_attributes( string $taxonomy, array $ts_config = array() ): array {
+	public static function get_taxonomy_search_field_attributes( string $taxonomy, array $ts_config = array() ): array {
 		$attributes = array(
 			'data-wp-prefix'   => strtoupper( self::$prefix ),
 			'data-wp-action'   => self::$prefix . '_taxonomy_search_tom_select',
@@ -2042,7 +2065,7 @@ class Settings {
 	 * @param array $ts_config Optional Tom Select configuration.
 	 * @return array Field attributes array.
 	 */
-	private static function get_meta_keys_search_field_attributes( array $ts_config = array() ): array {
+	public static function get_meta_keys_search_field_attributes( array $ts_config = array() ): array {
 		$attributes = array(
 			'data-wp-prefix'   => strtoupper( self::$prefix ),
 			'data-wp-action'   => self::$prefix . '_taxonomy_search_tom_select',
