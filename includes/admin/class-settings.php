@@ -1695,7 +1695,7 @@ class Settings {
 
 		$thumb_default = \crp_get_option( 'thumb_default' );
 
-		if ( 'thumb_default' === $args['id'] && WZ_CRP_PLUGIN_URL . 'default.png' !== $thumb_default ) {
+		if ( 'thumb_default' === $args['id'] && WZ_CRP_DEFAULT_THUMBNAIL_URL !== $thumb_default ) {
 			$html = '<span class="dashicons dashicons-undo reset-default-thumb" style="cursor: pointer;" title="' . __( 'Reset', 'contextual-related-posts' ) . '"></span> <br />' . $html;
 		}
 
@@ -1716,6 +1716,7 @@ class Settings {
 			return;
 		}
 
+		wp_enqueue_script( 'crp-admin-js' );
 		wp_enqueue_style(
 			'crp-admin-styles',
 			WZ_CRP_PLUGIN_URL . "includes/admin/css/admin-styles{$file_prefix}.css",
@@ -1723,14 +1724,12 @@ class Settings {
 			WZ_CRP_VERSION
 		);
 		wp_localize_script(
-			'wz-admin-js',
+			'crp-admin-js',
 			'crp_admin',
 			array(
-				'thumb_default' => WZ_CRP_PLUGIN_URL . 'default.png',
+				'thumb_default' => WZ_CRP_DEFAULT_THUMBNAIL_URL,
 			)
 		);
-
-		wp_enqueue_script( 'crp-admin-js' );
 		wp_localize_script(
 			'crp-admin-js',
 			'crp_admin_data',

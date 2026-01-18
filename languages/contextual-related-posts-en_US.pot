@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-01-18T07:25:22+00:00\n"
+"POT-Creation-Date: 2026-01-18T10:57:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: contextual-related-posts\n"
@@ -336,7 +336,7 @@ msgstr ""
 #. translators: %s: Search query.
 #. translators: %s: search keyword.
 #: includes/admin/class-settings-wizard.php:202
-#: includes/admin/class-settings.php:1758
+#: includes/admin/class-settings.php:1757
 #, php-format
 msgid "No results found for \"%s\""
 msgstr ""
@@ -1709,7 +1709,7 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#: includes/admin/class-settings.php:1740
+#: includes/admin/class-settings.php:1739
 #: includes/admin/class-tools-page.php:104
 #: includes/admin/class-tools-page.php:108
 #: includes/admin/class-tools-page.php:521
@@ -1718,39 +1718,39 @@ msgstr ""
 msgid "Clear cache"
 msgstr ""
 
-#: includes/admin/class-settings.php:1741
+#: includes/admin/class-settings.php:1740
 #: includes/admin/class-tools-page.php:522
 #: includes/admin/network/class-admin.php:163
 #: includes/admin/network/class-tools-page.php:127
 msgid "Clearing cache"
 msgstr ""
 
-#: includes/admin/class-settings.php:1742
+#: includes/admin/class-settings.php:1741
 msgid "Note: This setting cannot be changed as the Thumbnail style is set to Rounded Thumbnails or Rounded Thumbnails with Grid. You can change the style in the Styles tab."
 msgstr ""
 
-#: includes/admin/class-settings.php:1743
+#: includes/admin/class-settings.php:1742
 msgid "Note: This setting cannot be changed as the Thumbnail style is set to Text Only. You can change the style in the Styles tab."
 msgstr ""
 
-#: includes/admin/class-settings.php:1791
-#: includes/admin/class-settings.php:1862
+#: includes/admin/class-settings.php:1790
+#: includes/admin/class-settings.php:1861
 msgctxt "tag delimiter"
 msgid ","
 msgstr ""
 
-#: includes/admin/class-settings.php:1987
-#: includes/admin/class-settings.php:2004
+#: includes/admin/class-settings.php:1986
+#: includes/admin/class-settings.php:2003
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: includes/admin/class-settings.php:2014
+#: includes/admin/class-settings.php:2013
 msgid "Note: WooCommerce related products require Efficient Content Storage and Indexing (ECSI). Enable Custom Tables under the Performance tab and create tables via Tools."
 msgstr ""
 
-#: includes/admin/class-settings.php:2033
+#: includes/admin/class-settings.php:2032
+#: includes/admin/class-settings.php:2034
 #: includes/admin/class-settings.php:2035
-#: includes/admin/class-settings.php:2036
 msgid "Start Settings Wizard"
 msgstr ""
 
