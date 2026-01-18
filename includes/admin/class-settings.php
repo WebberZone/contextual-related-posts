@@ -1910,7 +1910,7 @@ class Settings {
 					continue;
 				}
 
-				if ( ! $taxonomy_object || empty( $taxonomy_object->cap->assign_terms ) ) {
+				if ( empty( $taxonomy_object->cap->assign_terms ) ) {
 					continue;
 				}
 
@@ -1930,8 +1930,12 @@ class Settings {
 			$taxonomy = $endpoint;
 			$tax      = get_taxonomy( $taxonomy );
 
-			if ( ! $tax || ! current_user_can( $tax->cap->assign_terms ) ) {
-				wp_send_json_error( 'Invalid taxonomy or insufficient permissions' );
+			if ( ! $tax ) {
+				wp_send_json_error( 'Invalid taxonomy' );
+			}
+
+			if ( ! current_user_can( $tax->cap->assign_terms ) ) {
+				wp_send_json_error( 'Insufficient permissions' );
 			}
 		}
 

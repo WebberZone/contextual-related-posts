@@ -21,8 +21,6 @@
 
             const options = endpoint === 'forms' ? forms : (endpoint === 'tags' ? tags : (endpoint === 'custom_fields' ? custom_fields : []));
 
-            const isTaxonomyEndpoint = endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax') || endpoint === 'public_taxonomies';
-
             if (!options || !Array.isArray(options)) {
                 console.error('Invalid options for endpoint:', endpoint);
                 return;
@@ -33,7 +31,7 @@
             const savedIds = element.value.split(',').map(id => id.trim()).filter(Boolean);
 
             // For taxonomy endpoints, add saved values as options so Tom Select can display them
-            if (isTaxonomyEndpoint && savedIds.length > 0) {
+            if ((endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) && savedIds.length > 0) {
                 const savedOptions = savedIds.map(savedValue => {
                     // Extract term name from formatted string "Name (taxonomy:id)"
                     const match = savedValue.match(/^(.*)\s+\(.*:\d+\)$/);
@@ -55,7 +53,7 @@
             }
 
             // For non-taxonomy endpoints, add saved values as options so Tom Select can display them.
-            if (!isTaxonomyEndpoint && savedIds.length > 0) {
+            if (!(endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) && savedIds.length > 0) {
                 savedIds.forEach(savedValue => {
                     if (!formattedOptions.some(opt => opt.value === savedValue)) {
                         formattedOptions.push({ value: savedValue, text: savedValue });
@@ -91,7 +89,7 @@
                     no_results: (data, escape) => `<div class="no-results">${strings.no_results.replace('%s', escape(data.input))}</div>`,
                     option: (data, escape) => {
                         // For taxonomy endpoints, display only the formatted value to avoid duplication
-                        if (isTaxonomyEndpoint) {
+                        if (endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) {
                             return `<div>${escape(data.value)}</div>`;
                         }
                         // Avoid showing "value (value)" when value and text are identical.
@@ -102,7 +100,7 @@
                     },
                     item: (data, escape) => {
                         // For taxonomy endpoints, display only the formatted value to avoid duplication
-                        if (isTaxonomyEndpoint) {
+                        if (endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) {
                             return `<div>${escape(data.value)}</div>`;
                         }
                         // Avoid showing "value (value)" when value and text are identical.
