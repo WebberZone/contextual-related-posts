@@ -44,6 +44,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "build:vendor": "composer install --no-dev --optimize-autoloader --classmap-authoritative",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
         "phpstan-baseline": "vendor/bin/phpstan analyse --memory-limit=2048M --generate-baseline",
         "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
@@ -63,6 +64,6 @@
             "@phpcompat",
             "@phpstan"
         ],
-        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'test-tools**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php' 'phpcompat-tools**'"
+        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'vendor/**/.DS_Store' 'vendor/bin/*' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'test-tools**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php' 'phpcompat-tools**'"
     }
 }
