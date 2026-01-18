@@ -192,17 +192,20 @@ class Settings_Wizard extends Settings_Wizard_API {
 	 */
 	public function get_translation_strings() {
 		return array(
-			'page_title'      => __( 'Contextual Related Posts Setup Wizard', 'contextual-related-posts' ),
-			'menu_title'      => __( 'Setup Wizard', 'contextual-related-posts' ),
-			'next_step'       => __( 'Next Step', 'contextual-related-posts' ),
-			'previous_step'   => __( 'Previous Step', 'contextual-related-posts' ),
-			'finish_setup'    => __( 'Finish Setup', 'contextual-related-posts' ),
-			'skip_wizard'     => __( 'Skip Wizard', 'contextual-related-posts' ),
+			'page_title'            => __( 'Contextual Related Posts Setup Wizard', 'contextual-related-posts' ),
+			'menu_title'            => __( 'Setup Wizard', 'contextual-related-posts' ),
+			'next_step'             => __( 'Next Step', 'contextual-related-posts' ),
+			'previous_step'         => __( 'Previous Step', 'contextual-related-posts' ),
+			'finish_setup'          => __( 'Finish Setup', 'contextual-related-posts' ),
+			'skip_wizard'           => __( 'Skip Wizard', 'contextual-related-posts' ),
+			/* translators: %s: Search query. */
+			'tom_select_no_results' => __( 'No results found for "%s"', 'contextual-related-posts' ),
+			'steps_nav_aria_label'  => __( 'Setup Wizard Steps', 'contextual-related-posts' ),
 			/* translators: %1$d: Current step number, %2$d: Total number of steps */
-			'step_of'         => __( 'Step %1$d of %2$d', 'contextual-related-posts' ),
-			'wizard_complete' => __( 'Setup Complete!', 'contextual-related-posts' ),
-			'setup_complete'  => __( 'Your Contextual Related Posts plugin has been configured successfully. You can now start seeing related posts on your site!', 'contextual-related-posts' ),
-			'go_to_settings'  => __( 'Go to Settings', 'contextual-related-posts' ),
+			'step_of'               => __( 'Step %1$d of %2$d', 'contextual-related-posts' ),
+			'wizard_complete'       => __( 'Setup Complete!', 'contextual-related-posts' ),
+			'setup_complete'        => __( 'Your Contextual Related Posts plugin has been configured successfully. You can now start seeing related posts on your site!', 'contextual-related-posts' ),
+			'go_to_settings'        => __( 'Go to Settings', 'contextual-related-posts' ),
 		);
 	}
 
@@ -409,8 +412,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 		}
 
 		// Get table manager instance with lazy admin initialization.
-		$pro           = wz_crp()->pro;
-		$custom_tables = $pro ? ( $pro->custom_tables ?? null ) : null;
+		$custom_tables = wz_crp()->pro->custom_tables ?? null;
 		if ( ! $custom_tables ) {
 			?>
 			<div class="notice notice-error inline">

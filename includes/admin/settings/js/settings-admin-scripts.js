@@ -52,4 +52,9 @@ jQuery(document).ready(function ($) {
 		$('#' + settingsKey + '\\[thumb_default\\]').val(thumbDefault);
 	});
 
+	// Reset formmodified on submit.
+	$('#' + prefix + '-settings-form').on('submit', function () {
+		formmodified = 0;
+	});
+
 });

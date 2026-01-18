@@ -27,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.7.2';
+	public const VERSION = '2.7.3';
 
 	/**
 	 * Settings Key.
@@ -250,17 +250,18 @@ class Settings_API {
 
 		// Args prefixed with an underscore are reserved for internal use.
 		$defaults = array(
-			'page_header'          => '',
-			'reset_message'        => 'Settings have been reset to their default values. Reload this page to view the updated settings.',
-			'success_message'      => 'Settings updated.',
-			'save_changes'         => 'Save Changes',
-			'reset_settings'       => 'Reset all settings',
-			'reset_button_confirm' => 'Do you really want to reset all these settings to their default values?',
-			'checkbox_modified'    => 'Modified from default setting',
-			'button_label'         => 'Choose File',
-			'previous_saved'       => 'Previously saved',
-			'repeater_new_item'    => 'New Item',
-			'required_label'       => 'Required',
+			'page_header'           => '',
+			'reset_message'         => 'Settings have been reset to their default values. Reload this page to view the updated settings.',
+			'success_message'       => 'Settings updated.',
+			'save_changes'          => 'Save Changes',
+			'reset_settings'        => 'Reset all settings',
+			'reset_button_confirm'  => 'Do you really want to reset all these settings to their default values?',
+			'checkbox_modified'     => 'Modified from default setting',
+			'button_label'          => 'Choose File',
+			'previous_saved'        => 'Previously saved',
+			'repeater_new_item'     => 'New Item',
+			'required_label'        => 'Required',
+			'tom_select_no_results' => 'No results found for "%s"',
 		);
 
 		$strings = wp_parse_args( $strings, $defaults );
@@ -489,7 +490,7 @@ class Settings_API {
 		wp_register_script(
 			'wz-' . $this->prefix . '-codemirror',
 			plugins_url( 'js/apply-cm' . $minimize . '.js', __FILE__ ),
-			array( 'jquery' ),
+			array( 'jquery', 'underscore', 'code-editor' ),
 			self::VERSION,
 			true
 		);
@@ -545,7 +546,12 @@ class Settings_API {
 		);
 
 		if ( $hook === $this->settings_page ) {
-			self::enqueue_scripts_styles( $this->prefix );
+			$args = array(
+				'strings' => array(
+					'no_results' => isset( $this->translation_strings['tom_select_no_results'] ) ? esc_html( $this->translation_strings['tom_select_no_results'] ) : 'No results found for "%s"',
+				),
+			);
+			self::enqueue_scripts_styles( $this->prefix, $args );
 		}
 	}
 
@@ -553,8 +559,9 @@ class Settings_API {
 	 * Enqueues all scripts, styles, settings, and templates necessary to use the Settings API.
 	 *
 	 * @param string $prefix Prefix which is used for creating the unique filters and actions.
+	 * @param array  $args   Array of arguments.
 	 */
-	public static function enqueue_scripts_styles( $prefix ) {
+	public static function enqueue_scripts_styles( $prefix, $args = array() ) {
 
 		wp_enqueue_style( 'wp-color-picker' );
 
@@ -574,26 +581,33 @@ class Settings_API {
 			)
 		);
 
-		wp_enqueue_script( 'wz-' . $prefix . '-admin' );
-		wp_enqueue_script( 'wz-' . $prefix . '-codemirror' );
-		wp_enqueue_script( 'wz-' . $prefix . '-taxonomy-suggest' );
-		wp_enqueue_script( 'wz-' . $prefix . '-media-selector' );
+		wp_enqueue_script( "wz-{$prefix}-admin" );
+		wp_enqueue_script( "wz-{$prefix}-codemirror" );
+		wp_enqueue_script( "wz-{$prefix}-taxonomy-suggest" );
+		wp_enqueue_script( "wz-{$prefix}-media-selector" );
 
 		// Enqueue Tom Select.
-		wp_enqueue_style( 'wz-' . $prefix . '-tom-select' );
-		wp_enqueue_script( 'wz-' . $prefix . '-tom-select' );
+		wp_enqueue_style( "wz-{$prefix}-tom-select" );
+		wp_enqueue_script( "wz-{$prefix}-tom-select" );
+
+		$defaults = array(
+			'action'   => $prefix . '_taxonomy_search_tom_select',
+			'nonce'    => wp_create_nonce( $prefix . '_taxonomy_search_tom_select' ),
+			'endpoint' => 'category',
+			'strings'  => array(
+				'no_results' => 'No results found for "%s"',
+			),
+		);
+
+		$args = wp_parse_args( $args, $defaults );
 
 		// Localize Tom Select settings.
 		wp_localize_script(
-			'wz-' . $prefix . '-tom-select-init',
+			"wz-{$prefix}-tom-select-init",
 			'WZTomSelectSettings',
-			array(
-				'action'   => $prefix . '_taxonomy_search_tom_select',
-				'nonce'    => wp_create_nonce( $prefix . '_taxonomy_search_tom_select' ),
-				'endpoint' => 'forms',
-			)
+			$args
 		);
-		wp_enqueue_script( 'wz-' . $prefix . '-tom-select-init' );
+		wp_enqueue_script( "wz-{$prefix}-tom-select-init" );
 
 		wp_enqueue_style( 'wz-' . $prefix . '-admin' );
 	}
@@ -1144,19 +1158,22 @@ class Settings_API {
 	/**
 	 * Get the encryption key for API key encryption/decryption.
 	 *
+	 * @param string $prefix Optional prefix for fallback key.
 	 * @return string The encryption key.
 	 */
-	private static function get_encryption_key() {
-		return defined( 'AUTH_SALT' ) ? AUTH_SALT : ( defined( 'SECURE_AUTH_SALT' ) ? SECURE_AUTH_SALT : hash( 'sha256', __NAMESPACE__ . 'knowledgebase_encryption_fallback' ) );
+	private static function get_encryption_key( $prefix = '' ) {
+		$fallback = $prefix ? str_replace( '-', '_', $prefix ) . '_encryption_fallback' : 'settings_api_encryption_fallback';
+		return defined( 'AUTH_SALT' ) ? AUTH_SALT : ( defined( 'SECURE_AUTH_SALT' ) ? SECURE_AUTH_SALT : hash( 'sha256', __NAMESPACE__ . $fallback ) );
 	}
 
 	/**
 	 * Encrypts an API key using either OpenSSL or Sodium, if available.
 	 *
 	 * @param string $key The API key to encrypt.
+	 * @param string $prefix Optional prefix for fallback key.
 	 * @return string The encrypted API key, or the plain text key if no secure method is available.
 	 */
-	public static function encrypt_api_key( $key ) {
+	public static function encrypt_api_key( $key, $prefix = '' ) {
 		if ( empty( $key ) ) {
 			return '';
 		}
@@ -1165,7 +1182,7 @@ class Settings_API {
 		if ( extension_loaded( 'openssl' ) ) {
 			$iv_length = openssl_cipher_iv_length( 'aes-256-cbc' );
 			$iv        = openssl_random_pseudo_bytes( $iv_length );
-			$encrypted = openssl_encrypt( $key, 'aes-256-cbc', self::get_encryption_key(), 0, $iv );
+			$encrypted = openssl_encrypt( $key, 'aes-256-cbc', self::get_encryption_key( $prefix ), 0, $iv );
 
 			// Store IV + ciphertext in hex format.
 			return 'enc:' . bin2hex( $iv . $encrypted );
@@ -1173,7 +1190,7 @@ class Settings_API {
 
 		// Use Sodium (libsodium) if OpenSSL is unavailable.
 		if ( extension_loaded( 'sodium' ) ) {
-			$sodium_key = substr( hash( 'sha256', self::get_encryption_key(), true ), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES );
+			$sodium_key = substr( hash( 'sha256', self::get_encryption_key( $prefix ), true ), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES );
 			$nonce      = random_bytes( SODIUM_CRYPTO_SECRETBOX_NONCEBYTES );
 			$encrypted  = sodium_crypto_secretbox( $key, $nonce, $sodium_key );
 
@@ -1187,9 +1204,10 @@ class Settings_API {
 	 * Decrypts an API key using either OpenSSL or Sodium, if available.
 	 *
 	 * @param string $encrypted_key The encrypted API key to decrypt.
+	 * @param string $prefix Optional prefix for fallback key.
 	 * @return string The decrypted API key, or the encrypted key if no secure method is available.
 	 */
-	public static function decrypt_api_key( $encrypted_key ) {
+	public static function decrypt_api_key( $encrypted_key, $prefix = '' ) {
 		if ( empty( $encrypted_key ) ) {
 			return '';
 		}
@@ -1213,13 +1231,13 @@ class Settings_API {
 			$iv         = mb_substr( $data, 0, $iv_length, '8bit' );
 			$ciphertext = mb_substr( $data, $iv_length, null, '8bit' );
 
-			$decrypted = openssl_decrypt( $ciphertext, 'aes-256-cbc', self::get_encryption_key(), 0, $iv );
+			$decrypted = openssl_decrypt( $ciphertext, 'aes-256-cbc', self::get_encryption_key( $prefix ), 0, $iv );
 			return false === $decrypted ? '' : $decrypted;
 		}
 
 		// Try Sodium (libsodium) decryption.
 		if ( extension_loaded( 'sodium' ) ) {
-			$sodium_key = substr( hash( 'sha256', self::get_encryption_key(), true ), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES );
+			$sodium_key = substr( hash( 'sha256', self::get_encryption_key( $prefix ), true ), 0, SODIUM_CRYPTO_SECRETBOX_KEYBYTES );
 			$decoded    = sodium_hex2bin( $encrypted_key );
 
 			if ( ! $decoded ) {
