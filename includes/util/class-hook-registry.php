@@ -46,10 +46,10 @@ class Hook_Registry {
 		if ( ! is_callable( $callback ) ) {
 			return false;
 		}
-		if ( ! is_int( $priority ) || $priority < 0 ) {
+		if ( ! is_numeric( $priority ) || $priority < 0 ) {
 			return false;
 		}
-		if ( ! is_int( $args ) || $args < 1 ) {
+		if ( ! is_numeric( $args ) || $args < 1 ) {
 			return false;
 		}
 
