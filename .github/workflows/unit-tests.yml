@@ -77,6 +77,7 @@ jobs:
 
       - name: Set up WordPress test environment
         run: |
+          sudo apt-get install -y subversion
           bash phpunit/install.sh wordpress_test root '' 127.0.0.1:3306 ${{ matrix.wp }}
 
       - name: Run tests (single site)
