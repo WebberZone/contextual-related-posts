@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.7.1
+ * @version 2.7.3
  */
 class Settings_API {
 
