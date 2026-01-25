@@ -355,6 +355,8 @@ class Settings_Wizard extends Settings_Wizard_API {
 		<div class="wrap wizard-wrap">
 			<h1><?php echo esc_html( $this->translation_strings['wizard_title'] ); ?></h1>
 
+			<?php $this->render_wizard_steps_navigation(); ?>
+
 			<div class="wizard-progress">
 				<div class="wizard-progress-bar">
 					<div class="wizard-progress-fill" style="width: <?php echo esc_attr( (string) ( ( $this->current_step / $this->total_steps ) * 100 ) ); ?>%;"></div>

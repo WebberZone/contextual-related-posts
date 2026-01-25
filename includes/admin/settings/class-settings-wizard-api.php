@@ -20,8 +20,6 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Settings Wizard API class
- *
- * @since 4.2.0
  */
 class Settings_Wizard_API {
 
@@ -366,7 +364,7 @@ class Settings_Wizard_API {
 				break;
 
 			case 'skip_wizard':
-				$this->complete_wizard();
+				$this->mark_wizard_completed();
 				$this->redirect_to_admin();
 				break;
 			default:
@@ -473,14 +471,12 @@ class Settings_Wizard_API {
 	 * @param int $step Step number to redirect to.
 	 */
 	protected function redirect_to_step( $step ) {
-		$parent = ! empty( $this->menu_args['parent'] ) ? $this->menu_args['parent'] : 'admin.php';
-		$base   = admin_url( $parent );
-		$url    = add_query_arg(
+		$url = add_query_arg(
 			array(
 				'page' => $this->page_slug,
 				'step' => $step,
 			),
-			$base
+			admin_url( 'admin.php' )
 		);
 		wp_safe_redirect( $url );
 		exit;
@@ -490,13 +486,7 @@ class Settings_Wizard_API {
 	 * Redirect to the admin page after wizard completion.
 	 */
 	protected function redirect_to_admin() {
-		$url = add_query_arg(
-			array(
-				'page'             => str_replace( '_wizard', '', $this->page_slug ),
-				'wizard-completed' => '1',
-			),
-			admin_url( 'admin.php' )
-		);
+		$url = $this->get_completion_redirect_url();
 		wp_safe_redirect( $url );
 		exit;
 	}
@@ -708,7 +698,7 @@ class Settings_Wizard_API {
 	 * @return string Skip wizard link URL.
 	 */
 	protected function get_skip_link_url() {
-		return admin_url( 'index.php' );
+		return $this->get_completion_redirect_url();
 	}
 
 	/**
@@ -733,9 +723,9 @@ class Settings_Wizard_API {
 				</button>
 			<?php endif; ?>
 
-			<a href="<?php echo esc_url( $this->get_skip_link_url() ); ?>" class="button wizard-button-skip">
+			<button type="submit" name="wizard_action" value="skip_wizard" class="button wizard-button-skip">
 				<?php echo esc_html( $this->translation_strings['skip_wizard'] ); ?>
-			</a>
+			</button>
 		</div>
 		<?php
 	}
@@ -885,14 +875,12 @@ class Settings_Wizard_API {
 	 * @return string Step URL.
 	 */
 	protected function get_step_url( $step ) {
-		$parent = ! empty( $this->menu_args['parent'] ) ? $this->menu_args['parent'] : 'admin.php';
-		$base   = admin_url( $parent );
 		return add_query_arg(
 			array(
 				'page' => $this->page_slug,
 				'step' => $step,
 			),
-			$base
+			admin_url( 'admin.php' )
 		);
 	}
 
