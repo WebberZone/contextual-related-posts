@@ -638,21 +638,21 @@ class Settings_Wizard_API {
 									$all_settings = get_option( $this->settings_key, array() );
 
 									// Check if this setting exists in the saved settings.
-									$value = isset( $all_settings[ $setting_id ] ) ? $all_settings[ $setting_id ] : null;
+									$value = $all_settings[ $setting_id ] ?? null;
 
 									// Use saved value if it exists, otherwise use default.
-									$args['value'] = ( null !== $value ) ? $value : ( isset( $args['default'] ) ? $args['default'] : '' );
+									$args['value'] = ( null !== $value ) ? $value : ( $args['default'] ?? '' );
 									$type          = $args['type'] ?? 'text';
 									$callback      = method_exists( $this->settings_form, "callback_{$type}" ) ? array( $this->settings_form, "callback_{$type}" ) : array( $this->settings_form, 'callback_missing' );
 
 									echo '<tr>';
 									echo '<th scope="row">';
 									if ( ! empty( $args['name'] ) ) {
-										echo '<label for="' . esc_attr( $setting_id ) . '">' . esc_html( $args['name'] ) . '</label>';
+										echo '<label for="' . esc_attr( $setting_id ) . '">' . esc_html( wp_strip_all_tags( $args['name'] ) ) . '</label>';
 									}
 									echo '</th>';
 									echo '<td>';
-									call_user_func( $callback, $args );
+									\call_user_func( $callback, $args );
 									echo '</td>';
 									echo '</tr>';
 								}
