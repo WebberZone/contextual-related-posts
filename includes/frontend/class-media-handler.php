@@ -463,18 +463,30 @@ class Media_Handler {
 	}
 
 	/**
-	 * Get an HTML img element
+	 * Get an HTML img element.
 	 *
-	 * @param string       $attachment_url    Image URL.
-	 * @param array        $attr              Attributes for the image markup.
-	 * @param int          $attachment_id     Attachment ID.
-	 * @param string|int[] $size              Image size.
+	 * When an attachment ID is available the function delegates to
+	 * {@see wp_get_attachment_image()} so that srcset, sizes and all
+	 * core image optimisations are applied automatically.
+	 *
+	 * When only a URL is available (external images, meta-key URLs, etc.)
+	 * the function builds the `<img>` tag manually using the configured
+	 * thumbnail dimensions and attributes.
+	 *
+	 * @param string       $attachment_url Image URL.
+	 * @param array        $attr           Optional. Attributes for the image markup.
+	 * @param int          $attachment_id  Optional. Attachment ID. Default 0.
+	 * @param string|int[] $size           Optional. Registered image size name or
+	 *                                     array of width and height values in pixels.
+	 *                                     Default empty string.
 	 * @return string HTML img element or empty string on failure.
 	 */
 	public static function get_image_html( $attachment_url, $attr = array(), $attachment_id = 0, $size = '' ) {
-		// If there is an attachment ID, use wp_get_attachment_image().
+		// If there is an attachment ID, delegate to wp_get_attachment_image().
 		if ( $attachment_id ) {
-			unset( $attr['thumb_html'], $attr['thumb_width'], $attr['thumb_height'] );
+			$attr = self::ensure_loading_and_decoding_attrs( $attr );
+			$attr = self::sanitize_image_attrs( $attr );
+
 			return wp_get_attachment_image( $attachment_id, $size, false, $attr );
 		}
 
@@ -488,6 +500,7 @@ class Media_Handler {
 		// Define default attributes.
 		$default_attr = array(
 			'src'          => $attachment_url,
+			'alt'          => '',
 			'thumb_html'   => call_user_func( $get_option_callback, 'thumb_html', 'html' ),
 			'thumb_width'  => call_user_func( $get_option_callback, 'thumb_width', 150 ),
 			'thumb_height' => call_user_func( $get_option_callback, 'thumb_height', 150 ),
@@ -498,48 +511,22 @@ class Media_Handler {
 		$attr = wp_parse_args( $attr, $default_attr );
 		$attr = self::ensure_loading_and_decoding_attrs( $attr );
 
-		// Generate width and height string.
+		// Generate width and height string before thumb_* keys are stripped.
 		$hwstring = self::get_image_hwstring( $attr );
 
-		// Omit the `decoding` attribute if the value is invalid according to the spec.
-		if ( empty( $attr['decoding'] ) || ! in_array( $attr['decoding'], array( 'async', 'sync', 'auto' ), true ) ) {
-			unset( $attr['decoding'] );
+		// Add 'auto' to the sizes attribute for lazy-loaded images.
+		if (
+			isset( $attr['loading'] ) &&
+			'lazy' === $attr['loading'] &&
+			isset( $attr['sizes'] ) &&
+			function_exists( 'wp_sizes_attribute_includes_valid_auto' ) &&
+			! wp_sizes_attribute_includes_valid_auto( $attr['sizes'] )
+		) {
+			$attr['sizes'] = 'auto, ' . $attr['sizes'];
 		}
 
-		/*
-		 * If the default value of `lazy` for the `loading` attribute is overridden
-		 * to omit the attribute for this image, ensure it is not included.
-		 */
-		if ( isset( $attr['loading'] ) && ! $attr['loading'] ) {
-			unset( $attr['loading'] );
-		}
-
-		// If the `fetchpriority` attribute is overridden and set to false or an empty string.
-		if ( isset( $attr['fetchpriority'] ) && ! $attr['fetchpriority'] ) {
-			unset( $attr['fetchpriority'] );
-		}
-
-		// Generate 'srcset' and 'sizes' if not already present.
-		if ( empty( $attr['srcset'] ) ) {
-			$image_meta = wp_get_attachment_metadata( $attachment_id );
-
-			if ( is_array( $image_meta ) ) {
-				$size_array = array( absint( $attr['thumb_width'] ), absint( $attr['thumb_height'] ) );
-				$srcset     = wp_calculate_image_srcset( $size_array, $attachment_url, $image_meta, $attachment_id );
-				$sizes      = wp_calculate_image_sizes( $size_array, $attachment_url, $image_meta, $attachment_id );
-
-				if ( $srcset && ( $sizes || ! empty( $attr['sizes'] ) ) ) {
-					$attr['srcset'] = $srcset;
-
-					if ( empty( $attr['sizes'] ) ) {
-						$attr['sizes'] = $sizes;
-					}
-				}
-			}
-		}
-
-		// Unset attributes not needed in the final img tag.
-		unset( $attr['thumb_html'], $attr['thumb_width'], $attr['thumb_height'] );
+		// Sanitise and strip internal attributes.
+		$attr = self::sanitize_image_attrs( $attr );
 
 		/**
 		 * Filters the list of attachment image attributes.
@@ -551,10 +538,10 @@ class Media_Handler {
 		$attr = array_map( 'esc_attr', $attr );
 
 		// Construct the HTML img tag.
-		$html = '<img ' . $hwstring;
+		$html = rtrim( '<img ' . $hwstring );
 		foreach ( $attr as $name => $value ) {
 			if ( '' !== $value ) {
-				$html .= " $name=\"$value\"";
+				$html .= " $name=" . '"' . $value . '"';
 			}
 		}
 		$html .= ' />';
@@ -595,6 +582,43 @@ class Media_Handler {
 			 */
 			$attr['decoding'] = apply_filters( self::$prefix . '_thumbnail_decoding_attribute', 'async', $attr );
 		}
+
+		return $attr;
+	}
+
+	/**
+	 * Sanitises optional image attributes before rendering.
+	 *
+	 * Removes `decoding`, `loading`, and `fetchpriority` when their values
+	 * are empty or invalid, and strips internal `thumb_*` keys that must
+	 * never appear in the final `<img>` tag.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @param array $attr Image attributes.
+	 * @return array Cleaned attributes.
+	 */
+	private static function sanitize_image_attrs( array $attr ): array {
+		// Omit the `decoding` attribute if the value is invalid according to the spec.
+		if ( empty( $attr['decoding'] ) || ! in_array( $attr['decoding'], array( 'async', 'sync', 'auto' ), true ) ) {
+			unset( $attr['decoding'] );
+		}
+
+		/*
+		 * If the default value of `lazy` for the `loading` attribute is overridden
+		 * to omit the attribute for this image, ensure it is not included.
+		 */
+		if ( isset( $attr['loading'] ) && ! $attr['loading'] ) {
+			unset( $attr['loading'] );
+		}
+
+		// If the `fetchpriority` attribute is overridden and set to false or an empty string.
+		if ( isset( $attr['fetchpriority'] ) && ! $attr['fetchpriority'] ) {
+			unset( $attr['fetchpriority'] );
+		}
+
+		// Strip internal keys that must not appear in the final <img> tag.
+		unset( $attr['thumb_html'], $attr['thumb_width'], $attr['thumb_height'] );
 
 		return $attr;
 	}
