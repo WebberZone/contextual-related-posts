@@ -840,6 +840,7 @@ class Settings_Form {
 			$attributes .= sprintf( ' %1$s="%2$s"', sanitize_key( $attribute ), esc_attr( $val ) );
 		}
 
+		ob_start();
 		?>
 		<div class="<?php echo esc_attr( $class ); ?> wz-repeater-wrapper" id="<?php echo esc_attr( $args['id'] ); ?>-wrapper" <?php echo $attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<div class="<?php echo esc_attr( $args['id'] ); ?>-items">
