@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.7.3
+ * @version 2.8.0
  */
 class Settings_API {
 
@@ -27,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.7.3';
+	public const VERSION = '2.8.0';
 
 	/**
 	 * Settings Key.
@@ -148,7 +148,7 @@ class Settings_API {
 	public function __construct( $settings_key, $prefix, $args ) {
 
 		if ( ! defined( 'WZ_SETTINGS_API_VERSION' ) ) {
-			define( 'WZ_SETTINGS_API_VERSION', self::VERSION );
+			define( 'WZ_SETTINGS_API_VERSION', self::VERSION ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 		}
 
 		$this->settings_key = $settings_key;
@@ -697,7 +697,7 @@ class Settings_API {
 		 *
 		 * @param array   $options Default settings.
 		 */
-		return apply_filters( $this->prefix . '_get_settings_types', $options );
+		return apply_filters( $this->prefix . '_get_settings_types', $options ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 
@@ -718,7 +718,7 @@ class Settings_API {
 				 *
 				 * @param  array $non_setting_types Array of types which are not settings.
 				 */
-				$non_setting_types = apply_filters( $this->prefix . '_non_setting_types', array( 'header', 'descriptive_text' ) );
+				$non_setting_types = apply_filters( $this->prefix . '_non_setting_types', array( 'header', 'descriptive_text' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 				if ( in_array( $option['type'], $non_setting_types, true ) ) {
 					continue;
@@ -755,7 +755,7 @@ class Settings_API {
 		 *
 		 * @param array $options Default settings.
 		 */
-		return apply_filters( $this->prefix . '_settings_defaults', $options );
+		return apply_filters( $this->prefix . '_settings_defaults', $options ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 
@@ -878,7 +878,7 @@ class Settings_API {
 		 *
 		 * @param  array $input Input unclean array
 		 */
-		$input = apply_filters( $this->prefix . '_settings_' . $tab . '_sanitize', $input );
+		$input = apply_filters( $this->prefix . '_settings_' . $tab . '_sanitize', $input ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 		// Create an output array by merging the existing settings with the ones submitted.
 		$output = array_merge( $settings, $input );
@@ -890,7 +890,7 @@ class Settings_API {
 			 *
 			 * @param  array $non_setting_types Array of types which are not settings.
 			 */
-			$non_setting_types = apply_filters( $this->prefix . '_non_setting_types', array( 'header', 'descriptive_text' ) );
+			$non_setting_types = apply_filters( $this->prefix . '_non_setting_types', array( 'header', 'descriptive_text' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 			if ( in_array( $type, $non_setting_types, true ) ) {
 				continue;
@@ -932,7 +932,7 @@ class Settings_API {
 		 * @param array $output Settings array.
 		 * @param array $input  Input settings array.
 		 */
-		return apply_filters( $this->prefix . '_settings_sanitize', $output, $input );
+		return apply_filters( $this->prefix . '_settings_sanitize', $output, $input ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -942,9 +942,9 @@ class Settings_API {
 		ob_start();
 		?>
 			<div class="wrap">
-				<?php do_action( $this->prefix . '_settings_page_header_before' ); ?>
+				<?php do_action( $this->prefix . '_settings_page_header_before' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound ?>
 				<h1><?php echo esc_html( $this->translation_strings['page_header'] ); ?></h1>
-				<?php do_action( $this->prefix . '_settings_page_header' ); ?>
+				<?php do_action( $this->prefix . '_settings_page_header' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound ?>
 
 				<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-2">
@@ -1067,7 +1067,7 @@ class Settings_API {
 					 * @param string $tab_name          Tab name.
 					 * @param array  $settings_sections Settings sections.
 					 */
-					do_action( $this->prefix . '_settings_form_buttons', $tab_id, $tab_name, $this->settings_sections );
+					do_action( $this->prefix . '_settings_form_buttons', $tab_id, $tab_name, $this->settings_sections ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 					?>
 					</p>
 				</div><!-- /#tab_id-->
