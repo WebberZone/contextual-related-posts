@@ -2,7 +2,7 @@
 /**
  * Class to display and save a Metabox.
  *
- * @package WebberZone\Contextual_Related_Posts
+ * @package WebberZone\Better_External_Links
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin\Settings;
@@ -186,7 +186,7 @@ class Metabox_API {
 			 *
 			 * @param array $non_setting_types Array of types which are not settings.
 			 */
-			$non_setting_types = apply_filters( $this->prefix . '_metabox_non_setting_types', array( 'header', 'descriptive_text' ) );
+			$non_setting_types = apply_filters( $this->prefix . '_metabox_non_setting_types', array( 'header', 'descriptive_text' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 			if ( in_array( $type, $non_setting_types, true ) ) {
 				continue;
@@ -208,7 +208,7 @@ class Metabox_API {
 		 * @param array $post_meta Array of metabox settings.
 		 * @param int   $post_id   Post ID
 		 */
-		$post_meta = apply_filters( "{$this->prefix}_meta_key", $post_meta, $post_id );
+		$post_meta = apply_filters( "{$this->prefix}_meta_key", $post_meta, $post_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 		// Now loop through the settings array and either save or delete the meta key.
 		foreach ( $this->registered_settings as $setting ) {
@@ -268,7 +268,7 @@ class Metabox_API {
 		 *
 		 * @param object $post  Post object.
 		 */
-		do_action( $this->prefix . '_meta_box', $post );
+		do_action( $this->prefix . '_meta_box', $post ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
