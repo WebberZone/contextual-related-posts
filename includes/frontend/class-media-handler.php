@@ -146,6 +146,23 @@ class Media_Handler {
 				}
 			}
 
+			// If there is no thumbnail found, check FIFU (Featured Image from URL) plugin.
+			if ( ! $postimage ) {
+				/**
+				 * Filters the FIFU meta key used to store external image URLs.
+				 *
+				 * @param string $fifu_meta_key Meta key used by FIFU plugin.
+				 */
+				$fifu_meta_key = apply_filters( self::$prefix . '_fifu_meta_key', 'fifu_image_url' );
+
+				$fifu_image_url = get_post_meta( $result->ID, $fifu_meta_key, true );
+				$fifu_image_url = filter_var( $fifu_image_url, FILTER_VALIDATE_URL );
+				if ( $fifu_image_url ) {
+					$postimage = $fifu_image_url;
+					$pick      = 'fifu';
+				}
+			}
+
 			// If there is no thumbnail found, check the post thumbnail.
 			if ( ! $postimage ) {
 				if ( false !== get_post_thumbnail_id( $result->ID ) ) {
@@ -264,7 +281,7 @@ class Media_Handler {
 
 				$class = self::$prefix . "_{$pick} {$args['class']} {$args['size']}";
 
-				if ( empty( $attachment_id ) && ! in_array( $pick, array( 'video_thumb', 'default_thumb', 'site_icon_max', 'site_icon_min' ), true ) ) {
+				if ( empty( $attachment_id ) && ! in_array( $pick, array( 'video_thumb', 'default_thumb', 'site_icon_max', 'site_icon_min', 'fifu' ), true ) ) {
 					$attachment_id = self::get_cached_attachment_id( $postimage );
 				}
 
@@ -531,7 +548,7 @@ class Media_Handler {
 		/**
 		 * Filters the list of attachment image attributes.
 		 *
-		 * @param array  $attr Attributes for the image markup.
+		 * @param array  $attr           Attributes for the image markup.
 		 * @param string $attachment_url Image URL.
 		 */
 		$attr = apply_filters( self::$prefix . '_get_image_attributes', $attr, $attachment_url );
@@ -592,8 +609,6 @@ class Media_Handler {
 	 * Removes `decoding`, `loading`, and `fetchpriority` when their values
 	 * are empty or invalid, and strips internal `thumb_*` keys that must
 	 * never appear in the final `<img>` tag.
-	 *
-	 * @since 4.2.0
 	 *
 	 * @param array $attr Image attributes.
 	 * @return array Cleaned attributes.
