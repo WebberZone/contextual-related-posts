@@ -4,7 +4,7 @@
  *
  * @link  https://webberzone.com
  *
- * @package WebberZone\Better_External_Links
+ * @package WebberZone\Contextual_Related_Posts
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin\Settings;
