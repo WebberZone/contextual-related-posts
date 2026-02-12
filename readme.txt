@@ -208,6 +208,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 	* Cache key generation differentiates between the HTML cache and the Posts cache. Cache key generation has been significantly optimized to limit the number of keys.
 	* Improved Media Handler to reduce recursion, generate more reliable resized thumbnails, and better detect image alt text and attributes.
 	* Settings framework refactored from static to instance methods with Tom Select-powered AJAX taxonomy search for a smoother admin experience.
+	* Refreshed built-in related posts styles (grid, masonry, rounded thumbs and thumbs grid) with CSS custom properties for improved responsiveness and easier theming.
 	* Migrated post meta storage from single `crp_post_meta` array to individual `_crp_*` keys for better performance and compatibility. Includes a backward compatibility layer and an admin migration tool.
 	* Updated custom table sync to generate a post excerpt if the post doesn't contain one. It will also include the keyword set in the meta field.
 	* CRP_Core_Query class now accepts `post_id` as the primary parameter, supporting both integer and WP_Post object types. The legacy `postid` parameter is deprecated and will trigger a warning; it will be removed in a future release.

@@ -111,27 +111,11 @@ class Styles_Handler {
 			case 'rounded_thumbs':
 				$style_array['name']      = 'rounded-thumbs';
 				$style_array['extra_css'] = "
-			.crp_related.crp-rounded-thumbs a {
-				width: {$thumb_width}px;
-                height: {$thumb_height}px;
-			}
-			.crp_related.crp-rounded-thumbs a figure {
-				width: {$thumb_width}px;
-                height: {$thumb_height}px;
-				overflow: hidden;
-				display: block;
-				margin: 0;
-			}
-			.crp_related.crp-rounded-thumbs img {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				object-position: center center;
-			}
-			.crp_related.crp-rounded-thumbs .crp_title {
-				width: 100%;
-			}
-			";
+					.crp_related.crp-rounded-thumbs {
+						--crp-thumb-width: {$thumb_width}px;
+						--crp-thumb-height: {$thumb_height}px;
+					}
+				";
 				break;
 
 			case 'masonry':
@@ -143,21 +127,14 @@ class Styles_Handler {
 			case 'grid':
 				$style_array['name']      = 'grid';
 				$style_array['extra_css'] = "
-			.crp_related.crp-grid ul {
-				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
+			.crp_related.crp-grid {
+				--crp-grid-column-min: {$thumb_width}px;
+				--crp-grid-card-min-height: " . ( $thumb_height + 80 ) . "px;
+				--crp-grid-thumb-aspect-ratio: {$aspect_ratio};
+				--crp-grid-title-line-clamp: 3;
+				--crp-grid-title-line-height: 1.2em;
 			}
-			.crp_related.crp-grid ul li {
-				min-height: " . ( $thumb_height + 80 ) . 'px;
-			}
-			.crp_related.crp-grid .crp_title {
-				overflow: hidden;
-				display: -webkit-box;
-				-webkit-line-clamp: 3;
-				-webkit-box-orient: vertical;
-				line-height: 1.2em;
-				max-height: 3.6em;
-			}
-			';
+			";
 				break;
 
 			case 'thumbs_grid':
