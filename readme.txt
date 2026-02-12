@@ -196,19 +196,19 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 * Features:
 	* [Pro] Multisite tool to copy Contextual Related Posts settings between sites from the Network Settings page.
-	* [Pro] WooCommerce integration with ECSI-powered product indexing and related posts output on product pages. WooCommerce related products output customisation options (thumbnail, sale badge, price, rating, add to cart) and product filtering options.
+	* [Pro] WooCommerce integration with ECSI-powered product indexing and related posts output on product pages. WooCommerce-related products output customisation options (thumbnail, sale badge, price, rating, and add to cart) and product filtering options.
 	* [Pro] Server Load Threshold setting to skip CRP queries when MySQL is backlogged. [Learn more](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/).
 	* [Pro] Bot Protection setting to short-circuit CRP for known crawlers and bots, preserving resources and analytics integrity.
-	* [Pro] Comprehensive WP-CLI command suite for advanced management including database operations, cache management, custom table indexing, and content processing. Commands include `wp crp db`, `wp crp cache`, `wp crp tables indexes`, and more with full multisite support.
+	* [Pro] Comprehensive WP-CLI command suite for advanced management, including database operations, cache management, custom table indexing, and content processing. Commands include `wp crp db`, `wp crp cache`, `wp crp tables indexes`, and more, with full multisite support.
 	* [Pro] If Pro is active, the plugin renames "Exclude Categories" and "Exclude on Categories" to "Exclude Terms" and "Exclude on Terms" with support for all public custom taxonomies.
-	* Media Handler now supports FIFU WordPress plugin for featured image detection.
+	* Media Handler now supports the FIFU WordPress plugin for featured image detection.
 
 * Modifications:
 	* [Pro] Added a "Save & Clear Cache" button on the settings page to purge cached results immediately after saving changes.
-	* Cache key generation differentiates betweeen the HTML cache and Posts cache. Cache key generation significantly optimized to limit number of keys.
+	* Cache key generation differentiates between the HTML cache and the Posts cache. Cache key generation has been significantly optimized to limit the number of keys.
 	* Improved Media Handler to reduce recursion, generate more reliable resized thumbnails, and better detect image alt text and attributes.
-	* Settings framework refactored from static to instance methods with Tom Select powered AJAX taxonomy search for a smoother admin experience.
-	* Migrated post meta storage from single `crp_post_meta` array to individual `_crp_*` keys for better performance and compatibility. Includes backward compatibility layer and admin migration tool.
+	* Settings framework refactored from static to instance methods with Tom Select-powered AJAX taxonomy search for a smoother admin experience.
+	* Migrated post meta storage from single `crp_post_meta` array to individual `_crp_*` keys for better performance and compatibility. Includes a backward compatibility layer and an admin migration tool.
 	* Updated custom table sync to generate a post excerpt if the post doesn't contain one. It will also include the keyword set in the meta field.
 	* CRP_Core_Query class now accepts `post_id` as the primary parameter, supporting both integer and WP_Post object types. The legacy `postid` parameter is deprecated and will trigger a warning; it will be removed in a future release.
 	* Change CRP_CACHE_TIME to a week, down from a month.
