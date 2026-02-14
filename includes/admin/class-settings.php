@@ -1508,7 +1508,7 @@ class Settings {
 		if ( false !== strpos( $file, 'contextual-related-posts.php' ) ) {
 			$new_links = array(
 				'support'    => '<a href = "https://wordpress.org/support/plugin/contextual-related-posts">' . esc_html__( 'Support', 'contextual-related-posts' ) . '</a>',
-				'donate'     => '<a href = "https://ajaydsouza.com/donate/">' . esc_html__( 'Donate', 'contextual-related-posts' ) . '</a>',
+				'donate'     => '<a href = "https://wzn.io/donate-wz">' . esc_html__( 'Donate', 'contextual-related-posts' ) . '</a>',
 				'contribute' => '<a href = "https://github.com/WebberZone/contextual-related-posts">' . esc_html__( 'Contribute', 'contextual-related-posts' ) . '</a>',
 			);
 
