@@ -1,0 +1,154 @@
+/**
+ * Related Posts Masonry Styles
+ * Pinterest-style layout using CSS columns.
+ * Modern, accessible, with smooth animations.
+ */
+
+/* Slide up animation. */
+@keyframes crp-slideup {
+	from {
+		transform: translateY(80px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.crp_related.crp-masonry {
+	/* Custom properties for easy theming. */
+	--crp-gap: 1em;
+	--crp-border-radius: 8px;
+	--crp-card-bg: #fff;
+	--crp-card-border: #efefef;
+	--crp-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	--crp-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+	--crp-focus-color: #0073aa;
+	--crp-transition: 0.2s ease;
+
+	width: 100%;
+	margin: 1.25rem auto;
+	clear: both;
+}
+
+.crp_related.crp-masonry h3,
+.crp_related.crp-masonry figure {
+	margin: 0 !important;
+}
+
+.crp_related.crp-masonry ul {
+	margin: 1em 0;
+	padding: 0;
+	column-gap: var(--crp-gap);
+	list-style: none;
+	font-size: 0.9em;
+}
+
+/* Responsive columns. */
+@media (min-width: 700px) {
+	.crp_related.crp-masonry ul {
+		column-count: 2;
+	}
+}
+
+@media (min-width: 900px) {
+	.crp_related.crp-masonry ul {
+		column-count: 3;
+	}
+}
+
+@media (min-width: 1200px) {
+	.crp_related.crp-masonry ul {
+		column-count: 4;
+	}
+}
+
+.crp_related.crp-masonry ul li {
+	background: var(--crp-card-bg);
+	padding: 0.5rem;
+	margin: 0 0 var(--crp-gap);
+	width: 100%;
+	box-sizing: border-box;
+	border: 1px solid var(--crp-card-border);
+	border-radius: var(--crp-border-radius);
+	box-shadow: var(--crp-shadow);
+	font-size: 1em;
+	text-align: center;
+	display: inline-block;
+	break-inside: avoid;
+	page-break-inside: avoid;
+	animation: crp-slideup 0.6s ease-out;
+	transition:
+		transform var(--crp-transition),
+		box-shadow var(--crp-transition);
+	will-change: transform;
+}
+
+/* Hover effect - Pinterest style. */
+.crp_related.crp-masonry ul li:hover {
+	transform: scale(1.02) translateY(-4px);
+	box-shadow: var(--crp-shadow-hover);
+}
+
+.crp_related.crp-masonry ul li a {
+	display: block;
+	text-decoration: none !important;
+	border: 0;
+	box-shadow: none;
+}
+
+/* Improved focus state. */
+.crp_related.crp-masonry a:focus-visible {
+	outline: 2px solid var(--crp-focus-color);
+	outline-offset: 2px;
+	border-radius: var(--crp-border-radius);
+}
+
+.crp_related.crp-masonry ul li .crp_author a {
+	display: inline;
+}
+
+.crp_related.crp-masonry .crp_title {
+	display: block;
+	margin: 0.5rem 0;
+	color: #333;
+	font-weight: 600;
+	line-height: 1.3;
+}
+
+.crp_related.crp-masonry .crp_author,
+.crp_related.crp-masonry .crp_date,
+.crp_related.crp-masonry .crp_excerpt {
+	display: block;
+	font-size: 0.9em;
+	opacity: 0.8;
+	margin-top: 0.25rem;
+}
+
+.crp_related.crp-masonry ul li img {
+	width: 100%;
+	height: auto;
+	display: block;
+	margin: 0 auto;
+	border-radius: calc(var(--crp-border-radius) * 0.75);
+	object-fit: cover;
+}
+
+.crp_clear {
+	clear: both;
+}
+
+/* Reduced motion for accessibility. */
+@media (prefers-reduced-motion: reduce) {
+	.crp_related.crp-masonry ul li {
+		animation: none;
+		transition: none;
+		will-change: auto;
+	}
+
+	.crp_related.crp-masonry ul li:hover {
+		transform: none;
+	}
+}

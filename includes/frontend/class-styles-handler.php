@@ -104,25 +104,18 @@ class Styles_Handler {
 		$style_array  = array();
 		$thumb_width  = crp_get_option( 'thumb_width', 150 );
 		$thumb_height = crp_get_option( 'thumb_height', 150 );
+		$aspect_ratio = $thumb_width / $thumb_height;
 		$crp_style    = ! empty( $style ) ? $style : crp_get_option( 'crp_styles' );
 
 		switch ( $crp_style ) {
 			case 'rounded_thumbs':
 				$style_array['name']      = 'rounded-thumbs';
 				$style_array['extra_css'] = "
-			.crp_related.crp-rounded-thumbs a {
-				width: {$thumb_width}px;
-                height: {$thumb_height}px;
-				text-decoration: none;
-			}
-			.crp_related.crp-rounded-thumbs img {
-				max-width: {$thumb_width}px;
-				margin: auto;
-			}
-			.crp_related.crp-rounded-thumbs .crp_title {
-				width: 100%;
-			}
-			";
+					.crp_related.crp-rounded-thumbs {
+						--crp-thumb-width: {$thumb_width}px;
+						--crp-thumb-height: {$thumb_height}px;
+					}
+				";
 				break;
 
 			case 'masonry':
@@ -134,27 +127,26 @@ class Styles_Handler {
 			case 'grid':
 				$style_array['name']      = 'grid';
 				$style_array['extra_css'] = "
-			.crp_related.crp-grid ul li a.crp_link {
-				grid-template-rows: {$thumb_height}px auto;
-			}
-			.crp_related.crp-grid ul {
-				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
+			.crp_related.crp-grid {
+				--crp-grid-column-min: {$thumb_width}px;
+				--crp-grid-card-min-height: " . ( $thumb_height + 80 ) . "px;
+				--crp-grid-thumb-aspect-ratio: {$aspect_ratio};
+				--crp-grid-title-line-clamp: 3;
+				--crp-grid-title-line-height: 1.2em;
 			}
 			";
 				break;
 
 			case 'thumbs_grid':
-				$row_height = max( 0, (int) $thumb_height - 50 );
-
 				$style_array['name']      = 'thumbs-grid';
 				$style_array['extra_css'] = "
-			.crp_related.crp-thumbs-grid ul li a.crp_link {
-				grid-template-rows: {$row_height}px auto;
+			.crp_related.crp-thumbs-grid {
+				--crp-thumb-width: {$thumb_width}px;
+				--crp-thumb-height: {$thumb_height}px;
+				--crp-thumb-min-width: " . max( 120, $thumb_width * 0.8 ) . 'px;
+				--crp-aspect-ratio: ' . $aspect_ratio . ';
 			}
-			.crp_related.crp-thumbs-grid ul {
-				grid-template-columns: repeat(auto-fill, minmax({$thumb_width}px, 1fr));
-			}
-			";
+			';
 				break;
 
 			default:

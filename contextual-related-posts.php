@@ -9,13 +9,13 @@
  * @author    Ajay D'Souza
  * @license   GPL-2.0+
  * @link      https://webberzone.com
- * @copyright 2009-2025 Ajay D'Souza
+ * @copyright 2009-2026 Ajay D'Souza
  *
  * @wordpress-plugin
  * Plugin Name: Contextual Related Posts
  * Plugin URI:  https://webberzone.com/plugins/contextual-related-posts/
  * Description: Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.
- * Version:     4.1.1-beta1
+ * Version:     4.2.0
  * Author:      WebberZone
  * Author URI:  https://webberzone.com
  * License:     GPL-2.0+
@@ -36,7 +36,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 2.9.3
  */
 if ( ! defined( 'WZ_CRP_VERSION' ) ) {
-	define( 'WZ_CRP_VERSION', '4.1.1' );
+	define( 'WZ_CRP_VERSION', '4.2.0' );
 }
 
 
@@ -69,6 +69,15 @@ if ( ! defined( 'WZ_CRP_PLUGIN_URL' ) ) {
 }
 
 /**
+ * Holds the default thumbnail URL for Contextual Related Posts.
+ *
+ * @since 4.2.0
+ */
+if ( ! defined( 'WZ_CRP_DEFAULT_THUMBNAIL_URL' ) ) {
+	define( 'WZ_CRP_DEFAULT_THUMBNAIL_URL', WZ_CRP_PLUGIN_URL . 'default.png' );
+}
+
+/**
  * Maximum words to match in the content.
  *
  * @since 2.3.0
@@ -83,7 +92,7 @@ if ( ! defined( 'CRP_MAX_WORDS' ) ) {
  * @since 3.0.0
  */
 if ( ! defined( 'CRP_CACHE_TIME' ) ) {
-	define( 'CRP_CACHE_TIME', MONTH_IN_SECONDS );
+	define( 'CRP_CACHE_TIME', WEEK_IN_SECONDS );
 }
 
 /**

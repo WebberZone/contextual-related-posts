@@ -107,6 +107,15 @@ class Admin {
 	public Settings_Wizard $settings_wizard;
 
 	/**
+	 * Admin banner helper instance.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @var Admin_Banner
+	 */
+	public Admin_Banner $admin_banner;
+
+	/**
 	 * Settings Page in Admin area.
 	 *
 	 * @since 3.5.0
@@ -160,6 +169,7 @@ class Admin {
 		$this->admin_notices_api = new Admin_Notices_API();
 		$this->admin_notices     = new Admin_Notices();
 		$this->settings_wizard   = new Settings_Wizard();
+		$this->admin_banner      = new Admin_Banner( $this->get_admin_banner_config() );
 	}
 
 	/**
@@ -211,7 +221,7 @@ class Admin {
 	 * @since 3.5.0
 	 */
 	public static function display_admin_sidebar() {
-		require_once WZ_CRP_PLUGIN_DIR . 'includes/admin/settings/sidebar.php';
+		require_once WZ_CRP_PLUGIN_DIR . 'includes/admin/sidebar.php';
 	}
 
 	/**
@@ -241,5 +251,55 @@ class Admin {
 				</div>
 			<?php
 		}
+	}
+
+	/**
+	 * Retrieve the configuration array for the admin banner.
+	 *
+	 * @since 4.2.0
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function get_admin_banner_config(): array {
+		return array(
+			'capability' => 'manage_options',
+			'prefix'     => 'crp',
+			'screen_ids' => array(
+				'settings_page_crp_options_page',
+				'tools_page_crp_tools_page',
+			),
+			'page_slugs' => array(
+				'crp_options_page',
+				'crp_tools_page',
+			),
+			'strings'    => array(
+				'region_label' => esc_html__( 'Contextual Related Posts quick links', 'contextual-related-posts' ),
+				'nav_label'    => esc_html__( 'Contextual Related Posts admin shortcuts', 'contextual-related-posts' ),
+				'eyebrow'      => esc_html__( 'WebberZone Contextual Related Posts', 'contextual-related-posts' ),
+				'title'        => esc_html__( 'Display related posts automatically on your site.', 'contextual-related-posts' ),
+				'text'         => esc_html__( 'Jump to your most-used Contextual Related Posts tools, manage content faster, and explore more WebberZone plugins.', 'contextual-related-posts' ),
+			),
+			'sections'   => array(
+				'settings' => array(
+					'label'      => esc_html__( 'Settings', 'contextual-related-posts' ),
+					'url'        => admin_url( 'options-general.php?page=crp_options_page' ),
+					'screen_ids' => array( 'settings_page_crp_options_page' ),
+					'page_slugs' => array( 'crp_options_page' ),
+				),
+				'tools'    => array(
+					'label'      => esc_html__( 'Tools', 'contextual-related-posts' ),
+					'url'        => admin_url( 'tools.php?page=crp_tools_page' ),
+					'screen_ids' => array( 'tools_page_crp_tools_page' ),
+					'page_slugs' => array( 'crp_tools_page' ),
+				),
+				'plugins'  => array(
+					'label'  => esc_html__( 'WebberZone Plugins', 'contextual-related-posts' ),
+					'url'    => 'https://webberzone.com/plugins/',
+					'type'   => 'secondary',
+					'target' => '_blank',
+					'rel'    => 'noopener noreferrer',
+				),
+			),
+		);
 	}
 }

@@ -247,24 +247,51 @@ function crp_get_registered_settings_types() {
  */
 function crp_settings_defaults() {
 
-	$options = array();
+	$options       = array();
+	$default_types = array(
+		'color',
+		'css',
+		'csv',
+		'file',
+		'html',
+		'multicheck',
+		'number',
+		'numbercsv',
+		'password',
+		'postids',
+		'posttypes',
+		'radio',
+		'radiodesc',
+		'repeater',
+		'select',
+		'sensitive',
+		'taxonomies',
+		'text',
+		'textarea',
+		'thumbsizes',
+		'url',
+		'wysiwyg',
+	);
 
 	// Populate some default values.
 	foreach ( \WebberZone\Contextual_Related_Posts\Admin\Settings::get_registered_settings() as $tab => $settings ) {
 		foreach ( $settings as $option ) {
+			if ( ! isset( $option['id'] ) ) {
+				continue;
+			}
+
+			$setting_id    = $option['id'];
+			$setting_type  = $option['type'] ?? '';
+			$default_value = '';
+
 			// When checkbox is set to true, set this to 1.
-			if ( 'checkbox' === $option['type'] && ! empty( $option['options'] ) ) {
-				$options[ $option['id'] ] = 1;
-			} else {
-				$options[ $option['id'] ] = 0;
+			if ( 'checkbox' === $setting_type ) {
+				$default_value = isset( $option['default'] ) ? (int) (bool) $option['default'] : 0;
+			} elseif ( isset( $option['default'] ) && in_array( $setting_type, $default_types, true ) ) {
+				$default_value = $option['default'];
 			}
-			// If an option is set.
-			if ( in_array( $option['type'], array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) && isset( $option['options'] ) ) {
-				$options[ $option['id'] ] = $option['options'];
-			}
-			if ( in_array( $option['type'], array( 'multicheck', 'radio', 'select', 'radiodesc', 'thumbsizes' ), true ) && isset( $option['default'] ) ) {
-				$options[ $option['id'] ] = $option['default'];
-			}
+
+			$options[ $setting_id ] = $default_value;
 		}
 	}
 
@@ -307,4 +334,15 @@ function crp_get_default_option( $key = '' ) {
  */
 function crp_settings_reset() {
 	delete_option( 'crp_settings' );
+}
+
+/**
+ * Check if WooCommerce is active.
+ *
+ * @since 4.2.0
+ *
+ * @return bool
+ */
+function crp_is_woocommerce_active(): bool {
+	return class_exists( 'WooCommerce' );
 }

@@ -78,7 +78,7 @@ class Db {
 		global $wpdb;
 
 		// Install the fulltext index if it doesn't exist.
-		$wpdb->query( "ALTER TABLE {$wpdb->posts} ADD FULLTEXT {$index} {$columns};" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$wpdb->query( "ALTER TABLE {$wpdb->posts} ADD FULLTEXT {$index} {$columns};" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter 
 	}
 
 	/**
@@ -111,7 +111,7 @@ class Db {
 		foreach ( $indexes as $index => $columns ) {
 			if ( self::is_index_installed( $index ) ) {
 				$index = esc_sql( $index );
-				$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX $index" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX $index" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 			}
 		}
 	}
@@ -175,7 +175,7 @@ class Db {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @return array Array of index statuses indicating whether they are installed.
+	 * @return array Array of index statuses with 'installed' boolean flag and 'status' text.
 	 */
 	public static function check_fulltext_indexes() {
 		// Get the list of fulltext indexes.
@@ -187,8 +187,9 @@ class Db {
 			$is_installed = self::is_index_installed( $index );
 
 			$statuses[ $index ] = array(
-				'columns' => $columns,
-				'status'  => $is_installed
+				'columns'   => $columns,
+				'installed' => $is_installed,
+				'status'    => $is_installed
 					? '<span style="color: #006400;">' . __( 'Installed', 'contextual-related-posts' ) . '</span>'
 					: '<span style="color: #8B0000;">' . __( 'Not Installed', 'contextual-related-posts' ) . '</span>',
 			);

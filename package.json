@@ -1,6 +1,6 @@
 {
     "name": "@webberzone/contextual-related-posts",
-    "version": "4.1.0",
+    "version": "4.2.0",
     "description": "Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.",
     "author": "WebberZone",
     "license": "GPL-2.0-or-later",
@@ -45,14 +45,15 @@
         "wpml-config.xml"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.20.0",
-        "@wordpress/scripts": "^27",
+        "@wordpress/prettier-config": "^4.36.0",
+        "@wordpress/scripts": "^31",
         "clean-css-cli": "^5.6.3",
         "rtlcss": "^4.3.0",
-        "terser": "^5.44.0"
+        "terser": "^5.44.1"
     },
     "dependencies": {
-        "@wordpress/icons": "^10.20.0",
-        "uuid": "^11.1.0"
+        "@wordpress/icons": "^11.4.0",
+        "clsx": "^2.1.1",
+        "uuid": "^13.0.0"
     }
 }

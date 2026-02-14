@@ -61,6 +61,10 @@ class Settings_Wizard extends Settings_Wizard_API {
 		Hook_Registry::add_action( 'crp_activate', array( $this, 'trigger_wizard_on_activation' ) );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'register_wizard_notice' ) );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_custom_scripts' ) );
+
+		// Register Tom Select AJAX handlers for wizard taxonomy fields.
+		Hook_Registry::add_action( 'wp_ajax_nopriv_' . $this->prefix . '_taxonomy_search_tom_select', array( Settings::class, 'taxonomy_search_tom_select' ) );
+		Hook_Registry::add_action( 'wp_ajax_' . $this->prefix . '_taxonomy_search_tom_select', array( Settings::class, 'taxonomy_search_tom_select' ) );
 	}
 
 	/**
@@ -188,17 +192,20 @@ class Settings_Wizard extends Settings_Wizard_API {
 	 */
 	public function get_translation_strings() {
 		return array(
-			'page_title'      => __( 'Contextual Related Posts Setup Wizard', 'contextual-related-posts' ),
-			'menu_title'      => __( 'Setup Wizard', 'contextual-related-posts' ),
-			'next_step'       => __( 'Next Step', 'contextual-related-posts' ),
-			'previous_step'   => __( 'Previous Step', 'contextual-related-posts' ),
-			'finish_setup'    => __( 'Finish Setup', 'contextual-related-posts' ),
-			'skip_wizard'     => __( 'Skip Wizard', 'contextual-related-posts' ),
+			'page_title'            => __( 'Contextual Related Posts Setup Wizard', 'contextual-related-posts' ),
+			'menu_title'            => __( 'Setup Wizard', 'contextual-related-posts' ),
+			'next_step'             => __( 'Next Step', 'contextual-related-posts' ),
+			'previous_step'         => __( 'Previous Step', 'contextual-related-posts' ),
+			'finish_setup'          => __( 'Finish Setup', 'contextual-related-posts' ),
+			'skip_wizard'           => __( 'Skip Wizard', 'contextual-related-posts' ),
+			/* translators: %s: Search query. */
+			'tom_select_no_results' => __( 'No results found for "%s"', 'contextual-related-posts' ),
+			'steps_nav_aria_label'  => __( 'Setup Wizard Steps', 'contextual-related-posts' ),
 			/* translators: %1$d: Current step number, %2$d: Total number of steps */
-			'step_of'         => __( 'Step %1$d of %2$d', 'contextual-related-posts' ),
-			'wizard_complete' => __( 'Setup Complete!', 'contextual-related-posts' ),
-			'setup_complete'  => __( 'Your Contextual Related Posts plugin has been configured successfully. You can now start seeing related posts on your site!', 'contextual-related-posts' ),
-			'go_to_settings'  => __( 'Go to Settings', 'contextual-related-posts' ),
+			'step_of'               => __( 'Step %1$d of %2$d', 'contextual-related-posts' ),
+			'wizard_complete'       => __( 'Setup Complete!', 'contextual-related-posts' ),
+			'setup_complete'        => __( 'Your Contextual Related Posts plugin has been configured successfully. You can now start seeing related posts on your site!', 'contextual-related-posts' ),
+			'go_to_settings'        => __( 'Go to Settings', 'contextual-related-posts' ),
 		);
 	}
 
@@ -243,11 +250,14 @@ class Settings_Wizard extends Settings_Wizard_API {
 				'capability'  => 'manage_options',
 				'conditions'  => array(
 					function () {
+						$page = sanitize_key( (string) filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
+
 						// Only show if wizard is not completed, not dismissed, and activation flag is set.
 						// Check both transient and option to ensure it works in multisite environments.
 						return ! $this->is_wizard_completed() &&
 							! get_option( 'crp_wizard_notice_dismissed', false ) &&
-							( get_transient( 'crp_show_wizard_activation_redirect' ) || get_option( 'crp_show_wizard', false ) );
+							( get_transient( 'crp_show_wizard_activation_redirect' ) || get_option( 'crp_show_wizard', false ) ) &&
+							'crp_wizard' !== $page;
 					},
 				),
 			)
@@ -344,6 +354,8 @@ class Settings_Wizard extends Settings_Wizard_API {
 		?>
 		<div class="wrap wizard-wrap">
 			<h1><?php echo esc_html( $this->translation_strings['wizard_title'] ); ?></h1>
+
+			<?php $this->render_wizard_steps_navigation(); ?>
 
 			<div class="wizard-progress">
 				<div class="wizard-progress-bar">

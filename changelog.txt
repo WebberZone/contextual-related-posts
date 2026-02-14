@@ -2,6 +2,27 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 4.1.0 =
+
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-1-0/](https://webberzone.com/announcements/contextual-related-posts-v4-1-0/)
+
+* Features:
+    * New Wizard to guide users through the setup process.
+
+* Modifications:
+    * Renamed `CRP_VERSION`, `CRP_PLUGIN_FILE`, `CRP_PLUGIN_DIR` and `CRP_PLUGIN_URL` constants to `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR` and `WZ_CRP_PLUGIN_URL` respectively to avoid conflicts with other plugins.
+    * New function `crp_get_blog_option()` to fetch an option from a specific blog in WordPress multisite.
+    * Better handling of options if they haven't been set.
+	* Fulltext indexes are now named `wz_title_content`, `wz_title`, and `wz_content` to ensure compatibility and optimize database space, especially when using Contextual Related Posts. After updating to this version, please recreate the indexes to benefit from the changes—until then, the plugin will use the previous index names.
+    * [Pro] Improved the UI and functionality of the Custom Table indexing process.
+    * [Pro] Multisite Settings page for Enhanced Content Search Index (ECSI) has been modified.
+
+* Bug fixes:
+    * Fixed ordering issue on pages when "Same taxonomies" is selected.
+    * Set the postid if it's different from the queried object in the Core Query class.
+    * Fixed conflict with WPML showing the current post incorrectly.
+	* Fixed an issue where activating the Pro plugin while the Free plugin was active, or vice versa, would cause a fatal error.
+
 = 4.0.3 =
 
 * Bug fixes:
@@ -266,7 +287,6 @@ Release post: [https://webberzone.com/blog/contextual-related-posts-v3-2-0/](htt
     * Gutenberg block updated to the latest Blocks API
     * The widget's "Only from categories" autocomplete replaced by ID list
     * Wrapper `div` now always includes `crp_related` class name. Stylesheets have been updated to have more specific styles e.g. `.crp_related.crp-rounded-thumbs`
-    * *Exclude categories* and *Exclude on categories* renamed to *Exclude terms* and *Exclude on terms* as they now support all taxonomies and the accepted format has changed to "Term Name (taxonomy:term_taxonomy_id)"
 
 * Bug fixes:
     * Current post was incorrectly being excluded in the translation functions
