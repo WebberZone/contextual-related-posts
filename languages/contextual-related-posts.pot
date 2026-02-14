@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Contextual Related Posts 4.2.0-beta1\n"
+"Project-Id-Version: Contextual Related Posts 4.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/contextual-related-posts\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-11T18:59:54+00:00\n"
+"POT-Creation-Date: 2026-02-14T04:42:55+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: contextual-related-posts\n"
@@ -18,6 +18,8 @@ msgstr ""
 #: contextual-related-posts.php
 #: includes/admin/class-bulk-edit.php:87
 #: includes/admin/network/class-admin.php:71
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/edit.js:89
 msgid "Contextual Related Posts"
 msgstr ""
 
@@ -691,6 +693,8 @@ msgid "A no-follow link to the plugin homepage will be added as the last item of
 msgstr ""
 
 #: includes/admin/class-settings.php:375
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/heading-controls.js:26
 msgid "Heading of posts"
 msgstr ""
 
@@ -736,6 +740,8 @@ msgid "Length of excerpt (in words)"
 msgstr ""
 
 #: includes/admin/class-settings.php:418
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:42
 msgid "Show date"
 msgstr ""
 
@@ -744,6 +750,8 @@ msgid "Displays the date of the post. Uses the same date format set in General O
 msgstr ""
 
 #: includes/admin/class-settings.php:425
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:27
 msgid "Show author"
 msgstr ""
 
@@ -863,6 +871,8 @@ msgstr ""
 
 #: includes/admin/class-settings.php:586
 #: includes/frontend/widgets/class-related-posts-widget.php:132
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:13
 msgid "Order posts"
 msgstr ""
 
@@ -871,6 +881,8 @@ msgid "Select how you want the related posts to be ordered. Selecting \"Randomly
 msgstr ""
 
 #: includes/admin/class-settings.php:594
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:38
 msgid "Randomize posts"
 msgstr ""
 
@@ -1614,14 +1626,20 @@ msgid "Uses CSS grid. It will also turn off the display of the author, excerpt a
 msgstr ""
 
 #: includes/admin/class-settings.php:1464
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:23
 msgid "By relevance"
 msgstr ""
 
 #: includes/admin/class-settings.php:1465
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:27
 msgid "Randomly"
 msgstr ""
 
 #: includes/admin/class-settings.php:1466
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:31
 msgid "By date"
 msgstr ""
 
@@ -2037,6 +2055,8 @@ msgid "Post ID."
 msgstr ""
 
 #: includes/frontend/class-rest-api.php:179
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-limit-controls.js:13
 msgid "Number of posts"
 msgstr ""
 
@@ -2077,6 +2097,8 @@ msgid "No. of posts"
 msgstr ""
 
 #: includes/frontend/widgets/class-related-posts-widget.php:95
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-limit-controls.js:24
 msgid "Offset"
 msgstr ""
 
@@ -2138,6 +2160,106 @@ msgstr ""
 #: includes/util/class-helpers.php:393
 #, php-format
 msgid "⚠️ Your %1$s version (%2$s) is below the recommended version %3$s. While the plugin will work, upgrading your database is recommended for better performance."
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/heading-controls.js:13
+msgid "Show heading"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/heading-controls.js:16
+msgid "Heading displayed"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/heading-controls.js:17
+msgid "No Heading displayed"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/heading-controls.js:29
+msgid "Displayed before the list of the posts as a master heading. HTML allowed."
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:15
+msgid "Show excerpt"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:18
+msgid "Excerpt displayed"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:19
+msgid "No excerpt"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:30
+msgid "\"by Author Name\" displayed"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:34
+msgid "No author displayed"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:45
+msgid "Date of post displayed"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-display-controls.js:49
+msgid "Date of post not displayed"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-limit-controls.js:16
+msgid "Maximum number of posts to display"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/post-limit-controls.js:27
+msgid "Number of posts to skip from the top"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:16
+msgid "This option directly edits the query"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:41
+msgid "Posts are shuffled on each load"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/ordering-controls.js:45
+msgid "Posts displayed based on above setting"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/other-attributes-control.js:7
+msgid "Other attributes"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/components/other-attributes-control.js:10
+msgid "Enter other attributes in a URL-style string-query. e.g. post_types=post,page&exclude_post_ids=5,6"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/edit.js:35
+msgid "Related Posts Settings"
+msgstr ""
+
+#: includes/frontend/blocks/build/related-posts/index.js:1
+#: includes/frontend/blocks/src/related-posts/edit.js:93
+msgid "This is a placeholder for the related posts block. Visit the front end of your site to see the related posts."
 msgstr ""
 
 #: includes/frontend/blocks/build/related-posts/block.json
