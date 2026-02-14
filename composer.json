@@ -1,7 +1,7 @@
 {
     "name": "webberzone/contextual-related-posts",
     "description": "Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.",
-    "version": "4.1.0",
+    "version": "4.2.0",
     "type": "wordpress-plugin",
     "keywords": [
         "related posts",
@@ -31,7 +31,9 @@
         "wp-coding-standards/wpcs": "^3",
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
         "yoast/phpunit-polyfills": "^3",
-        "phpunit/phpunit": "^9 || ^10 || ^11 || ^12"
+        "phpunit/phpunit": "^9 || ^10 || ^11 || ^12",
+        "php-stubs/woocommerce-stubs": "^10.4",
+        "php-stubs/wp-cli-stubs": "^2.12"
     },
     "config": {
         "allow-plugins": {
@@ -42,10 +44,26 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "build:vendor": "composer install --no-dev --optimize-autoloader --classmap-authoritative",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
         "phpstan-baseline": "vendor/bin/phpstan analyse --memory-limit=2048M --generate-baseline",
         "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
         "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
-        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php'"
+        "phpcompat:setup": [
+            "@php -r \"if (!is_dir('phpcompat-tools')) { mkdir('phpcompat-tools'); }\"",
+            "@composer config --working-dir=phpcompat-tools allow-plugins.dealerdirect/phpcodesniffer-composer-installer true 2>/dev/null || true",
+            "@composer require --working-dir=phpcompat-tools --dev --quiet --no-interaction squizlabs/php_codesniffer:^4.0 phpcompatibility/php-compatibility:dev-develop dealerdirect/phpcodesniffer-composer-installer:^1.0 2>/dev/null || true"
+        ],
+        "phpcompat": [
+            "@phpcompat:setup",
+            "phpcompat-tools/vendor/bin/phpcs -p --standard=PHPCompatibility --runtime-set testVersion 7.4-8.5 --extensions=php --ignore=*/vendor/*,*/node_modules/*,*/tests/*,*/phpunit/*,*/freemius/*,*/phpcompat-tools/* ."
+        ],
+        "phpcompat:clean": "rm -rf phpcompat-tools",
+        "test": [
+            "@phpcs",
+            "@phpcompat",
+            "@phpstan"
+        ],
+        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'vendor/**/.DS_Store' 'vendor/bin/*' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'test-tools**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php' 'phpcompat-tools**'"
     }
 }

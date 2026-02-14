@@ -3,7 +3,6 @@
  * Functions to sanitize settings.
  *
  * @link  https://webberzone.com
- * @since 3.3.0
  *
  * @package WebberZone\Contextual_Related_Posts
  */
@@ -21,9 +20,55 @@ if ( ! defined( 'WPINC' ) ) {
 class Settings_Sanitize {
 
 	/**
-	 * Main constructor class.
+	 * Settings Key.
+	 *
+	 * @var string Settings Key.
 	 */
-	public function __construct() {
+	public $settings_key;
+
+	/**
+	 * Prefix which is used for creating the unique filters and actions.
+	 *
+	 * @var string Prefix.
+	 */
+	public $prefix;
+
+	/**
+	 * Main constructor class.
+	 *
+	 * @param mixed $args {
+	 *    Array or string of arguments. Default is blank array.
+	 *     @type string  $settings_key          Settings key.
+	 *     @type string  $prefix                Prefix.
+	 * }
+	 */
+	public function __construct( $args ) {
+		$defaults = array(
+			'settings_key' => '',
+			'prefix'       => '',
+		);
+		$args     = wp_parse_args( $args, $defaults );
+
+		foreach ( $args as $name => $value ) {
+			$this->$name = $value;
+		}
+	}
+
+	/**
+	 * Get the value of a settings field.
+	 *
+	 * @param string $option         Settings field name.
+	 * @param mixed  $default_value  Default value if option is not found.
+	 * @return mixed
+	 */
+	public function get_option( $option, $default_value = '' ) {
+		$options = \get_option( $this->settings_key );
+
+		if ( isset( $options[ $option ] ) ) {
+			return $options[ $option ];
+		}
+
+		return $default_value;
 	}
 
 	/**
@@ -135,7 +180,7 @@ class Settings_Sanitize {
 		 *
 		 * @param array $allowedtags Allowed tags array.
 		 */
-		$allowedtags = apply_filters( 'wz_sanitize_allowed_tags', $allowedtags );
+		$allowedtags = apply_filters( $this->prefix . '_sanitize_allowed_tags', $allowedtags ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 		return wp_kses( wp_unslash( $value ), $allowedtags );
 	}
@@ -147,7 +192,7 @@ class Settings_Sanitize {
 	 * @return int  Sanitized value
 	 */
 	public function sanitize_checkbox_field( $value ) {
-		$value = ( -1 === (int) $value ) ? 0 : 1;
+		$value = in_array( (int) $value, array( 0, -1 ), true ) ? 0 : 1;
 
 		return $value;
 	}
@@ -192,6 +237,115 @@ class Settings_Sanitize {
 	 */
 	public function sanitize_color_field( $value ) {
 		return sanitize_hex_color( $value );
+	}
+
+	/**
+	 * Sanitize email fields.
+	 *
+	 * @param  string $value The field value.
+	 * @return string Sanitized value
+	 */
+	public function sanitize_email_field( $value ) {
+		return sanitize_email( $value );
+	}
+
+	/**
+	 * Sanitize URL fields.
+	 *
+	 * @param  string $value The field value.
+	 * @return string Sanitized value
+	 */
+	public function sanitize_url_field( $value ) {
+		return esc_url_raw( $value );
+	}
+
+	/**
+	 * Sanitize sensitive fields.
+	 *
+	 * @param  string       $value The field value.
+	 * @param  string|array $key   The field key.
+	 * @return string Sanitized value
+	 */
+	public function sanitize_sensitive_field( $value, $key ) {
+		if ( is_array( $key ) ) {
+			if ( isset( $key['id'] ) ) {
+				$key = $key['id'];
+			} else {
+				return $value;
+			}
+		}
+
+		$stored_encrypted_key = $this->get_option( $key );
+
+		// If input is masked, return existing encrypted key.
+		if ( empty( $value ) || strpos( $value, '**' ) !== false ) {
+			return $stored_encrypted_key;
+		}
+
+		return Settings_API::encrypt_api_key( $value );
+	}
+
+	/**
+	 * Sanitize repeater field.
+	 *
+	 * @param array $value Array of repeater values.
+	 * @param array $field Field configuration array.
+	 * @return array Sanitized array
+	 */
+	public function sanitize_repeater_field( $value, $field = array() ) {
+		if ( ! is_array( $value ) ) {
+			return array();
+		}
+
+		$sanitized_value = array();
+
+		// Get the subfields configuration.
+		$subfields = ! empty( $field['fields'] ) ? $field['fields'] : array();
+
+		foreach ( $value as $index => $row ) {
+			// Ensure we have a valid row structure.
+			if ( ! isset( $row['fields'] ) || ! is_array( $row['fields'] ) ) {
+				continue;
+			}
+
+			$sanitized_row = array(
+				'fields' => array(),
+			);
+
+			foreach ( $row['fields'] as $field_key => $field_value ) {
+				$field_key = sanitize_key( $field_key );
+
+				// Skip if field_key is not in our subfields configuration.
+				$field_config = null;
+				foreach ( $subfields as $subfield ) {
+					if ( isset( $subfield['id'] ) && $subfield['id'] === $field_key ) {
+						$field_config = $subfield;
+						break;
+					}
+				}
+
+				if ( null === $field_config ) {
+					continue;
+				}
+
+				// Get the field type from the subfield configuration.
+				$field_type = isset( $field_config['type'] ) ? $field_config['type'] : 'text';
+
+				// Call the appropriate sanitization method.
+				$sanitize_method = 'sanitize_' . $field_type . '_field';
+				if ( method_exists( $this, $sanitize_method ) ) {
+					$sanitized_row['fields'][ $field_key ] = $this->$sanitize_method( $field_value, $field_config );
+				} else {
+					$sanitized_row['fields'][ $field_key ] = $this->sanitize_text_field( $field_value );
+				}
+			}
+
+			if ( ! empty( $sanitized_row['fields'] ) ) {
+				$sanitized_value[ $index ] = $sanitized_row;
+			}
+		}
+
+		return $sanitized_value;
 	}
 
 	/**
@@ -262,7 +416,7 @@ class Settings_Sanitize {
 	 */
 	public static function sanitize_tax_slugs( &$settings, $source_key, $target_key ) {
 		if ( isset( $settings[ $source_key ] ) ) {
-			$slugs = array_unique( str_getcsv( $settings[ $source_key ], ',', '"', '\\' ) );
+			$slugs = array_unique( str_getcsv( $settings[ $source_key ], ',', '"', '' ) );
 
 			foreach ( $slugs as $slug ) {
 				// Pattern is Name (taxonomy:term_taxonomy_id).

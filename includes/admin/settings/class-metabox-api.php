@@ -2,8 +2,6 @@
 /**
  * Class to display and save a Metabox.
  *
- * @since 3.5.0
- *
  * @package WebberZone\Contextual_Related_Posts
  */
 
@@ -15,11 +13,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * ATA Metabox class to register the metabox for ata_snippets post type.
- *
- * @since 3.5.0
+ * Metabox API class.
  */
-#[\AllowDynamicProperties]
 class Metabox_API {
 
 	/**
@@ -58,11 +53,11 @@ class Metabox_API {
 	protected $title;
 
 	/**
-	 * Text to show to indicate a checkbox has been modified from its default value.
+	 * Translation strings.
 	 *
-	 * @var string Checkbox Modified Text.
+	 * @var array Translation strings.
 	 */
-	public $checkbox_modified_text;
+	public $translation_strings;
 
 	/**
 	 * Array containing the settings' fields.
@@ -78,20 +73,20 @@ class Metabox_API {
 	 *     Array or string of arguments. Default is blank array.
 	 *
 	 *     @type string                     $settings_key           Settings key - is used to prepare the form fields. It is not the meta key.
-	 *     @type string                     $prefix                 Used to create the meta keys. The meta key format is _{$prefix}_{$setting_id}.
-	 *     @type string|array|\WP_Screen    $post_type              The post type(s) on which to show the box.
-	 *     @type array                      $registered_settings    Settings fields array.
-	 *     @type string                     $checkbox_modified_text Text to show to indicate a checkbox has been modified from its default value.
+	 *     @type string                     $prefix              Used to create the meta keys. The meta key format is _{$prefix}_{$setting_id}.
+	 *     @type string|array|\WP_Screen    $post_type           The post type(s) on which to show the box.
+	 *     @type array                      $registered_settings Settings fields array.
+	 *     @type array                      $translation_strings Translation strings.
 	 * }
 	 */
 	public function __construct( $args ) {
 		$defaults = array(
-			'settings_key'           => '',
-			'prefix'                 => '',
-			'post_type'              => '',
-			'title'                  => '',
-			'registered_settings'    => array(),
-			'checkbox_modified_text' => '',
+			'settings_key'        => '',
+			'prefix'              => '',
+			'post_type'           => '',
+			'title'               => '',
+			'registered_settings' => array(),
+			'translation_strings' => array(),
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -126,63 +121,23 @@ class Metabox_API {
 	 */
 	public function admin_enqueue_scripts( $hook ) {
 		if ( in_array( $hook, array( 'post.php', 'post-new.php' ), true ) || get_current_screen()->post_type === $this->post_type ) {
-			self::enqueue_scripts_styles();
+			$args = array(
+				'strings' => array(
+					'no_results' => isset( $this->translation_strings['tom_select_no_results'] ) ? esc_html( $this->translation_strings['tom_select_no_results'] ) : 'No results found for "%s"',
+				),
+			);
+			self::enqueue_scripts_styles( $this->prefix, $args );
 		}
 	}
 
 	/**
 	 * Enqueues all scripts, styles, settings, and templates necessary to use the Settings API.
+	 *
+	 * @param string $prefix Prefix which is used for creating the unique filters and actions.
+	 * @param array  $args   Array of arguments.
 	 */
-	public static function enqueue_scripts_styles() {
-
-		$minimize = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
-		wp_enqueue_style( 'wp-color-picker' );
-
-		wp_enqueue_media();
-		wp_enqueue_script( 'wp-color-picker' );
-		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'jquery-ui-autocomplete' );
-		wp_enqueue_script( 'jquery-ui-tabs' );
-
-		wp_enqueue_code_editor(
-			array(
-				'type'       => 'text/html',
-				'codemirror' => array(
-					'indentUnit' => 2,
-					'tabSize'    => 2,
-				),
-			)
-		);
-
-		wp_enqueue_script(
-			'wz-admin-js',
-			plugins_url( 'js/admin-scripts' . $minimize . '.js', __FILE__ ),
-			array( 'jquery' ),
-			self::VERSION,
-			true
-		);
-		wp_enqueue_script(
-			'wz-codemirror-js',
-			plugins_url( 'js/apply-cm' . $minimize . '.js', __FILE__ ),
-			array( 'jquery' ),
-			self::VERSION,
-			true
-		);
-		wp_enqueue_script(
-			'wz-taxonomy-suggest-js',
-			plugins_url( 'js/taxonomy-suggest' . $minimize . '.js', __FILE__ ),
-			array( 'jquery' ),
-			self::VERSION,
-			true
-		);
-		wp_enqueue_script(
-			'wz-media-selector-js',
-			plugins_url( 'js/media-selector' . $minimize . '.js', __FILE__ ),
-			array( 'jquery' ),
-			self::VERSION,
-			true
-		);
+	public static function enqueue_scripts_styles( $prefix, $args = array() ) {
+		Settings_API::enqueue_scripts_styles( $prefix, $args );
 	}
 
 	/**
@@ -213,20 +168,25 @@ class Metabox_API {
 			return;
 		}
 
-		$settings_sanitize = new Settings_Sanitize();
+		$settings_sanitize = new Settings_Sanitize(
+			array(
+				'settings_key' => $this->settings_key,
+				'prefix'       => $this->prefix,
+			)
+		);
 
 		$posted = $_POST[ $this->settings_key ]; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 
 		foreach ( $this->registered_settings as $setting ) {
 			$id   = $setting['id'];
-			$type = isset( $setting['type'] ) ? $setting['type'] : 'text';
+			$type = $setting['type'] ?? 'text';
 
 			/**
 			 * Skip settings that are not really settings.
 			 *
 			 * @param array $non_setting_types Array of types which are not settings.
 			 */
-			$non_setting_types = apply_filters( $this->prefix . '_metabox_non_setting_types', array( 'header', 'descriptive_text' ) );
+			$non_setting_types = apply_filters( $this->prefix . '_metabox_non_setting_types', array( 'header', 'descriptive_text' ) ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 			if ( in_array( $type, $non_setting_types, true ) ) {
 				continue;
@@ -245,10 +205,10 @@ class Metabox_API {
 		/**
 		 * Filter the post meta array which contains post-specific settings.
 		 *
-		 * @param array $post_meta Array of ATA metabox settings.
+		 * @param array $post_meta Array of metabox settings.
 		 * @param int   $post_id   Post ID
 		 */
-		$post_meta = apply_filters( "{$this->prefix}_meta_key", $post_meta, $post_id );
+		$post_meta = apply_filters( "{$this->prefix}_meta_key", $post_meta, $post_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
 		// Now loop through the settings array and either save or delete the meta key.
 		foreach ( $this->registered_settings as $setting ) {
@@ -277,38 +237,21 @@ class Metabox_API {
 
 		$settings_form = new Settings_Form(
 			array(
-				'settings_key'           => $this->settings_key,
-				'prefix'                 => $this->prefix,
-				'checkbox_modified_text' => $this->checkbox_modified_text,
+				'settings_key'        => $this->settings_key,
+				'prefix'              => $this->prefix,
+				'translation_strings' => $this->translation_strings,
 			)
 		);
 
 		echo '<table class="form-table">';
 		foreach ( $this->registered_settings as $setting ) {
 
-			$args = wp_parse_args(
-				$setting,
-				array(
-					'id'               => null,
-					'name'             => '',
-					'desc'             => '',
-					'type'             => null,
-					'default'          => '',
-					'options'          => '',
-					'max'              => null,
-					'min'              => null,
-					'step'             => null,
-					'size'             => null,
-					'field_class'      => '',
-					'field_attributes' => '',
-					'placeholder'      => '',
-				)
-			);
+			$args = Settings_API::parse_field_args( $setting );
 
 			$id            = $args['id'];
 			$value         = get_post_meta( $post->ID, "_{$this->prefix}_{$id}", true );
-			$args['value'] = ! empty( $value ) ? $value : ( isset( $args['default'] ) ? $args['default'] : $args['options'] );
-			$type          = isset( $args['type'] ) ? $args['type'] : 'text';
+			$args['value'] = ! empty( $value ) ? $value : ( $args['default'] ?? '' );
+			$type          = $args['type'] ?? 'text';
 			$callback      = method_exists( $settings_form, "callback_{$type}" ) ? array( $settings_form, "callback_{$type}" ) : array( $settings_form, 'callback_missing' );
 
 			echo '<tr>';
@@ -321,11 +264,11 @@ class Metabox_API {
 		echo '</table>';
 
 		/**
-		 * Action triggered when displaying meta box.
+		 * Action triggered when displaying the meta box.
 		 *
 		 * @param object $post  Post object.
 		 */
-		do_action( $this->prefix . '_meta_box', $post );
+		do_action( $this->prefix . '_meta_box', $post ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -353,7 +296,7 @@ class Metabox_API {
 				$ids   = array();
 				$names = array();
 
-				$taxes = array_unique( str_getcsv( $settings[ $key ], ',', '"', '\\' ) );
+				$taxes = array_unique( str_getcsv( $settings[ $key ], ',', '"', '' ) );
 
 				foreach ( $taxes as $tax ) {
 					$tax_name = get_term_by( 'name', $tax, $fields['tax'] );

@@ -1,0 +1,124 @@
+/**
+ * Related Posts Rounded Thumbs Styles
+ * Special overlay design with titles at bottom.
+ * Modern flexbox layout with smooth transitions.
+ */
+
+.crp_related.crp-rounded-thumbs {
+	/* Custom properties for easy theming. */
+	--crp-gap: 0.625rem;
+	--crp-border-radius: 12px;
+	--crp-border-color: #ddd;
+	--crp-border-hover: #bbb;
+	--crp-bg-hover: #eee;
+	--crp-overlay-bg: rgba(0, 0, 0, 0.75);
+	--crp-overlay-hover: rgba(0, 0, 0, 0.9);
+	--crp-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	--crp-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.25);
+	--crp-focus-color: #0073aa;
+	--crp-title-text-color: #fff;
+	--crp-title-text-shadow-color: rgba(0, 0, 0, 0.8);
+
+	clear: both;
+	margin: 1.25rem auto;
+}
+
+.crp_related.crp-rounded-thumbs h3,
+.crp_related.crp-rounded-thumbs figure {
+	margin: 0 !important;
+}
+
+.crp_related.crp-rounded-thumbs ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--crp-gap);
+	list-style: none;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.crp_related.crp-rounded-thumbs li {
+	position: relative;
+	overflow: hidden;
+	width: var(--crp-thumb-width);
+	height: var(--crp-thumb-height);
+	border: 1px solid var(--crp-border-color);
+	border-radius: var(--crp-border-radius);
+	box-shadow: var(--crp-shadow);
+	list-style: none;
+	margin: 0 !important;
+	padding: 0;
+}
+
+.crp_related.crp-rounded-thumbs li:hover {
+	background: var(--crp-bg-hover);
+	border-color: var(--crp-border-hover);
+	box-shadow: var(--crp-shadow-hover);
+}
+
+.crp_related.crp-rounded-thumbs a {
+	display: block;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	text-decoration: none !important;
+	box-shadow: none !important;
+	border-radius: var(--crp-border-radius);
+}
+
+.crp_related.crp-rounded-thumbs a figure {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	display: block;
+	margin: 0;
+}
+
+/* Improved focus state. */
+.crp_related.crp-rounded-thumbs a:focus-visible {
+	outline: 2px solid var(--crp-focus-color);
+	outline-offset: 2px;
+	border-radius: var(--crp-border-radius);
+}
+
+.crp_related.crp-rounded-thumbs img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	aspect-ratio: var(--crp-thumb-width) / var(--crp-thumb-height);
+	object-fit: cover;
+	object-position: center;
+}
+
+/* Title overlay - the special part. */
+.crp_related.crp-rounded-thumbs .crp_title {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	padding: 0.1rem;
+	margin: 0;
+	color: var(--crp-title-text-color) !important;
+	font-size: 0.9em;
+	line-height: 1.2em;
+	text-align: center;
+	text-shadow: -0.1em 0.1em 0.3em var(--crp-title-text-shadow-color);
+	background: var(--crp-overlay-bg);
+	backdrop-filter: blur(8px);
+	border-radius: 0 0 var(--crp-border-radius) var(--crp-border-radius);
+}
+
+.crp_related.crp-rounded-thumbs li:hover .crp_title {
+	background: var(--crp-overlay-hover);
+}
+
+.crp_related.crp-rounded-thumbs .crp_title:visited {
+	color: var(--crp-title-text-color) !important;
+}
+
+.crp_clear {
+	clear: both;
+}
