@@ -10,9 +10,7 @@ namespace WebberZone\Contextual_Related_Posts;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-if ( ! function_exists( __NAMESPACE__ . '\crp_freemius' ) ) {
-
+if ( ! function_exists( __NAMESPACE__ . '\\crp_freemius' ) ) {
 	/**
 	 * Initialize Freemius SDK.
 	 */
@@ -27,20 +25,18 @@ if ( ! function_exists( __NAMESPACE__ . '\crp_freemius' ) ) {
 			require_once __DIR__ . '/vendor/freemius/start.php';
 			$crp_freemius = \fs_dynamic_init(
 				array(
-					'id'                  => '15040',
-					'slug'                => 'contextual-related-posts',
-					'premium_slug'        => 'contextual-related-posts-pro',
-					'type'                => 'plugin',
-					'public_key'          => 'pk_4aec305b9c97637276da2e55b723f',
-					'is_premium'          => true,
-					'premium_suffix'      => 'Pro',
-					'has_premium_version' => true,
-					'has_addons'          => false,
-					'has_paid_plans'      => true,
-					'wp_org_gatekeeper'   => 'OA7#BoRiBNqdf52FvzEf!!074aRLPs8fspif$7K1#4u4Csys1fQlCecVcUTOs2mcpeVHi#C2j9d09fOTvbC0HloPT7fFee5WdS3G',
-					'menu'                => array(
+					'id'             => '15040',
+					'slug'           => 'contextual-related-posts',
+					'premium_slug'   => 'contextual-related-posts-pro',
+					'type'           => 'plugin',
+					'public_key'     => 'pk_4aec305b9c97637276da2e55b723f',
+					'is_premium'     => false,
+					'premium_suffix' => 'Pro',
+					'has_addons'     => false,
+					'has_paid_plans' => true,
+					'menu'           => array(
 						'slug'       => 'crp_options_page',
-						'first-path' => ( is_multisite() && is_network_admin() ) ? '' : 'admin.php?page=crp_wizard',
+						'first-path' => ( is_multisite() && is_network_admin() ? '' : 'admin.php?page=crp_wizard' ),
 						'contact'    => false,
 						'support'    => false,
 						'network'    => true,
@@ -48,6 +44,7 @@ if ( ! function_exists( __NAMESPACE__ . '\crp_freemius' ) ) {
 							'slug' => 'options-general.php',
 						),
 					),
+					'is_live'        => true,
 				)
 			);
 		}
@@ -70,15 +67,10 @@ if ( ! function_exists( __NAMESPACE__ . '\crp_freemius' ) ) {
 	 */
 	function crp_freemius_uninstall() {
 		require_once __DIR__ . '/uninstaller.php';
-		if ( crp_freemius()->can_use_premium_code__premium_only() ) {
-			\WebberZone\Contextual_Related_Posts\Pro\Pro::uninstall_pro();
-		}
 	}
-
 
 	// Init Freemius.
 	crp_freemius();
-
 	// Signal that SDK was initiated.
 	do_action( 'crp_freemius_loaded' );
 }

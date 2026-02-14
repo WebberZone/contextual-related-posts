@@ -194,6 +194,8 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.2.0 =
 
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-2-0/](https://webberzone.com/announcements/contextual-related-posts-v4-2-0/)
+
 * Features:
 	* [Pro] Multisite tool to copy Contextual Related Posts settings between sites from the Network Settings page.
 	* [Pro] WooCommerce integration with ECSI-powered product indexing and related posts output on product pages. WooCommerce-related products output customisation options (thumbnail, sale badge, price, rating, and add to cart) and product filtering options.
