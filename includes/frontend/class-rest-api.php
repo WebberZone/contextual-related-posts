@@ -74,6 +74,12 @@ class REST_API extends \WP_REST_Controller {
 	 * @return \WP_Error|bool
 	 */
 	public function permissions_check( $request ) {
+		// Check if user is requesting edit context
+		$context = $request->get_param( 'context' );
+		if ( 'edit' === $context && ! current_user_can( 'edit_posts' ) ) {
+			return false;
+		}
+
 		/**
 		 * Permissions check flag for the CRP REST API.
 		 *
@@ -153,6 +159,13 @@ class REST_API extends \WP_REST_Controller {
 	 * @return array|mixed   The formatted Popular Post object.
 	 */
 	public function prepare_item( $related_post, $request ) {
+
+		// Check if user is requesting edit context and validate permissions
+		$context = $request->get_param( 'context' );
+		if ( 'edit' === $context && ! current_user_can( 'edit_post', $related_post->ID ) ) {
+			// Force context to 'view' if user doesn't have edit permission for this post
+			$request->set_param( 'context', 'view' );
+		}
 
 		// Need to prepare items for the rest response.
 		$posts_controller = new \WP_REST_Posts_Controller( $related_post->post_type );
