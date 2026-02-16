@@ -238,7 +238,8 @@ class Hook_Registry {
 
 		if ( is_array( $callback ) ) {
 			if ( is_object( $callback[0] ) ) {
-				return get_class( $callback[0] ) . '::' . $callback[1];
+				$object_hash = spl_object_hash( $callback[0] );
+				return get_class( $callback[0] ) . '#' . $object_hash . '::' . $callback[1];
 			}
 			return $callback[0] . '::' . $callback[1];
 		}
