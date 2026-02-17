@@ -111,12 +111,13 @@ class Metabox {
 		$value      = ( $thumb_meta ) ? $thumb_meta : '';
 
 		// Get related posts specific meta.
-		$disable_here      = get_post_meta( $post->ID, '_crp_disable_here', true );
-		$exclude_this_post = get_post_meta( $post->ID, '_crp_exclude_this_post', true );
-		$keyword           = get_post_meta( $post->ID, '_crp_keyword', true );
-		$exclude_words     = get_post_meta( $post->ID, '_crp_exclude_words', true );
-		$manual_related    = get_post_meta( $post->ID, '_crp_manual_related', true );
-		$exclude_post_ids  = get_post_meta( $post->ID, '_crp_exclude_post_ids', true );
+		// Using crp_get_meta() for backward compatibility with pre-4.2.0 crp_post_meta array storage.
+		$disable_here      = crp_get_meta( $post->ID, 'disable_here' );
+		$exclude_this_post = crp_get_meta( $post->ID, 'exclude_this_post' );
+		$keyword           = crp_get_meta( $post->ID, 'keyword' );
+		$exclude_words     = crp_get_meta( $post->ID, 'exclude_words' );
+		$manual_related    = crp_get_meta( $post->ID, 'manual_related' );
+		$exclude_post_ids  = crp_get_meta( $post->ID, 'exclude_post_ids' );
 
 		// Disable display option.
 		$disable_here = ( $disable_here ) ? $disable_here : 0;
