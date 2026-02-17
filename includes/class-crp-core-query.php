@@ -481,9 +481,9 @@ class CRP_Core_Query {
 
 		// Increase posts_per_page to fetch more posts to account for PHP exclusions.
 		if ( ! isset( $args['posts_per_page'] ) || empty( $args['posts_per_page'] ) ) {
-			$args['posts_per_page'] = $args['limit'] * 3;
+			$args['posts_per_page'] = (int) $args['limit'] * 3;
 		} else {
-			$args['posts_per_page'] = max( $args['posts_per_page'] * 3, $args['limit'] * 3 );
+			$args['posts_per_page'] = max( (int) $args['posts_per_page'] * 3, (int) $args['limit'] * 3 );
 		}
 
 		// Same author.
