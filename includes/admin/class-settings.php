@@ -204,8 +204,7 @@ class Settings {
 		foreach ( $sections as $section => $value ) {
 			$method_name = 'settings_' . $section;
 			if ( method_exists( __CLASS__, $method_name ) ) {
-				$instance             = new self();
-				$settings[ $section ] = $instance->$method_name();
+				$settings[ $section ] = self::$method_name();
 			}
 		}
 
@@ -226,7 +225,7 @@ class Settings {
 	 *
 	 * @return array General settings array
 	 */
-	public function settings_general() {
+	public static function settings_general() {
 		$settings = array(
 			'list_general_header'          => array(
 				'id'   => 'list_general_header',
@@ -368,7 +367,7 @@ class Settings {
 	 *
 	 * @return array Output settings array
 	 */
-	public function settings_output() {
+	public static function settings_output() {
 		$settings = array(
 			'title'                 => array(
 				'id'      => 'title',
@@ -548,7 +547,7 @@ class Settings {
 	 *
 	 * @return array List Tuning settings array
 	 */
-	public function settings_list() {
+	public static function settings_list() {
 		$settings = array(
 			'list_general_header'       => array(
 				'id'   => 'list_general_header',
@@ -570,7 +569,7 @@ class Settings {
 				'desc'    => esc_html__( 'Maximum number of posts that will be displayed in the list. This option is used if you do not specify the number of posts in the widget or shortcodes', 'contextual-related-posts' ),
 				'type'    => 'number',
 				'default' => '6',
-				'min'     => '0',
+				'min'     => '1',
 				'size'    => 'small',
 			),
 			'daily_range'               => array(
@@ -864,7 +863,7 @@ class Settings {
 	 *
 	 * @return array Thumbnail settings array
 	 */
-	public function settings_thumbnail() {
+	public static function settings_thumbnail() {
 		$settings = array(
 			'post_thumb_op'      => array(
 				'id'      => 'post_thumb_op',
@@ -981,7 +980,7 @@ class Settings {
 	 *
 	 * @return array Styles settings array
 	 */
-	public function settings_styles() {
+	public static function settings_styles() {
 		$settings = array(
 			'crp_styles' => array(
 				'id'      => 'crp_styles',
@@ -1019,7 +1018,7 @@ class Settings {
 	 *
 	 * @return array Feed settings array
 	 */
-	public function settings_feed() {
+	public static function settings_feed() {
 		$settings = array(
 			'feed_options_desc'  => array(
 				'id'   => 'feed_options_desc',
@@ -1093,7 +1092,7 @@ class Settings {
 	 *
 	 * @return array WooCommerce settings array
 	 */
-	public function settings_woocommerce() {
+	public static function settings_woocommerce() {
 		$settings = array(
 			'wc_header'               => array(
 				'id'   => 'wc_header',
@@ -1280,7 +1279,7 @@ class Settings {
 	 *
 	 * @return array Performance settings array
 	 */
-	public function settings_performance() {
+	public static function settings_performance() {
 		$custom_tables_desc = sprintf(
 			/* translators: 1: Opening a tag, 2: Closing a tag */
 			esc_html__( 'Efficient Content Storage and Indexing (ECSI) creates a dedicated database table optimized for related content queries. This enhances performance, particularly on sites with a large number of posts or high traffic. To create the ECSI tables, visit the %1$sTools tab%2$s.', 'contextual-related-posts' ),
@@ -1642,6 +1641,11 @@ class Settings {
 		// Force thumb_width and thumb_height if either are zero.
 		if ( empty( $settings['thumb_width'] ) || empty( $settings['thumb_height'] ) ) {
 			list( $settings['thumb_width'], $settings['thumb_height'] ) = \WebberZone\Contextual_Related_Posts\Frontend\Media_Handler::get_thumb_size( $settings['thumb_size'] );
+		}
+
+		// Force limit to 6 if left blank to prevent array_slice errors.
+		if ( empty( $settings['limit'] ) ) {
+			$settings['limit'] = '6';
 		}
 
 		if ( isset( $_POST['crp_save_clear_cache'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
