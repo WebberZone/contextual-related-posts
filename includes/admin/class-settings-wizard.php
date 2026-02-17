@@ -425,9 +425,9 @@ class Settings_Wizard extends Settings_Wizard_API {
 		}
 
 		$table_manager = $custom_tables->admin->table_manager;
+		$percentage    = $table_manager->get_indexing_percentage();
 		$content_count = $table_manager->get_content_count();
 		$post_count    = $table_manager->get_post_count();
-		$percentage    = $post_count > 0 ? min( 100, round( ( $content_count / $post_count ) * 100 ) ) : 0;
 
 		// Check if indexing is in progress.
 		$reindex_state = $custom_tables->admin->get_reindex_state();

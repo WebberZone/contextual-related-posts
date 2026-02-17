@@ -115,7 +115,7 @@ class Tools_Page {
 			</div>
 
 			<div class="postbox">
-				<h2><span><?php esc_html_e( 'Recreate FULLTEXT index', 'contextual-related-posts' ); ?></span></h2>
+				<h2 id="crp-recreate-fulltext-index"><span><?php esc_html_e( 'Recreate FULLTEXT index', 'contextual-related-posts' ); ?></span></h2>
 				<div class="inside">
 					<form method="post">
 						<p>
@@ -177,7 +177,7 @@ class Tools_Page {
 
 			<?php if ( ! get_option( 'crp_meta_migration_done', false ) ) : ?>
 			<div class="postbox">
-				<h2><span><?php esc_html_e( 'Migrate Post Meta', 'contextual-related-posts' ); ?></span></h2>
+				<h2 id="crp-migrate-post-meta"><span><?php esc_html_e( 'Migrate Post Meta', 'contextual-related-posts' ); ?></span></h2>
 				<div class="inside">
 					<p class="description">
 					<?php esc_html_e( 'This tool migrates the old crp_post_meta array storage to individual meta keys for better performance and cleaner data structure.', 'contextual-related-posts' ); ?>
