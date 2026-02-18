@@ -121,7 +121,7 @@ class Bulk_Edit {
 				echo '<p>';
 				esc_html_e( 'Exclude from list:', 'contextual-related-posts' );
 				echo wp_kses_post( $exclude_this_post ? '<span class="dashicons dashicons-yes" style="color:green"></span>' : '<span class="dashicons dashicons-no" style="color:red"></span>' );
-				echo '<div class="hidden"><div class="crp_exclude_this_post">' . esc_attr( $exclude_this_post ) . '</div></div>';
+				echo '<input type="hidden" class="crp_exclude_this_post" value="' . esc_attr( $exclude_this_post ) . '" />';
 				echo '</p>';
 
 				break;
@@ -149,7 +149,7 @@ class Bulk_Edit {
 							<?php esc_html_e( 'Manual Related Posts', 'contextual-related-posts' ); ?>
 							<?php
 							if ( current_filter() === 'bulk_edit_custom_box' ) {
-								echo ' ' . esc_html_e( '(0 to clear the manual posts)', 'contextual-related-posts' );
+								echo ' ' . esc_html__( '(0 to clear the manual posts)', 'contextual-related-posts' );
 							}
 							?>
 							<input type="text" name="crp_manual_related" class="widefat" value="">
@@ -229,16 +229,26 @@ class Bulk_Edit {
 		$post_meta = array();
 
 		if ( isset( $_POST['crp_manual_related'] ) ) {
-			$manual_related_array = wp_parse_id_list( wp_unslash( $_POST['crp_manual_related'] ) );
+			$manual_related_input = sanitize_text_field( wp_unslash( $_POST['crp_manual_related'] ) );
 
-			if ( ! empty( $manual_related_array ) ) {
-				foreach ( $manual_related_array as $key => $value ) {
-					if ( 'publish' !== get_post_status( $value ) ) {
-						unset( $manual_related_array[ $key ] );
+			// Handle special case: '0' or empty input means clear manual related posts.
+			if ( '0' === $manual_related_input || '' === trim( $manual_related_input ) ) {
+				$post_meta['manual_related'] = '';
+			} else {
+				$manual_related_array = wp_parse_id_list( $manual_related_input );
+
+				if ( ! empty( $manual_related_array ) ) {
+					foreach ( $manual_related_array as $key => $value ) {
+						if ( 'publish' !== get_post_status( $value ) ) {
+							unset( $manual_related_array[ $key ] );
+						}
 					}
+					$manual_related              = implode( ',', $manual_related_array );
+					$post_meta['manual_related'] = $manual_related;
+				} else {
+					// If array is empty after parsing, clear manual related posts.
+					$post_meta['manual_related'] = '';
 				}
-				$manual_related              = implode( ',', $manual_related_array );
-				$post_meta['manual_related'] = $manual_related;
 			}
 		}
 
