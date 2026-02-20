@@ -149,7 +149,7 @@ class Bulk_Edit {
 							<?php esc_html_e( 'Manual Related Posts', 'contextual-related-posts' ); ?>
 							<?php
 							if ( current_filter() === 'bulk_edit_custom_box' ) {
-								echo ' ' . esc_html__( '(0 to clear the manual posts)', 'contextual-related-posts' );
+								echo ' <span class="description">' . esc_html__( '(comma-separated post IDs, enter 0 to clear, leave blank to keep existing)', 'contextual-related-posts' ) . '</span>';
 							}
 							?>
 							<input type="text" name="crp_manual_related" class="widefat" value="">
@@ -187,6 +187,9 @@ class Bulk_Edit {
 			return;
 		}
 
+		// Check if this is quick edit or bulk edit.
+		$is_quick_edit = isset( $_REQUEST['crp_quick_edit_nonce'] );
+
 		if ( isset( $_REQUEST['crp_manual_related'] ) ) {
 			$manual_related_array = wp_parse_id_list( sanitize_text_field( wp_unslash( $_REQUEST['crp_manual_related'] ) ) );
 
@@ -196,12 +199,19 @@ class Bulk_Edit {
 				}
 			}
 			$manual_related = implode( ',', $manual_related_array );
-			if ( $manual_related ) {
-				update_post_meta( $post_id, '_crp_manual_related', $manual_related );
-			} else {
-				delete_post_meta( $post_id, '_crp_manual_related' );
+
+			// In quick edit, only update if field has actual values.
+			// Empty field in quick edit should preserve existing data.
+			if ( ! ( $is_quick_edit && empty( $_REQUEST['crp_manual_related'] ) ) ) {
+				if ( $manual_related ) {
+					update_post_meta( $post_id, '_crp_manual_related', $manual_related );
+				} else {
+					delete_post_meta( $post_id, '_crp_manual_related' );
+				}
 			}
-		} else {
+		} elseif ( $is_quick_edit ) {
+			// Only delete in quick edit if field is not present.
+			// In bulk edit, missing field means "no change".
 			delete_post_meta( $post_id, '_crp_manual_related' );
 		}
 
@@ -231,25 +241,29 @@ class Bulk_Edit {
 		if ( isset( $_POST['crp_manual_related'] ) ) {
 			$manual_related_input = sanitize_text_field( wp_unslash( $_POST['crp_manual_related'] ) );
 
-			// Handle special case: '0' or empty input means clear manual related posts.
-			if ( '0' === $manual_related_input || '' === trim( $manual_related_input ) ) {
-				$post_meta['manual_related'] = '';
-			} else {
-				$manual_related_array = wp_parse_id_list( $manual_related_input );
-
-				if ( ! empty( $manual_related_array ) ) {
-					foreach ( $manual_related_array as $key => $value ) {
-						if ( 'publish' !== get_post_status( $value ) ) {
-							unset( $manual_related_array[ $key ] );
-						}
-					}
-					$manual_related              = implode( ',', $manual_related_array );
-					$post_meta['manual_related'] = $manual_related;
-				} else {
-					// If array is empty after parsing, clear manual related posts.
+			// Only process if not empty - empty means "no change" in bulk edit.
+			if ( '' !== trim( $manual_related_input ) ) {
+				// Handle special case: '0' means clear manual related posts.
+				if ( '0' === $manual_related_input ) {
 					$post_meta['manual_related'] = '';
+				} else {
+					$manual_related_array = wp_parse_id_list( $manual_related_input );
+
+					if ( ! empty( $manual_related_array ) ) {
+						foreach ( $manual_related_array as $key => $value ) {
+							if ( 'publish' !== get_post_status( $value ) ) {
+								unset( $manual_related_array[ $key ] );
+							}
+						}
+						$manual_related              = implode( ',', $manual_related_array );
+						$post_meta['manual_related'] = $manual_related;
+					} else {
+						// If array is empty after parsing, clear manual related posts.
+						$post_meta['manual_related'] = '';
+					}
 				}
 			}
+			// If empty, do nothing - preserve existing manual related posts.
 		}
 
 		if ( isset( $_POST['crp_exclude_this_post'] ) && -1 !== (int) $_POST['crp_exclude_this_post'] ) {

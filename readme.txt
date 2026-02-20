@@ -192,6 +192,13 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.2.1 =
+
+* Bug fixes:
+    * Bulk edit not saving manual related posts when input is '0' or empty.
+    * Translation function usage in bulk edit manual related posts label.
+    * Unauthorized edit-context access in REST API - now properly checks post edit capabilities.
+
 = 4.2.0 =
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-2-0/](https://webberzone.com/announcements/contextual-related-posts-v4-2-0/)

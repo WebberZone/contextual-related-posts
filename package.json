@@ -45,14 +45,14 @@
         "wpml-config.xml"
     ],
     "devDependencies": {
-        "@wordpress/prettier-config": "^4.36.0",
+        "@wordpress/prettier-config": "^4.40.0",
         "@wordpress/scripts": "^31",
         "clean-css-cli": "^5.6.3",
         "rtlcss": "^4.3.0",
-        "terser": "^5.44.1"
+        "terser": "^5.46.0"
     },
     "dependencies": {
-        "@wordpress/icons": "^11.4.0",
+        "@wordpress/icons": "^11.7.0",
         "clsx": "^2.1.1",
         "uuid": "^13.0.0"
     }
