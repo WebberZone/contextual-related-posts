@@ -32,8 +32,8 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
         "yoast/phpunit-polyfills": "^3",
         "phpunit/phpunit": "^9 || ^10 || ^11 || ^12",
-        "php-stubs/woocommerce-stubs": "^10.4",
-        "php-stubs/wp-cli-stubs": "^2.12"
+        "php-stubs/woocommerce-stubs": "^10",
+        "php-stubs/wp-cli-stubs": "^2"
     },
     "config": {
         "allow-plugins": {

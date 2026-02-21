@@ -82,9 +82,9 @@ class Admin_Notices {
 				'id'          => 'crp_missing_fulltext_index',
 				'message'     => sprintf(
 					'<p>%s <a href="%s">%s</a></p>',
-					esc_html__( 'Contextual Related Posts: Some fulltext indexes are missing, which will affect the related posts.', 'contextual-related-posts' ),
-					esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ),
-					esc_html__( 'Click here to recreate indexes.', 'contextual-related-posts' )
+					esc_html__( 'Contextual Related Posts: Some FULLTEXT indexes are missing from your database, which will prevent related posts from being found. Please run the recreate indexes tool from the Tools page to restore related posts functionality.', 'contextual-related-posts' ),
+					esc_url( admin_url( 'tools.php?page=crp_tools_page#crp-recreate-fulltext-index' ) ),
+					esc_html__( 'Go to Tools page', 'contextual-related-posts' )
 				),
 				'type'        => 'warning',
 				'dismissible' => true,
@@ -115,9 +115,9 @@ class Admin_Notices {
 				'id'          => 'crp_missing_custom_tables',
 				'message'     => sprintf(
 					'<p>%s <a href="%s">%s</a></p>',
-					esc_html__( 'Contextual Related Posts: Custom tables are missing, which will affect related posts performance.', 'contextual-related-posts' ),
-					esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ),
-					esc_html__( 'Click here to recreate tables.', 'contextual-related-posts' )
+					esc_html__( 'Contextual Related Posts: Custom tables are missing from your database, which will prevent related posts from being displayed. Please run the recreate tables tool from the Tools page to restore functionality.', 'contextual-related-posts' ),
+					esc_url( admin_url( 'admin.php?page=crp_tools_page#crp-reindex-custom-tables' ) ),
+					esc_html__( 'Go to Tools page', 'contextual-related-posts' )
 				),
 				'type'        => 'warning',
 				'dismissible' => true,
@@ -151,9 +151,9 @@ class Admin_Notices {
 				'id'          => 'crp_migration_pending',
 				'message'     => sprintf(
 					'<p>%s <a href="%s">%s</a></p>',
-					esc_html__( 'Contextual Related Posts: Post meta migration is required to keep data in sync.', 'contextual-related-posts' ),
-					esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ),
-					esc_html__( 'Click here to run the migration.', 'contextual-related-posts' )
+					esc_html__( 'Contextual Related Posts: Post meta migration is required to keep your data compatible with the latest version. Please run the migration tool from the Tools page to update your database structure.', 'contextual-related-posts' ),
+					esc_url( admin_url( 'tools.php?page=crp_tools_page#crp-migrate-post-meta' ) ),
+					esc_html__( 'Go to Tools page', 'contextual-related-posts' )
 				),
 				'type'        => 'warning',
 				'dismissible' => true,

@@ -24,7 +24,8 @@ jQuery(document).ready(function ($) {
 
             // get the data
             const crp_manual_related = $('.crp_manual_related', post_row).text();
-            const crp_exclude_this_post = 1 == $('.crp_exclude_this_post', post_row).text() ? true : false;
+            const crp_exclude_this_post_value = $('.crp_exclude_this_post', post_row).val();
+            const crp_exclude_this_post = crp_exclude_this_post_value === '1' || crp_exclude_this_post_value === 'true';
 
             // populate the data
             $(':input[name="crp_manual_related"]', edit_row).val(crp_manual_related);

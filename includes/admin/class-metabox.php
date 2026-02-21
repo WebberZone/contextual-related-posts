@@ -107,11 +107,10 @@ class Metabox {
 		wp_nonce_field( 'crp_meta_box', 'crp_meta_box_nonce' );
 
 		// Get the thumbnail settings. The name of the meta key is defined in thumb_meta parameter of the CRP Settings array.
-		$thumb_meta = get_post_meta( $post->ID, crp_get_option( 'thumb_meta' ), true );
+		$thumb_meta = crp_get_meta( $post->ID, crp_get_option( 'thumb_meta' ) );
 		$value      = ( $thumb_meta ) ? $thumb_meta : '';
 
 		// Get related posts specific meta.
-		// Using crp_get_meta() for backward compatibility with pre-4.2.0 crp_post_meta array storage.
 		$disable_here      = crp_get_meta( $post->ID, 'disable_here' );
 		$exclude_this_post = crp_get_meta( $post->ID, 'exclude_this_post' );
 		$keyword           = crp_get_meta( $post->ID, 'keyword' );

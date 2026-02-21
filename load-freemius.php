@@ -40,9 +40,6 @@ if ( ! function_exists( __NAMESPACE__ . '\\crp_freemius' ) ) {
 						'contact'    => false,
 						'support'    => false,
 						'network'    => true,
-						'parent'     => array(
-							'slug' => 'options-general.php',
-						),
 					),
 					'is_live'        => true,
 				)
