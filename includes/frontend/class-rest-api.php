@@ -74,10 +74,14 @@ class REST_API extends \WP_REST_Controller {
 	 * @return \WP_Error|bool
 	 */
 	public function permissions_check( $request ) {
-		// Check if user is requesting edit context.
 		$context = $request->get_param( 'context' );
+
 		if ( 'edit' === $context && ! current_user_can( 'edit_posts' ) ) {
-			return false;
+			return new \WP_Error(
+				'rest_forbidden_context',
+				__( 'Sorry, you are not allowed to view this context.', 'contextual-related-posts' ),
+				array( 'status' => rest_authorization_required_code() )
+			);
 		}
 
 		/**
@@ -105,7 +109,7 @@ class REST_API extends \WP_REST_Controller {
 
 		$post = get_post( $id );
 
-		if ( empty( $post ) || ! $this->check_read_permission( $post ) ) {
+		if ( empty( $post ) || ! $this->check_read_permission( $post, $request ) ) {
 			return new \WP_Error(
 				'rest_post_invalid_id',
 				__( 'Invalid post ID.', 'contextual-related-posts' ),
@@ -139,7 +143,7 @@ class REST_API extends \WP_REST_Controller {
 
 		if ( is_array( $results ) && ! empty( $results ) ) {
 			foreach ( $results as $related_post ) {
-				if ( ! $this->check_read_permission( $related_post ) ) {
+				if ( ! $this->check_read_permission( $related_post, $request ) ) {
 					continue;
 				}
 
@@ -159,13 +163,6 @@ class REST_API extends \WP_REST_Controller {
 	 * @return array|mixed   The formatted Popular Post object.
 	 */
 	public function prepare_item( $related_post, $request ) {
-
-		// Check if user is requesting edit context and validate permissions.
-		$context = $request->get_param( 'context' );
-		if ( 'edit' === $context && ! current_user_can( 'edit_post', $related_post->ID ) ) {
-			// Force context to 'view' if user doesn't have edit permission for this post.
-			$request->set_param( 'context', 'view' );
-		}
 
 		// Need to prepare items for the rest response.
 		$posts_controller = new \WP_REST_Posts_Controller( $related_post->post_type );
@@ -245,12 +242,17 @@ class REST_API extends \WP_REST_Controller {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param \WP_Post $post Post object.
+	 * @param \WP_Post              $post    Post object.
+	 * @param \WP_REST_Request|null $request Request context.
 	 * @return bool Whether the post can be read.
 	 */
-	public function check_read_permission( $post ) {
+	public function check_read_permission( $post, $request = null ) {
 		$post_type = get_post_type_object( $post->post_type );
 		if ( ! $this->check_is_post_type_allowed( $post_type ) ) {
+			return false;
+		}
+
+		if ( $request && 'edit' === $request->get_param( 'context' ) && ! current_user_can( 'edit_post', $post->ID ) ) {
 			return false;
 		}
 
