@@ -126,6 +126,7 @@ class Settings_Wizard_API {
 	 *     @type string $page_slug            Wizard page slug.
 	 *     @type array  $menu_args           Menu arguments array with parent and capability.
 	 *     @type bool   $hide_when_completed Whether to hide the wizard submenu item after completion.
+	 *     @type bool   $show_in_menu        Whether to show the wizard in the admin menu.
 	 * }
 	 */
 	public function __construct( $settings_key, $prefix, $args = array() ) {
@@ -139,6 +140,7 @@ class Settings_Wizard_API {
 			'admin_menu_position' => 999,
 			'page_slug'           => "{$prefix}_wizard",
 			'hide_when_completed' => true,
+			'show_in_menu'        => true,
 			'menu_args'           => array(
 				'parent'     => '', // Empty for dashboard, or parent slug for submenu.
 				'capability' => 'manage_options',
