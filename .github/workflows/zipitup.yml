@@ -31,7 +31,7 @@ jobs:
       - name: Create artifact
         uses: montudor/action-zip@v1
         with:
-          args: zip -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" "*/.git*" "*/.DS_Store" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md *.dist *.yml *.neon composer.* package.json package-lock.json "dev-helpers/**" "build/**" "wporg-assets/**" "docs/**" "phpunit/**" phpstan-bootstrap.php
+          args: zip -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" "*/.git*" "*/.DS_Store" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md *.dist *.yml *.neon composer.* package.json package-lock.json "dev-helpers/*" "build/*" "wporg-assets/*" "docs/*" "phpunit/*" phpstan-bootstrap.php
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
