@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.8.0
+ * @version 2.8.1
  */
 class Settings_API {
 
@@ -27,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.8.0';
+	public const VERSION = '2.8.1';
 
 	/**
 	 * Settings Key.

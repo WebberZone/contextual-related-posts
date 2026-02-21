@@ -233,8 +233,10 @@ class Settings_Wizard_API {
 			array( $this, 'render_wizard_page' )
 		);
 
-		$hide_when_completed = isset( $this->args['hide_when_completed'] ) ? (bool) $this->args['hide_when_completed'] : true;
-		if ( $hide_when_completed && $this->is_wizard_completed() ) {
+		$hide_submenu = ( isset( $this->args['show_in_menu'] ) && ! $this->args['show_in_menu'] ) ||
+			( ( $this->args['hide_when_completed'] ?? true ) && $this->is_wizard_completed() );
+
+		if ( $hide_submenu ) {
 			add_action( 'admin_head', array( $this, 'hide_completed_wizard_submenu' ) );
 		}
 	}
@@ -245,9 +247,6 @@ class Settings_Wizard_API {
 	 * @return void
 	 */
 	public function hide_completed_wizard_submenu() {
-		if ( ! $this->is_wizard_completed() ) {
-			return;
-		}
 		$slug = sanitize_key( $this->page_slug );
 		?>
 		<style>
