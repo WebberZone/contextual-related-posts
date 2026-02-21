@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.2.0
+Stable tag: 4.2.1
 Requires at least: 6.6
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -237,5 +237,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.2.0 =
-Pro: WooCommerce integration, Server Load Threshold, Bot Protection, WP-CLI suite. Core: Optimized caching, improved Media Handler, refactored settings with AJAX search, post meta storage upgrade. Fixes: Special characters, duplicate queries, translations, image markup.
+= 4.2.1 =
+Bugs squashed from the v4.2.0 release.
