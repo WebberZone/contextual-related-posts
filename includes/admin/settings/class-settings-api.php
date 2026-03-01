@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.8.1
+ * @version 2.8.2
  */
 class Settings_API {
 
@@ -27,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.8.1';
+	public const VERSION = '2.8.2';
 
 	/**
 	 * Settings Key.
@@ -866,6 +866,7 @@ class Settings_API {
 
 		// Get the various settings we've registered.
 		$settings       = get_option( $this->settings_key );
+		$settings       = is_array( $settings ) ? $settings : array();
 		$settings_types = $this->get_registered_settings_types();
 
 		// Get the tab. This is also our settings' section.
@@ -896,18 +897,15 @@ class Settings_API {
 				continue;
 			}
 
-			if ( array_key_exists( $key, $output ) ) {
+			if ( array_key_exists( $key, $input ) ) {
 				$sanitize_callback = $this->get_sanitize_callback( $key );
 
 				// If callback is set, call it.
 				if ( $sanitize_callback ) {
-					// Pass the field configuration for repeater fields.
-					if ( 'repeater' === $type && isset( $this->registered_settings[ $key ] ) ) {
-						$output[ $key ] = call_user_func( $sanitize_callback, $output[ $key ], $this->registered_settings[ $key ] );
-					} elseif ( 'sensitive' === $type ) {
-						$output[ $key ] = call_user_func( $sanitize_callback, $output[ $key ], $key );
+					if ( 'sensitive' === $type ) {
+						$output[ $key ] = call_user_func( $sanitize_callback, $input[ $key ], $key );
 					} else {
-						$output[ $key ] = call_user_func( $sanitize_callback, $output[ $key ] );
+						$output[ $key ] = call_user_func( $sanitize_callback, $input[ $key ] );
 					}
 					continue;
 				}
@@ -1170,7 +1168,7 @@ class Settings_API {
 	 * @param string $prefix Optional prefix for fallback key.
 	 * @return string The encryption key.
 	 */
-	private static function get_encryption_key( $prefix = '' ) {
+	public static function get_encryption_key( $prefix = '' ) {
 		$fallback = $prefix ? str_replace( '-', '_', $prefix ) . '_encryption_fallback' : 'settings_api_encryption_fallback';
 		return defined( 'AUTH_SALT' ) ? AUTH_SALT : ( defined( 'SECURE_AUTH_SALT' ) ? SECURE_AUTH_SALT : hash( 'sha256', __NAMESPACE__ . $fallback ) );
 	}
