@@ -4,7 +4,7 @@
  *
  * @link  https://webberzone.com
  *
- * @package WebberZone\Contextual_Related_Posts
+ * @package WebberZone\Better_External_Links
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin\Settings;
@@ -298,9 +298,22 @@ class Settings_Sanitize {
 		}
 
 		$sanitized_value = array();
+		$existing_rows   = array();
 
 		// Get the subfields configuration.
 		$subfields = ! empty( $field['fields'] ) ? $field['fields'] : array();
+		if ( ! empty( $field['id'] ) ) {
+			$stored_value  = $this->get_option( $field['id'], array() );
+			$existing_rows = is_array( $stored_value ) ? $stored_value : array();
+		}
+
+		// Create a lookup table for existing rows by row_id.
+		$existing_by_id = array();
+		foreach ( $existing_rows as $existing_row ) {
+			if ( isset( $existing_row['row_id'] ) ) {
+				$existing_by_id[ $existing_row['row_id'] ] = $existing_row;
+			}
+		}
 
 		foreach ( $value as $index => $row ) {
 			// Ensure we have a valid row structure.
@@ -311,6 +324,17 @@ class Settings_Sanitize {
 			$sanitized_row = array(
 				'fields' => array(),
 			);
+
+			// Preserve row_id if it exists.
+			if ( isset( $row['row_id'] ) ) {
+				$sanitized_row['row_id'] = sanitize_text_field( $row['row_id'] );
+			}
+
+			// Get the corresponding existing row for sensitive field preservation.
+			$existing_row = null;
+			if ( isset( $row['row_id'] ) && isset( $existing_by_id[ $row['row_id'] ] ) ) {
+				$existing_row = $existing_by_id[ $row['row_id'] ];
+			}
 
 			foreach ( $row['fields'] as $field_key => $field_value ) {
 				$field_key = sanitize_key( $field_key );
@@ -331,10 +355,22 @@ class Settings_Sanitize {
 				// Get the field type from the subfield configuration.
 				$field_type = isset( $field_config['type'] ) ? $field_config['type'] : 'text';
 
+				// Preserve existing encrypted sensitive values when form submits masked/empty value.
+				if ( 'sensitive' === $field_type && ( empty( $field_value ) || ( is_string( $field_value ) && false !== strpos( $field_value, '**' ) ) ) ) {
+					if ( $existing_row && isset( $existing_row['fields'][ $field_key ] ) ) {
+						$sanitized_row['fields'][ $field_key ] = $existing_row['fields'][ $field_key ];
+					}
+					continue;
+				}
+
 				// Call the appropriate sanitization method.
 				$sanitize_method = 'sanitize_' . $field_type . '_field';
 				if ( method_exists( $this, $sanitize_method ) ) {
-					$sanitized_row['fields'][ $field_key ] = $this->$sanitize_method( $field_value, $field_config );
+					if ( 'sensitive' === $field_type ) {
+						$sanitized_row['fields'][ $field_key ] = $this->$sanitize_method( $field_value, $field_key );
+					} else {
+						$sanitized_row['fields'][ $field_key ] = $this->$sanitize_method( $field_value, $field_config );
+					}
 				} else {
 					$sanitized_row['fields'][ $field_key ] = $this->sanitize_text_field( $field_value );
 				}

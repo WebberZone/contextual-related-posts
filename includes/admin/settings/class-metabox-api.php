@@ -2,7 +2,7 @@
 /**
  * Class to display and save a Metabox.
  *
- * @package WebberZone\Contextual_Related_Posts
+ * @package WebberZone\Better_External_Links
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin\Settings;

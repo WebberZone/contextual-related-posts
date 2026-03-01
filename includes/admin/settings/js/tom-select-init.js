@@ -3,35 +3,74 @@
 (function ($) {
     'use strict';
 
-    function initTomSelect() {
-        const elements = document.querySelectorAll('.ts_autocomplete');
+    function normalizeOption(item) {
+        if (!item || typeof item !== 'object') {
+            return null;
+        }
+
+        const value = item.id || item.value || '';
+        const text = item.name || item.text || value;
+
+        if (!value && !text) {
+            return null;
+        }
+
+        return { value: String(value), text: String(text) };
+    }
+
+    function getEndpointOptions(settings, endpoint) {
+        if (!settings || !endpoint) {
+            return [];
+        }
+
+        const endpointOptions = settings[endpoint];
+
+        if (!Array.isArray(endpointOptions)) {
+            return [];
+        }
+
+        return endpointOptions
+            .map(normalizeOption)
+            .filter(Boolean);
+    }
+
+    function isTaxonomyEndpoint(endpoint) {
+        const key = typeof endpoint === 'string' ? endpoint : '';
+        return key === 'category' || key === 'post_tag' || key.includes('tax');
+    }
+
+    function initTomSelect(root) {
+        const scope = (root && typeof root.querySelectorAll === 'function') ? root : document;
+        const elements = scope.querySelectorAll('.ts_autocomplete');
 
         elements.forEach(function (element) {
+            if (element.tomselect) {
+                return;
+            }
+
             const prefix = element.getAttribute('data-wp-prefix') || 'WZ';
             const settingsKey = `${prefix}TomSelectSettings`;
-            const settings = window[settingsKey] || WZTomSelectSettings;
+            const settings = window[settingsKey]
+                || window.WZTomSelectSettings
+                || window.freemkitTomSelectSettings
+                || {};
+
+            if (!settings || typeof settings !== 'object') {
+                return;
+            }
 
             const action = element.getAttribute('data-wp-action') || settings.action;
             const nonce = element.getAttribute('data-wp-nonce') || settings.nonce;
             const endpoint = element.getAttribute('data-wp-endpoint') || settings.endpoint;
-            const forms = settings.forms;
-            const tags = settings.tags;
-            const custom_fields = settings.custom_fields;
-            const strings = settings.strings;
+            const strings = settings.strings || {};
 
-            const options = endpoint === 'forms' ? forms : (endpoint === 'tags' ? tags : (endpoint === 'custom_fields' ? custom_fields : []));
-
-            if (!options || !Array.isArray(options)) {
-                console.error('Invalid options for endpoint:', endpoint);
-                return;
-            }
-
-            const formattedOptions = options.map(item => ({ value: item.id, text: item.name }));
+            const formattedOptions = getEndpointOptions(settings, endpoint);
 
             const savedIds = element.value.split(',').map(id => id.trim()).filter(Boolean);
+            const taxonomyEndpoint = isTaxonomyEndpoint(endpoint);
 
             // For taxonomy endpoints, add saved values as options so Tom Select can display them
-            if ((endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) && savedIds.length > 0) {
+            if (taxonomyEndpoint && savedIds.length > 0) {
                 const savedOptions = savedIds.map(savedValue => {
                     // Extract term name from formatted string "Name (taxonomy:id)"
                     const match = savedValue.match(/^(.*)\s+\(.*:\d+\)$/);
@@ -53,7 +92,7 @@
             }
 
             // For non-taxonomy endpoints, add saved values as options so Tom Select can display them.
-            if (!(endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) && savedIds.length > 0) {
+            if (!taxonomyEndpoint && savedIds.length > 0) {
                 savedIds.forEach(savedValue => {
                     if (!formattedOptions.some(opt => opt.value === savedValue)) {
                         formattedOptions.push({ value: savedValue, text: savedValue });
@@ -68,7 +107,6 @@
             if (configAttr) {
                 try {
                     customConfig = JSON.parse(configAttr);
-                    // console.log('Parsed custom config:', customConfig); // Debug log
                 } catch (e) {
                     console.error('Error parsing custom config:', configAttr, e);
                 }
@@ -86,10 +124,13 @@
                 createOnBlur: false,
                 create: false,
                 render: {
-                    no_results: (data, escape) => `<div class="no-results">${strings.no_results.replace('%s', escape(data.input))}</div>`,
+                    no_results: (data, escape) => {
+                        const template = strings.no_results || 'No results for "%s"';
+                        return `<div class="no-results">${template.replace('%s', escape(data.input))}</div>`;
+                    },
                     option: (data, escape) => {
                         // For taxonomy endpoints, display only the formatted value to avoid duplication
-                        if (endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) {
+                        if (taxonomyEndpoint) {
                             return `<div>${escape(data.value)}</div>`;
                         }
                         // Avoid showing "value (value)" when value and text are identical.
@@ -100,7 +141,7 @@
                     },
                     item: (data, escape) => {
                         // For taxonomy endpoints, display only the formatted value to avoid duplication
-                        if (endpoint === 'category' || endpoint === 'post_tag' || endpoint.includes('tax')) {
+                        if (taxonomyEndpoint) {
                             return `<div>${escape(data.value)}</div>`;
                         }
                         // Avoid showing "value (value)" when value and text are identical.
@@ -130,8 +171,18 @@
                             callback();
                         },
                         success: function (res) {
-                            if (res.success && Array.isArray(res.data)) {
-                                callback(res.data);
+                            if (res.success && res.data && Array.isArray(res.data.items)) {
+                                callback(
+                                    res.data.items
+                                        .map(normalizeOption)
+                                        .filter(Boolean)
+                                );
+                            } else if (res.success && Array.isArray(res.data)) {
+                                callback(
+                                    res.data
+                                        .map(normalizeOption)
+                                        .filter(Boolean)
+                                );
                             } else {
                                 callback();
                             }
@@ -142,7 +193,6 @@
 
             // Merge default config with custom config
             const finalConfig = { ...defaultConfig, ...customConfig };
-            // console.log('Final config:', finalConfig); // Debug log
 
             // Initialize Tom Select with merged config
             try {
@@ -153,5 +203,14 @@
         });
     }
 
-    $(document).ready(initTomSelect);
+    window.WZInitTomSelect = initTomSelect;
+
+    document.addEventListener('wz:repeater-item-added', function (event) {
+        const detail = event && event.detail ? event.detail : {};
+        initTomSelect(detail.container || document);
+    });
+
+    $(document).ready(function () {
+        initTomSelect(document);
+    });
 })(jQuery);
