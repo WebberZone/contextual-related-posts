@@ -192,6 +192,14 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.2.2 =
+
+* Modifications:
+	* Taxonomy Suggest script removed from Settings API. Metabox also uses Tom Select for the lookup of the category field in CRP Pro.
+
+* Bug fixes:
+	* Typecast 'limit' to ensure that they are properly captured as numbers.
+
 = 4.2.1 =
 
 * Bug fixes:
