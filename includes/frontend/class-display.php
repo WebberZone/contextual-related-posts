@@ -1013,7 +1013,7 @@ class Display {
 		$add_to = \crp_get_option( 'add_to', array( 'single', 'page' ) );
 		$add_to = wp_parse_list( $add_to );
 
-		$limit_feed         = \crp_get_option( 'limit_feed' );
+		$limit_feed         = (int) \crp_get_option( 'limit_feed' );
 		$show_excerpt_feed  = \crp_get_option( 'show_excerpt_feed' );
 		$post_thumb_op_feed = \crp_get_option( 'post_thumb_op_feed' );
 
