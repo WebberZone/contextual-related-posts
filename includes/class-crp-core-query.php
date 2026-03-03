@@ -1141,7 +1141,7 @@ class CRP_Core_Query {
 			}
 		}
 
-		if ( ! empty( $this->manual_related ) && ( $this->no_of_manual_related >= $this->query_args['limit'] ) ) {
+		if ( ! empty( $this->manual_related ) && ( $this->no_of_manual_related >= (int) $this->query_args['limit'] ) ) {
 			$post_ids = array_merge( $post_ids, $this->manual_related );
 		}
 
@@ -1242,7 +1242,7 @@ class CRP_Core_Query {
 		// Manual Posts (manual_related - set via the Post Meta) or Include Posts (can be set as a parameter).
 		$post_ids = array();
 
-		if ( ! empty( $this->manual_related ) && ( $this->no_of_manual_related < $this->query_args['limit'] ) ) {
+		if ( ! empty( $this->manual_related ) && ( $this->no_of_manual_related < (int) $this->query_args['limit'] ) ) {
 			$post_ids = array_merge( $post_ids, $this->manual_related );
 		}
 		if ( ! empty( $post_ids ) ) {
@@ -1271,7 +1271,7 @@ class CRP_Core_Query {
 		$fill_random_posts = apply_filters( 'crp_fill_random_posts', false, $posts, $query );
 
 		if ( $fill_random_posts ) {
-			$no_of_random_posts = $this->query_args['limit'] - count( $posts );
+			$no_of_random_posts = (int) $this->query_args['limit'] - count( $posts );
 			if ( $no_of_random_posts > 0 ) {
 				$random_posts = get_posts(
 					array(
@@ -1296,7 +1296,7 @@ class CRP_Core_Query {
 			);
 		}
 
-		$limit = $this->query_args['limit'];
+		$limit = (int) $this->query_args['limit'];
 		$posts = array_slice( $posts, 0, $limit );
 
 		// Support caching to speed up retrieval - set cache AFTER final limiting.
