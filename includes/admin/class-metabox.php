@@ -469,6 +469,17 @@ class Metabox {
 				array( 'dashicons' ),
 				WZ_CRP_VERSION
 			);
+
+			// Enqueue Tom Select using Settings_API method.
+			\WebberZone\Contextual_Related_Posts\Admin\Settings\Settings_API::enqueue_scripts_styles(
+				'crp',
+				array(
+					'strings' => array(
+						/* translators: %s: search term */
+						'no_results' => esc_html__( 'No results found for "%s"', 'contextual-related-posts' ),
+					),
+				)
+			);
 		}
 	}
 }
