@@ -469,13 +469,6 @@ class Metabox {
 				array( 'dashicons' ),
 				WZ_CRP_VERSION
 			);
-			wp_enqueue_script(
-				'wz-taxonomy-suggest-js',
-				WZ_CRP_PLUGIN_URL . "includes/admin/settings/js/taxonomy-suggest{$file_prefix}.js",
-				array( 'jquery' ),
-				WZ_CRP_VERSION,
-				true
-			);
 		}
 	}
 }
