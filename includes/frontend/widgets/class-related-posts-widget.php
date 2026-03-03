@@ -290,9 +290,9 @@ class Related_Posts_Widget extends \WP_Widget {
 			 */
 			$title = apply_filters( 'widget_title', $title, $instance, $this->id_base );
 
-			$limit = isset( $instance['limit'] ) ? $instance['limit'] : crp_get_option( 'limit' );
+			$limit = isset( $instance['limit'] ) ? (int) $instance['limit'] : (int) crp_get_option( 'limit' );
 			if ( empty( $limit ) ) {
-				$limit = crp_get_option( 'limit' );
+				$limit = (int) crp_get_option( 'limit' );
 			}
 			$offset = isset( $instance['offset'] ) ? $instance['offset'] : 0;
 
