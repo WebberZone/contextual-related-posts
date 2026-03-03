@@ -202,7 +202,7 @@ class Related_Posts_Widget extends \WP_Widget {
 		$instance['show_date']     = isset( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;
 		$instance['offset']        = ( ! empty( $new_instance['offset'] ) ) ? intval( $new_instance['offset'] ) : '';
 		$instance['ordering']      = isset( $new_instance['ordering'] ) ? $new_instance['ordering'] : '';
-		$instance['random_order']  = isset( $new_instance['random_order'] ) ? (bool) $new_instance['show_date'] : false;
+		$instance['random_order']  = isset( $new_instance['random_order'] ) ? (bool) $new_instance['random_order'] : false;
 
 		// Process post types to be selected.
 		$wp_post_types          = get_post_types(
