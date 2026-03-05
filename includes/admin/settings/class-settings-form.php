@@ -4,7 +4,7 @@
  *
  * @link  https://webberzone.com
  *
- * @package WebberZone\Better_External_Links
+ * @package WebberZone\CRP
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin\Settings;
@@ -238,6 +238,8 @@ class Settings_Form {
 	 * @param array $args Array of arguments.
 	 */
 	public function callback_color( $args ) {
+		// Add color-field class for wpColorPicker initialization.
+		$args['field_class'] = isset( $args['field_class'] ) ? $args['field_class'] . ' color-field' : 'color-field';
 		$this->callback_text( $args );
 	}
 
@@ -842,8 +844,8 @@ class Settings_Form {
 
 		ob_start();
 		?>
-		<div class="<?php echo esc_attr( $class ); ?> wz-repeater-wrapper" id="<?php echo esc_attr( $args['id'] ); ?>-wrapper" <?php echo $attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
-			<div class="<?php echo esc_attr( $args['id'] ); ?>-items">
+		<div class="<?php echo esc_attr( $class ); ?> wz-repeater-wrapper" id="<?php echo esc_attr( $args['id'] ); ?>-wrapper" data-index="<?php echo esc_attr( (string) count( $value ) ); ?>" data-live-update-field="<?php echo esc_attr( ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name' ); ?>" data-fallback-title="<?php echo esc_attr( ! empty( $args['new_item_text'] ) ? $args['new_item_text'] : $this->translation_strings['repeater_new_item'] ); ?>" <?php echo $attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<div class="<?php echo esc_attr( $args['id'] ); ?>-items wz-repeater-items">
 				<?php
 				if ( ! empty( $value ) ) {
 					foreach ( array_values( $value ) as $index => $item ) {
@@ -860,101 +862,6 @@ class Settings_Form {
 				<?php $this->render_repeater_item( $args, '{{INDEX}}' ); ?>
 			</script>
 		</div>
-
-		<script>
-			jQuery(document).ready(function($) {
-				var wrapper = $('#<?php echo esc_js( $args['id'] ); ?>-wrapper');
-				var itemsContainer = wrapper.find('.<?php echo esc_js( $args['id'] ); ?>-items');
-				var index = <?php echo esc_js( (string) count( $value ) ); ?>;
-				var liveUpdateField = '<?php echo esc_js( ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name' ); ?>';
-				var fallbackTitle = '<?php echo esc_js( ! empty( $args['new_item_text'] ) ? $args['new_item_text'] : $this->translation_strings['repeater_new_item'] ); ?>';
-
-			// Add Item
-				wrapper.on('click', '.add-item', function() {
-					var template = wrapper.find('.repeater-template').html();
-					var uniqueId = 'row_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-					template = template.replace(/{{INDEX}}/g, index);
-					template = template.replace(/{{ROW_ID}}/g, uniqueId);
-					itemsContainer.append(template);
-					index++;
-					var newItem = itemsContainer.find('.wz-repeater-item:last');
-
-					// Ensure the toggle icon for the new item is set to the collapsed state (▲)
-					itemsContainer.find('.repeater-item-header:last .toggle-icon').text('▲');
-
-					// Ensure that .repeater-item-content is set to display:block
-					itemsContainer.find('.repeater-item-content:last').css('display', 'block');
-
-					if (window.WZInitTomSelect) {
-						window.WZInitTomSelect(newItem.get(0));
-					}
-					document.dispatchEvent(new CustomEvent('wz:repeater-item-added', { detail: { container: newItem.get(0) } }));
-				});
-
-			// Remove Item
-			wrapper.on('click', '.remove-item', function() {
-				$(this).closest('.wz-repeater-item').remove();
-				reindexItems();
-			});
-
-			// Move Up
-			wrapper.on('click', '.move-up', function() {
-				var item = $(this).closest('.wz-repeater-item');
-				var prev = item.prev();
-				if (prev.length) {
-					item.insertBefore(prev);
-					reindexItems();
-				}
-			});
-
-			// Move Down
-			wrapper.on('click', '.move-down', function() {
-				var item = $(this).closest('.wz-repeater-item');
-				var next = item.next();
-				if (next.length) {
-					item.insertAfter(next);
-					reindexItems();
-				}
-			});
-
-			// Toggle Accordion
-			wrapper.on('click', '.repeater-item-header', function() {
-				var $this = $(this);
-				var $toggleIcon = $this.find('.toggle-icon');
-				var $content = $this.next('.repeater-item-content');
-
-				// Check if content is currently visible or hidden, and toggle accordingly
-				if ($content.is(':visible')) {
-					$content.slideUp();
-					$toggleIcon.text('▼');  // Expanded state
-				} else {
-					$content.slideDown();
-					$toggleIcon.text('▲');  // Collapsed state
-				}
-			});
-
-				// Reindex Items After Adding, Removing, or Moving
-				function reindexItems() {
-					itemsContainer.find('.wz-repeater-item').each(function(idx) {
-					$(this).find(':input').each(function() {
-						var name = $(this).attr('name');
-							if (name) {
-								name = name.replace(/\[\d+\](?=\[(?:fields|row_id)\])/, '[' + idx + ']');
-								$(this).attr('name', name);
-							}
-						});
-					});
-				}
-
-				// Live update repeater title when the specified field changes.
-				wrapper.on('input', '.wz-repeater-item :input[name$="[fields][' + liveUpdateField + ']"]', function() {
-					var $this = $(this);
-					var newName = $this.val();
-					var $repeaterTitle = $this.closest('.wz-repeater-item').find('.repeater-title');
-					$repeaterTitle.text(newName || fallbackTitle);
-				});
-			});
-			</script>
 		<?php
 		$html  = ob_get_clean();
 		$html .= $this->get_field_description( $args );

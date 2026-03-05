@@ -29,42 +29,42 @@ class Admin_Banner {
 	 *
 	 * @var array<string, mixed>
 	 */
-	private array $config = array();
+	public array $config = array();
 
 	/**
 	 * Derived class names keyed by component.
 	 *
 	 * @var array<string, array<int, string>>
 	 */
-	private array $class_names = array();
+	public array $class_names = array();
 
 	/**
 	 * Localized strings.
 	 *
 	 * @var array<string, string>
 	 */
-	private array $strings = array();
+	public array $strings = array();
 
 	/**
 	 * Style configuration.
 	 *
 	 * @var array<string, mixed>
 	 */
-	private array $style = array();
+	public array $style = array();
 
 	/**
 	 * Base class prefix shared by all banners.
 	 *
 	 * @var string
 	 */
-	private string $base_prefix = 'wz-admin-banner';
+	public string $base_prefix = 'wz-admin-banner';
 
 	/**
 	 * Unique class prefix derived from the provided prefix.
 	 *
 	 * @var string
 	 */
-	private string $unique_prefix = 'admin-banner';
+	public string $unique_prefix = 'admin-banner';
 
 	/**
 	 * Constructor.
@@ -108,7 +108,7 @@ class Admin_Banner {
 	/**
 	 * Register hooks.
 	 */
-	private function hooks(): void {
+	public function hooks(): void {
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'maybe_enqueue_styles' ) );
 		Hook_Registry::add_action( 'in_admin_header', array( $this, 'render' ) );
 	}
@@ -197,7 +197,7 @@ class Admin_Banner {
 	/**
 	 * Enqueue the banner stylesheet.
 	 */
-	private function enqueue_style(): void {
+	public function enqueue_style(): void {
 		wp_register_style(
 			$this->style['handle'],
 			$this->style['url'],
@@ -213,7 +213,7 @@ class Admin_Banner {
 	 * @param \WP_Screen $screen    Current admin screen.
 	 * @param string     $page_slug Current request page slug.
 	 */
-	private function should_render_on_screen( \WP_Screen $screen, string $page_slug ): bool {
+	public function should_render_on_screen( \WP_Screen $screen, string $page_slug ): bool {
 		$screen_base = (string) $screen->base;
 		if ( '' !== $screen_base && in_array( $screen_base, (array) $this->config['exclude_screen_bases'], true ) ) {
 			return false;
@@ -237,7 +237,7 @@ class Admin_Banner {
 	 * @param \WP_Screen $screen    Current admin screen.
 	 * @param string     $page_slug Current request page slug.
 	 */
-	private function resolve_current_section( \WP_Screen $screen, string $page_slug ): string {
+	public function resolve_current_section( \WP_Screen $screen, string $page_slug ): string {
 		$screen_id = (string) $screen->id;
 
 		foreach ( $this->config['sections'] as $section_key => $section ) {
@@ -260,7 +260,7 @@ class Admin_Banner {
 	 *
 	 * @param array $strings Raw strings array.
 	 */
-	private function prepare_strings( array $strings ): array {
+	public function prepare_strings( array $strings ): array {
 		$defaults = array(
 			'region_label' => '',
 			'nav_label'    => '',
@@ -277,7 +277,7 @@ class Admin_Banner {
 	 *
 	 * @param string $prefix Base prefix.
 	 */
-	private function resolve_wrapper_prefix( string $prefix ): string {
+	public function resolve_wrapper_prefix( string $prefix ): string {
 		$prefix = sanitize_key( $prefix );
 
 		if ( '' === $prefix ) {
@@ -292,7 +292,7 @@ class Admin_Banner {
 	 *
 	 * @param array $style Style configuration.
 	 */
-	private function prepare_style_config( array $style ): array {
+	public function prepare_style_config( array $style ): array {
 		$defaults = array(
 			'handle'   => $this->sanitize_handle( "{$this->unique_prefix}-styles" ),
 			'deps'     => array(),
@@ -306,7 +306,8 @@ class Admin_Banner {
 		if ( empty( $style_config['url'] ) ) {
 			$assets_base         = trailingslashit( plugin_dir_url( __FILE__ ) ) . 'css/';
 			$min_suffix          = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-			$style_config['url'] = $assets_base . $style_config['filename'] . $min_suffix . '.css';
+			$rtl_suffix          = is_rtl() ? '-rtl' : '';
+			$style_config['url'] = $assets_base . $style_config['filename'] . $rtl_suffix . $min_suffix . '.css';
 		}
 
 		return $style_config;
@@ -319,7 +320,7 @@ class Admin_Banner {
 	 *
 	 * @return array
 	 */
-	private function sanitize_sections( array $sections ): array {
+	public function sanitize_sections( array $sections ): array {
 		$sanitized = array();
 
 		foreach ( $sections as $key => $section ) {
@@ -348,7 +349,7 @@ class Admin_Banner {
 	 *
 	 * @return array<string, array<int, string>>
 	 */
-	private function derive_class_names(): array {
+	public function derive_class_names(): array {
 		$build = function ( string $suffix = '' ): array {
 			$classes = array( $this->base_prefix . $suffix );
 
@@ -381,7 +382,7 @@ class Admin_Banner {
 	 *
 	 * @return array
 	 */
-	private function collect_targets_from_sections( string $target_key ): array {
+	public function collect_targets_from_sections( string $target_key ): array {
 		$values = array();
 
 		foreach ( $this->config['sections'] as $section ) {
@@ -401,7 +402,7 @@ class Admin_Banner {
 		 *
 		 * @param array $section Section configuration.
 		 */
-	private function get_section_link_classes( array $section ): array {
+	public function get_section_link_classes( array $section ): array {
 		$classes  = $this->class_names['link'] ?? array();
 		$type     = isset( $section['type'] ) ? sanitize_key( $section['type'] ) : 'secondary';
 		$type     = '' !== $type ? $type : 'secondary';
@@ -422,7 +423,7 @@ class Admin_Banner {
 	 * @param array $classes Class list.
 	 * @return string Class attribute string.
 	 */
-	private function implode_classes( array $classes ): string {
+	public function implode_classes( array $classes ): string {
 		return implode( ' ', array_unique( array_filter( $classes ) ) );
 	}
 
@@ -432,7 +433,7 @@ class Admin_Banner {
 	 * @param string $key Classes array key.
 	 * @return string Class attribute string.
 	 */
-	private function class_attr( string $key ): string {
+	public function class_attr( string $key ): string {
 		return $this->implode_classes( $this->class_names[ $key ] ?? array() );
 	}
 
@@ -441,19 +442,15 @@ class Admin_Banner {
 	 *
 	 * @param string $handle Raw handle.
 	 */
-	private function sanitize_handle( string $handle ): string {
+	public function sanitize_handle( string $handle ): string {
 		return sanitize_title_with_dashes( $handle );
 	}
 
 	/**
 	 * Get the current page slug from the request.
 	 */
-	private function get_request_page_slug(): string {
-		$page_param_raw = filter_input( INPUT_GET, 'page', FILTER_UNSAFE_RAW );
-
-		if ( is_string( $page_param_raw ) && '' !== $page_param_raw ) {
-			$page_raw = sanitize_text_field( $page_param_raw );
-		} elseif ( isset( $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	public function get_request_page_slug(): string {
+		if ( isset( $_GET['page'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$page_raw = sanitize_text_field( wp_unslash( $_GET['page'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		} else {
 			return '';
