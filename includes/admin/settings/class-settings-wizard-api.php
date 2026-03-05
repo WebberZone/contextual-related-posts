@@ -5,7 +5,7 @@
  * A reusable API class for creating multi-step settings wizards.
  * This class provides the framework for creating guided setup experiences.
  *
- * @package WebberZone\Better_External_Links
+ * @package WebberZone\CRP
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin\Settings;
@@ -239,7 +239,7 @@ class Settings_Wizard_API {
 			( ( $this->args['hide_when_completed'] ?? true ) && $this->is_wizard_completed() );
 
 		if ( $hide_submenu ) {
-			add_action( 'admin_head', array( $this, 'hide_completed_wizard_submenu' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'hide_completed_wizard_submenu' ) );
 		}
 	}
 
@@ -250,14 +250,11 @@ class Settings_Wizard_API {
 	 */
 	public function hide_completed_wizard_submenu() {
 		$slug = sanitize_key( $this->page_slug );
-		?>
-		<style>
-			#adminmenu a[href$="page=<?php echo esc_attr( $slug ); ?>"],
-			#adminmenu a[href*="page=<?php echo esc_attr( $slug ); ?>&"] {
+		$css  = '#adminmenu a[href$="page=' . $slug . '"],
+			#adminmenu a[href*="page=' . $slug . '&"] {
 				display: none;
-			}
-		</style>
-		<?php
+			}';
+		wp_add_inline_style( 'wp-admin', $css );
 	}
 
 	/**
