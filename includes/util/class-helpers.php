@@ -342,7 +342,18 @@ class Helpers {
 	public static function sanitize_args( $args ): array {
 		foreach ( $args as $key => $value ) {
 			if ( is_string( $value ) ) {
-				$args[ $key ] = wp_kses_post( $value );
+				switch ( $key ) {
+					case 'class':
+					case 'className':
+					case 'extra_class':
+						$classes           = explode( ' ', $value );
+						$sanitized_classes = array_map( 'sanitize_html_class', $classes );
+						$args[ $key ]      = implode( ' ', $sanitized_classes );
+						break;
+					default:
+						$args[ $key ] = wp_kses_post( $value );
+						break;
+				}
 			}
 		}
 		return $args;
