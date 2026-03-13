@@ -189,7 +189,7 @@ class Display {
 		 */
 		$post_classes = apply_filters( 'crp_post_class', $post_classes, $args, $post );
 
-		$output = '<div class="' . $post_classes . '">';
+		$output = '<div class="' . esc_attr( $post_classes ) . '">';
 
 		if ( $results ) {
 			$loop_counter = 0;
