@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.2.1
+Stable tag: 4.2.2
 Requires at least: 6.6
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -194,11 +194,13 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.2.2 =
 
-* Modifications:
-	* Taxonomy Suggest script removed from Settings API. Metabox also uses Tom Select for the lookup of the category field in CRP Pro.
-
 * Bug fixes:
-	* Typecast 'limit' to ensure that they are properly captured as numbers.
+	* Hardened REST API permission checks and argument sanitization.
+	* Escaped `post_class()` output more safely.
+	* Added validation before `switch_to_blog()` calls in the table manager.
+	* Added ABSPATH protection to the sidebar template.
+	* Fixed the random order widget setting using the correct boolean field.
+	* Typecast numeric limit values to ensure they are properly captured as integers.
 
 = 4.2.1 =
 
@@ -245,5 +247,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.2.1 =
-Bugs squashed from the v4.2.0 release.
+= 4.2.2 =
+Bug and security fixes.
