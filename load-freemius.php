@@ -25,23 +25,24 @@ if ( ! function_exists( __NAMESPACE__ . '\\crp_freemius' ) ) {
 			require_once __DIR__ . '/vendor/freemius/start.php';
 			$crp_freemius = \fs_dynamic_init(
 				array(
-					'id'             => '15040',
-					'slug'           => 'contextual-related-posts',
-					'premium_slug'   => 'contextual-related-posts-pro',
-					'type'           => 'plugin',
-					'public_key'     => 'pk_4aec305b9c97637276da2e55b723f',
-					'is_premium'     => false,
-					'premium_suffix' => 'Pro',
-					'has_addons'     => false,
-					'has_paid_plans' => true,
-					'menu'           => array(
+					'id'               => '15040',
+					'slug'             => 'contextual-related-posts',
+					'premium_slug'     => 'contextual-related-posts-pro',
+					'type'             => 'plugin',
+					'public_key'       => 'pk_4aec305b9c97637276da2e55b723f',
+					'is_premium'       => false,
+					'premium_suffix'   => 'Pro',
+					'has_addons'       => false,
+					'has_paid_plans'   => true,
+					'menu'             => array(
 						'slug'       => 'crp_options_page',
 						'first-path' => ( is_multisite() && is_network_admin() ? '' : 'admin.php?page=crp_wizard' ),
 						'contact'    => false,
 						'support'    => false,
 						'network'    => true,
 					),
-					'is_live'        => true,
+					'is_live'          => true,
+					'is_org_compliant' => true,
 				)
 			);
 		}
