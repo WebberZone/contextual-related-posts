@@ -9,3 +9,6 @@
 # Lock files
 package-lock.json
 composer.lock
+
+# Claude AI
+.claude/
