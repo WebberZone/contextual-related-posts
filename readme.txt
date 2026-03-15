@@ -131,6 +131,7 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 * [Auto-Close](https://wordpress.org/plugins/autoclose/) - Automatically close comments, pingbacks and trackbacks and manage revisions
 * [Popular Authors](https://wordpress.org/plugins/popular-authors/) - Display popular authors in your WordPress widget
 * [Followed Posts](https://wordpress.org/plugins/where-did-they-go-from-here/) - Show a list of related posts based on what your users have read
+* [WebberZone Link Warnings](https://wordpress.org/plugins/webberzone-link-warnings/) - Add accessible warnings for external links and target="_blank" links
 
 == Installation ==
 
