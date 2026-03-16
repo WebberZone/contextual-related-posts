@@ -23,7 +23,7 @@ class Media_Handler {
 	 *
 	 * @var string $prefix Prefix.
 	 */
-	private static $prefix = 'crp';
+	protected static $prefix = 'crp';
 
 	/**
 	 * Default thumbnail URL.
@@ -40,15 +40,27 @@ class Media_Handler {
 	private static $processing_ids = array();
 
 	/**
+	 * Retrieve a plugin option value.
+	 *
+	 * Calls {@see crp_get_option()} directly. Subclasses for other plugins
+	 * should override this method to point at their own options function.
+	 *
+	 * @param string $key      Option key.
+	 * @param mixed  $fallback Default value if option is not set.
+	 * @return mixed Option value.
+	 */
+	protected static function get_option( string $key, $fallback = null ) {
+		return crp_get_option( $key, $fallback );
+	}
+
+	/**
 	 * Add custom image size of thumbnail. Filters `init`.
 	 */
 	public static function add_image_sizes() {
-		$get_option_callback = self::$prefix . '_get_option';
-
-		if ( ! call_user_func( $get_option_callback, 'thumb_create_sizes' ) ) {
+		if ( ! self::get_option( 'thumb_create_sizes' ) ) {
 			return;
 		}
-		$thumb_size      = call_user_func( $get_option_callback, 'thumb_size' );
+		$thumb_size      = self::get_option( 'thumb_size' );
 		$thumb_size_name = self::$prefix . '_thumbnail';
 
 		if ( ! in_array( $thumb_size, get_intermediate_image_sizes() ) ) { // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict
@@ -57,9 +69,9 @@ class Media_Handler {
 
 		// Add image sizes if $thumb_size_name is selected or the selected thumbnail size is no longer valid.
 		if ( $thumb_size_name === $thumb_size ) {
-			$width  = call_user_func_array( $get_option_callback, array( 'thumb_width', 150 ) );
-			$height = call_user_func_array( $get_option_callback, array( 'thumb_height', 150 ) );
-			$crop   = call_user_func_array( $get_option_callback, array( 'thumb_crop', true ) );
+			$width  = self::get_option( 'thumb_width', 150 );
+			$height = self::get_option( 'thumb_height', 150 );
+			$crop   = self::get_option( 'thumb_crop', true );
 
 			add_image_size( $thumb_size_name, $width, $height, $crop );
 		}
@@ -74,6 +86,7 @@ class Media_Handler {
 	 *     @type int|\WP_Post $post               Post ID or \WP_Post object.
 	 *     @type string      $size               Thumbnail size. Should be a pre-defined image size.
 	 *     @type string      $thumb_meta         Meta field that is used to store the location of default thumbnail image.
+	 *     @type string      $acf_field          ACF field name (Image or Text field) to use as thumbnail source.
 	 *     @type string      $thumb_html         Accepted arguments are `html` or `css`.
 	 *     @type string      $thumb_default      Default thumbnail image.
 	 *     @type bool        $thumb_default_show Show default thumb if none found.
@@ -83,14 +96,13 @@ class Media_Handler {
 	 * @return string  Image tag
 	 */
 	public static function get_the_post_thumbnail( $args = array() ) {
-		$get_option_callback = self::$prefix . '_get_option';
-
 		$defaults = array(
 			'post'               => '',
 			'size'               => 'thumbnail',
 			'thumb_meta'         => 'post-image',
+			'acf_field'          => '',
 			'thumb_html'         => 'html',
-			'thumb_default'      => call_user_func( $get_option_callback, 'thumb_default', '' ),
+			'thumb_default'      => self::get_option( 'thumb_default', '' ),
 			'thumb_default_show' => true,
 			'scan_images'        => true,
 			'use_site_icon'      => true,
@@ -132,131 +144,26 @@ class Media_Handler {
 			$extracted_alt = '';
 			$alt           = '';
 
-			// Let's start fetching the thumbnail. First place to look is in the post meta defined in the Settings page.
-			$postimage = get_post_meta( $result->ID, $args['thumb_meta'], true );
-			$postimage = filter_var( $postimage, FILTER_VALIDATE_URL );
-			if ( $postimage ) {
-				$pick          = 'meta';
-				$attachment_id = self::get_cached_attachment_id( $postimage );
+			$strategies = array(
+				fn() => self::get_thumbnail_from_meta( $result, $args ),
+				fn() => self::get_thumbnail_from_acf( $result, $args ),
+				fn() => self::get_thumbnail_from_fifu( $result ),
+				fn() => self::get_thumbnail_from_featured_image( $result, $args ),
+				fn() => self::get_thumbnail_from_content_scan( $result, $args ),
+				fn() => self::get_thumbnail_from_first_child( $result, $args ),
+				fn() => self::get_thumbnail_from_video_meta( $result ),
+				fn() => self::get_thumbnail_from_default_thumb( $args ),
+				fn() => self::get_thumbnail_from_site_icon( $args ),
+			);
 
-				$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-				if ( false !== $postthumb ) {
-					$postimage = $postthumb[0];
-					$pick     .= 'correct';
-				}
-			}
-
-			// If there is no thumbnail found, check FIFU (Featured Image from URL) plugin.
-			if ( ! $postimage ) {
-				/**
-				 * Filters the FIFU meta key used to store external image URLs.
-				 *
-				 * @param string $fifu_meta_key Meta key used by FIFU plugin.
-				 */
-				$fifu_meta_key = apply_filters( self::$prefix . '_fifu_meta_key', 'fifu_image_url' );
-
-				$fifu_image_url = get_post_meta( $result->ID, $fifu_meta_key, true );
-				$fifu_image_url = filter_var( $fifu_image_url, FILTER_VALIDATE_URL );
-				if ( $fifu_image_url ) {
-					$postimage = $fifu_image_url;
-					$pick      = 'fifu';
-				}
-			}
-
-			// If there is no thumbnail found, check the post thumbnail.
-			if ( ! $postimage ) {
-				if ( false !== get_post_thumbnail_id( $result->ID ) ) {
-					$attachment_id = ( 'attachment' === $result->post_type ) ? $result->ID : get_post_thumbnail_id( $result->ID );
-
-					$postthumb = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-					if ( false !== $postthumb ) {
-						$postimage = $postthumb[0];
-						$pick      = 'featured';
-					}
-				}
-			}
-
-			// If there is no thumbnail found, fetch the first image in the post, if enabled.
-			if ( ! $postimage && $args['scan_images'] ) {
-
-				// Skip content scanning for very large posts to prevent memory exhaustion.
-				if ( strlen( $result->post_content ) > 50000 ) { // 50KB limit.
-					$post_content = '';
-				} else {
-					/**
-					 * Filters the post content that is used to scan for images.
-					 *
-					 * A filter function can be tapped into this to execute shortcodes, modify content, etc.
-					 *
-					 * @param string   $post_content Post content
-					 * @param \WP_Post $result       Post Object
-					 */
-					$post_content = apply_filters( self::$prefix . '_thumb_post_content', $result->post_content, $result );
-				}
-
-				preg_match_all( '/<img\s[^>]*src=[\'"]([^\'"]+)[\'"][^>]*>/i', $post_content, $matches );
-				if ( isset( $matches[1][0] ) && $matches[1][0] ) {
-					$postimage     = $matches[1][0];
-					$extracted_alt = self::get_alt_from_img_tag( $matches[0][0] );
-					$pick          = 'first';
-
-					$attachment_id = self::get_cached_attachment_id( $postimage );
-					$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-
-					if ( false !== $postthumb ) {
-						$postimage = $postthumb[0];
-						$pick     .= 'correct';
-					} else {
-						// Fallback: Try to resize the original URL if no attachment found.
-						$resized_url = self::resize_external_image( $postimage, $args['size'] );
-						if ( $resized_url ) {
-							$postimage = $resized_url;
-							$pick     .= 'resized';
-						}
-					}
-				}
-			}
-
-			// If there is no thumbnail found, fetch the first child image.
-			if ( ! $postimage ) {
-				$dimensions = self::get_thumb_size( $args['size'] );
-				$postimage  = self::get_first_image( $result->ID, $dimensions[0], $dimensions[1] );  // Get the first image.
-				$pick       = 'firstchild';
-			}
-
-			// If no other thumbnail set, try to get the custom video thumbnail set by the Video Thumbnails plugin.
-			if ( ! $postimage ) {
-				$postimage = get_post_meta( $result->ID, '_video_thumbnail', true );
-				$postimage = filter_var( $postimage, FILTER_VALIDATE_URL );
-				if ( $postimage ) {
-					$pick = 'video_thumb';
-				}
-			}
-
-			// If no thumb found and settings permit, use default thumb.
-			if ( ! $postimage && $args['thumb_default_show'] && $args['thumb_default'] ) {
-				$postimage = $args['thumb_default'];
-				$pick      = 'default_thumb';
-
-				if ( self::$default_thumb_url !== $postimage ) {
-					$attachment_id = self::get_cached_attachment_id( $postimage );
-					$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
-					if ( false !== $postthumb ) {
-						$postimage = $postthumb[0];
-						$pick     .= 'correct';
-					}
-				}
-			}
-
-			// If no thumb found, use site icon.
-			if ( ! $postimage && $args['use_site_icon'] ) {
-				$postimage = get_site_icon_url( max( $args['thumb_width'], $args['thumb_height'] ) );
-				$pick      = 'site_icon_max';
-
-				// Fallback to min size if max size not available.
-				if ( ! $postimage ) {
-					$postimage = get_site_icon_url( min( $args['thumb_width'], $args['thumb_height'] ) );
-					$pick      = 'site_icon_min';
+			foreach ( $strategies as $strategy ) {
+				$thumb = $strategy();
+				if ( ! empty( $thumb['postimage'] ) ) {
+					$postimage     = $thumb['postimage'];
+					$attachment_id = $thumb['attachment_id'];
+					$pick          = $thumb['pick'];
+					$extracted_alt = $thumb['extracted_alt'];
+					break;
 				}
 			}
 
@@ -281,7 +188,7 @@ class Media_Handler {
 
 				$class = self::$prefix . "_{$pick} {$args['class']} {$args['size']}";
 
-				if ( empty( $attachment_id ) && ! in_array( $pick, array( 'video_thumb', 'default_thumb', 'site_icon_max', 'site_icon_min', 'fifu' ), true ) ) {
+				if ( empty( $attachment_id ) && ! in_array( $pick, array( 'video_thumb', 'default_thumb', 'site_icon_max', 'site_icon_min', 'fifu', 'acf', 'acfcorrect' ), true ) ) {
 					$attachment_id = self::get_cached_attachment_id( $postimage );
 				}
 
@@ -351,7 +258,7 @@ class Media_Handler {
 				$output .= self::get_image_html( $postimage, $attr, $attachment_id, $args['size'] );
 
 				if ( function_exists( 'wp_img_tag_add_srcset_and_sizes_attr' ) && ! empty( $attachment_id ) ) {
-					$output = \wp_img_tag_add_srcset_and_sizes_attr( $output, self::$prefix . '_thumbnail', $attachment_id );
+					$output = \wp_img_tag_add_srcset_and_sizes_attr( $output, $args['size'], $attachment_id );
 				}
 
 				if ( function_exists( 'wp_img_tag_add_loading_optimization_attrs' ) ) {
@@ -480,6 +387,405 @@ class Media_Handler {
 	}
 
 	/**
+	 * Resolve a thumbnail from an ACF Image or Text field.
+	 *
+	 * Handles all three ACF Image field return formats (Image Array, Image ID,
+	 * Image URL) as well as a plain Text field returning a URL string.
+	 *
+	 * @param string $acf_field ACF field name.
+	 * @param int    $post_id   Post ID to retrieve the field value from.
+	 * @param string $size      Registered image size slug.
+	 * @return array {
+	 *     @type string $postimage     Image URL, or empty string if none found.
+	 *     @type int    $attachment_id Attachment ID when resolvable, otherwise 0.
+	 *     @type string $pick          Source identifier used for CSS class generation.
+	 * }
+	 */
+	protected static function get_acf_thumbnail( string $acf_field, int $post_id, string $size ): array {
+		$result = array(
+			'postimage'     => '',
+			'attachment_id' => 0,
+			'pick'          => '',
+		);
+
+		$acf_value = get_field( $acf_field, $post_id );
+
+		if ( empty( $acf_value ) ) {
+			return $result;
+		}
+
+		if ( is_array( $acf_value ) ) {
+			// Image Array return format — prefer the attachment ID for full srcset support.
+			if ( ! empty( $acf_value['id'] ) ) {
+				$attachment_id = (int) $acf_value['id'];
+				$postthumb     = wp_get_attachment_image_src( $attachment_id, $size );
+				if ( false !== $postthumb ) {
+					$result['postimage']     = $postthumb[0];
+					$result['attachment_id'] = $attachment_id;
+					$result['pick']          = 'acf';
+				}
+			} elseif ( ! empty( $acf_value['url'] ) ) {
+				$validated = filter_var( $acf_value['url'], FILTER_VALIDATE_URL );
+				if ( $validated ) {
+					$result['postimage'] = $validated;
+					$result['pick']      = 'acf';
+				}
+			}
+		} elseif ( is_numeric( $acf_value ) ) {
+			// Image ID return format.
+			$attachment_id = (int) $acf_value;
+			$postthumb     = wp_get_attachment_image_src( $attachment_id, $size );
+			if ( false !== $postthumb ) {
+				$result['postimage']     = $postthumb[0];
+				$result['attachment_id'] = $attachment_id;
+				$result['pick']          = 'acf';
+			}
+		} else {
+			// Image URL return format, or a Text field containing a URL.
+			$validated = filter_var( $acf_value, FILTER_VALIDATE_URL );
+			if ( $validated ) {
+				$attachment_id = self::get_cached_attachment_id( $validated );
+				$postthumb     = wp_get_attachment_image_src( $attachment_id, $size );
+
+				$result['postimage']     = $postthumb ? $postthumb[0] : $validated;
+				$result['attachment_id'] = $attachment_id;
+				$result['pick']          = $postthumb ? 'acfcorrect' : 'acf';
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get thumbnail from the post meta field.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @param array    $args Arguments array.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_meta( \WP_Post $post, array $args ): array {
+		$postimage = get_post_meta( $post->ID, $args['thumb_meta'], true );
+		$postimage = filter_var( $postimage, FILTER_VALIDATE_URL );
+		if ( ! $postimage ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		$pick          = 'meta';
+		$attachment_id = self::get_cached_attachment_id( $postimage );
+		$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+		if ( false !== $postthumb ) {
+			$postimage = $postthumb[0];
+			$pick     .= 'correct';
+		}
+
+		return array(
+			'postimage'     => $postimage,
+			'attachment_id' => $attachment_id,
+			'pick'          => $pick,
+			'extracted_alt' => '',
+		);
+	}
+
+	/**
+	 * Get thumbnail from an ACF field.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @param array    $args Arguments array.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_acf( \WP_Post $post, array $args ): array {
+		if ( ! $args['acf_field'] || ! function_exists( 'get_field' ) ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		$result                  = self::get_acf_thumbnail( $args['acf_field'], $post->ID, $args['size'] );
+		$result['extracted_alt'] = '';
+		return $result;
+	}
+
+	/**
+	 * Get thumbnail from the FIFU (Featured Image from URL) plugin.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_fifu( \WP_Post $post ): array {
+		/**
+		 * Filters the FIFU meta key used to store external image URLs.
+		 *
+		 * @param string $fifu_meta_key Meta key used by FIFU plugin.
+		 */
+		$fifu_meta_key  = apply_filters( self::$prefix . '_fifu_meta_key', 'fifu_image_url' );
+		$fifu_image_url = get_post_meta( $post->ID, $fifu_meta_key, true );
+		$fifu_image_url = filter_var( $fifu_image_url, FILTER_VALIDATE_URL );
+
+		if ( ! $fifu_image_url ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		return array(
+			'postimage'     => $fifu_image_url,
+			'attachment_id' => 0,
+			'pick'          => 'fifu',
+			'extracted_alt' => '',
+		);
+	}
+
+	/**
+	 * Get thumbnail from the post's featured image.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @param array    $args Arguments array.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_featured_image( \WP_Post $post, array $args ): array {
+		if ( false === get_post_thumbnail_id( $post->ID ) ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		$attachment_id = ( 'attachment' === $post->post_type ) ? $post->ID : get_post_thumbnail_id( $post->ID );
+		$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+
+		if ( false === $postthumb ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		return array(
+			'postimage'     => $postthumb[0],
+			'attachment_id' => $attachment_id,
+			'pick'          => 'featured',
+			'extracted_alt' => '',
+		);
+	}
+
+	/**
+	 * Get thumbnail by scanning the post content for img tags.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @param array    $args Arguments array.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_content_scan( \WP_Post $post, array $args ): array {
+		if ( ! $args['scan_images'] ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		// Skip content scanning for very large posts to prevent memory exhaustion.
+		if ( strlen( $post->post_content ) > 50000 ) { // 50KB limit.
+			$post_content = '';
+		} else {
+			/**
+			 * Filters the post content that is used to scan for images.
+			 *
+			 * A filter function can be tapped into this to execute shortcodes, modify content, etc.
+			 *
+			 * @param string   $post_content Post content.
+			 * @param \WP_Post $post         Post object.
+			 */
+			$post_content = apply_filters( self::$prefix . '_thumb_post_content', $post->post_content, $post );
+		}
+
+		preg_match_all( '/<img\s[^>]*src=[\'"]([^\'"]+)[\'"][^>]*>/i', $post_content, $matches );
+		if ( ! isset( $matches[1][0] ) || ! $matches[1][0] ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		$postimage     = $matches[1][0];
+		$extracted_alt = self::get_alt_from_img_tag( $matches[0][0] );
+		$pick          = 'first';
+		$attachment_id = self::get_cached_attachment_id( $postimage );
+		$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+
+		if ( false !== $postthumb ) {
+			$postimage = $postthumb[0];
+			$pick     .= 'correct';
+		} else {
+			// Fallback: Try to resize the original URL if no attachment found.
+			$resized_url = self::resize_external_image( $postimage, $args['size'] );
+			if ( $resized_url ) {
+				$postimage = $resized_url;
+				$pick     .= 'resized';
+			}
+		}
+
+		return array(
+			'postimage'     => $postimage,
+			'attachment_id' => $attachment_id,
+			'pick'          => $pick,
+			'extracted_alt' => $extracted_alt,
+		);
+	}
+
+	/**
+	 * Get thumbnail from the first attached child image.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @param array    $args Arguments array.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_first_child( \WP_Post $post, array $args ): array {
+		$dimensions = self::get_thumb_size( $args['size'] );
+		$postimage  = self::get_first_image( $post->ID, $dimensions[0], $dimensions[1] );
+
+		if ( ! $postimage ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		return array(
+			'postimage'     => $postimage,
+			'attachment_id' => 0,
+			'pick'          => 'firstchild',
+			'extracted_alt' => '',
+		);
+	}
+
+	/**
+	 * Get thumbnail from the Video Thumbnails plugin meta field.
+	 *
+	 * @param \WP_Post $post Post object.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_video_meta( \WP_Post $post ): array {
+		$postimage = get_post_meta( $post->ID, '_video_thumbnail', true );
+		$postimage = filter_var( $postimage, FILTER_VALIDATE_URL );
+
+		if ( ! $postimage ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		return array(
+			'postimage'     => $postimage,
+			'attachment_id' => 0,
+			'pick'          => 'video_thumb',
+			'extracted_alt' => '',
+		);
+	}
+
+	/**
+	 * Get thumbnail from the configured default thumbnail setting.
+	 *
+	 * @param array $args Arguments array.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_default_thumb( array $args ): array {
+		if ( ! $args['thumb_default_show'] || ! $args['thumb_default'] ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		$postimage     = $args['thumb_default'];
+		$pick          = 'default_thumb';
+		$attachment_id = 0;
+
+		if ( self::$default_thumb_url !== $postimage ) {
+			$attachment_id = self::get_cached_attachment_id( $postimage );
+			$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+			if ( false !== $postthumb ) {
+				$postimage = $postthumb[0];
+				$pick     .= 'correct';
+			}
+		}
+
+		return array(
+			'postimage'     => $postimage,
+			'attachment_id' => $attachment_id,
+			'pick'          => $pick,
+			'extracted_alt' => '',
+		);
+	}
+
+	/**
+	 * Get thumbnail from the site icon.
+	 *
+	 * @param array $args Arguments array.
+	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
+	 */
+	protected static function get_thumbnail_from_site_icon( array $args ): array {
+		if ( ! $args['use_site_icon'] ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		$postimage = get_site_icon_url( max( $args['thumb_width'], $args['thumb_height'] ) );
+		$pick      = 'site_icon_max';
+
+		// Fallback to min size if max size not available.
+		if ( ! $postimage ) {
+			$postimage = get_site_icon_url( min( $args['thumb_width'], $args['thumb_height'] ) );
+			$pick      = 'site_icon_min';
+		}
+
+		if ( ! $postimage ) {
+			return array(
+				'postimage'     => '',
+				'attachment_id' => 0,
+				'pick'          => '',
+				'extracted_alt' => '',
+			);
+		}
+
+		return array(
+			'postimage'     => $postimage,
+			'attachment_id' => 0,
+			'pick'          => $pick,
+			'extracted_alt' => '',
+		);
+	}
+
+	/**
 	 * Get an HTML img element.
 	 *
 	 * When an attachment ID is available the function delegates to
@@ -512,15 +818,13 @@ class Media_Handler {
 			return '';
 		}
 
-		$get_option_callback = self::$prefix . '_get_option';
-
 		// Define default attributes.
 		$default_attr = array(
 			'src'          => $attachment_url,
 			'alt'          => '',
-			'thumb_html'   => call_user_func( $get_option_callback, 'thumb_html', 'html' ),
-			'thumb_width'  => call_user_func( $get_option_callback, 'thumb_width', 150 ),
-			'thumb_height' => call_user_func( $get_option_callback, 'thumb_height', 150 ),
+			'thumb_html'   => self::get_option( 'thumb_html', 'html' ),
+			'thumb_width'  => self::get_option( 'thumb_width', 150 ),
+			'thumb_height' => self::get_option( 'thumb_height', 150 ),
 			'class'        => "attachment-$size size-$size",
 		);
 
@@ -555,7 +859,7 @@ class Media_Handler {
 		$attr = array_map( 'esc_attr', $attr );
 
 		// Construct the HTML img tag.
-		$html = rtrim( '<img ' . $hwstring );
+		$html = '<img ' . rtrim( $hwstring );
 		foreach ( $attr as $name => $value ) {
 			if ( '' !== $value ) {
 				$html .= " $name=" . '"' . $value . '"';
@@ -662,12 +966,10 @@ class Media_Handler {
 	 * @return string Height-width string.
 	 */
 	public static function get_image_hwstring( $args = array() ) {
-		$get_option_callback = self::$prefix . '_get_option';
-
 		$default_args = array(
-			'thumb_html'   => call_user_func( $get_option_callback, 'thumb_html', 'html' ),
-			'thumb_width'  => call_user_func( $get_option_callback, 'thumb_width', 150 ),
-			'thumb_height' => call_user_func( $get_option_callback, 'thumb_height', 150 ),
+			'thumb_html'   => self::get_option( 'thumb_html', 'html' ),
+			'thumb_width'  => self::get_option( 'thumb_width', 150 ),
+			'thumb_height' => self::get_option( 'thumb_height', 150 ),
 		);
 
 		$args = wp_parse_args( $args, $default_args );
@@ -703,7 +1005,7 @@ class Media_Handler {
 			'order'          => 'ASC',
 			'post_mime_type' => 'image',
 			'post_parent'    => $postid,
-			'post_status'    => null,
+			'post_status'    => 'inherit',
 			'post_type'      => 'attachment',
 		);
 
@@ -743,33 +1045,6 @@ class Media_Handler {
 		}
 
 		return '';
-	}
-
-	/**
-	 * Function to get the attachment ID from the attachment URL.
-	 *
-	 * @param string $attachment_url Attachment URL.
-	 * @return int Attachment ID.
-	 */
-	public static function get_attachment_id_from_url( $attachment_url = '' ) {
-
-		$attachment_id = 0;
-
-		// If there is no URL, return.
-		if ( ! $attachment_url ) {
-			return $attachment_id;
-		}
-
-		// Attempt to retrieve the attachment ID from the URL.
-		$attachment_id = attachment_url_to_postid( $attachment_url );
-
-		/**
-		 * Filter the attachment ID from the attachment URL.
-		 *
-		 * @param int    $attachment_id  Attachment ID.
-		 * @param string $attachment_url Attachment URL.
-		 */
-		return apply_filters( self::$prefix . '_get_attachment_id_from_url', $attachment_id, $attachment_url );
 	}
 
 	/**
@@ -864,9 +1139,9 @@ class Media_Handler {
 	 * Get all image sizes.
 	 *
 	 * @param string|int[] $size Image size.
-	 * @return array|bool If a single size is specified, then the array with width, height and crop status
-	 *                    or false if size is not found;
-	 *                    If no size is specified then an Associative array of the registered image sub-sizes.
+	 * @return array If a single size is specified, then the array with width, height and crop status
+	 *               or an empty array if size is not found;
+	 *               If no size is specified then an Associative array of the registered image sub-sizes.
 	 */
 	public static function get_all_image_sizes( $size = '' ) {
 
@@ -880,9 +1155,8 @@ class Media_Handler {
 		if ( $size ) {
 			if ( isset( $sizes[ $size ] ) ) {
 				return $sizes[ $size ];
-			} else {
-				return false;
 			}
+			return array();
 		}
 
 		/**
