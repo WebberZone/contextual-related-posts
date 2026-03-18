@@ -2,7 +2,7 @@
 /**
  * Admin notices API.
  *
- * @package WebberZone\Contextual_Related_Posts\Admin
+ * @package WebberZone\Knowledge_Base\Admin
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
@@ -16,15 +16,18 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Class to handle admin notices.
- *
- * @since 4.1.0
  */
 class Admin_Notices_API {
 
 	/**
-	 * Array of registered notices.
+	 * Plugin prefix used for AJAX actions, nonces, and storage keys.
 	 *
-	 * @since 4.1.0
+	 * @var string
+	 */
+	private string $prefix;
+
+	/**
+	 * Array of registered notices.
 	 *
 	 * @var array Registered notices.
 	 */
@@ -33,17 +36,51 @@ class Admin_Notices_API {
 	/**
 	 * Constructor class.
 	 *
-	 * @since 4.1.0
+	 * @param string $prefix Plugin prefix for AJAX actions, nonces, and storage keys. Default 'wzkb'.
 	 */
-	public function __construct() {
+	public function __construct( string $prefix = 'crp' ) {
+		$this->prefix = $prefix;
+
+		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		Hook_Registry::add_action( 'admin_notices', array( $this, 'display_notices' ) );
-		Hook_Registry::add_action( 'wp_ajax_crp_dismiss_notice', array( $this, 'handle_notice_dismissal' ) );
+		Hook_Registry::add_action( "wp_ajax_{$this->prefix}_dismiss_notice", array( $this, 'handle_notice_dismissal' ) );
+	}
+
+	/**
+	 * Register and enqueue the dismiss script, pushing this instance's config
+	 * into the shared window.adminNoticesConfigs array.
+	 */
+	public function enqueue_scripts() {
+		$minimize = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		$handle   = "{$this->prefix}-admin-notices";
+
+		wp_register_script(
+			$handle,
+			plugins_url( "js/admin-notices{$minimize}.js", __FILE__ ),
+			array( 'jquery' ),
+			WZ_CRP_VERSION,
+			true
+		);
+
+		$config = wp_json_encode(
+			array(
+				'prefix' => $this->prefix,
+				'action' => "{$this->prefix}_dismiss_notice",
+				'nonce'  => wp_create_nonce( "{$this->prefix}_dismiss_notice" ),
+			)
+		);
+
+		wp_add_inline_script(
+			$handle,
+			'window.adminNoticesConfigs = window.adminNoticesConfigs || []; window.adminNoticesConfigs.push(' . $config . ');',
+			'before'
+		);
+
+		wp_enqueue_script( $handle );
 	}
 
 	/**
 	 * Register a new notice.
-	 *
-	 * @since 4.1.0
 	 *
 	 * @param array $notice {
 	 *     Notice arguments.
@@ -81,11 +118,12 @@ class Admin_Notices_API {
 
 	/**
 	 * Display registered notices.
-	 *
-	 * @since 4.1.0
 	 */
 	public function display_notices() {
 		$screen = get_current_screen();
+		if ( null === $screen ) {
+			return;
+		}
 
 		foreach ( $this->notices as $notice ) {
 			// Skip if user doesn't have capability.
@@ -116,58 +154,21 @@ class Admin_Notices_API {
 			}
 
 			printf(
-				'<div class="%1$s" data-notice-id="%2$s" data-dismiss-time="%3$s">%4$s</div>',
+				'<div class="%1$s" data-notice-id="%2$s" data-dismiss-time="%3$s" data-notice-prefix="%4$s">%5$s</div>',
 				esc_attr( $class ),
 				esc_attr( $notice['id'] ),
 				esc_attr( $notice['dismiss_time'] ),
+				esc_attr( $this->prefix ),
 				wp_kses_post( $notice['message'] )
 			);
 		}
-
-		$this->print_scripts();
-	}
-
-	/**
-	 * Print scripts for notice dismissal.
-	 *
-	 * @since 4.1.0
-	 */
-	private function print_scripts() {
-		static $printed = false;
-
-		if ( $printed ) {
-			return;
-		}
-
-		?>
-		<script>
-		jQuery(document).ready(function($) {
-			$('.notice[data-notice-id]').on('click', '.notice-dismiss', function() {
-				var $notice = $(this).closest('.notice');
-				var noticeId = $notice.data('notice-id');
-				var dismissTime = $notice.data('dismiss-time');
-
-				$.post(ajaxurl, {
-					action: 'crp_dismiss_notice',
-					notice_id: noticeId,
-					dismiss_time: dismissTime,
-					nonce: '<?php echo esc_js( wp_create_nonce( 'crp_dismiss_notice' ) ); ?>'
-				});
-			});
-		});
-		</script>
-		<?php
-
-		$printed = true;
 	}
 
 	/**
 	 * Handle notice dismissal via AJAX.
-	 *
-	 * @since 4.1.0
 	 */
 	public function handle_notice_dismissal() {
-		check_ajax_referer( 'crp_dismiss_notice', 'nonce' );
+		check_ajax_referer( "{$this->prefix}_dismiss_notice", 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();
@@ -180,10 +181,12 @@ class Admin_Notices_API {
 			wp_die();
 		}
 
+		$key = "{$this->prefix}_notice_dismissed_{$notice_id}";
+
 		if ( $dismiss_time ) {
-			set_transient( "crp_notice_dismissed_{$notice_id}", true, $dismiss_time );
+			set_transient( $key, true, $dismiss_time );
 		} else {
-			update_user_meta( get_current_user_id(), "crp_notice_dismissed_{$notice_id}", true );
+			update_user_meta( get_current_user_id(), $key, true );
 		}
 
 		wp_die();
@@ -191,8 +194,6 @@ class Admin_Notices_API {
 
 	/**
 	 * Check if a notice has been dismissed.
-	 *
-	 * @since 4.1.0
 	 *
 	 * @param string $notice_id Notice ID.
 	 * @return bool Whether the notice has been dismissed.
@@ -204,10 +205,12 @@ class Admin_Notices_API {
 			return false;
 		}
 
+		$key = "{$this->prefix}_notice_dismissed_{$notice_id}";
+
 		if ( $notice['dismiss_time'] ) {
-			return (bool) get_transient( "crp_notice_dismissed_{$notice_id}" );
+			return (bool) get_transient( $key );
 		}
 
-		return (bool) get_user_meta( get_current_user_id(), "crp_notice_dismissed_{$notice_id}", true );
+		return (bool) get_user_meta( get_current_user_id(), $key, true );
 	}
 }
