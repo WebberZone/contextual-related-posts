@@ -2,7 +2,7 @@
 /**
  * Admin notices API.
  *
- * @package WebberZone\Knowledge_Base\Admin
+ * @package WebberZone\Contextual_Related_Posts\Admin
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
