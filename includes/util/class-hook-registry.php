@@ -23,7 +23,7 @@ class Hook_Registry {
 	 *
 	 * @var array
 	 */
-	private static $hooks = array();
+	public static $hooks = array();
 
 	/**
 	 * Register a hook (action or filter).
@@ -36,20 +36,17 @@ class Hook_Registry {
 	 *
 	 * @return bool True if registered, false if duplicate or invalid hook.
 	 */
-	public static function register( $hook_type, $hook_name, $callback, $priority = 10, $args = 1 ) {
+	public static function register( string $hook_type, string $hook_name, callable $callback, int $priority = 10, int $args = 1 ): bool {
 		if ( ! in_array( $hook_type, array( 'action', 'filter' ), true ) ) {
 			return false;
 		}
-		if ( ! is_string( $hook_name ) || empty( trim( $hook_name ) ) ) {
+		if ( empty( trim( $hook_name ) ) ) {
 			return false;
 		}
-		if ( ! is_callable( $callback ) ) {
+		if ( $priority < 0 ) {
 			return false;
 		}
-		if ( ! is_numeric( $priority ) || $priority < 0 ) {
-			return false;
-		}
-		if ( ! is_numeric( $args ) || $args < 1 ) {
+		if ( $args < 1 ) {
 			return false;
 		}
 
@@ -220,7 +217,7 @@ class Hook_Registry {
 	 *
 	 * @return string Unique key.
 	 */
-	private static function create_hook_key( $hook_name, $callback, $priority, $closure_id = '' ) {
+	public static function create_hook_key( $hook_name, $callback, $priority, $closure_id = '' ) {
 		return md5( $hook_name . self::callback_to_string( $callback ) . $priority . $closure_id );
 	}
 
@@ -231,7 +228,7 @@ class Hook_Registry {
 	 *
 	 * @return string String representation of the callback.
 	 */
-	private static function callback_to_string( $callback ) {
+	public static function callback_to_string( $callback ) {
 		if ( is_string( $callback ) ) {
 			return $callback;
 		}
