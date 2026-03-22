@@ -288,7 +288,7 @@ class Settings_Sanitize {
 	/**
 	 * Sanitize repeater field.
 	 *
-	 * @param array $value Array of repeater values.
+	 * @param mixed $value Array of repeater values (may be non-array from form data).
 	 * @param array $field Field configuration array.
 	 * @return array Sanitized array
 	 */
@@ -418,7 +418,7 @@ class Settings_Sanitize {
 						break;
 					// Make sure sprintf has a good datatype to work with.
 					case 'integer':
-						$sp_format = '%i';
+						$sp_format = '%d';
 						break;
 					case 'double':
 						$sp_format = '%0.2f';

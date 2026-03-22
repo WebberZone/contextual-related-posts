@@ -341,7 +341,7 @@ class Settings_Wizard_API {
 		// Initialise the current step based on the URL or stored option before processing the action.
 		$this->current_step = $this->get_current_step();
 
-		$action = isset( $_POST['wizard_action'] ) ? sanitize_text_field( wp_unslash( $_POST['wizard_action'] ) ) : '';
+		$action = sanitize_text_field( wp_unslash( $_POST['wizard_action'] ) );
 
 		switch ( $action ) {
 			case 'next_step':

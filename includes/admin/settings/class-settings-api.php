@@ -577,8 +577,6 @@ class Settings_API {
 		wp_enqueue_script( "wz-{$prefix}-tom-select" );
 
 		$defaults = array(
-			'action'   => $prefix . '_taxonomy_search_tom_select',
-			'nonce'    => wp_create_nonce( $prefix . '_taxonomy_search_tom_select' ),
 			'endpoint' => 'category',
 			'strings'  => array(
 				'no_results' => 'No results found for "%s"',
@@ -730,11 +728,7 @@ class Settings_API {
 			}
 		}
 
-		$upgraded_settings = $this->upgraded_settings;
-
-		if ( false !== $upgraded_settings ) {
-			$options = array_merge( $options, $upgraded_settings );
-		}
+		$options = array_merge( $options, $this->upgraded_settings );
 
 		/**
 		 * Filters the default settings array.
