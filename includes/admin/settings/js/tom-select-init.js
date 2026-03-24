@@ -48,6 +48,11 @@
                 return;
             }
 
+            const tagName = (element.tagName || '').toUpperCase();
+            if (tagName !== 'INPUT' && tagName !== 'SELECT' && tagName !== 'TEXTAREA') {
+                return;
+            }
+
             const prefix = element.getAttribute('data-wp-prefix') || 'WZ';
             const settingsKey = `${prefix}TomSelectSettings`;
             const settings = window[settingsKey]
@@ -66,7 +71,21 @@
 
             const formattedOptions = getEndpointOptions(settings, endpoint);
 
-            const savedIds = element.value.split(',').map(id => id.trim()).filter(Boolean);
+            let rawValue = '';
+
+            if (tagName === 'SELECT' && element.multiple && element.selectedOptions) {
+                rawValue = Array.from(element.selectedOptions)
+                    .map(option => String(option.value || '').trim())
+                    .filter(Boolean)
+                    .join(',');
+            } else if (typeof element.value === 'string') {
+                rawValue = element.value;
+            } else {
+                const valueAttribute = element.getAttribute('value');
+                rawValue = typeof valueAttribute === 'string' ? valueAttribute : '';
+            }
+
+            const savedIds = rawValue.split(',').map(id => id.trim()).filter(Boolean);
             const taxonomyEndpoint = isTaxonomyEndpoint(endpoint);
 
             // For taxonomy endpoints, add saved values as options so Tom Select can display them
