@@ -10,6 +10,7 @@ namespace WebberZone\Contextual_Related_Posts;
 if ( ! defined( 'WPINC' ) ) {
 	exit;
 }
+
 /**
  * Main plugin class.
  *
@@ -98,6 +99,7 @@ final class Main {
 			self::$instance = new self();
 			self::$instance->init();
 		}
+
 		return self::$instance;
 	}
 
@@ -121,8 +123,10 @@ final class Main {
 		$this->styles     = new Frontend\Styles_Handler();
 		$this->shortcodes = new Frontend\Shortcodes();
 		$this->blocks     = new Frontend\Blocks\Blocks();
+
 		// Load all hooks.
 		new Hook_Loader();
+
 		// Initialize admin on init action to ensure translations are loaded.
 		add_action( 'init', array( $this, 'init_admin' ) );
 	}

@@ -381,19 +381,20 @@ class Metabox {
 		$search_term      = isset( $_POST['search_term'] ) ? sanitize_text_field( wp_unslash( $_POST['search_term'] ) ) : '';
 		$postid           = isset( $_POST['postid'] ) ? absint( $_POST['postid'] ) : 0;
 		$exclude_post_ids = isset( $_POST['exclude_post_ids'] ) ? wp_parse_id_list( wp_unslash( $_POST['exclude_post_ids'] ) ) : array();
-		$relevance        = isset( $_POST['relevance'] ) ? (bool) $_POST['relevance'] : true;
+		$relevance_raw    = isset( $_POST['relevance'] ) ? sanitize_text_field( wp_unslash( $_POST['relevance'] ) ) : '1';
+		$relevance        = wp_validate_boolean( $relevance_raw );
 
-		if ( empty( $search_term ) || empty( $postid ) ) {
+		if ( empty( $search_term ) ) {
 			wp_send_json_error();
 		}
 
-		if ( ! $relevance ) {
+		if ( ! $relevance || empty( $postid ) ) {
 			$args = array(
-				'post_type'      => 'post',
+				'post_type'      => get_post_types( array( 'public' => true ) ),
 				'post_status'    => 'publish',
 				'posts_per_page' => 7,
 				's'              => $search_term,
-				'post__not_in'   => array_merge( array( $postid ), $exclude_post_ids ),
+				'post__not_in'   => array_merge( $postid ? array( $postid ) : array(), $exclude_post_ids ),
 			);
 			if ( is_numeric( $search_term ) ) {
 				$args['p'] = absint( $search_term );
@@ -414,18 +415,46 @@ class Metabox {
 				$args['include_post_ids'] = array( $search_term );
 			}
 			$posts = \get_crp_posts( $args );
+
+			if ( empty( $posts ) || ! is_array( $posts ) ) {
+				$fallback_args = array(
+					'post_type'      => get_post_types( array( 'public' => true ) ),
+					'post_status'    => 'publish',
+					'posts_per_page' => 7,
+					's'              => $search_term,
+					'post__not_in'   => array_merge( array( $postid ), $exclude_post_ids ),
+				);
+
+				if ( is_numeric( $search_term ) ) {
+					$fallback_args['p'] = absint( $search_term );
+					unset( $fallback_args['s'] );
+				}
+
+				$posts = get_posts( $fallback_args );
+			}
+		}
+
+		if ( ! is_array( $posts ) ) {
+			$posts = array();
 		}
 
 		$result = array();
 		foreach ( $posts as $post ) {
+			if ( is_numeric( $post ) ) {
+				$post = get_post( absint( $post ) );
+			}
+
+			if ( ! $post instanceof \WP_Post ) {
+				continue;
+			}
+
 			$result[] = array(
 				'id'    => $post->ID,
 				'title' => sprintf( '%1$s (%2$s)', $post->post_title, $post->ID ),
 			);
 		}
 
-		echo wp_json_encode( $result );
-		wp_die();
+		wp_send_json( $result );
 	}
 
 	/**
