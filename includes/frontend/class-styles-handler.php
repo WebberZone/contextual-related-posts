@@ -58,34 +58,10 @@ class Styles_Handler {
 			wp_add_inline_style( "crp-style-{$style}", $extra_css );
 		}
 
-		// Add custom CSS to header.
-		$add_to = \crp_get_option( 'add_to', array( 'single', 'page' ) );
-		$add_to = wp_parse_list( $add_to );
-
 		$custom_css = stripslashes( crp_get_option( 'custom_css' ) );
 		if ( $custom_css ) {
-			$enqueue_style = false;
-
-			if ( is_single() && in_array( 'single', $add_to, true ) ) {
-				$enqueue_style = true;
-			} elseif ( is_page() && in_array( 'page', $add_to, true ) ) {
-				$enqueue_style = true;
-			} elseif ( is_home() && in_array( 'home', $add_to, true ) ) {
-				$enqueue_style = true;
-			} elseif ( is_category() && in_array( 'category_archives', $add_to, true ) ) {
-				$enqueue_style = true;
-			} elseif ( is_tag() && in_array( 'tag_archives', $add_to, true ) ) {
-				$enqueue_style = true;
-			} elseif ( ( is_tax() || is_author() || is_date() ) && in_array( 'other_archives', $add_to, true ) ) {
-				$enqueue_style = true;
-			} elseif ( is_active_widget( false, false, 'widget_crp', true ) ) {
-				$enqueue_style = true;
-			}
-
-			if ( $enqueue_style ) {
-				wp_enqueue_style( 'crp-custom-style' );
-				wp_add_inline_style( 'crp-custom-style', $custom_css );
-			}
+			wp_enqueue_style( 'crp-custom-style' );
+			wp_add_inline_style( 'crp-custom-style', $custom_css );
 		}
 	}
 

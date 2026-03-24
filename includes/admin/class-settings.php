@@ -938,6 +938,14 @@ class Settings {
 				'type'    => 'text',
 				'default' => 'post-image',
 			),
+			'acf_field'          => array(
+				'id'      => 'acf_field',
+				'name'    => esc_html__( 'ACF field name', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Name of an Advanced Custom Fields (ACF) Image or Text field to use as the thumbnail source. Supports Image Array, Image ID, Image URL, and Text field return formats. Checked after the meta field above.', 'contextual-related-posts' ),
+				'type'    => 'text',
+				'default' => '',
+				'pro'     => true,
+			),
 			'scan_images'        => array(
 				'id'      => 'scan_images',
 				'name'    => esc_html__( 'Get the first image', 'contextual-related-posts' ),

@@ -802,6 +802,7 @@ class Display {
 					'post'               => $result,
 					'size'               => $args['thumb_size'],
 					'thumb_meta'         => $args['thumb_meta'],
+					'acf_field'          => $args['acf_field'] ?? '',
 					'thumb_html'         => $args['thumb_html'],
 					'thumb_default'      => $args['thumb_default'],
 					'thumb_default_show' => $args['thumb_default_show'],
