@@ -16,31 +16,21 @@ name: Generate Installable Plugin, and Upload as Release Asset
 on:
   release:
     types: [published]
+permissions:
+  contents: write
 jobs:
   build:
     name: Upload Release Asset
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build project
-        run: |
-          mkdir build
+        uses: actions/checkout@v6
 
       - name: Create artifact
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" "*/.git*" "*/.DS_Store" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md CLAUDE.md *.dist *.yml *.neon composer.* package.json package-lock.json "dev-helpers/*" "build/*" "wporg-assets/*" "docs/*" "phpunit/*" phpstan-bootstrap.php build-assets.js
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.event.repository.name }}
-          path: build/${{ github.event.repository.name }}.zip
+        run: |
+          mkdir -p build
+          zip -1 -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" "*/.git*" "*/.DS_Store" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md CLAUDE.md AGENTS.md *.dist *.yml *.neon composer.* package.json package-lock.json "dev-helpers/*" "build/*" "wporg-assets/*" "docs/*" "phpunit/*" phpstan-bootstrap.php build-assets.js
       - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
+        uses: softprops/action-gh-release@v2
         with:
-          args: build/${{ github.event.repository.name }}.zip application/zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          files: build/${{ github.event.repository.name }}.zip

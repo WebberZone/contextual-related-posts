@@ -64,6 +64,6 @@
             "@phpcompat",
             "@phpstan"
         ],
-        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'vendor/**/.DS_Store' 'vendor/bin/*' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' 'CLAUDE.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'test-tools**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php' 'phpcompat-tools**'"
+        "zip": "mkdir -p build && zip -X -r build/$(basename $(pwd)).zip . -x '*.git*' 'node_modules/*' '.*' '*/.git*' '*/.DS_Store' 'vendor/**/.DS_Store' 'vendor/bin/*' 'CODE_OF_CONDUCT.md' 'CONTRIBUTING.md' 'ISSUE_TEMPLATE.md' 'PULL_REQUEST_TEMPLATE.md' 'CLAUDE.md' 'AGENTS.md' '*.dist' '*.yml' '*.neon' 'composer.*' 'package.json' 'package-lock.json' 'dev-helpers**' 'build**' 'wporg-assets**' 'test-tools**' 'docs/*' 'phpunit**' 'phpstan-bootstrap.php' 'phpcompat-tools**'"
     }
 }
