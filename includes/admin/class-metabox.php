@@ -477,6 +477,10 @@ class Metabox {
 		}
 
 		$screen = get_current_screen();
+		if ( null === $screen ) {
+			return;
+		}
+
 		if ( 'post' === $screen->base ) {
 			wp_enqueue_script(
 				'crp-admin-metabox',
