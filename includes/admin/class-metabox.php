@@ -502,7 +502,7 @@ class Metabox {
 			if ( ! wp_style_is( 'wz-crp-tom-select', 'registered' ) ) {
 				wp_register_style(
 					'wz-crp-tom-select',
-					plugins_url( 'settings/css/tom-select.min.css', __FILE__ ),
+					WZ_CRP_PLUGIN_URL . 'includes/admin/settings/css/tom-select.min.css',
 					array(),
 					\WebberZone\Contextual_Related_Posts\Admin\Settings\Settings_API::VERSION
 				);
@@ -511,7 +511,7 @@ class Metabox {
 			if ( ! wp_script_is( 'wz-crp-tom-select', 'registered' ) ) {
 				wp_register_script(
 					'wz-crp-tom-select',
-					plugins_url( 'settings/js/tom-select.complete.min.js', __FILE__ ),
+					WZ_CRP_PLUGIN_URL . 'includes/admin/settings/js/tom-select.complete.min.js',
 					array( 'jquery' ),
 					\WebberZone\Contextual_Related_Posts\Admin\Settings\Settings_API::VERSION,
 					true
@@ -521,7 +521,7 @@ class Metabox {
 			if ( ! wp_script_is( 'wz-crp-tom-select-init', 'registered' ) ) {
 				wp_register_script(
 					'wz-crp-tom-select-init',
-					plugins_url( "settings/js/tom-select-init{$file_prefix}.js", __FILE__ ),
+					WZ_CRP_PLUGIN_URL . "includes/admin/settings/js/tom-select-init{$file_prefix}.js",
 					array( 'jquery', 'wz-crp-tom-select' ),
 					\WebberZone\Contextual_Related_Posts\Admin\Settings\Settings_API::VERSION,
 					true
