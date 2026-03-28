@@ -193,6 +193,18 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.2.3 =
+
+* New features:
+	* (Pro) Added ACF field support for thumbnails: specify an Advanced Custom Fields Image or Text field name in the thumbnail settings. Supports all ACF Image field return formats (Image Array, Image ID, Image URL) as well as plain Text fields containing a URL.
+
+* Modifications:
+	* The custom CSS will now always be available in the frontend when the field contains CSS.
+	* Manual Related Posts lookup improved.
+
+* Fixes:
+	* Fixed Tom Select value extraction for multiselect fields which gave a JS error.
+
 = 4.2.2 =
 
 * Bug fixes:
@@ -248,5 +260,6 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.2.2 =
-Bug and security fixes.
+= 4.2.3 =
+Pro: Added ACF field support for thumbnails.
+Modifications: Improved Manual Related Posts lookup.
