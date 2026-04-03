@@ -198,7 +198,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'previous_step'         => __( 'Previous Step', 'contextual-related-posts' ),
 			'finish_setup'          => __( 'Finish Setup', 'contextual-related-posts' ),
 			'skip_wizard'           => __( 'Skip Wizard', 'contextual-related-posts' ),
-			/* translators: %s: Search query. */
+			/* translators: %s: search term */
 			'tom_select_no_results' => __( 'No results found for "%s"', 'contextual-related-posts' ),
 			'steps_nav_aria_label'  => __( 'Setup Wizard Steps', 'contextual-related-posts' ),
 			/* translators: %1$d: Current step number, %2$d: Total number of steps */

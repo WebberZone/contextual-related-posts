@@ -50,7 +50,7 @@ class Styles_Handler {
 
 			wp_register_style(
 				"crp-style-{$style}",
-				plugins_url( "css/{$style}.min.css", WZ_CRP_PLUGIN_FILE ),
+				plugins_url( "includes/frontend/css/{$style}.min.css", WZ_CRP_PLUGIN_FILE ),
 				array(),
 				WZ_CRP_VERSION
 			);
