@@ -187,7 +187,7 @@ class Settings_Form {
 		$value       = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
 		$size        = sanitize_html_class( $args['size'] ?? 'regular' );
 		$class       = sanitize_html_class( $args['field_class'] );
-		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
+		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
 		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 		$readonly    = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
 		$required    = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
@@ -271,7 +271,7 @@ class Settings_Form {
 
 		$value       = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
 		$class       = sanitize_html_class( $args['field_class'] );
-		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . $args['placeholder'] . '"';
+		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
 		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
 		$readonly    = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
 		$required    = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
@@ -432,7 +432,7 @@ class Settings_Form {
 			$html .= sprintf(
 				'<label for="%1$s">%2$s</label> <br />',
 				$option_id,
-				$option
+				esc_html( $option )
 			);
 		}
 
@@ -611,7 +611,7 @@ class Settings_Form {
 		);
 
 		foreach ( (array) $args['options'] as $option => $name ) {
-			$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', sanitize_key( $option ), selected( $option, $value, false ), $name );
+			$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', sanitize_key( $option ), selected( $option, $value, false ), esc_html( $name ) );
 		}
 
 		$html .= '</select>';
@@ -667,7 +667,7 @@ class Settings_Form {
 				esc_attr( $wp_post_type->name ),
 				checked( true, in_array( $wp_post_type->name, $posts_types_inc, true ), false ),
 				$disabled,
-				$wp_post_type->label
+				esc_html( $wp_post_type->label )
 			);
 
 		}
@@ -721,7 +721,7 @@ class Settings_Form {
 				$option_name,
 				esc_attr( $wp_taxonomy->name ),
 				checked( true, in_array( $wp_taxonomy->name, $taxonomies_inc, true ), false ),
-				$wp_taxonomy->labels->name
+				esc_html( $wp_taxonomy->labels->name )
 			);
 
 		}
@@ -788,7 +788,7 @@ class Settings_Form {
 			$field_attributes['field_name'],
 			esc_attr( $value )
 		);
-		$html .= sprintf( '<input type="button" class="button button-secondary file-browser" value="%s" />', $label );
+		$html .= sprintf( '<input type="button" class="button button-secondary file-browser" value="%s" />', esc_attr( $label ) );
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
