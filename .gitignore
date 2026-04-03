@@ -5,6 +5,7 @@
 # Tooling
 /phpcompat-tools/
 /node_modules/
+/build/
 
 # Lock files
 package-lock.json
