@@ -392,7 +392,7 @@ class Settings_Form {
 				$html .= sprintf(
 					'<label for="%1$s">%2$s</label> <br />',
 					$option_id,
-					$option
+					wp_kses_post( $option )
 				);
 			}
 		}
@@ -432,7 +432,7 @@ class Settings_Form {
 			$html .= sprintf(
 				'<label for="%1$s">%2$s</label> <br />',
 				$option_id,
-				esc_html( $option )
+				wp_kses_post( $option )
 			);
 		}
 
@@ -472,7 +472,7 @@ class Settings_Form {
 			$html .= sprintf(
 				'<label for="%1$s">%2$s: <em>%3$s</em></label>',
 				$option_id,
-				$option['name'],
+				wp_kses_post( $option['name'] ),
 				wp_kses_post( $option['description'] )
 			);
 
@@ -524,7 +524,7 @@ class Settings_Form {
 			$html .= sprintf(
 				'<label for="%1$s">%2$s (%3$sx%4$s%5$s)</label> <br />',
 				$option_id,
-				$name,
+				wp_kses_post( $name ),
 				(int) $option['width'],
 				(int) $option['height'],
 				(bool) $option['crop'] ? ' cropped' : ''
