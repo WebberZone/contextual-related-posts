@@ -1764,7 +1764,7 @@ class Settings {
 				'nonce'    => wp_create_nonce( self::$prefix . '_taxonomy_search_tom_select' ),
 				'endpoint' => 'category',
 				'strings'  => array(
-					/* translators: %s: search keyword. */
+					/* translators: %s: search term */
 					'no_results' => esc_html__( 'No results found for "%s"', 'contextual-related-posts' ),
 				),
 			)
