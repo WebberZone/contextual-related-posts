@@ -219,6 +219,10 @@ class Settings_Form {
 				'style'    => true,
 				'disabled' => true,
 			),
+			'em'       => array(
+				'style' => true,
+				'class' => true,
+			),
 		);
 
 		$allowed = array_replace_recursive( $allowed, $form_tags );
