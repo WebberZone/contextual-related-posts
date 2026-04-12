@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Plugin Overview
 
-Contextual Related Posts is a WordPress plugin (v4.2.2) that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Requires WordPress 6.6+, PHP 7.4+.
+Contextual Related Posts is a WordPress plugin (v4.2.3) that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Requires WordPress 6.6+, PHP 7.4+.
 
 ## Commands
 
