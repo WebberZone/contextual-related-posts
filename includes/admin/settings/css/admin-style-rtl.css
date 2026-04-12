@@ -267,3 +267,15 @@
 	background-color: #2271b1;
 	color: #fff;
 }
+
+.ts-wrapper.single.plugin-clear_button {
+	position: relative;
+}
+
+.ts-wrapper.single .clear-button {
+	position: absolute;
+	top: 50%;
+	left: 8px;
+	transform: translateY(-50%);
+	font-size: 2em;
+}
