@@ -135,6 +135,105 @@ class Settings_Form {
 			'field_name' => $field_name,
 		);
 	}
+
+	/**
+	 * Returns the allowed HTML tags and attributes for settings form output.
+	 *
+	 * Use the `{prefix}_settings_form_allowed_html` filter to add extra tags or
+	 * attributes needed by custom field types or `field_attributes` entries.
+	 *
+	 * @return array<string, array<string, bool>>
+	 */
+	protected function get_allowed_html(): array {
+		$allowed = wp_kses_allowed_html( 'post' );
+
+		$form_tags = array(
+			'input'    => array(
+				'type'             => true,
+				'name'             => true,
+				'id'               => true,
+				'value'            => true,
+				'class'            => true,
+				'style'            => true,
+				'checked'          => true,
+				'disabled'         => true,
+				'readonly'         => true,
+				'required'         => true,
+				'placeholder'      => true,
+				'size'             => true,
+				'min'              => true,
+				'max'              => true,
+				'step'             => true,
+				'multiple'         => true,
+				'autocomplete'     => true,
+				// Tom Select data attributes (built-in Settings API feature).
+				'data-wp-prefix'   => true,
+				'data-wp-endpoint' => true,
+				'data-ts-config'   => true,
+			),
+			'select'   => array(
+				'id'               => true,
+				'name'             => true,
+				'class'            => true,
+				'style'            => true,
+				'disabled'         => true,
+				'multiple'         => true,
+				'size'             => true,
+				'autocomplete'     => true,
+				// Tom Select data attributes (built-in Settings API feature).
+				'data-wp-prefix'   => true,
+				'data-wp-endpoint' => true,
+				'data-ts-config'   => true,
+			),
+			'option'   => array(
+				'value'    => true,
+				'selected' => true,
+				'disabled' => true,
+			),
+			'optgroup' => array(
+				'label'    => true,
+				'disabled' => true,
+			),
+			'textarea' => array(
+				'id'           => true,
+				'name'         => true,
+				'class'        => true,
+				'style'        => true,
+				'rows'         => true,
+				'cols'         => true,
+				'disabled'     => true,
+				'readonly'     => true,
+				'required'     => true,
+				'placeholder'  => true,
+				'autocomplete' => true,
+			),
+			'label'    => array(
+				'for'   => true,
+				'class' => true,
+				'style' => true,
+			),
+			'button'   => array(
+				'type'     => true,
+				'id'       => true,
+				'class'    => true,
+				'style'    => true,
+				'disabled' => true,
+			),
+		);
+
+		$allowed = array_replace_recursive( $allowed, $form_tags );
+
+		/**
+		 * Filters the allowed HTML tags and attributes for settings form output.
+		 *
+		 * Use this filter to add data attributes or custom elements required by
+		 * field_attributes entries in your registered settings.
+		 *
+		 * @param array<string, array<string, bool>> $allowed Allowed HTML tags/attributes.
+		 */
+		return apply_filters( $this->prefix . '_settings_form_allowed_html', $allowed ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
+	}
+
 	/**
 	 * Miscellaneous callback funcion
 	 *
@@ -163,7 +262,7 @@ class Settings_Form {
 		 * @param string $html HTML string.
 		 * @param array  $args Arguments array.
 		 */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -211,7 +310,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -291,7 +390,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -345,7 +444,7 @@ class Settings_Form {
 		$html             .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -399,7 +498,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -439,7 +538,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -482,7 +581,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -534,7 +633,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -574,7 +673,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -618,7 +717,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -675,7 +774,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 
@@ -729,7 +828,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 
@@ -792,7 +891,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -819,7 +918,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**
@@ -867,7 +966,7 @@ class Settings_Form {
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped -- Contains <script type="text/template"> which wp_kses would strip.
 	}
 
 	/**
