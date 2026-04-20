@@ -124,11 +124,11 @@ class Admin_Notices {
 				'capability'  => 'manage_options',
 				'conditions'  => array(
 					function () {
-						return current_user_can( 'manage_options' ) &&
-								class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager' ) &&
-								! ( new \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager() )->is_table_installed(
-									( new \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager() )->content_table
-								);
+						if ( ! current_user_can( 'manage_options' ) || ! class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager' ) ) {
+							return false;
+						}
+						$table_manager = new \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager();
+						return ! $table_manager->is_table_installed( $table_manager->content_table );
 					},
 				),
 			)

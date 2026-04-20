@@ -274,7 +274,9 @@ class CRP_Core_Query {
 			$this->manual_related = array_merge( $this->manual_related, $include_post_ids );
 		}
 
-		$this->no_of_manual_related = count( $this->manual_related );
+		$this->no_of_manual_related   = count( $this->manual_related );
+		$args['manual_related']       = $this->manual_related; // Consolidated array (includes include_post_ids).
+		$args['no_of_manual_related'] = $this->no_of_manual_related;
 
 		if ( empty( $args['keyword'] ) ) {
 			$args['keyword'] = crp_get_meta( $this->source_post->ID, 'keyword' );

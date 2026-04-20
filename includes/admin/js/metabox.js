@@ -171,4 +171,10 @@ jQuery(document).ready(function ($) {
 
     // Initialize the autocomplete plugin. The input field has an ID of manual-related-posts.
     $('#crp-manual-related').crpAutocompletePosts();
+
+    // Initialize Tom Select for include categories field (Pro).
+    var catSlugsEl = document.getElementById('crp_include_cat_slugs');
+    if (catSlugsEl && typeof window.WZInitTomSelect === 'function') {
+        window.WZInitTomSelect(catSlugsEl.parentElement);
+    }
 });

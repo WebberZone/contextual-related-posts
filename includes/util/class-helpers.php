@@ -367,6 +367,12 @@ class Helpers {
 	 * @return string Message about compatibility or empty string if compatible.
 	 */
 	public static function get_database_compatibility_message() {
+		static $cached_message = null;
+
+		if ( null !== $cached_message ) {
+			return $cached_message;
+		}
+
 		global $wpdb;
 
 		$db_version = $wpdb->get_var( 'SELECT VERSION()' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.DirectQuery
@@ -389,25 +395,28 @@ class Helpers {
 		}
 
 		if ( version_compare( $version, $min_version, '<' ) ) {
-			return sprintf(
+			$cached_message = sprintf(
 				/* translators: 1: Database type (MySQL/MariaDB) 2: Current database version 3: Required database version */
 				__( '⚠️ Your %1$s version (%2$s) does not support all custom table features. %1$s %3$s or higher is required for optimal performance. The plugin might not be able to deliver the best results. Please consider upgrading your database version.', 'contextual-related-posts' ),
 				esc_html( $db_name ),
 				esc_html( $version ),
 				esc_html( $min_version )
 			);
+			return $cached_message;
 		}
 
 		if ( version_compare( $version, $rec_version, '<' ) ) {
-			return sprintf(
+			$cached_message = sprintf(
 				/* translators: 1: Database type (MySQL/MariaDB) 2: Current database version 3: Recommended database version */
 				__( '⚠️ Your %1$s version (%2$s) is below the recommended version %3$s. While the plugin will work, upgrading your database is recommended for better performance.', 'contextual-related-posts' ),
 				esc_html( $db_name ),
 				esc_html( $version ),
 				esc_html( $rec_version )
 			);
+			return $cached_message;
 		}
 
-		return '';
+		$cached_message = '';
+		return $cached_message;
 	}
 }

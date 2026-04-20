@@ -135,11 +135,6 @@ class Tools_Page {
 							<?php $sql_queries = self::recreate_indices_sql(); ?>
 							<pre id="crp-indices-sql"><code><?php echo implode( "\n", array_map( 'esc_html', $sql_queries ) ); ?></code></pre>
 						</div>
-						<script>
-							jQuery(document).ready(function($) {
-								crpAddCopyButton('crp-indices-sql');
-							});
-						</script>
 						<?php wp_nonce_field( 'crp-tools-settings' ); ?>
 					</form>
 				</div>
@@ -203,62 +198,6 @@ class Tools_Page {
 						<p id="crp-migration-status"></p>
 					</div>
 					<?php wp_nonce_field( 'crp_migrate_meta_nonce', 'crp_migrate_meta_nonce' ); ?>
-					<script>
-						jQuery(document).ready(function($) {
-							var lastId = 0;
-							var limit = <?php echo absint( self::BATCH_SIZE ); ?>;
-							var totalMigrated = 0;
-
-							$('#crp_migrate_meta').on('click', function() {
-								$(this).prop('disabled', true);
-								$('#crp-migration-progress').show();
-								migrateBatch();
-							});
-
-							function migrateBatch() {
-								$.ajax({
-									url: ajaxurl,
-									type: 'POST',
-									data: {
-										action: 'crp_migrate_meta',
-										security: $('#crp_migrate_meta_nonce').val(),
-										last_id: lastId,
-										limit: limit
-									},
-									success: function(response) {
-										if (response.success) {
-											totalMigrated += response.data.migrated;
-											$('#crp-migration-status').text(response.data.message);
-											if (response.data.last_id !== undefined) {
-												lastId = response.data.last_id;
-											}
-											if (response.data.last_id !== undefined) {
-												undoLastId = response.data.last_id;
-											}
-											if (response.data.complete) {
-												$('#crp-migration-bar').css('width', '100%');
-												$('#crp_migrate_meta').text('<?php esc_html_e( 'Migration Complete', 'contextual-related-posts' ); ?>').prop('disabled', true);
-												setTimeout(function() {
-													location.reload();
-												}, 2000);
-											} else {
-												var progress = Math.min((totalMigrated / (totalMigrated + response.data.remaining)) * 100, 100);
-												$('#crp-migration-bar').css('width', progress + '%');
-												migrateBatch();
-											}
-										} else {
-											$('#crp-migration-status').text('<?php esc_html_e( 'Migration failed. Please try again.', 'contextual-related-posts' ); ?>');
-											$('#crp_migrate_meta').prop('disabled', false);
-										}
-									},
-									error: function() {
-										$('#crp-migration-status').text('<?php esc_html_e( 'Migration failed. Please try again.', 'contextual-related-posts' ); ?>');
-										$('#crp_migrate_meta').prop('disabled', false);
-									}
-								});
-							}
-						});
-					</script>
 				</div>
 			</div>
 			<?php elseif ( get_option( 'crp_meta_migration_done', false ) ) : ?>
@@ -289,59 +228,6 @@ class Tools_Page {
 						<p id="crp-undo-status"></p>
 					</div>
 					<?php wp_nonce_field( 'crp_undo_migrate_meta_nonce', 'crp_undo_migrate_meta_nonce' ); ?>
-					<script>
-						jQuery(document).ready(function($) {
-							var undoLastId = 0;
-							var undoLimit = <?php echo absint( self::BATCH_SIZE ); ?>;
-							var totalUndone = 0;
-
-							$('#crp_undo_migration').on('click', function() {
-								if (!confirm('<?php esc_html_e( 'Are you sure you want to undo the migration? This will revert to the old array storage.', 'contextual-related-posts' ); ?>')) {
-									return;
-								}
-								$(this).prop('disabled', true);
-								$('#crp-undo-progress').show();
-								undoBatch();
-							});
-
-							function undoBatch() {
-								$.ajax({
-									url: ajaxurl,
-									type: 'POST',
-									data: {
-										action: 'crp_undo_migrate_meta',
-										security: $('#crp_undo_migrate_meta_nonce').val(),
-										last_id: undoLastId,
-										limit: undoLimit
-									},
-									success: function(response) {
-										if (response.success) {
-											totalUndone += response.data.undone;
-											$('#crp-undo-status').text(response.data.message);
-											if (response.data.complete) {
-												$('#crp-undo-bar').css('width', '100%');
-												$('#crp_undo_migration').text('<?php esc_html_e( 'Undo Complete', 'contextual-related-posts' ); ?>').prop('disabled', true);
-												setTimeout(function() {
-													location.reload();
-												}, 2000);
-											} else {
-												var progress = Math.min((totalUndone / (totalUndone + response.data.remaining)) * 100, 100);
-												$('#crp-undo-bar').css('width', progress + '%');
-												undoBatch();
-											}
-										} else {
-											$('#crp-undo-status').text('<?php esc_html_e( 'Undo failed. Please try again.', 'contextual-related-posts' ); ?>');
-											$('#crp_undo_migration').prop('disabled', false);
-										}
-									},
-									error: function() {
-										$('#crp-undo-status').text('<?php esc_html_e( 'Undo failed. Please try again.', 'contextual-related-posts' ); ?>');
-										$('#crp_undo_migration').prop('disabled', false);
-									}
-								});
-							}
-						});
-					</script>
 				</div>
 			</div>
 			<?php endif; ?>
@@ -509,6 +395,8 @@ class Tools_Page {
 		$screen = get_current_screen();
 
 		if ( $this->parent_id === $screen->id || $this->parent_id === $hook ) {
+			$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
 			wp_enqueue_script( 'crp-admin-js' );
 			wp_enqueue_style( 'crp-admin-ui-css' );
 			wp_enqueue_style( 'wp-spinner' );
@@ -520,6 +408,28 @@ class Tools_Page {
 					'strings'  => array(
 						'clear_cache'    => __( 'Clear cache', 'contextual-related-posts' ),
 						'clearing_cache' => __( 'Clearing cache', 'contextual-related-posts' ),
+					),
+				)
+			);
+
+			wp_enqueue_script(
+				'crp-tools-page',
+				WZ_CRP_PLUGIN_URL . "includes/admin/js/tools-page{$file_prefix}.js",
+				array( 'jquery' ),
+				WZ_CRP_VERSION,
+				true
+			);
+			wp_localize_script(
+				'crp-tools-page',
+				'crpToolsPage',
+				array(
+					'batchSize' => self::BATCH_SIZE,
+					'strings'   => array(
+						'migrationComplete' => __( 'Migration Complete', 'contextual-related-posts' ),
+						'migrationFailed'   => __( 'Migration failed. Please try again.', 'contextual-related-posts' ),
+						'undoComplete'      => __( 'Undo Complete', 'contextual-related-posts' ),
+						'undoFailed'        => __( 'Undo failed. Please try again.', 'contextual-related-posts' ),
+						'confirmUndo'       => __( 'Are you sure you want to undo the migration? This will revert to the old array storage.', 'contextual-related-posts' ),
 					),
 				)
 			);
