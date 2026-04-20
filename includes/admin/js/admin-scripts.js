@@ -211,4 +211,9 @@ function crpAddCopyButton(elementId) {
 // Initialize on document ready
 jQuery(document).ready(function ($) {
     crpHandleThumbnailStyleChange();
+
+    // Auto-initialize copy buttons for all code blocks.
+    document.querySelectorAll('.crp-code-wrapper pre[id]').forEach(function (pre) {
+        crpAddCopyButton(pre.id);
+    });
 });

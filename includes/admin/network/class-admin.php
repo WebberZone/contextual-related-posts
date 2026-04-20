@@ -151,6 +151,8 @@ class Admin {
 		$screen = get_current_screen();
 
 		if ( $this->parent_id === $screen->id || $this->parent_id === $hook ) {
+			$file_prefix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
 			wp_enqueue_script( 'crp-admin-js' );
 			wp_enqueue_style( 'crp-admin-ui-css' );
 			wp_localize_script(
@@ -163,6 +165,14 @@ class Admin {
 						'clearing_cache' => __( 'Clearing cache', 'contextual-related-posts' ),
 					),
 				)
+			);
+
+			wp_enqueue_script(
+				'crp-pro-admin',
+				WZ_CRP_PLUGIN_URL . "includes/pro/js/admin{$file_prefix}.js",
+				array(),
+				WZ_CRP_VERSION,
+				true
 			);
 		}
 	}
