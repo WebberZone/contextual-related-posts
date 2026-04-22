@@ -945,9 +945,19 @@ class Settings_Form {
 			$attributes .= sprintf( ' %1$s="%2$s"', sanitize_key( $attribute ), esc_attr( $val ) );
 		}
 
+		$data_index        = (string) count( $value );
+		$live_update_field = ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name';
+		$fallback_title    = ! empty( $args['new_item_text'] ) ? $args['new_item_text'] : $this->translation_strings['repeater_new_item'];
+
 		ob_start();
 		?>
-		<div class="<?php echo esc_attr( $class ); ?> wz-repeater-wrapper" id="<?php echo esc_attr( $args['id'] ); ?>-wrapper" data-index="<?php echo esc_attr( (string) count( $value ) ); ?>" data-live-update-field="<?php echo esc_attr( ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name' ); ?>" data-fallback-title="<?php echo esc_attr( ! empty( $args['new_item_text'] ) ? $args['new_item_text'] : $this->translation_strings['repeater_new_item'] ); ?>" <?php echo $attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+		<div class="<?php echo esc_attr( $class ); ?> wz-repeater-wrapper"
+			id="<?php echo esc_attr( $args['id'] ); ?>-wrapper"
+			data-index="<?php echo esc_attr( $data_index ); ?>"
+			data-live-update-field="<?php echo esc_attr( $live_update_field ); ?>"
+			data-fallback-title="<?php echo esc_attr( $fallback_title ); ?>"
+			<?php echo $attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+
 			<div class="<?php echo esc_attr( $args['id'] ); ?>-items wz-repeater-items">
 				<?php
 				if ( ! empty( $value ) ) {

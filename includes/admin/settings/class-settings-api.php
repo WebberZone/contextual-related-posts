@@ -917,7 +917,6 @@ class Settings_API {
 	 * Render the settings page.
 	 */
 	public function plugin_settings() {
-		ob_start();
 		?>
 			<div class="wrap">
 				<?php do_action( $this->prefix . '_settings_page_header_before' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound ?>
@@ -961,7 +960,6 @@ class Settings_API {
 			</div><!-- /.wrap -->
 
 			<?php
-			echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
@@ -1006,7 +1004,6 @@ class Settings_API {
 	 * This public function displays every sections in a different form
 	 */
 	public function show_form() {
-		ob_start();
 		?>
 
 			<form method="post" action="options.php" id="<?php echo esc_attr( "{$this->prefix}-settings-form" ); ?>">
@@ -1064,7 +1061,6 @@ class Settings_API {
 			</form>
 
 			<?php
-			echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	/**
