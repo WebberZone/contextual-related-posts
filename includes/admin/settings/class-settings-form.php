@@ -4,7 +4,7 @@
  *
  * @link  https://webberzone.com
  *
- * @package WebberZone\Contextual_Related_Posts
+ * @package    WebberZone\Contextual_Related_Posts
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin\Settings;
@@ -219,9 +219,9 @@ class Settings_Form {
 				'style'    => true,
 				'disabled' => true,
 			),
-			'em'       => array(
-				'style' => true,
-				'class' => true,
+			'template' => array(
+				'class'   => true,
+				'data-id' => true,
 			),
 		);
 
@@ -867,7 +867,7 @@ class Settings_Form {
 
 		printf( '</div>' );
 
-		echo $this->get_field_description( $args ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $this->get_field_description( $args ) );
 	}
 
 	/**
@@ -961,16 +961,16 @@ class Settings_Form {
 				<?php echo esc_html( ! empty( $args['add_button_text'] ) ? $args['add_button_text'] : 'Add Item' ); ?>
 			</button>
 
-			<script type="text/template" class="repeater-template" data-id="<?php echo esc_attr( $args['id'] ); ?>">
+			<template class="repeater-template" data-id="<?php echo esc_attr( $args['id'] ); ?>">
 				<?php $this->render_repeater_item( $args, '{{INDEX}}' ); ?>
-			</script>
+			</template>
 		</div>
 		<?php
 		$html  = ob_get_clean();
 		$html .= $this->get_field_description( $args );
 
 		/** This filter has been defined in class-settings-api.php */
-		echo apply_filters( $this->prefix . '_after_setting_output', $html, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound,WordPress.Security.EscapeOutput.OutputNotEscaped -- Contains <script type="text/template"> which wp_kses would strip.
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 	}
 
 	/**

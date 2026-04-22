@@ -79,7 +79,11 @@ jQuery(document).ready(function ($) {
 
 		// Add Item.
 		wrapper.on('click', '.add-item', function () {
-			var template = wrapper.find('.repeater-template').html();
+			var templateEl = wrapper.find('.repeater-template').get(0);
+			if (!templateEl) {
+				return;
+			}
+			var template = templateEl.innerHTML;
 			var uniqueId = 'row_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 			template = template.replace(/{{INDEX}}/g, index);
 			template = template.replace(/{{ROW_ID}}/g, uniqueId);
