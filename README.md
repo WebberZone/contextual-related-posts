@@ -132,8 +132,8 @@ Contextual Related Posts is available for [translation directly on WordPress.org
 
 ## Screenshots
 
-![General Options](https://raw.github.com/WebberZone/contextual-related-posts/master/wporg-assets/screenshot-1.png)
-_Contextual Related Posts - General Options_
+![Frontend View](https://raw.github.com/WebberZone/contextual-related-posts/master/wporg-assets/screenshot-1.png)
+_Contextual Related Posts - Frontend View_
 
 More screenshots are available on the [WordPress plugin page](https://wordpress.org/plugins/contextual-related-posts/screenshots/)
 

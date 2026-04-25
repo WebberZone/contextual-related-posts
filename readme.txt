@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.2.2
+Stable tag: 4.2.3
 Requires at least: 6.6
 Tested up to: 6.9
 Requires PHP: 7.4
@@ -199,10 +199,20 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 	* (Pro) Added ACF field support for thumbnails: specify an Advanced Custom Fields Image or Text field name in the thumbnail settings. Supports all ACF Image field return formats (Image Array, Image ID, Image URL) as well as plain Text fields containing a URL.
 
 * Modifications:
+	* [Pro] Scheduled reconciliation cron: a twicedaily background job now automatically syncs any published posts that are missing from the custom search index table — keeps the index complete without manual intervention.
+	* [Pro] Custom table upsert optimized to use `INSERT ... ON DUPLICATE KEY UPDATE`, reducing write contention on high-traffic sites.
+	* [Pro] Database check results are now cached within a request, reducing redundant `SHOW TABLES` queries on pages that check table status multiple times.
+	* [Pro] Tools page migration and undo scripts are now loaded as external JavaScript files (via `wp_enqueue_script`) instead of inline `<script>` blocks — improves compatibility with strict Content Security Policies.
+	* [Pro] Copy-to-clipboard buttons on the tools and custom tables pages are now initialized automatically; no per-block inline script needed.
+	* [Pro] The Include Categories Tom Select field in the post metabox is now correctly initialized.
+	* [Pro] Network admin: settings copy URL cleanup and select-all checkbox logic moved to an external JavaScript file.
+	* Tom Select fields in the settings now include a clear button for easier value removal.
+	* Fixed spinner alignment inside action buttons (now displays inline rather than floating).
 	* The custom CSS will now always be available in the frontend when the field contains CSS.
 	* Manual Related Posts lookup improved.
 
 * Fixes:
+	* Security hardening: improved output escaping in settings forms and metabox fields.
 	* Fixed Tom Select value extraction for multiselect fields which gave a JS error.
 
 = 4.2.2 =
@@ -261,5 +271,4 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 == Upgrade Notice ==
 
 = 4.2.3 =
-Pro: Added ACF field support for thumbnails.
-Modifications: Improved Manual Related Posts lookup.
+Pro: Added ACF field support for thumbnails. Scheduled reconciliation cron for custom search index. Security hardening and multiple admin UI improvements.
