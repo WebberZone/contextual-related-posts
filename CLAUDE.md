@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Plugin Overview
 
-Contextual Related Posts is a WordPress plugin (v4.2.3) that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Requires WordPress 6.6+, PHP 7.4+.
+Contextual Related Posts is a WordPress plugin (v4.2.3) that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
+
+Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
+
+Settings prefix/key: `crp` / `crp_settings` (wp_options). Access via `crp_get_option($key)` / `crp_get_settings()`.
 
 ## Commands
 
@@ -15,6 +19,7 @@ composer phpcbf         # Auto-fix PHP code style
 composer phpstan        # Static analysis (level 5)
 composer phpcompat      # Check PHP 7.4–8.5 compatibility
 composer test           # Run all checks (phpcs + phpcompat + phpstan)
+composer zip            # Create distribution zip
 ```
 
 ### JavaScript/CSS
@@ -24,6 +29,7 @@ npm start               # Watch free block
 npm run build:assets    # Minify CSS/JS, generate RTL CSS (via build-assets.js)
 npm run lint:js         # ESLint
 npm run lint:css        # Stylelint
+npm run format          # Prettier format
 ```
 
 Note: `package.json` also defines `build:pro` / `build:all` / `start:pro` scripts targeting `includes/pro/blocks/`, but this repo has no `includes/pro/` directory — those scripts are inherited from the shared config and will fail if run.
