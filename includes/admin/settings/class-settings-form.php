@@ -103,6 +103,54 @@ class Settings_Form {
 	}
 
 	/**
+	 * Get field value from args or options.
+	 *
+	 * @param array $args Field arguments.
+	 * @return mixed Field value.
+	 */
+	protected function get_field_value( $args ) {
+		return $args['value'] ?? $this->get_option( $args['id'], $args['default'] ?? '' );
+	}
+
+	/**
+	 * Get sanitized field class string.
+	 *
+	 * @param array  $args          Field arguments.
+	 * @param string $default_class Default class to prepend.
+	 * @return string Sanitized class string.
+	 */
+	protected function get_field_class( $args, $default_class = '' ) {
+		$class = implode( ' ', array_map( 'sanitize_html_class', explode( ' ', $args['field_class'] ?? '' ) ) );
+		if ( $default_class ) {
+			$class = $default_class . ' ' . $class;
+		}
+		return trim( $class );
+	}
+
+	/**
+	 * Get placeholder attribute string.
+	 *
+	 * @param array $args Field arguments.
+	 * @return string Placeholder attribute or empty string.
+	 */
+	protected function get_placeholder_attribute( $args ) {
+		return empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
+	}
+
+	/**
+	 * Get boolean state attributes (disabled, readonly, required).
+	 *
+	 * @param array $args Field arguments.
+	 * @return string Concatenated boolean attributes.
+	 */
+	protected function get_boolean_attributes( $args ) {
+		$disabled = ( ! empty( $args['disabled'] ) || ! empty( $args['pro'] ) ) ? ' disabled="disabled"' : '';
+		$readonly = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
+		$required = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
+		return $disabled . $readonly . $required;
+	}
+
+	/**
 	 * Get field ID and name attributes.
 	 *
 	 * @param array $args Field arguments.
@@ -282,23 +330,38 @@ class Settings_Form {
 	}
 
 	/**
+	 * Build additional attributes string from field_attributes.
+	 *
+	 * @param array $args Field arguments.
+	 * @return string Additional attributes string.
+	 */
+	protected function build_field_attributes( $args ) {
+		$attributes = '';
+		foreach ( (array) ( $args['field_attributes'] ?? array() ) as $attribute => $val ) {
+			$attr_name = sanitize_key( $attribute );
+			if ( empty( $attr_name ) ) {
+				continue;
+			}
+			if ( true === $val ) {
+				$attributes .= ' ' . $attr_name;
+			} elseif ( false !== $val ) {
+				$attributes .= sprintf( ' %1$s="%2$s"', $attr_name, esc_attr( $val ) );
+			}
+		}
+		return $attributes;
+	}
+
+	/**
 	 * Display text fields.
 	 *
 	 * @param array $args Array of arguments.
 	 */
 	public function callback_text( $args ) {
-		$value       = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value       = $this->get_field_value( $args );
 		$size        = sanitize_html_class( $args['size'] ?? 'regular' );
-		$class       = sanitize_html_class( $args['field_class'] );
-		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
-		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
-		$readonly    = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
-		$required    = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
-		$attributes  = $disabled . $readonly . $required;
-
-		foreach ( (array) $args['field_attributes'] as $attribute => $val ) {
-			$attributes .= sprintf( ' %1$s="%2$s"', $attribute, esc_attr( $val ) );
-		}
+		$class       = $this->get_field_class( $args );
+		$placeholder = $this->get_placeholder_attribute( $args );
+		$attributes  = $this->get_boolean_attributes( $args ) . $this->build_field_attributes( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -342,7 +405,7 @@ class Settings_Form {
 	 */
 	public function callback_color( $args ) {
 		// Add color-field class for wpColorPicker initialization.
-		$args['field_class'] = isset( $args['field_class'] ) ? $args['field_class'] . ' color-field' : 'color-field';
+		$args['field_class'] = ! empty( $args['field_class'] ) ? $args['field_class'] . ' color-field' : 'color-field';
 		$this->callback_text( $args );
 	}
 
@@ -371,14 +434,10 @@ class Settings_Form {
 	 * @return void
 	 */
 	public function callback_textarea( $args ) {
-
-		$value       = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
-		$class       = sanitize_html_class( $args['field_class'] );
-		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
-		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
-		$readonly    = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
-		$required    = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
-		$attributes  = $disabled . $readonly . $required;
+		$value       = $this->get_field_value( $args );
+		$class       = $this->get_field_class( $args, 'large-text' );
+		$placeholder = $this->get_placeholder_attribute( $args );
+		$attributes  = $this->get_boolean_attributes( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -387,7 +446,7 @@ class Settings_Form {
 			$field_attributes['field_id'],
 			$field_attributes['field_name'],
 			esc_textarea( stripslashes( $value ) ),
-			'large-text ' . $class,
+			$class,
 			$attributes,
 			$placeholder
 		);
@@ -418,17 +477,26 @@ class Settings_Form {
 	}
 
 	/**
+	 * Get disabled attribute for pro/premium fields.
+	 *
+	 * @param array $args Field arguments.
+	 * @return string Disabled attribute or empty string.
+	 */
+	protected function get_disabled_attribute( $args ) {
+		return ( ! empty( $args['disabled'] ) || ! empty( $args['pro'] ) ) ? ' disabled="disabled"' : '';
+	}
+
+	/**
 	 * Display checkboxes.
 	 *
 	 * @param array $args Array of arguments.
 	 * @return void
 	 */
 	public function callback_checkbox( $args ) {
-
-		$value    = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value    = $this->get_field_value( $args );
 		$checked  = ! empty( $value ) ? checked( 1, $value, false ) : '';
 		$default  = isset( $args['default'] ) ? (int) $args['default'] : '';
-		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
+		$disabled = $this->get_disabled_attribute( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -462,9 +530,9 @@ class Settings_Form {
 	public function callback_multicheck( $args ) {
 		$html = '';
 
-		$value       = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value       = $this->get_field_value( $args );
 		$value_array = wp_parse_list( $value );
-		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
+		$disabled    = $this->get_disabled_attribute( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -516,8 +584,8 @@ class Settings_Form {
 	public function callback_radio( $args ) {
 		$html = '';
 
-		$value    = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
-		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
+		$value    = $this->get_field_value( $args );
+		$disabled = $this->get_disabled_attribute( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -556,8 +624,8 @@ class Settings_Form {
 	public function callback_radiodesc( $args ) {
 		$html = '';
 
-		$value    = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
-		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
+		$value    = $this->get_field_value( $args );
+		$disabled = $this->get_disabled_attribute( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -610,7 +678,7 @@ class Settings_Form {
 			);
 		}
 
-		$value = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value = $this->get_field_value( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -649,16 +717,13 @@ class Settings_Form {
 	 * @return void
 	 */
 	public function callback_number( $args ) {
-		$value       = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value       = $this->get_field_value( $args );
 		$max         = isset( $args['max'] ) ? intval( $args['max'] ) : 999999;
 		$min         = isset( $args['min'] ) ? intval( $args['min'] ) : 0;
 		$step        = isset( $args['step'] ) ? intval( $args['step'] ) : 1;
 		$size        = $args['size'] ?? 'regular';
-		$placeholder = empty( $args['placeholder'] ) ? '' : ' placeholder="' . esc_attr( $args['placeholder'] ) . '"';
-		$disabled    = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
-		$readonly    = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
-		$required    = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
-		$attributes  = $disabled . $readonly . $required;
+		$placeholder = $this->get_placeholder_attribute( $args );
+		$attributes  = $this->get_boolean_attributes( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -689,15 +754,10 @@ class Settings_Form {
 	 * @return void
 	 */
 	public function callback_select( $args ) {
-		$value      = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
-		$class      = sanitize_html_class( $args['field_class'] );
-		$disabled   = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
+		$value      = $this->get_field_value( $args );
+		$class      = $this->get_field_class( $args );
 		$required   = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
-		$attributes = $disabled . $required;
-
-		foreach ( (array) $args['field_attributes'] as $attribute => $val ) {
-			$attributes .= sprintf( ' %1$s="%2$s"', $attribute, esc_attr( $val ) );
-		}
+		$attributes = $this->get_disabled_attribute( $args ) . $required . $this->build_field_attributes( $args );
 
 		if ( isset( $args['chosen'] ) ) {
 			$class .= ' chosen';
@@ -733,8 +793,8 @@ class Settings_Form {
 	public function callback_posttypes( $args ) {
 		$html = '';
 
-		$options  = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
-		$disabled = ( ! empty( $args['disabled'] ) || $args['pro'] ) ? ' disabled="disabled"' : '';
+		$options  = $this->get_field_value( $args );
+		$disabled = $this->get_disabled_attribute( $args );
 
 		// If post_types contains a query string then parse it with wp_parse_args.
 		if ( is_string( $options ) && strpos( $options, '=' ) ) {
@@ -791,7 +851,7 @@ class Settings_Form {
 	public function callback_taxonomies( $args ) {
 		$html = '';
 
-		$options = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$options = $this->get_field_value( $args );
 
 		// If taxonomies contains a query string then parse it with wp_parse_args.
 		if ( is_string( $options ) && strpos( $options, '=' ) ) {
@@ -842,8 +902,7 @@ class Settings_Form {
 	 * @param array $args Array of arguments.
 	 */
 	public function callback_wysiwyg( $args ) {
-
-		$value = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value = $this->get_field_value( $args );
 		$size  = $args['size'] ?? '500px';
 
 		$field_attributes = $this->get_field_attributes( $args );
@@ -876,10 +935,9 @@ class Settings_Form {
 	 * @param array $args Array of arguments.
 	 */
 	public function callback_file( $args ) {
-
-		$value = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value = $this->get_field_value( $args );
 		$size  = sanitize_html_class( $args['size'] ?? 'regular' );
-		$class = sanitize_html_class( $args['field_class'] );
+		$class = $this->get_field_class( $args );
 		$label = $args['options']['button_label'] ?? $this->translation_strings['button_label'];
 
 		$field_attributes = $this->get_field_attributes( $args );
@@ -904,10 +962,9 @@ class Settings_Form {
 	 * @param array $args Array of arguments.
 	 */
 	public function callback_password( $args ) {
-
-		$value = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$value = $this->get_field_value( $args );
 		$size  = sanitize_html_class( $args['size'] ?? 'regular' );
-		$class = sanitize_html_class( $args['field_class'] );
+		$class = $this->get_field_class( $args );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
@@ -932,18 +989,11 @@ class Settings_Form {
 	 * @return void
 	 */
 	public function callback_repeater( $args ) {
-		$value = isset( $args['value'] ) ? (array) $args['value'] : $this->get_option( $args['id'], array() );
-		$value = ! empty( $value ) && is_array( $value ) ? $value : array();
+		$raw_value = $this->get_field_value( $args );
+		$value     = ! empty( $raw_value ) && is_array( $raw_value ) ? $raw_value : array();
 
-		$class      = ! empty( $args['field_class'] ) ? sanitize_html_class( $args['field_class'] ) : '';
-		$disabled   = ( ! empty( $args['disabled'] ) || ! empty( $args['pro'] ) ) ? ' disabled="disabled"' : '';
-		$readonly   = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
-		$attributes = $disabled . $readonly;
-
-		// Process additional field attributes.
-		foreach ( (array) $args['field_attributes'] as $attribute => $val ) {
-			$attributes .= sprintf( ' %1$s="%2$s"', sanitize_key( $attribute ), esc_attr( $val ) );
-		}
+		$class      = $this->get_field_class( $args );
+		$attributes = $this->get_boolean_attributes( $args ) . $this->build_field_attributes( $args );
 
 		$data_index        = (string) count( $value );
 		$live_update_field = ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name';
@@ -1093,7 +1143,7 @@ class Settings_Form {
 	 * @param array $args Array of arguments.
 	 */
 	public function callback_sensitive( $args ) {
-		$encrypted_key = $args['value'] ?? $this->get_option( $args['id'], $args['default'] );
+		$encrypted_key = $this->get_field_value( $args );
 		$decrypted_key = Settings_API::decrypt_api_key( $encrypted_key );
 
 		$args['value'] = $decrypted_key ? str_repeat( '*', strlen( $decrypted_key ) - 4 ) . substr( $decrypted_key, -4 ) : '';
