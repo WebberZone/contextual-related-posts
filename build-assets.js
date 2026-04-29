@@ -5,8 +5,25 @@ const { mkdirSync } = require('fs');
 
 // Parse command line arguments.
 const args = process.argv.slice(2);
+const flags = args.filter(arg => arg.startsWith('--'));
 const specificFiles = args.filter(arg => !arg.startsWith('--'));
 const processSpecificFiles = specificFiles.length > 0;
+
+// Process flags for selective building.
+const hasCssFlag = flags.includes('--css');
+const hasJsFlag = flags.includes('--js');
+const hasNoCssFlag = flags.includes('--no-css');
+const hasNoJsFlag = flags.includes('--no-js');
+const hasRtlFlag = flags.includes('--rtl');
+const hasNoRtlFlag = flags.includes('--no-rtl');
+
+// Determine what to process based on flags.
+// If no flags are specified, process everything (default).
+// If specific flags are specified, process only those.
+// If --no-* flags are specified, skip those.
+let processCss = hasNoCssFlag ? false : (hasCssFlag || !hasJsFlag);
+let processJs = hasNoJsFlag ? false : (hasJsFlag || !hasCssFlag);
+let processRtl = hasNoRtlFlag ? false : (hasRtlFlag || processCss);
 
 /**
  * Normalise file paths to use forward slashes.
@@ -310,8 +327,23 @@ if (processSpecificFiles) {
 } else {
 	console.log('==================================');
 	console.log('Processing all assets in project');
-	console.log('Tip: Pass specific files to process only those:');
-	console.log('  node build-assets.js path/to/file.js path/to/file.css');
+	console.log('');
+	console.log('Usage: node build-assets.js [files...] [flags]');
+	console.log('');
+	console.log('Flags:');
+	console.log('  --css       Process CSS files (if specified, only CSS)');
+	console.log('  --no-css    Skip CSS processing');
+	console.log('  --js        Process JS files (if specified, only JS)');
+	console.log('  --no-js     Skip JS processing');
+	console.log('  --rtl       Generate RTL CSS (auto-enabled with CSS)');
+	console.log('  --no-rtl    Skip RTL generation');
+	console.log('');
+	console.log('Examples:');
+	console.log('  node build-assets.js                           # Process all CSS/JS');
+	console.log('  node build-assets.js --css                     # Process CSS only (+RTL)');
+	console.log('  node build-assets.js --js --no-rtl             # Process JS without RTL');
+	console.log('  node build-assets.js path/to/file.css          # Process specific file');
+	console.log('  node build-assets.js includes/admin/css/       # Process directory');
 	console.log('==================================');
 }
 
@@ -404,6 +436,20 @@ if (processSpecificFiles) {
 	allJsFiles = findFiles('.', '.js');
 }
 
+// When specific files are provided, enable processing for file types that were found.
+// This ensures explicitly passed files are processed regardless of selective flags.
+if (processSpecificFiles) {
+	if (allCssFiles.length > 0 && !hasNoCssFlag) {
+		processCss = true;
+	}
+	if (allJsFiles.length > 0 && !hasNoJsFlag) {
+		processJs = true;
+	}
+}
+
+// Recompute processRtl after processCss may have been updated for specific files.
+processRtl = hasNoRtlFlag ? false : (hasRtlFlag || processCss);
+
 // Filter out source files used in combinations.
 const cssFilesToMinify = allCssFiles.filter((file) => {
 	if (combinedSourceFiles.includes(file)) {
@@ -435,51 +481,63 @@ console.log(`\n=== Processing Assets ===`);
 console.log(`Found ${cssFilesToMinify.length} CSS files and ${jsFilesToMinify.length} JS files to minify.\n`);
 
 // Step 5: Minify CSS files.
-console.log('=== Minifying CSS ===');
-cssFilesToMinify.forEach((file) => {
-	const minFile = file.replace('.css', '.min.css');
-	console.log(`  ${file} → ${minFile}`);
-	minifyCss(file, minFile);
-});
-
-// Step 6: Minify JS files.
-console.log('\n=== Minifying JS ===');
-jsFilesToMinify.forEach((file) => {
-	const minFile = file.replace('.js', '.min.js');
-	console.log(`  ${file} → ${minFile}`);
-	minifyJs(file, minFile);
-});
-
-// Step 7: Generate RTL versions for CSS files.
-console.log('\n=== Generating RTL CSS ===');
-const cssFilesForRtl = allCssFiles.filter((file) => !file.includes('-rtl.') && !file.endsWith('-rtl.css'));
-
-if (processSpecificFiles && cssFilesForRtl.length === 0) {
-	console.log('  No CSS files to process for RTL.');
+if (processCss) {
+	console.log('=== Minifying CSS ===');
+	cssFilesToMinify.forEach((file) => {
+		const minFile = file.replace('.css', '.min.css');
+		console.log(`  ${file} → ${minFile}`);
+		minifyCss(file, minFile);
+	});
+} else {
+	console.log('=== Skipping CSS Minification ===');
 }
 
-const rtlFilesGenerated = [];
-cssFilesForRtl.forEach((file) => {
-	// Handle .min.css files correctly: name.min.css → name-rtl.min.css
-	const rtlFile = file.endsWith('.min.css')
-		? file.replace('.min.css', '-rtl.min.css')
-		: file.replace('.css', '-rtl.css');
-	console.log(`  ${file} → ${rtlFile}`);
-	if (generateRtl(file, rtlFile)) {
-		// Only format non-minified RTL files.
-		if (!rtlFile.endsWith('.min.css')) {
-			rtlFilesGenerated.push(rtlFile);
-		}
-	}
-});
-
-// Step 8: Format RTL CSS files for better readability.
-if (rtlFilesGenerated.length > 0) {
-	console.log('\n=== Formatting RTL CSS ===');
-	rtlFilesGenerated.forEach((file) => {
-		console.log(`  Formatting: ${file}`);
-		formatCss(file);
+// Step 6: Minify JS files.
+if (processJs) {
+	console.log('\n=== Minifying JS ===');
+	jsFilesToMinify.forEach((file) => {
+		const minFile = file.replace('.js', '.min.js');
+		console.log(`  ${file} → ${minFile}`);
+		minifyJs(file, minFile);
 	});
+} else {
+	console.log('\n=== Skipping JS Minification ===');
+}
+
+// Step 7: Generate RTL versions for CSS files.
+if (processRtl) {
+	console.log('\n=== Generating RTL CSS ===');
+	const cssFilesForRtl = allCssFiles.filter((file) => !file.includes('-rtl.') && !file.endsWith('-rtl.css'));
+
+	if (processSpecificFiles && cssFilesForRtl.length === 0) {
+		console.log('  No CSS files to process for RTL.');
+	}
+
+	const rtlFilesGenerated = [];
+	cssFilesForRtl.forEach((file) => {
+		// Handle .min.css files correctly: name.min.css → name-rtl.min.css
+		const rtlFile = file.endsWith('.min.css')
+			? file.replace('.min.css', '-rtl.min.css')
+			: file.replace('.css', '-rtl.css');
+		console.log(`  ${file} → ${rtlFile}`);
+		if (generateRtl(file, rtlFile)) {
+			// Only format non-minified RTL files.
+			if (!rtlFile.endsWith('.min.css')) {
+				rtlFilesGenerated.push(rtlFile);
+			}
+		}
+	});
+
+	// Step 8: Format RTL CSS files for better readability.
+	if (rtlFilesGenerated.length > 0) {
+		console.log('\n=== Formatting RTL CSS ===');
+		rtlFilesGenerated.forEach((file) => {
+			console.log(`  Formatting: ${file}`);
+			formatCss(file);
+		});
+	}
+} else {
+	console.log('\n=== Skipping RTL Generation ===');
 }
 
 // Final summary.
