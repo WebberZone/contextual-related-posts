@@ -4,7 +4,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Plugin Overview
 
-Contextual Related Posts is a WordPress plugin (v4.2.3) that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Requires WordPress 6.6+, PHP 7.4+.
+Contextual Related Posts Pro is a WordPress plugin (v4.2.3) that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Requires WordPress 6.6+, PHP 7.4+.
 
 ## Commands
 
@@ -17,23 +17,27 @@ composer phpcompat      # Check PHP 7.4–8.5 compatibility
 composer test           # Run all checks (phpcs + phpcompat + phpstan)
 ```
 
-### JavaScript/CSS
+### JavaScript/CSS Blocks
 ```bash
-npm run build           # Build the free related-posts block
-npm start               # Watch free block
-npm run build:assets    # Minify CSS/JS, generate RTL CSS (via build-assets.js)
+npm run build           # Build free blocks
+npm run build:pro       # Build pro blocks (query, featured-image, related-posts-pro)
+npm run build:all       # Build all blocks
+npm start               # Watch free blocks
+npm run start:pro       # Watch pro blocks
 npm run lint:js         # ESLint
 npm run lint:css        # Stylelint
+npm run zip             # Create distribution zip
 ```
 
-Note: `package.json` also defines `build:pro` / `build:all` / `start:pro` scripts targeting `includes/pro/blocks/`, but this repo has no `includes/pro/` directory — those scripts are inherited from the shared config and will fail if run.
+### Asset Building
+```bash
+node build-assets.js    # Minify CSS/JS, generate RTL CSS
+```
 
 ## Architecture
 
 ### Entry Point & Bootstrap
-`contextual-related-posts.php` defines constants (`WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`), loads Freemius, registers the custom autoloader, and calls `\WebberZone\Contextual_Related_Posts\load()` on `plugins_loaded`.
-
-The entry file also handles mutual exclusivity: activating the free plugin deactivates the pro plugin and vice versa (via `crp_deactivate_other_instances()`).
+`contextual-related-posts.php` defines constants (`WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, etc.), registers the custom PSR-4 autoloader, loads Freemius, and calls `\WebberZone\Contextual_Related_Posts\load()`.
 
 **Autoloader convention:** Namespace segments become path segments; underscores → hyphens, lowercase, last segment prefixed with `class-`. e.g. `WebberZone\Contextual_Related_Posts\Admin\Settings` → `includes/admin/class-settings.php`. Traits follow the same pattern with a `trait-` prefix instead.
 
@@ -47,19 +51,26 @@ The entry file also handles mutual exclusivity: activating the free plugin deact
 - **`CRP_Core_Query`** (`includes/class-crp-core-query.php`, ~45 KB) — Core algorithm: builds SQL, joins, ordering. The most complex file in the codebase.
 
 ### Frontend
-- **`Display`** (`includes/frontend/class-display.php`) — Renders related posts HTML.
-- **`Media_Handler`** (`includes/frontend/class-media-handler.php`) — Resolves thumbnails via a priority strategy chain: custom meta → ACF field → FIFU plugin → featured image → content scan → first child attachment → video meta → configured default → site icon. Subclasses override `get_option()` to use their own options function; never call `crp_get_option()` directly inside the class.
+- **`Display`** (`includes/frontend/class-display.php`, ~32 KB) — Renders related posts HTML.
+- **`Media_Handler`** (`includes/frontend/class-media-handler.php`) — Resolves thumbnails via a priority strategy chain: custom meta → ACF field → FIFU plugin → featured image → content scan → first child attachment → video meta → configured default → site icon. Designed for multi-plugin reuse: subclasses override `get_option()` to use their own options function; never call `crp_get_option()` directly inside the class.
 - **`Shortcodes`** — `[crp]` shortcode.
-- **`Blocks`** — Single free block at `includes/frontend/blocks/src/related-posts/`.
-- **`Widgets`** — Legacy widget at `includes/frontend/widgets/class-related-posts-widget.php`.
+- **`Blocks`** — Free block at `includes/frontend/blocks/src/related-posts/`.
 - **`REST_API`** — REST endpoints for block editor.
-- **`Styles_Handler`** / **`Language_Handler`** — Enqueue plugin CSS and handle i18n for JS.
+- **`Styles_Handler`** / **`Language_Handler`** — Enqueue plugin CSS and handle i18n for JS, respectively.
 
 ### Admin
-- **`Settings`** (`includes/admin/class-settings.php`) — Settings page with tabs for General, Content, Exclusions, Cache, Advanced. Settings stored as a single `crp_settings` array in `wp_options`; access via `crp_get_option($key)` / `crp_get_settings()`.
-- **`Network\Admin`** — Multisite network admin support (`includes/admin/network/`).
-- **`Settings_Wizard`** / **`Bulk_Edit`** / **`Tools_Page`** / **`Metabox`** — Additional admin UI components.
-- Settings API helpers split across `includes/admin/settings/`: `class-settings-api.php`, `class-settings-form.php`, `class-settings-sanitize.php`, `class-settings-wizard-api.php`, `class-metabox-api.php`.
+- **`Settings`** (`includes/admin/class-settings.php`, ~87 KB) — Settings page with tabs for General, Content, Exclusions, Cache, Advanced.
+- Settings stored as a single `crp_settings` array in `wp_options`. Access via `crp_get_option($key)` / `crp_get_settings()`.
+
+### Pro Features (`includes/pro/`)
+- **`Query_Modifier`** — Advanced filtering/sorting.
+- **`Bot_Protection_Module`** — Excludes bot traffic.
+- **`Custom_Tables`** — Optimized database tables for large sites.
+- **`WooCommerce\WooCommerce_Module`** — WooCommerce product relations.
+- **`CLI\CLI_Manager`** — WP-CLI commands (cache, database, table, content operations).
+- **Pro Blocks:** `query/`, `featured-image/`, `related-posts-pro/` at `includes/pro/blocks/src/`.
+
+Pro features are gated by `crp_freemius()->is__premium_only()` or `crp_freemius()->can_use_premium_code__premium_only()`.
 
 ### Utilities (`includes/util/`)
 - **`Cache`** — Caches query output per post (configurable TTL, default 1 week).
@@ -70,5 +81,5 @@ The entry file also handles mutual exclusivity: activating the free plugin deact
 
 - **Settings access:** Always use `crp_get_option($key, $default)` rather than accessing `$crp_settings` directly.
 - **Hook registration:** Add hooks through `Hook_Registry::add_action()` / `Hook_Registry::add_filter()` (not directly via WordPress functions) so they're tracked and deduplication is handled.
-- **No pro directory:** This is the free version. There is no `includes/pro/` directory and no pro feature gating. The pro version is a separate plugin (`contextual-related-posts-pro`); only one can be active at a time.
-- **Block builds:** Only the `related-posts` block exists in this repo. Run `npm run build` after editing `includes/frontend/blocks/src/related-posts/`.
+- **Pro gating:** Wrap pro-only code with `if ( crp_freemius()->is__premium_only() )` checks.
+- **Block builds:** Free blocks built with `wp-scripts`; pro blocks use a separate webpack entry. Run the appropriate build command after editing block source files.
