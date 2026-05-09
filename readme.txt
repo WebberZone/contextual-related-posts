@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.2.3
+Stable tag: 4.2.4
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -192,6 +192,11 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 The plugin also handles SSL, resizing, and fallback mechanisms automatically for each step.
 
 == Changelog ==
+
+= 4.2.4 =
+
+* Bug fixes:
+	* Fixed broken `aspect-ratio` on the rounded thumbs style caused by CSS variables carrying `px` units. A unitless `--crp-aspect-ratio` variable is now used, consistent with the grid and thumbs-grid styles.
 
 = 4.2.3 =
 

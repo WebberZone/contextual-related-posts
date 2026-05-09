@@ -86,7 +86,7 @@
 	display: block;
 	width: 100%;
 	height: 100%;
-	aspect-ratio: var(--crp-thumb-width) / var(--crp-thumb-height);
+	aspect-ratio: var(--crp-aspect-ratio);
 	object-fit: cover;
 	object-position: center;
 }

@@ -90,6 +90,7 @@ class Styles_Handler {
 					.crp_related.crp-rounded-thumbs {
 						--crp-thumb-width: {$thumb_width}px;
 						--crp-thumb-height: {$thumb_height}px;
+						--crp-aspect-ratio: {$aspect_ratio};
 					}
 				";
 				break;

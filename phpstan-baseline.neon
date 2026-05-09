@@ -11,6 +11,11 @@ parameters:
 			path: includes/frontend/class-display.php
 
 		-
+			message: "#^Function get_field not found\\.$#"
+			count: 1
+			path: includes/frontend/class-media-handler.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: includes/util/class-cache.php
