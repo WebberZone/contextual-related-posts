@@ -27,9 +27,7 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Create artifact
-        run: |
-          mkdir -p build
-          zip -1 -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" "*/.git*" "*/.DS_Store" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md CLAUDE.md AGENTS.md *.dist *.yml *.neon composer.* package.json package-lock.json "dev-helpers/*" "build/*" "wporg-assets/*" "docs/*" "phpunit/*" phpstan-bootstrap.php build-assets.js
+        run: composer zip
       - name: Upload to release
         uses: softprops/action-gh-release@v2
         with:
