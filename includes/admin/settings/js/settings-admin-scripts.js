@@ -64,6 +64,7 @@ jQuery(document).ready(function ($) {
 		var index = parseInt(wrapper.data('index'), 10) || 0;
 		var liveUpdateField = wrapper.data('live-update-field') || 'name';
 		var fallbackTitle = wrapper.data('fallback-title') || '';
+		var liveUpdateOptions = wrapper.data('live-update-field-options') || {};
 
 		function reindexItems() {
 			itemsContainer.find('.wz-repeater-item').each(function (idx) {
@@ -139,11 +140,22 @@ jQuery(document).ready(function ($) {
 		});
 
 		// Live update repeater title when the specified field changes.
-		wrapper.on('input', '.wz-repeater-item :input[name$="[fields][' + liveUpdateField + ']"]', function () {
-			var $this = $(this);
-			var newName = $this.val();
-			var $repeaterTitle = $this.closest('.wz-repeater-item').find('.repeater-title');
-			$repeaterTitle.text(newName || fallbackTitle);
+		// Handles text inputs (input event), selects (change event, uses option text),
+		// and TomSelect-enhanced inputs (change event, uses displayed text or value).
+		function updateRepeaterTitle($field) {
+			var newName;
+			var val = $field.val();
+			if ($field.is('select')) {
+				// Ignore placeholder options (empty value).
+				newName = val ? $field.find('option:selected').text().trim() : '';
+			} else {
+				newName = val ? (liveUpdateOptions[val] || val) : '';
+			}
+			$field.closest('.wz-repeater-item').find('.repeater-title').text(newName || fallbackTitle);
+		}
+
+		wrapper.on('input change', '.wz-repeater-item :input[name$="[fields][' + liveUpdateField + ']"]', function () {
+			updateRepeaterTitle($(this));
 		});
 	});
 
