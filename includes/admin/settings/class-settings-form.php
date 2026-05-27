@@ -216,6 +216,8 @@ class Settings_Form {
 				'autocomplete'     => true,
 				// Tom Select data attributes (built-in Settings API feature).
 				'data-wp-prefix'   => true,
+				'data-wp-action'   => true,
+				'data-wp-nonce'    => true,
 				'data-wp-endpoint' => true,
 				'data-ts-config'   => true,
 			),
@@ -230,6 +232,8 @@ class Settings_Form {
 				'autocomplete'     => true,
 				// Tom Select data attributes (built-in Settings API feature).
 				'data-wp-prefix'   => true,
+				'data-wp-action'   => true,
+				'data-wp-nonce'    => true,
 				'data-wp-endpoint' => true,
 				'data-ts-config'   => true,
 			),
