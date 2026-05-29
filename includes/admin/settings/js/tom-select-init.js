@@ -176,16 +176,46 @@
                         return;
                     }
 
+                    // Build base payload.
+                    const payload = {
+                        action: action,
+                        nonce: nonce,
+                        q: query,
+                        endpoint: endpoint
+                    };
+
+                    // Optional: harvest sibling fields from the closest repeater
+                    // row and merge them into the payload. Declared on the input
+                    // as data-wp-extra-fields='{"row_pat":"pat","row_id":"row_id"}'
+                    // — meaning send the closest row's `[pat]` input as `row_pat`
+                    // and `[row_id]` as `row_id`.
+                    const extraAttr = element.getAttribute('data-wp-extra-fields');
+                    if (extraAttr) {
+                        try {
+                            const map = JSON.parse(extraAttr);
+                            const row = element.closest('.wz-repeater-item');
+                            if (row && map && typeof map === 'object') {
+                                Object.keys(map).forEach(function (key) {
+                                    const suffix = map[key];
+                                    if (!suffix) {
+                                        return;
+                                    }
+                                    const sibling = row.querySelector('[name$="[' + suffix + ']"]');
+                                    if (sibling && typeof sibling.value === 'string') {
+                                        payload[key] = sibling.value;
+                                    }
+                                });
+                            }
+                        } catch (e) {
+                            console.error('Error parsing data-wp-extra-fields:', extraAttr, e);
+                        }
+                    }
+
                     $.ajax({
                         url: ajaxurl,
                         type: 'POST',
                         dataType: 'json',
-                        data: {
-                            action: action,
-                            nonce: nonce,
-                            q: query,
-                            endpoint: endpoint
-                        },
+                        data: payload,
                         error: function () {
                             callback();
                         },
