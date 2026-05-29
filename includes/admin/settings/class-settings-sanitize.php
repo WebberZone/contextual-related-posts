@@ -277,8 +277,13 @@ class Settings_Sanitize {
 
 		$stored_encrypted_key = $this->get_option( $key );
 
+		// Empty input clears the stored value.
+		if ( '' === (string) $value ) {
+			return '';
+		}
+
 		// If input is masked, return existing encrypted key.
-		if ( empty( $value ) || strpos( $value, '**' ) !== false ) {
+		if ( is_string( $value ) && strpos( $value, '**' ) !== false ) {
 			return $stored_encrypted_key;
 		}
 
@@ -355,12 +360,18 @@ class Settings_Sanitize {
 				// Get the field type from the subfield configuration.
 				$field_type = isset( $field_config['type'] ) ? $field_config['type'] : 'text';
 
-				// Preserve existing encrypted sensitive values when form submits masked/empty value.
-				if ( 'sensitive' === $field_type && ( empty( $field_value ) || ( is_string( $field_value ) && false !== strpos( $field_value, '**' ) ) ) ) {
-					if ( $existing_row && isset( $existing_row['fields'][ $field_key ] ) ) {
-						$sanitized_row['fields'][ $field_key ] = $existing_row['fields'][ $field_key ];
+				// For sensitive fields, distinguish empty (clear) from masked (preserve).
+				if ( 'sensitive' === $field_type ) {
+					if ( '' === (string) $field_value ) {
+						$sanitized_row['fields'][ $field_key ] = '';
+						continue;
 					}
-					continue;
+					if ( is_string( $field_value ) && false !== strpos( $field_value, '**' ) ) {
+						if ( $existing_row && isset( $existing_row['fields'][ $field_key ] ) ) {
+							$sanitized_row['fields'][ $field_key ] = $existing_row['fields'][ $field_key ];
+						}
+						continue;
+					}
 				}
 
 				// Call the appropriate sanitization method.

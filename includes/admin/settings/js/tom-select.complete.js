@@ -1,5 +1,5 @@
 /**
-* Tom Select v2.5.2
+* Tom Select v2.6.1
 * Licensed under the Apache License, Version 2.0 (the "License");
 */
 
@@ -560,7 +560,7 @@
      *
      * Issue:
      *  ﺊﺋ [ 'ﺊ = \\u{fe8a}', 'ﺋ = \\u{fe8b}' ]
-     *	becomes:	ئئ [ 'ي = \\u{64a}', 'ٔ = \\u{654}', 'ي = \\u{64a}', 'ٔ = \\u{654}' ]
+     *	becomes:	ئئ [ 'ي = \\u{64a}', 'ٔ = \\u{654}', 'ي = \\u{64a}', 'ٔ = \\u{654}' ]
      *
      *	İĲ = IIJ = ⅡJ
      *
@@ -1686,7 +1686,8 @@
         var init_textbox = () => {
             const data_raw = input.getAttribute(attr_data);
             if (!data_raw) {
-                var value = input.value.trim() || '';
+                var _input$value$trim, _input$value;
+                var value = (_input$value$trim = input == null || (_input$value = input.value) == null ? void 0 : _input$value.trim()) != null ? _input$value$trim : '';
                 if (!settings.allowEmptyOption && !value.length) return;
                 const values = value.split(settings.delimiter);
                 iterate(values, value => {
@@ -1726,6 +1727,7 @@
             this.isFocused = false;
             this.isInputHidden = false;
             this.isSetup = false;
+            this.isDropdownContentStale = true;
             this.ignoreFocus = false;
             this.ignoreHover = false;
             this.hasOptions = false;
@@ -2024,13 +2026,6 @@
             self.close(false);
             self.inputState();
             self.isSetup = true;
-            if (input.disabled) {
-                self.disable();
-            } else if (input.readOnly) {
-                self.setReadOnly(true);
-            } else {
-                self.enable(); //sets tabIndex
-            }
             self.on('change', this.onChange);
             addClasses(input, 'tomselected', 'ts-hidden-accessible');
             self.trigger('initialize');
@@ -2140,6 +2135,13 @@
             self.setupOptions(settings.options, settings.optgroups);
             self.setValue(settings.items || [], true); // silent prevents recursion
 
+            if (self.input.disabled) {
+                self.disable();
+            } else if (self.input.readOnly) {
+                self.setReadOnly(true);
+            } else {
+                self.enable(); //sets tabIndex
+            }
             self.lastQuery = null; // so updated options will be displayed in dropdown
         }
 
@@ -2453,7 +2455,7 @@
             } else {
                 value = option.dataset.value;
                 if (typeof value !== 'undefined') {
-                    self.lastQuery = null;
+                    self.isDropdownContentStale = self.settings.hideSelected;
                     self.addItem(value);
                     if (self.settings.closeAfterSelect) {
                         self.close();
@@ -2535,7 +2537,7 @@
         loadCallback(options, optgroups) {
             const self = this;
             self.loading = Math.max(self.loading - 1, 0);
-            self.lastQuery = null;
+            self.isDropdownContentStale = true;
             self.clearActiveOption(); // when new results load, focus should be on first option
             self.setupOptions(options, optgroups);
             self.refreshOptions(self.isFocused && !self.isInputHidden);
@@ -2815,14 +2817,19 @@
             var self = this;
             if (self.isDisabled || self.isReadOnly) return;
             self.ignoreFocus = true;
-            if (self.control_input.offsetWidth) {
-                self.control_input.focus();
-            } else {
-                self.focus_node.focus();
-            }
+            const focusTarget = this.control_input.offsetWidth ? this.control_input : this.focus_node;
+            focusTarget.focus();
             setTimeout(() => {
                 self.ignoreFocus = false;
-                self.onFocus();
+                // Fix https://github.com/orchidjs/tom-select/issues/806
+                // Only proceed if this instance's element is still the active element. If Edge autofill
+                // (or anything else) has moved focus to a different element in the interim, calling
+                // onFocus() here would steal focus back and restart the cascade loop.
+                const root = focusTarget.getRootNode();
+                if (root.activeElement !== focusTarget) {
+                    return;
+                }
+                this.onFocus();
             }, 0);
         }
 
@@ -2888,7 +2895,7 @@
             }
 
             // perform search
-            if (query !== self.lastQuery) {
+            if (self.isDropdownContentStale || query !== self.lastQuery) {
                 self.lastQuery = query;
                 // temp fix for https://github.com/orchidjs/tom-select/issues/987
                 // UI crashed when more than 30 same chars in a row, prevent search and return empt result
@@ -3054,6 +3061,7 @@
             });
             dropdown_content.innerHTML = '';
             append(dropdown_content, html);
+            self.isDropdownContentStale = false;
 
             // highlight matching terms inline
             if (self.settings.highlight) {
@@ -3156,12 +3164,13 @@
             }
             const key = hash_key(data[self.settings.valueField]);
             if (key === null || self.options.hasOwnProperty(key)) {
+                self.updateOption(data[self.settings.valueField], data);
                 return false;
             }
             data.$order = data.$order || ++self.order;
             data.$id = self.inputId + '-opt-' + data.$order;
             self.options[key] = data;
-            self.lastQuery = null;
+            self.isDropdownContentStale = true;
             if (user_created) {
                 self.userOptions[key] = user_created;
                 self.trigger('option_add', key, data);
@@ -3284,8 +3293,8 @@
                 replaceNode(item, item_new);
             }
 
-            // invalidate last query because we might have updated the sortField
-            self.lastQuery = null;
+            // we might have updated the sortField
+            self.isDropdownContentStale = true;
         }
 
         /**
@@ -3298,7 +3307,7 @@
             self.uncacheValue(value);
             delete self.userOptions[value];
             delete self.options[value];
-            self.lastQuery = null;
+            self.isDropdownContentStale = true;
             self.trigger('option_remove', value);
             self.removeItem(value, silent);
         }
@@ -3318,7 +3327,7 @@
                 }
             });
             this.options = this.sifter.items = selected;
-            this.lastQuery = null;
+            this.isDropdownContentStale = true;
             this.trigger('option_clear');
         }
 
@@ -3502,7 +3511,7 @@
                 removeClasses(item, 'active');
             }
             self.items.splice(i, 1);
-            self.lastQuery = null;
+            self.isDropdownContentStale = true;
             if (!self.settings.persist && self.userOptions.hasOwnProperty(value)) {
                 self.removeOption(value, silent);
             }
@@ -3583,7 +3592,7 @@
          */
         refreshItems() {
             var self = this;
-            self.lastQuery = null;
+            self.isDropdownContentStale = true;
             if (self.isSetup) {
                 self.addItems(self.items);
             }
@@ -4859,7 +4868,7 @@
     }
 
     /**
-     * Plugin: "restore_on_backspace" (Tom Select)
+     * Plugin: "virtual_scroll" (Tom Select)
      * Copyright (c) contributors
      *
      * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
@@ -4883,6 +4892,8 @@
         var loading_more = false;
         var load_more_opt;
         var default_values = [];
+        var default_values_loaded = false;
+        var default_pagination;
         if (!self.settings.shouldLoadMore) {
             // return true if additional results should be loaded
             self.settings.shouldLoadMore = () => {
@@ -4982,7 +4993,26 @@
                 }
             }
             orig_loadCallback.call(self, options, optgroups);
+
+            // After the initial preload (empty query), update default_values to include
+            // preloaded options, not just the HTML <option> elements captured on initialize
+            if (!loading_more && !default_values_loaded) {
+                default_values_loaded = true;
+                if (self.lastValue === '') {
+                    default_values = Object.keys(self.options);
+                    default_pagination = pagination[''];
+                }
+            }
             loading_more = false;
+        });
+
+        // as the “loading_more” element will be removed from the dropdown,
+        // we activate the previous option if needed
+        // to avoid the dropdown being scrolled back to the first one
+        self.hook('before', 'refreshOptions', () => {
+            if (self.activeOption && "option" !== self.activeOption.getAttribute("role")) {
+                self.setActiveOption(self.activeOption.previousElementSibling);
+            }
         });
 
         // add templates to dropdown
@@ -5009,6 +5039,24 @@
                 dropdown_content.append(option);
             }
         });
+
+        // Restore preloaded options and pagination when clearing search
+        const restoreDefaults = () => {
+            if (!default_values_loaded) {
+                return;
+            }
+            self.clearOptions(clearFilter);
+            if (default_pagination) {
+                pagination[''] = default_pagination;
+            }
+        };
+        self.on('type', query => {
+            if (query === '') {
+                restoreDefaults();
+                self.refreshOptions(false);
+            }
+        });
+        self.on('dropdown_close', restoreDefaults);
 
         // add scroll listener and default templates
         self.on('initialize', () => {
@@ -5064,4 +5112,3 @@
 }));
 var tomSelect = function (el, opts) { return new TomSelect(el, opts); }
 //# sourceMappingURL=tom-select.complete.js.map
-
