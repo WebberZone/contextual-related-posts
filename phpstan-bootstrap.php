@@ -40,6 +40,10 @@ namespace {
 		define( 'WZ_CRP_DB_VERSION', '0.0.0' );
 	}
 
+	if ( ! defined( 'DB_NAME' ) ) {
+		define( 'DB_NAME', '' );
+	}
+
 	if ( ! function_exists( 'fs_dynamic_init' ) ) {
 		/**
 		 * Freemius bootstrap stub for static analysis.
