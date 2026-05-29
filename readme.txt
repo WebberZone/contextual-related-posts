@@ -195,6 +195,11 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.2.4 =
 
+* Modifications:
+	* [Pro] Renamed the "Reindex Custom Tables" tool to "Custom Tables" and added a "Recreate Custom Tables" button that drops and recreates the table structure, with success/error feedback displayed in the admin.
+	* [Pro] Custom table creation is now skipped entirely when the Enhanced Content Search Index setting is disabled, avoiding unnecessary database queries on every admin page load.
+	* [Pro] Custom table creation is now blocked on MySQL versions below 5.7.8 and MariaDB versions below 10.2.7 (which lack JSON column support), with a clear admin notice instead of a silent failure.
+
 * Bug fixes:
 	* Fixed broken `aspect-ratio` on the rounded thumbs style caused by CSS variables carrying `px` units. A unitless `--crp-aspect-ratio` variable is now used, consistent with the grid and thumbs-grid styles.
 
@@ -274,6 +279,9 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 
 == Upgrade Notice ==
+
+= 4.2.4 =
+[Pro] Custom Tables tool renamed; added Recreate Custom Tables button. Table creation now skipped when setting is disabled and blocked on unsupported MySQL/MariaDB versions. CSS aspect-ratio fix for rounded thumbs style.
 
 = 4.2.3 =
 Pro: Added ACF field support for thumbnails. Scheduled reconciliation cron for custom search index. Security hardening and multiple admin UI improvements.
