@@ -62,7 +62,6 @@ class Admin_Notices {
 		}
 
 		$this->register_fulltext_index_notice();
-		$this->register_missing_table_notice();
 		$this->register_migration_pending_notice();
 	}
 
@@ -90,46 +89,8 @@ class Admin_Notices {
 				'dismissible' => true,
 				'capability'  => 'manage_options',
 				'conditions'  => array(
-					function () {
-						return current_user_can( 'manage_options' ) &&
-								! \WebberZone\Contextual_Related_Posts\Admin\Db::is_fulltext_index_installed();
-					},
-				),
-			)
-		);
-	}
-
-	/**
-	 * Register missing table notice.
-	 *
-	 * @since 4.0.0
-	 */
-	private function register_missing_table_notice() {
-		// Check if admin_notices_api is available.
-		if ( ! $this->admin_notices_api ) {
-			return;
-		}
-
-		$this->admin_notices_api->register_notice(
-			array(
-				'id'          => 'crp_missing_custom_tables',
-				'message'     => sprintf(
-					'<p>%s <a href="%s">%s</a></p>',
-					esc_html__( 'Contextual Related Posts: Custom tables are missing from your database, which will prevent related posts from being displayed. Please run the recreate tables tool from the Tools page to restore functionality.', 'contextual-related-posts' ),
-					esc_url( admin_url( 'admin.php?page=crp_tools_page#crp-reindex-custom-tables' ) ),
-					esc_html__( 'Go to Tools page', 'contextual-related-posts' )
-				),
-				'type'        => 'warning',
-				'dismissible' => true,
-				'capability'  => 'manage_options',
-				'conditions'  => array(
-					function () {
-						if ( ! current_user_can( 'manage_options' ) || ! class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager' ) ) {
-							return false;
-						}
-						$table_manager = new \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager();
-						return ! $table_manager->is_table_installed( $table_manager->content_table );
-					},
+					fn(): bool => ! \crp_get_option( 'use_custom_tables', false ) &&
+						! \WebberZone\Contextual_Related_Posts\Admin\Db::is_fulltext_index_installed(),
 				),
 			)
 		);

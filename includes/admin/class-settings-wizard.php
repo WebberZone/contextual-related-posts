@@ -59,7 +59,6 @@ class Settings_Wizard extends Settings_Wizard_API {
 	 */
 	protected function additional_hooks() {
 		Hook_Registry::add_action( 'crp_activate', array( $this, 'trigger_wizard_on_activation' ) );
-		Hook_Registry::add_action( 'admin_init', array( $this, 'register_wizard_notice' ) );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_custom_scripts' ) );
 
 		// Register Tom Select AJAX handlers for wizard taxonomy fields.
@@ -222,46 +221,6 @@ class Settings_Wizard extends Settings_Wizard_API {
 
 		// Also set an option for more persistent storage in multisite environments.
 		update_option( 'crp_show_wizard', true );
-	}
-
-	/**
-	 * Register the wizard notice with the Admin_Notices_API.
-	 *
-	 * @since 4.1.0
-	 */
-	public function register_wizard_notice() {
-		// Get the Admin_Notices_API instance.
-		$admin_notices_api = wz_crp()->admin->admin_notices_api;
-		if ( ! $admin_notices_api ) {
-			return;
-		}
-
-		$admin_notices_api->register_notice(
-			array(
-				'id'          => 'crp_wizard_notice',
-				'message'     => sprintf(
-					'<p>%s</p><p><a href="%s" class="button button-primary">%s</a></p>',
-					esc_html__( 'Welcome to Contextual Related Posts! Would you like to run the setup wizard to configure the plugin?', 'contextual-related-posts' ),
-					esc_url( admin_url( 'admin.php?page=crp_wizard' ) ),
-					esc_html__( 'Run Setup Wizard', 'contextual-related-posts' )
-				),
-				'type'        => 'info',
-				'dismissible' => true,
-				'capability'  => 'manage_options',
-				'conditions'  => array(
-					function () {
-						$page = sanitize_key( (string) filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS ) );
-
-						// Only show if wizard is not completed, not dismissed, and activation flag is set.
-						// Check both transient and option to ensure it works in multisite environments.
-						return ! $this->is_wizard_completed() &&
-							! get_option( 'crp_wizard_notice_dismissed', false ) &&
-							( get_transient( 'crp_show_wizard_activation_redirect' ) || get_option( 'crp_show_wizard', false ) ) &&
-							'crp_wizard' !== $page;
-					},
-				),
-			)
-		);
 	}
 
 	/**
