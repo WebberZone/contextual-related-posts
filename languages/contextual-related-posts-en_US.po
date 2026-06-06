@@ -55,21 +55,16 @@ msgstr ""
 msgid "Contextual Related Posts and Contextual Related Posts PRO should not be active at the same time. We've automatically deactivated %s."
 msgstr ""
 
-#: includes/admin/class-admin-notices.php:85
+#: includes/admin/class-admin-notices.php:84
 msgid "Contextual Related Posts: Some FULLTEXT indexes are missing from your database, which will prevent related posts from being found. Please run the recreate indexes tool from the Tools page to restore related posts functionality."
 msgstr ""
 
-#: includes/admin/class-admin-notices.php:87
-#: includes/admin/class-admin-notices.php:120
-#: includes/admin/class-admin-notices.php:156
+#: includes/admin/class-admin-notices.php:86
+#: includes/admin/class-admin-notices.php:117
 msgid "Go to Tools page"
 msgstr ""
 
-#: includes/admin/class-admin-notices.php:118
-msgid "Contextual Related Posts: Custom tables are missing from your database, which will prevent related posts from being displayed. Please run the recreate tables tool from the Tools page to restore functionality."
-msgstr ""
-
-#: includes/admin/class-admin-notices.php:154
+#: includes/admin/class-admin-notices.php:115
 msgid "Contextual Related Posts: Post meta migration is required to keep your data compatible with the latest version. Please run the migration tool from the Tools page to update your database structure."
 msgstr ""
 
@@ -259,208 +254,200 @@ msgstr ""
 
 #. translators: %s: search term
 #: includes/admin/class-metabox.php:542
-#: includes/admin/class-settings-wizard.php:202
+#: includes/admin/class-settings-wizard.php:201
 #: includes/admin/class-settings.php:1768
 #, php-format
 msgid "No results found for \"%s\""
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:121
+#: includes/admin/class-settings-wizard.php:120
 msgid "Welcome to Contextual Related Posts"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:122
+#: includes/admin/class-settings-wizard.php:121
 msgid "Thank you for installing Contextual Related Posts! This wizard will help you configure the essential settings to get your related posts working perfectly."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:126
+#: includes/admin/class-settings-wizard.php:125
 msgid "Basic Settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:127
+#: includes/admin/class-settings-wizard.php:126
 msgid "Configure the fundamental behavior of your related posts display."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:131
+#: includes/admin/class-settings-wizard.php:130
 msgid "Display Options"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:132
+#: includes/admin/class-settings-wizard.php:131
 msgid "Customize how your related posts will look and what information to display."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:136
+#: includes/admin/class-settings-wizard.php:135
 msgid "Content Tuning"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:137
+#: includes/admin/class-settings-wizard.php:136
 msgid "Fine-tune which content is included and how related posts are matched."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:141
+#: includes/admin/class-settings-wizard.php:140
 msgid "Pro Settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:142
+#: includes/admin/class-settings-wizard.php:141
 msgid "Upgrade to Contextual Related Posts Pro to unlock advanced features such as custom tables, advanced weighting, and more. <strong>Take your related posts to the next level!</strong>"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:142
+#: includes/admin/class-settings-wizard.php:141
 msgid "Learn more about Pro"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:150
+#: includes/admin/class-settings-wizard.php:149
 msgid "Index Custom Tables"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:151
+#: includes/admin/class-settings-wizard.php:150
 msgid "Custom tables have been enabled. Index your content to improve search performance and enable advanced features."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:195
+#: includes/admin/class-settings-wizard.php:194
 msgid "Contextual Related Posts Setup Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:196
+#: includes/admin/class-settings-wizard.php:195
 msgid "Setup Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:197
+#: includes/admin/class-settings-wizard.php:196
 msgid "Next Step"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:198
+#: includes/admin/class-settings-wizard.php:197
 msgid "Previous Step"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:199
+#: includes/admin/class-settings-wizard.php:198
 msgid "Finish Setup"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:200
+#: includes/admin/class-settings-wizard.php:199
 msgid "Skip Wizard"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:203
+#: includes/admin/class-settings-wizard.php:202
 msgid "Setup Wizard Steps"
 msgstr ""
 
 #. translators: %1$d: Current step number, %2$d: Total number of steps
-#: includes/admin/class-settings-wizard.php:205
+#: includes/admin/class-settings-wizard.php:204
 #, php-format
 msgid "Step %1$d of %2$d"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:206
+#: includes/admin/class-settings-wizard.php:205
 msgid "Setup Complete!"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:207
+#: includes/admin/class-settings-wizard.php:206
 msgid "Your Contextual Related Posts plugin has been configured successfully. You can now start seeing related posts on your site!"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:208
-#: includes/admin/class-settings-wizard.php:589
+#: includes/admin/class-settings-wizard.php:207
+#: includes/admin/class-settings-wizard.php:548
 msgid "Go to Settings"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:244
-msgid "Welcome to Contextual Related Posts! Would you like to run the setup wizard to configure the plugin?"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:246
-msgid "Run Setup Wizard"
-msgstr ""
-
-#: includes/admin/class-settings-wizard.php:310
+#: includes/admin/class-settings-wizard.php:269
 msgid "Starting reindex process..."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:311
+#: includes/admin/class-settings-wizard.php:270
 msgid "Reindexing complete!"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:312
+#: includes/admin/class-settings-wizard.php:271
 msgid "An error occurred during reindexing. Please try again."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:313
+#: includes/admin/class-settings-wizard.php:272
 msgid "Reindex Custom Tables"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:314
+#: includes/admin/class-settings-wizard.php:273
 msgid "Reindexing... Click to Stop"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:410
+#: includes/admin/class-settings-wizard.php:369
 msgid "Custom tables functionality is not available."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:421
+#: includes/admin/class-settings-wizard.php:380
 msgid "Custom tables are not available."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:444
+#: includes/admin/class-settings-wizard.php:403
 msgid "Current Index Status"
 msgstr ""
 
 #. translators: 1: Number of posts in the content table
-#: includes/admin/class-settings-wizard.php:449
+#: includes/admin/class-settings-wizard.php:408
 #, php-format
 msgid "Content Table: %1$d entries"
 msgstr ""
 
 #. translators: 1: Number of published posts, 2: Percentage of posts indexed
-#: includes/admin/class-settings-wizard.php:455
+#: includes/admin/class-settings-wizard.php:414
 #, php-format
 msgid "Published Posts: %1$d, Index Status: %2$d%%"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:469
+#: includes/admin/class-settings-wizard.php:428
 msgid "Index Management"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:470
+#: includes/admin/class-settings-wizard.php:429
 msgid "Click the button below to start indexing your content for improved performance."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:475
+#: includes/admin/class-settings-wizard.php:434
 msgid "Start Indexing"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:479
+#: includes/admin/class-settings-wizard.php:438
 msgid "Force reindex (clear existing data)"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:496
+#: includes/admin/class-settings-wizard.php:455
 msgid "Note:"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:496
+#: includes/admin/class-settings-wizard.php:455
 msgid "You can skip this step and index your content later from the Tools page if needed."
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:579
+#: includes/admin/class-settings-wizard.php:538
 msgid "What's Next?"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:581
+#: includes/admin/class-settings-wizard.php:540
 msgid "Visit your site to see related posts in action"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:582
+#: includes/admin/class-settings-wizard.php:541
 msgid "Customize the display using the settings page"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:583
+#: includes/admin/class-settings-wizard.php:542
 msgid "Check the Tools page for maintenance options"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:592
+#: includes/admin/class-settings-wizard.php:551
 msgid "View Tools"
 msgstr ""
 
-#: includes/admin/class-settings-wizard.php:595
+#: includes/admin/class-settings-wizard.php:554
 msgid "Visit Site"
 msgstr ""
 
