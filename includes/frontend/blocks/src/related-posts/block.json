@@ -48,6 +48,9 @@
 		"random_order": {
 			"type": "boolean"
 		},
+		"keyword": {
+			"type": "string"
+		},
 		"other_attributes": {
 			"type": "string"
 		}

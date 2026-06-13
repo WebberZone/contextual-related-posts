@@ -55,18 +55,7 @@ class Display {
 
 		$crp_settings = crp_get_settings();
 
-		$defaults = array(
-			'is_widget'      => false,
-			'is_shortcode'   => false,
-			'is_manual'      => false,
-			'is_block'       => false,
-			'echo'           => true,
-			'heading'        => true,
-			'offset'         => 0,
-			'extra_class'    => '',
-			'more_link_text' => '',
-		);
-		$defaults = array_merge( $defaults, crp_settings_defaults(), $crp_settings );
+		$defaults = self::get_default_args();
 
 		// Parse incomming $args into an array and merge it with $defaults.
 		$args = wp_parse_args( $args, $defaults );
@@ -119,6 +108,24 @@ class Display {
 		// Check exclusions.
 		if ( self::exclude_on( $post, $args ) ) {
 			return ''; // Exit without adding related posts.
+		}
+
+		/**
+		 * Pre-filter the related posts output.
+		 *
+		 * Return a non-null value to short-circuit the default rendering, e.g. to
+		 * replace it with a lazy load placeholder. Runs for all display methods:
+		 * content filter, shortcode, widget, block and manual calls.
+		 *
+		 * @since 4.3.0
+		 *
+		 * @param string|null $pre  Pre-rendered output. Default null.
+		 * @param array       $args Fully parsed arguments array.
+		 * @param \WP_Post    $post Post object.
+		 */
+		$pre = apply_filters( 'crp_pre_related_posts', null, $args, $post );
+		if ( null !== $pre ) {
+			return (string) $pre;
 		}
 
 		// Support caching to speed up retrieval.
@@ -286,6 +293,29 @@ class Display {
 		 * @param   array   $args   Arguments array.
 		 */
 		return apply_filters( 'get_crp', $output, $args );
+	}
+
+	/**
+	 * Get the default arguments for related_posts(), including the saved settings.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return array Default arguments array.
+	 */
+	public static function get_default_args() {
+		$defaults = array(
+			'is_widget'      => false,
+			'is_shortcode'   => false,
+			'is_manual'      => false,
+			'is_block'       => false,
+			'echo'           => true,
+			'heading'        => true,
+			'offset'         => 0,
+			'extra_class'    => '',
+			'more_link_text' => '',
+		);
+
+		return array_merge( $defaults, crp_settings_defaults(), crp_get_settings() );
 	}
 
 	/**
@@ -560,8 +590,11 @@ class Display {
 		$title = '';
 
 		if ( $args['heading'] && ! $args['is_widget'] ) {
+			$crp_post = ! empty( $args['post_id'] ) ? get_post( $args['post_id'] ) : $post;
+			$postname = ( $crp_post instanceof \WP_Post ) ? $crp_post->post_title : '';
+
 			$title = empty( $args['title'] ) ? \crp_get_option( 'title', '' ) : $args['title'];
-			$title = str_replace( '%postname%', $post->post_title, $title );    // Replace %postname% with the title of the current post.
+			$title = str_replace( '%postname%', $postname, $title );    // Replace %postname% with the title of the current post.
 		}
 
 		/**
