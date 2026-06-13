@@ -195,14 +195,15 @@ class CRP_Core_Query {
 
 		$crp_settings = crp_get_settings();
 
-		$defaults = array(
+		$defaults    = array(
 			'include_cat_ids'  => 0,
 			'include_post_ids' => null,
 			'offset'           => 0,
 			'post_id'          => false,
 		);
-		$defaults = array_merge( $defaults, $crp_settings );
-		$args     = wp_parse_args( $args, $defaults );
+		$caller_args = is_array( $args ) ? $args : wp_parse_args( $args );
+		$defaults    = array_merge( $defaults, $crp_settings );
+		$args        = wp_parse_args( $args, $defaults );
 
 		// Set the source post.
 		$post_id = $args['post_id'] ?? $args['postid'] ?? null;
@@ -278,6 +279,7 @@ class CRP_Core_Query {
 		$args['manual_related']       = $this->manual_related; // Consolidated array (includes include_post_ids).
 		$args['no_of_manual_related'] = $this->no_of_manual_related;
 
+		$args['keyword'] = isset( $args['keyword'] ) && is_string( $args['keyword'] ) ? trim( $args['keyword'] ) : '';
 		if ( empty( $args['keyword'] ) ) {
 			$args['keyword'] = crp_get_meta( $this->source_post->ID, 'keyword' );
 		}
@@ -480,6 +482,12 @@ class CRP_Core_Query {
 
 		// Set post_status.
 		$args['post_status'] = empty( $args['post_status'] ) ? array( 'publish', 'inherit' ) : $args['post_status'];
+
+		// If posts_per_page was explicitly passed but limit was not, derive limit from posts_per_page.
+		// Skip negative values (e.g. -1 means "all posts" in WordPress) since limit is used for array_slice.
+		if ( isset( $caller_args['posts_per_page'] ) && ! array_key_exists( 'limit', $caller_args ) && (int) $caller_args['posts_per_page'] > 0 ) {
+			$args['limit'] = (int) $caller_args['posts_per_page'];
+		}
 
 		// Increase posts_per_page to fetch more posts to account for PHP exclusions.
 		if ( ! isset( $args['posts_per_page'] ) || empty( $args['posts_per_page'] ) ) {
@@ -940,6 +948,7 @@ class CRP_Core_Query {
 	 * Modify the posts_orderby clause.
 	 *
 	 * @since 3.0.0
+	 * @since 4.3.0 Added deterministic tiebreakers (post date, ID) after the relevance score.
 	 *
 	 * @param string               $orderby  The ORDER BY clause of the query.
 	 * @param \WP_Query|\CRP_Query $query The WP_Query or CRP_Query instance.
@@ -960,7 +969,7 @@ class CRP_Core_Query {
 				if ( empty( $this->match_sql ) ) {
 					$this->match_sql = $this->get_match_sql();
 				}
-				$orderby = ' ' . $this->match_sql . ' DESC ';
+				$orderby = ' ' . $this->match_sql . " DESC, $wpdb->posts.post_date DESC, $wpdb->posts.ID DESC ";
 			}
 			return apply_filters( 'crp_query_posts_orderby', $orderby, $query );
 		}
@@ -987,6 +996,12 @@ class CRP_Core_Query {
 		if ( isset( $this->query_args['ordering'] ) && 'date' === $this->query_args['ordering'] ) {
 			$orderby_clauses[] = " $wpdb->posts.post_date DESC ";
 		}
+
+		// Deterministic tiebreakers so that posts with equal relevance scores are returned in a stable order.
+		if ( 'date' !== ( $this->query_args['ordering'] ?? '' ) ) {
+			$orderby_clauses[] = " $wpdb->posts.post_date DESC ";
+		}
+		$orderby_clauses[] = " $wpdb->posts.ID DESC ";
 
 		/**
 		 * Filters the posts_orderby of CRP_Query after processing and before returning.

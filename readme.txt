@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.2.4
+Stable tag: 4.3.0
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 7.4
@@ -58,17 +58,20 @@ Two options on the settings page allow you to remove these indices when deactiva
 * [Cache Setting](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/): Fine-tune your performance with configurable cache times from 1 hour to 1 year.
 * [Server Load Threshold](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/): Prevent CRP from running queries when the database is under heavy load.
 * [Bot Protection](https://webberzone.com/support/knowledgebase/contextual-related-posts-bot-protection/): Skip CRP processing for known bots and crawlers using an extensible signature list, saving server resources.
+* __Lazy Loading__: Load related posts via JavaScript only when they are about to enter the viewport, speeding up the initial page load. Works across the content, shortcode, widget and block display methods and plays well with page caching plugins.
 
 #### 🎯 Smarter Content Matching
 
 * [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Control exactly how relevant content is found by adjusting weights for title, content, and excerpt.
 * [Taxonomy Weight System](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#weighting-categories-tags-and-taxonomies): Refine your matches with precise taxonomy weighting for perfect content relationships.
+* __Keyword Override for Blocks__: Set a word or phrase on the Related Posts block or the CRP Query Loop block to find related posts using that keyword instead of the current post's title and content.
 
 #### 🛒 WooCommerce Integration
 
 * __Related Products for WooCommerce__: Seamlessly integrate with WooCommerce to show related products.
 * __Product Matching & Filtering__: Index SKUs and attributes, filter by stock status, and use category-based recommendations with native WooCommerce styling.
 * __Display Customization__: Toggle prices, ratings, and choose to replace or complement WooCommerce's related products.
+* __Cart Related Products__: Nudge customers toward free shipping by showing contextually related products priced within the gap between the cart total and the free shipping threshold. Uses CRP relevance matching anchored to the most expensive cart item, with a configurable price band, product count, heading, and cart page hook position.
 
 [📖 WooCommerce Related Products Documentation](https://webberzone.com/support/knowledgebase/woocommerce-related-products/)
 
@@ -193,6 +196,18 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.3.0 =
+
+* New features:
+	* [Pro] New "Keyword" setting on the Related Posts block and the CRP Query Loop block: enter a word or phrase to find related posts using that keyword instead of the title and content of the current post, matching the existing metabox behaviour. The advanced algorithm honours the keyword on both the custom tables and native tables paths.
+	* [Pro] Lazy load related posts: a new setting under the Performance tab loads the related posts via JavaScript only when they are about to enter the viewport. This speeds up the initial page load and plays better with page caching plugins. Note: search engines may not index the related posts links when this is enabled, since they are no longer part of the initial HTML. Applies to all display methods — content, shortcode, widget and the Related Posts block — with the configured options preserved via a signed payload. The Query Loop block variation is rendered by WordPress core and is not lazy loaded. Use `lazy_load="0"` in the shortcode (or the `crp_lazy_load` filter) to disable it per instance. Skipped on feeds and AMP pages.
+	* [Pro] Cart Related Products: displays a grid of contextually related products on the WooCommerce cart page when the cart subtotal is below the free shipping threshold. Products are filtered to a configurable price band anchored to the gap-to-free-shipping, and ranked by CRP relevance using the most expensive cart item as the source. Configurable options include product count, price upper-bound percentage, custom heading, and cart page hook position. Coupon discounts are correctly accounted for when calculating the gap.
+
+* Modifications:
+	* Related posts with equal relevance scores are now returned in a stable order: post date and post ID are used as tiebreakers after the relevance score.
+	* New `crp_pre_related_posts` filter to short-circuit the related posts output for all display methods. The lazy load feature uses this; developers can return a non-null value to replace the output entirely.
+	* [Pro] New REST API endpoint `contextual-related-posts/v1/posts/<id>/html` that returns the rendered related posts HTML. Display arguments are only honoured when accompanied by a valid signature generated during a server-side render.
+
 = 4.2.4 (2026-06-06) =
 
 *Release Date - 6 June 2026*
@@ -284,8 +299,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.2.4 =
-[Pro] Custom Tables tool renamed; added Recreate and Convert to InnoDB buttons. Table creation now skipped when setting is disabled and blocked on unsupported MySQL/MariaDB versions. CSS aspect-ratio fix for rounded thumbs style.
-
-= 4.2.3 =
-Pro: Added ACF field support for thumbnails. Scheduled reconciliation cron for custom search index. Security hardening and multiple admin UI improvements.
+= 4.3.0 =
+[Pro] New keyword setting on the Related Posts and Query Loop blocks, lazy load for all display methods, and Cart Related Products — shows contextually matched products on the WooCommerce cart page when the subtotal is below the free shipping threshold. Related posts with tied relevance scores now return in a stable order.

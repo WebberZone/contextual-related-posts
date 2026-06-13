@@ -64,7 +64,6 @@ export default function Edit({ attributes, setAttributes }) {
 						onChangeOrdering={handleChange('ordering')}
 						toggleRandomOrder={handleToggle('random_order')}
 					/>
-
 					{applyFilters(
 						'crp-edit-inspector-controls',
 						'',

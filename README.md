@@ -68,17 +68,20 @@ Two options on the settings page allow you to remove these indices when deactiva
 * [Cache Setting](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/): Fine-tune your performance with configurable cache times from 1 hour to 1 year.
 * [Server Load Threshold](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/): Prevent CRP from running queries when the database is under heavy load.
 * [Bot Protection](https://webberzone.com/support/knowledgebase/contextual-related-posts-bot-protection/): Skip CRP processing for known bots and crawlers using an extensible signature list, saving server resources.
+* __Lazy Loading__: Load related posts via JavaScript only when they are about to enter the viewport, speeding up the initial page load. Works across the content, shortcode, widget and Related Posts block display methods and plays well with page caching plugins.
 
 #### 🎯 Smarter Content Matching
 
 * [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Control exactly how relevant content is found by adjusting weights for title, content, and excerpt.
 * [Taxonomy Weight System](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#weighting-categories-tags-and-taxonomies): Refine your matches with precise taxonomy weighting for perfect content relationships.
+* __Keyword Override for Blocks__: Set a word or phrase on the Related Posts block or the CRP Query Loop block to find related posts using that keyword instead of the current post's title and content.
 
 #### 🛒 WooCommerce Integration
 
 * __Related Products for WooCommerce__: Seamlessly integrate with WooCommerce to show related products.
 * __Product Matching & Filtering__: Index SKUs and attributes, filter by stock status, and use category-based recommendations with native WooCommerce styling.
 * __Display Customization__: Toggle prices, ratings, and choose to replace or complement WooCommerce's related products.
+* __Cart Related Products__: Nudge customers toward free shipping by showing contextually related products priced within the gap between the cart total and the free shipping threshold. Uses CRP relevance matching anchored to the most expensive cart item, with a configurable price band, product count, heading, and cart page hook position.
 
 [📖 WooCommerce Related Products Documentation](https://webberzone.com/support/knowledgebase/woocommerce-related-products/)
 
