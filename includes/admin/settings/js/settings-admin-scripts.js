@@ -139,6 +139,49 @@ jQuery(document).ready(function ($) {
 			}
 		});
 
+		// Enforce unique selection across rows for the field named in data-unique-field.
+		var uniqueField = wrapper.data('unique-field') || '';
+		function syncUniqueSelects() {
+			if (!uniqueField) {
+				return;
+			}
+			var $selects = itemsContainer.find('.wz-repeater-item select[name$="[fields][' + uniqueField + ']"]');
+			var usedValues = {};
+			$selects.each(function () {
+				var val = $(this).val();
+				if (val) {
+					usedValues[val] = true;
+				}
+			});
+			$selects.each(function () {
+				var $sel = $(this);
+				var ownVal = $sel.val();
+				$sel.find('option').each(function () {
+					var optVal = $(this).val();
+					if (!optVal) {
+						return;
+					}
+					$(this).prop('disabled', optVal !== ownVal && usedValues[optVal]);
+				});
+			});
+		}
+
+		if (uniqueField) {
+			syncUniqueSelects();
+			wrapper.on('change', '.wz-repeater-item select[name$="[fields][' + uniqueField + ']"]', function () {
+				syncUniqueSelects();
+			});
+			wrapper.on('click', '.remove-item', function () {
+				// Sync after DOM removal; removal handler fires before remove, so defer.
+				setTimeout(syncUniqueSelects, 0);
+			});
+			document.addEventListener('wz:repeater-item-added', function (e) {
+				if (wrapper.get(0).contains(e.detail.container)) {
+					syncUniqueSelects();
+				}
+			});
+		}
+
 		// Live update repeater title when the specified field changes.
 		// Handles text inputs (input event), selects (change event, uses option text),
 		// and TomSelect-enhanced inputs (change event, uses displayed text or value).
