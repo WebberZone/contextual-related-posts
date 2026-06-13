@@ -283,7 +283,7 @@ class Settings_Sanitize {
 		}
 
 		// If input is masked, return existing encrypted key.
-		if ( strpos( $value, '**' ) !== false ) {
+		if ( is_string( $value ) && strpos( $value, '**' ) !== false ) {
 			return $stored_encrypted_key;
 		}
 
