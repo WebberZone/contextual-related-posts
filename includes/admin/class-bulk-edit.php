@@ -197,8 +197,8 @@ class Bulk_Edit {
 			}
 			$manual_related = implode( ',', $manual_related_array );
 
-			// Only update if field has actual values; empty preserves existing data.
-			if ( ! empty( $_REQUEST['crp_manual_related'] ) ) {
+			// Empty string preserves existing data; '0' or invalid IDs clear the field.
+			if ( '' !== trim( $_REQUEST['crp_manual_related'] ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if ( $manual_related ) {
 					update_post_meta( $post_id, '_crp_manual_related', $manual_related );
 				} else {
