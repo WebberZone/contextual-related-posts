@@ -31,6 +31,8 @@ You can manually clear the plugin cache by visiting the [Tools page](https://web
 
 The cache of a post is also cleared when it is edited. This is to ensure that the related posts are generated using the latest content.
 
+You can also enable the **Clear cache when a post is trashed or restored** option in the [**Performance** tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/) to automatically clear the entire cache whenever a post is moved to Trash or restored from Trash. This option is disabled by default.
+
 ## Changing the caching duration
 
 The duration of the cache can be modified by changing the constant `CRP_CACHE_TIME`, which is set to be one week by default. The easiest way to modify this constant is by setting it to a different period in your **wp-config.php**. e.g. the below will set it to a week using the inbuilt WordPress constant.

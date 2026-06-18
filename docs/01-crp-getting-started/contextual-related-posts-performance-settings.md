@@ -55,6 +55,13 @@ Caches only the related post IDs, not the full HTML output. This offers flexibil
 - **Description:**
 Caches the entire HTML generated for related posts when a post is first visited. The cache is cleared when you save the settings page. Highly recommended for busy sites.
 
+### Clear Cache on Trash or Restore
+
+- **Type:** Checkbox
+- **Default:** Disabled
+- **Description:**
+When enabled, the entire CRP cache is cleared whenever a post is moved to Trash or restored from Trash. Useful if you want related posts to update immediately after content is removed or recovered, rather than waiting for the cache to expire naturally.
+
 ### Cache Time
 
 - **Type:** Select (Pro)
