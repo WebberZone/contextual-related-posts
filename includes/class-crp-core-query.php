@@ -458,12 +458,7 @@ class CRP_Core_Query {
 		 * @param array   $meta_query Array of meta_query parameters.
 		 * @param array   $args       Arguments array.
 		 */
-		$meta_query = apply_filters( 'crp_query_meta_query', $meta_query, $args ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
-
-		// Validate meta_query structure.
-		if ( ! is_array( $meta_query ) ) {
-			$meta_query = array();
-		}
+		$meta_query = (array) apply_filters( 'crp_query_meta_query', $meta_query, $args ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 
 		// Add a relation key if more than one $meta_query and if 'relation' is not already set.
 		if ( count( $meta_query ) > 1 && ! isset( $meta_query['relation'] ) ) {

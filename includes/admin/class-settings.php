@@ -1419,6 +1419,13 @@ class Settings {
 				'type'    => 'checkbox',
 				'default' => true,
 			),
+			'clear_cache_on_trash' => array(
+				'id'      => 'clear_cache_on_trash',
+				'name'    => esc_html__( 'Clear cache when a post is trashed or restored', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'When enabled, the entire CRP cache will be cleared whenever a post is moved to Trash or restored from Trash.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => false,
+			),
 			'cache_time'           => array(
 				'id'      => 'cache_time',
 				'name'    => esc_html__( 'Cache Time', 'contextual-related-posts' ),
@@ -1977,14 +1984,12 @@ class Settings {
 		}
 
 		if ( 'public_taxonomies' === $endpoint ) {
-			$taxonomies = (array) get_taxonomies( array( 'public' => true ), 'objects' );
+			$taxonomies = get_taxonomies( array( 'public' => true ), 'objects' );
 			$taxonomy   = array();
 			$tax        = null;
 
-			foreach ( $taxonomies as $taxonomy_name => $taxonomy_object ) {
-				if ( ! is_string( $taxonomy_name ) || '' === $taxonomy_name ) {
-					continue;
-				}
+			foreach ( $taxonomies as $taxonomy_object ) {
+				$taxonomy_name = $taxonomy_object->name;
 
 				if ( empty( $taxonomy_object->cap->assign_terms ) ) {
 					continue;

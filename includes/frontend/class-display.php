@@ -73,13 +73,9 @@ class Display {
 			global $post;
 		}
 
-		if ( ! $post instanceof \WP_Post ) {
-			return '';
-		}
-
 		// Ensure we use the queried object ID if we are in the main query and no explicit post_id was provided.
 		$queried_object = get_queried_object();
-		if ( is_main_query() && empty( $post_id ) && $queried_object instanceof \WP_Post && $queried_object->ID !== $post->ID ) {
+		if ( is_main_query() && empty( $post_id ) && $post instanceof \WP_Post && $queried_object instanceof \WP_Post && $queried_object->ID !== $post->ID ) {
 			$post = $queried_object; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 
@@ -162,7 +158,7 @@ class Display {
 		$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
 		if ( ! empty( $custom_template ) ) {
 			if ( self::should_cache( $args ) ) {
-				Cache::set_cache( $post->ID, $meta_key, $custom_template );
+				Cache::set_cache( $post->ID, $meta_key, $custom_template, 0, 'html' );
 			}
 			return $custom_template;
 		}

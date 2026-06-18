@@ -30,6 +30,29 @@ class Cache {
 	}
 
 	/**
+	 * Clear the CRP cache when a post is trashed or restored, if the option is enabled.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @param int $post_id Post ID being trashed or restored.
+	 * @return void
+	 */
+	public static function maybe_clear_cache_on_trash( $post_id ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+		static $cleared = false;
+
+		if ( $cleared ) {
+			return;
+		}
+
+		if ( ! \crp_get_option( 'clear_cache_on_trash', false ) ) {
+			return;
+		}
+
+		self::delete();
+		$cleared = true;
+	}
+
+	/**
 	 * Function to clear the CRP Cache with Ajax.
 	 *
 	 * @since 3.5.0
@@ -146,11 +169,9 @@ class Cache {
 
 		// Count cache entries (excluding expiration entries).
 		$cache_count = $wpdb->get_var(  // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			"SELECT COUNT(*) FROM {$wpdb->postmeta} 
-			WHERE (meta_key LIKE '_crp_cache_%' OR meta_key LIKE '_crp_cache_h_%' OR meta_key LIKE '_crp_cache_p_%')
-			AND meta_key NOT LIKE '_crp_cache_expires_%'
-			AND meta_key NOT LIKE '_crp_cache_expires_h_%'
-			AND meta_key NOT LIKE '_crp_cache_expires_p_%'"
+			"SELECT COUNT(*) FROM {$wpdb->postmeta}
+			WHERE meta_key LIKE '_crp_cache_%'
+			AND meta_key NOT LIKE '_crp_cache_expires_%'"
 		);
 
 		// Convert expiration time to human readable format.
@@ -198,11 +219,9 @@ class Cache {
 		global $wpdb;
 
 		// Only query the database for actual cache keys that exist.
-		$sql = "SELECT meta_key FROM {$wpdb->postmeta} 
-			WHERE (meta_key LIKE '_crp_cache_%' OR meta_key LIKE '_crp_cache_h_%' OR meta_key LIKE '_crp_cache_p_%')
-			AND meta_key NOT LIKE '_crp_cache_expires_%'
-			AND meta_key NOT LIKE '_crp_cache_expires_h_%'
-			AND meta_key NOT LIKE '_crp_cache_expires_p_%'";
+		$sql = "SELECT DISTINCT meta_key FROM {$wpdb->postmeta}
+			WHERE meta_key LIKE '_crp_cache_%'
+			AND meta_key NOT LIKE '_crp_cache_expires_%'";
 
 		if ( $post_id > 0 ) {
 			$sql .= $wpdb->prepare( ' AND post_id = %d ', $post_id );
@@ -240,8 +259,17 @@ class Cache {
 		$cache_keys = self::get_meta_keys();
 
 		foreach ( $cache_keys as $cache_key ) {
-			// Extract the key name from the meta_key.
-			$key_name = str_replace( '_crp_cache_', '', $cache_key );
+			// Extract the raw key and cache type from the meta_key.
+			if ( 0 === strpos( $cache_key, '_crp_cache_h_' ) ) {
+				$key_name   = substr( $cache_key, strlen( '_crp_cache_h_' ) );
+				$cache_type = 'html';
+			} elseif ( 0 === strpos( $cache_key, '_crp_cache_p_' ) ) {
+				$key_name   = substr( $cache_key, strlen( '_crp_cache_p_' ) );
+				$cache_type = 'posts';
+			} else {
+				// Skip cache keys that don't match expected patterns (legacy or malformed keys).
+				continue;
+			}
 
 			// Get all posts that have this cache key.
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -256,7 +284,7 @@ class Cache {
 				++$scanned;
 
 				// Check if cache is expired by trying to get it.
-				$cached_value = self::get_cache( $post_id, $key_name );
+				$cached_value = self::get_cache( $post_id, $key_name, $cache_type );
 
 				// If get_cache returns false, it means the cache is expired or doesn't exist.
 				if ( false === $cached_value ) {
@@ -264,7 +292,7 @@ class Cache {
 						++$cleaned;
 					} else {
 						// Delete the expired cache entry.
-						$result = self::delete_by_post_id_and_key( $post_id, $key_name );
+						$result = self::delete_by_post_id_and_key( $post_id, $key_name, $cache_type );
 						if ( $result ) {
 							++$cleaned;
 						}
@@ -633,7 +661,7 @@ class Cache {
 		if ( $value ) {
 			$expires = (int) get_post_meta( $post_id, $cache_expires, true );
 			if ( $expires < time() || empty( $expires ) ) {
-				self::delete_by_post_id_and_key( $post_id, $meta_key );
+				self::delete_by_post_id_and_key( $post_id, $key, $cache_type );
 				return false;
 			} else {
 				return $value;
