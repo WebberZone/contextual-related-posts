@@ -416,7 +416,7 @@ class Metabox {
 			}
 			$posts = \get_crp_posts( $args );
 
-			if ( empty( $posts ) || ! is_array( $posts ) ) {
+			if ( empty( $posts ) ) {
 				$fallback_args = array(
 					'post_type'      => get_post_types( array( 'public' => true ) ),
 					'post_status'    => 'publish',
@@ -432,10 +432,6 @@ class Metabox {
 
 				$posts = get_posts( $fallback_args );
 			}
-		}
-
-		if ( ! is_array( $posts ) ) {
-			$posts = array();
 		}
 
 		$result = array();

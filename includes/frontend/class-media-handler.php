@@ -363,9 +363,6 @@ class Media_Handler {
 
 		// Security: Check original image dimensions to prevent memory exhaustion.
 		$original_size = $image_editor->get_size();
-		if ( ! is_array( $original_size ) ) {
-			return false;
-		}
 
 		// Reject images larger than 10000x10000 pixels (adjustable via filter).
 		$max_dimension = apply_filters( self::$prefix . '_max_image_dimension', 10000 );

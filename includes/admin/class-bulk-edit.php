@@ -187,9 +187,6 @@ class Bulk_Edit {
 			return;
 		}
 
-		// Check if this is quick edit or bulk edit.
-		$is_quick_edit = isset( $_REQUEST['crp_quick_edit_nonce'] );
-
 		if ( isset( $_REQUEST['crp_manual_related'] ) ) {
 			$manual_related_array = wp_parse_id_list( sanitize_text_field( wp_unslash( $_REQUEST['crp_manual_related'] ) ) );
 
@@ -200,19 +197,14 @@ class Bulk_Edit {
 			}
 			$manual_related = implode( ',', $manual_related_array );
 
-			// In quick edit, only update if field has actual values.
-			// Empty field in quick edit should preserve existing data.
-			if ( ! ( $is_quick_edit && empty( $_REQUEST['crp_manual_related'] ) ) ) {
+			// Only update if field has actual values; empty preserves existing data.
+			if ( ! empty( $_REQUEST['crp_manual_related'] ) ) {
 				if ( $manual_related ) {
 					update_post_meta( $post_id, '_crp_manual_related', $manual_related );
 				} else {
 					delete_post_meta( $post_id, '_crp_manual_related' );
 				}
 			}
-		} elseif ( $is_quick_edit ) {
-			// Only delete in quick edit if field is not present.
-			// In bulk edit, missing field means "no change".
-			delete_post_meta( $post_id, '_crp_manual_related' );
 		}
 
 		if ( isset( $_REQUEST['crp_exclude_this_post'] ) ) {

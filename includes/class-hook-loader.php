@@ -9,8 +9,8 @@
 
 namespace WebberZone\Contextual_Related_Posts;
 
-use WebberZone\Contextual_Related_Posts\Admin\Activator;
 use WebberZone\Contextual_Related_Posts\Frontend\Display;
+use WebberZone\Contextual_Related_Posts\Util\Cache;
 use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
 
 if ( ! defined( 'WPINC' ) ) {
@@ -44,6 +44,7 @@ final class Hook_Loader {
 		$this->register_init_hooks();
 		$this->register_content_hooks();
 		$this->register_query_hooks();
+		$this->register_cache_hooks();
 	}
 
 	/**
@@ -68,6 +69,16 @@ final class Hook_Loader {
 		Hook_Registry::add_filter( 'the_content', array( $this, 'content_filter' ), $priority );
 		Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), $priority );
 		Hook_Registry::add_filter( 'the_content_feed', array( $this, 'content_filter' ), $priority );
+	}
+
+	/**
+	 * Register cache-related hooks.
+	 *
+	 * @since 4.3.0
+	 */
+	private function register_cache_hooks(): void {
+		Hook_Registry::add_action( 'wp_trash_post', array( Cache::class, 'maybe_clear_cache_on_trash' ) );
+		Hook_Registry::add_action( 'untrashed_post', array( Cache::class, 'maybe_clear_cache_on_trash' ) );
 	}
 
 	/**
