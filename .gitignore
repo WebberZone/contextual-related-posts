@@ -16,3 +16,6 @@ composer.lock
 .commandcode/
 
 .devin/
+
+# Testing
+/.playwright-mcp
