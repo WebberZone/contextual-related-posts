@@ -4,9 +4,15 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Plugin Overview
 
-Contextual Related Posts Pro is a WordPress plugin that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Requires WordPress 6.6+, PHP 7.4+.
+Contextual Related Posts Pro is a WordPress plugin that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
 
 **Current work-in-progress version: 4.3.0.** Use `4.3.0` for all `@since` tags on new code until this version is released.
+
+webberzone.com: https://webberzone.com/plugins/contextual-related-posts/
+
+Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
+
+Settings prefix/key: `crp` / `crp_settings` (wp_options). Access via `crp_get_option($key)` / `crp_get_settings()`.
 
 ## Commands
 
@@ -17,6 +23,7 @@ composer phpcbf         # Auto-fix PHP code style
 composer phpstan        # Static analysis (level 5)
 composer phpcompat      # Check PHP 7.4–8.5 compatibility
 composer test           # Run all checks (phpcs + phpcompat + phpstan)
+composer zip            # Create distribution zip
 ```
 
 ### JavaScript/CSS Blocks
@@ -26,14 +33,10 @@ npm run build:pro       # Build pro blocks (query, featured-image, related-posts
 npm run build:all       # Build all blocks
 npm start               # Watch free blocks
 npm run start:pro       # Watch pro blocks
+npm run build:assets    # Minify CSS/JS, generate RTL CSS (node build-assets.js)
 npm run lint:js         # ESLint
 npm run lint:css        # Stylelint
 npm run zip             # Create distribution zip
-```
-
-### Asset Building
-```bash
-node build-assets.js    # Minify CSS/JS, generate RTL CSS
 ```
 
 ## Architecture
