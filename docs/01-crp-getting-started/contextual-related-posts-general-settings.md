@@ -74,6 +74,10 @@ Adds the Contextual Related Posts metabox on Edit Posts or Add New Posts screens
 
 If enabled, the meta box will be hidden from anyone who is not an Admin. By default, Contributors and above can see the meta box. Applies only if the above option is enabled.
 
+### Show metabox on these post types *(Pro only)*
+
+Select the post types on which the Contextual Related Posts metabox is displayed. If none are selected, the metabox is shown on all public post types.
+
 ### Link to Contextual Related Posts plugin page
 
 A no-follow link to the plugin homepage will be added as the last item of the related posts.
