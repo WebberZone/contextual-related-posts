@@ -29,6 +29,20 @@ class Helpers {
 	}
 
 	/**
+	 * Check if the current database driver is SQLite.
+	 *
+	 * Used to disable MySQL-specific features (FULLTEXT search, SHOW INDEX, etc.)
+	 * when running on SQLite, e.g. in WordPress Playground.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return bool True if SQLite is the active database driver.
+	 */
+	public static function is_sqlite(): bool {
+		return defined( 'DATABASE_TYPE' ) && 'sqlite' === DATABASE_TYPE;
+	}
+
+	/**
 	 * Convert a string to CSV.
 	 *
 	 * @since 3.5.0
