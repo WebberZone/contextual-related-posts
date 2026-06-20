@@ -199,15 +199,16 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 = 4.3.0 =
 
 * New features:
-	* New "Clear cache when a post is trashed or restored" toggle (off by default) under the Performance tab. When enabled, the entire CRP cache is cleared on the `wp_trash_post` and `untrashed_post` transitions, so stale related-posts lists no longer continue to show trashed posts with broken links or missing thumbnails until the cache TTL expires.
-	* [Pro] New "Keyword" setting on the Related Posts block and the CRP Query Loop block: enter a word or phrase to find related posts using that keyword instead of the title and content of the current post, matching the existing metabox behaviour. The advanced algorithm honours the keyword on both the custom tables and native tables paths.
-	* [Pro] Lazy load related posts: a new setting under the Performance tab loads the related posts via JavaScript only when they are about to enter the viewport. This speeds up the initial page load and plays better with page caching plugins. Note: search engines may not index the related posts links when this is enabled, since they are no longer part of the initial HTML. Applies to all display methods — content, shortcode, widget and the Related Posts block — with the configured options preserved via a signed payload. The Query Loop block variation is rendered by WordPress core and is not lazy loaded. Use `lazy_load="0"` in the shortcode (or the `crp_lazy_load` filter) to disable it per instance. Skipped on feeds and AMP pages.
-	* [Pro] Cart Related Products: displays a grid of contextually related products on the WooCommerce cart page when the cart subtotal is below the free shipping threshold. Products are filtered to a configurable price band anchored to the gap-to-free-shipping, and ranked by CRP relevance using the most expensive cart item as the source. Configurable options include product count, price upper-bound percentage, custom heading, and cart page hook position. Coupon discounts are correctly accounted for when calculating the gap.
+	* Added a "Clear cache when a post is trashed or restored" setting (Performance tab) that flushes the entire CRP cache on the `wp_trash_post` and `untrashed_post` transitions.
+	* [Pro] Added a "Keyword" setting to the Related Posts block and the CRP Query Loop block, matching the existing metabox behaviour.
+	* [Pro] Added lazy loading for related posts: outputs are fetched via JavaScript as they approach the viewport, improving initial page load and full-page-cache compatibility. The Query Loop block is excluded because it is rendered by core. Use `lazy_load="0"` in the shortcode or the `crp_lazy_load` filter to disable it per instance.
+	* [Pro] Added WooCommerce Cart Related Products: shows a related-products grid on the cart page when the subtotal is below the free-shipping threshold.
+	* [Pro] Added an option to choose which post types display the related-posts metabox.
 
 * Modifications:
-	* Related posts with equal relevance scores are now returned in a stable order: post date and post ID are used as tiebreakers after the relevance score.
-	* New `crp_pre_related_posts` filter to short-circuit the related posts output for all display methods. The lazy load feature uses this; developers can return a non-null value to replace the output entirely.
-	* [Pro] New REST API endpoint `contextual-related-posts/v1/posts/<id>/html` that returns the rendered related posts HTML. Display arguments are only honoured when accompanied by a valid signature generated during a server-side render.
+	* Related posts with equal relevance scores are now ordered deterministically by post date and post ID.
+	* Added the `crp_pre_related_posts` filter so developers can short-circuit the related posts output for all display methods.
+	* [Pro] Added REST API endpoint `contextual-related-posts/v1/posts/<id>/html` to return rendered related posts HTML; display arguments require a valid signature.
 
 = 4.2.4 (2026-06-06) =
 

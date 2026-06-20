@@ -341,6 +341,14 @@ class Settings {
 				'type'    => 'checkbox',
 				'default' => false,
 			),
+			'metabox_post_types'           => array(
+				'id'      => 'metabox_post_types',
+				'name'    => esc_html__( 'Show metabox on these post types', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Select the post types on which the Contextual Related Posts metabox should be displayed. If none are selected, the metabox will be shown on all public post types.', 'contextual-related-posts' ),
+				'type'    => 'posttypes',
+				'default' => '',
+				'pro'     => true,
+			),
 			'show_credit'                  => array(
 				'id'      => 'show_credit',
 				'name'    => esc_html__( 'Link to Contextual Related Posts plugin page', 'contextual-related-posts' ),

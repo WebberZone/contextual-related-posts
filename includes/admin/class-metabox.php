@@ -66,10 +66,8 @@ class Metabox {
 			return;
 		}
 
-		$args       = array(
-			'public' => true,
-		);
-		$post_types = get_post_types( $args );
+		$metabox_post_types = \crp_get_option( 'metabox_post_types' );
+		$post_types         = $metabox_post_types ? wp_parse_list( $metabox_post_types ) : get_post_types( array( 'public' => true ), 'names' );
 
 		/**
 		 * Filter post types on which the meta box is displayed
