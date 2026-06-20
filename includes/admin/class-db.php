@@ -7,6 +7,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Util\Helpers;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -87,6 +89,10 @@ class Db {
 	 * @since 3.5.0
 	 */
 	public static function create_fulltext_indexes() {
+		if ( Helpers::is_sqlite() ) {
+			return;
+		}
+
 		// Get the list of fulltext indexes.
 		$indexes = self::get_fulltext_indexes();
 
@@ -125,6 +131,10 @@ class Db {
 	 * @return bool True if the index exists, false otherwise.
 	 */
 	public static function is_index_installed( $index ) {
+		if ( Helpers::is_sqlite() ) {
+			return true;
+		}
+
 		global $wpdb;
 
 		$new_indexes = self::get_fulltext_indexes();

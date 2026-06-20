@@ -615,7 +615,11 @@ class CRP_Core_Query {
 		$this->stuff        = implode( ' ', $match_fields_content );
 
 		// Create the base MATCH clause.
-		$match = $wpdb->prepare( ' MATCH (' . $this->match_fields . ') AGAINST (%s) ', $this->stuff ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		if ( Helpers::is_sqlite() ) {
+			$match = $this->get_sqlite_like_sql( array_map( 'trim', explode( ',', $this->match_fields ) ) );
+		} else {
+			$match = $wpdb->prepare( ' MATCH (' . $this->match_fields . ') AGAINST (%s) ', $this->stuff ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		}
 
 		/**
 		 * Filter the match SQL.
@@ -632,6 +636,37 @@ class CRP_Core_Query {
 	}
 
 	/**
+	 * Build a LIKE-based fallback for the MATCH clause when running on SQLite.
+	 *
+	 * Returns a boolean expression (1/0) that is valid in SELECT, WHERE, and
+	 * ORDER BY contexts — the same three places match_sql is reused.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @param string[] $fields Column names to search.
+	 * @return string SQL fragment.
+	 */
+	private function get_sqlite_like_sql( array $fields ): string {
+		global $wpdb;
+
+		$keywords = array_filter( preg_split( '/\s+/', $this->stuff ) );
+
+		if ( empty( $keywords ) || empty( $fields ) ) {
+			return '1';
+		}
+
+		$conditions = array();
+		foreach ( $fields as $field ) {
+			foreach ( $keywords as $keyword ) {
+				$like         = '%' . $wpdb->esc_like( $keyword ) . '%';
+				$conditions[] = $wpdb->prepare( "$field LIKE %s", $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			}
+		}
+
+		return '(' . implode( ' OR ', $conditions ) . ')';
+	}
+
+	/**
 	 * Check if MySQL is currently under heavy load.
 	 *
 	 * @since 4.2.0
@@ -639,6 +674,10 @@ class CRP_Core_Query {
 	 * @return bool True if the database is considered backlogged.
 	 */
 	public function is_backlogged() {
+
+		if ( Helpers::is_sqlite() ) {
+			return false;
+		}
 
 		$threshold = absint( $this->query_args['backlog_threshold'] ?? 0 );
 
