@@ -163,7 +163,7 @@ class Hook_Registry {
 	 * @param callable $callback  The callback function.
 	 * @param int      $priority  Priority of the hook.
 	 *
-	 * @return bool True if removed, false if not found or invalid hook.
+	 * @return bool True if removed, false if not found or removal failed.
 	 */
 	public static function remove_action( $hook_name, $callback, $priority = 10 ) {
 		return self::remove( 'action', $hook_name, $callback, $priority );
