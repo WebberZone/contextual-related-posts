@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-Contextual Related Posts has several customization options are available via the [Settings page](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/) in WordPress Admin. You can access this via **Settings » Related Posts**
+Contextual Related Posts has several customization options available via the [Settings page](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/) in WordPress Admin. You can access this via **Settings » Related Posts**
 
 A typical HTML output for the plugin is below. The plugin also provides you with a set of CSS classes that allow you to style your posts.
 

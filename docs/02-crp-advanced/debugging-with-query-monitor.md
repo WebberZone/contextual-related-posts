@@ -34,7 +34,7 @@ Navigate to the post where you noticed the problem, hit the new menu item, and s
 
 ![](https://webberz0ne.test/wp-content/uploads/2026/05/Query-Monitor-Menu.png)
 
-Next,, select Queries by Component. This screen gives you a list of queries based on the “component” that generated them. These will be plugins, the theme, and the WordPress Core.
+Next, select Queries by Component. This screen gives you a list of queries based on the “component” that generated them. These will be plugins, the theme, and the WordPress Core.
 
 ![](https://webberz0ne.test/wp-content/uploads/2026/05/Select-contextual-related-posts.png)
 

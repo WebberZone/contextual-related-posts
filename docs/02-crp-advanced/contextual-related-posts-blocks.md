@@ -43,6 +43,8 @@ The Related Posts block lets you preview the related posts directly in the block
 
 Contextual Related Posts Pro users will see an additional section in the block settings sidebar that allows them to save the existing block settings as default or clear the defaults.
 
+Pro users also get a **Keyword** field in the block sidebar. Enter a word or phrase here and the plugin uses it instead of the current post's title and content to find related posts — the same behavior as the Keyword field in the post-edit metabox.
+
 ## Using the Contextual Related Posts Query Loop Block
 
 This guide will familiarize you with the Core Query Loop Block included in WordPress. If not, the guide below should get you started using this block.
@@ -60,6 +62,7 @@ The Query Loop block allows you to customize the query that will be used to retr
 - **Order**: Toggle between Ascending and Descending.
 - **Filters – Taxonomy**: Filter the results by specific taxonomies (e.g., category, tag).
 - **Filters – Authors**: Filter the results by specific authors.
+- **Keyword**: Enter a word or phrase to find related posts using that keyword instead of the current post's title and content.
 
 ### 2. Customize the Layout
 
@@ -80,7 +83,7 @@ Once you do so, you’ll see the “Replace” button, allowing you to select fr
 
 ![Choose a Related Posts Pattern](https://webberz0ne.test/wp-content/uploads/2026/05/Choose-a-Related-Posts-Pattern-1024x527-1.webp)
 
-### 4. Add Additional Blocks
+### 3. Add Additional Blocks
 
 Within the Core Query Loop block, you can add additional blocks to display specific content for each post or page, such as:
 

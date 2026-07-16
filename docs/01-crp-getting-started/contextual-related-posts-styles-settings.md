@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-The **Styles** section contains a set of options that allow you to choose between various styles to customize the appearance of the related posts list. These are global settings, and many of these can be overridden in the widget or the shortcode.
+The **Styles** section in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) contains a set of options that allow you to choose between various styles to customize the appearance of the related posts list. These are global settings, and many of these can be overridden in the widget or the shortcode.
 
 ## Related posts style
 

@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-Contextual Related Posts v3.0.0 introduced CRP_Query, which works as a wrapper for [WP_Query](https://developer.wordpress.org/reference/classes/wp_query/). This brings all the power and flexibility of WP_Query to Contextual Related Posts. If you’re not familiar with WP_Query, I recommend [reading docs](https://developer.wordpress.org/reference/classes/wp_query/).
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) v3.0.0 introduced CRP_Query, which works as a wrapper for [WP_Query](https://developer.wordpress.org/reference/classes/wp_query/). This brings all the power and flexibility of WP_Query to Contextual Related Posts. If you’re not familiar with WP_Query, I recommend [reading docs](https://developer.wordpress.org/reference/classes/wp_query/).
 
 ## Standard Loop
 
@@ -52,4 +52,4 @@ In addition to the [WP_Query parameters](https://developer.wordpress.org/referen
 - **‘include_post_ids’**
 *(array|string)* An array or comma-separated string of post IDs.
 - **‘offset’**
-*(int)* number of posts to displace or pass over. Warning: Setting the offset parameter overrides/ignores the paged parameter, breaking pagination. The `'offset'` parameter is ignored when `'posts_per_page'=>-1` (show all posts) is used.
+*(int)* number of posts to displace or pass over. Setting the offset parameter overrides/ignores the paged parameter, breaking pagination. The `'offset'` parameter is ignored when `'posts_per_page'=>-1` (show all posts) is used.

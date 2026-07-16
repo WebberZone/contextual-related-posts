@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-Contextual Related Posts core plugin is hosted on WordPress.org. This makes installing it on your site extremely easy and just like any other plugin.
+[Contextual Related Posts](https://wordpress.org/plugins/contextual-related-posts/) core plugin is hosted on WordPress.org. This makes installing it on your site extremely easy and just like any other plugin.
 
 ## WordPress install (The easy way)
 
