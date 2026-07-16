@@ -198,6 +198,8 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.3.0 =
 
+Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-3-0/](https://webberzone.com/announcements/contextual-related-posts-v4-3-0/)
+
 * New features:
 	* New "Clear cache when a post is trashed or restored" toggle (off by default) under the Performance tab. When enabled, the entire CRP cache is cleared on the `wp_trash_post` and `untrashed_post` transitions, so stale related-posts lists no longer continue to show trashed posts with broken links or missing thumbnails until the cache TTL expires.
 	* [Pro] New "Keyword" setting on the Related Posts block and the CRP Query Loop block: enter a word or phrase to find related posts using that keyword instead of the title and content of the current post, matching the existing metabox behaviour. The advanced algorithm honours the keyword on both the custom tables and native tables paths.
