@@ -10,7 +10,7 @@ order: 0
 
 [kbtoc]
 
-The **List Tuning** is the second tab in the Contextual Related Posts settings screen and provides you with options that allow you to fine-tune the items in the related posts list.
+The **List Tuning** is the second tab in the [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) settings screen and provides you with options that allow you to fine-tune the items in the related posts list.
 
 ## General List Settings
 
@@ -128,7 +128,7 @@ The field above has an autocomplete. Start typing in the starting letters, and i
 
 ### Exclude Term Taxonomy IDs
 
-This field is read-only and will be filled automatically based on your selections above when you save the settings. Note: The values here are term taxonomy IDs, which are different from the term IDs shown on the Categories page. Each term taxonomy ID uniquely identifies the term within its taxonomy, which Contextual Related Posts requires for accuracy.
+This field is read-only and will be filled automatically based on your selections above when you save the settings. The values here are term taxonomy IDs, which are different from the term IDs shown on the Categories page — each term taxonomy ID uniquely identifies the term within its taxonomy, which Contextual Related Posts requires for accuracy.
 
 ## Advanced Options
 

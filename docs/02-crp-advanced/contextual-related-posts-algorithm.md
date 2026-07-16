@@ -10,7 +10,7 @@ order: 0
 
 [kbtoc]
 
-Contextual Related Posts (CRP) boosts user engagement by displaying relevant posts at the end of each article. Its algorithm taps into MySQL’s full-text search to deliver smart, context-aware suggestions.
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) (CRP) boosts user engagement by displaying relevant posts at the end of each article. Its algorithm taps into MySQL’s full-text search to deliver smart, context-aware suggestions.
 
 ## Core Functionality
 

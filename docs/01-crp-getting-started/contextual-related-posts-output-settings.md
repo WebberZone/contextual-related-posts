@@ -10,7 +10,7 @@ order: 0
 
 [kbtoc]
 
-The **Output** tab allows you to configure the display of the related posts.
+The **Output** tab in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) allows you to configure the display of the related posts.
 
 ## Output settings
 

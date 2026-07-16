@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-Since v3.1.0, Contextual Related Posts has included support for viewing the related posts via the [WordPress REST API](https://developer.wordpress.org/rest-api/).
+Since v3.1.0, [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) has included support for viewing the related posts via the [WordPress REST API](https://developer.wordpress.org/rest-api/).
 
 The plugin registers one namespace i.e. `contextual-related-posts/v1` that can be used to retrieve the related posts for a particular post ID.
 

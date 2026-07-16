@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-The **Feed** tab in the settings page allows you to set the related posts settings for posts that appear in your WordPress site feed. This only applies if you choose to automatically display the posts in your feed via the settings under the [General tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/).
+The **Feed** tab in the [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) settings page allows you to set the related posts settings for posts that appear in your WordPress site feed. This only applies if you choose to automatically display the posts in your feed via the settings under the [General tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/).
 
 ## Number of posts to display
 

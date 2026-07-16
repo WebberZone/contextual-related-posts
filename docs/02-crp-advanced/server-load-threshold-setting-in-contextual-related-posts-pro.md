@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-The **Server Load Threshold** setting was introduced in Contextual Related Posts Pro v4.2.0 and exists for one simple reason: your database should stay responsive, even when traffic spikes.
+The **Server Load Threshold** setting was introduced in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) Pro v4.2.0 and exists for one simple reason: your database should stay responsive, even when traffic spikes.
 
 > [!NOTE]
 > ⓘ Related posts are useful. They are not essential to serving a page. When the database is already under pressure, CRP Pro steps aside rather than make things worse.

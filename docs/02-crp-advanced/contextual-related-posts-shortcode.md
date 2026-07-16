@@ -8,7 +8,7 @@ status: publish
 order: 0
 ---
 
-Contextual Related Posts includes a shortcode the related posts list. If you’re not familiar with shortcodes, please read [this article in the WordPress Codex](https://codex.wordpress.org/Shortcode).
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) includes a shortcode to display the related posts list. If you’re not familiar with shortcodes, please read [this article in the WordPress Codex](https://codex.wordpress.org/Shortcode).
 
 ## [crp]
 
@@ -35,7 +35,7 @@ This shortcode lets you insert the contextually related posts anywhere in your p
 | ordering | String | Options for ordering related posts: relevance, random, date. |
 | same_post_type | Boolean | Limit to the same post type. 1 to include, 0 to exclude. |
 | same_author | Boolean | Limit to the same post author. 1 to include, 0 to exclude. |
-| include_cat_ids | String | Comma-separated list of term_taxonomy_id for categories and custom taxonomies. Related posts will only selected from these taxonomies. If you have an older WordPress install, this might differ from the term_id. |
+| include_cat_ids | String | Comma-separated list of term_taxonomy_id for categories and custom taxonomies. Related posts will only be selected from these taxonomies. If you have an older WordPress install, this might differ from the term_id. |
 | include_post_ids | String | Comma-separated list of post IDs to always include in the selection. |
 | display_only_on_tax_ids *(pro only)* | String | Comma-separated list of term_taxonomy_id for categories and custom taxonomies. Limit the display of the related posts to only these taxonomies. If you have an older WordPress install, this might differ from the term_id. |
 | lazy_load *(pro only)* | Boolean | Override the global [Lazy load related posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) setting for this instance. 1 to lazy load, 0 to render inline. Omit to follow the global setting. |

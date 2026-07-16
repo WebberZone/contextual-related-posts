@@ -28,7 +28,7 @@ This guide assumes familiarity with basic WooCommerce and CRP Pro concepts, as w
 
 ## Overview of the integration
 
-The WooCommerce integration does more than display products as related items. It adapts CRP’s matching logic to work with WooCommerce product data and catalog rules, creating a product recommendation system that behaves like native WooCommerce functionality. Except it’s better!
+The WooCommerce integration does more than display products as related items. It adapts CRP’s matching logic to work with WooCommerce product data and catalog rules, creating a product recommendation system that behaves like native WooCommerce functionality.
 
 Specifically, the integration:
 
@@ -213,6 +213,8 @@ The base WooCommerce integration must also be enabled.
 
 CRP resolves the free shipping threshold from the WooCommerce shipping zone matched to the customer's current package. For guests with no address on file, it falls back to the lowest `min_amount` across all zones so the nudge still appears on single-zone stores. If no free shipping method applies, the section is suppressed.
 
+The remaining gap is calculated from the cart's displayed subtotal minus any applied coupon discount (and its tax portion, when prices are displayed including tax), mirroring how WooCommerce itself checks the free shipping threshold. This keeps the suggested gap accurate when a customer has a discount coupon applied.
+
 The most expensive product in the cart is used as the relevance anchor for CRP's FULLTEXT ranking. Products already in the cart are excluded, and the existing **Exclude hidden products** and **Exclude out-of-stock products** settings apply.
 
 CRP queries two price bands and mixes the results:
@@ -280,7 +282,7 @@ add_filter( 'crp_wc_cart_related_products_html', function( string $output, float
 
 ### Styling
 
-The cart section is wrapped in `<section class="crp-cart-related-products crp-cart-position-{position}">`, where `{position}` reflects the chosen cart display position — for example `crp-cart-position-after_cart_table` or `crp-cart-position-cart_collaterals`. CRP injects scoped inline styles on the cart page to normalise image sizes, apply responsive grid layouts per position, and ensure add-to-cart buttons remain visible.
+The cart section is wrapped in `<section class="crp-cart-related-products crp-cart-position-{position}">`, where `{position}` reflects the chosen cart display position — for example `crp-cart-position-after_cart_table` or `crp-cart-position-cart_collaterals`. CRP injects scoped inline styles on the cart page to normalize image sizes, apply responsive grid layouts per position, and ensure add-to-cart buttons remain visible.
 
 Target `.crp-cart-related-products` in your theme CSS to override defaults, or use the position-specific class (`.crp-cart-position-after_cart_table`, `.crp-cart-position-cart_collaterals`, etc.) to apply overrides only for a particular cart hook.
 

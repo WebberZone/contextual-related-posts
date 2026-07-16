@@ -22,7 +22,7 @@ The trade-off: the related posts links are inserted by JavaScript, so search eng
 
 Enable **Lazy load related posts** *(Pro only)* in the [Performance tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/) of the settings page. The setting applies to all display methods: the content filter, shortcode, widget, and block.
 
-Lazy loading is automatically skipped where it cannot work — feeds, AMP pages, admin requests, REST and AJAX requests, and WP-CLI — and the related posts render inline instead.
+Lazy loading is automatically skipped where it cannot work — feeds, AMP pages, admin requests, REST, AJAX and cron requests, and WP-CLI — and the related posts render inline instead.
 
 ## Per-instance override
 

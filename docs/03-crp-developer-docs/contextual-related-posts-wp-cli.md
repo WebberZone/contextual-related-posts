@@ -226,7 +226,7 @@ wp crp db migrate-meta --network
 
 Rollback meta migration from individual keys back to array format.
 
-**Note:** This command will be removed in version v4.3.0. Not recommended for production sites.
+This command will be removed in version v4.3.0 and is not recommended for production sites.
 
 **Options:**
 
