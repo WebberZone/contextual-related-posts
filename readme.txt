@@ -196,7 +196,9 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
-= 4.3.0 =
+= 4.3.0 (2026-07-17) =
+
+*Release Date - 17 July 2026*
 
 Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-3-0/](https://webberzone.com/announcements/contextual-related-posts-v4-3-0/)
 
