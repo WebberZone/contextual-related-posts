@@ -27,7 +27,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.9.0';
+	public const VERSION = '2.10.1';
 
 	/**
 	 * Settings Key.
@@ -72,6 +72,14 @@ class Settings_API {
 	 * @var string Default navigation tab.
 	 */
 	protected $default_tab;
+
+	/**
+	 * Version used for cache-busting enqueued assets. Pass the plugin's own
+	 * version via props so every plugin release refreshes browser caches.
+	 *
+	 * @var string
+	 */
+	protected $version = self::VERSION;
 
 	/**
 	 * Settings page.
@@ -218,6 +226,7 @@ class Settings_API {
 			'admin_footer_text' => '',
 			'help_sidebar'      => '',
 			'help_tabs'         => array(),
+			'version'           => self::VERSION,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -241,7 +250,6 @@ class Settings_API {
 	 *     @type string $save_changes         Save changes button label.
 	 *     @type string $reset_settings       Reset settings button label.
 	 *     @type string $reset_button_confirm Reset button confirmation message.
-	 *     @type string $checkbox_modified    Checkbox modified label.
 	 * }
 	 *
 	 * @return void
@@ -256,7 +264,6 @@ class Settings_API {
 			'save_changes'          => 'Save Changes',
 			'reset_settings'        => 'Reset all settings',
 			'reset_button_confirm'  => 'Do you really want to reset all these settings to their default values?',
-			'checkbox_modified'     => 'Modified from default setting',
 			'button_label'          => 'Choose File',
 			'previous_saved'        => 'Previously saved',
 			'repeater_new_item'     => 'New Item',
@@ -484,28 +491,28 @@ class Settings_API {
 			'wz-' . $this->prefix . '-admin',
 			plugins_url( 'js/settings-admin-scripts' . $minimize . '.js', __FILE__ ),
 			array( 'jquery', 'wp-color-picker', 'jquery-ui-tabs' ),
-			self::VERSION,
+			$this->version,
 			true
 		);
 		wp_register_script(
 			'wz-' . $this->prefix . '-codemirror',
 			plugins_url( 'js/apply-cm' . $minimize . '.js', __FILE__ ),
 			array( 'jquery', 'underscore', 'code-editor' ),
-			self::VERSION,
+			$this->version,
 			true
 		);
 		wp_register_script(
 			'wz-' . $this->prefix . '-media-selector',
 			plugins_url( 'js/media-selector' . $minimize . '.js', __FILE__ ),
 			array( 'jquery', 'media-editor', 'media-views' ),
-			self::VERSION,
+			$this->version,
 			true
 		);
 		wp_register_style(
 			'wz-' . $this->prefix . '-admin',
 			plugins_url( 'css/admin-style' . $minimize . '.css', __FILE__ ),
 			array( 'wp-color-picker' ),
-			self::VERSION
+			$this->version
 		);
 
 		// Tom Select scripts and styles.
@@ -513,20 +520,20 @@ class Settings_API {
 			'wz-' . $this->prefix . '-tom-select',
 			plugins_url( 'css/tom-select.min.css', __FILE__ ),
 			array(),
-			self::VERSION
+			$this->version
 		);
 		wp_register_script(
 			'wz-' . $this->prefix . '-tom-select',
 			plugins_url( 'js/tom-select.complete.min.js', __FILE__ ),
 			array( 'jquery' ),
-			self::VERSION,
+			$this->version,
 			true
 		);
 		wp_register_script(
 			'wz-' . $this->prefix . '-tom-select-init',
 			plugin_dir_url( __FILE__ ) . 'js/tom-select-init' . $minimize . '.js',
 			array( 'jquery', 'wz-' . $this->prefix . '-tom-select' ),
-			self::VERSION,
+			$this->version,
 			true
 		);
 		wp_localize_script(
@@ -934,7 +941,7 @@ class Settings_API {
 
 				<div id="poststuff">
 				<div id="post-body" class="metabox-holder columns-2">
-				<div id="post-body-content">
+				<div id="post-body-content" class="wz-vertical-tabs">
 
 				<?php $this->show_navigation(); ?>
 				<?php $this->show_form(); ?>
@@ -970,7 +977,7 @@ class Settings_API {
 	public function show_navigation() {
 		$active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), $this->settings_sections ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : $this->default_tab; // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.NonceVerification.Recommended
 
-		$html = '<ul class="nav-tab-wrapper" style="padding:0">';
+		$html = '<ul class="nav-tab-wrapper">';
 
 		$count = count( $this->settings_sections );
 
@@ -984,7 +991,7 @@ class Settings_API {
 			$active = $active_tab === $tab_id ? ' ' : '';
 
 			$html .= sprintf(
-				'<li style="padding:0; border:0; margin:0;"><a href="#%s" title="%s" class="nav-tab %s">%s</a></li>',
+				'<li><a href="#%s" title="%s" class="nav-tab %s">%s</a></li>',
 				esc_attr( $tab_id ),
 				esc_attr( $tab_name ),
 				sanitize_html_class( $active ),
@@ -1054,6 +1061,7 @@ class Settings_API {
 					do_action( $this->prefix . '_settings_form_buttons', $tab_id, $tab_name, $this->settings_sections ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 					?>
 					</p>
+					<p class="wz-modified-legend"><span class="wz-modified-dot"></span><?php echo esc_html( $this->translation_strings['modified_legend'] ?? 'Setting modified from its default value' ); ?></p>
 				</div><!-- /#tab_id-->
 
 				<?php endforeach; ?>

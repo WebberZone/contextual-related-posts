@@ -264,6 +264,9 @@ class Admin {
 		return array(
 			'capability' => 'manage_options',
 			'prefix'     => 'crp',
+			'style'      => array(
+				'version' => WZ_CRP_VERSION,
+			),
 			'screen_ids' => array(
 				'settings_page_crp_options_page',
 				'tools_page_crp_tools_page',

@@ -82,7 +82,161 @@ class Settings_Form {
 		 */
 		$desc = apply_filters( $this->prefix . '_setting_field_description', $desc, $args ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
-		return $desc;
+		return $this->get_modified_indicator( $args ) . $desc . $this->get_default_description( $args );
+	}
+
+	/**
+	 * Get the "Default: value" explanation shown below a field's description.
+	 *
+	 * Checkbox/toggle fields are excluded - their default state is visible
+	 * from the toggle itself and the modified indicator.
+	 *
+	 * @param array $args Field arguments.
+	 * @return string Default description HTML or empty string.
+	 */
+	protected function get_default_description( $args ) {
+		$type = $args['type'] ?? 'text';
+
+		if ( in_array( $type, array( 'checkbox', 'toggle', 'header', 'descriptive_text', 'repeater' ), true ) ) {
+			return '';
+		}
+
+		$default = $this->get_field_default( $args );
+		if ( is_array( $default ) ) {
+			$default = implode( ',', array_map( 'strval', $default ) );
+		}
+		$default = trim( (string) $default );
+
+		// Map option keys to their labels where the field has a choices list.
+		if ( '' !== $default && ! empty( $args['options'] ) && is_array( $args['options'] ) ) {
+			if ( 'radiodesc' === $type ) {
+				foreach ( $args['options'] as $option ) {
+					if ( isset( $option['id'], $option['name'] ) && (string) $option['id'] === $default ) {
+						$default = (string) $option['name'];
+						break;
+					}
+				}
+			} elseif ( in_array( $type, array( 'select', 'radio' ), true ) ) {
+				if ( isset( $args['options'][ $default ] ) && is_string( $args['options'][ $default ] ) ) {
+					$default = $args['options'][ $default ];
+				}
+			} elseif ( 'multicheck' === $type ) {
+				$labels = array();
+				foreach ( explode( ',', $default ) as $key ) {
+					$key      = trim( $key );
+					$labels[] = isset( $args['options'][ $key ] ) && is_string( $args['options'][ $key ] ) ? $args['options'][ $key ] : $key;
+				}
+				$default = implode( ', ', $labels );
+			}
+		}
+
+		$label = $this->translation_strings['default_label'] ?? 'Default';
+		$none  = $this->translation_strings['default_none'] ?? 'None';
+
+		$value_html = '' === $default ? esc_html( $none ) : '<code>' . esc_html( $default ) . '</code>';
+
+		return '<p class="description wz-default-value">' . esc_html( $label ) . ': ' . $value_html . '</p>';
+	}
+
+	/**
+	 * Get the default value of a field, mirroring the back-compat logic in
+	 * Settings_API::settings_defaults().
+	 *
+	 * @param array $args Field arguments.
+	 * @return mixed Default value.
+	 */
+	protected function get_field_default( $args ) {
+		if ( isset( $args['default'] ) ) {
+			return $args['default'];
+		}
+
+		$type = $args['type'] ?? 'text';
+
+		// Back-compat: checkbox used a truthy 'options' to indicate checked by default.
+		if ( 'checkbox' === $type || 'toggle' === $type ) {
+			return empty( $args['options'] ) ? 0 : 1;
+		}
+
+		// Back-compat: legacy configs used 'options' to store default values for text-like fields.
+		if ( in_array( $type, array( 'textarea', 'css', 'html', 'text', 'url', 'csv', 'color', 'numbercsv', 'postids', 'posttypes', 'number', 'wysiwyg', 'file', 'password' ), true ) && isset( $args['options'] ) && is_scalar( $args['options'] ) ) {
+			return $args['options'];
+		}
+
+		return '';
+	}
+
+	/**
+	 * Whether the current value of a field differs from its default.
+	 *
+	 * @param array $args Field arguments.
+	 * @return bool True when the saved value does not match the default.
+	 */
+	protected function is_field_modified( $args ) {
+		$type = $args['type'] ?? 'text';
+
+		if ( in_array( $type, array( 'header', 'descriptive_text', 'repeater' ), true ) ) {
+			return false;
+		}
+
+		// Fields can opt out, e.g. when the default is environment-derived
+		// (URLs based on the plugin location) and literal comparison is noise.
+		if ( isset( $args['modified_indicator'] ) && false === $args['modified_indicator'] ) {
+			return false;
+		}
+
+		$default = $this->get_field_default( $args );
+		$value   = $this->get_field_value( $args );
+
+		if ( 'checkbox' === $type || 'toggle' === $type ) {
+			return (bool) $value !== (bool) $default;
+		}
+
+		if ( is_array( $value ) || is_array( $default ) || in_array( $type, array( 'multicheck', 'posttypes', 'taxonomies' ), true ) ) {
+			return $this->normalize_list_value( $value ) !== $this->normalize_list_value( $default );
+		}
+
+		return trim( (string) $value ) !== trim( (string) $default );
+	}
+
+	/**
+	 * Normalize a list-style value (array or comma-separated string) into a
+	 * sorted comma-separated string for comparison.
+	 *
+	 * @param mixed $value Value to normalize.
+	 * @return string Normalized value.
+	 */
+	protected function normalize_list_value( $value ) {
+		if ( is_array( $value ) ) {
+			$value = implode( ',', array_map( 'strval', $value ) );
+		}
+		$list = array_filter(
+			array_map( 'trim', explode( ',', (string) $value ) ),
+			static function ( $item ) {
+				return '' !== $item;
+			}
+		);
+		sort( $list );
+
+		return implode( ',', $list );
+	}
+
+	/**
+	 * Get the modified-from-default indicator for a field.
+	 *
+	 * Returns a small dot with a tooltip when the saved value differs from
+	 * the default; the legend below the form buttons explains it.
+	 *
+	 * @param array $args Field arguments.
+	 * @return string Indicator HTML or empty string.
+	 */
+	public function get_modified_indicator( $args ) {
+		if ( ! $this->is_field_modified( $args ) ) {
+			return '';
+		}
+
+		$title = $this->translation_strings['modified_field'] ?? 'Modified from default setting';
+
+		return sprintf( '<span class="wz-modified-dot" title="%s"></span>', esc_attr( $title ) );
 	}
 
 	/**
@@ -500,36 +654,69 @@ class Settings_Form {
 	/**
 	 * Display checkboxes.
 	 *
+	 * Renders as a toggle switch by default: a native checkbox wrapped in a
+	 * styled label. Pass `no-toggle` in `field_class` to render a plain
+	 * checkbox instead. Posting semantics are identical either way - a hidden
+	 * field posts -1 when unchecked and the checkbox posts 1 when checked.
+	 *
 	 * @param  array $args Array of arguments.
 	 * @return void
 	 */
 	public function callback_checkbox( $args ) {
-		$value    = $this->get_field_value( $args );
-		$checked  = ! empty( $value ) ? checked( 1, $value, false ) : '';
-		$default  = isset( $args['default'] ) ? (int) $args['default'] : '';
-		$disabled = $this->get_disabled_attribute( $args );
+		$value     = $this->get_field_value( $args );
+		$checked   = ! empty( $value ) ? checked( 1, $value, false ) : '';
+		$disabled  = $this->get_disabled_attribute( $args );
+		$class     = $this->get_field_class( $args );
+		$no_toggle = in_array( 'no-toggle', explode( ' ', $class ), true );
 
 		$field_attributes = $this->get_field_attributes( $args );
 
-		$html              = sprintf(
-			'<input type="hidden" name="%1$s" value="-1" />',
-			$field_attributes['field_name']
-		);
-		$html             .= sprintf(
-			'<input type="checkbox" id="%1$s" name="%2$s" value="1" %3$s %4$s />',
-			$field_attributes['field_id'],
+		// The hidden input is also disabled when the field is disabled so that
+		// the setting key is not saved at all and retains its default value.
+		$html = sprintf(
+			'<input type="hidden" name="%1$s" value="-1" %2$s />',
 			$field_attributes['field_name'],
-			$checked,
 			$disabled
 		);
-		$checkbox_modified = $this->translation_strings['checkbox_modified'] ?? 'Modified from default setting';
-		$html             .= ( (bool) $value !== (bool) $default ) ? '<em style="color:#9B0800">' . $checkbox_modified . '</em>' : '';
-		$html             .= $this->get_field_description( $args );
+
+		if ( $no_toggle ) {
+			$html .= sprintf(
+				'<input type="checkbox" id="%1$s" name="%2$s" value="1" class="%3$s" %4$s %5$s />',
+				$field_attributes['field_id'],
+				$field_attributes['field_name'],
+				$class,
+				$checked,
+				$disabled
+			);
+		} else {
+			$html .= sprintf(
+				'<label class="wz-toggle"><input type="checkbox" id="%1$s" name="%2$s" value="1" class="%3$s" %4$s %5$s /><span class="wz-toggle-slider"></span></label>',
+				$field_attributes['field_id'],
+				$field_attributes['field_name'],
+				$class,
+				$checked,
+				$disabled
+			);
+		}
+
+		$html .= $this->get_field_description( $args );
 
 		/**
 	* This filter has been defined in class-settings-api.php
 */
 		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
+	}
+
+	/**
+	 * Toggle Callback
+	 *
+	 * Alias of the checkbox type, which renders as a toggle switch.
+	 *
+	 * @param array $args Array of arguments.
+	 * @return void
+	 */
+	public function callback_toggle( $args ) {
+		$this->callback_checkbox( $args );
 	}
 
 	/**

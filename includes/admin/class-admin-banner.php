@@ -2,7 +2,7 @@
 /**
  * Admin Banner helper.
  *
- * @package WebberZone\CRP
+ * @package WebberZone\Contextual_Related_Posts
  */
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
@@ -18,11 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Copy-paste friendly: adjust namespaces and configuration per plugin.
  *
- * @since 4.2.2
+ * @since 2.10.1
  */
 class Admin_Banner {
 
-	private const DEFAULT_STYLE_VERSION = '1.0.0';
+	private const DEFAULT_STYLE_VERSION = '1.0.1';
 
 	/**
 	 * Configuration array for the banner output.
