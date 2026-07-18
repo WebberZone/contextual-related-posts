@@ -42,3 +42,13 @@ GET https://example.com/wp-json/contextual-related-posts/v1/posts/<id>/
 | same_author | Only retrieve posts from the same author as that of the post with the id as above |
 | exclude_post_ids | Comma-separated list of post IDs to exclude |
 | exclude_categories | Comma-separated list of Taxonomy IDs from which posts are excluded |
+
+## HTML endpoint (Pro)
+
+Contextual Related Posts Pro registers a second endpoint that returns the rendered related posts HTML instead of a list of post objects:
+
+```text
+GET https://example.com/wp-json/contextual-related-posts/v1/posts/<id>/html
+```
+
+This endpoint powers the [Lazy Load Related Posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) feature, so display arguments (`args`) are only honored when accompanied by a valid `sig` — an HMAC signature generated server-side when the placeholder is rendered. Requests without a matching signature fall back to the default arguments for that post; there is no way to render arbitrary arguments for a post from the client side.
