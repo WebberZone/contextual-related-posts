@@ -74,7 +74,10 @@ function crpHandleThumbnailStyleChange() {
             const elements = document.querySelectorAll(selector);
 
             if (elements.length > 0) {
-                const container = elements[0].closest('.form-field') || elements[0].parentElement;
+                const container = elements[0].closest('td');
+                if (!container) {
+                    return;
+                }
                 const existingMessage = container.querySelector('.crp-js-message');
 
                 if (isDisabled) {

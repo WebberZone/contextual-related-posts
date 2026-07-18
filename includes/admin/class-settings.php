@@ -125,7 +125,10 @@ class Settings {
 			'save_changes'         => esc_html__( 'Save Changes', 'contextual-related-posts' ),
 			'reset_settings'       => esc_html__( 'Reset all settings', 'contextual-related-posts' ),
 			'reset_button_confirm' => esc_html__( 'Do you really want to reset all these settings to their default values?', 'contextual-related-posts' ),
-			'checkbox_modified'    => esc_html__( 'Modified from default setting', 'contextual-related-posts' ),
+			'modified_field'       => esc_html__( 'Modified from default setting', 'contextual-related-posts' ),
+			'modified_legend'      => esc_html__( 'Setting modified from its default value', 'contextual-related-posts' ),
+			'default_label'        => esc_html__( 'Default', 'contextual-related-posts' ),
+			'default_none'         => esc_html__( 'None', 'contextual-related-posts' ),
 		);
 
 		/**

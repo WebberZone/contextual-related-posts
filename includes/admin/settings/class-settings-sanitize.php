@@ -198,6 +198,16 @@ class Settings_Sanitize {
 	}
 
 	/**
+	 * Sanitize toggle fields
+	 *
+	 * @param mixed $value The field value.
+	 * @return int  Sanitized value
+	 */
+	public function sanitize_toggle_field( $value ) {
+		return $this->sanitize_checkbox_field( $value );
+	}
+
+	/**
 	 * Sanitize multicheck fields
 	 *
 	 * @param  array|int $value The field value.
