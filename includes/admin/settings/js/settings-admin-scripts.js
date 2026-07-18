@@ -49,7 +49,7 @@ jQuery(document).ready(function ($) {
 		var thumbDefault = (typeof window[WZSettingsAdmin.prefix + '_admin'] !== 'undefined')
 			? window[WZSettingsAdmin.prefix + '_admin'].thumb_default
 			: '';
-		$('#' + settingsKey + '\\[thumb_default\\]').val(thumbDefault);
+		$('#' + settingsKey + '-thumb_default').val(thumbDefault);
 	});
 
 	// Reset formmodified on submit.
