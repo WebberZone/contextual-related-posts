@@ -17,7 +17,7 @@ order: 0
 3. Find the plugin in the list (usually the first result) and click “Install Now”
 4. Activate or Network activate the Plugin in WP-Admin under the Plugins screen
 
-![Installing Contextual Related Posts](https://webberz0ne.test/wp-content/uploads/2026/05/Installing-CRP.png)
+![Installing Contextual Related Posts](https://webberzone.com/wp-content/uploads/2015/07/Installing-CRP.png)
 
 ## Manual install
 
