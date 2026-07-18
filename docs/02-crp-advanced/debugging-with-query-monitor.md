@@ -1,8 +1,8 @@
 ---
 slug: debugging-with-query-monitor
 title: "Debugging with Query Monitor"
-products: [contextual-related-posts, top-10]
-sections: ["02-top-10-advanced", "02-crp-advanced"]
+products: [contextual-related-posts, top-10, better-search]
+sections: ["02-top-10-advanced", "02-crp-advanced", "02-bs-advanced"]
 tags: [debugging, query-monitor]
 status: publish
 featured_image: "https://webberzone.com/wp-content/uploads/2021/02/Install-Query-Monitor.png"
