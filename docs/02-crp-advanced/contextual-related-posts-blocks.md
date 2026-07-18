@@ -20,7 +20,7 @@ To add the Contextual Related Posts blocks, click the plus (+) icon in the block
 
 If you’re using the pro version, you will also see the “Contextual Related Posts Query Loop” in the list.
 
-![Insert Contextual Related Posts block](https://webberz0ne.test/wp-content/uploads/2026/05/Insert-Contextual-Related-Posts-block.webp)
+![Insert Contextual Related Posts block](https://webberzone.com/wp-content/uploads/2024/05/Insert-Contextual-Related-Posts-block.webp)
 
 ## Configuring the basic Gutenberg Block
 
@@ -77,11 +77,11 @@ The Query Loop block provides several layout options (patterns) to choose from, 
 
 To select a pattern, you can select the block using the navigation bar at the bottom left of the editor or the Parent block in the top/hover toolbar.
 
-![Block Editor Toolbar with the Replace button](https://webberz0ne.test/wp-content/uploads/2026/05/Block-Editor-Toolbar-with-the-Replace-button-1024x114-1.webp)
+![Block Editor Toolbar with the Replace button](https://webberzone.com/wp-content/uploads/2024/05/Block-Editor-Toolbar-with-the-Replace-button-1024x114.webp)
 
 Once you do so, you’ll see the “Replace” button, allowing you to select from the different patterns.
 
-![Choose a Related Posts Pattern](https://webberz0ne.test/wp-content/uploads/2026/05/Choose-a-Related-Posts-Pattern-1024x527-1.webp)
+![Choose a Related Posts Pattern](https://webberzone.com/wp-content/uploads/2024/05/Choose-a-Related-Posts-Pattern-1024x527.webp)
 
 ### 3. Add Additional Blocks
 

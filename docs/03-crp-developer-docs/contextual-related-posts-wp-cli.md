@@ -12,7 +12,7 @@ order: 0
 
 Contextual Related Posts CLI (CRP-CLI) offers an efficient way to manage Contextual Related Posts via the command line. This tool is part of [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) starting from version 4.2.0.
 
-![](https://webberz0ne.test/wp-content/uploads/2026/05/Contextual-Related-Posts-CLI-1024x683-1.webp)
+![](https://webberzone.com/wp-content/uploads/2025/12/Contextual-Related-Posts-CLI-1024x683.webp)
 
 ## About WP-CLI
 
