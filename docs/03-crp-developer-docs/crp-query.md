@@ -2,7 +2,7 @@
 slug: crp-query
 title: "Display related posts with CRP_Query"
 products: [contextual-related-posts]
-sections: ["02-crp-advanced"]
+sections: ["03-crp-developer-docs"]
 tags: [contextual-related-posts, crp_query]
 status: publish
 order: 0

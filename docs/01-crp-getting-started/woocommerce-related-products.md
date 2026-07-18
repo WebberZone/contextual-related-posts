@@ -177,7 +177,7 @@ The WooCommerce integration works alongside:
 - Cache management
 - WP-CLI commands for bulk operations
 
-## Cart Related Products *(Pro only)*
+## Cart Related Products
 
 When enabled, CRP displays a section on the WooCommerce cart page showing products the customer could add to reach the free shipping threshold. The section only appears when the cart subtotal is below the free shipping minimum for the customer's shipping zone.
 
