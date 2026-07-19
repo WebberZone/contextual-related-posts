@@ -34,6 +34,7 @@ jQuery(document).ready(function ($) {
 			activate: function (event, ui) {
 				$(ui.oldTab.find("a")).removeClass("nav-tab-active");
 				$(ui.newTab.find("a")).addClass("nav-tab-active");
+				window.scrollTo({ top: 0, behavior: 'smooth' });
 			}
 		});
 	});

@@ -108,8 +108,8 @@ class Settings_Form {
 		$default = trim( (string) $default );
 
 		// Map option keys to their labels where the field has a choices list.
-		if ( '' !== $default && ! empty( $args['options'] ) && is_array( $args['options'] ) ) {
-			if ( 'radiodesc' === $type ) {
+		if ( ! empty( $args['options'] ) && is_array( $args['options'] ) ) {
+			if ( 'radiodesc' === $type && '' !== $default ) {
 				foreach ( $args['options'] as $option ) {
 					if ( isset( $option['id'], $option['name'] ) && (string) $option['id'] === $default ) {
 						$default = (string) $option['name'];
@@ -120,7 +120,7 @@ class Settings_Form {
 				if ( isset( $args['options'][ $default ] ) && is_string( $args['options'][ $default ] ) ) {
 					$default = $args['options'][ $default ];
 				}
-			} elseif ( 'multicheck' === $type ) {
+			} elseif ( '' !== $default && 'multicheck' === $type ) {
 				$labels = array();
 				foreach ( explode( ',', $default ) as $key ) {
 					$key      = trim( $key );
