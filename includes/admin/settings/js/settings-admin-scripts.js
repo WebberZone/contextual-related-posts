@@ -39,6 +39,257 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
+	// Settings search: live-filters setting rows across all tabs.
+	(function () {
+		var $container = $('#post-body-content');
+		var $searchInput = $('#' + prefix + '-settings-search');
+		var $form = $('#' + prefix + '-settings-form');
+
+		if (!$searchInput.length || !$form.length || !$container.length) {
+			return;
+		}
+
+		var $panels = $form.children('div[id]');
+		var $navLinks = $container.find('> ul.nav-tab-wrapper a.nav-tab');
+		var $clearButton = $container.find('.wz-settings-search-clear');
+		var $status = $container.find('.wz-settings-search-status');
+		var strings = (typeof WZSettingsAdmin !== 'undefined' && WZSettingsAdmin.strings) || {};
+		var $noResults = null;
+		var $actionsBar = null;
+		var indexBuilt = false;
+		var debounceTimer = null;
+
+		function getRows($panel) {
+			return $panel.children('table.form-table').find('> tbody > tr, > tr');
+		}
+
+		// Build a searchable text string per row once, on first search.
+		// Strips noise (select options, dropdown widgets, code editors) and adds input ids/names.
+		function buildIndex() {
+			$panels.each(function () {
+				getRows($(this)).each(function () {
+					var $row = $(this);
+					var $clone = $row.clone();
+					$clone.find('option, script, style, template, .ts-dropdown, .CodeMirror').remove();
+					var text = $clone.text() + ' ';
+					$row.find(':input[id], :input[name]').each(function () {
+						text += ' ' + (this.id || '') + ' ' + (this.name || '');
+					});
+					$row.data('wzSearchText', text.toLowerCase());
+				});
+			});
+			indexBuilt = true;
+		}
+
+		function clearHighlights() {
+			$form.find('mark.wz-search-mark').each(function () {
+				var parent = this.parentNode;
+				$(this).replaceWith(document.createTextNode($(this).text()));
+				parent.normalize();
+			});
+		}
+
+		// Elements the highlighter must never descend into.
+		var highlightSkip = 'input, textarea, select, button, script, style, template, mark, .CodeMirror, .ts-wrapper, .wp-picker-container, .wz-repeater-wrapper';
+
+		// Wrap the first occurrence of query in each matching text node with <mark>.
+		function highlightTerm($el, query) {
+			$el.contents().each(function () {
+				if (3 === this.nodeType) {
+					var text = this.nodeValue;
+					var idx = text.toLowerCase().indexOf(query);
+					if (-1 !== idx) {
+						var matched = text.slice(idx, idx + query.length);
+						var afterNode = document.createTextNode(text.slice(idx + query.length));
+						var mark = $('<mark class="wz-search-mark"></mark>').text(matched);
+						this.nodeValue = text.slice(0, idx);
+						$(this).after(afterNode).after(mark);
+					}
+				} else if (1 === this.nodeType && !$(this).is(highlightSkip)) {
+					highlightTerm($(this), query);
+				}
+			});
+		}
+
+		function updateTabBadge(panelId, count) {
+			var $link = $navLinks.filter('[href="#' + panelId + '"]');
+			if (!$link.length) {
+				return;
+			}
+			var $badge = $link.find('.wz-tab-count');
+			if (0 === count) {
+				$badge.remove();
+			} else {
+				if (!$badge.length) {
+					$badge = $('<span class="wz-tab-count"><span class="wz-tab-count-number"></span><span class="screen-reader-text"></span></span>').appendTo($link);
+					$badge.find('.screen-reader-text').text(' ' + (strings.search_matches_label || 'matching settings'));
+				}
+				$badge.find('.wz-tab-count-number').text(count);
+			}
+			$link.toggleClass('wz-tab-no-matches', 0 === count);
+		}
+
+		// Announce the result count to screen readers via the polite live region.
+		function announceResults(total) {
+			var template;
+			if (0 === total) {
+				template = strings.search_no_results || 'No settings found.';
+			} else if (1 === total) {
+				template = strings.search_results_single || '%d setting found.';
+			} else {
+				template = strings.search_results_plural || '%d settings found.';
+			}
+			$status.text(template.replace('%d', total));
+		}
+
+		// Single Save Changes bar shown while searching, replacing the hidden per-tab button rows.
+		function toggleActionsBar(show) {
+			if (show && !$actionsBar) {
+				var $save = $form.find('input[type="submit"][name="submit"]').first().clone().removeAttr('id');
+				if (!$save.length) {
+					return;
+				}
+				$actionsBar = $('<p class="wz-search-actions"></p>').append($save).appendTo($form);
+			}
+			if ($actionsBar) {
+				$actionsBar.toggle(show);
+			}
+		}
+
+		function toggleNoResults(show) {
+			if (show && !$noResults) {
+				$noResults = $('<p class="wz-search-no-results"></p>')
+					.text(strings.search_no_results || 'No settings found.')
+					.appendTo($form);
+			}
+			if ($noResults) {
+				$noResults.toggle(show);
+			}
+		}
+
+		function resetSearch() {
+			$container.removeClass('wz-searching');
+			clearHighlights();
+			$form.find('.wz-search-hidden').removeClass('wz-search-hidden');
+			$form.find('.wz-search-match').removeClass('wz-search-match');
+			$panels.removeClass('wz-has-matches');
+			$navLinks.removeClass('wz-tab-no-matches').find('.wz-tab-count').remove();
+			toggleNoResults(false);
+			toggleActionsBar(false);
+			$clearButton.prop('hidden', true);
+			$status.text('');
+		}
+
+		function applySearch() {
+			var query = $.trim($searchInput.val()).toLowerCase();
+
+			if (!query) {
+				resetSearch();
+				return;
+			}
+
+			if (!indexBuilt) {
+				buildIndex();
+			}
+
+			clearHighlights();
+			$container.addClass('wz-searching');
+
+			var total = 0;
+
+			$panels.each(function () {
+				var $panel = $(this);
+				var $rows = getRows($panel);
+				var count = 0;
+
+				$rows.each(function () {
+					var $row = $(this);
+					var matched = -1 !== ($row.data('wzSearchText') || '').indexOf(query);
+					$row.toggleClass('wz-search-match', matched).toggleClass('wz-search-hidden', !matched);
+					if (matched) {
+						count++;
+					}
+				});
+
+				// Keep a section header visible when any row in its group matched.
+				$rows.filter('.wz-settings-header-row').each(function () {
+					var $header = $(this);
+					if ($header.hasClass('wz-search-match')) {
+						return;
+					}
+					var groupHasMatch = $header.nextUntil('.wz-settings-header-row').filter('.wz-search-match').length > 0;
+					if (groupHasMatch) {
+						$header.removeClass('wz-search-hidden');
+					}
+				});
+
+				$panel.toggleClass('wz-has-matches', count > 0);
+				updateTabBadge($panel.attr('id'), count);
+				total += count;
+			});
+
+			// Highlight the matched term in the visible rows (labels and descriptions).
+			$form.find('tr.wz-search-match').children('th, td').each(function () {
+				highlightTerm($(this), query);
+			});
+
+			toggleNoResults(0 === total);
+			toggleActionsBar(total > 0);
+			$clearButton.prop('hidden', false);
+			announceResults(total);
+		}
+
+		// 'search' also fires when the native clear (x) button is used.
+		$searchInput.on('input search', function () {
+			clearTimeout(debounceTimer);
+			debounceTimer = setTimeout(applySearch, 200);
+		});
+
+		$searchInput.on('keydown', function (e) {
+			if ('Escape' === e.key) {
+				$(this).val('');
+				applySearch();
+			}
+		});
+
+		// Clear button: reset the search and return focus to the input.
+		$clearButton.on('click', function () {
+			$searchInput.val('');
+			applySearch();
+			$searchInput.trigger('focus');
+		});
+
+		// While searching, tab clicks scroll to that tab's results instead of switching tabs.
+		// Capture-phase listener so it runs before, and blocks, the jQuery UI Tabs handlers.
+		var navWrapper = $container.find('> ul.nav-tab-wrapper').get(0);
+		if (navWrapper) {
+			navWrapper.addEventListener(
+				'click',
+				function (e) {
+					if (!$container.hasClass('wz-searching')) {
+						return;
+					}
+					var link = e.target.closest ? e.target.closest('a.nav-tab') : null;
+					if (!link) {
+						return;
+					}
+					e.preventDefault();
+					e.stopPropagation();
+					var $panel = $(link.getAttribute('href'));
+					if ($panel.hasClass('wz-has-matches')) {
+						// Move focus to the section heading for keyboard/screen-reader users.
+						var title = $panel.find('.wz-section-title').get(0);
+						if (title) {
+							title.focus({ preventScroll: true });
+						}
+						window.scrollTo({ top: $panel.offset().top - 80, behavior: 'smooth' });
+					}
+				},
+				true
+			);
+		}
+	})();
+
 	// Initialize ColorPicker.
 	$('.color-field').each(function (i, element) {
 		$(element).wpColorPicker();
