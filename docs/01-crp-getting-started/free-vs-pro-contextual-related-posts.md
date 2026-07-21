@@ -21,6 +21,7 @@ Contextual Related Posts is free to use and packed with features right out of th
 | [Basic Gutenberg block](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/) | ✅ | ✅ |
 | [Inbuilt styles / layout options](https://webberzone.com/support/knowledgebase/contextual-related-posts-styles-settings/) | ✅ | ✅ |
 | [Thumbnail support with fallback logic](https://webberzone.com/support/knowledgebase/contextual-related-posts-thumbnail-settings/) | ✅ | ✅ |
+| ACF field as a thumbnail source in the fallback chain | ❌ | ✅ |
 | [Post and category exclusions](https://webberzone.com/support/knowledgebase/contextual-related-posts-list-tuning-settings/) | ✅ | ✅ |
 | Custom post type support | ✅ | ✅ |
 | [REST API](https://webberzone.com/support/knowledgebase/wp-rest-api-integration/) | ✅ | ✅ |
@@ -30,6 +31,7 @@ Contextual Related Posts is free to use and packed with features right out of th
 | [Configurable cache TTL (1 hour – 1 year)](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/) | ❌ | ✅ |
 | [High-performance custom database tables](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/) | ❌ | ✅ |
 | [Server load threshold](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/) | ❌ | ✅ |
+| MySQL `MAX_EXECUTION_TIME` query guard | ❌ | ✅ |
 | Bot protection | ❌ | ✅ |
 | [Lazy load related posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) | ❌ | ✅ |
 | **Content Matching** | | |
