@@ -58,7 +58,7 @@ The value of this field should contain the URL of the image and can be set in th
 
 ## ACF field name *(Pro only)*
 
-If you use [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/), enter the ACF field name that contains the thumbnail image. This takes priority over the standard thumbnail meta field when set.
+If you use [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/), enter the ACF field name that contains the thumbnail image. Supports Image Array, Image ID, Image URL, and Text field return formats. This is checked after the standard thumbnail meta field above.
 
 ## Get the first image
 

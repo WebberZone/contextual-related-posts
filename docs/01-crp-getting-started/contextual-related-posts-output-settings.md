@@ -84,7 +84,7 @@ Comma-separated list of post, page or custom post type IDs. e.g. 188,320,500
 
 The related posts will not display on any of the selected post types.
 
-### Exclude on Terms
+### Exclude Categories
 
 The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.
 

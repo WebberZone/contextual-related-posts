@@ -85,7 +85,7 @@ Sets the maximum number of active MySQL threads (`Threads_running`) allowed befo
 
 ### Meta Keys to Index
 
-- **Type:** Text (Pro)
+- **Type:** Autocomplete/tag input (Pro)
 - **Description:**
 Comma-separated list of post meta keys whose values should be included when indexing content into the custom ECSI tables. Useful for indexing custom field content alongside post titles and body text.
 

@@ -122,13 +122,9 @@ Enter a comma-separated list of meta keys. Posts that match the exact value of t
 
 Comma-separated list of post or page IDs to exclude from the list. e.g. 188,320,500
 
-### Exclude Terms
+### Exclude Categories
 
 The field above has an autocomplete. Start typing in the starting letters, and it will prompt you with options. This field requires a specific format as displayed by the autocomplete.
-
-### Exclude Term Taxonomy IDs
-
-This field is read-only and will be filled automatically based on your selections above when you save the settings. The values here are term taxonomy IDs, which are different from the term IDs shown on the Categories page — each term taxonomy ID uniquely identifies the term within its taxonomy, which Contextual Related Posts requires for accuracy.
 
 ## Advanced Options
 
