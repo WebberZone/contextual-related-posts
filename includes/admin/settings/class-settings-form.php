@@ -16,6 +16,8 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * Generates the settings form.
+ *
+ * @since 3.5.0
  */
 class Settings_Form {
 
@@ -1371,8 +1373,6 @@ class Settings_Form {
 
 	/**
 	 * Display sensitive fields.
-	 *
-	 * @since 1.0.0
 	 *
 	 * @param array $args Array of arguments.
 	 */
