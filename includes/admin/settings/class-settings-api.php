@@ -956,7 +956,7 @@ class Settings_API {
 				?>
 
 				<div id="poststuff">
-				<div id="post-body" class="metabox-holder columns-2">
+				<div id="post-body" class="metabox-holder columns-2 wz-settings-post-body">
 				<div id="post-body-content" class="wz-vertical-tabs">
 
 				<?php $this->show_navigation(); ?>

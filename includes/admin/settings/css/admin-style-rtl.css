@@ -334,10 +334,32 @@
 	opacity: 0.5;
 }
 
+/*
+ * Settings page layout: content + sidebar, side by side.
+ *
+ * WP core lays out #post-body-content and #postbox-container-1 via floats, but a float can
+ * only avoid floats that precede it in source order — #post-body-content comes first, so it
+ * has nothing to avoid and renders at full width, overlapping the sidebar that floats beside
+ * it. Flexbox sidesteps the ordering problem entirely and (with align-items: flex-start) still
+ * lets the sidebar be shorter than the tab content, matching the old float layout's look.
+ */
+#post-body.wz-settings-post-body {
+	display: flex;
+	align-items: flex-start;
+	gap: 24px;
+}
+
+#post-body.wz-settings-post-body > #postbox-container-1 {
+	flex: 0 0 280px;
+	width: 280px;
+}
+
 /* Vertical settings tabs. */
 .wz-vertical-tabs {
 	display: flex;
 	align-items: flex-start;
+	flex: 1 1 auto;
+	min-width: 0;
 	gap: 24px;
 }
 
@@ -415,6 +437,10 @@
 
 /* Horizontal tabs on small screens (WP admin breakpoint); pills keep their style. */
 @media screen and (max-width: 782px) {
+	#post-body.wz-settings-post-body {
+		display: block;
+	}
+
 	.wz-vertical-tabs {
 		display: block;
 	}
