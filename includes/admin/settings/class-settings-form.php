@@ -301,10 +301,20 @@ class Settings_Form {
 	 * @return string Concatenated boolean attributes.
 	 */
 	protected function get_boolean_attributes( $args ) {
-		$disabled = ( ! empty( $args['disabled'] ) || ! empty( $args['pro'] ) ) ? ' disabled="disabled"' : '';
+		$disabled = $this->is_field_disabled( $args ) ? ' disabled="disabled"' : '';
 		$readonly = ( isset( $args['readonly'] ) && true === $args['readonly'] ) ? ' readonly="readonly"' : '';
 		$required = ( isset( $args['required'] ) && true === $args['required'] ) ? ' required' : '';
 		return $disabled . $readonly . $required;
+	}
+
+	/**
+	 * Whether a field is disabled, either explicitly or because it is a pro-only field.
+	 *
+	 * @param  array $args Field arguments.
+	 * @return bool Whether the field is disabled.
+	 */
+	protected function is_field_disabled( $args ) {
+		return ! empty( $args['disabled'] ) || ! empty( $args['pro'] );
 	}
 
 	/**
@@ -650,7 +660,7 @@ class Settings_Form {
 	 * @return string Disabled attribute or empty string.
 	 */
 	protected function get_disabled_attribute( $args ) {
-		return ( ! empty( $args['disabled'] ) || ! empty( $args['pro'] ) ) ? ' disabled="disabled"' : '';
+		return $this->is_field_disabled( $args ) ? ' disabled="disabled"' : '';
 	}
 
 	/**
@@ -1217,6 +1227,11 @@ class Settings_Form {
 		$class      = $this->get_field_class( $args );
 		$attributes = $this->get_boolean_attributes( $args ) . $this->build_field_attributes( $args );
 
+		// `disabled` does nothing on the wrapper; the class neutralises the buttons.
+		if ( $this->is_field_disabled( $args ) ) {
+			$class .= ' wz-repeater-disabled';
+		}
+
 		$data_index          = (string) count( $value );
 		$live_update_field   = ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name';
 		$fallback_title      = ! empty( $args['new_item_text'] ) ? $args['new_item_text'] : $this->translation_strings['repeater_new_item'];
@@ -1246,7 +1261,7 @@ class Settings_Form {
 		}
 		?>
 			</div>
-			<button type="button" class="button add-item" data-target="<?php echo esc_attr( $args['id'] ); ?>">
+			<button type="button" class="button add-item" data-target="<?php echo esc_attr( $args['id'] ); ?>" <?php disabled( $this->is_field_disabled( $args ) ); ?>>
 		<?php echo esc_html( ! empty( $args['add_button_text'] ) ? $args['add_button_text'] : 'Add Item' ); ?>
 			</button>
 
@@ -1291,9 +1306,10 @@ class Settings_Form {
 			$item_id = '{{ROW_ID}}';
 		}
 
+		$parent_disabled = $this->is_field_disabled( $args );
 		?>
 		<div class="wz-repeater-item" data-row-id="<?php echo esc_attr( $item_id ); ?>">
-			<input type="hidden" name="<?php echo esc_attr( $this->settings_key ); ?>[<?php echo esc_attr( $args['id'] ); ?>][<?php echo esc_attr( $index ); ?>][row_id]" value="<?php echo esc_attr( $item_id ); ?>" />
+			<input type="hidden" name="<?php echo esc_attr( $this->settings_key ); ?>[<?php echo esc_attr( $args['id'] ); ?>][<?php echo esc_attr( $index ); ?>][row_id]" value="<?php echo esc_attr( $item_id ); ?>" <?php disabled( $parent_disabled ); ?> />
 			<div class="repeater-item-header">
 		<?php
 		$display_field  = ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name';
@@ -1319,6 +1335,16 @@ class Settings_Form {
 					'_index'       => $index,
 				)
 			);
+
+			// Subfields do not inherit the repeater's own arguments.
+			if ( $parent_disabled ) {
+				$field_args['disabled'] = true;
+			}
+
+			// Rows collapse, and a browser blocks submit on a hidden required
+			// control without reporting why. The label keeps its asterisk.
+			$field_args['required'] = false;
+
 			$field_args = Settings_API::parse_field_args( $field_args, $args['section'] );
 
 			if ( ! isset( $field['type'] ) || ! is_string( $field['type'] ) ) {
@@ -1353,13 +1379,13 @@ class Settings_Form {
 
 		<div class="repeater-item-footer">
 			<div class="repeater-item-actions">
-				<button type="button" class="button button-secondary move-up">
+				<button type="button" class="button button-secondary move-up" <?php disabled( $parent_disabled ); ?>>
 					<span class="dashicons dashicons-arrow-up-alt2"></span>
 				</button>
-				<button type="button" class="button button-secondary move-down">
+				<button type="button" class="button button-secondary move-down" <?php disabled( $parent_disabled ); ?>>
 					<span class="dashicons dashicons-arrow-down-alt2"></span>
 				</button>
-				<button type="button" class="button button-secondary remove-item">
+				<button type="button" class="button button-secondary remove-item" <?php disabled( $parent_disabled ); ?>>
 					<span class="dashicons dashicons-trash"></span>
 				</button>
 			</div>

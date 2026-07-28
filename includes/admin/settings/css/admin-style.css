@@ -106,6 +106,20 @@
 	display: none;
 }
 
+/* Disabled / pro-gated repeater: the subfields and the repeater's own buttons each
+   carry a disabled attribute, which is what actually blocks interaction. These rules
+   only supply the matching visual affordance on the wrapper, which cannot be disabled. */
+.wz-repeater-disabled .add-item,
+.wz-repeater-disabled .repeater-item-actions .button {
+	pointer-events: none;
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.wz-repeater-disabled .add-item:hover {
+	background-color: #0073aa;
+}
+
 /* Responsiveness for smaller screens */
 @media screen and (max-width: 768px) {
 	.wz-repeater-wrapper {
@@ -643,4 +657,6 @@ form > div:not(:has(.form-table .wz-modified-dot)) .wz-modified-legend {
 .wz-default-value code {
 	font-size: 11px;
 	padding: 1px 5px;
+	overflow-wrap: anywhere;
+	word-break: break-word;
 }

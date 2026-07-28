@@ -842,6 +842,25 @@ class Settings_API {
 	}
 
 	/**
+	 * Get the settings keys that are rendered locked (disabled or pro-gated).
+	 *
+	 * @return array Map of settings key => true for each locked setting.
+	 */
+	public function get_locked_settings() {
+		$locked = array();
+
+		foreach ( $this->registered_settings as $settings ) {
+			foreach ( $settings as $setting ) {
+				if ( isset( $setting['id'] ) && ( ! empty( $setting['disabled'] ) || ! empty( $setting['pro'] ) ) ) {
+					$locked[ $setting['id'] ] = true;
+				}
+			}
+		}
+
+		return $locked;
+	}
+
+	/**
 	 * Sanitize the form data being submitted.
 	 *
 	 * @param  array $input Input unclean array.
@@ -871,6 +890,7 @@ class Settings_API {
 		$settings       = get_option( $this->settings_key );
 		$settings       = is_array( $settings ) ? $settings : array();
 		$settings_types = $this->get_registered_settings_types();
+		$locked         = $this->get_locked_settings();
 
 		// Get the tab. This is also our settings' section.
 		$tab = $referrer['tab'] ?? $this->default_tab;
@@ -916,7 +936,10 @@ class Settings_API {
 
 			// Delete any key that is not present when we submit the input array.
 			if ( ! isset( $input[ $key ] ) ) {
-				unset( $output[ $key ] );
+				// Disabled fields are never submitted, so a missing key must not delete them.
+				if ( ! isset( $locked[ $key ] ) ) {
+					unset( $output[ $key ] );
+				}
 			}
 
 			// Delete any settings that are no longer part of our registered settings.
