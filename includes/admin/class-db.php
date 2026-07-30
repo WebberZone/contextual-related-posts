@@ -21,6 +21,14 @@ if ( ! defined( 'WPINC' ) ) {
 class Db {
 
 	/**
+	 * FULLTEXT index schema version. Bump whenever the registered index set changes.
+	 *
+	 * @since 4.3.1
+	 * @var int
+	 */
+	const INDEX_VERSION = 2;
+
+	/**
 	 * Constructor class.
 	 *
 	 * @since 3.5.0
@@ -64,7 +72,66 @@ class Db {
 			'crp_related'         => '(post_title, post_content)',
 			'crp_related_title'   => '(post_title)',
 			'crp_related_content' => '(post_content)',
+			'crp_related_excerpt' => '(post_excerpt)',
 		);
+	}
+
+	/**
+	 * Get the map of current index names to the legacy index name each one replaces.
+	 *
+	 * The wz_ indexes are shared across WebberZone plugins, so a sibling plugin's index on the
+	 * same columns satisfies ours.
+	 *
+	 * @since 4.3.1
+	 *
+	 * @return array Map of current index name => legacy index name.
+	 */
+	public static function get_legacy_index_aliases() {
+		$aliases = array(
+			'wz_title_content' => 'crp_related',
+			'wz_title'         => 'crp_related_title',
+			'wz_content'       => 'crp_related_content',
+			'wz_excerpt'       => 'crp_related_excerpt',
+		);
+
+		/**
+		 * Filter the map of current index names to legacy index names.
+		 *
+		 * @since 4.3.1
+		 *
+		 * @param array $aliases Map of current index name => legacy index name.
+		 */
+		return apply_filters( 'crp_legacy_index_aliases', $aliases );
+	}
+
+	/**
+	 * Create any missing FULLTEXT indexes once per index schema version.
+	 *
+	 * Existing installs never re-run activation, so a newly registered index would otherwise
+	 * wait on the user clicking through the missing-index notice.
+	 *
+	 * @since 4.3.1
+	 */
+	public static function maybe_heal_fulltext_indexes() {
+		global $wpdb;
+
+		if ( (int) get_option( 'crp_index_version', 0 ) >= self::INDEX_VERSION ) {
+			return;
+		}
+
+		if ( Helpers::is_sqlite() ) {
+			return;
+		}
+
+		$wpdb->hide_errors();
+		self::create_fulltext_indexes();
+		$wpdb->show_errors();
+
+		// Only mark the version as healed if every index is actually in place, so a
+		// failed ALTER is retried instead of being silently recorded as done.
+		if ( self::is_fulltext_index_installed() ) {
+			update_option( 'crp_index_version', self::INDEX_VERSION );
+		}
 	}
 
 	/**
@@ -115,7 +182,7 @@ class Db {
 		$indexes = array_merge( self::get_fulltext_indexes(), self::get_old_fulltext_indexes() );
 
 		foreach ( $indexes as $index => $columns ) {
-			if ( self::is_index_installed( $index ) ) {
+			if ( self::index_exists( $index ) ) {
 				$index = esc_sql( $index );
 				$wpdb->query( "ALTER TABLE {$wpdb->posts} DROP INDEX $index" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.DirectDatabaseQuery.SchemaChange,WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 			}
@@ -135,30 +202,41 @@ class Db {
 			return true;
 		}
 
-		global $wpdb;
+		$aliases = self::get_legacy_index_aliases();
 
-		$new_indexes = self::get_fulltext_indexes();
-		$old_indexes = self::get_old_fulltext_indexes();
+		return self::index_exists( $index ) || self::index_exists( $aliases[ $index ] ?? '' );
+	}
 
-		// Find the corresponding old index name if the given index is a new one.
-		$old_index_name = '';
-		if ( in_array( $index, array_keys( $new_indexes ), true ) ) {
-			$key            = array_search( $index, array_keys( $new_indexes ), true );
-			$old_index_keys = array_keys( $old_indexes );
-			if ( isset( $old_index_keys[ $key ] ) ) {
-				$old_index_name = $old_index_keys[ $key ];
-			}
+	/**
+	 * Check if an index with this exact name exists on the posts table.
+	 *
+	 * Unlike is_index_installed(), this ignores legacy aliases - use it when acting on the
+	 * index itself, e.g. building DROP statements.
+	 *
+	 * @since 4.3.1
+	 *
+	 * @param string $index Index name.
+	 * @return bool True if the index exists, false otherwise.
+	 */
+	public static function index_exists( $index ) {
+		if ( Helpers::is_sqlite() ) {
+			return false;
 		}
 
-		$index_exists = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
+		global $wpdb;
+
+		if ( '' === $index ) {
+			return false;
+		}
+
+		$exists = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->prepare(
-				"SHOW INDEX FROM {$wpdb->posts} WHERE Key_name = %s OR Key_name = %s",
-				$index,
-				$old_index_name
+				"SHOW INDEX FROM {$wpdb->posts} WHERE Key_name = %s",
+				$index
 			)
 		);
 
-		return (bool) $index_exists;
+		return (bool) $exists;
 	}
 
 	/**
@@ -213,25 +291,5 @@ class Db {
 		 * @param array $statuses Array of index statuses.
 		 */
 		return apply_filters( 'crp_fulltext_index_statuses', $statuses );
-	}
-
-
-	/**
-	 * Get the table schema for the posts table.
-	 *
-	 * @since 3.5.0
-	 */
-	public static function get_posts_table_engine() {
-		global $wpdb;
-
-		$engine = $wpdb->get_row( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			"
-		SELECT engine FROM INFORMATION_SCHEMA.TABLES
-		WHERE table_schema=DATABASE()
-		AND table_name = '{$wpdb->posts}'
-		"
-		);
-
-		return $engine;
 	}
 }
