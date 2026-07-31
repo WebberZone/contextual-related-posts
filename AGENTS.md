@@ -2,6 +2,13 @@
 
 This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
+## Response Rules
+
+- Return only the changed function or section, not the full file
+- No explanation unless asked
+- No suggestions outside the scope of what was asked
+- Skip preamble and trailing summaries
+
 ## Plugin Overview
 
 Contextual Related Posts Pro is a WordPress plugin that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
