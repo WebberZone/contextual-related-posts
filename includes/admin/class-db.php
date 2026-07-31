@@ -123,9 +123,9 @@ class Db {
 			return;
 		}
 
-		$wpdb->hide_errors();
+		$show_errors = $wpdb->hide_errors();
 		self::create_fulltext_indexes();
-		$wpdb->show_errors();
+		$wpdb->show_errors( $show_errors );
 
 		// Only mark the version as healed if every index is actually in place, so a
 		// failed ALTER is retried instead of being silently recorded as done.
