@@ -71,9 +71,9 @@ class Activator {
 		global $wpdb;
 
 		// Create FULLTEXT indexes.
-		$wpdb->hide_errors();
+		$show_errors = $wpdb->hide_errors();
 		Db::create_fulltext_indexes();
-		$wpdb->show_errors();
+		$wpdb->show_errors( $show_errors );
 
 		// Set the database version.
 		update_option( 'crp_db_version', WZ_CRP_DB_VERSION );
