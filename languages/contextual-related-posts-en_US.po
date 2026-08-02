@@ -170,11 +170,11 @@ msgstr ""
 msgid "Include"
 msgstr ""
 
-#: includes/admin/class-db.php:203
+#: includes/admin/class-db.php:281
 msgid "Installed"
 msgstr ""
 
-#: includes/admin/class-db.php:204
+#: includes/admin/class-db.php:282
 msgid "Not Installed"
 msgstr ""
 
@@ -1707,14 +1707,14 @@ msgstr ""
 #: includes/admin/class-settings.php:1834
 #: includes/admin/class-tools-page.php:104
 #: includes/admin/class-tools-page.php:108
-#: includes/admin/class-tools-page.php:409
+#: includes/admin/class-tools-page.php:417
 #: includes/admin/network/class-admin.php:164
 #: includes/admin/network/class-tools-page.php:126
 msgid "Clear cache"
 msgstr ""
 
 #: includes/admin/class-settings.php:1835
-#: includes/admin/class-tools-page.php:410
+#: includes/admin/class-tools-page.php:418
 #: includes/admin/network/class-admin.php:165
 #: includes/admin/network/class-tools-page.php:127
 msgid "Clearing cache"
@@ -1832,11 +1832,11 @@ msgstr ""
 msgid "Migration in progress..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:428
+#: includes/admin/class-tools-page.php:436
 msgid "Migration Complete"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:429
+#: includes/admin/class-tools-page.php:437
 msgid "Migration failed. Please try again."
 msgstr ""
 
@@ -1862,58 +1862,58 @@ msgstr ""
 msgid "Undo in progress..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:432
+#: includes/admin/class-tools-page.php:440
 msgid "Are you sure you want to undo the migration? This will revert to the old array storage."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:430
+#: includes/admin/class-tools-page.php:438
 msgid "Undo Complete"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:431
+#: includes/admin/class-tools-page.php:439
 msgid "Undo failed. Please try again."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:361
+#: includes/admin/class-tools-page.php:369
 msgid "Please upload a valid .json file"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:367
+#: includes/admin/class-tools-page.php:375
 msgid "Please upload a file to import"
 msgstr ""
 
-#: includes/admin/class-tools-page.php:475
-#: includes/admin/class-tools-page.php:509
-#: includes/admin/class-tools-page.php:593
+#: includes/admin/class-tools-page.php:483
+#: includes/admin/class-tools-page.php:517
+#: includes/admin/class-tools-page.php:601
 msgid "You do not have permission to perform this action."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:489
+#: includes/admin/class-tools-page.php:497
 msgid "Migration completed successfully!"
 msgstr ""
 
 #. translators: %d: Number of posts migrated.
-#: includes/admin/class-tools-page.php:492
+#: includes/admin/class-tools-page.php:500
 #, php-format
 msgid "Migrated %d posts. Continuing..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:564
+#: includes/admin/class-tools-page.php:572
 msgid "Undo completed successfully!"
 msgstr ""
 
 #. translators: %d: Number of posts undone.
-#: includes/admin/class-tools-page.php:575
+#: includes/admin/class-tools-page.php:583
 #, php-format
 msgid "Undone %d posts. Continuing..."
 msgstr ""
 
-#: includes/admin/class-tools-page.php:607
+#: includes/admin/class-tools-page.php:615
 msgid "Rollback completed successfully!"
 msgstr ""
 
 #. translators: %d: Number of posts rolled back.
-#: includes/admin/class-tools-page.php:610
+#: includes/admin/class-tools-page.php:618
 #, php-format
 msgid "Rolled back %d posts. Continuing..."
 msgstr ""
