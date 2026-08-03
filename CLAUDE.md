@@ -9,13 +9,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - No suggestions outside the scope of what was asked
 - Skip preamble and trailing summaries
 
+## Links
+
+- GitHub: <https://github.com/WebberZone/contextual-related-posts>
+- WordPress.org: <https://wordpress.org/plugins/contextual-related-posts/>
+- Documentation: <https://webberzone.com/support/product/contextual-related-posts/>
+- webberzone.com: <https://webberzone.com/plugins/contextual-related-posts/>
+
 ## Plugin Overview
 
 Contextual Related Posts Pro is a WordPress plugin that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
 
 **Current work-in-progress version: 4.3.0.** Use `4.3.0` for all `@since` tags on new code until this version is released.
-
-webberzone.com: <https://webberzone.com/plugins/contextual-related-posts/>
 
 Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
 
