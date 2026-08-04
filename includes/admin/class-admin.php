@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Class to register the settings.
+ * Bootstraps the Contextual Related Posts admin area and its sub-classes.
  *
  * @since 3.5.0
  */
