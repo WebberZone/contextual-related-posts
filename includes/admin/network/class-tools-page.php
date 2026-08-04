@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Tools page class.
+ * Network tools page class.
  *
  * @since 4.0.0
  */
@@ -67,7 +67,14 @@ class Tools_Page {
 		?>
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Contextual Related Posts Multisite Tools', 'contextual-related-posts' ); ?></h1>
-		<?php do_action( 'crp_tools_network_page_header' ); ?>
+		<?php
+		/**
+		 * Fires just below the heading on the Contextual Related Posts network tools page.
+		 *
+		 * @since 4.0.0
+		 */
+		do_action( 'crp_tools_network_page_header' );
+		?>
 
 		<?php settings_errors(); ?>
 
@@ -77,7 +84,7 @@ class Tools_Page {
 
 			<?php
 			/**
-			 * Action hook to add additional tools page content.
+			 * Action hook to add additional content to the Contextual Related Posts network tools page.
 			 *
 			 * @since 4.0.0
 			 */

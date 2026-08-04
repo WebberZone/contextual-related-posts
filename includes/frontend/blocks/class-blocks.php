@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Widget to display the overall count.
+ * Registers the Contextual Related Posts blocks.
  *
  * @since 3.5.0
  */

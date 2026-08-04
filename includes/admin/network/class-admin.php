@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Class to register the settings.
+ * Bootstraps the Contextual Related Posts network admin area.
  *
  * @since 4.0.0
  */
