@@ -42,7 +42,7 @@ You can add CSS styles for these classes either in the [Styles tab](https://webb
 
 ## Filter hooks
 
-### `crp_pre_related_posts`
+### [`crp_pre_related_posts`](https://webberzone.dev/contextual-related-posts/hooks/crp_pre_related_posts/)
 
 Short-circuits the related posts rendering. Return a non-null value to replace the output entirely — the query and the default rendering are skipped. Runs for all display methods: the content filter, shortcode, widget, block, and manual calls. Contextual Related Posts Pro uses this internally to swap in the [lazy load placeholder](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/).
 
@@ -79,3 +79,7 @@ $args = \WebberZone\Contextual_Related_Posts\Frontend\Display::get_default_args(
 ```
 
 **Returns:** `array` — Default arguments including all saved settings.
+
+## See also
+
+- [`crp_pre_related_posts`](https://webberzone.dev/contextual-related-posts/hooks/crp_pre_related_posts/)

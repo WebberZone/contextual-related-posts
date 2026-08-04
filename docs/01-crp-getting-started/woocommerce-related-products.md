@@ -101,7 +101,7 @@ The above settings will reduce the number of related products that the plugin ca
 
 The integration uses CRP’s matching engine, adapted for WooCommerce product data. The plugin will use the [List Tuning settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-list-tuning-settings/), along with the indexed data in the custom table, to find related products.
 
-Advanced users can filter `crp_wc_related_products_query_args` to filter the array of arguments that are passed to [CRP_Query](https://webberzone.com/support/knowledgebase/crp-query/).
+Advanced users can filter [`crp_wc_related_products_query_args`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_related_products_query_args/) to filter the array of arguments that are passed to [CRP_Query](https://webberzone.com/support/knowledgebase/crp-query/).
 
 ```php
 /**
@@ -137,7 +137,7 @@ Output can be customized using:
 - WooCommerce hooks and filters
 - Custom CSS targeting `.crp-related-products`
 
-You can also override the output using `crp_wc_related_products_html` to build your own output.
+You can also override the output using [`crp_wc_related_products_html`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_related_products_html/) to build your own output.
 
 ```php
 /**
@@ -226,7 +226,7 @@ The majority of slots go to full-gap products (so that a single item always clos
 
 ### Filters
 
-**`crp_wc_free_shipping_threshold`** — Override the resolved threshold for stores with custom shipping logic.
+**[`crp_wc_free_shipping_threshold`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_free_shipping_threshold/)** — Override the resolved threshold for stores with custom shipping logic.
 
 ```php
 add_filter( 'crp_wc_free_shipping_threshold', function( float $threshold ): float {
@@ -234,7 +234,7 @@ add_filter( 'crp_wc_free_shipping_threshold', function( float $threshold ): floa
 } );
 ```
 
-**`crp_wc_cart_related_products_query_args`** — Modify the query arguments before the cart product query runs.
+**[`crp_wc_cart_related_products_query_args`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_query_args/)** — Modify the query arguments before the cart product query runs.
 
 ```php
 /**
@@ -254,7 +254,7 @@ add_filter( 'crp_wc_cart_related_products_query_args', function( array $query_ar
 }, 10, 4 );
 ```
 
-**`crp_wc_cart_related_products_heading`** — Customize the heading text after it has been resolved.
+**[`crp_wc_cart_related_products_heading`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_heading/)** — Customize the heading text after it has been resolved.
 
 ```php
 /**
@@ -267,7 +267,7 @@ add_filter( 'crp_wc_cart_related_products_heading', function( string $heading, f
 }, 10, 3 );
 ```
 
-**`crp_wc_cart_related_products_html`** — Filter or replace the complete cart section HTML before it is output.
+**[`crp_wc_cart_related_products_html`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_html/)** — Filter or replace the complete cart section HTML before it is output.
 
 ```php
 /**
@@ -390,7 +390,7 @@ The integration is designed for single product pages, but CRP shortcodes and blo
 With ECSI enabled, related product queries are typically fast. However, related queries tend to be heavy, so it is advisable to enable caching.
 
 **Can the “Related products” heading be translated?**
-CRP includes a wpml-config file, which supports WPML and Polylang. You can also use code to filter `crp_wc_related_products_heading` for incremental translation.
+CRP includes a wpml-config file, which supports WPML and Polylang. You can also use code to filter [`crp_wc_related_products_heading`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_related_products_heading/) for incremental translation.
 
 ## Getting help
 
@@ -401,3 +401,13 @@ If you need assistance:
 - Refer to the [CRP CLI documentation](https://webberzone.com/support/knowledgebase/contextual-related-posts-wp-cli/) for advanced management
 
 The WooCommerce integration builds on CRP’s existing relevance engine while respecting WooCommerce’s catalog rules, allowing you to create product recommendations that remain fast, accurate, and predictable under load.
+
+## See also
+
+- [`crp_wc_related_products_query_args`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_related_products_query_args/)
+- [`crp_wc_related_products_html`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_related_products_html/)
+- [`crp_wc_free_shipping_threshold`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_free_shipping_threshold/)
+- [`crp_wc_cart_related_products_query_args`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_query_args/)
+- [`crp_wc_cart_related_products_heading`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_heading/)
+- [`crp_wc_cart_related_products_html`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_html/)
+- [`crp_wc_related_products_heading`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_related_products_heading/)
