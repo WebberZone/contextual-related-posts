@@ -47,7 +47,7 @@ Here’s how Contextual Related Posts Pro selects your cornerstone posts.
 
 ### Using a Filter
 
-You can modify the default percentage of cornerstone posts using the `crp_cornerstone_percentage` filter.
+You can modify the default percentage of cornerstone posts using the [`crp_cornerstone_percentage`](https://webberzone.dev/contextual-related-posts/hooks/crp_cornerstone_percentage/) filter.
 
 ```php
 /**
@@ -73,3 +73,7 @@ $args = array(
     'cornerstone_percentage' => 25,      // Custom percentage for this specific query.
 );
 ```
+
+## See also
+
+- [`crp_cornerstone_percentage`](https://webberzone.dev/contextual-related-posts/hooks/crp_cornerstone_percentage/)

@@ -44,9 +44,9 @@ If the arguments payload is too large to round-trip safely, CRP falls back to re
 
 | Filter | Description |
 | --- | --- |
-| `crp_lazy_load` | Whether a given instance should lazy load. Receives the current decision, the post object, and the arguments array. |
-| `crp_lazy_load_placeholder` | The placeholder HTML. Receives the HTML, post object, and arguments array. |
-| `crp_lazy_load_root_margin` | How far before the viewport the fetch starts. Default `200px`. |
+| [`crp_lazy_load`](https://webberzone.dev/contextual-related-posts/hooks/crp_lazy_load/) | Whether a given instance should lazy load. Receives the current decision, the post object, and the arguments array. |
+| [`crp_lazy_load_placeholder`](https://webberzone.dev/contextual-related-posts/hooks/crp_lazy_load_placeholder/) | The placeholder HTML. Receives the HTML, post object, and arguments array. |
+| [`crp_lazy_load_root_margin`](https://webberzone.dev/contextual-related-posts/hooks/crp_lazy_load_root_margin/) | How far before the viewport the fetch starts. Default `200px`. |
 
 For example, to start fetching earlier on long pages:
 
@@ -79,3 +79,9 @@ The placeholder uses the classes `crp_related crp-lazy-load`, so existing styles
     min-height: 200px;
 }
 ```
+
+## See also
+
+- [`crp_lazy_load`](https://webberzone.dev/contextual-related-posts/hooks/crp_lazy_load/)
+- [`crp_lazy_load_placeholder`](https://webberzone.dev/contextual-related-posts/hooks/crp_lazy_load_placeholder/)
+- [`crp_lazy_load_root_margin`](https://webberzone.dev/contextual-related-posts/hooks/crp_lazy_load_root_margin/)
