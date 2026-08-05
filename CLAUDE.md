@@ -43,15 +43,16 @@ composer zip            # Create distribution zip
 ### JavaScript/CSS Blocks
 
 ```bash
-npm run build           # Build free blocks
-npm run build:pro       # Build pro blocks (query, featured-image, related-posts-pro)
-npm run build:all       # Build all blocks
-npm start               # Watch free blocks
-npm run start:pro       # Watch pro blocks
-npm run build:assets    # Minify CSS/JS, generate RTL CSS (node build-assets.js)
-npm run lint:js         # ESLint
-npm run lint:css        # Stylelint
-npm run zip             # Create distribution zip
+pnpm run build           # Build free blocks
+pnpm run build:pro       # Build pro blocks (query, featured-image, related-posts-pro)
+pnpm run build:all       # Build all blocks
+pnpm start               # Watch free blocks
+pnpm run start:pro       # Watch pro blocks
+pnpm run build:assets    # Minify CSS/JS, generate RTL CSS (node build-assets.js)
+pnpm run lint:js         # ESLint
+pnpm run lint:css        # Stylelint
+pnpm run zip             # Create distribution zip
+ncu -u && pnpm install   # Update dependencies to latest and reinstall
 ```
 
 ## Architecture
