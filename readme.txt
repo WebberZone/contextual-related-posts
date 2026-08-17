@@ -198,7 +198,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.3.1 =
 
-*Release Date - 3 August 2026*
+*Release Date - 17 August 2026*
 
 * New features:
 	* Search for settings: a search field on the settings page lets you quickly find options by keyword.
@@ -214,6 +214,8 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 	* Fixed `$wpdb->show_errors()` not restoring prior state after `hide_errors()` — re-enabling raw DB-error output for the entire request and corrupting AJAX/JSON responses.
 	* Fixed default-value label lookup for empty-string select/radio options showing "None" instead of the actual option label.
 	* Fixed settings page sidebar overlapping tab content by switching to flexbox layout.
+	* [Pro] Fixed the Index Custom Tables wizard step appearing or disappearing while the wizard was running.
+	* Fixed the settings wizard silently dropping repeater field rows on save.
 
 * Improvements:
 	* Setting defaults are now resolved from a single lightweight list instead of building every settings field, so reading an option early in the page load no longer risks loading translations too early.
@@ -328,5 +330,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.3.0 =
-[Pro] New keyword setting on the Related Posts and Query Loop blocks, lazy load for all display methods, and Cart Related Products — shows contextually matched products on the WooCommerce cart page when the subtotal is below the free shipping threshold. Related posts with tied relevance scores now return in a stable order.
+= 4.3.1 =
+Adds settings search, improves FULLTEXT index consistency and settings defaults, and fixes settings layout, database error handling, and the Pro indexing wizard.
