@@ -423,7 +423,7 @@ class Settings_Wizard_API {
 
 		// Check if we have a specific sanitizer for this type.
 		if ( is_callable( array( $settings_sanitize, "sanitize_{$type}_field" ) ) ) {
-			return call_user_func( array( $settings_sanitize, "sanitize_{$type}_field" ), $value );
+			return call_user_func( array( $settings_sanitize, "sanitize_{$type}_field" ), $value, $setting_config );
 		}
 
 		// Fallback to basic sanitization.
