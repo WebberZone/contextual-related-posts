@@ -42,8 +42,8 @@ function crp_get_settings() {
  *
  * @since 2.6.0
  *
- * @param string $key           Key of the option to fetch.
- * @param mixed  $default_value Default value to fetch if option is missing.
+ * @param  string $key           Key of the option to fetch.
+ * @param  mixed  $default_value Default value to fetch if option is missing.
  * @return mixed
  */
 function crp_get_option( $key = '', $default_value = null ) {
@@ -83,9 +83,9 @@ function crp_get_option( $key = '', $default_value = null ) {
  *
  * @since 4.1.0
  *
- * @param int    $blog_id       Blog ID to fetch the option from.
- * @param string $key           Key of the option to fetch.
- * @param mixed  $default_value Default value to fetch if option is missing.
+ * @param  int    $blog_id       Blog ID to fetch the option from.
+ * @param  string $key           Key of the option to fetch.
+ * @param  mixed  $default_value Default value to fetch if option is missing.
  * @return mixed
  */
 function crp_get_blog_option( $blog_id, $key = '', $default_value = false ) {
@@ -130,8 +130,8 @@ function crp_get_blog_option( $blog_id, $key = '', $default_value = false ) {
  *
  * @since 2.6.0
  *
- * @param string          $key   The Key to update.
- * @param string|bool|int $value The value to set the key to.
+ * @param  string          $key   The Key to update.
+ * @param  string|bool|int $value The value to set the key to.
  * @return boolean   True if updated, false if not.
  */
 function crp_update_option( $key = '', $value = null ) {
@@ -180,7 +180,7 @@ function crp_update_option( $key = '', $value = null ) {
  *
  * @since 2.6.0
  *
- * @param string $key The Key to update.
+ * @param  string $key The Key to update.
  * @return boolean   True if updated, false if not.
  */
 function crp_delete_option( $key = '' ) {
@@ -311,12 +311,15 @@ function crp_settings_defaults() {
  *
  * @since 2.6.0
  *
- * @param string $key Key of the option to fetch.
+ * @param  string $key Key of the option to fetch.
  * @return mixed
  */
 function crp_get_default_option( $key = '' ) {
 
-	$default_settings = crp_settings_defaults();
+	/**
+ * This filter is documented in includes/options-api.php
+*/
+	$default_settings = apply_filters( 'crp_settings_defaults', \WebberZone\Contextual_Related_Posts\Admin\Settings::get_defaults() );
 
 	if ( array_key_exists( $key, $default_settings ) ) {
 		return $default_settings[ $key ];

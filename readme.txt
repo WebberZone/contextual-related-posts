@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.3.0
+Stable tag: 4.3.1
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -195,6 +195,29 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 The plugin also handles SSL, resizing, and fallback mechanisms automatically for each step.
 
 == Changelog ==
+
+= 4.3.1 =
+
+*Release Date - 3 August 2026*
+
+* New features:
+	* Search for settings: a search field on the settings page lets you quickly find options by keyword.
+	* Updated plugin icons.
+
+* Modifications:
+	* Consolidated FULLTEXT index names across WebberZone plugins with legacy alias support and automatic self-healing of missing indexes on `admin_init`. Also fixes a PHP 8.1 deprecation in the Sync Manager.
+	* Synced Settings API framework from Better Search Pro with `get_locked_settings()`, disabled repeater handling, and flexbox sidebar layout improvements.
+	* Standardized `@since` tags in shared Settings API and Admin Banner files.
+	* Added smooth scroll-to-top on settings tab switch.
+
+* Bug fixes:
+	* Fixed `$wpdb->show_errors()` not restoring prior state after `hide_errors()` — re-enabling raw DB-error output for the entire request and corrupting AJAX/JSON responses.
+	* Fixed default-value label lookup for empty-string select/radio options showing "None" instead of the actual option label.
+	* Fixed settings page sidebar overlapping tab content by switching to flexbox layout.
+
+* Improvements:
+	* Setting defaults are now resolved from a single lightweight list instead of building every settings field, so reading an option early in the page load no longer risks loading translations too early.
+	* Added `crp_pre_index_content_parts` filter for recovering shortcode-stripped content before `do_blocks()`/`do_shortcode()` processing discards it.
 
 = 4.3.0 =
 

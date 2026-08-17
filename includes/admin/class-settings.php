@@ -25,6 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Settings {
 
+
 	/**
 	 * Settings API instance.
 	 *
@@ -191,6 +192,128 @@ class Settings {
 		 * @param array $settings_sections Settings array
 		 */
 		return apply_filters( self::$prefix . '_settings_sections', $settings_sections );
+	}
+
+	/**
+	 * Raw defaults for every registered setting, keyed by option ID.
+	 *
+	 * Must exactly match what `crp_settings_defaults()` computes from
+	 * {@see self::get_registered_settings()}, but without building the full
+	 * (translated) field definitions. Values are pre-normalized: checkboxes are
+	 * `1`/`0`, not `true`/`false`. `thumb_default`'s default is computed via
+	 * `Display::get_default_thumbnail()` and is represented as `''` here since
+	 * its real value cannot be known statically.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return array<string, mixed> Default value for every option ID.
+	 */
+	public static function get_defaults() {
+		return array(
+			'list_general_header'          => '',
+			'add_to'                       => 'single,page',
+			'content_filter_priority'      => '999',
+			'insert_after_paragraph'       => '-1',
+			'disable_on_mobile'            => 0,
+			'disable_on_amp'               => 0,
+			'bot_protection'               => 0,
+			'uninstall_settings_header'    => '',
+			'uninstall_options'            => 1,
+			'uninstall_indices'            => 1,
+			'uninstall_tables'             => 1,
+			'uninstall_indices_deactivate' => 0,
+			'misc_general_header'          => '',
+			'show_metabox'                 => 1,
+			'show_metabox_admins'          => 0,
+			'metabox_post_types'           => '',
+			'show_credit'                  => 0,
+			'custom_tables_header'         => '',
+			'use_custom_tables'            => 0,
+			'index_meta_keys'              => '',
+			'optimization_header'          => '',
+			'lazy_load'                    => 0,
+			'cache_posts'                  => 1,
+			'cache'                        => 1,
+			'clear_cache_on_trash'         => 0,
+			'cache_time'                   => 604800,
+			'max_execution_time'           => 3000,
+			'backlog_threshold'            => 0,
+			'use_global_settings'          => 0,
+			'limit'                        => 6,
+			'daily_range'                  => 0,
+			'ordering'                     => 'relevance',
+			'random_order'                 => 0,
+			'relevance_header'             => '',
+			'weight_title'                 => 10,
+			'weight_content'               => 0,
+			'weight_excerpt'               => 0,
+			'weight_taxonomy_category'     => 0,
+			'weight_taxonomy_post_tag'     => 0,
+			'weight_taxonomy_default'      => 0,
+			'weight_primary_term_boost'    => 0,
+			'use_precomputed_tax_score'    => 0,
+			'match_content_words'          => 0,
+			'post_filter_header'           => '',
+			'post_types'                   => 'post,page',
+			'cornerstone_post_ids'         => '',
+			'same_post_type'               => 0,
+			'same_author'                  => 0,
+			'taxonomy_header'              => '',
+			'primary_term'                 => 0,
+			'same_taxes'                   => '',
+			'match_all'                    => 0,
+			'no_of_common_terms'           => 1,
+			'related_meta_keys'            => '',
+			'exclusion_header'             => '',
+			'exclude_post_ids'             => '',
+			'exclude_cat_slugs'            => '',
+			'advanced_header'              => '',
+			'disable_contextual'           => 0,
+			'disable_contextual_cpt'       => 0,
+			'include_words'                => '',
+			'exclude_words'                => '',
+			'title'                        => '<h2>Related Posts:</h2>',
+			'blank_output'                 => 'blank',
+			'blank_output_text'            => 'No related posts found',
+			'show_excerpt'                 => 0,
+			'excerpt_length'               => '10',
+			'show_date'                    => 0,
+			'show_author'                  => 0,
+			'show_primary_term'            => 0,
+			'title_length'                 => '60',
+			'link_new_window'              => 0,
+			'link_nofollow'                => 0,
+			'track_pixels'                 => 0,
+			'exclude_output_header'        => '',
+			'exclude_on_post_ids'          => '',
+			'exclude_on_post_types'        => '',
+			'exclude_on_cat_slugs'         => '',
+			'html_wrapper_header'          => '',
+			'before_list'                  => '<ul>',
+			'after_list'                   => '</ul>',
+			'before_list_item'             => '<li>',
+			'after_list_item'              => '</li>',
+			'post_thumb_op'                => 'inline',
+			'thumb_size'                   => 'crp_thumbnail',
+			'thumb_width'                  => '150',
+			'thumb_height'                 => '150',
+			'thumb_crop'                   => 1,
+			'thumb_create_sizes'           => 1,
+			'thumb_html'                   => 'html',
+			'thumb_meta'                   => 'post-image',
+			'acf_field'                    => '',
+			'scan_images'                  => 1,
+			'thumb_default_show'           => 1,
+			'thumb_default'                => '',
+			'crp_styles'                   => 'rounded_thumbs',
+			'custom_css'                   => '',
+			'feed_options_desc'            => '',
+			'limit_feed'                   => '5',
+			'show_excerpt_feed'            => 0,
+			'post_thumb_op_feed'           => 'text_only',
+			'thumb_width_feed'             => '250',
+			'thumb_height_feed'            => '250',
+		);
 	}
 
 	/**
@@ -723,7 +846,7 @@ class Settings {
 				'id'      => 'cornerstone_post_ids',
 				'name'    => esc_html__( 'Cornerstone IDs', 'contextual-related-posts' ),
 				'desc'    => sprintf(
-					/* translators: 1: Opening anchor tag, 2: Closing anchor tag */
+							/* translators: 1: Opening anchor tag, 2: Closing anchor tag */
 					esc_html__( 'Comma-separated list of post/page or custom post type IDs to be used as cornerstone posts. Posts with these IDs will be randomly selected and then included in the list of related posts. Roughly 20%% of the related posts will be chosen from this list. Learn more about %1$sCornerstone Posts%2$s.', 'contextual-related-posts' ),
 					'<a href="https://webberzone.com/support/knowledgebase/cornerstone-posts-in-contextual-related-posts/" target="_blank">',
 					'</a>'
@@ -1116,7 +1239,7 @@ class Settings {
 				'id'   => 'wc_header',
 				'name' => '<h3>' . esc_html__( 'WooCommerce Integration', 'contextual-related-posts' ) . '</h3>',
 				'desc' => sprintf(
-					/* translators: 1: Opening a tag, 2: Closing a tag */
+				/* translators: 1: Opening a tag, 2: Closing a tag */
 					esc_html__( 'Settings for WooCommerce product indexing and related products. This feature requires ECSI to be enabled under the %1$sPerformance%2$s tab and the custom tables to be created via the Tools page.', 'contextual-related-posts' ),
 					'<strong>',
 					'</strong>'
@@ -1357,7 +1480,7 @@ class Settings {
 	 */
 	public static function settings_performance() {
 		$custom_tables_desc = sprintf(
-			/* translators: 1: Opening a tag, 2: Closing a tag */
+		/* translators: 1: Opening a tag, 2: Closing a tag */
 			esc_html__( 'Efficient Content Storage and Indexing (ECSI) creates a dedicated database table optimized for related content queries. This enhances performance, particularly on sites with a large number of posts or high traffic. To create the ECSI tables, visit the %1$sTools tab%2$s.', 'contextual-related-posts' ),
 			'<a href="' . esc_url( admin_url( 'tools.php?page=crp_tools_page' ) ) . '" target="_blank">',
 			'</a>'
@@ -1494,7 +1617,7 @@ class Settings {
 	/**
 	 * Get the various styles.
 	 *
-	 * @since 3.5.0
+	 * @since  3.5.0
 	 * @return array Associative array of styles.
 	 */
 	public static function get_styles() {
@@ -1545,7 +1668,7 @@ class Settings {
 	/**
 	 * Get the various order settings.
 	 *
-	 * @since 3.5.0
+	 * @since  3.5.0
 	 * @return array Order settings.
 	 */
 	public static function get_orderings() {
@@ -1571,7 +1694,7 @@ class Settings {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param array $links Array of links.
+	 * @param  array $links Array of links.
 	 * @return array
 	 */
 	public function plugin_actions_links( $links ) {
@@ -1589,8 +1712,8 @@ class Settings {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param array  $links Array of Links.
-	 * @param string $file Current file.
+	 * @param  array  $links Array of Links.
+	 * @param  string $file  Current file.
 	 * @return array
 	 */
 	public function plugin_row_meta( $links, $file ) {
@@ -1617,7 +1740,7 @@ class Settings {
 		/* translators: 1: Plugin support site link. */
 		'<p>' . sprintf( __( 'For more information or how to get support visit the <a href="%s" target="_blank">support site</a>.', 'contextual-related-posts' ), esc_url( 'https://webberzone.com/support/' ) ) . '</p>' .
 		'<p>' . sprintf(
-			/* translators: 1: Github issues link, 2: Github plugin page link. */
+		/* translators: 1: Github issues link, 2: Github plugin page link. */
 			__( '<a href="%1$s" target="_blank">Post an issue</a> on <a href="%2$s" target="_blank">GitHub</a> (bug reports only).', 'contextual-related-posts' ),
 			esc_url( 'https://github.com/WebberZone/contextual-related-posts/issues' ),
 			esc_url( 'https://github.com/WebberZone/contextual-related-posts' )
@@ -1656,12 +1779,12 @@ class Settings {
 				'title'   => __( 'Tools', 'contextual-related-posts' ),
 				'content' =>
 				'<p>' . __( 'This screen provides some tools that help maintain certain features of Contextual Related Posts.', 'contextual-related-posts' ) . '</p>' .
-					'<p>' . __( 'Clear the cache, recreate the fulltext indices (including code to manually run this in phpMyAdmin), export/import settings and delete the older settings.', 'contextual-related-posts' ) . '</p>' .
-					'<p>' . sprintf(
-					/* translators: 1: Link to Knowledge Base article. */
-						__( 'You can find more information on each of these tools in this <a href="%1$s" target="_blank">knowledgebase article</a>.', 'contextual-related-posts' ),
-						esc_url( 'https://webberzone.com/support/knowledgebase/contextual-related-posts-settings-tools/' )
-					) . '</p>',
+							'<p>' . __( 'Clear the cache, recreate the fulltext indices (including code to manually run this in phpMyAdmin), export/import settings and delete the older settings.', 'contextual-related-posts' ) . '</p>' .
+							'<p>' . sprintf(
+							/* translators: 1: Link to Knowledge Base article. */
+								__( 'You can find more information on each of these tools in this <a href="%1$s" target="_blank">knowledgebase article</a>.', 'contextual-related-posts' ),
+								esc_url( 'https://webberzone.com/support/knowledgebase/contextual-related-posts-settings-tools/' )
+							) . '</p>',
 			),
 		);
 
@@ -1745,7 +1868,7 @@ class Settings {
 				self::$prefix . '-notices',
 				'crp-cache-cleared',
 				sprintf(
-					/* translators: %d is the number of cache entries cleared. */
+				/* translators: %d is the number of cache entries cleared. */
 					esc_html__( 'Cache cleared. %d entries removed.', 'contextual-related-posts' ),
 					$count
 				),
@@ -1892,13 +2015,15 @@ class Settings {
 		}
 		$s = trim( $s );
 
-		/** This filter has been defined in /wp-admin/includes/ajax-actions.php */
+		/**
+	* This filter has been defined in /wp-admin/includes/ajax-actions.php
+*/
 		$term_search_min_chars = (int) apply_filters( 'term_search_min_chars', 2, $tax, $s );
 
 		/*
-		 * Require $term_search_min_chars chars for matching (default: 2)
-		 * ensure it's a non-negative, non-zero integer.
-		 */
+		* Require $term_search_min_chars chars for matching (default: 2)
+		* ensure it's a non-negative, non-zero integer.
+		*/
 		if ( ( 0 === $term_search_min_chars ) || ( strlen( $s ) < $term_search_min_chars ) ) {
 			wp_die();
 		}
@@ -1973,7 +2098,7 @@ class Settings {
 			}
 
 			global $wpdb;
-			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$keys = $wpdb->get_col(
 				$wpdb->prepare(
 					"SELECT DISTINCT meta_key FROM {$wpdb->postmeta} WHERE meta_key LIKE %s ORDER BY meta_key ASC LIMIT 20",
@@ -2031,13 +2156,15 @@ class Settings {
 			}
 		}
 
-		/** This filter has been defined in /wp-admin/includes/ajax-actions.php */
+		/**
+	* This filter has been defined in /wp-admin/includes/ajax-actions.php
+*/
 		$term_search_min_chars = (int) apply_filters( 'term_search_min_chars', 2, $tax, $search_term );
 
 		/*
-		 * Require $term_search_min_chars chars for matching (default: 2)
-		 * ensure it's a non-negative, non-zero integer.
-		 */
+		* Require $term_search_min_chars chars for matching (default: 2)
+		* ensure it's a non-negative, non-zero integer.
+		*/
 		if ( ( 0 === $term_search_min_chars ) || ( strlen( $search_term ) < $term_search_min_chars ) ) {
 			wp_send_json_success( array() );
 		}
@@ -2076,9 +2203,9 @@ class Settings {
 		<p>
 		<?php if ( ! $crp_freemius->is_paying() ) { ?>
 			<a class="crp_button crp_button_gold" href="<?php echo esc_url( $crp_freemius->get_upgrade_url() ); ?>">
-				<?php esc_html_e( 'Upgrade to Pro', 'contextual-related-posts' ); ?>
+			<?php esc_html_e( 'Upgrade to Pro', 'contextual-related-posts' ); ?>
 			</a>
-			<?php } ?>
+		<?php } ?>
 		</p>
 
 		<?php
@@ -2087,8 +2214,8 @@ class Settings {
 	/**
 	 * Updated the settings fields to display a pro version link.
 	 *
-	 * @param string $output Settings field HTML.
-	 * @param array  $args   Settings field arguments.
+	 * @param  string $output Settings field HTML.
+	 * @param  array  $args   Settings field arguments.
 	 * @return string Updated HTML.
 	 */
 	public static function after_setting_output( $output, $args ) {
@@ -2134,8 +2261,8 @@ class Settings {
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param string $taxonomy  The taxonomy to search.
-	 * @param array  $ts_config Optional Tom Select configuration.
+	 * @param  string $taxonomy  The taxonomy to search.
+	 * @param  array  $ts_config Optional Tom Select configuration.
 	 * @return array Field attributes array.
 	 */
 	public static function get_taxonomy_search_field_attributes( string $taxonomy, array $ts_config = array() ): array {
@@ -2158,7 +2285,7 @@ class Settings {
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param array $ts_config Optional Tom Select configuration.
+	 * @param  array $ts_config Optional Tom Select configuration.
 	 * @return array Field attributes array.
 	 */
 	public static function get_meta_keys_search_field_attributes( array $ts_config = array() ): array {
