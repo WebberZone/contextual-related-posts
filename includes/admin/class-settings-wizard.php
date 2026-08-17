@@ -143,11 +143,11 @@ class Settings_Wizard extends Settings_Wizard_API {
 			),
 		);
 
-		// Add custom tables indexing step if custom tables are enabled.
-		if ( crp_get_option( 'use_custom_tables', false ) ) {
+		// Included whenever the pro indexer exists so the step count cannot change while the wizard is in progress.
+		if ( class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Custom_Tables_Admin' ) ) {
 			$steps['custom_tables_index'] = array(
 				'title'       => __( 'Index Custom Tables', 'contextual-related-posts' ),
-				'description' => __( 'Custom tables have been enabled. Index your content to improve search performance and enable advanced features.', 'contextual-related-posts' ),
+				'description' => __( 'Custom index tables store your content in a dedicated table for faster searches. If you are using them, index your content here.', 'contextual-related-posts' ),
 				'settings'    => array(),
 				'custom_step' => true, // Flag to indicate this needs custom rendering.
 			);
@@ -248,7 +248,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 
 		// Check if we're on the custom tables indexing step.
 		$step_config = $this->get_current_step_config();
-		if ( ! empty( $step_config['custom_step'] ) ) {
+		if ( ! empty( $step_config['custom_step'] ) && '' === $this->get_custom_tables_step_notice() ) {
 			// Enqueue the reindex script from custom tables admin.
 			wp_enqueue_script(
 				'crp-reindex',
@@ -357,32 +357,46 @@ class Settings_Wizard extends Settings_Wizard_API {
 	}
 
 	/**
+	 * Reason the custom tables step cannot offer indexing, if any.
+	 *
+	 * @since 4.3.0
+	 *
+	 * @return string Message to show instead of the indexer, or an empty string when indexing is available.
+	 */
+	protected function get_custom_tables_step_notice() {
+		if ( ! class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Custom_Tables_Admin' ) ) {
+			return __( 'Custom tables functionality is not available.', 'contextual-related-posts' );
+		}
+
+		if ( ! crp_get_option( 'use_custom_tables', false ) ) {
+			return __( 'Custom index tables are not in use. Turn on "Use Custom Tables" on the Performance tab of the settings page, then index your content from the Tools page.', 'contextual-related-posts' );
+		}
+
+		if ( ! ( wz_crp()->pro->custom_tables ?? null ) ) {
+			return __( 'Custom tables are not available.', 'contextual-related-posts' );
+		}
+
+		return '';
+	}
+
+	/**
 	 * Render the custom tables indexing interface.
 	 *
 	 * @since 4.1.0
 	 */
 	protected function render_custom_tables_interface() {
-		// Get custom tables admin instance if available.
-		if ( ! class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Custom_Tables_Admin' ) ) {
+		$notice = $this->get_custom_tables_step_notice();
+
+		if ( '' !== $notice ) {
 			?>
-			<div class="notice notice-error inline">
-				<p><?php esc_html_e( 'Custom tables functionality is not available.', 'contextual-related-posts' ); ?></p>
+			<div class="notice notice-info inline">
+				<p><?php echo esc_html( $notice ); ?></p>
 			</div>
 			<?php
 			return;
 		}
 
-		// Get table manager instance with lazy admin initialization.
-		$custom_tables = wz_crp()->pro->custom_tables ?? null;
-		if ( ! $custom_tables ) {
-			?>
-			<div class="notice notice-error inline">
-				<p><?php esc_html_e( 'Custom tables are not available.', 'contextual-related-posts' ); ?></p>
-			</div>
-			<?php
-			return;
-		}
-
+		$custom_tables = wz_crp()->pro->custom_tables;
 		$table_manager = $custom_tables->admin->table_manager;
 		$percentage    = $table_manager->get_indexing_percentage();
 		$content_count = $table_manager->get_content_count();

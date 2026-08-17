@@ -11,10 +11,11 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Links
 
-- GitHub: <https://github.com/WebberZone/contextual-related-posts>
-- WordPress.org: <https://wordpress.org/plugins/contextual-related-posts/>
+- GitHub (pro): <https://github.com/WebberZone/contextual-related-posts-pro>
+- GitHub (free): <https://github.com/WebberZone/contextual-related-posts>
 - Documentation: <https://webberzone.com/support/product/contextual-related-posts/>
-- webberzone.com: <https://webberzone.com/plugins/contextual-related-posts/>
+- webberzone.com (free): <https://webberzone.com/plugins/contextual-related-posts/>
+- webberzone.com (pro): <https://webberzone.com/plugins/contextual-related-posts/pro/>
 
 ## Plugin Overview
 
