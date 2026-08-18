@@ -198,11 +198,10 @@ class Settings {
 	 * Raw defaults for every registered setting, keyed by option ID.
 	 *
 	 * Must exactly match what `crp_settings_defaults()` computes from
-	 * {@see self::get_registered_settings()}, but without building the full
-	 * (translated) field definitions. Values are pre-normalized: checkboxes are
-	 * `1`/`0`, not `true`/`false`. `thumb_default`'s default is computed via
-	 * `Display::get_default_thumbnail()` and is represented as `''` here since
-	 * its real value cannot be known statically.
+	 * get_registered_settings(), but without building the full (translated) field
+	 * definitions. Values are pre-normalized: checkboxes are `1`/`0`, not `true`/`false`,
+	 * and `thumb_default` is represented as `''` since its real value (from
+	 * `Display::get_default_thumbnail()`) can't be known statically.
 	 *
 	 * @since 4.3.0
 	 *

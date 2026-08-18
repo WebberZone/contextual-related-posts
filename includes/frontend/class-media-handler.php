@@ -785,13 +785,8 @@ class Media_Handler {
 	/**
 	 * Get an HTML img element.
 	 *
-	 * When an attachment ID is available the function delegates to
-	 * {@see wp_get_attachment_image()} so that srcset, sizes and all
-	 * core image optimisations are applied automatically.
-	 *
-	 * When only a URL is available (external images, meta-key URLs, etc.)
-	 * the function builds the `<img>` tag manually using the configured
-	 * thumbnail dimensions and attributes.
+	 * Delegates to {@see wp_get_attachment_image()} when an attachment ID is available;
+	 * otherwise builds the tag manually.
 	 *
 	 * @param string       $attachment_url Image URL.
 	 * @param array        $attr           Optional. Attributes for the image markup.

@@ -416,11 +416,7 @@ class Settings_Sanitize {
 	/**
 	 * Find repeater rows that fail their own required-field rules.
 	 *
-	 * A subfield is required when its own config sets `required => true`. A repeater
-	 * can additionally set `required_one_of => array( subfield_id, ... )` on itself to
-	 * require at least one of several alternative subfields per row (e.g. a post OR a
-	 * URL). Purely structural - it returns what is wrong, not a human message, so it
-	 * carries no i18n and can be reused unchanged by any plugin that copies this file.
+	 * Purely structural - returns what is wrong, not a human message, so it carries no i18n.
 	 *
 	 * @param array $rows  Sanitized repeater rows, as returned by sanitize_repeater_field().
 	 * @param array $field Repeater field configuration.
