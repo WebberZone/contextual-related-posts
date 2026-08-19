@@ -1,4 +1,4 @@
-/* global ajaxurl, WZTomSelectSettings, jQuery, TomSelect */
+/* global ajaxurl, WebberTomSelectSettings, jQuery, TomSelect */
 
 (function ($) {
     'use strict';
@@ -53,11 +53,10 @@
                 return;
             }
 
-            const prefix = element.getAttribute('data-wp-prefix') || 'WZ';
+            const prefix = element.getAttribute('data-wp-prefix') || 'Webber';
             const settingsKey = `${prefix}TomSelectSettings`;
             const settings = window[settingsKey]
-                || window.WZTomSelectSettings
-                || window.freemkitTomSelectSettings
+                || window.WebberTomSelectSettings
                 || {};
 
             if (!settings || typeof settings !== 'object') {
@@ -252,7 +251,7 @@
         });
     }
 
-    window.WZInitTomSelect = initTomSelect;
+    window.WebberInitTomSelect = initTomSelect;
 
     document.addEventListener('wz:repeater-item-added', function (event) {
         const detail = event && event.detail ? event.detail : {};

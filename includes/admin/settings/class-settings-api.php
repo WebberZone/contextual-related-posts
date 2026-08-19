@@ -543,7 +543,7 @@ class Settings_API {
 		);
 		wp_localize_script(
 			"wz-{$this->prefix}-admin",
-			'WZSettingsAdmin',
+			'WebberSettingsAdmin',
 			array(
 				'prefix'       => $this->prefix,
 				'settings_key' => $this->settings_key,
@@ -606,7 +606,7 @@ class Settings_API {
 		// Localize Tom Select settings.
 		wp_localize_script(
 			"wz-{$prefix}-tom-select-init",
-			'WZTomSelectSettings',
+			'WebberTomSelectSettings',
 			$args
 		);
 		wp_enqueue_script( "wz-{$prefix}-tom-select-init" );
@@ -863,16 +863,16 @@ class Settings_API {
 	/**
 	 * Sanitize the form data being submitted.
 	 *
-	 * @param  array $input Input unclean array.
+	 * @param  mixed $input Unsanitized input. An array for form submissions, but REST and WP-CLI may pass anything.
 	 * @return array Sanitized array
 	 */
 	public function settings_sanitize( $input ) {
-		// This should be set if a form is submitted, so let's save it in the $referrer variable.
-		if ( empty( $_POST['_wp_http_referer'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			return $input;
-		}
+		// Set when a classic form is submitted; used only to pick the active tab below.
+		$referrer = array();
 
-		parse_str( sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) ), $referrer ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( ! empty( $_POST['_wp_http_referer'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			parse_str( sanitize_text_field( wp_unslash( $_POST['_wp_http_referer'] ) ), $referrer ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		}
 
 		// Check if we need to set to defaults.
 		$reset = isset( $_POST['settings_reset'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -895,7 +895,7 @@ class Settings_API {
 		// Get the tab. This is also our settings' section.
 		$tab = $referrer['tab'] ?? $this->default_tab;
 
-		$input = $input ? $input : array();
+		$input = is_array( $input ) ? $input : array();
 
 		/**
 		 * Filter the settings for the tab. e.g. prefix_settings_general_sanitize.

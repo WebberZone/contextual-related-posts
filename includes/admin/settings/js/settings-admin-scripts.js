@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
 
-	const prefix = WZSettingsAdmin.prefix || 'wz';
+	const prefix = WebberSettingsAdmin.prefix || 'wz';
 
 	// File browser.
 	$('.file-browser').on('click', function (event) {
@@ -53,7 +53,7 @@ jQuery(document).ready(function ($) {
 		var $navLinks = $container.find('> ul.nav-tab-wrapper a.nav-tab');
 		var $clearButton = $container.find('.wz-settings-search-clear');
 		var $status = $container.find('.wz-settings-search-status');
-		var strings = (typeof WZSettingsAdmin !== 'undefined' && WZSettingsAdmin.strings) || {};
+		var strings = (typeof WebberSettingsAdmin !== 'undefined' && WebberSettingsAdmin.strings) || {};
 		var $noResults = null;
 		var $actionsBar = null;
 		var indexBuilt = false;
@@ -297,9 +297,9 @@ jQuery(document).ready(function ($) {
 
 	// Reset default thumbnail - uses plugin-specific localized data.
 	$('.reset-default-thumb').on('click', function () {
-		var settingsKey = WZSettingsAdmin.settings_key || '';
-		var thumbDefault = (typeof window[WZSettingsAdmin.prefix + '_admin'] !== 'undefined')
-			? window[WZSettingsAdmin.prefix + '_admin'].thumb_default
+		var settingsKey = WebberSettingsAdmin.settings_key || '';
+		var thumbDefault = (typeof window[WebberSettingsAdmin.prefix + '_admin'] !== 'undefined')
+			? window[WebberSettingsAdmin.prefix + '_admin'].thumb_default
 			: '';
 		$('#' + settingsKey + '-thumb_default').val(thumbDefault);
 	});
@@ -345,8 +345,8 @@ jQuery(document).ready(function ($) {
 			var newItem = itemsContainer.find('.wz-repeater-item:last');
 			itemsContainer.find('.repeater-item-header:last .toggle-icon').text('\u25b2');
 			itemsContainer.find('.repeater-item-content:last').css('display', 'block');
-			if (window.WZInitTomSelect) {
-				window.WZInitTomSelect(newItem.get(0));
+			if (window.WebberInitTomSelect) {
+				window.WebberInitTomSelect(newItem.get(0));
 			}
 			document.dispatchEvent(new CustomEvent('wz:repeater-item-added', { detail: { container: newItem.get(0) } }));
 		});
