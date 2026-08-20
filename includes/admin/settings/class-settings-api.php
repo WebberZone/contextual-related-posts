@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Settings API wrapper class
  *
- * @version 2.9.0
+ * @version 3.0.0
  * @since 3.5.0
  */
 class Settings_API {
@@ -28,7 +28,7 @@ class Settings_API {
 	 *
 	 * @var   string
 	 */
-	public const VERSION = '2.11.0';
+	public const VERSION = '3.0.0';
 
 	/**
 	 * Settings Key.
@@ -677,8 +677,11 @@ class Settings_API {
 				$settings_key,
 				$settings_key,
 				array(
+					'type'              => 'object',
+					'default'           => $this->settings_defaults(),
 					'sanitize_callback' => array( $this, 'settings_sanitize' ),
-					'show_in_rest'      => true,
+					// The value is an open-ended map with no REST schema, and settings_sanitize() expects a form submission.
+					'show_in_rest'      => false,
 				)
 			);
 	}
@@ -815,26 +818,21 @@ class Settings_API {
 					continue;
 				}
 
-				// Return the callback name.
-				$sanitize_callback = false;
-
 				if ( isset( $setting['sanitize_callback'] ) && is_callable( $setting['sanitize_callback'] ) ) {
-					$sanitize_callback = $setting['sanitize_callback'];
-					return $sanitize_callback;
+					return $setting['sanitize_callback'];
 				}
 
-				if ( is_callable( array( $settings_sanitize, 'sanitize_' . $setting['type'] . '_field' ) ) ) {
-					// For repeater fields, create a closure to pass the field configuration.
-					if ( 'repeater' === $setting['type'] ) {
-						return function ( $value ) use ( $settings_sanitize, $setting ) {
-							return $settings_sanitize->sanitize_repeater_field( $value, $setting );
-						};
-					}
-					$sanitize_callback = array( $settings_sanitize, 'sanitize_' . $setting['type'] . '_field' );
-					return $sanitize_callback;
+				$method = 'sanitize_' . $setting['type'] . '_field';
+
+				// Field types with no callback of their own must still not store raw input.
+				if ( ! is_callable( array( $settings_sanitize, $method ) ) ) {
+					$method = 'sanitize_missing';
 				}
 
-				return $sanitize_callback;
+				// Every callback receives the field configuration so choice fields can validate against their own options.
+				return function ( $value ) use ( $settings_sanitize, $method, $setting ) {
+					return $settings_sanitize->$method( $value, $setting );
+				};
 			}
 		}
 
@@ -904,8 +902,8 @@ class Settings_API {
 		 */
 		$input = apply_filters( $this->prefix . '_settings_' . $tab . '_sanitize', $input ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
 
-		// Create an output array by merging the existing settings with the ones submitted.
-		$output = array_merge( $settings, $input );
+		// Start from what is stored. Submitted values are merged back in below, once sanitized.
+		$output = $settings;
 
 		// Loop through each setting being saved and pass it through a sanitization filter.
 		foreach ( $settings_types as $key => $type ) {
@@ -925,11 +923,7 @@ class Settings_API {
 
 				// If callback is set, call it.
 				if ( $sanitize_callback ) {
-					if ( 'sensitive' === $type ) {
-						$output[ $key ] = call_user_func( $sanitize_callback, $input[ $key ], $key );
-					} else {
-						$output[ $key ] = call_user_func( $sanitize_callback, $input[ $key ] );
-					}
+					$output[ $key ] = call_user_func( $sanitize_callback, $input[ $key ] );
 					continue;
 				}
 			}
@@ -941,11 +935,18 @@ class Settings_API {
 					unset( $output[ $key ] );
 				}
 			}
+		}
 
-			// Delete any settings that are no longer part of our registered settings.
-			if ( array_key_exists( $key, $output ) && ! array_key_exists( $key, $settings_types ) ) {
-				unset( $output[ $key ] );
-			}
+		// Keys added by the tab filter are not registered settings, but must not be stored raw either.
+		$settings_sanitize = new Settings_Sanitize(
+			array(
+				'settings_key' => $this->settings_key,
+				'prefix'       => $this->prefix,
+			)
+		);
+
+		foreach ( array_diff_key( $input, $settings_types ) as $key => $value ) {
+			$output[ sanitize_text_field( (string) $key ) ] = $settings_sanitize->sanitize_missing( $value );
 		}
 
 		add_settings_error( $this->prefix . '-notices', '', $this->translation_strings['success_message'], 'updated' );
