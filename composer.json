@@ -57,7 +57,7 @@
         ],
         "phpcompat": [
             "@phpcompat:setup",
-            "phpcompat-tools/vendor/bin/phpcs -p --standard=PHPCompatibility --runtime-set testVersion 7.4-8.5 --extensions=php --ignore=*/vendor/*,*/node_modules/*,*/tests/*,*/phpunit/*,*/freemius/*,*/phpcompat-tools/* ."
+            "phpcompat-tools/vendor/bin/phpcs -p --standard=PHPCompatibility --runtime-set testVersion 7.4-8.6 --extensions=php --ignore=*/vendor/*,*/node_modules/*,*/tests/*,*/phpunit/*,*/freemius/*,*/phpcompat-tools/* ."
         ],
         "phpcompat:clean": "rm -rf phpcompat-tools",
         "test": [

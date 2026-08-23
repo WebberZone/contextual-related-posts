@@ -39,13 +39,13 @@ jobs:
             dealerdirect/phpcodesniffer-composer-installer:"^1.0" \
             --no-interaction
 
-      # Check PHP 7.4 through 8.5 compatibility
-      - name: Check PHP Compatibility (7.4-8.5)
+      # Check PHP 7.4 through 8.6 compatibility
+      - name: Check PHP Compatibility (7.4-8.6)
         run: |
           cd phpcompat-tools
           ./vendor/bin/phpcs -p \
             --standard=PHPCompatibility \
-            --runtime-set testVersion 7.4-8.5 \
+            --runtime-set testVersion 7.4-8.6 \
             --extensions=php \
             --ignore=*/vendor/*,*/node_modules/*,*/tests/*,*/phpunit/*,*/freemius/* \
             ../ || exit_code=$?
