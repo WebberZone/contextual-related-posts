@@ -484,11 +484,12 @@ class CRP_Core_Query {
 			$args['limit'] = (int) $caller_args['posts_per_page'];
 		}
 
-		// Increase posts_per_page to fetch more posts to account for PHP exclusions.
+		// Increase posts_per_page to fetch more posts to account for PHP exclusions and offset.
+		$offset_limit = (int) $args['limit'] + (int) $args['offset'];
 		if ( ! isset( $args['posts_per_page'] ) || empty( $args['posts_per_page'] ) ) {
-			$args['posts_per_page'] = (int) $args['limit'] * 3;
+			$args['posts_per_page'] = $offset_limit * 3;
 		} else {
-			$args['posts_per_page'] = max( (int) $args['posts_per_page'] * 3, (int) $args['limit'] * 3 );
+			$args['posts_per_page'] = max( (int) $args['posts_per_page'] * 3, $offset_limit * 3 );
 		}
 
 		// Same author.
@@ -763,6 +764,9 @@ class CRP_Core_Query {
 			if ( ! empty( $this->query_args['author'] ) ) {
 				$query->set( 'author', $this->query_args['author'] );
 			}
+
+			// Offset is applied manually in the_posts() after PHP-side exclusions; prevent WP_Query's native SQL offset from also applying.
+			$query->set( 'offset', 0 );
 
 			$query->set( 'suppress_filters', false );
 			$query->set( 'no_found_rows', true );
@@ -1347,8 +1351,9 @@ class CRP_Core_Query {
 			);
 		}
 
-		$limit = (int) $this->query_args['limit'];
-		$posts = array_slice( $posts, 0, $limit );
+		$limit  = (int) $this->query_args['limit'];
+		$offset = $this->in_cache ? 0 : (int) $this->query_args['offset'];
+		$posts  = array_slice( $posts, $offset, $limit );
 
 		// Support caching to speed up retrieval - set cache AFTER final limiting.
 		if ( ! $this->in_cache && $this->should_cache() ) {
@@ -1390,10 +1395,11 @@ class CRP_Core_Query {
 	public function exclude_post_ids( $args ) {
 		static $exclude_post_ids_cache = array();
 
-		$post_id = absint( $this->source_post->ID );
+		$post_id   = absint( $this->source_post->ID );
+		$cache_key = $post_id . '|' . implode( ',', wp_parse_id_list( $args['exclude_post_ids'] ?? array() ) );
 
-		if ( isset( $exclude_post_ids_cache[ $post_id ] ) ) {
-			return $exclude_post_ids_cache[ $post_id ];
+		if ( isset( $exclude_post_ids_cache[ $cache_key ] ) ) {
+			return $exclude_post_ids_cache[ $cache_key ];
 		}
 
 		global $wpdb;
@@ -1433,9 +1439,9 @@ class CRP_Core_Query {
 
 		$exclude_post_ids[] = $this->source_post->ID;
 
-		$exclude_post_ids_cache[ $post_id ] = array_unique( wp_parse_id_list( $exclude_post_ids ) );
+		$exclude_post_ids_cache[ $cache_key ] = array_unique( wp_parse_id_list( $exclude_post_ids ) );
 
-		return $exclude_post_ids_cache[ $post_id ];
+		return $exclude_post_ids_cache[ $cache_key ];
 	}
 
 	/**
