@@ -66,6 +66,11 @@ Two options on the settings page allow you to remove these indices when deactiva
 * [Taxonomy Weight System](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#weighting-categories-tags-and-taxonomies): Refine your matches with precise taxonomy weighting for perfect content relationships.
 * __Keyword Override for Blocks__: Set a word or phrase on the Related Posts block or the CRP Query Loop block to find related posts using that keyword instead of the current post's title and content.
 
+#### 🧩 Page Builder Integrations
+
+* __WPBakery Page Builder__: A native "Related Posts (CRP)" element under its own "WebberZone" tab in the Add Element panel, covering the same options as the `[crp]` shortcode plus custom CSS class/CSS — works in both Classic Mode and the Frontend Editor.
+* __Elementor__: A native "Related Posts (CRP)" widget under its own "WebberZone" category, editable live from the widget panel and preview.
+
 #### 🛒 WooCommerce Integration
 
 * __Related Products for WooCommerce__: Seamlessly integrate with WooCommerce to show related products.
@@ -195,6 +200,19 @@ If you enable thumbnails, the plugin will try to find the correct thumbnail in t
 The plugin also handles SSL, resizing, and fallback mechanisms automatically for each step.
 
 == Changelog ==
+
+= 4.4.0 =
+
+* New features:
+	* [Pro] WPBakery Page Builder integration: a native "Related Posts (CRP)" element with the full set of CRP options, in both Classic Mode and the Frontend Editor.
+	* [Pro] Elementor integration: a native "Related Posts (CRP)" widget with the same options as the WPBakery element.
+
+* Modifications:
+	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher, so future integrations (Divi, Bricks, Beaver Builder) can be added the same way.
+
+* Bug fixes:
+	* Fixed related-posts style stylesheets only ever being enqueued for the site-wide default style, not the style actually requested by a `[crp]` shortcode or a [Pro] page-builder element.
+	* [Pro] Fixed empty Elementor widget controls silently overriding saved plugin settings instead of falling back to them.
 
 = 4.3.1 =
 

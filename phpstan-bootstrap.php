@@ -79,6 +79,86 @@ namespace {
 	}
 
 	$crp_freemius = \fs_dynamic_init( array() );
+
+	if ( ! function_exists( 'vc_map' ) ) {
+		/**
+		 * WPBakery Page Builder element-registration stub for static analysis.
+		 *
+		 * @param array<string, mixed> $args Element definition.
+		 * @return void
+		 */
+		function vc_map( array $args ) {
+			do_action( 'crp_wpbakery_vc_map_stub', $args );
+		}
+	}
+}
+
+// Elementor has no official PHPStan stub package, so declare the minimal surface CRP's
+// Elementor builder module touches.
+namespace Elementor {
+	if ( ! class_exists( __NAMESPACE__ . '\Controls_Manager' ) ) {
+		class Controls_Manager {
+			const TEXT     = 'text';
+			const NUMBER   = 'number';
+			const SELECT   = 'select';
+			const SWITCHER = 'switcher';
+			const TEXTAREA = 'textarea';
+
+			const TAB_CONTENT = 'content';
+		}
+	}
+
+	if ( ! class_exists( __NAMESPACE__ . '\Widget_Base' ) ) {
+		abstract class Widget_Base {
+			/** @return string */
+			abstract public function get_name();
+
+			/** @return string */
+			abstract public function get_title();
+
+			/** @return string */
+			abstract public function get_icon();
+
+			/** @return string[] */
+			abstract public function get_categories();
+
+			/** @param array<string, mixed> $args */
+			protected function start_controls_section( string $section_id, array $args = array() ): void {}
+
+			protected function end_controls_section(): void {}
+
+			/** @param array<string, mixed> $args */
+			protected function add_control( string $control_id, array $args = array() ): void {}
+
+			abstract protected function register_controls(): void;
+
+			abstract protected function render(): void;
+
+			/** @return array<string, mixed> */
+			protected function get_settings_for_display( ?string $setting_key = null ) {
+				return array();
+			}
+		}
+	}
+
+	if ( ! class_exists( __NAMESPACE__ . '\Elements_Manager' ) ) {
+		class Elements_Manager {
+			/** @param array<string, mixed> $args */
+			public function add_category( string $category_id, array $args = array() ): void {}
+		}
+	}
+
+	if ( ! class_exists( __NAMESPACE__ . '\Widgets_Manager' ) ) {
+		class Widgets_Manager {
+			public function register( Widget_Base $widget ): bool {
+				return true;
+			}
+		}
+	}
+
+	if ( ! class_exists( __NAMESPACE__ . '\Plugin' ) ) {
+		class Plugin {}
+	}
 }
 
 // When running on the free plugin (includes/pro/ removed by sync), define Pro class stubs
