@@ -401,6 +401,12 @@ class Cache {
 
 		// Remove any keys ending in _header or _desc, or with type 'header'.
 		foreach ( $args as $key => $value ) {
+			// Numeric keys can leak in from shortcode_parse_atts() on malformed shortcode attributes.
+			if ( ! is_string( $key ) ) {
+				unset( $args[ $key ] );
+				continue;
+			}
+
 			if ( '_header' === substr( $key, -7 ) || '_desc' === substr( $key, -5 ) ) {
 				unset( $args[ $key ] );
 				continue;
