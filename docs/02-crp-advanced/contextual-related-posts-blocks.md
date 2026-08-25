@@ -5,10 +5,11 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [block, contextual-related-posts, query-loop, related-posts]
 status: publish
-order: 0
+toc: true
+featured_image: "https://webberzone.com/wp-content/uploads/2024/05/Choose-a-Related-Posts-Pattern-scaled.webp"
 ---
 
-[kbtoc]
+[toc]
 
 [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) includes a basic Gutenberg block that can replace the widget or shortcode for displaying related posts. This block can be used in your posts, pages, or any other custom post type. You can also use it within the Site Editor using a block theme.
 

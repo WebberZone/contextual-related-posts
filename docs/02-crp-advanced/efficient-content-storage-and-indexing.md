@@ -1,14 +1,15 @@
 ---
 slug: efficient-content-storage-and-indexing
 title: "Efficient Content Storage and Indexing (ECSI) in Contextual Related Posts Pro and Better Search Pro"
-products: [better-search,contextual-related-posts]
-sections: [02-bs-advanced,02-crp-advanced]
-tags: [contextual-related-posts,pro,related-posts,settings]
+products: [contextual-related-posts]
+sections: ["02-crp-advanced", "02-bs-advanced"]
+tags: [contextual-related-posts, pro, related-posts, settings]
 status: publish
-order: 0
+toc: true
+featured_image: "https://webberzone.com/wp-content/uploads/2025/04/Efficient-Content-Storage-and-Indexing-ECSI.webp"
 ---
 
-[kbtoc]
+[toc]
 
 **Efficient Content Storage & Indexing (ECSI)** is an advanced data storage system for [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) and [Better Search Pro](https://webberzone.com/plugins/better-search/pro/), significantly improving the quality of related posts and search results with enhanced performance. The post content is stored in custom database tables optimized for search and retrieval. This feature was first introduced in [Contextual Related Posts Pro v4](https://webberzone.com/announcements/contextual-related-posts-v4-0-0/) and Better Search Pro v4.2.
 
@@ -64,7 +65,7 @@ When you save a post, ECSI processes it in several steps:
 This approach eliminates processing time during content retrieval, resulting in faster queries and reduced server load. ECSI queries fully support caching; just remember to enable caching on the settings page.
 
 | Feature | Free Version | Pro Version (with ECSI) |
-| ---- | ---- | ---- |
+| --- | --- | --- |
 | Storage | Uses WordPress's native `wp_posts` table | Uses optimized custom tables |
 | Indexing | MySQL FULLTEXT indices on raw post data | MySQL FULLTEXT indices on pre-processed and indexed content |
 | Query Performance | Processes content during each query | Faster processing from pre-stored content |
@@ -161,7 +162,7 @@ No. New and updated content is automatically processed and added to the custom t
 ## Troubleshooting
 
 | Issue | Possible Causes | Solutions |
-| ---- | ---- | ---- |
+| --- | --- | --- |
 | Empty or missing related posts | Reindexing not completed; Custom tables are not enabled properly | Check if custom tables are enabled; Run a force reindex; Verify that the `wp_wz_posts` table exists and contains data |
 | Synchronization issues | WordPress cron is not running; Post hooks are not firing correctly | Check WordPress cron status; Review error logs; Try a force reindex |
 | Performance issues | Database server load; Large tables; Insufficient server resources | Monitor database server load; Optimize the database if performance drops; Consider database server upgrades if necessary |

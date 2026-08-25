@@ -3,9 +3,8 @@ slug: lazy-loading-related-posts
 title: "Lazy Loading Related Posts"
 products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
-tags: [contextual-related-posts, pro, performance, lazy-load]
+tags: [contextual-related-posts, lazy-load, performance, pro]
 status: publish
-order: 0
 ---
 
 Lazy loading, introduced in [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/) v4.3.0, defers rendering the related posts until the visitor is about to scroll them into view. The page is served without running the related posts query, and the list is fetched in the background via the REST API.
@@ -29,7 +28,7 @@ Lazy loading is automatically skipped where it cannot work — feeds, AMP pages,
 The shortcode accepts a `lazy_load` parameter that overrides the global setting for that instance:
 
 ```text
-[crp lazy_load="0"]
+[[crp lazy_load="0"]]
 ```
 
 Use `lazy_load="1"` to lazy load a single shortcode while the global setting is off, or `lazy_load="0"` to render one instance inline while everything else lazy loads.

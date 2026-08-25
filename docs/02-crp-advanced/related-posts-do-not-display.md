@@ -5,7 +5,6 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [contextual-related-posts]
 status: publish
-order: 0
 ---
 
 When you install [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/), the related posts should automatically display at the end of posts and pages. However, in some cases this might not display. Below are a few options to troubleshoot this.

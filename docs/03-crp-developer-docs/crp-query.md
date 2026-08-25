@@ -5,7 +5,6 @@ products: [contextual-related-posts]
 sections: ["03-crp-developer-docs"]
 tags: [contextual-related-posts, crp_query]
 status: publish
-order: 0
 ---
 
 [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) v3.0.0 introduced CRP_Query, which works as a wrapper for [WP_Query](https://developer.wordpress.org/reference/classes/wp_query/). This brings all the power and flexibility of WP_Query to Contextual Related Posts. If you’re not familiar with WP_Query, I recommend [reading docs](https://developer.wordpress.org/reference/classes/wp_query/).

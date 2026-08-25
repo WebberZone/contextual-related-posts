@@ -5,7 +5,7 @@ products: [contextual-related-posts]
 sections: ["03-crp-developer-docs"]
 tags: [contextual-related-posts, css, customisation, styles]
 status: publish
-order: 0
+featured_image: "https://webberzone.com/wp-content/uploads/2019/02/WZLogo-white-1.png"
 ---
 
 Contextual Related Posts has several customization options available via the [Settings page](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/) in WordPress Admin. You can access this via **Settings » Related Posts**
@@ -75,7 +75,7 @@ add_filter(
 Returns the full default arguments array for the related posts display — the built-in defaults merged with the saved plugin settings. Use it to build a complete `$args` array before calling the rendering or query functions.
 
 ```php
-$args = \WebberZone\Contextual_Related_Posts\Frontend\Display::get_default_args();
+$args = WebberZoneContextual_Related_PostsFrontendDisplay::get_default_args();
 ```
 
 **Returns:** `array` — Default arguments including all saved settings.

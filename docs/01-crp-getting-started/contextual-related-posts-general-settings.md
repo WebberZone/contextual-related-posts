@@ -5,10 +5,11 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts]
 status: publish
-order: 0
+toc: true
+featured_image: "https://webberzone.com/wp-content/uploads/2019/04/Contextual-Related-Posts-General-Settings.webp"
 ---
 
-[kbtoc]
+[toc]
 
 The **General options** tab in the [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) settings screen gives you the main options to configure the related posts on your WordPress site.
 
@@ -35,7 +36,7 @@ Select the relative position of the related posts in the post content. A higher 
 Enter 0 to display the related posts before the post content, -1 to display at the end, or a number to insert after a specific paragraph. For negative numbers, counting starts from the end. If the paragraph number exceeds the post’s count, they will appear at the end.
 
 > [!WARNING]
-> ⚠️ This ignores other HTML tags and may not work as expected if <code>&lt;p&gt;</code> tags are inside other tags.
+> ⚠️ This ignores other HTML tags and may not work as expected if `<p>` tags are inside other tags.
 
 ### Disable on mobile devices
 

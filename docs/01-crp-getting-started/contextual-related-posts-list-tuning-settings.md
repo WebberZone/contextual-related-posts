@@ -5,10 +5,11 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]
 status: publish
-order: 0
+toc: true
+featured_image: "https://webberzone.com/wp-content/uploads/2019/04/Contextual-Related-Posts-List-Tuning-Settings.webp"
 ---
 
-[kbtoc]
+[toc]
 
 The **List Tuning** is the second tab in the [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) settings screen and provides you with options that allow you to fine-tune the items in the related posts list.
 
@@ -94,7 +95,7 @@ If checked, the related posts will only be selected from the same post type as t
 
 If checked, the related posts will only be selected from the same author as the current post.
 
-## Taxonomy &amp; Term Filtering
+## Taxonomy & Term Filtering
 
 ### Limit to the same primary term
 

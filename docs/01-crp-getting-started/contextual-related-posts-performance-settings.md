@@ -3,12 +3,13 @@ slug: contextual-related-posts-performance-settings
 title: "Contextual Related Posts Settings – Performance"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
-tags: [contextual-related-posts,performance,settings]
+tags: [contextual-related-posts, performance, settings]
 status: publish
-order: 0
+toc: true
+featured_image: "https://webberzone.com/wp-content/uploads/2025/08/Contextual-Related-Posts-Performance-Settings.webp"
 ---
 
-[kbtoc]
+[toc]
 
 The **Performance** tab in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) includes options designed to optimize how related posts are queried and displayed, especially for high-traffic or large sites. This section provides options for using custom database tables, caching, and fine-tuning query performance.
 
