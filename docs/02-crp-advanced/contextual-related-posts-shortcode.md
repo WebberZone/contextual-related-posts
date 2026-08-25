@@ -5,7 +5,7 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, shortcode]
 status: publish
-order: 0
+featured_image: "https://webberzone.com/wp-content/uploads/2015/12/Installing-CRP.png"
 ---
 
 [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) includes a shortcode to display the related posts list. If you’re not familiar with shortcodes, please read [this article in the WordPress Codex](https://codex.wordpress.org/Shortcode).

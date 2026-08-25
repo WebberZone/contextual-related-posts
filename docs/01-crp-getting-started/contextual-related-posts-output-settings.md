@@ -5,10 +5,11 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]
 status: publish
-order: 0
+toc: true
+featured_image: "https://webberzone.com/wp-content/uploads/2019/04/Contextual-Related-Posts-Output-Settings.webp"
 ---
 
-[kbtoc]
+[toc]
 
 The **Output** tab in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) allows you to configure the display of the related posts.
 

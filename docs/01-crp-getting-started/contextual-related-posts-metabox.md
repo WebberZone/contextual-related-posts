@@ -5,7 +5,7 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]
 status: publish
-order: 0
+featured_image: "https://webberzone.com/wp-content/uploads/2022/04/Contextual-Related-Posts-v3.2-Metabox-1.png"
 ---
 
 [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) adds a metabox to the bottom of Edit screens. These allow you to set post specific configurations for the plugin. By default, it applies to all public post types, but Contextual Related Posts Pro users can restrict it to specific post types via **Show metabox on these post types** in the [General Settings tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/). You can turn the metabox off entirely from the same settings tab.

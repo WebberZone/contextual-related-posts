@@ -5,10 +5,11 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]
 status: publish
-order: 0
+toc: true
+featured_image: "https://webberzone.com/wp-content/uploads/2019/04/Contextual-Related-Posts-Thumbnail-Settings.webp"
 ---
 
-[kbtoc]
+[toc]
 
 The **Thumbnail options** section in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) contains a set of options that allow you to fine-tune the thumbnails displayed in the related posts. These are global settings, and many of these can be overridden in the widget or the shortcode.
 
