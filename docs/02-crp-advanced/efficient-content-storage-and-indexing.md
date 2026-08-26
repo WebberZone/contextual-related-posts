@@ -2,7 +2,7 @@
 slug: efficient-content-storage-and-indexing
 title: "Efficient Content Storage and Indexing (ECSI) in Contextual Related Posts Pro and Better Search Pro"
 products: [contextual-related-posts]
-sections: ["02-crp-advanced", "02-bs-advanced"]
+sections: ["02-bs-advanced", "02-crp-advanced"]
 tags: [contextual-related-posts, pro, related-posts, settings]
 status: publish
 toc: true
