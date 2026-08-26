@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, installation]
 status: publish
+order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2015/12/Installing-CRP.png"
 ---
 

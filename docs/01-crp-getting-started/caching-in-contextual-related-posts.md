@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [cache, contextual-related-posts]
 status: publish
+order: 0
 ---
 
 To improve the performance of your WordPress site, the [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) plugin offers two inbuilt caching options: **Cache Posts only** and **Cache HTML output**. This guide will walk you through enabling and configuring these settings.

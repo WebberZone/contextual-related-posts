@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, lazy-load, performance, pro]
 status: publish
+order: 0
 ---
 
 Lazy loading, introduced in [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/) v4.3.0, defers rendering the related posts until the visitor is about to scroll them into view. The page is served without running the related posts query, and the list is fetched in the background via the REST API.

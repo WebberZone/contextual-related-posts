@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, shortcode]
 status: publish
+order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2015/12/Installing-CRP.png"
 ---
 

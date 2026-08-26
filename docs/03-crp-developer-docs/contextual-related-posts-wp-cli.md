@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["03-crp-developer-docs"]
 tags: [contextual-related-posts, developer, pro, wp-cli]
 status: publish
+order: 0
 toc: true
 featured_image: "https://webberzone.com/wp-content/uploads/2025/12/Contextual-Related-Posts-CLI.webp"
 ---

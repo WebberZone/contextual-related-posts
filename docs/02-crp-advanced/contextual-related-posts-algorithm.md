@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, related-posts]
 status: publish
+order: 0
 toc: true
 ---
 
