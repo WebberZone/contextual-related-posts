@@ -889,7 +889,11 @@ class CRP_Core_Query {
 
 		if ( $this->enable_relevance ) {
 
-			$match_clause = ! empty( $this->match_sql ) ? $this->match_sql : $this->get_match_sql();
+			if ( empty( $this->match_sql ) ) {
+				$this->match_sql = $this->get_match_sql();
+			}
+
+			$match_clause = $this->match_sql;
 
 			/**
 			 * Filter the MATCH clause of the WHERE clause of the query.
@@ -928,13 +932,11 @@ class CRP_Core_Query {
 			}
 		}
 
-		// if both $match and $include are not empty, then join them using OR. Else, use the one that is not empty.
+		// Include words widen the match, so on their own they restrict nothing.
 		if ( ! empty( $match_clause ) && ! empty( $include ) ) {
 			$where .= " AND ( $match_clause OR $include )";
 		} elseif ( ! empty( $match_clause ) ) {
 			$where .= " AND ( $match_clause )";
-		} elseif ( ! empty( $include ) ) {
-			$where .= " AND ( 1=1 OR $include )";
 		}
 
 		$exclude_words_meta = crp_get_meta( $this->source_post->ID, 'exclude_words' );
@@ -1009,7 +1011,7 @@ class CRP_Core_Query {
 				}
 				$orderby = ' ' . $this->match_sql . " DESC, $wpdb->posts.post_date DESC, $wpdb->posts.ID DESC ";
 			}
-			return apply_filters( 'crp_query_posts_orderby', $orderby, $query );
+			return apply_filters_ref_array( 'crp_query_posts_orderby', array( $orderby, $query, &$this ) );
 		}
 
 		// Initialize an array to build the orderby clauses.

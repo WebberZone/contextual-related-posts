@@ -70,6 +70,7 @@ Two options on the settings page allow you to remove these indices when deactiva
 
 * __WPBakery Page Builder__: A native "Related Posts (CRP)" element under its own "WebberZone" tab in the Add Element panel, covering the same options as the `[crp]` shortcode plus custom CSS class/CSS — works in both Classic Mode and the Frontend Editor.
 * __Elementor__: A native "Related Posts (CRP)" widget under its own "WebberZone" category, editable live from the widget panel and preview.
+* __Bricks Builder__: A native "Related Posts (CRP)" element under its own "WebberZone" category, covering the same options as the `[crp]` shortcode with live dynamic data support.
 
 #### 🛒 WooCommerce Integration
 
@@ -206,13 +207,19 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 * New features:
 	* [Pro] WPBakery Page Builder integration: a native "Related Posts (CRP)" element with the full set of CRP options, in both Classic Mode and the Frontend Editor.
 	* [Pro] Elementor integration: a native "Related Posts (CRP)" widget with the same options as the WPBakery element.
+	* [Pro] Bricks Builder integration: a native "Related Posts (CRP)" element with the same options as the WPBakery element, plus support for Bricks dynamic data tags.
 
 * Modifications:
-	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher, so future integrations (Divi, Bricks, Beaver Builder) can be added the same way.
+	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher, so future integrations (Divi, Beaver Builder) can be added the same way.
+	* Relabelled the "Include only posts that contain these words" setting to "Also match posts that contain these words". The option has always widened the contextual match rather than restricting it, and also ranks the matching posts higher; the old label and description described the opposite behaviour.
 
 * Bug fixes:
 	* Fixed related-posts style stylesheets only ever being enqueued for the site-wide default style, not the style actually requested by a `[crp]` shortcode or a [Pro] page-builder element.
-	* [Pro] Fixed empty Elementor widget controls silently overriding saved plugin settings instead of falling back to them.
+	* [Pro] Fixed the related-posts cache colliding across differently-configured shortcode/widget/block/page-builder calls on the same post, causing one call's rendered HTML to be silently reused by another.
+	* [Pro] Fixed "Order by: Date" being silently overridden by relevance ordering, and the same code path throwing an `Unknown column 'score'` database error when contextual matching was disabled while Include words was set.
+	* [Pro] Fixed "Sort by number of matching taxonomy terms" being appended after the date sort instead of ahead of it when ordering by date.
+	* [Pro] Fixed `orderby="relevance"` sorting by the unweighted core match instead of the Pro weighted relevance score.
+	* Fixed the contextual match SQL being rebuilt twice on every related posts query.
 
 = 4.3.1 =
 

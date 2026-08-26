@@ -964,8 +964,8 @@ class Settings {
 			),
 			'include_words'             => array(
 				'id'      => 'include_words',
-				'name'    => esc_html__( 'Include only posts that contain these words', 'contextual-related-posts' ),
-				'desc'    => esc_html__( 'If entered, the related posts will include only posts that contain any of the specified words. Separate words with commas and no spaces. e.g. samsung,apple,nokia', 'contextual-related-posts' ),
+				'name'    => esc_html__( 'Also match posts that contain these words', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'If entered, posts containing any of these words are matched in addition to the contextual matches, and are ranked higher. Separate words with commas and no spaces. e.g. samsung,apple,nokia', 'contextual-related-posts' ),
 				'type'    => 'csv',
 				'default' => '',
 			),

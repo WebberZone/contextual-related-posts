@@ -34,10 +34,10 @@ class Cache {
 	 *
 	 * @since 4.3.0
 	 *
-	 * @param int $post_id Post ID being trashed or restored.
+	 * @param  int $post_id Post ID being trashed or restored.
 	 * @return void
 	 */
-	public static function maybe_clear_cache_on_trash( $post_id ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
+	public static function maybe_clear_cache_on_trash( $post_id ) {  // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		static $cleared = false;
 
 		if ( $cleared ) {
@@ -117,7 +117,7 @@ class Cache {
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param int $seconds Expiration time in seconds.
+	 * @param  int $seconds Expiration time in seconds.
 	 * @return string Human readable time format.
 	 */
 	private static function format_expiration_time( int $seconds ): string {
@@ -212,7 +212,7 @@ class Cache {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param int $post_id Post ID. Optional.
+	 * @param  int $post_id Post ID. Optional.
 	 * @return array Array of _crp_cache keys.
 	 */
 	public static function get_meta_keys( $post_id = 0 ): array {
@@ -246,7 +246,7 @@ class Cache {
 	 *
 	 * @since 4.2.0
 	 *
-	 * @param bool $dry_run Whether to perform a dry run.
+	 * @param  bool $dry_run Whether to perform a dry run.
 	 * @return array Results array with 'cleaned' and 'scanned' counts.
 	 */
 	public static function cleanup_expired( bool $dry_run = false ): array {
@@ -312,7 +312,7 @@ class Cache {
 	 *
 	 * @since 3.4.0
 	 *
-	 * @param int $post_id Post ID.
+	 * @param  int $post_id Post ID.
 	 * @return int Number of entries deleted.
 	 */
 	public static function delete_by_post_id( $post_id ): int {
@@ -342,7 +342,7 @@ class Cache {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param mixed $attr Array of attributes typically.
+	 * @param  mixed $attr Array of attributes typically.
 	 * @return string Cache meta key
 	 */
 	public static function get_key( $attr ): string {
@@ -353,46 +353,28 @@ class Cache {
 			$setting_types = function_exists( 'crp_get_registered_settings_types' ) ? crp_get_registered_settings_types() : array();
 		}
 
-		// Remove args that don't affect query results.
+		// Remove args that affect neither the query nor the cached HTML output. `cache` stores the
+		// full rendered HTML (see Display::related_posts()), so any arg consumed by heading_title(),
+		// list_link(), get_the_excerpt(), the before/after wrappers, or CRP_Core_Query's own query
+		// building must stay in the key — leaving one out here causes two differently-configured
+		// calls on the same post to collide on the same cache entry and silently reuse each other's
+		// output (#86crp-bricks-cache; @since 4.4.0).
 		$exclude_keys = array(
-			'after_list',
-			'after_list_item',
-			'before_list',
-			'before_list_item',
-			'blank_output',
-			'blank_output_text',
 			'cache',
 			'cache_posts',
 			'className',
 			'crp_query',
 			'echo',
-			'excerpt_length',
-			'extra_class',
-			'heading',
 			'ignore_sticky_posts',
-			'is_block',
 			'is_crp_query',
 			'is_manual',
-			'is_shortcode',
-			'is_widget',
-			'link_new_window',
-			'link_nofollow',
-			'more_link_text',
 			'no_found_rows',
 			'other_attributes',
-			'post_types',
 			'post_id',
 			'postid',
-			'same_post_type',
-			'show_author',
-			'show_credit',
-			'show_date',
-			'show_excerpt',
 			'show_metabox',
 			'show_metabox_admins',
 			'suppress_filters',
-			'title',
-			'title_length',
 		);
 
 		foreach ( $exclude_keys as $key ) {
@@ -550,11 +532,11 @@ class Cache {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param int    $post_id    Post ID.
-	 * @param string $key        CRP Cache key.
-	 * @param mixed  $value      Metadata value. Must be serializable if non-scalar.
-	 * @param int    $expiration Time until expiration in seconds. Default CRP_CACHE_TIME (one month if not overridden).
-	 * @param string $cache_type Cache type: 'html' or 'posts'. Default: 'html'.
+	 * @param  int    $post_id    Post ID.
+	 * @param  string $key        CRP Cache key.
+	 * @param  mixed  $value      Metadata value. Must be serializable if non-scalar.
+	 * @param  int    $expiration Time until expiration in seconds. Default CRP_CACHE_TIME (one month if not overridden).
+	 * @param  string $cache_type Cache type: 'html' or 'posts'. Default: 'html'.
 	 * @return int|bool Meta ID if the key didn't exist, true on successful update,
 	 *                  false on failure or if the value passed to the function
 	 *                  is the same as the one that is already in the database.
@@ -602,8 +584,8 @@ class Cache {
 	 *
 	 * @since 4.0.0
 	 *
-	 * @param string $key CRP Cache key.
-	 * @param int    $post_id Post ID.
+	 * @param  string $key     CRP Cache key.
+	 * @param  int    $post_id Post ID.
 	 * @return int Cache time in seconds.
 	 */
 	public static function get_cache_time( $key = '', $post_id = 0 ) {
@@ -645,9 +627,9 @@ class Cache {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param int    $post_id   Post ID.
-	 * @param string $key       CRP Cache key.
-	 * @param string $cache_type Cache type: 'html' or 'posts'. Default: 'html'.
+	 * @param  int    $post_id    Post ID.
+	 * @param  string $key        CRP Cache key.
+	 * @param  string $cache_type Cache type: 'html' or 'posts'. Default: 'html'.
 	 * @return mixed Value of the CRP cache or false if invalid, expired or unavailable.
 	 */
 	public static function get_cache( $post_id, $key, string $cache_type = 'posts' ) {
@@ -682,9 +664,9 @@ class Cache {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param int    $post_id Post ID.
-	 * @param string $key     CRP Cache key.
-	 * @param string $cache_type Cache type: 'html', 'posts', or 'all'. Default: 'all'.
+	 * @param  int    $post_id    Post ID.
+	 * @param  string $key        CRP Cache key.
+	 * @param  string $cache_type Cache type: 'html', 'posts', or 'all'. Default: 'all'.
 	 * @return bool True on success, False on failure.
 	 */
 	public static function delete_by_post_id_and_key( $post_id, $key, string $cache_type = 'all' ): bool {
@@ -718,8 +700,8 @@ class Cache {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param string $key CRP Cache key.
-	 * @param string $cache_type Cache type: 'html', 'posts', or 'all'. Default: 'all'.
+	 * @param  string $key        CRP Cache key.
+	 * @param  string $cache_type Cache type: 'html', 'posts', or 'all'. Default: 'all'.
 	 * @return bool True on success, False on failure.
 	 */
 	public static function delete_by_key( $key, string $cache_type = 'all' ): bool {
