@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, performance, settings]
 status: publish
+order: 0
 toc: true
 featured_image: "https://webberzone.com/wp-content/uploads/2025/08/Contextual-Related-Posts-Performance-Settings.webp"
 ---

@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings, woocommerce]
 status: publish
+order: 0
 toc: true
 featured_image: "https://webberzone.com/wp-content/uploads/2026/01/Contextual-Related-Posts-Related-Products-for-WooCommerce.webp"
 ---

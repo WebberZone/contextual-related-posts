@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, pro, related-posts, settings]
 status: publish
+order: 0
 ---
 
 ## What Are Cornerstone Posts?

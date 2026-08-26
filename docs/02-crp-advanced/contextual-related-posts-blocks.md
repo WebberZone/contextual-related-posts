@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [block, contextual-related-posts, query-loop, related-posts]
 status: publish
+order: 0
 toc: true
 featured_image: "https://webberzone.com/wp-content/uploads/2024/05/Choose-a-Related-Posts-Pattern-scaled.webp"
 ---

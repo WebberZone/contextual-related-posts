@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, pro, settings]
 status: publish
+order: 0
 ---
 
 The **Server Load Threshold** setting was introduced in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) Pro v4.2.0 and exists for one simple reason: your database should stay responsive, even when traffic spikes.

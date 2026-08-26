@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["03-crp-developer-docs"]
 tags: [contextual-related-posts, css, customisation, styles]
 status: publish
+order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2019/02/WZLogo-white-1.png"
 ---
 

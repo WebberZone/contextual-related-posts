@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["03-crp-developer-docs"]
 tags: [contextual-related-posts, wp-rest-api]
 status: publish
+order: 0
 toc: true
 ---
 

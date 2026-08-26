@@ -5,6 +5,7 @@ products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, pro, upgrade]
 status: publish
+order: 0
 ---
 
 Contextual Related Posts is free to use and packed with features right out of the box. The Pro upgrade adds performance enhancements, smarter content matching, WooCommerce support, and advanced customization tools for those who need more control.
