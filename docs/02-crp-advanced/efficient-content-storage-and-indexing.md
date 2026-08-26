@@ -2,9 +2,10 @@
 slug: efficient-content-storage-and-indexing
 title: "Efficient Content Storage and Indexing (ECSI) in Contextual Related Posts Pro and Better Search Pro"
 products: [contextual-related-posts]
-sections: ["02-bs-advanced", "02-crp-advanced"]
+sections: ["02-crp-advanced", "02-bs-advanced"]
 tags: [contextual-related-posts, pro, related-posts, settings]
 status: publish
+order: 0
 toc: true
 featured_image: "https://webberzone.com/wp-content/uploads/2025/04/Efficient-Content-Storage-and-Indexing-ECSI.webp"
 ---
