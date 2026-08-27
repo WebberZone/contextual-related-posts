@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.3.1
+Stable tag: 4.4.0
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -214,6 +214,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 	* Relabelled the "Include only posts that contain these words" setting to "Also match posts that contain these words". The option has always widened the contextual match rather than restricting it, and also ranks the matching posts higher; the old label and description described the opposite behaviour.
 
 * Bug fixes:
+	* Fixed stopword stripping breaking with a PHP `preg_replace()` warning, and silently leaving stopwords in place, when the translated stopword list or the `wp_search_stopwords` filter contained a `/`.
 	* Fixed related-posts style stylesheets only ever being enqueued for the site-wide default style, not the style actually requested by a `[crp]` shortcode or a [Pro] page-builder element.
 	* [Pro] Fixed the related-posts cache colliding across differently-configured shortcode/widget/block/page-builder calls on the same post, causing one call's rendered HTML to be silently reused by another.
 	* [Pro] Fixed "Order by: Date" being silently overridden by relevance ordering, and the same code path throwing an `Unknown column 'score'` database error when contextual matching was disabled while Include words was set.

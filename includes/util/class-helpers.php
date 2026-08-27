@@ -285,11 +285,25 @@ class Helpers {
 			$search   = array_merge( $search, array( 'from', 'where' ) );
 		}
 
-		// Build regex pattern for all stopwords at once.
-		$pattern = '/\b(' . implode( '|', array_map( 'preg_quote', (array) $search ) ) . ')\b/ui';
+		// Drop empty entries so a trailing comma in a translated list cannot create an empty alternation branch.
+		$search = array_filter( array_map( 'trim', array_map( 'strval', (array) $search ) ), 'strlen' );
 
-		// Remove stopwords.
-		$output = preg_replace( $pattern, $replace, (string) $subject );
+		$output = (string) $subject;
+
+		if ( ! empty( $search ) ) {
+			$quoted  = array_map(
+				static function ( $word ) {
+					return preg_quote( $word, '/' );
+				},
+				$search
+			);
+			$pattern = '/\b(' . implode( '|', $quoted ) . ')\b/ui';
+
+			$replaced = preg_replace( $pattern, $replace, $output );
+			if ( null !== $replaced ) {
+				$output = $replaced;
+			}
+		}
 
 		// Remove single characters and normalize whitespace.
 		$output = preg_replace( '/\b[a-z\-]\b/i', '', $output );
