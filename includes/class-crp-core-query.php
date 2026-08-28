@@ -885,7 +885,7 @@ class CRP_Core_Query {
 		$match_clause   = '';
 		$include        = '';
 		$exclude        = '';
-		$search_columns = array( 'post_title', 'post_excerpt', 'post_content' );
+		$search_columns = $this->get_search_columns();
 
 		if ( $this->enable_relevance ) {
 
@@ -939,22 +939,26 @@ class CRP_Core_Query {
 			$where .= " AND ( $match_clause )";
 		}
 
-		$exclude_words_meta = crp_get_meta( $this->source_post->ID, 'exclude_words' );
+		$exclude_words = array_unique(
+			array_merge(
+				$this->parse_terms_list( $this->query_args['exclude_words'] ?? '' ),
+				$this->parse_terms_list( crp_get_meta( $this->source_post->ID, 'exclude_words' ) )
+			)
+		);
 
-		if ( ! empty( $exclude_words_meta ) ) {
+		if ( ! empty( $exclude_words ) ) {
 
-			$n          = '%';
-			$excludeand = '';
+			$n               = '%';
+			$excludeand      = '';
+			$exclude_columns = $this->get_search_columns( 'exclude' );
 
-			$exclude_words = preg_split( '/[,\s]+/', $exclude_words_meta );
-			$exclude_words = array_filter( $exclude_words );
-			foreach ( (array) $exclude_words as $word ) {
+			foreach ( $exclude_words as $word ) {
 				$like_op  = 'NOT LIKE';
 				$andor_op = 'AND';
 				$like     = $n . $wpdb->esc_like( strtolower( $word ) ) . $n;
 
 				$search_columns_parts = array();
-				foreach ( $search_columns as $search_column ) {
+				foreach ( $exclude_columns as $search_column ) {
 					$search_columns_parts[ $search_column ] = $wpdb->prepare( "({$wpdb->posts}.$search_column $like_op %s)", $like ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 				}
 				$exclude .= "$excludeand(" . implode( " $andor_op ", $search_columns_parts ) . ')';
@@ -962,9 +966,7 @@ class CRP_Core_Query {
 				$excludeand = ' AND ';
 			}
 
-			if ( ! empty( $exclude ) ) {
-				$where .= " AND ({$exclude}) ";
-			}
+			$where .= " AND ({$exclude}) ";
 		}
 
 		/**
@@ -1181,6 +1183,7 @@ class CRP_Core_Query {
 		}
 
 		if ( $this->is_backlogged() ) {
+			remove_filter( 'posts_pre_query', array( $this, 'posts_pre_query' ) );
 			return array();
 		}
 
@@ -1192,7 +1195,7 @@ class CRP_Core_Query {
 			$meta_key = Cache::get_key( $this->input_query_args );
 
 			$cached_data = Cache::get_cache( $this->source_post->ID, $meta_key );
-			if ( ! empty( $cached_data ) ) {
+			if ( is_array( $cached_data ) ) {
 				$post_ids       = $cached_data;
 				$this->in_cache = true;
 			}
@@ -1202,7 +1205,11 @@ class CRP_Core_Query {
 			$post_ids = array_merge( $post_ids, $this->manual_related );
 		}
 
-		if ( ! empty( $post_ids ) ) {
+		if ( $this->in_cache && empty( $post_ids ) ) {
+			$posts                = array();
+			$query->found_posts   = 0;
+			$query->max_num_pages = 0;
+		} elseif ( ! empty( $post_ids ) ) {
 			$posts                = get_posts(
 				array(
 					'post__in'    => array_unique( $post_ids ),
@@ -1296,6 +1303,8 @@ class CRP_Core_Query {
 			}
 		}
 
+		$posts = $this->unique_posts_by_id( $posts );
+
 		// Manual Posts (manual_related - set via the Post Meta) or Include Posts (can be set as a parameter).
 		$post_ids = array();
 
@@ -1315,6 +1324,8 @@ class CRP_Core_Query {
 			);
 			$posts       = array_merge( $extra_posts, $posts );
 		}
+
+		$posts = $this->unique_posts_by_id( $posts );
 
 		/**
 		 * Set the flag if CRP should fill random posts if there is a shortage of related posts.
@@ -1352,6 +1363,8 @@ class CRP_Core_Query {
 				)
 			);
 		}
+
+		$posts = $this->unique_posts_by_id( $posts );
 
 		$limit  = (int) $this->query_args['limit'];
 		$offset = $this->in_cache ? 0 : (int) $this->query_args['offset'];
@@ -1396,9 +1409,11 @@ class CRP_Core_Query {
 	 */
 	public function exclude_post_ids( $args ) {
 		static $exclude_post_ids_cache = array();
+		static $exclude_this_post_ids  = array();
 
 		$post_id   = absint( $this->source_post->ID );
-		$cache_key = $post_id . '|' . implode( ',', wp_parse_id_list( $args['exclude_post_ids'] ?? array() ) );
+		$blog_id   = get_current_blog_id();
+		$cache_key = $blog_id . '|' . $post_id . '|' . implode( ',', wp_parse_id_list( $args['exclude_post_ids'] ?? array() ) );
 
 		if ( isset( $exclude_post_ids_cache[ $cache_key ] ) ) {
 			return $exclude_post_ids_cache[ $cache_key ];
@@ -1408,16 +1423,17 @@ class CRP_Core_Query {
 
 		$exclude_post_ids = empty( $args['exclude_post_ids'] ) ? array() : wp_parse_id_list( $args['exclude_post_ids'] );
 
-		// Exclude posts with exclude_this_post set to true.
-		$exclude_this_post_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->prepare(
-				"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
-				'_crp_exclude_this_post',
-				'1'
-			)
-		);
+		if ( ! isset( $exclude_this_post_ids[ $blog_id ] ) ) {
+			$exclude_this_post_ids[ $blog_id ] = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$wpdb->prepare(
+					"SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s",
+					'_crp_exclude_this_post',
+					'1'
+				)
+			);
+		}
 
-		$exclude_post_ids = array_merge( $exclude_post_ids, $exclude_this_post_ids );
+		$exclude_post_ids = array_merge( $exclude_post_ids, $exclude_this_post_ids[ $blog_id ] );
 
 		// Exclude posts with exclude_post_ids set.
 		$exclude_post_ids_meta = crp_get_meta( $post_id, 'exclude_post_ids' );
@@ -1447,6 +1463,76 @@ class CRP_Core_Query {
 	}
 
 	/**
+	 * Columns matched by the include_words and exclude_words LIKE clauses.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param string $context Optional. Either include or exclude. Default include.
+	 * @return string[] Column names on the posts table.
+	 */
+	protected function get_search_columns( $context = 'include' ) {
+		$search_columns = array( 'post_title', 'post_excerpt', 'post_content' );
+
+		// Leading-wildcard LIKE on post_content cannot use an index. Include widens the match so it
+		// is safe to drop when FULLTEXT already covers content; exclude would silently under-filter.
+		if ( 'include' === $context && $this->enable_relevance && $this->is_matching_content() ) {
+			$search_columns = array( 'post_title', 'post_excerpt' );
+		}
+
+		return $search_columns;
+	}
+
+	/**
+	 * Whether the query is matching the post content.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @return bool True if content is being matched.
+	 */
+	protected function is_matching_content() {
+		$matching = ! empty( $this->query_args['match_content'] )
+			|| ! empty( $this->query_args['weight_content'] ?? \crp_get_option( 'weight_content' ) );
+
+		/**
+		 * Filters whether the query is matching the post content.
+		 *
+		 * @since 4.4.0
+		 *
+		 * @param bool           $matching   Whether content is being matched.
+		 * @param array          $query_args Query arguments.
+		 * @param CRP_Core_Query $instance   Current instance.
+		 */
+		return (bool) apply_filters( 'crp_query_is_matching_content', $matching, $this->query_args, $this );
+	}
+
+	/**
+	 * Parse a comma-separated list of terms, preserving spaces within each term.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param array|string $terms List of terms.
+	 * @return string[] Array of trimmed, non-empty terms.
+	 */
+	protected function parse_terms_list( $terms ) {
+		if ( ! is_array( $terms ) ) {
+			$terms = preg_split( '/,+/', (string) $terms );
+		}
+
+		$terms = array_map( 'trim', array_map( 'strval', $terms ) );
+
+		return array_values(
+			array_unique(
+				array_filter(
+					$terms,
+					static function ( $term ) {
+						return '' !== $term;
+					}
+				)
+			)
+		);
+	}
+
+	/**
 	 * Generates SQL for the ORDER BY condition based on passed include words.
 	 *
 	 * @since 3.4.2
@@ -1464,6 +1550,11 @@ class CRP_Core_Query {
 
 		$num_terms = count( $this->include_orderby_title );
 
+		// A value of only delimiters yields no terms; reset() would then return false and emit a bare " DESC".
+		if ( 0 === $num_terms ) {
+			return '';
+		}
+
 		if ( $num_terms > 1 ) {
 
 			// Sentence match in 'post_title'.
@@ -1480,10 +1571,15 @@ class CRP_Core_Query {
 				$search_orderby .= 'WHEN ' . implode( ' OR ', $this->include_orderby_title ) . ' THEN 3 ';
 			}
 
-			// Sentence match in 'post_content' and 'post_excerpt'.
-			$search_orderby .= $wpdb->prepare( "WHEN {$wpdb->posts}.post_excerpt LIKE %s THEN 4 ", $like );
-			$search_orderby .= $wpdb->prepare( "WHEN {$wpdb->posts}.post_content LIKE %s THEN 5 ", $like );
-			$search_orderby  = '(CASE ' . $search_orderby . 'ELSE 6 END)';
+			// Sentence match in 'post_excerpt' and 'post_content'. Ranked only for the columns posts_where() actually searches.
+			$rank = 4;
+			foreach ( array( 'post_excerpt', 'post_content' ) as $column ) {
+				if ( in_array( $column, $this->get_search_columns(), true ) ) {
+					$search_orderby .= $wpdb->prepare( "WHEN {$wpdb->posts}.$column LIKE %s THEN %d ", $like, $rank ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				}
+				++$rank;
+			}
+			$search_orderby = '(CASE ' . $search_orderby . 'ELSE 6 END)';
 		} else {
 			// Single word or sentence search.
 			$search_orderby = reset( $this->include_orderby_title ) . ' DESC';
@@ -1502,5 +1598,29 @@ class CRP_Core_Query {
 	public function should_cache() {
 		return ! empty( $this->query_args['cache_posts'] ) &&
 				! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) );
+	}
+
+	/**
+	 * Deduplicate a post list by ID, preserving first-seen order.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param array $posts Array of WP_Post objects or post IDs.
+	 * @return array Deduplicated list.
+	 */
+	protected function unique_posts_by_id( array $posts ): array {
+		$seen   = array();
+		$unique = array();
+
+		foreach ( $posts as $post ) {
+			$post_id = is_object( $post ) ? (int) $post->ID : (int) $post;
+			if ( $post_id < 1 || isset( $seen[ $post_id ] ) ) {
+				continue;
+			}
+			$seen[ $post_id ] = true;
+			$unique[]         = $post;
+		}
+
+		return $unique;
 	}
 }

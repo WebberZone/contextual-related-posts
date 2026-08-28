@@ -67,8 +67,8 @@ final class Hook_Loader {
 		$priority = (int) \crp_get_option( 'content_filter_priority', 10 );
 
 		Hook_Registry::add_filter( 'the_content', array( $this, 'content_filter' ), $priority );
-		Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'content_filter' ), $priority );
-		Hook_Registry::add_filter( 'the_content_feed', array( $this, 'content_filter' ), $priority );
+		Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'rss_filter' ), $priority );
+		Hook_Registry::add_filter( 'the_content_feed', array( $this, 'rss_filter' ), $priority );
 	}
 
 	/**
@@ -128,6 +128,18 @@ final class Hook_Loader {
 	 */
 	public function content_filter( string $content ): string {
 		return Display::content_filter( $content );
+	}
+
+	/**
+	 * Filter feed content to add related posts.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param string $content Post content.
+	 * @return string Post content with related posts appended.
+	 */
+	public function rss_filter( string $content ): string {
+		return Display::rss_filter( $content );
 	}
 
 	/**

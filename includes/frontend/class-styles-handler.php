@@ -313,8 +313,8 @@ class Styles_Handler {
 	public static function get_style( $style = '' ) {
 
 		$style_array  = array();
-		$thumb_width  = (int) crp_get_option( 'thumb_width', 150 );
-		$thumb_height = (int) crp_get_option( 'thumb_height', 150 );
+		$thumb_width  = max( 1, (int) crp_get_option( 'thumb_width', 150 ) );
+		$thumb_height = max( 1, (int) crp_get_option( 'thumb_height', 150 ) );
 		$aspect_ratio = $thumb_width / $thumb_height;
 		$crp_style    = ! empty( $style ) ? $style : crp_get_option( 'crp_styles' );
 

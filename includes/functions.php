@@ -75,8 +75,9 @@ function get_crp_posts( $args = array() ) {
 function crp_get_meta( $post_id, $key ) {
 	static $cached_old_meta = array();
 
-	$post_id = absint( $post_id );
-	$new_key = '_crp_' . $key;
+	$post_id   = absint( $post_id );
+	$cache_key = get_current_blog_id() . ':' . $post_id;
+	$new_key   = '_crp_' . $key;
 
 	// Check new individual key first.
 	$new_value = get_post_meta( $post_id, $new_key, true );
@@ -85,11 +86,11 @@ function crp_get_meta( $post_id, $key ) {
 	}
 
 	// Check cached old meta.
-	if ( ! isset( $cached_old_meta[ $post_id ] ) ) {
-		$cached_old_meta[ $post_id ] = get_post_meta( $post_id, 'crp_post_meta', true );
+	if ( ! isset( $cached_old_meta[ $cache_key ] ) ) {
+		$cached_old_meta[ $cache_key ] = get_post_meta( $post_id, 'crp_post_meta', true );
 	}
 
-	$old_meta = $cached_old_meta[ $post_id ];
+	$old_meta = $cached_old_meta[ $cache_key ];
 	if ( is_array( $old_meta ) && isset( $old_meta[ $key ] ) ) {
 		return $old_meta[ $key ];
 	}

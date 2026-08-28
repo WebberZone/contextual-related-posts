@@ -10,6 +10,10 @@ TEMP_DIR="$BUILD_DIR/$PLUGIN_SLUG"
 
 echo "Creating distribution zip for $PLUGIN_SLUG..."
 
+# Install production-only vendor dependencies
+echo "Installing Composer production dependencies..."
+composer install --no-dev --optimize-autoloader --classmap-authoritative --quiet
+
 # Clean build directory
 rm -rf "$BUILD_DIR"
 mkdir -p "$TEMP_DIR"
@@ -24,7 +28,6 @@ node_modules/
 phpcompat-tools/
 phpunit/
 /build/
-vendor/
 dev-helpers/
 dev-tools/
 wporg-assets/
@@ -50,15 +53,6 @@ CLAUDE.md
 AGENTS.md
 EOF
 
-# Copy vendor/freemius (manually bundled SDK)
-echo "Copying vendor dependencies..."
-if [ -d "vendor/freemius" ]; then
-    mkdir -p "$TEMP_DIR/vendor"
-    cp -r vendor/freemius "$TEMP_DIR/vendor/"
-else
-    echo "Warning: vendor/freemius directory not found. Freemius SDK will be missing."
-fi
-
 # Create zip
 echo "Creating zip file..."
 cd "$BUILD_DIR"
@@ -71,3 +65,7 @@ cd ..
 echo ""
 echo "Zip contents summary:"
 unzip -l "$BUILD_DIR/$PLUGIN_SLUG.zip" | tail -1
+
+# Restore dev dependencies for local development
+echo "Restoring Composer dev dependencies..."
+composer install --quiet

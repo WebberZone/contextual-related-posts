@@ -926,7 +926,12 @@ class Display {
 		++$filter_calls;
 
 		// Return if it's not in the loop or in the main query.
-		if ( ! ( in_the_loop() && is_main_query() && (int) get_queried_object_id() === (int) $post->ID ) ) {
+		if ( ! ( in_the_loop() && is_main_query() ) ) {
+			return $content;
+		}
+
+		// On singular views, only append to the queried post — not nested loops.
+		if ( is_singular() && (int) get_queried_object_id() !== (int) $post->ID ) {
 			return $content;
 		}
 
@@ -1043,16 +1048,24 @@ class Display {
 		$add_to = \crp_get_option( 'add_to', array( 'single', 'page' ) );
 		$add_to = wp_parse_list( $add_to );
 
-		$limit_feed         = (int) \crp_get_option( 'limit_feed' );
-		$show_excerpt_feed  = \crp_get_option( 'show_excerpt_feed' );
-		$post_thumb_op_feed = \crp_get_option( 'post_thumb_op_feed' );
-
-		if ( in_array( 'feed', $add_to, true ) ) {
-			$output  = $content;
-			$output .= get_crp( 'is_widget=0&limit=' . $limit_feed . '&show_excerpt=' . $show_excerpt_feed . '&post_thumb_op=' . $post_thumb_op_feed );
-			return $output;
-		} else {
+		if ( ! in_array( 'feed', $add_to, true ) ) {
 			return $content;
 		}
+
+		$args = array(
+			'is_widget'     => 0,
+			'limit'         => (int) \crp_get_option( 'limit_feed' ),
+			'show_excerpt'  => \crp_get_option( 'show_excerpt_feed' ),
+			'post_thumb_op' => \crp_get_option( 'post_thumb_op_feed' ),
+		);
+
+		$thumb_width_feed  = (int) \crp_get_option( 'thumb_width_feed' );
+		$thumb_height_feed = (int) \crp_get_option( 'thumb_height_feed' );
+
+		if ( $thumb_width_feed > 0 && $thumb_height_feed > 0 ) {
+			$args['thumb_size'] = array( $thumb_width_feed, $thumb_height_feed );
+		}
+
+		return $content . get_crp( $args );
 	}
 }

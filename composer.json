@@ -21,7 +21,8 @@
         }
     ],
     "require": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "freemius/wordpress-sdk": "^2"
     },
     "require-dev": {
         "szepeviktor/phpstan-wordpress": "^2",

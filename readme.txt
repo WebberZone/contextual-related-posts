@@ -205,22 +205,26 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 = 4.4.0 =
 
 * New features:
-	* [Pro] WPBakery Page Builder integration: a native "Related Posts (CRP)" element with the full set of CRP options, in both Classic Mode and the Frontend Editor.
-	* [Pro] Elementor integration: a native "Related Posts (CRP)" widget with the same options as the WPBakery element.
-	* [Pro] Bricks Builder integration: a native "Related Posts (CRP)" element with the same options as the WPBakery element, plus support for Bricks dynamic data tags.
+	* [Pro] WPBakery, Elementor and Bricks Builder integrations: a native "Related Posts (CRP)" element/widget in each builder with the full set of CRP options.
 
 * Modifications:
-	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher, so future integrations (Divi, Beaver Builder) can be added the same way.
-	* Relabelled the "Include only posts that contain these words" setting to "Also match posts that contain these words". The option has always widened the contextual match rather than restricting it, and also ranks the matching posts higher; the old label and description described the opposite behaviour.
+	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher.
+	* The site-wide "Exclude terms" setting is now applied to the related posts query; it was previously only honoured per post in the metabox.
+	* "Exclude terms" now splits on commas only, so `black friday` is matched as a phrase rather than as two separate words.
+	* Renamed "Include only posts that contain these words" to "Also match posts that contain these words" to match what the option actually does.
 
 * Bug fixes:
-	* Fixed stopword stripping breaking with a PHP `preg_replace()` warning, and silently leaving stopwords in place, when the translated stopword list or the `wp_search_stopwords` filter contained a `/`.
-	* Fixed related-posts style stylesheets only ever being enqueued for the site-wide default style, not the style actually requested by a `[crp]` shortcode or a [Pro] page-builder element.
-	* [Pro] Fixed the related-posts cache colliding across differently-configured shortcode/widget/block/page-builder calls on the same post, causing one call's rendered HTML to be silently reused by another.
-	* [Pro] Fixed "Order by: Date" being silently overridden by relevance ordering, and the same code path throwing an `Unknown column 'score'` database error when contextual matching was disabled while Include words was set.
-	* [Pro] Fixed "Sort by number of matching taxonomy terms" being appended after the date sort instead of ahead of it when ordering by date.
-	* [Pro] Fixed `orderby="relevance"` sorting by the unweighted core match instead of the Pro weighted relevance score.
-	* Fixed the contextual match SQL being rebuilt twice on every related posts query.
+	* Fixed stopword stripping failing when the stopword list contained a `/`.
+	* Fixed style stylesheets always being enqueued for the default style instead of the requested one.
+	* [Pro] Fixed the cache colliding across differently-configured shortcode/widget/block/builder calls on the same post.
+	* [Pro] Fixed "Order by: Date" being overridden by relevance ordering, and an `Unknown column 'score'` error when contextual matching was disabled with Include words set.
+	* [Pro] Fixed taxonomy term-count sorting being applied after the date sort instead of before it.
+	* [Pro] Fixed `orderby="relevance"` using the unweighted core match instead of the Pro weighted score.
+	* Fixed the contextual match SQL being built twice on every query.
+	* Fixed "Exclude terms" ignoring the post content when content matching was enabled.
+	* Fixed HTML entities surviving tag stripping, so `&amp;`, `&nbsp;` and `&hellip;` were indexed as the words "amp", "nbsp" and "hellip".
+	* Fixed the per-request post meta cache being keyed on post ID alone, so the same post ID on two sites of a multisite network shared one cache entry.
+	* Fixed schema changes not reaching existing installs: `dbDelta()` now runs on version upgrades instead of on activation only.
 
 = 4.3.1 =
 
