@@ -25,4 +25,4 @@ As there is no way to style the posts in the feed, I recommend not displaying th
 
 ## Thumbnail width and Thumbnail height
 
-This only applies if you choose to display thumbnails in the previous setting.
+This only applies if you choose to display thumbnails in the previous setting. Both values must be set to a number greater than 0 for a thumbnail size to be applied to the feed images.
