@@ -1345,7 +1345,7 @@ class Settings {
 			),
 			'wc_output_header'        => array(
 				'id'   => 'wc_output_header',
-				'name' => '<h3>' . esc_html__( 'Output Customisation', 'contextual-related-posts' ) . '</h3>',
+				'name' => '<h3>' . esc_html__( 'Output Customization', 'contextual-related-posts' ) . '</h3>',
 				'desc' => esc_html__( 'Control what is displayed in the related products list.', 'contextual-related-posts' ),
 				'type' => 'header',
 			),
