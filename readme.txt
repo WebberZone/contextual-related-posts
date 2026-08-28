@@ -224,6 +224,7 @@ Release post: [https://webberzone.com/contextual-related-posts-v4-4/](https://we
 * Bug fixes:
 	* Fixed stopword stripping failing when the stopword list contained a `/`.
 	* Fixed style stylesheets always being enqueued for the default style instead of the requested one.
+	* Fixed plugin data being deleted when uninstalling one version while its paired free or Pro counterpart was active.
 	* [Pro] Fixed the cache colliding across differently-configured shortcode/widget/block/builder calls on the same post.
 	* [Pro] Fixed "Order by: Date" being overridden by relevance ordering, and an `Unknown column 'score'` error when contextual matching was disabled with Include words set.
 	* [Pro] Fixed taxonomy term-count sorting being applied after the date sort instead of before it.
