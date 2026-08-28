@@ -206,6 +206,8 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.4.0 =
 
+Release post: [https://webberzone.com/contextual-related-posts-v4-4/](https://webberzone.com/contextual-related-posts-v4-4/)
+
 * New features:
 	* [Pro] WPBakery, Elementor and Bricks Builder integrations (experimental): a native "Related Posts (CRP)" element/widget in each builder with the full set of CRP options. Feedback and bug reports are welcome while these settle in.
 	* [Pro] New "Use precomputed taxonomy score" setting under the taxonomy weights. With Enhanced Content Search Index enabled, the taxonomy score is read from the indexed `tax_score` column instead of being calculated per query. Faster, but live queries then ignore the per-taxonomy weights.
