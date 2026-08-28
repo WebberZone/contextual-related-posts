@@ -66,7 +66,9 @@ Two options on the settings page allow you to remove these indices when deactiva
 * [Taxonomy Weight System](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#weighting-categories-tags-and-taxonomies): Refine your matches with precise taxonomy weighting for perfect content relationships.
 * __Keyword Override for Blocks__: Set a word or phrase on the Related Posts block or the CRP Query Loop block to find related posts using that keyword instead of the current post's title and content.
 
-#### 🧩 Page Builder Integrations
+#### 🧩 Page Builder Integrations (experimental)
+
+These integrations are new in 4.4.0 and marked experimental while they get real-world use. They are safe to use on a live site, but if one of them misbehaves in your setup, please [report it on Github](https://github.com/WebberZone/contextual-related-posts/issues).
 
 * __WPBakery Page Builder__: A native "Related Posts (CRP)" element under its own "WebberZone" tab in the Add Element panel, covering the same options as the `[crp]` shortcode plus custom CSS class/CSS — works in both Classic Mode and the Frontend Editor.
 * __Elementor__: A native "Related Posts (CRP)" widget under its own "WebberZone" category, editable live from the widget panel and preview.
@@ -205,7 +207,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 = 4.4.0 =
 
 * New features:
-	* [Pro] WPBakery, Elementor and Bricks Builder integrations: a native "Related Posts (CRP)" element/widget in each builder with the full set of CRP options.
+	* [Pro] WPBakery, Elementor and Bricks Builder integrations (experimental): a native "Related Posts (CRP)" element/widget in each builder with the full set of CRP options. Feedback and bug reports are welcome while these settle in.
 
 * Modifications:
 	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher.
