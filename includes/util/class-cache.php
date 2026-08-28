@@ -636,6 +636,10 @@ class Cache {
 		$meta_key      = 'html' === $cache_type ? "_crp_cache_h_{$key}" : "_crp_cache_p_{$key}";
 		$cache_expires = 'html' === $cache_type ? "_crp_cache_expires_h_{$key}" : "_crp_cache_expires_p_{$key}";
 
+		if ( ! metadata_exists( 'post', $post_id, $meta_key ) ) {
+			return false;
+		}
+
 		$value = get_post_meta( $post_id, $meta_key, true );
 
 		// Get the cache time.
@@ -646,17 +650,13 @@ class Cache {
 			return $value;
 		}
 
-		if ( $value ) {
-			$expires = (int) get_post_meta( $post_id, $cache_expires, true );
-			if ( $expires < time() || empty( $expires ) ) {
-				self::delete_by_post_id_and_key( $post_id, $key, $cache_type );
-				return false;
-			} else {
-				return $value;
-			}
-		} else {
+		$expires = (int) get_post_meta( $post_id, $cache_expires, true );
+		if ( $expires < time() || empty( $expires ) ) {
+			self::delete_by_post_id_and_key( $post_id, $key, $cache_type );
 			return false;
 		}
+
+		return $value;
 	}
 
 	/**

@@ -105,7 +105,7 @@ class REST_API extends \WP_REST_Controller {
 	 */
 	public function get_items( $request ) {
 		$id   = absint( $request->get_param( 'id' ) );
-		$args = $request->get_params();
+		$args = $this->get_query_args( $request );
 
 		$post = get_post( $id );
 
@@ -120,14 +120,7 @@ class REST_API extends \WP_REST_Controller {
 		$related_posts = array();
 
 		$args['post_id'] = $post;
-
-		if ( isset( $args['id'] ) ) {
-			unset( $args['id'] );
-		}
-
-		if ( isset( $args['postid'] ) ) {
-			unset( $args['postid'] );
-		}
+		$args['fields']  = 'all';
 
 		/**
 		 * Filter the REST API arguments before they passed to get_crp_posts().
@@ -188,7 +181,7 @@ class REST_API extends \WP_REST_Controller {
 			'limit'              => array(
 				'description'       => __( 'Number of posts', 'contextual-related-posts' ),
 				'type'              => 'integer',
-				'sanitize_callback' => 'absint',
+				'sanitize_callback' => array( $this, 'sanitize_limit' ),
 			),
 			'post_types'         => array(
 				'description' => __( 'Post types (comma separated)', 'contextual-related-posts' ),
@@ -213,6 +206,53 @@ class REST_API extends \WP_REST_Controller {
 		);
 
 		return apply_filters( 'crp_rest_api_get_item_params', $args );
+	}
+
+	/**
+	 * Sanitize the REST limit, enforcing a hard maximum.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param mixed $value Requested limit.
+	 * @return int
+	 */
+	public function sanitize_limit( $value ) {
+		/**
+		 * Filters the maximum number of related posts the REST API will return.
+		 *
+		 * @since 4.4.0
+		 *
+		 * @param int $max Maximum allowed limit. Default 100.
+		 */
+		$max = (int) apply_filters( 'crp_rest_api_max_limit', 100 );
+
+		return max( 1, min( absint( $value ), max( 1, $max ) ) );
+	}
+
+	/**
+	 * Build CRP query args from registered REST parameters only.
+	 *
+	 * @since 4.4.0
+	 *
+	 * @param \WP_REST_Request $request WP REST request.
+	 * @return array Query arguments.
+	 */
+	protected function get_query_args( $request ) {
+		$allowed = array_keys( $this->get_item_params() );
+		$args    = array();
+
+		foreach ( $allowed as $key ) {
+			if ( in_array( $key, array( 'id', 'postid' ), true ) ) {
+				continue;
+			}
+
+			$value = $request->get_param( $key );
+			if ( null !== $value ) {
+				$args[ $key ] = $value;
+			}
+		}
+
+		return $args;
 	}
 
 	/**

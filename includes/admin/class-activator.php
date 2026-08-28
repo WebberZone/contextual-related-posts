@@ -7,6 +7,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Util\Helpers;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -41,7 +43,7 @@ class Activator {
 	public static function activation_hook( $network_wide ) {
 
 		if ( is_multisite() && $network_wide ) {
-			$sites = get_sites(
+			$sites = Helpers::get_sites(
 				array(
 					'archived' => 0,
 					'spam'     => 0,
@@ -51,12 +53,12 @@ class Activator {
 
 			foreach ( $sites as $site ) {
 				switch_to_blog( (int) $site->blog_id );
-				self::single_activate();
+				try {
+					self::single_activate();
+				} finally {
+					restore_current_blog();
+				}
 			}
-
-			// Switch back to the current blog.
-			restore_current_blog();
-
 		} else {
 			self::single_activate();
 		}
@@ -116,8 +118,11 @@ class Activator {
 		}
 
 		switch_to_blog( $blog );
-		self::single_activate();
-		restore_current_blog();
+		try {
+			self::single_activate();
+		} finally {
+			restore_current_blog();
+		}
 	}
 
 	/**
@@ -134,8 +139,8 @@ class Activator {
 
 		if ( is_multisite() && $network_wide ) {
 
-			// Get all blogs in the network and activate plugin on each one.
-			$sites = get_sites(
+			// Get all blogs in the network and deactivate plugin on each one.
+			$sites = Helpers::get_sites(
 				array(
 					'archived' => 0,
 					'spam'     => 0,
@@ -145,12 +150,12 @@ class Activator {
 
 			foreach ( $sites as $site ) {
 				switch_to_blog( (int) $site->blog_id );
-				self::single_deactivate();
+				try {
+					self::single_deactivate();
+				} finally {
+					restore_current_blog();
+				}
 			}
-
-			// Switch back to the current blog.
-			restore_current_blog();
-
 		} else {
 			self::single_deactivate();
 		}

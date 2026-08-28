@@ -20,6 +20,7 @@ if ( is_multisite() ) {
 			'archived' => 0,
 			'spam'     => 0,
 			'deleted'  => 0,
+			'number'   => 0,
 		)
 	);
 

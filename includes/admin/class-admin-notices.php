@@ -79,6 +79,10 @@ class Admin_Notices {
 		$this->admin_notices_api->register_notice(
 			array(
 				'id'          => 'crp_missing_fulltext_index',
+				'screens'     => array(
+					'settings_page_crp_options_page',
+					'tools_page_crp_tools_page',
+				),
 				'message'     => sprintf(
 					'<p>%s <a href="%s">%s</a></p>',
 					esc_html__( 'Contextual Related Posts: Some FULLTEXT indexes are missing from your database, which will prevent related posts from being found. Please run the recreate indexes tool from the Tools page to restore related posts functionality.', 'contextual-related-posts' ),
@@ -110,6 +114,10 @@ class Admin_Notices {
 		$this->admin_notices_api->register_notice(
 			array(
 				'id'          => 'crp_migration_pending',
+				'screens'     => array(
+					'settings_page_crp_options_page',
+					'tools_page_crp_tools_page',
+				),
 				'message'     => sprintf(
 					'<p>%s <a href="%s">%s</a></p>',
 					esc_html__( 'Contextual Related Posts: Post meta migration is required to keep your data compatible with the latest version. Please run the migration tool from the Tools page to update your database structure.', 'contextual-related-posts' ),
