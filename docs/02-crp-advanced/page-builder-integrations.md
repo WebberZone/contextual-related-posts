@@ -34,7 +34,7 @@ If WPBakery Page Builder (`js_composer`) is active, CRP Pro registers a **Relate
 
 The element's settings panel is organized into tabs: **General**, **Query**, **Display**, **Advanced**, and **Design Options**. The first four map to the [shared controls](#shared-controls) below. **Design Options** is WPBakery's standard tab for every element and holds the **Extra class name** and **Custom CSS** editor controls.
 
-![Related Posts (CRP) element settings dialog, Query tab, showing Post types, Order by, Randomise order, Include words, Exclude post IDs, and Exclude category slugs](https://webberzone.com/wp-content/uploads/2026/08/crp-440-wpbakery-element.webp)
+![Related Posts (CRP) element settings dialog, Query tab, showing Post types, Order by, Randomize order, Include words, Exclude post IDs, and Exclude category slugs](https://webberzone.com/wp-content/uploads/2026/08/crp-440-wpbakery-element.webp)
 
 ## Elementor
 
@@ -85,7 +85,7 @@ All three elements expose the same set of controls, grouped the same way:
 
 - **Post types** — comma-separated list of post types to include.
 - **Order by** — relevance, random, or date.
-- **Randomise order** — shuffle the results.
+- **Randomize order** — shuffle the results.
 - **Include words** — only match posts containing these words.
 - **Exclude post IDs** — comma-separated post/page IDs to exclude.
 - **Exclude category slugs** — comma-separated category/taxonomy term slugs to exclude.
