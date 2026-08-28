@@ -208,12 +208,14 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 * New features:
 	* [Pro] WPBakery, Elementor and Bricks Builder integrations (experimental): a native "Related Posts (CRP)" element/widget in each builder with the full set of CRP options. Feedback and bug reports are welcome while these settle in.
+	* [Pro] New "Use precomputed taxonomy score" setting under the taxonomy weights. With Enhanced Content Search Index enabled, the taxonomy score is read from the indexed `tax_score` column instead of being calculated per query. Faster, but live queries then ignore the per-taxonomy weights.
 
 * Modifications:
 	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher.
-	* The site-wide "Exclude terms" setting is now applied to the related posts query; it was previously only honoured per post in the metabox.
+	* The site-wide "Exclude terms" setting is now applied to the related posts query; it was previously only honored per post in the metabox.
 	* "Exclude terms" now splits on commas only, so `black friday` is matched as a phrase rather than as two separate words.
 	* Renamed "Include only posts that contain these words" to "Also match posts that contain these words" to match what the option actually does.
+	* The REST API `limit` parameter is now capped at 100. Use the new `crp_rest_api_max_limit` filter to change the maximum.
 
 * Bug fixes:
 	* Fixed stopword stripping failing when the stopword list contained a `/`.
@@ -227,6 +229,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 	* Fixed HTML entities surviving tag stripping, so `&amp;`, `&nbsp;` and `&hellip;` were indexed as the words "amp", "nbsp" and "hellip".
 	* Fixed the per-request post meta cache being keyed on post ID alone, so the same post ID on two sites of a multisite network shared one cache entry.
 	* Fixed schema changes not reaching existing installs: `dbDelta()` now runs on version upgrades instead of on activation only.
+	* Fixed the feed thumbnail size settings being ignored. The configured width and height are now passed to the feed output, and both must be greater than 0 for a size to be applied.
 
 = 4.3.1 =
 
