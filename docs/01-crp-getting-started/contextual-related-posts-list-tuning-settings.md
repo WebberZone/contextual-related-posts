@@ -138,10 +138,12 @@ This will disable the content matching described above. You can choose to fall b
 
 Checking this option will disable contextual matching only for custom post types. For WordPress’ built-in post types, the plugin will continue as per your settings above. If you enable this option, ensure that you select either Manual related posts or Randomize posts above to achieve meaningful results.
 
-### Include only posts that contain these words:
+### Also match posts that contain these words
 
-If entered, the related posts will include only posts that contain any of the specified words. Separate words with commas and no spaces. e.g. samsung,apple,nokia
+If entered, the related posts will include only posts that contain any of the specified terms. Separate terms with commas — a term may contain spaces, so `black friday` is matched as a phrase rather than as two separate words. e.g. samsung,apple,nokia
 
-### Exclude posts that contain these words:
+### Exclude posts that contain these words
 
-If entered, the related posts will exclude posts that contain any of the specified words. Separate words with commas and no spaces. e.g. samsung,apple,nokia
+If entered, the related posts will exclude posts that contain any of the specified terms. Separate terms with commas. Terms may contain spaces. e.g. apple,black friday,coding
+
+This setting is now applied to the related posts query site-wide; previously it was only honoured per post via the metabox's **Exclude terms** field.

@@ -53,3 +53,18 @@ GET https://example.com/wp-json/contextual-related-posts/v1/posts/<id>/html
 ```
 
 This endpoint powers the [Lazy Load Related Posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) feature, so display arguments (`args`) are only honored when accompanied by a valid `sig` — an HMAC signature generated server-side when the placeholder is rendered. Requests without a matching signature fall back to the default arguments for that post; there is no way to render arbitrary arguments for a post from the client side.
+
+## Limiting the number of posts returned
+
+The `limit` parameter is capped at 100 by default. Use the `crp_rest_api_max_limit` filter to change the maximum:
+
+```php
+/**
+ * Filters the maximum number of related posts the REST API will return.
+ *
+ * @param int $max Maximum allowed limit. Default 100.
+ */
+add_filter( 'crp_rest_api_max_limit', function ( $max ) {
+    return 20;
+} );
+```
