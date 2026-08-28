@@ -140,10 +140,10 @@ Checking this option will disable contextual matching only for custom post types
 
 ### Also match posts that contain these words
 
-If entered, the related posts will include only posts that contain any of the specified terms. Separate terms with commas — a term may contain spaces, so `black friday` is matched as a phrase rather than as two separate words. e.g. samsung,apple,nokia
+If entered, posts containing any of these words are matched in addition to the contextual matches, and are ranked higher. This widens the list rather than restricting it. Separate words with commas and no spaces. e.g. samsung,apple,nokia
 
 ### Exclude posts that contain these words
 
-If entered, the related posts will exclude posts that contain any of the specified terms. Separate terms with commas. Terms may contain spaces. e.g. apple,black friday,coding
+If entered, the related posts will exclude posts that contain any of the specified terms. Separate terms with commas. A term may contain spaces, so `black friday` is matched as a phrase rather than as two separate words. e.g. apple,black friday,coding
 
-This setting is now applied to the related posts query site-wide; previously it was only honoured per post via the metabox's **Exclude terms** field.
+This setting is now applied to the related posts query site-wide; previously it was only honored per post via the metabox's **Exclude terms** field.
