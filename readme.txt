@@ -206,6 +206,8 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.4.0 =
 
+*Release Date - 29 August 2026*
+
 Release post: [https://webberzone.com/contextual-related-posts-v4-4/](https://webberzone.com/contextual-related-posts-v4-4/)
 
 * New features:
