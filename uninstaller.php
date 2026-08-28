@@ -42,6 +42,10 @@ if ( is_multisite() ) {
 function crp_delete_data() {
 	global $wpdb;
 
+	if ( is_plugin_active( 'contextual-related-posts-pro/contextual-related-posts.php' ) ) {
+		return;
+	}
+
 	$settings = get_option( 'crp_settings' );
 
 	if ( ! empty( $settings['uninstall_options'] ) ) {
