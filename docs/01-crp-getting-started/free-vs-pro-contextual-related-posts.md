@@ -40,8 +40,10 @@ Contextual Related Posts is free to use and packed with features right out of th
 | [Advanced matching algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/) | ❌ | ✅ |
 | [Weighted matching (title, content, excerpt)](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/) | ❌ | ✅ |
 | [Taxonomy weight system](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/) | ❌ | ✅ |
-| [Keyword override on blocks/metabox](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/) | ❌ | ✅ |
-| **Display & Customization** |  |  |
+|| [Keyword override on blocks/metabox](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/) | ❌ | ✅ |
+|| [Precomputed taxonomy score](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#precomputed-taxonomy-score) | ❌ | ✅ |
+|| **Display & Customization** |  |  |
+|| [WPBakery, Elementor and Bricks integrations](https://webberzone.com/support/knowledgebase/page-builder-integrations/) *(experimental)* | ❌ | ✅ |
 | [Pro Query Loop block + block patterns](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/) | ❌ | ✅ |
 | [Extra shortcode parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/) | ❌ | ✅ |
 | [Advanced per-post metabox settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/) | ❌ | ✅ |

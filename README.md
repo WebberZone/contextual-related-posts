@@ -10,7 +10,7 @@
 
 __Requires:__ 6.6
 
-__Tested up to:__ 7.0
+__Tested up to:__ 7.1
 
 __Requires PHP:__ 7.4
 
@@ -75,6 +75,14 @@ Two options on the settings page allow you to remove these indices when deactiva
 * [Advanced Algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/): Control exactly how relevant content is found by adjusting weights for title, content, and excerpt.
 * [Taxonomy Weight System](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#weighting-categories-tags-and-taxonomies): Refine your matches with precise taxonomy weighting for perfect content relationships.
 * __Keyword Override for Blocks__: Set a word or phrase on the Related Posts block or the CRP Query Loop block to find related posts using that keyword instead of the current post's title and content.
+
+#### 🧩 Page Builder Integrations (experimental)
+
+These integrations are new in 4.4.0 and marked experimental while they get real-world use. They are safe to use on a live site, but if one of them misbehaves in your setup, please [report it on Github](https://github.com/WebberZone/contextual-related-posts/issues).
+
+* __WPBakery Page Builder__: A native "Related Posts (CRP)" element under its own "WebberZone" tab in the Add Element panel, covering the same options as the `[crp]` shortcode plus custom CSS class/CSS — works in both Classic Mode and the Frontend Editor.
+* __Elementor__: A native "Related Posts (CRP)" widget under its own "WebberZone" category, editable live from the widget panel and preview.
+* __Bricks Builder__: A native "Related Posts (CRP)" element under its own "WebberZone" category, covering the same options as the `[crp]` shortcode with live dynamic data support.
 
 #### 🛒 WooCommerce Integration
 
