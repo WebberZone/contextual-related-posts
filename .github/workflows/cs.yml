@@ -37,10 +37,6 @@ jobs:
         with:
           composer-options: --ignore-platform-reqs
 
-      - name: 'Run Composer Update'
-        run: |
-          composer update -W --ignore-platform-req=php
-
       # Check the code-style consistency of the PHP files.
       - name: Check PHP code style
         continue-on-error: true
