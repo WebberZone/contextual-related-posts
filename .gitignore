@@ -1,6 +1,4 @@
-# Ignore entire vendor except Freemius
-/vendor/*
-!/vendor/freemius/
+/vendor/
 
 # Tooling
 /phpcompat-tools/
@@ -9,10 +7,10 @@
 
 # Lock files
 package-lock.json
-composer.lock
 
 # Claude AI
 .claude/
+.freemius.conf
 .commandcode/
 
 .devin/
