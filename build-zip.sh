@@ -10,15 +10,11 @@ TEMP_DIR="$BUILD_DIR/$PLUGIN_SLUG"
 
 echo "Creating distribution zip for $PLUGIN_SLUG..."
 
-# Install production-only vendor dependencies
-echo "Installing Composer production dependencies..."
-composer install --no-dev --optimize-autoloader --classmap-authoritative --quiet
-
 # Clean build directory
 rm -rf "$BUILD_DIR"
 mkdir -p "$TEMP_DIR"
 
-# Copy plugin files (excluding dev/build artifacts).
+# Copy plugin files (excluding dev/build artifacts and all of vendor)
 echo "Copying plugin files..."
 rsync -av --exclude-from=- . "$TEMP_DIR/" <<EOF
 .*
@@ -28,6 +24,7 @@ node_modules/
 phpcompat-tools/
 phpunit/
 /build/
+vendor/
 dev-helpers/
 dev-tools/
 wporg-assets/
@@ -53,6 +50,18 @@ CLAUDE.md
 AGENTS.md
 EOF
 
+# Copy runtime Composer dependencies and generated autoloader.
+echo "Copying vendor dependencies..."
+if [ -d "vendor/freemius" ] && [ -f "vendor/autoload.php" ] && [ -d "vendor/composer" ]; then
+    mkdir -p "$TEMP_DIR/vendor"
+    cp -r vendor/freemius "$TEMP_DIR/vendor/"
+    cp -r vendor/composer "$TEMP_DIR/vendor/"
+    cp vendor/autoload.php "$TEMP_DIR/vendor/"
+else
+    echo "Error: vendor files not found. Run 'composer build:vendor' first."
+    exit 1
+fi
+
 # Create zip
 echo "Creating zip file..."
 cd "$BUILD_DIR"
@@ -65,7 +74,3 @@ cd ..
 echo ""
 echo "Zip contents summary:"
 unzip -l "$BUILD_DIR/$PLUGIN_SLUG.zip" | tail -1
-
-# Restore dev dependencies for local development
-echo "Restoring Composer dev dependencies..."
-composer install --quiet
