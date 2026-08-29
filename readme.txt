@@ -370,5 +370,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.3.1 =
-Adds settings search, improves FULLTEXT index consistency and settings defaults, and fixes settings layout, database error handling, and the Pro indexing wizard.
+= 4.4.0 =
+Adds experimental WPBakery, Elementor and Bricks integrations (Pro), a precomputed taxonomy score option, and fixes exclude-terms matching, cache collisions, and uninstall of paired free/Pro installs.

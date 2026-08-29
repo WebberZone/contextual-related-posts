@@ -65,6 +65,12 @@ This system is ideal for:
 - Product or review sites grouped by taxonomy
 - Publishers who rely on SEO plugins to set primary terms
 
+### Precomputed taxonomy score
+
+CRP Pro v4.4.0 adds **Use precomputed taxonomy score** under the taxonomy weights. When [Enhanced Content Search Index](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/) is enabled, the taxonomy score is read from the indexed `tax_score` column instead of being calculated per query. That is faster, but live queries then ignore the per-taxonomy weights above.
+
+Leave it off if you still want those weights applied on every request.
+
 > [!NOTE]
 > ⓘ CRP reads the *primary term* set by your SEO plugin (e.g. Yoast, The SEO Framework or Rank Math). If none is set, it falls back to the first term.
 
