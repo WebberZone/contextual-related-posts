@@ -67,13 +67,13 @@ jobs:
 
       - name: Install dependencies for PHP < 8.0
         if: ${{ matrix.php < 8.0 }}
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           dependency-versions: highest
 
       - name: Install dependencies for PHP >= 8.0
         if: ${{ matrix.php >= 8.0 }}
-        uses: ramsey/composer-install@v3
+        uses: ramsey/composer-install@v4
         with:
           dependency-versions: highest
           composer-options: --ignore-platform-reqs
