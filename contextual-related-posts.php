@@ -167,20 +167,19 @@ if ( ! has_action( 'admin_notices', __NAMESPACE__ . '\crp_show_deactivation_noti
 	);
 }
 
-// Load the Composer autoloader (includes the Freemius SDK).
+// Load the autoloader.
+if ( ! function_exists( __NAMESPACE__ . '\autoload' ) ) {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/autoloader.php';
+}
+
+// Load Composer dependencies if available.
 $composer_autoload = plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 if ( file_exists( $composer_autoload ) ) {
 	require_once $composer_autoload;
 }
 
 if ( ! function_exists( __NAMESPACE__ . '\crp_freemius' ) ) {
-	// Finally load Freemius integration.
 	require_once plugin_dir_path( __FILE__ ) . 'load-freemius.php';
-}
-
-// Load custom autoloader.
-if ( ! function_exists( __NAMESPACE__ . '\autoload' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/autoloader.php';
 }
 
 if ( ! function_exists( __NAMESPACE__ . '\wz_crp' ) ) {
