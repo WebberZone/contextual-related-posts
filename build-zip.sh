@@ -18,7 +18,7 @@ composer install --no-dev --optimize-autoloader --classmap-authoritative --quiet
 rm -rf "$BUILD_DIR"
 mkdir -p "$TEMP_DIR"
 
-# Copy plugin files (excluding dev/build artifacts and all of vendor)
+# Copy plugin files (excluding dev/build artifacts).
 echo "Copying plugin files..."
 rsync -av --exclude-from=- . "$TEMP_DIR/" <<EOF
 .*

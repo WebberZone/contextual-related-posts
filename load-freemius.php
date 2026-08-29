@@ -1,6 +1,6 @@
 <?php
 /**
- * Initializes Freemius SDK for Contextual Related Posts Pro.
+ * Initializes Freemius SDK for Contextual Related Posts.
  *
  * @package WebberZone\Contextual_Related_Posts
  */
@@ -21,8 +21,7 @@ if ( ! function_exists( __NAMESPACE__ . '\\crp_freemius' ) ) {
 			if ( ! defined( 'WP_FS__PRODUCT_15040_MULTISITE' ) ) {
 				define( 'WP_FS__PRODUCT_15040_MULTISITE', true );
 			}
-			// Include Freemius SDK.
-			require_once __DIR__ . '/vendor/freemius/start.php';
+
 			$crp_freemius = \fs_dynamic_init(
 				array(
 					'id'               => '15040',
