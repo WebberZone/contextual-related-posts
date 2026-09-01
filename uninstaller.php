@@ -42,7 +42,7 @@ if ( is_multisite() ) {
 function crp_delete_data() {
 	global $wpdb;
 
-	if ( is_plugin_active( 'contextual-related-posts/contextual-related-posts.php' ) ) {
+	if ( is_plugin_active( 'contextual-related-posts-pro/contextual-related-posts.php' ) ) {
 		return;
 	}
 
