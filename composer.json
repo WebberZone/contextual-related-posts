@@ -1,5 +1,5 @@
 {
-    "name": "webberzone/contextual-related-posts-pro",
+    "name": "webberzone/contextual-related-posts",
     "description": "Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.",
     "version": "4.4.0",
     "type": "wordpress-plugin",
@@ -38,6 +38,7 @@
         "php-stubs/acf-pro-stubs": "^6.0"
     },
     "config": {
+        "autoloader-suffix": "ContextualRelatedPosts",
         "allow-plugins": {
             "phpstan/extension-installer": true,
             "dealerdirect/phpcodesniffer-composer-installer": true
