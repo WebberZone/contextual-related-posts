@@ -67,8 +67,11 @@ final class Hook_Loader {
 		$priority = (int) \crp_get_option( 'content_filter_priority', 10 );
 
 		Hook_Registry::add_filter( 'the_content', array( $this, 'content_filter' ), $priority );
-		Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'rss_filter' ), $priority );
-		Hook_Registry::add_filter( 'the_content_feed', array( $this, 'rss_filter' ), $priority );
+
+		if ( Feature_Manager::is_enabled( 'feed' ) ) {
+			Hook_Registry::add_filter( 'the_excerpt_rss', array( $this, 'rss_filter' ), $priority );
+			Hook_Registry::add_filter( 'the_content_feed', array( $this, 'rss_filter' ), $priority );
+		}
 	}
 
 	/**
@@ -105,6 +108,10 @@ final class Hook_Loader {
 	 * @since 3.5.0
 	 */
 	public function register_widgets(): void {
+		if ( ! Feature_Manager::is_enabled( 'legacy_widgets' ) ) {
+			return;
+		}
+
 		register_widget( '\WebberZone\Contextual_Related_Posts\Frontend\Widgets\Related_Posts_Widget' );
 	}
 

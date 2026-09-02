@@ -56,9 +56,9 @@ final class Main {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @var Frontend\Blocks\Blocks
+	 * @var Frontend\Blocks\Blocks|null
 	 */
-	public Frontend\Blocks\Blocks $blocks;
+	public ?Frontend\Blocks\Blocks $blocks = null;
 
 	/**
 	 * Styles.
@@ -122,7 +122,10 @@ final class Main {
 		$this->language   = new Frontend\Language_Handler();
 		$this->styles     = new Frontend\Styles_Handler();
 		$this->shortcodes = new Frontend\Shortcodes();
-		$this->blocks     = new Frontend\Blocks\Blocks();
+
+		if ( Feature_Manager::is_enabled( 'blocks' ) ) {
+			$this->blocks = new Frontend\Blocks\Blocks();
+		}
 
 		// Load all hooks.
 		new Hook_Loader();
