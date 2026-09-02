@@ -25,7 +25,7 @@ See `dev-tools/CLAUDE.md`'s Changelog convention.
 
 Contextual Related Posts Pro is a WordPress plugin displaying related posts via FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
 
-**Current WIP version: 4.4.0.** Use for all `@since` tags on new code until released.
+**Current WIP version: 4.4.1.** Use for all `@since` tags on new code until released.
 
 Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
 
@@ -134,4 +134,3 @@ The Settings API (`includes/admin/settings/*.php`) and Admin Banner (`includes/a
 | `includes/admin/settings/class-settings-wizard-api.php` | 4.1.0 |
 | `includes/admin/settings/class-metabox-api.php` | 3.5.0 |
 | `includes/admin/class-admin-banner.php` | 4.2.0 |
-

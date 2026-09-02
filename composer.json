@@ -1,7 +1,7 @@
 {
     "name": "webberzone/contextual-related-posts",
     "description": "Display related posts on your website or in your feed. Increase reader retention and reduce bounce rates.",
-    "version": "4.4.0",
+    "version": "4.4.1",
     "type": "wordpress-plugin",
     "keywords": [
         "related posts",
