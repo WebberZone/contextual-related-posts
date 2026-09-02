@@ -60,6 +60,16 @@ pnpm run zip             # Create distribution zip
 ncu -u && pnpm install   # Update dependencies to latest and reinstall
 ```
 
+## Distribution zip vendor invariant
+
+`build-zip.sh` excludes all of `vendor/` in its rsync block, then re-adds only the directories it names. **Any vendor directory reachable from a runtime `require` or the Composer autoloader must be re-added, or the shipped zip fatals** — this is not hypothetical; it shipped broken in `top-10` and `knowledgebase`.
+
+The copy list is derived from `composer.lock`'s non-dev `packages`, so adding a runtime dependency to `composer.json` ships it automatically. **Do not hand-list vendor directories in this script.** The derived block is byte-identical across all nine Composer plugin repos — keep it that way when editing one. This repo currently ships `vendor/freemius`.
+
+A missing directory, an unreadable lock, or an empty derived list is a hard `exit 1`, never a warning: a warning ships a silently broken zip.
+
+Verify a change by building the zip and loading the classes from the extracted tree, not by reading the script. `composer zip` runs `composer install --no-dev`, so follow it with a plain `composer install` to restore dev dependencies.
+
 ## Architecture
 
 ### Entry Point & Bootstrap
