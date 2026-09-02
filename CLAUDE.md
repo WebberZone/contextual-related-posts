@@ -9,6 +9,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - No suggestions outside the scope of what was asked
 - Skip preamble and trailing summaries
 
+## Release Notes
+
+- In `readme.txt`, prefix any Pro-only changelog bullet with `[Pro]`
+
 ## Links
 
 - GitHub (pro): <https://github.com/WebberZone/contextual-related-posts-pro>
