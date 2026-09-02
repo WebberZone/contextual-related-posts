@@ -11,6 +11,7 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Feature_Manager;
 use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
 use WebberZone\Contextual_Related_Posts\Admin\Settings\Settings_Wizard_API;
 use WebberZone\Contextual_Related_Posts\Admin\Settings;
@@ -144,7 +145,7 @@ class Settings_Wizard extends Settings_Wizard_API {
 		);
 
 		// Included whenever the pro indexer exists so the step count cannot change while the wizard is in progress.
-		if ( class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Custom_Tables_Admin' ) ) {
+		if ( Feature_Manager::is_enabled( 'custom_tables' ) && class_exists( '\WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Custom_Tables_Admin' ) ) {
 			$steps['custom_tables_index'] = array(
 				'title'       => __( 'Index Custom Tables', 'contextual-related-posts' ),
 				'description' => __( 'Custom index tables store your content in a dedicated table for faster searches. If you are using them, index your content here.', 'contextual-related-posts' ),
