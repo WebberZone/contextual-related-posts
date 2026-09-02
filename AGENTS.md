@@ -1,17 +1,17 @@
 # AGENTS.md
 
-This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
+Guidance for AI coding agents working in this repository.
 
 ## Response Rules
 
 - Return only the changed function or section, not the full file
 - No explanation unless asked
-- No suggestions outside the scope of what was asked
+- No out-of-scope suggestions
 - Skip preamble and trailing summaries
 
 ## Release Notes
 
-- In `readme.txt`, prefix any Pro-only changelog bullet with `[Pro]`
+See `dev-tools/CLAUDE.md`'s Changelog convention.
 
 ## Links
 
@@ -23,9 +23,9 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 ## Plugin Overview
 
-Contextual Related Posts Pro is a WordPress plugin that displays related posts using FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
+Contextual Related Posts Pro is a WordPress plugin displaying related posts via FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
 
-**Current work-in-progress version: 4.4.0.** Use `4.4.0` for all `@since` tags on new code until this version is released.
+**Current WIP version: 4.4.0.** Use for all `@since` tags on new code until released.
 
 Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
 
@@ -66,7 +66,7 @@ ncu -u && pnpm install   # Update dependencies to latest and reinstall
 
 `contextual-related-posts.php` defines constants (`WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, etc.), registers the custom PSR-4 autoloader, loads Freemius, and calls `\WebberZone\Contextual_Related_Posts\load()`.
 
-**Autoloader convention:** Namespace segments become path segments; underscores → hyphens, lowercase, last segment prefixed with `class-`. e.g. `WebberZone\Contextual_Related_Posts\Admin\Settings` → `includes/admin/class-settings.php`. Traits follow the same pattern with a `trait-` prefix instead.
+**Autoloader convention:** Namespace segments become path segments; underscores → hyphens, lowercase, last segment prefixed with `class-`. e.g. `WebberZone\Contextual_Related_Posts\Admin\Settings` → `includes/admin/class-settings.php`. Traits use `trait-` instead.
 
 ### Core Components
 
@@ -82,7 +82,7 @@ ncu -u && pnpm install   # Update dependencies to latest and reinstall
 ### Frontend
 
 - **`Display`** (`includes/frontend/class-display.php`, ~32 KB) — Renders related posts HTML.
-- **`Media_Handler`** (`includes/frontend/class-media-handler.php`) — Resolves thumbnails via a priority strategy chain: custom meta → ACF field → FIFU plugin → featured image → content scan → first child attachment → video meta → configured default → site icon. Designed for multi-plugin reuse: subclasses override `get_option()` to use their own options function; never call `crp_get_option()` directly inside the class.
+- **`Media_Handler`** (`includes/frontend/class-media-handler.php`) — Resolves thumbnails via a priority strategy chain: custom meta → ACF field → FIFU plugin → featured image → content scan → first child attachment → video meta → configured default → site icon. Designed for multi-plugin reuse: subclasses override `get_option()` for their own options function; never call `crp_get_option()` directly in the class.
 - **`Shortcodes`** — `[crp]` shortcode.
 - **`Blocks`** — Free block at `includes/frontend/blocks/src/related-posts/`.
 - **`REST_API`** — REST endpoints for block editor.
@@ -113,18 +113,18 @@ Pro features are gated by `crp_freemius()->is__premium_only()` or `crp_freemius(
 
 ## Key Patterns
 
-- **Settings access:** Always use `crp_get_option($key, $default)` rather than accessing `$crp_settings` directly.
-- **Hook registration:** Add hooks through `Hook_Registry::add_action()` / `Hook_Registry::add_filter()` (not directly via WordPress functions) so they're tracked and deduplication is handled.
+- **Settings access:** Use `crp_get_option($key, $default)`, not `$crp_settings` directly.
+- **Hook registration:** Add hooks via `Hook_Registry::add_action()` / `add_filter()` (not WP functions directly) for tracking and dedup.
 - **Pro gating:** Wrap pro-only code with `if ( crp_freemius()->is__premium_only() )` checks.
-- **Block builds:** Free blocks built with `wp-scripts`; pro blocks use a separate webpack entry. Run the appropriate build command after editing block source files.
+- **Block builds:** Free blocks build with `wp-scripts`; pro blocks use a separate webpack entry — run the matching build command after editing block source.
 
 ## Shared framework files: `@since` convention
 
-The Settings API (`includes/admin/settings/*.php`) and the Admin Banner (`includes/admin/class-admin-banner.php`) are copy-pasted, shared framework files whose canonical source is the `Settings_API` repo. To keep `@since` tags meaningful and stable across syncs, these files follow special rules:
+The Settings API (`includes/admin/settings/*.php`) and Admin Banner (`includes/admin/class-admin-banner.php`) are copy-pasted shared framework files, canonical source the `Settings_API` repo. Special `@since` rules keep tags meaningful across syncs:
 
-- Each file carries **exactly one** `@since` tag, on its **class docblock**, set to the plugin version at which that class was **first introduced into this plugin**. This is per-file (the wizard, metabox and banner classes were generally added later than the core Settings API classes).
+- Each file carries **exactly one** `@since` tag, on its **class docblock**, set to the version that class was **first introduced into this plugin** (per-file — wizard, metabox and banner classes were generally added later than core Settings API classes).
 - **Do not** add `@since` to methods, functions or properties in these files.
-- When syncing/updating these files from another plugin or the canonical `Settings_API` repo, **do not overwrite the class-level `@since`** — it is plugin-specific. Re-apply the values below after any sync.
+- When syncing from another plugin or the canonical `Settings_API` repo, **do not overwrite the class-level `@since`** — it is plugin-specific; re-apply the values below after any sync.
 
 | File | `@since` |
 |---|---|
