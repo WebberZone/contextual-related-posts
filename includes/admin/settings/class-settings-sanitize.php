@@ -167,6 +167,10 @@ class Settings_Sanitize {
 	 */
 	public function sanitize_textarea_field( $value ) {
 
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			return wp_kses_post( wp_unslash( $value ) );
+		}
+
 		global $allowedposttags;
 
 		// We need more tags to allow for script and style.
