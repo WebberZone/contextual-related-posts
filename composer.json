@@ -54,8 +54,9 @@
         "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
         "phpcompat:setup": [
             "@php -r \"if (!is_dir('phpcompat-tools')) { mkdir('phpcompat-tools'); }\"",
-            "@composer config --working-dir=phpcompat-tools allow-plugins.dealerdirect/phpcodesniffer-composer-installer true 2>/dev/null || true",
-            "@composer require --working-dir=phpcompat-tools --dev --quiet --no-interaction squizlabs/php_codesniffer:^4.0 phpcompatibility/php-compatibility:dev-develop dealerdirect/phpcodesniffer-composer-installer:^1.0 2>/dev/null || true"
+            "@php -r \"if (!file_exists('phpcompat-tools/composer.json')) { file_put_contents('phpcompat-tools/composer.json', '{\\\"name\\\":\\\"temp/phpcompat\\\",\\\"type\\\":\\\"project\\\"}'); }\"",
+            "@composer config --working-dir=phpcompat-tools allow-plugins.dealerdirect/phpcodesniffer-composer-installer true",
+            "@composer require --working-dir=phpcompat-tools --dev --quiet --no-interaction squizlabs/php_codesniffer:^4.0 phpcompatibility/php-compatibility:dev-develop dealerdirect/phpcodesniffer-composer-installer:^1.0"
         ],
         "phpcompat": [
             "@phpcompat:setup",
