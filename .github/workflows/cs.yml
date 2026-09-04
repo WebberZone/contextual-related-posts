@@ -2,15 +2,8 @@ name: Coding Standards
 
 on:
   # Run on all pushes and on all pull requests.
-  # Prevent the build from running when there are only irrelevant changes.
   push:
-    paths-ignore:
-      - '**.md'
-      - '**.txt'
   pull_request:
-    paths-ignore:
-      - '**.md'
-      - '**.txt'
   # Allow manually triggering the workflow.
   workflow_dispatch:
 
