@@ -212,6 +212,11 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 * Fixed:
 	* Hardened settings sanitization for users without the `unfiltered_html` capability.
+	* Prevented password-protected post excerpts from being served through the shared HTML cache.
+	* Hardened Query Loop REST meta filtering and taxonomy searches against unauthorized or private data access.
+	* Fixed cache invalidation, dry-run cleanup, persistent object-cache invalidation, and collisions for ordered IDs and taxonomy slugs.
+	* [Pro] Fixed custom-table indexing after REST metadata and taxonomy updates, and moved large term refreshes to bounded background batches.
+	* [Pro] Prevented Query Loop block callbacks from accumulating across repeated renders.
 
 = 4.4.0 =
 

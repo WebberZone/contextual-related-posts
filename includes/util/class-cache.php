@@ -97,19 +97,44 @@ class Cache {
 	public static function delete(): int {
 		global $wpdb;
 
-		// Start transaction.
-		$wpdb->query( 'START TRANSACTION' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+		$last_id = 0;
+		$count   = 0;
+		$like    = $wpdb->esc_like( '_crp_cache_' ) . '%';
 
-		// Delete all cache entries and get count of deleted rows.
-		$delete_sql = "DELETE FROM {$wpdb->postmeta} WHERE meta_key LIKE '_crp_cache_%'";
+		do {
+			// Bound memory use and invalidate only posts whose metadata was deleted.
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$post_ids = $wpdb->get_col(
+				$wpdb->prepare(
+					"SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE post_id > %d AND meta_key LIKE %s ORDER BY post_id ASC LIMIT 500",
+					$last_id,
+					$like
+				)
+			);
+			if ( empty( $post_ids ) ) {
+				break;
+			}
 
-		// Execute the deletion and get count of affected rows.
-		$count = (int) $wpdb->query( $delete_sql ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
+			$post_ids = array_map( 'absint', $post_ids );
+			$id_list  = implode( ',', $post_ids );
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+			$deleted = $wpdb->query(
+				$wpdb->prepare(
+					"DELETE FROM {$wpdb->postmeta} WHERE post_id IN ($id_list) AND meta_key LIKE %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- IDs are integers.
+					$like
+				)
+			);
+			if ( false === $deleted ) {
+				break;
+			}
 
-		// Commit transaction.
-		$wpdb->query( 'COMMIT' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching,WordPress.DB.PreparedSQL.NotPrepared
+			wp_cache_delete_multiple( $post_ids, 'post_meta' );
+			$count      += $deleted;
+			$last_id     = max( $post_ids );
+			$batch_count = count( $post_ids );
+		} while ( 500 === $batch_count );
 
-		return intval( $count / 2 );
+		return (int) ( $count / 2 );
 	}
 
 	/**
@@ -283,19 +308,15 @@ class Cache {
 			foreach ( $post_ids as $post_id ) {
 				++$scanned;
 
-				// Check if cache is expired by trying to get it.
-				$cached_value = self::get_cache( $post_id, $key_name, $cache_type );
-
-				// If get_cache returns false, it means the cache is expired or doesn't exist.
-				if ( false === $cached_value ) {
-					if ( $dry_run ) {
+				// Read expiration without get_cache(), which deletes expired entries.
+				if ( 0 === self::get_cache_time( $key_name, $post_id ) ) {
+					continue;
+				}
+				$expires_key = 'html' === $cache_type ? "_crp_cache_expires_h_{$key_name}" : "_crp_cache_expires_p_{$key_name}";
+				$expires     = (int) get_post_meta( $post_id, $expires_key, true );
+				if ( empty( $expires ) || $expires < time() ) {
+					if ( $dry_run || self::delete_by_post_id_and_key( $post_id, $key_name, $cache_type ) ) {
 						++$cleaned;
-					} else {
-						// Delete the expired cache entry.
-						$result = self::delete_by_post_id_and_key( $post_id, $key_name, $cache_type );
-						if ( $result ) {
-							++$cleaned;
-						}
 					}
 				}
 			}
@@ -399,6 +420,21 @@ class Cache {
 			}
 		}
 
+		// These lists affect output order; normalize their values without sorting.
+		$ordered_keys = array( 'manual_related', 'include_post_ids', 'cornerstone_post_ids', 'post__in', 'post_name__in' );
+		$ordered_args = array();
+		foreach ( $ordered_keys as $key ) {
+			if ( ! array_key_exists( $key, $args ) ) {
+				continue;
+			}
+			$value = 'post_name__in' === $key ? wp_parse_list( $args[ $key ] ?? array() ) : wp_parse_id_list( $args[ $key ] ?? array() );
+			$value = array_values( array_unique( array_filter( $value ) ) );
+			if ( ! empty( $value ) ) {
+				$ordered_args[ $key ] = $value;
+			}
+			unset( $args[ $key ] );
+		}
+
 		// Define categories of types for normalization.
 		$id_array_types     = array( 'postids', 'numbercsv', 'taxonomies' );
 		$string_array_types = array( 'posttypes', 'csv', 'multicheck' );
@@ -457,8 +493,6 @@ class Cache {
 			'tag__and',
 			'tag__in',
 			'tag__not_in',
-			'tag_slug__and',
-			'tag_slug__in',
 		);
 
 		foreach ( $id_arrays as $key ) {
@@ -479,6 +513,8 @@ class Cache {
 		}
 
 		$string_arrays = array(
+			'tag_slug__and',
+			'tag_slug__in',
 			'exclude_cat_slugs',
 			'exclude_on_cat_slugs',
 			'exclude_on_post_types',
@@ -513,6 +549,8 @@ class Cache {
 			}
 		}
 
+		$args = array_merge( $args, $ordered_args );
+
 		// Sort top-level arguments.
 		ksort( $args );
 
@@ -524,7 +562,8 @@ class Cache {
 		}
 
 		// Generate cache key.
-		return md5( wp_json_encode( $args ) );
+		// Version the format to retire previously shared HTML and colliding keys.
+		return md5( '4.4.1|' . wp_json_encode( $args ) );
 	}
 
 	/**

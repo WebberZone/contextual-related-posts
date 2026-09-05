@@ -2167,17 +2167,10 @@ class Settings {
 			wp_die();
 		}
 
-		$tax      = '';
 		$taxonomy = sanitize_key( $_REQUEST['tax'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( ! empty( $taxonomy ) ) {
-			$tax = get_taxonomy( $taxonomy );
-			if ( ! $tax ) {
-				wp_die();
-			}
-
-			if ( ! current_user_can( $tax->cap->assign_terms ) ) {
-				wp_die();
-			}
+		$tax      = get_taxonomy( $taxonomy );
+		if ( ! $tax || ! current_user_can( $tax->cap->assign_terms ) ) {
+			wp_die();
 		}
 		$s = isset( $_REQUEST['q'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['q'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
@@ -2206,13 +2199,17 @@ class Settings {
 
 		$terms = get_terms(
 			array(
-				'taxonomy'   => ! empty( $taxonomy ) ? $taxonomy : null,
+				'taxonomy'   => $taxonomy,
 				'name__like' => $s,
 				'hide_empty' => false,
+				'number'     => 20,
 			)
 		);
 
 		$results = array();
+		if ( is_wp_error( $terms ) ) {
+			wp_die();
+		}
 		foreach ( (array) $terms as $term ) {
 			$results[] = "{$term->name} ({$term->taxonomy}:{$term->term_taxonomy_id})";
 		}
