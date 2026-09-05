@@ -411,6 +411,8 @@ class Display {
 	 */
 	public static function should_cache( $args ) {
 		return ! empty( $args['cache'] ) &&
+				! is_user_logged_in() &&
+				empty( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] ) &&
 				! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) );
 	}
 

@@ -167,6 +167,8 @@ class Activator {
 	 * @since 3.5.0
 	 */
 	public static function single_deactivate() {
+		wp_unschedule_hook( 'crp_refresh_term_posts' );
+
 		$settings = get_option( 'crp_settings' );
 
 		if ( ! empty( $settings['uninstall_indices_deactivate'] ) ) {
