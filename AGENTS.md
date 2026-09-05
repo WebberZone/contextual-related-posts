@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Guidance for AI coding agents working in this repository.
+Guidance for AI coding agents working in this repo.
 
 ## Response Rules
 
@@ -23,9 +23,9 @@ See `dev-tools/CLAUDE.md`'s Changelog convention.
 
 ## Plugin Overview
 
-Contextual Related Posts Pro is a WordPress plugin displaying related posts via FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
+Contextual Related Posts Pro: WordPress plugin showing related posts via FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
 
-**Current WIP version: 4.4.1.** Use for all `@since` tags on new code until released.
+**WIP version: 4.4.1** — use for all new `@since` tags until released.
 
 Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
 
@@ -74,34 +74,34 @@ Verify a change by building the zip and loading the classes from the extracted t
 
 ### Entry Point & Bootstrap
 
-`contextual-related-posts.php` defines constants (`WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, etc.), registers the custom PSR-4 autoloader, loads Freemius, and calls `\WebberZone\Contextual_Related_Posts\load()`.
+`contextual-related-posts.php` defines constants (`WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, etc.), registers the PSR-4 autoloader, loads Freemius, and calls `\WebberZone\Contextual_Related_Posts\load()`.
 
-**Autoloader convention:** Namespace segments become path segments; underscores → hyphens, lowercase, last segment prefixed with `class-`. e.g. `WebberZone\Contextual_Related_Posts\Admin\Settings` → `includes/admin/class-settings.php`. Traits use `trait-` instead.
+**Autoloader convention:** namespace segments → path segments (underscores→hyphens, lowercase); last segment prefixed `class-`, e.g. `WebberZone\Contextual_Related_Posts\Admin\Settings` → `includes/admin/class-settings.php`. Traits use `trait-` instead.
 
 ### Core Components
 
-- **`includes/class-main.php`** — Singleton. Instantiates all subsystems on `plugins_loaded`.
-- **`includes/class-hook-loader.php`** — Centralizes WordPress hook registration (content filters, query hooks, init hooks).
-- **`includes/util/class-hook-registry.php`** — Static registry tracking all registered actions/filters; prevents duplicates.
+- **`includes/class-main.php`** — Singleton; instantiates all subsystems on `plugins_loaded`.
+- **`includes/class-hook-loader.php`** — Centralizes WP hook registration (content filters, query hooks, init hooks).
+- **`includes/util/class-hook-registry.php`** — Static registry tracking registered actions/filters; prevents duplicates.
 
 ### Query Engine
 
 - **`CRP_Query`** extends `WP_Query`; uses FULLTEXT search on the posts table.
-- **`CRP_Core_Query`** (`includes/class-crp-core-query.php`, ~47 KB) — Core algorithm: builds SQL, joins, ordering. The most complex file in the codebase.
+- **`CRP_Core_Query`** (`includes/class-crp-core-query.php`, ~47 KB) — Core algorithm: builds SQL, joins, ordering; most complex file in the codebase.
 
 ### Frontend
 
 - **`Display`** (`includes/frontend/class-display.php`, ~32 KB) — Renders related posts HTML.
-- **`Media_Handler`** (`includes/frontend/class-media-handler.php`) — Resolves thumbnails via a priority strategy chain: custom meta → ACF field → FIFU plugin → featured image → content scan → first child attachment → video meta → configured default → site icon. Designed for multi-plugin reuse: subclasses override `get_option()` for their own options function; never call `crp_get_option()` directly in the class.
+- **`Media_Handler`** (`includes/frontend/class-media-handler.php`) — Resolves thumbnails via a priority strategy chain: custom meta → ACF field → FIFU plugin → featured image → content scan → first child attachment → video meta → configured default → site icon. For multi-plugin reuse, subclasses override `get_option()` for their own options function; never call `crp_get_option()` directly in the class.
 - **`Shortcodes`** — `[crp]` shortcode.
 - **`Blocks`** — Free block at `includes/frontend/blocks/src/related-posts/`.
 - **`REST_API`** — REST endpoints for block editor.
-- **`Styles_Handler`** / **`Language_Handler`** — Enqueue plugin CSS and handle i18n for JS, respectively.
+- **`Styles_Handler`** / **`Language_Handler`** — Enqueue plugin CSS / handle JS i18n, respectively.
 
 ### Admin
 
-- **`Settings`** (`includes/admin/class-settings.php`, ~90 KB) — Settings page with tabs for General, Performance, List tuning, Output, Thumbnail, Styles, Feed (plus WooCommerce when active).
-- Settings stored as a single `crp_settings` array in `wp_options`. Access via `crp_get_option($key)` / `crp_get_settings()`.
+- **`Settings`** (`includes/admin/class-settings.php`, ~90 KB) — Settings page; tabs: General, Performance, List tuning, Output, Thumbnail, Styles, Feed (+ WooCommerce when active).
+- Stored as a single `crp_settings` array in `wp_options`; access via `crp_get_option($key)` / `crp_get_settings()`.
 
 ### Pro Features (`includes/pro/`)
 
@@ -124,17 +124,17 @@ Pro features are gated by `crp_freemius()->is__premium_only()` or `crp_freemius(
 ## Key Patterns
 
 - **Settings access:** Use `crp_get_option($key, $default)`, not `$crp_settings` directly.
-- **Hook registration:** Add hooks via `Hook_Registry::add_action()` / `add_filter()` (not WP functions directly) for tracking and dedup.
+- **Hook registration:** Add hooks via `Hook_Registry::add_action()` / `add_filter()` (not WordPress functions directly) so they're tracked and deduplicated.
 - **Pro gating:** Wrap pro-only code with `if ( crp_freemius()->is__premium_only() )` checks.
-- **Block builds:** Free blocks build with `wp-scripts`; pro blocks use a separate webpack entry — run the matching build command after editing block source.
+- **Block builds:** Free blocks build with `wp-scripts`; pro blocks use a separate webpack entry. Run the matching build command after editing block source files.
 
 ## Shared framework files: `@since` convention
 
-The Settings API (`includes/admin/settings/*.php`) and Admin Banner (`includes/admin/class-admin-banner.php`) are copy-pasted shared framework files, canonical source the `Settings_API` repo. Special `@since` rules keep tags meaningful across syncs:
+The Settings API (`includes/admin/settings/*.php`) and Admin Banner (`includes/admin/class-admin-banner.php`) are copy-pasted shared framework files; canonical source is the `Settings_API` repo. To keep `@since` tags meaningful and stable across syncs, these files follow special rules:
 
-- Each file carries **exactly one** `@since` tag, on its **class docblock**, set to the version that class was **first introduced into this plugin** (per-file — wizard, metabox and banner classes were generally added later than core Settings API classes).
+- Each file carries **exactly one** `@since` tag, on its **class docblock**, set to the version that class was **first introduced into this plugin** — per-file (wizard, metabox and banner classes were generally added later than core Settings API classes).
 - **Do not** add `@since` to methods, functions or properties in these files.
-- When syncing from another plugin or the canonical `Settings_API` repo, **do not overwrite the class-level `@since`** — it is plugin-specific; re-apply the values below after any sync.
+- When syncing/updating from another plugin or the canonical `Settings_API` repo, **do not overwrite the class-level `@since`** (plugin-specific) — re-apply the values below after any sync.
 
 | File | `@since` |
 |---|---|

@@ -206,6 +206,8 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.4.1 =
 
+*Release Date - 5 September 2026*
+
 * Features:
 	* Added a Features tab and Feature Manager for disabling unused plugin components without changing existing defaults.
 	* [Pro] Added independent controls for the Query Loop, Featured Image, Related Posts Pro, page builder, bot protection, lazy loading, custom tables, and WooCommerce modules.
