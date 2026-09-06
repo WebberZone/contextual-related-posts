@@ -65,6 +65,19 @@ The Query Loop block allows you to customize the query that will be used to retr
 - **Filters – Taxonomy**: Filter the results by specific taxonomies (e.g., category, tag).
 - **Filters – Authors**: Filter the results by specific authors.
 - **Keyword**: Enter a word or phrase to find related posts using that keyword instead of the current post's title and content.
+- **Post Meta Query**: Filter the results by one or more custom field values. See below.
+
+#### Post Meta Query
+
+The **Post Meta Query** panel filters related posts by custom field values. Each row has three parts:
+
+- **Meta Key** — chosen from the meta keys registered for the selected post type, including Advanced Custom Fields keys.
+- **Meta Value** — the value to compare against.
+- **Meta Compare** — the comparison operator: `=`, `!=`, `>`, `>=`, `<`, `<=`, `LIKE`, `NOT LIKE`, `IN`, `NOT IN`, `BETWEEN`, `NOT BETWEEN`, `EXISTS`, `NOT EXISTS`, `REGEXP`, `NOT REGEXP`, and `RLIKE`.
+
+Add more rows to build a compound filter. With two or more rows, a **Query Relationship** selector appears so you can join them with `AND` or `OR`. Changing the post type clears the meta query, since the available keys differ per post type.
+
+The preview inside the block editor is generated over the REST API and applies the same permission rules WordPress applies elsewhere. For anyone who is not an administrator, the preview only filters on meta keys that are registered, exposed to the REST API, not protected (keys beginning with an underscore), and editable by that user on the source post. Keys that fail those checks are dropped from the preview query. Administrators see the preview unfiltered. Front-end rendering is unaffected — this applies to the editor preview only.
 
 ### 2. Customize the Layout
 

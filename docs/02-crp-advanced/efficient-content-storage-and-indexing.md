@@ -26,7 +26,7 @@ ECSI moves processed post content into dedicated, optimized tables, rather than 
 - Advanced related posts storage and tracking (coming soon in a future version of CRP Pro)
 
 > [!NOTE]
-> ⓘ Efficient Content Storage and Indexing is only available in Contextual Related Posts Pro.
+> ⓘ Efficient Content Storage and Indexing is only available in Contextual Related Posts Pro and Better Search Pro.
 
 ## Benefits of ECSI
 
@@ -109,13 +109,30 @@ This approach eliminates processing time during content retrieval, resulting in 
 
 ### Automatic Updates
 
-ECSI maintains data consistency through:
+ECSI keeps the custom tables consistent with your content through:
 
-1. Real-time synchronization on post updates
-2. Automatic removal of deleted posts
-3. Handling of post status changes
-4. Ignores revisions and autosaves
-5. Multisite synchronization
+1. Real-time synchronization when a post is saved
+2. Synchronization when taxonomy terms are added, changed, or removed outside a post save
+3. Synchronization when an indexed meta key or a primary-term meta key changes
+4. Automatic removal of deleted posts
+5. Handling of post status changes
+6. Skipping revisions and autosaves
+7. Multisite synchronization
+
+Changes made outside the post editor are picked up as well. Quick Edit, bulk term changes, REST API updates, and the primary-term keys written by Yoast SEO, Rank Math, and SEOPress all queue a resync of the affected post.
+
+Meta changes queue a resync only when the key is one you have configured for indexing. In Contextual Related Posts Pro that is the **Meta keys to index** setting on the Performance tab, extendable with the `crp_index_meta_keys` filter. Better Search Pro has no equivalent setting on its settings page; list the keys you want indexed with the `bsearch_index_meta_keys` filter instead.
+
+### Term renames and large terms
+
+Renaming a term or changing its slug changes the stored taxonomy data for every post assigned to it. Rather than rewriting all of them in the request that saved the term, the plugin schedules a background job and works through the posts in batches of 100, rescheduling itself until the term is fully refreshed.
+
+| Plugin | Scheduled action |
+| --- | --- |
+| Contextual Related Posts Pro | `crp_refresh_term_posts` |
+| Better Search Pro | `bsearch_refresh_term_posts` |
+
+This keeps the term save fast on sites where one category holds thousands of posts. The job runs through WP-Cron, so the refresh completes only as quickly as cron runs on your site. If you have disabled WP-Cron, schedule a real cron job that calls `wp-cron.php`, or run a force reindex from the Tools page.
 
 ### Batch Processing
 
@@ -167,6 +184,7 @@ No. New and updated content is automatically processed and added to the custom t
 | Empty or missing related posts | Reindexing not completed; Custom tables are not enabled properly | Check if custom tables are enabled; Run a force reindex; Verify that the `wp_wz_posts` table exists and contains data |
 | Synchronization issues | WordPress cron is not running; Post hooks are not firing correctly | Check WordPress cron status; Review error logs; Try a force reindex |
 | Performance issues | Database server load; Large tables; Insufficient server resources | Monitor database server load; Optimize the database if performance drops; Consider database server upgrades if necessary |
+| Renamed term not reflected in results | The background term-refresh job has not run yet; WP-Cron is disabled | Wait for WP-Cron to process `crp_refresh_term_posts` / `bsearch_refresh_term_posts`; if WP-Cron is disabled, schedule a real cron job for `wp-cron.php` or run a force reindex |
 | Admin notice: "Some FULLTEXT indexes are missing" | Custom tables are enabled but one or more FULLTEXT indexes were not created or were dropped | Go to **Tools → Related Posts Tools** and click **Recreate FULLTEXT Indexes**; alternatively run `wp crp tables indexes recreate` |
 | Admin notice: "Custom tables require MySQL 5.7.8+ or MariaDB 10.2.7+" | Database server version is too old to support the JSON columns ECSI requires | Upgrade your database server, or disable **Use Custom Tables** in the Performance settings and use standard FULLTEXT search instead |
 
