@@ -322,7 +322,7 @@ class Helpers {
 			$output = $collapsed;
 		}
 
-		return trim( $output, '' );
+		return trim( $output, " \t\n\r\0\x0B" );
 	}
 
 	/**
