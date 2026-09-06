@@ -23,9 +23,13 @@ See `dev-tools/CLAUDE.md`'s Changelog convention.
 
 ## Plugin Overview
 
-Contextual Related Posts Pro: WordPress plugin showing related posts via FULLTEXT search. Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
+**This file is identical in `contextual-related-posts` (free) and `contextual-related-posts-pro` (pro).** To tell which repo you are in: `includes/pro/` exists in the pro repo only, and the git remote is `WebberZone/contextual-related-posts-pro` rather than `WebberZone/contextual-related-posts`. The pro repo is the source of truth for both — make every change there, including free-tier code, then regenerate the free repo with `dev-tools/sync-pro-to-free.sh`. Never edit the free repo directly.
 
-**WIP version: 4.4.1** — use for all new `@since` tags until released.
+Contextual Related Posts displays related posts via FULLTEXT search. Contextual Related Posts Pro is the premium version, with pro-only code in `includes/pro/` gated by Freemius. Activating either plugin auto-deactivates the other; both share the same namespace, prefix and settings key.
+
+Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
+
+Versions: `readme.txt`'s `Stable tag` is the released version; `WZ_CRP_VERSION` in `contextual-related-posts.php` is the working version — use it for new `@since` tags. Do not bump either unless asked.
 
 Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
 
