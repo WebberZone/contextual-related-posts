@@ -205,6 +205,13 @@ class REST_API extends \WP_REST_Controller {
 			),
 		);
 
+		/**
+		 * Filters the query parameters accepted by the related posts REST endpoint.
+		 *
+		 * @since 3.1.0
+		 *
+		 * @param array $args Collection parameters, keyed by parameter name.
+		 */
 		return apply_filters( 'crp_rest_api_get_item_params', $args );
 	}
 

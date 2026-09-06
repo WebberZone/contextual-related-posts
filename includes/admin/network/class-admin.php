@@ -94,7 +94,14 @@ class Admin {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Contextual Related Posts Multisite Settings', 'contextual-related-posts' ); ?></h1>
-			<?php do_action( 'crp_network_admin_settings_page_content_header' ); ?>
+			<?php
+			/**
+			 * Fires at the top of the network admin settings page, after the heading.
+			 *
+			 * @since 4.1.0
+			 */
+			do_action( 'crp_network_admin_settings_page_content_header' );
+			?>
 
 			<p><?php esc_html_e( 'This page allows you to configure the settings for Contextual Related Posts on your multisite network.', 'contextual-related-posts' ); ?></p>
 
