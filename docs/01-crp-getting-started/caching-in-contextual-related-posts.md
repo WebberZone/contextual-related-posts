@@ -23,6 +23,15 @@ Both settings are enabled by default to optimize the related posts out-of-the-bo
 
 The **Cache HTML output** setting will supersede **Cache Posts only** and is recommended particularly on busy sites. This setting will not work with the [Related Posts Query Loop Block](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/#contextual-related-posts-query-loop-block) and so it is recommended that you keep **Cache Posts only** enabled.
 
+## What is never served from the HTML cache
+
+The HTML cache is shared by every visitor to a post, so output that is not the same for everyone is skipped. Contextual Related Posts bypasses the HTML cache when:
+
+- The visitor is logged in
+- The post is password-protected, or the visitor holds a password cookie for any post
+
+These requests still generate related posts; they are built fresh and are not written to or read from the shared cache. **Cache Posts only** is unaffected, because it caches post IDs rather than rendered markup.
+
 ## Clearing the cache
 
 Contextual Related Posts caches all related posts for one week by default.
