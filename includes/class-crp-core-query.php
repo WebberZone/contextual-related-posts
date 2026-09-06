@@ -1013,6 +1013,7 @@ class CRP_Core_Query {
 				}
 				$orderby = ' ' . $this->match_sql . " DESC, $wpdb->posts.post_date DESC, $wpdb->posts.ID DESC ";
 			}
+			/** This filter is documented in includes/class-crp-core-query.php */
 			return apply_filters_ref_array( 'crp_query_posts_orderby', array( $orderby, $query, &$this ) );
 		}
 
