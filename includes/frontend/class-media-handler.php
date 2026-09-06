@@ -851,7 +851,7 @@ class Media_Handler {
 		$attr = array_map( 'esc_attr', $attr );
 
 		// Construct the HTML img tag.
-		$html = '<img ' . rtrim( $hwstring );
+		$html = '<img ' . rtrim( $hwstring, '' );
 		foreach ( $attr as $name => $value ) {
 			if ( '' !== $value ) {
 				$html .= " $name=" . '"' . $value . '"';

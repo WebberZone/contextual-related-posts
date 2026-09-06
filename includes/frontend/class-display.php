@@ -746,7 +746,7 @@ class Display {
 
 		$author_info = get_userdata( (int) $result->post_author );
 		$author_link = ( false === $author_info ) ? '' : get_author_posts_url( $author_info->ID );
-		$author_name = ( false === $author_info ) ? '' : ucwords( trim( stripslashes( $author_info->display_name ) ) );
+		$author_name = ( false === $author_info ) ? '' : ucwords( trim( stripslashes( $author_info->display_name ), '' ) );
 
 		/**
 		 * Filter the author name.
@@ -1020,7 +1020,7 @@ class Display {
 
 		if ( count( $paragraphs ) >= abs( $paragraph_id ) ) {
 			foreach ( $paragraphs as $index => &$paragraph ) {
-				if ( trim( $paragraph ) ) {
+				if ( trim( $paragraph, '' ) ) {
 					$paragraph .= $closing_p;
 				}
 
