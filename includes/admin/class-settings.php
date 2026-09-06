@@ -1275,7 +1275,7 @@ class Settings {
 	 * All features are enabled by default. Disabling a feature stops its
 	 * classes from being loaded on any request.
 	 *
-	 * @since 4.4.0
+	 * @since 4.4.1
 	 *
 	 * @return array Features settings array.
 	 */
@@ -1395,7 +1395,7 @@ class Settings {
 		/**
 		 * Filters the Features settings array.
 		 *
-		 * @since 4.4.0
+		 * @since 4.4.1
 		 *
 		 * @param array $settings Features settings array.
 		 */
