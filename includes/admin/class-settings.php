@@ -2182,7 +2182,7 @@ class Settings {
 			$s = explode( ',', $s );
 			$s = $s[ count( $s ) - 1 ];
 		}
-		$s = trim( $s );
+		$s = trim( $s, '' );
 
 		/**
 	* This filter has been defined in /wp-admin/includes/ajax-actions.php
@@ -2259,7 +2259,7 @@ class Settings {
 			$search_term = explode( ',', $search_term );
 			$search_term = $search_term[ count( $search_term ) - 1 ];
 		}
-		$search_term = trim( $search_term );
+		$search_term = trim( $search_term, '' );
 
 		if ( 'meta_keys' === $endpoint ) {
 			if ( ! current_user_can( 'manage_options' ) ) {

@@ -279,7 +279,7 @@ class CRP_Core_Query {
 		$args['manual_related']       = $this->manual_related; // Consolidated array (includes include_post_ids).
 		$args['no_of_manual_related'] = $this->no_of_manual_related;
 
-		$args['keyword'] = isset( $args['keyword'] ) && is_string( $args['keyword'] ) ? trim( $args['keyword'] ) : '';
+		$args['keyword'] = isset( $args['keyword'] ) && is_string( $args['keyword'] ) ? trim( $args['keyword'], '' ) : '';
 		if ( empty( $args['keyword'] ) ) {
 			$args['keyword'] = crp_get_meta( $this->source_post->ID, 'keyword' );
 		}
