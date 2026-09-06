@@ -658,7 +658,7 @@ class Settings_API {
 
 				// Tag header rows so the settings search can group fields under them.
 				if ( 'header' === $type ) {
-					$args['class'] = trim( ( $args['class'] ?? '' ) . ' wz-settings-header-row', '' );
+					$args['class'] = trim( ( $args['class'] ?? '' ) . ' wz-settings-header-row', " \t\n\r\0\x0B" );
 				}
 
 				add_settings_field(

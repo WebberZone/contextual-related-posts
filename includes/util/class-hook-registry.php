@@ -40,7 +40,7 @@ class Hook_Registry {
 		if ( ! in_array( $hook_type, array( 'action', 'filter' ), true ) ) {
 			return false;
 		}
-		if ( empty( trim( $hook_name, '' ) ) ) {
+		if ( empty( trim( $hook_name, " \t\n\r\0\x0B" ) ) ) {
 			return false;
 		}
 		if ( $priority < 0 ) {

@@ -198,7 +198,7 @@ class Bulk_Edit {
 			$manual_related = implode( ',', $manual_related_array );
 
 			// Empty string preserves existing data; '0' or invalid IDs clear the field.
-			if ( '' !== trim( wp_unslash( $_REQUEST['crp_manual_related'] ), '' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( '' !== trim( wp_unslash( $_REQUEST['crp_manual_related'] ), " \t\n\r\0\x0B" ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if ( $manual_related ) {
 					update_post_meta( $post_id, '_crp_manual_related', $manual_related );
 				} else {
@@ -234,7 +234,7 @@ class Bulk_Edit {
 			$manual_related_input = sanitize_text_field( wp_unslash( $_POST['crp_manual_related'] ) );
 
 			// Only process if not empty - empty means "no change" in bulk edit.
-			if ( '' !== trim( $manual_related_input, '' ) ) {
+			if ( '' !== trim( $manual_related_input, " \t\n\r\0\x0B" ) ) {
 				// Handle special case: '0' means clear manual related posts.
 				if ( '0' === $manual_related_input ) {
 					$post_meta['manual_related'] = '';
