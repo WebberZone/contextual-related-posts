@@ -112,6 +112,30 @@ class Settings_Sanitize {
 	}
 
 	/**
+	 * Sanitize site-local date/time fields.
+	 *
+	 * @param string $value The date/time value.
+	 * @return string Sanitized date/time, or an empty string when invalid.
+	 */
+	public function sanitize_datetime_field( $value ) {
+		$value  = trim( sanitize_text_field( wp_unslash( (string) $value ) ), " \t\n\r\0\x0B" );
+		$format = '!Y-m-d\\TH:i';
+		$utc    = \DateTimeImmutable::createFromFormat( $format, $value, new \DateTimeZone( 'UTC' ) );
+		$errors = \DateTimeImmutable::getLastErrors();
+
+		if ( false === $utc || ( false !== $errors && ( $errors['warning_count'] > 0 || $errors['error_count'] > 0 ) ) || $utc->format( 'Y-m-d\\TH:i' ) !== $value ) {
+			return '';
+		}
+
+		$local = \DateTimeImmutable::createFromFormat( $format, $value, wp_timezone() );
+		if ( false === $local || $local->format( 'Y-m-d\\TH:i' ) !== $value ) {
+			return '';
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Sanitize number fields
 	 *
 	 * @param  string $value The field value.
