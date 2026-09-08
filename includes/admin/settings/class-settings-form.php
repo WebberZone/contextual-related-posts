@@ -556,6 +556,32 @@ class Settings_Form {
 	}
 
 	/**
+	 * Display local date/time fields.
+	 *
+	 * @param array $args Field arguments.
+	 */
+	public function callback_datetime( $args ) {
+		$value            = $this->get_field_value( $args );
+		$class            = $this->get_field_class( $args );
+		$attributes       = $this->get_boolean_attributes( $args ) . $this->build_field_attributes( $args );
+		$placeholder      = $this->get_placeholder_attribute( $args );
+		$field_attributes = $this->get_field_attributes( $args );
+
+		$html  = sprintf(
+			'<input type="datetime-local" id="%1$s" name="%2$s" class="%3$s" value="%4$s" step="60" %5$s %6$s />',
+			$field_attributes['field_id'],
+			$field_attributes['field_name'],
+			$class . ' regular-text',
+			esc_attr( stripslashes( (string) $value ) ),
+			$attributes,
+			$placeholder
+		);
+		$html .= $this->get_field_description( $args );
+
+		echo wp_kses( apply_filters( $this->prefix . '_after_setting_output', $html, $args ), $this->get_allowed_html() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound
+	}
+
+	/**
 	 * Display url fields.
 	 *
 	 * @param array $args Array of arguments.
