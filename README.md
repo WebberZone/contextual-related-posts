@@ -137,6 +137,14 @@ So, if you've got some cool feature you'd like to implement into the plugin or a
 
 Bug reports are [welcomed on Github](https://github.com/WebberZone/contextual-related-posts/issues). Please note Github is _not_ a support forum, and issues that aren't suitably qualified as bugs will be closed.
 
+### Multilingual sites
+
+Contextual Related Posts works with WPML, Polylang and TranslatePress, and no configuration is needed for any of them.
+
+On WPML and Polylang, where each language has its own posts, the related posts list is mapped to the equivalent post in the language being viewed. On TranslatePress, which translates one set of posts on the fly, related posts pick up the visitor's language along with the rest of the page — including when they are served through the REST API or loaded lazily, which TranslatePress cannot reach on its own.
+
+Cached related posts are stored per language, so visitors are never served another language's titles or links.
+
 ### Translations
 
 Contextual Related Posts is available for [translation directly on WordPress.org](https://translate.wordpress.org/projects/wp-plugins/contextual-related-posts). Check out the official [Translator Handbook](https://make.wordpress.org/polyglots/handbook/rosetta/theme-plugin-directories/) to contribute.
