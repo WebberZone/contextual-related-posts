@@ -381,11 +381,15 @@ class Language_Handler {
 	 * @return mixed Response data, translated where applicable.
 	 */
 	public static function translate_rest_response( $result, $server, $request ) {
-		if ( ! is_array( $result ) || ! $request instanceof \WP_REST_Request ) {
+		if ( ! $request instanceof \WP_REST_Request ) {
 			return $result;
 		}
 
-		if ( false === strpos( (string) $request->get_route(), 'contextual-related-posts/v1' ) ) {
+		if ( ! is_array( $result ) && ! is_string( $result ) ) {
+			return $result;
+		}
+
+		if ( false === strpos( (string) $request->get_route(), self::get_rest_namespace() ) ) {
 			return $result;
 		}
 
@@ -395,7 +399,23 @@ class Language_Handler {
 			return $result;
 		}
 
+		// Some routes return a bare HTML string rather than a structure of fields.
+		if ( is_string( $result ) ) {
+			return self::trp_translate_content( $result, $language );
+		}
+
 		return self::translate_rest_data( $result, $language );
+	}
+
+	/**
+	 * The REST namespace whose responses this plugin translates.
+	 *
+	 * @since 4.4.2
+	 *
+	 * @return string REST namespace.
+	 */
+	protected static function get_rest_namespace(): string {
+		return 'contextual-related-posts/v1';
 	}
 
 	/**
