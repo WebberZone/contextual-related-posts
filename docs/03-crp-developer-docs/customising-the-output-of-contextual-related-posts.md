@@ -76,7 +76,7 @@ add_filter(
 Returns the full default arguments array for the related posts display — the built-in defaults merged with the saved plugin settings. Use it to build a complete `$args` array before calling the rendering or query functions.
 
 ```php
-$args = WebberZoneContextual_Related_PostsFrontendDisplay::get_default_args();
+$args = WebberZone\Contextual_Related_Posts\Frontend\Display::get_default_args();
 ```
 
 **Returns:** `array` — Default arguments including all saved settings.
