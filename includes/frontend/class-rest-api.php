@@ -203,6 +203,10 @@ class REST_API extends \WP_REST_Controller {
 				'description' => __( 'Taxonomy IDs from which posts are excluded (comma separated)', 'contextual-related-posts' ),
 				'type'        => 'string',
 			),
+			'lang'               => array(
+				'description' => __( 'TranslatePress language code to render the response in.', 'contextual-related-posts' ),
+				'type'        => 'string',
+			),
 		);
 
 		/**
@@ -249,7 +253,7 @@ class REST_API extends \WP_REST_Controller {
 		$args    = array();
 
 		foreach ( $allowed as $key ) {
-			if ( in_array( $key, array( 'id', 'postid' ), true ) ) {
+			if ( in_array( $key, array( 'id', 'postid', 'lang' ), true ) ) {
 				continue;
 			}
 

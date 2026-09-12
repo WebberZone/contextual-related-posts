@@ -9,6 +9,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Util;
 
+use WebberZone\Contextual_Related_Posts\Frontend\Language_Handler;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -563,7 +565,7 @@ class Cache {
 
 		// Generate cache key.
 		// Version the format to retire previously shared HTML and colliding keys.
-		return md5( '4.4.1|' . wp_json_encode( $args ) );
+		return md5( '4.4.2|' . Language_Handler::get_cache_language() . '|' . wp_json_encode( $args ) );
 	}
 
 	/**

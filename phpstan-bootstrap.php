@@ -93,6 +93,47 @@ namespace {
 	}
 }
 
+// TranslatePress has no official PHPStan stub package, so declare the minimal surface CRP's
+// language handler touches.
+namespace {
+	if ( ! class_exists( 'TRP_Translate_Press' ) ) {
+		class TRP_Translate_Press {
+			/**
+			 * Runtime surface varies by TranslatePress version, so callers guard it.
+			 *
+			 * @return mixed
+			 */
+			public static function get_trp_instance() {
+				return new self();
+			}
+
+			/**
+			 * @param string $component Component name.
+			 * @return object|null
+			 */
+			public function get_component( $component ) {
+				unset( $component );
+				return null;
+			}
+		}
+	}
+
+	if ( ! function_exists( 'trp_translate' ) ) {
+		/**
+		 * TranslatePress translation stub for static analysis.
+		 *
+		 * @param string      $content                  Content to translate.
+		 * @param string|null $language                 Target language code.
+		 * @param bool        $prevent_over_translation Whether to wrap the output.
+		 * @return string
+		 */
+		function trp_translate( $content, $language = null, $prevent_over_translation = true ) {
+			unset( $language, $prevent_over_translation );
+			return (string) $content;
+		}
+	}
+}
+
 // Elementor has no official PHPStan stub package, so declare the minimal surface CRP's
 // Elementor builder module touches.
 namespace Elementor {

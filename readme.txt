@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.4.1
+Stable tag: 4.4.2
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -127,6 +127,14 @@ So, if you've got some cool feature you'd like to implement into the plugin or a
 
 Bug reports are [welcomed on Github](https://github.com/WebberZone/contextual-related-posts/issues). Please note Github is _not_ a support forum, and issues that aren't suitably qualified as bugs will be closed.
 
+### Multilingual sites
+
+Contextual Related Posts works with WPML, Polylang and TranslatePress, and no configuration is needed for any of them.
+
+On WPML and Polylang, where each language has its own posts, the related posts list is mapped to the equivalent post in the language being viewed. On TranslatePress, which translates one set of posts on the fly, related posts pick up the visitor's language along with the rest of the page — including when they are served through the REST API or loaded lazily, which TranslatePress cannot reach on its own.
+
+Cached related posts are stored per language, so visitors are never served another language's titles or links.
+
 ### Translations
 
 Contextual Related Posts is available for [translation directly on WordPress.org](https://translate.wordpress.org/projects/wp-plugins/contextual-related-posts). Check out the official [Translator Handbook](https://make.wordpress.org/polyglots/handbook/rosetta/theme-plugin-directories/) to contribute.
@@ -204,180 +212,76 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.4.2 =
+
+Release date: 12 September 2026
+
+**Added**
+
+* TranslatePress support: related posts served through the REST API are now returned in the visitor's language, with language-specific permalinks.
+* [Pro] Lazy-loaded related posts are now rendered in the visitor's TranslatePress language.
+
+**Changed**
+
+* The related posts cache key now includes the current language, so multilingual sites rebuild their cached output once after updating.
+
+**Fixed**
+
+* Cached related posts output was shared between languages on WPML, Polylang and TranslatePress sites, so visitors could be served another language's titles and links.
+
 = 4.4.1 =
 
-*Release Date - 5 September 2026*
+Release date: 5 September 2026
 
-* Features:
-	* Added a Features tab and Feature Manager for disabling unused plugin components without changing existing defaults.
-	* [Pro] Added independent controls for the Query Loop, Featured Image, Related Posts Pro, page builder, bot protection, lazy loading, custom tables, and WooCommerce modules.
+**Added**
 
-* Fixed:
-	* Hardened settings sanitization for users without the `unfiltered_html` capability.
-	* Prevented password-protected post excerpts from being served through the shared HTML cache.
-	* Hardened Query Loop REST meta filtering and taxonomy searches against unauthorized or private data access.
-	* Fixed cache invalidation, dry-run cleanup, persistent object-cache invalidation, and collisions for ordered IDs and taxonomy slugs.
-	* [Pro] Fixed custom-table indexing after REST metadata and taxonomy updates, and moved large term refreshes to bounded background batches.
-	* [Pro] Prevented Query Loop block callbacks from accumulating across repeated renders.
+* Features tab and Feature Manager for disabling unused plugin components without changing existing defaults.
+* [Pro] Independent controls for the Query Loop, Featured Image, Related Posts Pro, page builder, bot protection, lazy loading, custom tables and WooCommerce modules.
+
+**Security**
+
+* Hardened settings sanitization for users without the `unfiltered_html` capability.
+* Hardened Query Loop REST meta filtering and taxonomy searches against unauthorized or private data access.
+* Password-protected post excerpts were served through the shared HTML cache.
+
+**Fixed**
+
+* Cache invalidation, dry-run cleanup and persistent object-cache invalidation were incorrect, and ordered IDs and taxonomy slugs could collide.
+* [Pro] Custom-table indexing did not run after REST metadata and taxonomy updates, and large term refreshes now run in bounded background batches.
+* [Pro] Query Loop block callbacks accumulated across repeated renders.
 
 = 4.4.0 =
 
-*Release Date - 29 August 2026*
+Release date: 29 August 2026
+Release post: https://webberzone.com/contextual-related-posts-v4-4/
 
-Release post: [https://webberzone.com/contextual-related-posts-v4-4/](https://webberzone.com/contextual-related-posts-v4-4/)
+**Added**
 
-* New features:
-	* [Pro] WPBakery, Elementor and Bricks Builder integrations (experimental): a native "Related Posts (CRP)" element/widget in each builder with the full set of CRP options. Feedback and bug reports are welcome while these settle in.
-	* [Pro] New "Use precomputed taxonomy score" setting under the taxonomy weights. With Enhanced Content Search Index enabled, the taxonomy score is read from the indexed `tax_score` column instead of being calculated per query. Faster, but live queries then ignore the per-taxonomy weights.
+* [Pro] WPBakery, Elementor and Bricks Builder integrations (experimental), with a native "Related Posts (CRP)" element in each builder carrying the full set of CRP options.
+* [Pro] "Use precomputed taxonomy score" setting, which reads the taxonomy score from the indexed `tax_score` column instead of calculating it per query, at the cost of ignoring per-taxonomy weights in live queries.
 
-* Modifications:
-	* [Pro] Page builder integrations now load through a new `Builders\Builders` dispatcher.
-	* The site-wide "Exclude terms" setting is now applied to the related posts query; it was previously only honored per post in the metabox.
-	* "Exclude terms" now splits on commas only, so `black friday` is matched as a phrase rather than as two separate words.
-	* Renamed "Include only posts that contain these words" to "Also match posts that contain these words" to match what the option actually does.
-	* The REST API `limit` parameter is now capped at 100. Use the new `crp_rest_api_max_limit` filter to change the maximum.
+**Changed**
 
-* Bug fixes:
-	* Fixed stopword stripping failing when the stopword list contained a `/`.
-	* Fixed style stylesheets always being enqueued for the default style instead of the requested one.
-	* Fixed plugin data being deleted when uninstalling one version while its paired free or Pro counterpart was active.
-	* [Pro] Fixed the cache colliding across differently-configured shortcode/widget/block/builder calls on the same post.
-	* [Pro] Fixed "Order by: Date" being overridden by relevance ordering, and an `Unknown column 'score'` error when contextual matching was disabled with Include words set.
-	* [Pro] Fixed taxonomy term-count sorting being applied after the date sort instead of before it.
-	* [Pro] Fixed `orderby="relevance"` using the unweighted core match instead of the Pro weighted score.
-	* Fixed the contextual match SQL being built twice on every query.
-	* Fixed "Exclude terms" ignoring the post content when content matching was enabled.
-	* Fixed HTML entities surviving tag stripping, so `&amp;`, `&nbsp;` and `&hellip;` were indexed as the words "amp", "nbsp" and "hellip".
-	* Fixed the per-request post meta cache being keyed on post ID alone, so the same post ID on two sites of a multisite network shared one cache entry.
-	* Fixed schema changes not reaching existing installs: `dbDelta()` now runs on version upgrades instead of on activation only.
-	* Fixed the feed thumbnail size settings being ignored. The configured width and height are now passed to the feed output, and both must be greater than 0 for a size to be applied.
+* The site-wide "Exclude terms" setting is now applied to the related posts query; it was previously only honored per post in the metabox.
+* "Exclude terms" now splits on commas only, so `black friday` is matched as a phrase rather than as two separate words.
+* The REST API `limit` parameter is now capped at 100. Use `crp_rest_api_max_limit` to change it.
+* Renamed "Include only posts that contain these words" to "Also match posts that contain these words" to match what the option actually does.
 
-= 4.3.1 =
+**Fixed**
 
-*Release Date - 17 August 2026*
-
-* New features:
-	* Search for settings: a search field on the settings page lets you quickly find options by keyword.
-	* Updated plugin icons.
-
-* Modifications:
-	* Consolidated FULLTEXT index names across WebberZone plugins with legacy alias support and automatic self-healing of missing indexes on `admin_init`. Also fixes a PHP 8.1 deprecation in the Sync Manager.
-	* Synced Settings API framework from Better Search Pro with `get_locked_settings()`, disabled repeater handling, and flexbox sidebar layout improvements.
-	* Standardized `@since` tags in shared Settings API and Admin Banner files.
-	* Added smooth scroll-to-top on settings tab switch.
-
-* Bug fixes:
-	* Fixed `$wpdb->show_errors()` not restoring prior state after `hide_errors()` — re-enabling raw DB-error output for the entire request and corrupting AJAX/JSON responses.
-	* Fixed default-value label lookup for empty-string select/radio options showing "None" instead of the actual option label.
-	* Fixed settings page sidebar overlapping tab content by switching to flexbox layout.
-	* [Pro] Fixed the Index Custom Tables wizard step appearing or disappearing while the wizard was running.
-	* Fixed the settings wizard silently dropping repeater field rows on save.
-
-* Improvements:
-	* Setting defaults are now resolved from a single lightweight list instead of building every settings field, so reading an option early in the page load no longer risks loading translations too early.
-	* Added `crp_pre_index_content_parts` filter for recovering shortcode-stripped content before `do_blocks()`/`do_shortcode()` processing discards it.
-
-= 4.3.0 =
-
-*Release Date - 18 July 2026*
-
-Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-3-0/](https://webberzone.com/announcements/contextual-related-posts-v4-3-0/)
-
-* New features:
-	* New "Clear cache when a post is trashed or restored" toggle (off by default) under the Performance tab. When enabled, the entire CRP cache is cleared on the `wp_trash_post` and `untrashed_post` transitions, so stale related-posts lists no longer continue to show trashed posts with broken links or missing thumbnails until the cache TTL expires.
-	* [Pro] New "Keyword" setting on the Related Posts block and the CRP Query Loop block: enter a word or phrase to find related posts using that keyword instead of the title and content of the current post, matching the existing metabox behaviour. The advanced algorithm honours the keyword on both the custom tables and native tables paths.
-	* [Pro] Lazy load related posts: a new setting under the Performance tab loads the related posts via JavaScript only when they are about to enter the viewport. This speeds up the initial page load and plays better with page caching plugins. Note: search engines may not index the related posts links when this is enabled, since they are no longer part of the initial HTML. Applies to all display methods — content, shortcode, widget and the Related Posts block — with the configured options preserved via a signed payload. The Query Loop block variation is rendered by WordPress core and is not lazy loaded. Use `lazy_load="0"` in the shortcode (or the `crp_lazy_load` filter) to disable it per instance. Skipped on feeds and AMP pages.
-	* [Pro] Cart Related Products: displays a grid of contextually related products on the WooCommerce cart page when the cart subtotal is below the free shipping threshold. Products are filtered to a configurable price band anchored to the gap-to-free-shipping, and ranked by CRP relevance using the most expensive cart item as the source. Configurable options include product count, price upper-bound percentage, custom heading, and cart page hook position. Coupon discounts are correctly accounted for when calculating the gap.
-	* [Pro] New option to control which post types should show the metabox when editing the post.
-
-* Modifications:
-	* Related posts with equal relevance scores are now returned in a stable order: post date and post ID are used as tiebreakers after the relevance score.
-	* New `crp_pre_related_posts` filter to short-circuit the related posts output for all display methods. The lazy load feature uses this; developers can return a non-null value to replace the output entirely.
-	* [Pro] New REST API endpoint `contextual-related-posts/v1/posts/<id>/html` that returns the rendered related posts HTML. Display arguments are only honoured when accompanied by a valid signature generated during a server-side render.
-
-= 4.2.4 (2026-06-06) =
-
-*Release Date - 6 June 2026*
-
-* Modifications:
-	* [Pro] Renamed the "Reindex Custom Tables" tool to "Custom Tables" and added a "Recreate Custom Tables" button that drops and recreates the table structure, with success/error feedback displayed in the admin.
-	* [Pro] Added "Convert Custom Table to InnoDB" tool that upgrades the table storage engine and automatically regenerates FULLTEXT indexes.
-	* [Pro] Custom table creation is now skipped entirely when the Enhanced Content Search Index setting is disabled, avoiding unnecessary database queries on every admin page load.
-	* [Pro] Custom table creation is now blocked on MySQL versions below 5.7.8 and MariaDB versions below 10.2.7 (which lack JSON column support), with a clear admin notice instead of a silent failure.
-	* [Pro] Admin notices: FULLTEXT index and missing-table warnings now respect the ECSI setting; removed ECSI upsell and wizard notices; DB errors use the Admin_Notices_API.
-
-* Bug fixes:
-	* Fixed broken `aspect-ratio` on the rounded thumbs style caused by CSS variables carrying `px` units. A unitless `--crp-aspect-ratio` variable is now used, consistent with the grid and thumbs-grid styles.
-
-= 4.2.3 =
-
-* New features:
-	* (Pro) Added ACF field support for thumbnails: specify an Advanced Custom Fields Image or Text field name in the thumbnail settings. Supports all ACF Image field return formats (Image Array, Image ID, Image URL) as well as plain Text fields containing a URL.
-
-* Modifications:
-	* [Pro] Scheduled reconciliation cron: a twicedaily background job now automatically syncs any published posts that are missing from the custom search index table — keeps the index complete without manual intervention.
-	* [Pro] Custom table upsert optimized to use `INSERT ... ON DUPLICATE KEY UPDATE`, reducing write contention on high-traffic sites.
-	* [Pro] Database check results are now cached within a request, reducing redundant `SHOW TABLES` queries on pages that check table status multiple times.
-	* [Pro] Tools page migration and undo scripts are now loaded as external JavaScript files (via `wp_enqueue_script`) instead of inline `<script>` blocks — improves compatibility with strict Content Security Policies.
-	* [Pro] Copy-to-clipboard buttons on the tools and custom tables pages are now initialized automatically; no per-block inline script needed.
-	* [Pro] The Include Categories Tom Select field in the post metabox is now correctly initialized.
-	* [Pro] Network admin: settings copy URL cleanup and select-all checkbox logic moved to an external JavaScript file.
-	* Tom Select fields in the settings now include a clear button for easier value removal.
-	* Fixed spinner alignment inside action buttons (now displays inline rather than floating).
-	* The custom CSS will now always be available in the frontend when the field contains CSS.
-	* Manual Related Posts lookup improved.
-
-* Fixes:
-	* Security hardening: improved output escaping in settings forms and metabox fields.
-	* Fixed Tom Select value extraction for multiselect fields which gave a JS error.
-
-= 4.2.2 =
-
-* Bug fixes:
-	* Hardened REST API permission checks and argument sanitization.
-	* Escaped `post_class()` output more safely.
-	* Added validation before `switch_to_blog()` calls in the table manager.
-	* Added ABSPATH protection to the sidebar template.
-	* Fixed the random order widget setting using the correct boolean field.
-	* Typecast numeric limit values to ensure they are properly captured as integers.
-
-= 4.2.1 =
-
-* Bug fixes:
-    * Bulk edit not saving manual related posts when input is '0' or empty.
-    * Translation function usage in bulk edit manual related posts label.
-    * Unauthorized edit-context access in REST API - now properly checks post edit capabilities.
-
-= 4.2.0 =
-
-Release post: [https://webberzone.com/announcements/contextual-related-posts-v4-2-0/](https://webberzone.com/announcements/contextual-related-posts-v4-2-0/)
-
-* Features:
-	* [Pro] Multisite tool to copy Contextual Related Posts settings between sites from the Network Settings page.
-	* [Pro] WooCommerce integration with ECSI-powered product indexing and related posts output on product pages. WooCommerce-related products output customisation options (thumbnail, sale badge, price, rating, and add to cart) and product filtering options.
-	* [Pro] Server Load Threshold setting to skip CRP queries when MySQL is backlogged. [Learn more](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/).
-	* [Pro] Bot Protection setting to short-circuit CRP for known crawlers and bots, preserving resources and analytics integrity.
-	* [Pro] Comprehensive WP-CLI command suite for advanced management, including database operations, cache management, custom table indexing, and content processing. Commands include `wp crp db`, `wp crp cache`, `wp crp tables indexes`, and more, with full multisite support.
-	* [Pro] If Pro is active, the plugin renames "Exclude Categories" and "Exclude on Categories" to "Exclude Terms" and "Exclude on Terms" with support for all public custom taxonomies.
-	* Media Handler now supports the FIFU WordPress plugin for featured image detection.
-
-* Modifications:
-	* [Pro] Added a "Save & Clear Cache" button on the settings page to purge cached results immediately after saving changes.
-	* Cache key generation differentiates between the HTML cache and the Posts cache. Cache key generation has been significantly optimized to limit the number of keys.
-	* Improved Media Handler to reduce recursion, generate more reliable resized thumbnails, and better detect image alt text and attributes.
-	* Settings framework refactored from static to instance methods with Tom Select-powered AJAX taxonomy search for a smoother admin experience.
-	* Refreshed built-in related posts styles (grid, masonry, rounded thumbs and thumbs grid) with CSS custom properties for improved responsiveness and easier theming.
-	* Migrated post meta storage from single `crp_post_meta` array to individual `_crp_*` keys for better performance and compatibility. Includes a backward compatibility layer and an admin migration tool.
-	* Updated custom table sync to generate a post excerpt if the post doesn't contain one. It will also include the keyword set in the meta field.
-	* CRP_Core_Query class now accepts `post_id` as the primary parameter, supporting both integer and WP_Post object types. The legacy `postid` parameter is deprecated and will trigger a warning; it will be removed in a future release.
-	* Change CRP_CACHE_TIME to a week, down from a month.
-	* Updated bundled Freemius SDK to version 2.13.0.
-
-* Bug fixes:
-	* Fixed a missing `echo` in the Media Handler that could prevent some image markup from being printed in specific cases.
-	* Improved translation string handling in the settings UI and adjusted Plugin Check rules to avoid false positives.
-	* Fixed display issue with special characters (like ™ and ®) in post titles.
-	* CRP_Core_Query was incorrectly called more than once within the same request.
+* Plugin data was deleted when uninstalling one version while its paired free or Pro counterpart was active.
+* Schema changes did not reach existing installs; `dbDelta()` now runs on version upgrades instead of on activation only.
+* The per-request post meta cache was keyed on post ID alone, so the same post ID on two sites of a multisite network shared one cache entry.
+* HTML entities survived tag stripping, so `&amp;`, `&nbsp;` and `&hellip;` were indexed as the words "amp", "nbsp" and "hellip".
+* Stopword stripping failed when the stopword list contained a `/`.
+* "Exclude terms" ignored the post content when content matching was enabled.
+* Style stylesheets were always enqueued for the default style instead of the requested one.
+* Feed thumbnail size settings were ignored; both width and height must now be greater than 0 for a size to be applied.
+* The contextual match SQL was built twice on every query.
+* [Pro] The cache collided across differently-configured shortcode, widget, block and builder calls on the same post.
+* [Pro] "Order by: Date" was overridden by relevance ordering, and an `Unknown column 'score'` error occurred when contextual matching was disabled with Include words set.
+* [Pro] `orderby="relevance"` used the unweighted core match instead of the Pro weighted score.
+* [Pro] Taxonomy term-count sorting was applied after the date sort instead of before it.
 
 = Earlier versions =
 
@@ -386,5 +290,5 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 == Upgrade Notice ==
 
-= 4.4.1 =
-Adds the Features tab and Feature Manager for selectively disabling unused plugin components. All features remain enabled by default.
+= 4.4.2 =
+Adds TranslatePress support and fixes related posts being cached across languages on WPML, Polylang and TranslatePress sites. Multilingual sites rebuild their related posts cache once after updating.
