@@ -247,7 +247,7 @@ add_filter( 'crp_wc_free_shipping_threshold', function( float $threshold ): floa
  */
 add_filter( 'crp_wc_cart_related_products_query_args', function( array $query_args, float $min_price, float $max_price, float $gap ): array {
     // Limit to a specific product category.
-    $query_args[['tax_query']][] = array(
+    $query_args['tax_query'][] = array(
         'taxonomy' => 'product_cat',
         'field'    => 'slug',
         'terms'    => array( 'accessories' ),
@@ -355,7 +355,7 @@ add_filter( 'crp_wc_related_products_heading', function( $heading, $source_produ
 
 ```php
 add_filter( 'crp_wc_related_products_query_args', function( $query_args, $source_product_id ) {
-    $query_args[['post__not_in']] = array( 123, 456, 789 );
+    $query_args['post__not_in'] = array( 123, 456, 789 );
     return $query_args;
 }, 10, 2 );
 ```

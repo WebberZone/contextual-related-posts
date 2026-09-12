@@ -3,7 +3,7 @@ slug: page-builder-integrations
 title: "Page Builder Integrations for Contextual Related Posts Pro"
 products: [contextual-related-posts]
 sections: ["02-crp-advanced"]
-tags: [contextual-related-posts, pro, bricks, elementor, wpbakery, page-builder]
+tags: [bricks, contextual-related-posts, elementor, page-builder, pro, wpbakery]
 status: publish
 order: 0
 toc: true
