@@ -648,7 +648,11 @@ class Settings_Wizard_API {
 									echo '<tr>';
 									echo '<th scope="row">';
 									if ( ! empty( $args['name'] ) ) {
-										echo '<label for="' . esc_attr( $setting_id ) . '">' . esc_html( wp_strip_all_tags( $args['name'] ) ) . '</label>';
+										if ( in_array( $type, array( 'header', 'repeater' ), true ) ) {
+											echo wp_kses_post( $args['name'] );
+										} else {
+											echo '<label for="' . esc_attr( $this->settings_form->get_field_id( $args ) ) . '">' . wp_kses_post( $args['name'] ) . '</label>';
+										}
 									}
 									echo '</th>';
 									echo '<td>';
