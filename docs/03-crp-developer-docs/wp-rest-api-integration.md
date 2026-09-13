@@ -43,6 +43,9 @@ GET https://example.com/wp-json/contextual-related-posts/v1/posts/<id>/
 | same_author | Only retrieve posts from the same author as that of the post with the id as above |
 | exclude_post_ids | Comma-separated list of post IDs to exclude |
 | exclude_categories | Comma-separated list of Taxonomy IDs from which posts are excluded |
+| lang | TranslatePress language code to render the response in |
+
+The `lang` parameter is used only with TranslatePress. It does not change which posts are returned; it selects the language the response fields are rendered in. On TranslatePress sites, CRP translates the REST response before it is sent — TranslatePress's page output buffer does not run for REST requests, so CRP hooks into `rest_pre_echo_response` and translates titles, excerpts, links, and permalinks. When `lang` is omitted, CRP falls back to the language of the referring page. Use the `crp_trp_rest_language` filter to override the resolved language.
 
 ## HTML endpoint (Pro)
 
