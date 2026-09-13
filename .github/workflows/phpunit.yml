@@ -1,0 +1,105 @@
+name: PHPUnit
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  WP_TESTS_DOMAIN: localhost
+  WP_TESTS_EMAIL: admin@example.com
+  WP_TESTS_TITLE: PHPUnit
+  WP_PHP_BINARY: php
+
+jobs:
+  test:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.php == '8.6' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4', '8.5', '8.6']
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: gd, exif, intl, mbstring, mysqli, xml, zip
+          tools: composer
+          coverage: none
+          cache: composer
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Install WordPress test suite
+        env:
+          WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
+          WP_CORE_DIR: ${{ runner.temp }}/wordpress
+        run: bash phpunit/install.sh wordpress_test root root 127.0.0.1:3306 7.1
+
+      - name: Run PHPUnit
+        run: composer phpunit
+
+  trunk:
+    name: WordPress trunk / PHP 8.5
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: gd, exif, intl, mbstring, mysqli, xml, zip
+          tools: composer
+          coverage: none
+          cache: composer
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Install WordPress test suite
+        env:
+          WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
+          WP_CORE_DIR: ${{ runner.temp }}/wordpress
+        run: bash phpunit/install.sh wordpress_test root root 127.0.0.1:3306 trunk
+
+      - name: Run PHPUnit
+        run: composer phpunit

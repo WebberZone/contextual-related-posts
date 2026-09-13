@@ -79,7 +79,7 @@ else
 	WP_TESTS_TAG="tags/$LATEST_VERSION"
 fi
 
-set -ex
+set -e
 
 install_wp_and_test_suite() {
 	local wp_develop_dir="$TMPDIR/wordpress-develop"
@@ -124,7 +124,7 @@ install_wp_and_test_suite() {
 		fi
 	fi
 
-	if [ ! -f wp-tests-config.php ]; then
+	if [ ! -f "$WP_TESTS_DIR/wp-tests-config.php" ]; then
 		# download wp-tests-config-sample.php with retries
 		if [ -f "$wp_develop_dir/wp-tests-config-sample.php" ]; then
 			cp "$wp_develop_dir/wp-tests-config-sample.php" "$WP_TESTS_DIR/wp-tests-config.php"

@@ -31,8 +31,8 @@
         "php-stubs/wordpress-stubs": "^6",
         "wp-coding-standards/wpcs": "^3",
         "dealerdirect/phpcodesniffer-composer-installer": "^1",
-        "yoast/phpunit-polyfills": "^3",
-        "phpunit/phpunit": "^9 || ^10 || ^11 || ^12",
+        "yoast/phpunit-polyfills": "^4",
+        "phpunit/phpunit": "^9.6",
         "php-stubs/woocommerce-stubs": "^10",
         "php-stubs/wp-cli-stubs": "^2",
         "php-stubs/acf-pro-stubs": "^6.0"
@@ -49,6 +49,7 @@
     "scripts": {
         "build:vendor": "composer install --no-dev --optimize-autoloader --classmap-authoritative",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
+        "phpunit": "vendor/bin/phpunit --configuration phpunit.xml.dist",
         "phpstan-baseline": "vendor/bin/phpstan analyse --memory-limit=2048M --generate-baseline",
         "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
         "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
