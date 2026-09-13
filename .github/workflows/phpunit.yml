@@ -20,6 +20,9 @@ jobs:
   test:
     name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+    env:
+      WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
+      WP_CORE_DIR: ${{ runner.temp }}/wordpress
     continue-on-error: ${{ matrix.php == '8.6' }}
     strategy:
       fail-fast: false
@@ -66,6 +69,9 @@ jobs:
     name: WordPress trunk / PHP 8.5
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    env:
+      WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
+      WP_CORE_DIR: ${{ runner.temp }}/wordpress
     continue-on-error: true
     services:
       mysql:
