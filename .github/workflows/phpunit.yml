@@ -15,14 +15,13 @@ env:
   WP_TESTS_EMAIL: admin@example.com
   WP_TESTS_TITLE: PHPUnit
   WP_PHP_BINARY: php
+  WP_TESTS_DIR: /tmp/wordpress-tests-lib
+  WP_CORE_DIR: /tmp/wordpress
 
 jobs:
   test:
     name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
-    env:
-      WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
-      WP_CORE_DIR: ${{ runner.temp }}/wordpress
     continue-on-error: ${{ matrix.php == '8.6' }}
     strategy:
       fail-fast: false
@@ -57,9 +56,6 @@ jobs:
         run: composer install --no-interaction --prefer-dist --no-progress
 
       - name: Install WordPress test suite
-        env:
-          WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
-          WP_CORE_DIR: ${{ runner.temp }}/wordpress
         run: bash phpunit/install.sh wordpress_test root root 127.0.0.1:3306 7.1
 
       - name: Run PHPUnit
@@ -69,9 +65,6 @@ jobs:
     name: WordPress trunk / PHP 8.5
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    env:
-      WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
-      WP_CORE_DIR: ${{ runner.temp }}/wordpress
     continue-on-error: true
     services:
       mysql:
@@ -102,9 +95,6 @@ jobs:
         run: composer install --no-interaction --prefer-dist --no-progress
 
       - name: Install WordPress test suite
-        env:
-          WP_TESTS_DIR: ${{ runner.temp }}/wordpress-tests-lib
-          WP_CORE_DIR: ${{ runner.temp }}/wordpress
         run: bash phpunit/install.sh wordpress_test root root 127.0.0.1:3306 trunk
 
       - name: Run PHPUnit
