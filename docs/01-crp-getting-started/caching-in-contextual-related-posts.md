@@ -25,7 +25,7 @@ The **Cache HTML output** setting will supersede **Cache Posts only** and is rec
 
 ## What is never served from the HTML cache
 
-The HTML cache is shared by every visitor to a post, so output that is not the same for everyone is skipped. Contextual Related Posts bypasses the HTML cache when:
+The HTML cache is shared by every visitor to a post in the same language, so output that is not the same for everyone is skipped. Since v4.4.2, the cache key includes the current language through `Language_Handler::get_cache_language()`, so cached posts and HTML are never shared across languages. Contextual Related Posts bypasses the HTML cache when:
 
 - The visitor is logged in
 - The post is password-protected, or the visitor holds a password cookie for any post

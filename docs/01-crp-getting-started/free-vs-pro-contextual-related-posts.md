@@ -25,6 +25,7 @@ Contextual Related Posts is free to use and packed with features right out of th
 | [Post and category exclusions](https://webberzone.com/support/knowledgebase/contextual-related-posts-list-tuning-settings/) | ✅ | ✅ |
 | Custom post type support | ✅ | ✅ |
 | [REST API](https://webberzone.com/support/knowledgebase/wp-rest-api-integration/) | ✅ | ✅ |
+| Multilingual support (WPML, Polylang and TranslatePress) | ✅ | ✅ |
 | **Caching & Performance** |  |  |
 | [Automatic query caching](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/) | ✅ | ✅ |
 | [Clear cache on post trash/restore](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/) | ✅ | ✅ |
