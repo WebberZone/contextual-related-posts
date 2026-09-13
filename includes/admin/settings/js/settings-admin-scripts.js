@@ -343,8 +343,12 @@ jQuery(document).ready(function ($) {
 			itemsContainer.append(template);
 			index++;
 			var newItem = itemsContainer.find('.wz-repeater-item:last');
-			itemsContainer.find('.repeater-item-header:last .toggle-icon').text('\u25b2');
-			itemsContainer.find('.repeater-item-content:last').css('display', 'block');
+			itemsContainer.find('.repeater-item-header:last')
+				.attr('aria-expanded', 'true')
+				.find('.toggle-icon').text('\u25b2');
+			itemsContainer.find('.repeater-item-content:last')
+				.attr('aria-hidden', 'false')
+				.css('display', 'block');
 			if (window.WebberInitTomSelect) {
 				window.WebberInitTomSelect(newItem.get(0));
 			}
@@ -378,15 +382,20 @@ jQuery(document).ready(function ($) {
 		});
 
 		// Toggle Accordion.
-		wrapper.on('click', '.repeater-item-header', function () {
-			var $this = $(this);
-			var $toggleIcon = $this.find('.toggle-icon');
-			var $content = $this.next('.repeater-item-content');
-			if ($content.is(':visible')) {
-				$content.slideUp();
+		wrapper.on('click', '.repeater-item-header', function (e) {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			var $button = $(this);
+			var $toggleIcon = $button.find('.toggle-icon');
+			var $content = $button.next('.repeater-item-content');
+			var isExpanded = 'true' === $button.attr('aria-expanded');
+			if (isExpanded) {
+				$button.attr('aria-expanded', 'false');
+				$content.attr('aria-hidden', 'true').stop(true, true).hide();
 				$toggleIcon.text('\u25bc');
 			} else {
-				$content.slideDown();
+				$button.attr('aria-expanded', 'true');
+				$content.attr('aria-hidden', 'false').stop(true, true).show();
 				$toggleIcon.text('\u25b2');
 			}
 		});

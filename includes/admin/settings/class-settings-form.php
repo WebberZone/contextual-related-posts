@@ -74,7 +74,7 @@ class Settings_Form {
 	 * @return string Description of the field.
 	 */
 	public function get_field_description( $args ) {
-		$desc = ! empty( $args['desc'] ) ? '<p class="description">' . wp_kses_post( $args['desc'] ) . '</p>' : '';
+		$desc = ! empty( $args['desc'] ) ? '<p class="description">' . wp_kses( $args['desc'], $this->get_allowed_html() ) . '</p>' : '';
 
 		/**
 		 * After Settings Output filter
@@ -352,6 +352,18 @@ class Settings_Form {
 	}
 
 	/**
+	 * Get the rendered field ID for a field definition.
+	 *
+	 * @param array $args Field arguments.
+	 * @return string Field ID.
+	 */
+	public function get_field_id( $args ) {
+		$field_attributes = $this->get_field_attributes( $args );
+
+		return $field_attributes['field_id'];
+	}
+
+	/**
 	 * Returns the allowed HTML tags and attributes for settings form output.
 	 *
 	 * Use the `{prefix}_settings_form_allowed_html` filter to add extra tags or
@@ -434,11 +446,30 @@ class Settings_Form {
 				'style' => true,
 			),
 			'button'   => array(
-				'type'     => true,
-				'id'       => true,
-				'class'    => true,
-				'style'    => true,
-				'disabled' => true,
+				'type'          => true,
+				'id'            => true,
+				'class'         => true,
+				'style'         => true,
+				'disabled'      => true,
+				'aria-controls' => true,
+				'aria-expanded' => true,
+				'aria-label'    => true,
+			),
+			'div'      => array(
+				'id'          => true,
+				'class'       => true,
+				'style'       => true,
+				'aria-hidden' => true,
+				'aria-busy'   => true,
+				'role'        => true,
+			),
+			'span'     => array(
+				'class'       => true,
+				'style'       => true,
+				'aria-hidden' => true,
+				'aria-live'   => true,
+				'aria-atomic' => true,
+				'role'        => true,
 			),
 			'template' => array(
 				'class'   => true,
@@ -1333,10 +1364,16 @@ class Settings_Form {
 		}
 
 		$parent_disabled = $this->is_field_disabled( $args );
+		$content_id      = sprintf(
+			'%s-%s-%s-content',
+			sanitize_key( $this->settings_key ),
+			sanitize_key( $args['id'] ),
+			'{{ROW_ID}}' === $item_id ? '{{ROW_ID}}' : sanitize_key( $item_id )
+		);
 		?>
 		<div class="wz-repeater-item" data-row-id="<?php echo esc_attr( $item_id ); ?>">
 			<input type="hidden" name="<?php echo esc_attr( $this->settings_key ); ?>[<?php echo esc_attr( $args['id'] ); ?>][<?php echo esc_attr( $index ); ?>][row_id]" value="<?php echo esc_attr( $item_id ); ?>" <?php disabled( $parent_disabled ); ?> />
-			<div class="repeater-item-header">
+			<button type="button" class="repeater-item-header" aria-expanded="false" aria-controls="<?php echo esc_attr( $content_id ); ?>">
 		<?php
 		$display_field  = ! empty( $args['live_update_field'] ) ? $args['live_update_field'] : 'name';
 		$live_options   = ! empty( $args['live_update_field_options'] ) && is_array( $args['live_update_field_options'] ) ? $args['live_update_field_options'] : array();
@@ -1346,9 +1383,9 @@ class Settings_Form {
 		: $fallback_title;
 		?>
 			<span class="repeater-title"><?php echo esc_html( $display_value ); ?></span>
-			<span class="toggle-icon">▼</span>
-		</div>
-		<div class="repeater-item-content" style="display: none;">
+			<span class="toggle-icon" aria-hidden="true">▼</span>
+			</button>
+		<div id="<?php echo esc_attr( $content_id ); ?>" class="repeater-item-content" aria-hidden="true" style="display: none;">
 		<?php
 		foreach ( $args['fields'] as $field ) {
 			$field_id = sanitize_key( $field['id'] );
@@ -1405,14 +1442,14 @@ class Settings_Form {
 
 		<div class="repeater-item-footer">
 			<div class="repeater-item-actions">
-				<button type="button" class="button button-secondary move-up" <?php disabled( $parent_disabled ); ?>>
-					<span class="dashicons dashicons-arrow-up-alt2"></span>
+				<button type="button" class="button button-secondary move-up" aria-label="<?php esc_attr_e( 'Move item up', 'pfx' ); ?>" <?php disabled( $parent_disabled ); ?>>
+					<span class="dashicons dashicons-arrow-up-alt2" aria-hidden="true"></span>
 				</button>
-				<button type="button" class="button button-secondary move-down" <?php disabled( $parent_disabled ); ?>>
-					<span class="dashicons dashicons-arrow-down-alt2"></span>
+				<button type="button" class="button button-secondary move-down" aria-label="<?php esc_attr_e( 'Move item down', 'pfx' ); ?>" <?php disabled( $parent_disabled ); ?>>
+					<span class="dashicons dashicons-arrow-down-alt2" aria-hidden="true"></span>
 				</button>
-				<button type="button" class="button button-secondary remove-item" <?php disabled( $parent_disabled ); ?>>
-					<span class="dashicons dashicons-trash"></span>
+				<button type="button" class="button button-secondary remove-item" aria-label="<?php esc_attr_e( 'Remove item', 'pfx' ); ?>" <?php disabled( $parent_disabled ); ?>>
+					<span class="dashicons dashicons-trash" aria-hidden="true"></span>
 				</button>
 			</div>
 		</div>

@@ -19,10 +19,24 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	width: 100%;
+	margin: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	text-align: start;
 	border-bottom: 1px solid #ddd;
+	border-top: 0;
+	border-right: 0;
+	border-left: 0;
 	padding-bottom: 0.5rem;
 	cursor: pointer;
 	font-weight: bold;
+}
+
+.wz-repeater-item .repeater-item-header:focus-visible {
+	outline: 2px solid #2271b1;
+	outline-offset: 2px;
 }
 
 /* Header for repeater field */
