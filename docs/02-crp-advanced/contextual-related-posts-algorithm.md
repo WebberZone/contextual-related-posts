@@ -32,6 +32,14 @@ CRP Pro enhances the algorithm with:
 
 **Example:** You can assign a higher weight to `post_excerpt` to favor posts with similar summaries, while downplaying content matches. This lets you tailor results to your content strategy — e.g., favoring concise summaries or catchy titles.
 
+## Recency weighting *(Pro only)*
+
+When **Recency boost (%)** is above 0 and the query is ordered by relevance or relatedness, CRP multiplies each relevance score by an age-decay multiplier. Newer posts receive a larger multiplier, while older posts gradually move closer to their original score. The default boost is 0, so existing relevance ordering stays unchanged until you enable it.
+
+**Recency half-life (days)** controls the decay. At the half-life, a post receives half of the available recency boost. Values below 7 days use hourly age calculations; larger values use daily calculations. CRP uses the UTC publish date stored in `post_date_gmt`. A missing or zero date receives no boost, and a future date receives no more than the maximum boost.
+
+The boost changes ordering only. It does not change matching, taxonomy filters, or the raw relevance score. Date and random ordering skip the boost.
+
 ## Weighting Categories, Tags, and Taxonomies
 
 CRP Pro v4 introduced **taxonomy weighting** — giving you finer control over contextual matching beyond text.

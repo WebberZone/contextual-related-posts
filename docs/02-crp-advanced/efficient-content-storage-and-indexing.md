@@ -51,6 +51,7 @@ When you enable ECSI, the plugin creates a custom table `wp_wz_posts` to store t
 - **FULLTEXT Indices:** Speed up title, content, and excerpt searches.
 - **JSON Columns:** Store taxonomy terms and relationships in a flexible format.
 - **Generated Columns:** Pre-compute values to boost query performance.
+- **UTC publish dates:** Store `post_date_gmt` for Pro recency weighting.
 
 Contextual Related Posts Pro and Better Search Pro use the same tables, eliminating any duplication if you’re running both plugins.
 
@@ -114,10 +115,11 @@ ECSI keeps the custom tables consistent with your content through:
 1. Real-time synchronization when a post is saved
 2. Synchronization when taxonomy terms are added, changed, or removed outside a post save
 3. Synchronization when an indexed meta key or a primary-term meta key changes
-4. Automatic removal of deleted posts
-5. Handling of post status changes
-6. Skipping revisions and autosaves
-7. Multisite synchronization
+4. Synchronization of `post_date_gmt` when a post is saved
+5. Automatic removal of deleted posts
+6. Handling of post status changes
+7. Skipping revisions and autosaves
+8. Multisite synchronization
 
 Changes made outside the post editor are picked up as well. Quick Edit, bulk term changes, REST API updates, and the primary-term keys written by Yoast SEO, Rank Math, and SEOPress all queue a resync of the affected post.
 

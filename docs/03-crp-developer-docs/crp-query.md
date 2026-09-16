@@ -53,3 +53,7 @@ In addition to the [WP_Query parameters](https://developer.wordpress.org/referen
 *(array|string)* An array or comma-separated string of post IDs.
 - **‘offset’**
 *(int)* number of posts to displace or pass over. Setting the offset parameter overrides/ignores the paged parameter, breaking pagination. The `'offset'` parameter is ignored when `'posts_per_page'=>-1` (show all posts) is used.
+- **‘weight_recency’** *(Pro only)*
+*(int)* Recency boost percentage from 0 to 200. A value of 0 disables recency weighting.
+- **‘recency_halflife’** *(Pro only)*
+*(int)* Number of days over which half of the available recency boost decays. Values below 1 are clamped to 1. The settings field accepts up to 36,500 days. Values below 7 use hourly age calculations.
