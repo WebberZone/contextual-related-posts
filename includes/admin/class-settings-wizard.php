@@ -113,6 +113,8 @@ class Settings_Wizard extends Settings_Wizard_API {
 			'weight_taxonomy_category',
 			'weight_taxonomy_post_tag',
 			'weight_taxonomy_default',
+			'weight_recency',
+			'recency_halflife',
 			'cornerstone_post_ids',
 		);
 

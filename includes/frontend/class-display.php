@@ -127,7 +127,7 @@ class Display {
 		// Support caching to speed up retrieval.
 		$meta_key = Cache::get_key( $args );
 		if ( self::should_cache( $args ) ) {
-			$output = Cache::get_cache( $post->ID, $meta_key, 'html' );
+			$output = Cache::get_cache( $post->ID, $meta_key, 'html', $args );
 			if ( $output ) {
 				return $output;
 			}
@@ -158,7 +158,7 @@ class Display {
 		$custom_template = apply_filters( 'crp_custom_template', null, $results, $args );
 		if ( ! empty( $custom_template ) ) {
 			if ( self::should_cache( $args ) ) {
-				Cache::set_cache( $post->ID, $meta_key, $custom_template, 0, 'html' );
+				Cache::set_cache( $post->ID, $meta_key, $custom_template, 0, 'html', $args );
 			}
 			return $custom_template;
 		}
@@ -277,7 +277,7 @@ class Display {
 
 		// Support caching to speed up retrieval.
 		if ( self::should_cache( $args ) ) {
-			Cache::set_cache( $post->ID, $meta_key, $output, 0, 'html' );
+			Cache::set_cache( $post->ID, $meta_key, $output, 0, 'html', $args );
 		}
 
 		/**

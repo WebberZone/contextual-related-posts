@@ -371,6 +371,13 @@ class Cache {
 	public static function get_key( $attr ): string {
 		$args = (array) $attr;
 
+		// A disabled recency boost has no effect on the query or its output. Drop its defaults so
+		// upgrading an existing site does not mint a second cache entry for the unchanged ranking.
+		$recency_weight = $args['weight_recency'] ?? null;
+		if ( null === $recency_weight || ( is_scalar( $recency_weight ) && (float) $recency_weight <= 0 ) ) {
+			unset( $args['weight_recency'], $args['recency_halflife'] );
+		}
+
 		static $setting_types = null;
 		if ( null === $setting_types ) {
 			$setting_types = function_exists( 'crp_get_registered_settings_types' ) ? crp_get_registered_settings_types() : array();
@@ -578,17 +585,18 @@ class Cache {
 	 * @param  mixed  $value      Metadata value. Must be serializable if non-scalar.
 	 * @param  int    $expiration Time until expiration in seconds. Default CRP_CACHE_TIME (one month if not overridden).
 	 * @param  string $cache_type Cache type: 'html' or 'posts'. Default: 'html'.
+	 * @param  array  $args       Query arguments used to resolve a query-specific cache lifetime.
 	 * @return int|bool Meta ID if the key didn't exist, true on successful update,
 	 *                  false on failure or if the value passed to the function
 	 *                  is the same as the one that is already in the database.
 	 */
-	public static function set_cache( $post_id, $key, $value, $expiration = 0, string $cache_type = 'posts' ) {
+	public static function set_cache( $post_id, $key, $value, $expiration = 0, string $cache_type = 'posts', array $args = array() ) {
 
 		$expiration = (int) $expiration;
 
 		// If expiration is not set, use the get_cache_time method.
 		if ( 0 === $expiration ) {
-			$expiration = self::get_cache_time( $key, $post_id );
+			$expiration = self::get_cache_time( $key, $post_id, $args );
 		}
 
 		/**
@@ -627,9 +635,10 @@ class Cache {
 	 *
 	 * @param  string $key     CRP Cache key.
 	 * @param  int    $post_id Post ID.
+	 * @param  array  $args    Query arguments used to resolve a query-specific cache lifetime.
 	 * @return int Cache time in seconds.
 	 */
-	public static function get_cache_time( $key = '', $post_id = 0 ) {
+	public static function get_cache_time( $key = '', $post_id = 0, array $args = array() ) {
 		// Get default cache time from constant or use WEEK_IN_SECONDS.
 		$default_cache_time = defined( 'CRP_CACHE_TIME' ) ? CRP_CACHE_TIME : WEEK_IN_SECONDS;
 
@@ -640,6 +649,22 @@ class Cache {
 
 		// Get the cache time from settings. This takes priority over the default.
 		$cache_time = \crp_get_option( 'cache_time', $default_cache_time );
+
+		/**
+		 * Filters the expiration of every CRP Cache key before its value is set.
+		 *
+		 * Unlike `crp_cache_time_{$key}` this fires for all keys, which are md5 hashes of the
+		 * query arguments and so cannot be hooked individually ahead of time. It runs first, so a
+		 * per-key filter still has the last word.
+		 *
+		 * @since 4.5.0
+		 *
+		 * @param int    $cache_time Time until expiration in seconds. Use 0 for no expiration.
+		 * @param int    $post_id    Post ID.
+		 * @param string $key        CRP Cache key name.
+		 * @param array  $args       Query arguments used to resolve a query-specific cache lifetime.
+		 */
+		$cache_time = (int) apply_filters( 'crp_cache_time', $cache_time, $post_id, $key, $args );
 
 		/**
 		 * Filters the expiration for a CRP Cache key before its value is set.
@@ -671,9 +696,10 @@ class Cache {
 	 * @param  int    $post_id    Post ID.
 	 * @param  string $key        CRP Cache key.
 	 * @param  string $cache_type Cache type: 'html' or 'posts'. Default: 'html'.
+	 * @param  array  $args       Query arguments used to resolve a query-specific cache lifetime.
 	 * @return mixed Value of the CRP cache or false if invalid, expired or unavailable.
 	 */
-	public static function get_cache( $post_id, $key, string $cache_type = 'posts' ) {
+	public static function get_cache( $post_id, $key, string $cache_type = 'posts', array $args = array() ) {
 		$meta_key      = 'html' === $cache_type ? "_crp_cache_h_{$key}" : "_crp_cache_p_{$key}";
 		$cache_expires = 'html' === $cache_type ? "_crp_cache_expires_h_{$key}" : "_crp_cache_expires_p_{$key}";
 
@@ -684,7 +710,7 @@ class Cache {
 		$value = get_post_meta( $post_id, $meta_key, true );
 
 		// Get the cache time.
-		$cache_time = self::get_cache_time( $key, $post_id );
+		$cache_time = self::get_cache_time( $key, $post_id, $args );
 
 		// If cache time is 0, caching is disabled.
 		if ( 0 === $cache_time ) {

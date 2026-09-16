@@ -1195,7 +1195,7 @@ class CRP_Core_Query {
 
 			$meta_key = Cache::get_key( $this->input_query_args );
 
-			$cached_data = Cache::get_cache( $this->source_post->ID, $meta_key );
+			$cached_data = Cache::get_cache( $this->source_post->ID, $meta_key, 'posts', $this->input_query_args );
 			if ( is_array( $cached_data ) ) {
 				$post_ids       = $cached_data;
 				$this->in_cache = true;
@@ -1376,7 +1376,7 @@ class CRP_Core_Query {
 			$meta_key = Cache::get_key( $this->input_query_args );
 			$post_ids = wp_list_pluck( $posts, 'ID' );
 
-			Cache::set_cache( $this->source_post->ID, $meta_key, $post_ids );
+			Cache::set_cache( $this->source_post->ID, $meta_key, $post_ids, 0, 'posts', $this->input_query_args );
 		}
 
 		// Update query properties for consistency.
