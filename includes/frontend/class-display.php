@@ -424,7 +424,7 @@ class Display {
 	 * @param int|\WP_Post $post            Post ID or WP_Post instance.
 	 * @param int|string   $excerpt_length  Length of the excerpt in words.
 	 * @param bool         $use_excerpt     Use excerpt instead of content.
-	 * @param string       $more_link_text  Content for when there is more text. Default is null.
+	 * @param string|null  $more_link_text  Content for when there is more text. Null builds the default read-more link.
 	 * @param bool         $strip_stopwords Strip stopwords from the excerpt. Default is false.
 	 * @return string Excerpt
 	 */
@@ -473,7 +473,7 @@ class Display {
 		 *
 		 * @since 3.0.0
 		 *
-		 * @param string   $more_link_text    Read More text.
+		 * @param string|null $more_link_text Read More text. Null builds the default read-more link.
 		 * @param \WP_Post $post              Source Post instance.
 		 */
 		$more_link_text = apply_filters( 'crp_excerpt_more_link_text', $more_link_text, $post );

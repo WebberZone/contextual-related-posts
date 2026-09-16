@@ -84,6 +84,20 @@ namespace {
 
 	$crp_freemius = \fs_dynamic_init( array() );
 
+	if ( ! function_exists( 'get_field' ) ) {
+		/**
+		 * Advanced Custom Fields value-getter stub for static analysis.
+		 *
+		 * @param string   $selector Field name or key.
+		 * @param int|bool $post_id  Post ID.
+		 * @return mixed
+		 */
+		function get_field( $selector, $post_id = false ) {
+			unset( $selector, $post_id );
+			return null;
+		}
+	}
+
 	if ( ! function_exists( 'vc_map' ) ) {
 		/**
 		 * WPBakery Page Builder element-registration stub for static analysis.

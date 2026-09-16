@@ -1,21 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
-			count: 1
-			path: includes/frontend/class-display.php
-
-		-
-			message: "#^Function get_field not found\\.$#"
-			count: 1
-			path: includes/frontend/class-media-handler.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: includes/util/class-cache.php
-
-		-
-			message: "#^Variable \\$expires in empty\\(\\) always exists and is not falsy\\.$#"
-			count: 1
-			path: includes/util/class-cache.php
+	ignoreErrors: []
