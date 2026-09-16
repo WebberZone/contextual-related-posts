@@ -69,7 +69,7 @@ When enabled, the entire CRP cache is cleared whenever a post is moved to Trash 
 - **Type:** Select (Pro)
 - **Default:** 1 week
 - **Description:**
-Sets how long the related posts cache should last. Options range from “No expiry” to “1 Year”.
+Sets how long the related posts cache should last. Options range from “No expiry” to “1 Year”. When recency weighting is active, CRP caps cached result sets at one hour for half-lives below 7 days and one day for half-lives of 7 days or more. Saving ranking settings clears the cache so a change takes effect immediately.
 
 ### Max Execution Time
 

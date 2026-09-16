@@ -70,6 +70,14 @@ Weight to give other taxonomy matches when calculating relevance.
 
 Additional weight multiplier for primary terms. This is usually set using your SEO plugin and will default to the first category/term returned by WordPress. CRP supports Yoast, Rank Math SEO, The SEO Framework and SEOExpress plugins that allow you to set a primary category.
 
+### Recency boost (%) *(Pro only)*
+
+Blend post age into relevance ordering. The default is `0`, which disables the boost. Set a value from 0 to 200 to favor newer posts. A higher value gives freshness more influence, but a strongly relevant older post can still outrank a weakly relevant newer post. This setting applies when **Order posts** uses relevance and has no effect on date or random ordering. It is unavailable on SQLite.
+
+### Recency half-life (days) *(Pro only)*
+
+Set how quickly the recency boost decays. The default is `180` days and the accepted range is 1 to 36,500 days. At the half-life, a post receives half of its available recency boost. Larger values keep older posts competitive for longer. Values below 7 days recalculate hourly; values of 7 days or more recalculate daily.
+
 ### Use precomputed taxonomy score *(Pro only)*
 
 Enable the use of the precomputed taxonomy score for relevance calculation. This can improve performance, but will ignore the above weights for taxonomies when running live queries. This only works if you have ECSI enabled in the [Performance tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/).

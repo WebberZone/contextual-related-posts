@@ -18,7 +18,7 @@ A typical HTML output for the plugin is below. The plugin also provides you with
     <h3>Related Posts:</h3>
     <ul>
         <li>
-            <a href="https://webberzone.com/techtites/2006/12/17/tectites-daily-summary-sunday-2/" rel="nofollow" target="_blank" class="post-184"><img src="https://webberzone.com/techtites/wp-content/uploads/sites/3/2014/02/sunday11-150x100.png" class="crp_thumb crp_featured" alt="Tectites Daily: Summary Sunday" title="Tectites Daily: Summary Sunday" width="150" height="150"><span class="crp_title">Tectites Daily: Summary Sunday</span></a>
+            <a href="https://webberzone.com/techtites/2006/12/17/tectites-daily-summary-sunday-2/" rel="nofollow" target="_blank" class="post-184"><img src="https://webberzone.com/techtites/wp-content/uploads/sites/3/2014/02/sunday11-150x100.png" alt="Tectites Daily: Summary Sunday" title="Tectites Daily: Summary Sunday" width="150" height="150"><span class="crp_title">Tectites Daily: Summary Sunday</span></a>
         </li>
     </ul>
     <div class="crp_clear"></div>
