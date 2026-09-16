@@ -44,6 +44,10 @@ namespace {
 		define( 'DB_NAME', '' );
 	}
 
+	if ( ! defined( 'COOKIEHASH' ) ) {
+		define( 'COOKIEHASH', '' );
+	}
+
 	if ( ! function_exists( 'fs_dynamic_init' ) ) {
 		/**
 		 * Freemius bootstrap stub for static analysis.
