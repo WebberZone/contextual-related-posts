@@ -212,6 +212,20 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.0 =
+
+Release date: 15 September 2026
+
+**Added**
+
+* [Pro] Added optional recency weighting for related posts with a configurable boost and half-life, off by default.
+* [Pro] Added `post_date_gmt` to the shared index for recency-aware search ranking in Better Search Pro.
+* Added `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
+
+**Fixed**
+
+* Cached related posts remained stale after ranking settings changed or settings were reset.
+
 = 4.4.2 =
 
 Release date: 12 September 2026
@@ -285,10 +299,10 @@ Release post: https://webberzone.com/contextual-related-posts-v4-4/
 
 = Earlier versions =
 
-For the changelog of earlier versions, please refer to the separate changelog.txt file or the [releases page on Github](https://github.com/WebberZone/contextual-related-posts/releases).
+For the changelog of earlier versions, please refer to the separate changelog.txt file or the [releases page on GitHub](https://github.com/WebberZone/contextual-related-posts/releases).
 
 
 == Upgrade Notice ==
 
-= 4.4.2 =
-Adds TranslatePress support and fixes related posts being cached across languages on WPML, Polylang and TranslatePress sites. Multilingual sites rebuild their related posts cache once after updating.
+= 4.5.0 =
+Adds optional Pro recency weighting and refreshes cached related posts when ranking settings change. Update to apply ranking changes immediately.
