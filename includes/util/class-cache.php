@@ -718,7 +718,7 @@ class Cache {
 		}
 
 		$expires = (int) get_post_meta( $post_id, $cache_expires, true );
-		if ( $expires < time() || empty( $expires ) ) {
+		if ( $expires < time() ) {
 			self::delete_by_post_id_and_key( $post_id, $key, $cache_type );
 			return false;
 		}
