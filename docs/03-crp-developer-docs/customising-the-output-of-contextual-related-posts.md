@@ -9,7 +9,7 @@ order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2019/02/WZLogo-white-1.png"
 ---
 
-Contextual Related Posts has several customization options available via the [Settings page](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/) in WordPress Admin. You can access this via **Settings » Related Posts**
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) has several customization options available via the [Settings page](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/) in WordPress Admin. You can access this via **Settings » Related Posts**.
 
 A typical HTML output for the plugin is below. The plugin also provides you with a set of CSS classes that allow you to style your posts.
 
@@ -41,6 +41,15 @@ The main CSS classes are:
 
 You can add CSS styles for these classes either in the [Styles tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-styles-settings/) or in your theme’s *style.css*. If you’re adding additional styles for a specific custom style, it is recommended to use a selector like `.crp_related.crp-style-name` e.g. `.crp_related.crp-rounded-thumbs`.
 
+## Choose the right customization point
+
+| If you need to… | Use… |
+| --- | --- |
+| Configure built-in output options or change appearance only | The [Settings page](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/) and CSS. See [Styles settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-styles-settings/). |
+| Suppress or replace output before CRP queries for related posts | [`crp_pre_related_posts`](https://webberzone.dev/contextual-related-posts/hooks/crp_pre_related_posts/) |
+| Keep CRP’s query results but replace the generated HTML | `crp_custom_template` |
+| Control which posts are queried and render your own loop | [`CRP_Query` or `get_crp_posts()`](https://webberzone.com/support/knowledgebase/crp-query/) |
+
 ## Filter hooks
 
 ### [`crp_pre_related_posts`](https://webberzone.dev/contextual-related-posts/hooks/crp_pre_related_posts/)
@@ -69,6 +78,56 @@ add_filter(
 
 **Returns:** `string|null` — Return a string to use it as the output; return `null` to continue normally.
 
+### `crp_custom_template`
+
+Use this filter to keep CRP’s related-post query and replace its default HTML. It runs after CRP retrieves the related posts and before the built-in renderer runs. Return a non-empty HTML string to replace the complete default output, including its wrapper and heading. Return the incoming `$template` value to use the built-in renderer; it is `null` by default. An empty string does not replace the output.
+
+The filter runs for automatic content output, the shortcode, widget, native Related Posts block, and manual `get_crp()` or `echo_crp()` calls. Direct `CRP_Query` and `get_crp_posts()` calls retrieve posts without using this renderer, so render those results yourself.
+
+**Parameters:**
+
+- `$template` *(string|null)* — Default return value. Initially `null`.
+- `$results` *(WP_Post[]|int[])* — Related posts as post objects or IDs, matching the return type of `get_crp_posts()`.
+- `$args` *(array)* — Fully parsed display arguments.
+
+**Returns:** `string|null` — Return a non-empty HTML string to replace the default output, or return `$template` to continue with the built-in renderer.
+
+This example supports either post objects or IDs in `$results`. It escapes the link and title and allows the safe image markup generated for the thumbnail.
+
+```php
+add_filter(
+    'crp_custom_template',
+    function ( $template, $results, $args ) {
+        $items = array();
+
+        foreach ( $results as $result ) {
+            $related_post = get_post( $result );
+            if ( ! $related_post instanceof \WP_Post ) {
+                continue;
+            }
+
+            $thumbnail = get_the_post_thumbnail( $related_post->ID, 'thumbnail' );
+            $items[]   = sprintf(
+                '<li><a href="%1$s">%2$s<span>%3$s</span></a></li>',
+                esc_url( get_permalink( $related_post ) ),
+                wp_kses_post( $thumbnail ),
+                esc_html( get_the_title( $related_post ) )
+            );
+        }
+
+        if ( empty( $items ) ) {
+            return $template;
+        }
+
+        return '<ul class="crp-custom-template">' . implode( '', $items ) . '</ul>';
+    },
+    10,
+    3
+);
+```
+
+CRP can cache this HTML for eligible requests when HTML caching is enabled. If your markup varies by user or request context, disable HTML caching in the arguments for that display call with `'cache' => 0`. This does not disable related-post ID caching, which is controlled separately by `cache_posts`.
+
 ## PHP wrapper functions
 
 ### `Display::get_default_args()`
@@ -84,3 +143,5 @@ $args = WebberZone\Contextual_Related_Posts\Frontend\Display::get_default_args()
 ## See also
 
 - [`crp_pre_related_posts`](https://webberzone.dev/contextual-related-posts/hooks/crp_pre_related_posts/)
+- [Display related posts with CRP_Query](https://webberzone.com/support/knowledgebase/crp-query/)
+- [Contextual Related Posts Styles settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-styles-settings/)
