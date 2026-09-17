@@ -57,3 +57,24 @@ In addition to the [WP_Query parameters](https://developer.wordpress.org/referen
 *(int)* Recency boost percentage from 0 to 200. A value of 0 disables recency weighting.
 - **‘recency_halflife’** *(Pro only)*
 *(int)* Number of days over which half of the available recency boost decays. Values below 1 are clamped to 1. The settings field accepts up to 36,500 days. Values below 7 use hourly age calculations.
+- **`relevance_threshold`**
+*(int)* Minimum percentage of the strongest eligible match's score that a scored candidate must reach. Values are clamped to 0–100; 0 disables the threshold. If omitted, the saved List Tuning setting is used.
+
+### Minimum relevance threshold
+
+The `relevance_threshold` argument applies a per-query cutoff based on the strongest eligible scored match for that source post. CRP applies it before the final result limit. For example, a value of 80 keeps scored matches with at least 80% of the strongest eligible score.
+
+Use the `crp_relevance_threshold` filter to change the effective threshold. It receives the current percentage and the `CRP_Core_Query` instance, and its return value is clamped to 0–100.
+
+```php
+add_filter(
+	'crp_relevance_threshold',
+	function ( $threshold, $instance ) {
+		return 80;
+	},
+	10,
+	2
+);
+```
+
+Only the setting or query argument is included in the cache key. If the filter returns different thresholds based on request context, disable the relevant CRP caching for those results so a cached list is not reused under a different threshold.

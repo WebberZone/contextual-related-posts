@@ -64,6 +64,38 @@ class CRP_Core_Query {
 	public $enable_relevance = true;
 
 	/**
+	 * Cached minimum relevance percentage for this query.
+	 *
+	 * @since 4.5.0
+	 * @var float|null
+	 */
+	private $relevance_threshold = null;
+
+	/**
+	 * Whether the related-post cache lookup has already been performed.
+	 *
+	 * @since 4.5.0
+	 * @var bool
+	 */
+	private $cache_lookup_complete = false;
+
+	/**
+	 * Cached related post IDs for this query, when available.
+	 *
+	 * @since 4.5.0
+	 * @var int[]
+	 */
+	private $cached_post_ids = array();
+
+	/**
+	 * Clauses of the current query, captured so the top score can be read without parsing the SQL.
+	 *
+	 * @since 4.5.0
+	 * @var array<string, string>
+	 */
+	private $sql_clauses = array();
+
+	/**
 	 * Random order flag.
 	 *
 	 * @since 3.0.0
@@ -797,6 +829,8 @@ class CRP_Core_Query {
 		 */
 		$fields = apply_filters_ref_array( 'crp_query_posts_fields', array( $fields, $query, &$this ) );
 
+		$this->sql_clauses['fields'] = $fields;
+
 		remove_filter( 'posts_fields', array( $this, 'posts_fields' ) );
 
 		return $fields;
@@ -843,6 +877,8 @@ class CRP_Core_Query {
 		 * @param CRP_Core_Query        $instance The CRP_Core_Query instance.
 		 */
 		$join = apply_filters_ref_array( 'crp_query_posts_join', array( $join, $query, &$this ) );
+
+		$this->sql_clauses['join'] = $join;
 
 		remove_filter( 'posts_join', array( $this, 'posts_join' ) );
 
@@ -965,6 +1001,8 @@ class CRP_Core_Query {
 		 */
 		$where = apply_filters_ref_array( 'crp_query_posts_where', array( $where, $query, &$this ) );
 
+		$this->sql_clauses['where'] = $where;
+
 		remove_filter( 'posts_where', array( $this, 'posts_where' ) );
 
 		return $where;
@@ -1079,6 +1117,12 @@ class CRP_Core_Query {
 			return $groupby;
 		}
 
+		// HAVING on the score alias is only valid under ONLY_FULL_GROUP_BY with a GROUP BY.
+		if ( empty( $groupby ) && $this->uses_sql_threshold() ) {
+			global $wpdb;
+			$groupby = "{$wpdb->posts}.ID";
+		}
+
 		/**
 		 * Filters the GROUP BY clause of the CRP_Query.
 		 *
@@ -1091,9 +1135,194 @@ class CRP_Core_Query {
 		 */
 		$groupby = apply_filters_ref_array( 'crp_query_posts_groupby', array( $groupby, $query, &$this ) );
 
+		$this->sql_clauses['groupby'] = $groupby;
+
 		remove_filter( 'posts_groupby', array( $this, 'posts_groupby' ) );
 
 		return $groupby;
+	}
+
+	/**
+	 * The minimum share of the strongest candidate's score that a post must reach.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return float Percentage from 0 to 100. 0 disables the filter.
+	 */
+	public function get_relevance_threshold(): float {
+		if ( null !== $this->relevance_threshold ) {
+			return $this->relevance_threshold;
+		}
+
+		if ( ! $this->enable_relevance || Helpers::is_sqlite() ) {
+			$this->relevance_threshold = 0.0;
+
+			return $this->relevance_threshold;
+		}
+
+		$threshold = (float) ( $this->query_args['relevance_threshold'] ?? 0 );
+
+		/**
+		 * Filter the minimum share of the strongest candidate's score that a post must reach.
+		 *
+		 * The strongest score is recalculated for every source post, so the same percentage means
+		 * the same thing whatever the absolute scores are. Ignored when relevance matching is
+		 * disabled or on SQLite, where a match is only ever yes or no. Only the setting is part of
+		 * the cache key, so a filter that varies per request needs caching turned off.
+		 *
+		 * @since 4.5.0
+		 *
+		 * @param float          $threshold Percentage from 0 to 100. 0 disables the filter.
+		 * @param CRP_Core_Query $instance  The CRP_Core_Query instance.
+		 */
+		$threshold = (float) apply_filters( 'crp_relevance_threshold', $threshold, $this );
+
+		$this->relevance_threshold = min( 100, max( 0, $threshold ) );
+
+		return $this->relevance_threshold;
+	}
+
+	/**
+	 * Drop candidates scoring too far below the strongest match.
+	 *
+	 * Used for relevance ordering, where the pool already holds the strongest candidates. Runs after
+	 * the source post and other exclusions have been dropped - the source post outscores every
+	 * candidate on its own text - and before the slice to the limit, so the list gets shorter rather
+	 * than padded. Posts without a score are left alone: manual, cornerstone and meta-key relations are
+	 * editorial choices the query never scored, and cached or `fields => ids` results were filtered
+	 * already. Any ordering that is not by relevance uses the HAVING clause instead.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param \WP_Post[] $posts Array of post objects.
+	 * @return \WP_Post[] Filtered array of post objects.
+	 */
+	protected function filter_by_relevance( array $posts ): array {
+		if ( $this->get_relevance_threshold() <= 0 || $this->uses_sql_threshold() ) {
+			return $posts;
+		}
+
+		$scores = array();
+		foreach ( $posts as $post ) {
+			if ( isset( $post->score ) && is_numeric( $post->score ) ) {
+				$scores[] = (float) $post->score;
+			}
+		}
+
+		if ( empty( $scores ) ) {
+			return $posts;
+		}
+
+		$minimum = max( $scores ) * $this->get_relevance_threshold() / 100;
+
+		$filtered = array();
+		foreach ( $posts as $post ) {
+			if ( ! isset( $post->score ) || ! is_numeric( $post->score ) || (float) $post->score >= $minimum ) {
+				$filtered[] = $post;
+			}
+		}
+
+		return $filtered;
+	}
+
+	/**
+	 * Whether the threshold has to be applied in SQL rather than on the fetched pool.
+	 *
+	 * Only a relevance-ranked pool is guaranteed to hold the strongest candidate, which is what the
+	 * cutoff is measured against, and to hold every qualifying post that could survive the limit. Any
+	 * other ordering caps the pool at `limit * 3` rows chosen on something else, so the cutoff moves
+	 * to the HAVING clause at the cost of one extra query.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return bool True when the cutoff belongs in the HAVING clause.
+	 */
+	protected function uses_sql_threshold(): bool {
+		return $this->get_relevance_threshold() > 0 && ! $this->is_relevance_ranked_pool();
+	}
+
+	/**
+	 * Whether the query fetches its pool in relevance order.
+	 *
+	 * Mirrors the ordering decisions in posts_orderby(): an explicit `orderby` wins and only ranks by
+	 * relevance when it asks for it, include words are sorted ahead of the score, and otherwise the
+	 * `ordering` setting ranks by score unless it is by date.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return bool True when the pool is ranked by score.
+	 */
+	protected function is_relevance_ranked_pool(): bool {
+		if ( ! $this->enable_relevance ) {
+			return false;
+		}
+
+		$orderby = $this->query_args['orderby'] ?? '';
+
+		if ( ! empty( $orderby ) ) {
+			$ranked = is_string( $orderby ) && in_array( $orderby, array( 'relevance', 'relatedness' ), true );
+		} elseif ( ! empty( array_filter( preg_split( '/[,\s]+/', (string) ( $this->query_args['include_words'] ?? '' ) ) ) ) ) {
+			// Include words sort ahead of the score, so enough of them push the strongest match out of the pool.
+			$ranked = false;
+		} else {
+			$ranked = 'date' !== ( $this->query_args['ordering'] ?? '' );
+		}
+
+		/**
+		 * Filter whether the query fetches its pool ranked by the selected score column.
+		 *
+		 * Return false for any ordering that ranks on something other than `score` itself - the pro
+		 * recency boost multiplies the score in ORDER BY only - so the threshold reads the top score
+		 * from SQL instead of from a pool that may not contain it.
+		 *
+		 * @since 4.5.0
+		 *
+		 * @param bool           $ranked   Whether the pool is ranked by score.
+		 * @param CRP_Core_Query $instance The CRP_Core_Query instance.
+		 */
+		return (bool) apply_filters( 'crp_is_relevance_ranked_pool', $ranked, $this );
+	}
+
+	/**
+	 * The highest score among candidates that could actually be returned.
+	 *
+	 * Rebuilt from the clauses this class already filtered rather than by editing the finished SQL,
+	 * and with the source post and other exclusions removed so a post cannot set the bar for itself.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param string[] $having Conditions already destined for the HAVING clause.
+	 * @return float Highest score, or 0 when it cannot be determined.
+	 */
+	protected function get_top_score( array $having ): float {
+		global $wpdb;
+
+		if ( ! isset( $this->sql_clauses['fields'], $this->sql_clauses['where'] ) ) {
+			return 0.0;
+		}
+
+		$inner = 'SELECT ' . $this->sql_clauses['fields'] .
+			" FROM {$wpdb->posts} " . ( $this->sql_clauses['join'] ?? '' ) .
+			' WHERE 1=1 ' . $this->sql_clauses['where'];
+
+		if ( ! empty( $this->sql_clauses['groupby'] ) ) {
+			$inner .= ' GROUP BY ' . $this->sql_clauses['groupby'];
+		}
+
+		if ( ! empty( $having ) ) {
+			$inner .= ' HAVING ( ' . implode( ' AND ', $having ) . ' )';
+		}
+
+		$sql = "SELECT MAX(t.score) FROM ( {$inner} ) AS t";
+
+		$excluded = wp_parse_id_list( $this->exclude_post_ids( $this->query_args ) );
+		if ( ! empty( $excluded ) ) {
+			$sql .= ' WHERE t.ID NOT IN ( ' . implode( ',', array_map( 'absint', $excluded ) ) . ' )';
+		}
+
+		$top = $wpdb->get_var( $sql ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
+		return is_numeric( $top ) && is_finite( (float) $top ) ? max( 0.0, (float) $top ) : 0.0;
 	}
 
 	/**
@@ -1120,6 +1349,20 @@ class CRP_Core_Query {
 		}
 		if ( isset( $this->query_args['no_of_common_terms'] ) && absint( $this->query_args['no_of_common_terms'] ) > 1 ) {
 			$conditions[] = $wpdb->prepare( 'COUNT(DISTINCT crp_tt.term_id) >= %d', absint( $this->query_args['no_of_common_terms'] ) );
+		}
+
+		// Applied here, ahead of the date ordering and the LIMIT, so the pool is drawn from the posts
+		// that already clear the bar rather than trimmed after the fact.
+		if (
+			$this->uses_sql_threshold()
+			&& $this->no_of_manual_related < (int) $this->query_args['limit']
+			&& ! $this->is_cache_hit()
+		) {
+			$top_score = $this->get_top_score( $conditions );
+
+			if ( $top_score > 0 ) {
+				$conditions[] = $wpdb->prepare( 'score >= %f', $top_score * $this->get_relevance_threshold() / 100 );
+			}
 		}
 
 		if ( ! empty( $conditions ) ) {
@@ -1174,16 +1417,8 @@ class CRP_Core_Query {
 
 		$post_ids = array();
 
-		// Check the cache if there are any posts saved.
-		if ( $this->should_cache() ) {
-
-			$meta_key = Cache::get_key( $this->input_query_args );
-
-			$cached_data = Cache::get_cache( $this->source_post->ID, $meta_key, 'posts', $this->input_query_args );
-			if ( is_array( $cached_data ) ) {
-				$post_ids       = $cached_data;
-				$this->in_cache = true;
-			}
+		if ( $this->is_cache_hit() ) {
+			$post_ids = $this->cached_post_ids;
 		}
 
 		if ( ! empty( $this->manual_related ) && ( $this->no_of_manual_related >= (int) $this->query_args['limit'] ) ) {
@@ -1323,7 +1558,9 @@ class CRP_Core_Query {
 		 */
 		$fill_random_posts = apply_filters( 'crp_fill_random_posts', false, $posts, $query );
 
-		if ( $fill_random_posts ) {
+		// Random posts carry no score and would sail past the threshold, which is the padding it
+		// exists to prevent, so an enabled threshold wins over the fallback.
+		if ( $fill_random_posts && $this->get_relevance_threshold() <= 0 ) {
 			$no_of_random_posts = (int) $this->query_args['limit'] - count( $posts );
 			if ( $no_of_random_posts > 0 ) {
 				$random_posts = get_posts(
@@ -1350,6 +1587,7 @@ class CRP_Core_Query {
 		}
 
 		$posts = $this->unique_posts_by_id( $posts );
+		$posts = $this->filter_by_relevance( $posts );
 
 		$limit  = (int) $this->query_args['limit'];
 		$offset = $this->in_cache ? 0 : (int) $this->query_args['offset'];
@@ -1583,6 +1821,35 @@ class CRP_Core_Query {
 	public function should_cache() {
 		return ! empty( $this->query_args['cache_posts'] ) &&
 				! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) );
+	}
+
+	/**
+	 * Check the related-post cache once and retain a hit for both SQL generation and posts_pre_query.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return bool True when a cached post list exists, including an empty list.
+	 */
+	private function is_cache_hit(): bool {
+		if ( $this->cache_lookup_complete ) {
+			return $this->in_cache;
+		}
+
+		$this->cache_lookup_complete = true;
+
+		if ( ! $this->should_cache() ) {
+			return false;
+		}
+
+		$meta_key = Cache::get_key( $this->input_query_args );
+		$cached   = Cache::get_cache( $this->source_post->ID, $meta_key, 'posts', $this->input_query_args );
+
+		if ( is_array( $cached ) ) {
+			$this->cached_post_ids = $cached;
+			$this->in_cache        = true;
+		}
+
+		return $this->in_cache;
 	}
 
 	/**

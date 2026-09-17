@@ -262,6 +262,7 @@ class Settings {
 			'ordering'                       => 'relevance',
 			'random_order'                   => 0,
 			'relevance_header'               => '',
+			'relevance_threshold'            => 0,
 			'weight_title'                   => 10,
 			'weight_content'                 => 0,
 			'weight_excerpt'                 => 0,
@@ -803,6 +804,18 @@ class Settings {
 				'desc'    => esc_html__( 'If unchecked, only the post titles are used. Each site is different, so toggle this option to see which setting gives you better quality related posts. Sometimes, fewer words will provide more relevant results.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => true,
+			),
+			'relevance_threshold'       => array(
+				'id'       => 'relevance_threshold',
+				'name'     => __( 'Minimum relevance (% of best match)', 'contextual-related-posts' ),
+				'desc'     => __( 'Keep a candidate only if its score is at least this percentage of the strongest match for the current post. This is calculated separately for each post; multiple candidates can pass. 0 disables the filter.', 'contextual-related-posts' ),
+				'type'     => 'number',
+				'default'  => 0,
+				'min'      => 0,
+				'max'      => 100,
+				'step'     => 1,
+				'size'     => 'small',
+				'disabled' => Helpers::is_sqlite(),
 			),
 			'weight_title'              => array(
 				'id'      => 'weight_title',
@@ -2148,6 +2161,7 @@ class Settings {
 	 */
 	private static function ranking_settings_changed( array $settings ): bool {
 		$keys = array(
+			'relevance_threshold',
 			'weight_title',
 			'weight_content',
 			'weight_excerpt',

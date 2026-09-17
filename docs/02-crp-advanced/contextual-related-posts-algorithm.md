@@ -19,6 +19,12 @@ At its heart, CRP uses MySQL FULLTEXT indexes to analyze post content. CRP exami
 
 Results are ordered by relevance score. From v4.3.0, posts with equal scores are ordered by post date (newest first) and then by post ID, so the list is stable across page loads instead of varying with the database's internal row order.
 
+## Minimum relevance threshold
+
+The **Minimum relevance (% of best match)** setting in [List Tuning](https://webberzone.com/support/knowledgebase/contextual-related-posts-list-tuning-settings/) removes weaker scored matches relative to the strongest eligible match for the current post. CRP calculates the cutoff as the strongest score multiplied by the selected percentage. For example, an 80% threshold keeps scored matches at or above 80% of that post's strongest match. The same percentage adapts to each post's score range; it is not a fixed score shared across the site.
+
+The default is `0`, which disables the threshold. At 100%, only matches tied with the strongest score remain. CRP applies the threshold after excluding the source post and other exclusions, but before the requested list limit. As a result, the displayed list can be shorter than the limit. Manually selected posts, cornerstone posts, and matches from **Related Meta Keys** have no relevance score and are not filtered. Random fallback posts are skipped while the threshold is enabled. The setting is unavailable on SQLite, where matches do not have graded scores.
+
 ### Free Version
 
 In the free version of CRP, enabling **Related posts based on title and content** in the [List Tuning Tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-list-tuning-settings/) gives equal importance to both fields. CRP treats a match in the title the same as one in the content. For content-heavy sites, experiment with this toggle to see what works best.

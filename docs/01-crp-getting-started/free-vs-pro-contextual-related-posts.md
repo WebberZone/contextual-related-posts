@@ -37,6 +37,7 @@ Contextual Related Posts is free to use and packed with features right out of th
 | [Lazy load related posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) | ❌ | ✅ |
 | **Content Matching** |  |  |
 | FULLTEXT algorithm (title + content) | ✅ | ✅ |
+| [Minimum relevance threshold (% of best match)](https://webberzone.com/support/knowledgebase/contextual-related-posts-list-tuning-settings/) | ✅ | ✅ |
 | Tag, category & custom field matching | ✅ | ✅ |
 | [Advanced matching algorithm](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/) | ❌ | ✅ |
 | [Weighted matching (title, content, excerpt)](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/) | ❌ | ✅ |
