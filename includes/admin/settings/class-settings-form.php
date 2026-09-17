@@ -997,7 +997,7 @@ class Settings_Form {
 		$value       = $this->get_field_value( $args );
 		$max         = isset( $args['max'] ) ? intval( $args['max'] ) : 999999;
 		$min         = isset( $args['min'] ) ? intval( $args['min'] ) : 0;
-		$step        = isset( $args['step'] ) ? intval( $args['step'] ) : 1;
+		$step        = isset( $args['step'] ) && ( is_numeric( $args['step'] ) || 'any' === $args['step'] ) ? $args['step'] : 1;
 		$size        = $args['size'] ?? 'regular';
 		$placeholder = $this->get_placeholder_attribute( $args );
 		$attributes  = $this->get_boolean_attributes( $args );
