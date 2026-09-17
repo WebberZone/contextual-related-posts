@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.4.2
+Stable tag: 4.5.0
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
