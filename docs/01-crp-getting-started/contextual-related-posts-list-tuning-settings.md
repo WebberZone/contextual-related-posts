@@ -42,6 +42,16 @@ Shuffles the selected related posts, similar to choosing “Randomly” in the a
 
 If unchecked, only the post titles are used. Each site is different, so toggle this option to see which setting gives you better quality related posts. Sometimes, fewer words will provide more relevant results.
 
+### Minimum relevance (% of best match)
+
+Set the lowest score a contextual match must reach as a percentage of the strongest eligible match for the current post. CRP calculates the cutoff separately for each post, so you do not need to find one absolute score that works across your site. For example, at 80%, a strongest score of 100 gives a cutoff of 80; a strongest score of 20 gives a cutoff of 16.
+
+The default is `0`, which disables the filter. The accepted range is 0 to 100. This setting is unavailable on SQLite because SQLite matching does not provide graded relevance scores.
+
+CRP applies the threshold before the display limit, so the list can contain fewer posts than requested. The filter applies to scored contextual matches. Manually selected posts, cornerstone posts, and matches from **Related Meta Keys** remain in the list because CRP does not score them. Random fallback posts are not added while the threshold is enabled. If any scored match remains eligible, the strongest one meets the cutoff; this setting is not an absolute score floor for returning no results.
+
+Developers can set the threshold for an individual query or use the `crp_relevance_threshold` filter. See [Display related posts with CRP_Query](https://webberzone.com/support/knowledgebase/crp-query/) for details.
+
 ### Weight for post title *(Pro only)*
 
 The weight to give to the post title when calculating the relevance of the post.

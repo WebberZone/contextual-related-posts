@@ -893,6 +893,11 @@ class Cache {
 			unset( $args['weight_recency'], $args['recency_halflife'] );
 		}
 
+		// A disabled threshold changes nothing, so existing cache entries stay valid on upgrade.
+		if ( empty( $args['relevance_threshold'] ) ) {
+			unset( $args['relevance_threshold'] );
+		}
+
 		static $setting_types = null;
 		if ( null === $setting_types ) {
 			$setting_types = function_exists( 'crp_get_registered_settings_types' ) ? crp_get_registered_settings_types() : array();
