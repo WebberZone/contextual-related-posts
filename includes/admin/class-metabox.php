@@ -7,7 +7,6 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
-use WebberZone\Contextual_Related_Posts\Util\Cache;
 use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
 
 // If this file is called directly, abort.
@@ -349,9 +348,6 @@ class Metabox {
 		} else {
 			delete_post_meta( $post_id, '_crp_exclude_post_ids' );
 		}
-
-		// Clear cache of current post.
-		Cache::delete_by_post_id( $post_id );
 
 		/**
 		 * Action triggered when saving Contextual Related Posts meta box settings

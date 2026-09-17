@@ -82,6 +82,11 @@ final class Hook_Loader {
 	private function register_cache_hooks(): void {
 		Hook_Registry::add_action( 'wp_trash_post', array( Cache::class, 'maybe_clear_cache_on_trash' ) );
 		Hook_Registry::add_action( 'untrashed_post', array( Cache::class, 'maybe_clear_cache_on_trash' ) );
+		Hook_Registry::add_action( 'wp_after_insert_post', array( Cache::class, 'clear_cache_on_save' ), 10, 4 );
+
+		// After Sync_Manager::flush_pending_sync() so the reverse query sees the synced index.
+		Hook_Registry::add_action( 'shutdown', array( Cache::class, 'process_queue' ), 20 );
+		Hook_Registry::add_action( 'crp_deferred_cache_flush', array( Cache::class, 'deferred_flush' ) );
 	}
 
 	/**

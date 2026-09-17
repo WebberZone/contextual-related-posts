@@ -289,23 +289,7 @@ class CRP_Core_Query {
 		$this->random_order = $random_order;
 
 		if ( empty( $args['post_type'] ) ) {
-			// If post_types is empty or contains a query string then use parse_str else consider it comma-separated.
-			if ( ! empty( $args['post_types'] ) && is_array( $args['post_types'] ) ) {
-				$post_types = $args['post_types'];
-			} elseif ( ! empty( $args['post_types'] ) && false === strpos( $args['post_types'], '=' ) ) {
-				$post_types = explode( ',', $args['post_types'] );
-			} else {
-				parse_str( $args['post_types'], $post_types );  // Save post types in $post_types variable.
-			}
-
-			// If post_types is empty or if we want all the post types.
-			if ( empty( $post_types ) || 'all' === $args['post_types'] ) {
-				$post_types = get_post_types(
-					array(
-						'public' => true,
-					)
-				);
-			}
+			$post_types = Helpers::parse_post_types( $args['post_types'] ?? '' );
 
 			// If we only want posts from the same post type.
 			if ( $args['same_post_type'] ) {
@@ -1372,7 +1356,7 @@ class CRP_Core_Query {
 		$posts  = array_slice( $posts, $offset, $limit );
 
 		// Support caching to speed up retrieval - set cache AFTER final limiting.
-		if ( ! $this->in_cache && $this->should_cache() ) {
+		if ( ! $this->in_cache && $this->should_cache_posts_list() ) {
 			$meta_key = Cache::get_key( $this->input_query_args );
 			$post_ids = wp_list_pluck( $posts, 'ID' );
 
@@ -1599,6 +1583,27 @@ class CRP_Core_Query {
 	public function should_cache() {
 		return ! empty( $this->query_args['cache_posts'] ) &&
 				! ( is_preview() || is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) );
+	}
+
+	/**
+	 * Whether the list of related post IDs should be saved.
+	 *
+	 * Wider than should_cache(), which gates reading it back: the list is also saved when only the
+	 * HTML output is cached, because it is the record that lets a save clear the cache of posts the
+	 * saved post is no longer related to. It is never read back unless `cache_posts` is enabled.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return bool
+	 */
+	public function should_cache_posts_list() {
+		if ( $this->should_cache() ) {
+			return true;
+		}
+
+		// HTML-only: record the list only on requests that will actually write that HTML cache,
+		// so a logged-in or password-protected view neither writes nor overwrites it.
+		return Display::should_cache( $this->query_args );
 	}
 
 	/**
