@@ -148,7 +148,8 @@ function crp_update_option( $key = '', $value = null ) {
 	}
 
 	// First let's grab the current settings.
-	$options = get_option( 'crp_settings' );
+	$options = get_option( 'crp_settings', array() );
+	$options = is_array( $options ) ? $options : array();
 
 	/**
 	 * Filters the value before it is updated
@@ -191,7 +192,8 @@ function crp_delete_option( $key = '' ) {
 	}
 
 	// First let's grab the current settings.
-	$options = get_option( 'crp_settings' );
+	$options = get_option( 'crp_settings', array() );
+	$options = is_array( $options ) ? $options : array();
 
 	// Next let's try to update the value.
 	if ( isset( $options[ $key ] ) ) {
