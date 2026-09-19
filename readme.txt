@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.4.1
+Stable tag: 4.4.2
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -204,6 +204,13 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.4.2 =
+
+*Release Date - 19 September 2026*
+
+* Fixed:
+	* Security: Hardened thumbnail dimension handling to prevent stored Cross-Site Scripting by an Author-level user via block attributes. Reported by Athiwat Tiprasaharn (Jitlada) and Itthidej Aramsri (Boeing777) via Wordfence.
+
 = 4.4.1 =
 
 *Release Date - 5 September 2026*
@@ -385,6 +392,9 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 
 == Upgrade Notice ==
+
+= 4.4.2 =
+Security release. Fixes a stored Cross-Site Scripting vulnerability that could be exploited by users with Author-level access or above. Update immediately.
 
 = 4.4.1 =
 Adds the Features tab and Feature Manager for selectively disabling unused plugin components. All features remain enabled by default.
