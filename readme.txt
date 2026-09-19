@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.5.0
+Stable tag: 4.4.2
 Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -240,6 +240,14 @@ Release date: 15 September 2026
 * Cached related posts remained stale after ranking settings changed or settings were reset.
 * A post's own cached related posts were only cleared when the Contextual Related Posts meta box was submitted with the save. Quick Edit, Bulk Edit, WP-CLI, scheduled publishing, REST clients and sites with the meta box disabled all left it stale until the cache expired. Every save path now clears it.
 * Cached related posts output was shared between languages on WPML, Polylang and TranslatePress sites, so visitors could be served another language's titles and links.
+
+= 4.4.2 =
+
+*Release Date - 19 September 2026*
+
+* Fixed:
+	* Security: Hardened thumbnail dimension handling to prevent stored Cross-Site Scripting by an Author-level user via block attributes. Reported by Athiwat Tiprasaharn (Jitlada) and Itthidej Aramsri (Boeing777) via Wordfence.
+
 = 4.4.1 =
 
 Release date: 5 September 2026
@@ -303,3 +311,9 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 
 = 4.5.0 =
 Adds optional Pro recency weighting and refreshes cached related posts when ranking settings change. Update to apply ranking changes immediately.
+
+= 4.4.2 =
+Security release. Fixes a stored Cross-Site Scripting vulnerability that could be exploited by users with Author-level access or above. Update immediately.
+
+= 4.4.1 =
+Adds the Features tab and Feature Manager for selectively disabling unused plugin components. All features remain enabled by default.
