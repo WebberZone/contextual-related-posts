@@ -130,9 +130,9 @@ class Media_Handler {
 			if ( is_string( $args['size'] ) ) {
 				list( $args['thumb_width'], $args['thumb_height'] ) = self::get_thumb_size( $args['size'] );
 			} else {
-				$args['thumb_width']  = $args['size'][0];
-				$args['thumb_height'] = $args['size'][1];
-				$args['size']         = self::get_appropriate_image_size( $args['size'][0], $args['size'][1] );
+				$args['thumb_width']  = absint( $args['size'][0] );
+				$args['thumb_height'] = absint( $args['size'][1] );
+				$args['size']         = self::get_appropriate_image_size( $args['thumb_width'], $args['thumb_height'] );
 			}
 
 			$post_title = esc_attr( $result->post_title );
@@ -966,10 +966,22 @@ class Media_Handler {
 
 		$args = wp_parse_args( $args, $default_args );
 
+		$thumb_width  = absint( $args['thumb_width'] );
+		$thumb_height = absint( $args['thumb_height'] );
+
 		if ( 'css' === $args['thumb_html'] ) {
-			$thumb_html = ' style="max-width:' . $args['thumb_width'] . 'px;max-height:' . $args['thumb_height'] . 'px;" ';
+			$styles = array();
+			if ( $thumb_width ) {
+				$styles[] = 'max-width:' . $thumb_width . 'px';
+			}
+			if ( $thumb_height ) {
+				$styles[] = 'max-height:' . $thumb_height . 'px';
+			}
+			$thumb_html = $styles ? ' style="' . implode( ';', $styles ) . ';" ' : '';
 		} elseif ( 'html' === $args['thumb_html'] ) {
-			$thumb_html = ' width="' . $args['thumb_width'] . '" height="' . $args['thumb_height'] . '" ';
+			$thumb_html  = $thumb_width ? ' width="' . $thumb_width . '"' : '';
+			$thumb_html .= $thumb_height ? ' height="' . $thumb_height . '"' : '';
+			$thumb_html  = $thumb_html ? $thumb_html . ' ' : '';
 		} else {
 			$thumb_html = '';
 		}
