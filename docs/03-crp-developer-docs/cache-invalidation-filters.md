@@ -9,7 +9,7 @@ order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2019/02/WZLogo-white-1.png"
 ---
 
-[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) caches its related posts so that repeat visitors do not re-run the query. Since 4.5.0 the cache is kept fresh automatically when you save a post, and this page documents the filters that control that behaviour.
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) caches its related posts so that repeat visitors do not re-run the query. Since 4.5.0 the cache is kept fresh automatically when you save a post, and this page documents the filters that control that behavior.
 
 ## What happens when you save a post
 
@@ -123,6 +123,33 @@ Post types whose saves never touch the cache at all.
 Defaults to WordPress' own bookkeeping post types: `nav_menu_item`, `customize_changeset`, `custom_css`, `oembed_cache`, `user_request`, `wp_block`, `wp_global_styles`, `wp_navigation`, `wp_template`, `wp_template_part`, `wp_font_family` and `wp_font_face`. These cannot display related posts, so skipping them keeps menu and template saves cheap.
 
 Add your own bookkeeping post type here if it is saved often and never shows related posts. Do not add a post type you render related posts for, including one you render by passing an explicit `post_id` — its cache would then never be cleared.
+
+## Changing ranking settings
+
+Saving the plugin settings clears the entire cache when a setting that affects ranking changed, and resetting the settings to their defaults does the same. Cached lists are keyed on the query arguments rather than the settings, so without this the old ranking would be served until each entry expired. The list of settings that trigger the flush is filterable.
+
+### `crp_cache_busting_settings`
+
+The settings whose change flushes the cache on save.
+
+| | |
+|---|---|
+| `$keys` | `string[]` — setting keys that invalidate cached results. |
+| `$settings` | `array` — the sanitized settings being saved. |
+
+Defaults to `relevance_threshold`, `weight_title`, `weight_content`, `weight_excerpt`, `weight_taxonomy_category`, `weight_taxonomy_post_tag`, `weight_taxonomy_default`, `weight_primary_term_boost`, `weight_recency`, and `recency_halflife`.
+
+Add a key here for any custom setting that changes which posts a query returns, or in which order:
+
+```php
+add_filter(
+    'crp_cache_busting_settings',
+    function ( $keys ) {
+        $keys[] = 'my_custom_ranking_setting';
+        return $keys;
+    }
+);
+```
 
 ## Bulk saves and imports
 

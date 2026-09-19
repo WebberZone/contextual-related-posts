@@ -21,7 +21,7 @@ toc: true
 | **Polylang** | Each language has its own posts. CRP uses Polylang's post mapping to return the translated equivalents. |
 | **TranslatePress** | One set of posts is translated on the fly. CRP returns the visitor's language, including over the REST API. |
 
-WPML and Polylang support is built into Contextual Related Posts; TranslatePress support was added in v4.4.2.
+WPML and Polylang support is built into Contextual Related Posts; TranslatePress support was added in v4.5.0.
 
 ## WPML
 
@@ -79,7 +79,7 @@ CRP adds the current language to every cache key through `Language_Handler::get_
 
 `get_cache_language()` resolves the language from TranslatePress first, then Polylang, then WPML. On a single-language site it returns an empty string and the cache key is unchanged. You can override the language used in the cache key with the `crp_cache_language` filter.
 
-After you update to v4.4.2, your multilingual site rebuilds its related posts cache once because the cache key format changed.
+After you update to v4.5.0, your multilingual site rebuilds its related posts cache once because the cache key format changed.
 
 ## See also
 
