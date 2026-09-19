@@ -21,14 +21,14 @@ if ( ! defined( 'WPINC' ) ) {
  * of crp_get_option(), which would load the admin Settings class on every request;
  * this makes the check safe to call at plugins_loaded.
  *
- * @since 4.4.0
+ * @since 4.4.1
  */
 class Feature_Manager {
 
 	/**
 	 * Cached copy of the settings option.
 	 *
-	 * @since 4.4.0
+	 * @since 4.4.1
 	 *
 	 * @var array|null
 	 */
@@ -37,7 +37,7 @@ class Feature_Manager {
 	/**
 	 * Get the map of toggleable features.
 	 *
-	 * @since 4.4.0
+	 * @since 4.4.1
 	 *
 	 * @return array Associative array of feature ID => array with 'setting' and 'default' keys.
 	 */
@@ -92,7 +92,7 @@ class Feature_Manager {
 		/**
 		 * Filter the map of toggleable features.
 		 *
-		 * @since 4.4.0
+		 * @since 4.4.1
 		 *
 		 * @param array $features Associative array of feature ID => array with 'setting' and 'default' keys.
 		 */
@@ -105,7 +105,7 @@ class Feature_Manager {
 	 * A feature is enabled when its setting is missing (default) or truthy.
 	 * Unknown feature IDs are treated as enabled.
 	 *
-	 * @since 4.4.0
+	 * @since 4.4.1
 	 *
 	 * @param string $feature Feature ID.
 	 * @return bool Whether the feature is enabled.
@@ -130,7 +130,7 @@ class Feature_Manager {
 		/**
 		 * Filter whether a feature is enabled.
 		 *
-		 * @since 4.4.0
+		 * @since 4.4.1
 		 *
 		 * @param bool   $enabled Whether the feature is enabled.
 		 * @param string $feature Feature ID.
