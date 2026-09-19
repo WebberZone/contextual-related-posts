@@ -223,6 +223,8 @@ Release date: 15 September 2026
 * Added `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
 * Added a "Minimum relevance (% of best match)" setting under List Tuning > Relevance Matching. For each source post, candidates scoring below that percentage of its strongest match are dropped before the display limit is applied, so a sparse post shows a shorter list instead of one padded with weak matches. Because the bar is relative to each post's own best match, one value works across a site whatever the absolute scores are. Disabled by default (0), so existing sites are unchanged. Manual posts, cornerstone posts and posts matched by "Related posts by meta key" are editorial choices that the relevance query never scores, so they stay in the list regardless; the random fallback (`crp_fill_random_posts`) is skipped while a threshold is on, since padding with unrelated posts is what the threshold exists to prevent. When the query is ordered by relevance the cutoff is applied to the posts already fetched; any other ordering (by date, an explicit `orderby`, or include words) runs one extra query to read the top score and applies the cutoff in SQL, so ordering still returns the right posts rather than the best of a truncated pool. Filterable with `crp_relevance_threshold`. Not available on SQLite, where relevance is a yes/no match.
 * Saving a post now clears the cached related posts of the posts it is related to, so a newly published post appears in their lists without waiting for the cache to expire. Filterable with `crp_clear_related_cache_on_save`, `crp_related_cache_clear_limit`, `crp_related_cache_clear_ids`, `crp_related_cache_clear_post_types`, `crp_internal_post_types`, `crp_related_cache_clear_batch_limit`, `crp_deferred_cache_flush_delay` and `crp_is_importing`. Clearing is best effort rather than a full reverse index, so some lists still wait for the cache to expire: it covers the top matches for the saved post, so a post that ranks outside them in another post's list is missed (raise `crp_related_cache_clear_limit` to widen it), and a post that has never been rendered has no record of what it used to match, so editing it to become unrelated leaves the lists that still show it. Only post types in the "Post types to include" setting are treated as able to appear in another post's list, so a shortcode or block using a per-instance `post_types` override that includes an excluded type must add it through the new `crp_related_cache_clear_post_types` filter for those lists to be cleared. Clearing is on by default; `add_filter( 'crp_clear_related_cache_on_save', '__return_false' )` turns it off, for instance on a site that caches nothing.
+* TranslatePress support: related posts served through the REST API are now returned in the visitor's language, with language-specific permalinks.
+* [Pro] Lazy-loaded related posts are now rendered in the visitor's TranslatePress language.
 
 **Changed**
 
@@ -231,29 +233,13 @@ Release date: 15 September 2026
 * `Cache::delete_by_post_id()` now deletes in a single query. It returns a count of cache entries rather than of individual metadata rows, so `wp crp cache clear <id>` reports roughly half its previous number for the same cache.
 * Saving one of WordPress' own bookkeeping post types — menu items, templates, reusable blocks and the like — no longer touches the CRP cache at all, so saving a large menu no longer runs a delete per item. The list is filterable with `crp_internal_post_types`.
 * The list of related post IDs is now saved on requests that cache the HTML output too, rather than only when "Cache posts only" is on. It is still never read back unless that setting is enabled; saving it is what lets a save clear the cache of posts the saved post is no longer related to. In that HTML-only mode the list follows the HTML cache, so requests that cannot write it — logged-in visitors and password-protected posts — do not write the list either; with "Cache posts only" enabled the list is written for those requests as before.
+* The related posts cache key now includes the current language, so multilingual sites rebuild their cached output once after updating.
 
 **Fixed**
 
 * Cached related posts remained stale after ranking settings changed or settings were reset.
 * A post's own cached related posts were only cleared when the Contextual Related Posts meta box was submitted with the save. Quick Edit, Bulk Edit, WP-CLI, scheduled publishing, REST clients and sites with the meta box disabled all left it stale until the cache expired. Every save path now clears it.
-
-= 4.4.2 =
-
-Release date: 12 September 2026
-
-**Added**
-
-* TranslatePress support: related posts served through the REST API are now returned in the visitor's language, with language-specific permalinks.
-* [Pro] Lazy-loaded related posts are now rendered in the visitor's TranslatePress language.
-
-**Changed**
-
-* The related posts cache key now includes the current language, so multilingual sites rebuild their cached output once after updating.
-
-**Fixed**
-
 * Cached related posts output was shared between languages on WPML, Polylang and TranslatePress sites, so visitors could be served another language's titles and links.
-
 = 4.4.1 =
 
 Release date: 5 September 2026

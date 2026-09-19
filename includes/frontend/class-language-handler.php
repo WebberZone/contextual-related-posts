@@ -129,7 +129,7 @@ class Language_Handler {
 	/**
 	 * Whether TranslatePress is active and exposes the API this integration needs.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @return bool True if TranslatePress can be used.
 	 */
@@ -140,7 +140,7 @@ class Language_Handler {
 	/**
 	 * Fetch a TranslatePress component instance.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @param  string $component Component name, e.g. `url_converter`.
 	 * @return object|null Component instance or null when unavailable.
@@ -163,7 +163,7 @@ class Language_Handler {
 	/**
 	 * Get the TranslatePress settings array.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @return array TranslatePress settings.
 	 */
@@ -176,7 +176,7 @@ class Language_Handler {
 	/**
 	 * Get the TranslatePress language the current front-end request is rendering in.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @return string Language code, or an empty string when TranslatePress is inactive
 	 *                or the request is in the default language.
@@ -202,7 +202,7 @@ class Language_Handler {
 	 * WPML/Polylang resolve different post IDs — so cached HTML and post lists must not
 	 * be shared between languages.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @return string Current language code, or an empty string when the site is monolingual.
 	 */
@@ -220,7 +220,7 @@ class Language_Handler {
 		/**
 		 * Filters the language component added to CRP cache keys.
 		 *
-		 * @since 4.4.2
+		 * @since 4.5.0
 		 *
 		 * @param string $language Current language code, or an empty string.
 		 */
@@ -233,7 +233,7 @@ class Language_Handler {
 	 * TranslatePress resolves a language from any URL containing a known slug, so an
 	 * off-site referer would otherwise let a cross-site request choose the language.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @return string Referring URL on this host, or an empty string.
 	 */
@@ -261,7 +261,7 @@ class Language_Handler {
 	 * language prefix, so the language is taken from an explicit `lang` parameter and
 	 * falls back to the referring front-end URL.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @param  \WP_REST_Request|null $request REST request.
 	 * @return string Language code, or an empty string when no translation is needed.
@@ -309,7 +309,7 @@ class Language_Handler {
 		/**
 		 * Filters the TranslatePress language used to render CRP REST responses.
 		 *
-		 * @since 4.4.2
+		 * @since 4.5.0
 		 *
 		 * @param string                $language Language code resolved from the request.
 		 * @param \WP_REST_Request|null $request  REST request.
@@ -326,7 +326,7 @@ class Language_Handler {
 	/**
 	 * Translate a string with TranslatePress.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @param  string $content  Content in the default language. Text or HTML.
 	 * @param  string $language Target language code.
@@ -344,7 +344,7 @@ class Language_Handler {
 	/**
 	 * Convert a URL to its TranslatePress equivalent in the given language.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @param  string $url      URL in the default language.
 	 * @param  string $language Target language code.
@@ -373,7 +373,7 @@ class Language_Handler {
 	 * related posts returned to block editors and the lazy load script would otherwise
 	 * always be served in the default language.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @param  mixed $result  Response data to send to the client.
 	 * @param  mixed $server  Server instance.
@@ -410,7 +410,7 @@ class Language_Handler {
 	/**
 	 * The REST namespace whose responses this plugin translates.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @return string REST namespace.
 	 */
@@ -421,7 +421,7 @@ class Language_Handler {
 	/**
 	 * Walk a CRP REST payload translating the fields TranslatePress can handle.
 	 *
-	 * @since 4.4.2
+	 * @since 4.5.0
 	 *
 	 * @param  array  $data     Response data.
 	 * @param  string $language Target language code.
@@ -436,7 +436,7 @@ class Language_Handler {
 		/**
 		 * Filters the response keys CRP translates with TranslatePress.
 		 *
-		 * @since 4.4.2
+		 * @since 4.5.0
 		 *
 		 * @param array $keys Associative array of `content` and `url` key names.
 		 */
