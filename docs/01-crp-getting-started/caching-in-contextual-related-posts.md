@@ -25,7 +25,7 @@ The **Cache HTML output** setting will supersede **Cache Posts only** and is rec
 
 ## What is never served from the HTML cache
 
-The HTML cache is shared by every visitor to a post in the same language, so output that is not the same for everyone is skipped. Since v4.4.2, the cache key includes the current language through `Language_Handler::get_cache_language()`, so cached posts and HTML are never shared across languages. Contextual Related Posts bypasses the HTML cache when:
+The HTML cache is shared by every visitor to a post in the same language, so output that is not the same for everyone is skipped. Since v4.5.0, the cache key includes the current language through `Language_Handler::get_cache_language()`, so cached posts and HTML are never shared across languages. Contextual Related Posts bypasses the HTML cache when:
 
 - The visitor is logged in
 - The post is password-protected, or the visitor holds a password cookie for any post
@@ -40,12 +40,18 @@ You can manually clear the plugin cache by visiting the [Tools page](https://web
 
 The cache of a post is also cleared when it is edited. This is to ensure that the related posts are generated using the latest content.
 
+The entire cache is cleared when you save settings that affect ranking — the relevance weights, the minimum relevance threshold, and the recency boost — or when you reset the settings to their defaults. Cached lists are keyed on the query rather than the settings, so without this the old ranking would be served until each entry expired.
+
 You can also enable the **Clear cache when a post is trashed or restored** option in the [**Performance** tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/) to automatically clear the entire cache whenever a post is moved to Trash or restored from Trash. This option is disabled by default.
 
 ## Changing the caching duration
 
-The duration of the cache can be modified by changing the constant `CRP_CACHE_TIME`, which is set to be one week by default. The easiest way to modify this constant is by setting it to a different period in your **wp-config.php**. e.g. the below will set it to a week using the inbuilt WordPress constant.
+The duration of the cache is one week by default. Contextual Related Posts Pro users can change it with the **Cache Time** setting on the [**Performance** tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/), which offers presets from no expiry up to one year.
+
+Without the Pro setting, the duration is controlled by the constant `CRP_CACHE_TIME`, which is set to one week by default. The easiest way to modify this constant is by setting it to a different period in your **wp-config.php**. e.g. the below will set it to a week using the inbuilt WordPress constant.
 
 ```php
 define( 'CRP_CACHE_TIME', WEEK_IN_SECONDS );
 ```
+
+Developers can adjust the lifetime per query with the `crp_cache_time` filter, which runs before every cache entry is written and receives the post ID and query arguments. When the recency boost is active, Pro caps the lifetime so cached ordering cannot go stale as the reference date moves.
