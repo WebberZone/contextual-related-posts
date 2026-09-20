@@ -13,6 +13,8 @@ Since v3.1.0, [Contextual Related Posts](https://webberzone.com/plugins/contextu
 
 The plugin registers one namespace i.e. `contextual-related-posts/v1` that can be used to retrieve the related posts for a particular post ID.
 
+Since v4.5.0, the plugin also registers abilities through the WordPress Abilities API. These are separate from the `contextual-related-posts/v1` endpoints documented here. See [Contextual Related Posts Abilities API](https://webberzone.com/support/knowledgebase/contextual-related-posts-abilities-api/) for the ability names, inputs, and permissions.
+
 [toc]
 
 ## Requirements
