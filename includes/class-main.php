@@ -52,6 +52,15 @@ final class Main {
 	public Frontend\Shortcodes $shortcodes;
 
 	/**
+	 * Abilities API.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @var Abilities
+	 */
+	public Abilities $abilities;
+
+	/**
 	 * Blocks.
 	 *
 	 * @since 3.5.0
@@ -122,6 +131,7 @@ final class Main {
 		$this->language   = new Frontend\Language_Handler();
 		$this->styles     = new Frontend\Styles_Handler();
 		$this->shortcodes = new Frontend\Shortcodes();
+		$this->abilities  = new Abilities();
 
 		if ( Feature_Manager::is_enabled( 'blocks' ) ) {
 			$this->blocks = new Frontend\Blocks\Blocks();

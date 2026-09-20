@@ -61,6 +61,8 @@ Contextual Related Posts is free to use and packed with features right out of th
 | [Toggle prices & ratings display](https://webberzone.com/support/knowledgebase/woocommerce-related-products/) | ❌ | ✅ |
 | [Cart Related Products (free shipping upsell)](https://webberzone.com/support/knowledgebase/woocommerce-related-products/#cart-related-products) | ❌ | ✅ |
 | **Developer Tools** |  |  |
+| [Abilities API: retrieve related posts](https://webberzone.com/support/knowledgebase/contextual-related-posts-abilities-api/) | ✅ | ✅ |
+| Abilities API: clear cache and set post exclusions | ❌ | ✅ |
 | [REST API rendered-HTML endpoint](https://webberzone.com/support/knowledgebase/wp-rest-api-integration/#html-endpoint-pro) | ❌ | ✅ |
 | [WP-CLI commands (cache, DB, content)](https://webberzone.com/support/knowledgebase/contextual-related-posts-wp-cli/) | ❌ | ✅ |
 | Multisite support | ✅ | ✅ |
