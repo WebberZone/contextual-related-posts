@@ -219,13 +219,31 @@ class Abilities {
 
 			$results[] = array(
 				'id'      => (int) $related_post->ID,
-				'title'   => (string) get_the_title( $related_post ),
+				'title'   => $this->to_plain_text( get_the_title( $related_post ) ),
 				'url'     => (string) get_permalink( $related_post ),
-				'excerpt' => (string) get_the_excerpt( $related_post ),
+				'excerpt' => $this->to_plain_text( get_the_excerpt( $related_post ) ),
 			);
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Reduce rendered post text to plain text for machine-readable output.
+	 *
+	 * Titles and excerpts pass through theme and core filters that add markup and HTML entities,
+	 * neither of which belong in a schema an agent consumes.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param  string $text Rendered text.
+	 * @return string Plain text.
+	 */
+	private function to_plain_text( string $text ): string {
+		$text = wp_strip_all_tags( $text );
+		$text = html_entity_decode( $text, ENT_QUOTES | ENT_HTML5, get_bloginfo( 'charset' ) );
+
+		return trim( $text, " \t\n\r\0\x0B" );
 	}
 
 	/**
