@@ -22,7 +22,7 @@ Since v4.5.0, the plugin also registers abilities through the WordPress Abilitie
 To use the latest version of the REST API you must be using:
 
 - Contextual Related Posts 3.1+.
-- WordPress 6.6+.
+- WordPress 6.9+.
 - Pretty permalinks in `Settings > Permalinks` so that the custom endpoints are supported. **Default permalinks will not work.**
 - You may access the API over either HTTP or HTTPS, but *HTTPS is recommended where possible*.
 
