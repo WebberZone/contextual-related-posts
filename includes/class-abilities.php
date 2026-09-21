@@ -27,6 +27,11 @@ class Abilities {
 	 * @since 4.5.0
 	 */
 	public function __construct() {
+		// The Abilities API arrived in WordPress 6.9; without it there is nothing to register.
+		if ( ! function_exists( 'wp_register_ability' ) ) {
+			return;
+		}
+
 		Hook_Registry::add_action( 'wp_abilities_api_categories_init', array( $this, 'register_category' ) );
 		Hook_Registry::add_action( 'wp_abilities_api_init', array( $this, 'register_abilities' ) );
 	}

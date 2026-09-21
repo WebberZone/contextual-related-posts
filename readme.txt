@@ -3,7 +3,7 @@ Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
 Stable tag: 4.4.2
-Requires at least: 6.9
+Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -220,7 +220,7 @@ Release date: 15 September 2026
 
 * [Pro] Added optional recency weighting for related posts with a configurable boost and half-life, off by default.
 * [Pro] Added `post_date_gmt` to the shared index for recency-aware search ranking in Better Search Pro.
-* Added the WordPress Abilities API for retrieving related posts.
+* Added the WordPress Abilities API for retrieving related posts. Needs WordPress 6.9 or later; on older versions the abilities are not registered and nothing else changes.
 * [Pro] Added abilities to clear the related posts cache and set post exclusions.
 * Added `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
 * Added a "Minimum relevance (% of best match)" setting under List Tuning > Relevance Matching. For each source post, candidates scoring below that percentage of its strongest match are dropped before the display limit is applied, so a sparse post shows a shorter list instead of one padded with weak matches. Because the bar is relative to each post's own best match, one value works across a site whatever the absolute scores are. Disabled by default (0), so existing sites are unchanged. Manual posts, cornerstone posts and posts matched by "Related posts by meta key" are editorial choices that the relevance query never scores, so they stay in the list regardless; the random fallback (`crp_fill_random_posts`) is skipped while a threshold is on, since padding with unrelated posts is what the threshold exists to prevent. When the query is ordered by relevance the cutoff is applied to the posts already fetched; any other ordering (by date, an explicit `orderby`, or include words) runs one extra query to read the top score and applies the cutoff in SQL, so ordering still returns the right posts rather than the best of a truncated pool. Filterable with `crp_relevance_threshold`. Not available on SQLite, where relevance is a yes/no match.
@@ -230,7 +230,6 @@ Release date: 15 September 2026
 
 **Changed**
 
-* Raised the minimum WordPress version to 6.9 for the Abilities API.
 * Saving more than 20 posts in a single request now schedules one cache flush a few minutes after the request ends, rather than looking up and clearing each post's related posts, so imports and large bulk edits stay fast. Each saved post still has its own cached related posts cleared immediately. Filterable with `crp_related_cache_clear_batch_limit` and `crp_deferred_cache_flush_delay`. Saves made while `WP_IMPORTING` is set schedule the same single flush instead of clearing each post's related posts; importers that do not define that constant can return true from the new `crp_is_importing` filter to get the same treatment.
 * Moving a post to Trash now clears the cache of the posts it was related to, whatever the "Clear cache when a post is trashed or restored" setting is. That setting continues to control the full cache flush on its own. Restoring from Trash returns a post to Draft, so its related posts are cleared when it is published again rather than at the moment of restoring.
 * `Cache::delete_by_post_id()` now deletes in a single query. It returns a count of cache entries rather than of individual metadata rows, so `wp crp cache clear <id>` reports roughly half its previous number for the same cache.
@@ -313,7 +312,7 @@ For the changelog of earlier versions, please refer to the separate changelog.tx
 == Upgrade Notice ==
 
 = 4.5.0 =
-Adds the WordPress Abilities API for related posts, optional Pro recency weighting, and refreshes cached related posts when ranking settings change. Requires WordPress 6.9 or later; update WordPress first on older sites.
+Adds the WordPress Abilities API for related posts, optional Pro recency weighting, and refreshes cached related posts when ranking settings change. The abilities need WordPress 6.9 or later; on older versions the rest of the plugin is unaffected.
 
 = 4.4.2 =
 Security release. Fixes a stored Cross-Site Scripting vulnerability that could be exploited by users with Author-level access or above. Update immediately.
