@@ -16,7 +16,7 @@ toc: true
 ## Requirements
 
 - Contextual Related Posts 4.5.0 or later.
-- WordPress 6.9 or later, which provides the Abilities API used by the plugin.
+- WordPress 6.9 or later, which provides the Abilities API. On older versions the abilities are simply not registered; the rest of the plugin is unaffected.
 - Contextual Related Posts Pro and the `manage_options` capability to run the Pro management abilities.
 
 ## Using an AI assistant

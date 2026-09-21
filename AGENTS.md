@@ -32,7 +32,7 @@ See `dev-tools/CLAUDE.md`'s Changelog convention.
 
 Contextual Related Posts displays related posts via FULLTEXT search. Contextual Related Posts Pro is the premium version, with pro-only code in `includes/pro/` gated by Freemius. Activating either plugin auto-deactivates the other; both share the same namespace, prefix and settings key.
 
-Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.9+, PHP 7.4+.
+Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.6+, PHP 7.4+.
 
 Versions: `readme.txt`'s `Stable tag` is the released version; `WZ_CRP_VERSION` in `contextual-related-posts.php` is the working version — use it for new `@since` tags. Do not bump either unless asked.
 
