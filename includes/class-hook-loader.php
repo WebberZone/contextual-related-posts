@@ -55,7 +55,9 @@ final class Hook_Loader {
 	private function register_init_hooks(): void {
 		Hook_Registry::add_action( 'init', array( $this, 'initiate_plugin' ) );
 		Hook_Registry::add_action( 'widgets_init', array( $this, 'register_widgets' ) );
-		Hook_Registry::add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+		if ( Feature_Manager::is_enabled( 'rest_api' ) ) {
+			Hook_Registry::add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
+		}
 	}
 
 	/**
@@ -126,6 +128,10 @@ final class Hook_Loader {
 	 * @since 3.5.0
 	 */
 	public function register_rest_routes(): void {
+		if ( ! Feature_Manager::is_enabled( 'rest_api' ) ) {
+			return;
+		}
+
 		$controller = new Frontend\REST_API();
 		$controller->register_routes();
 	}
