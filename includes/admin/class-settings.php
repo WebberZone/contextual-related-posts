@@ -214,9 +214,12 @@ class Settings {
 	public static function get_defaults() {
 		return array(
 			'features_header'                => '',
+			'features_api_header'            => '',
 			'features_display_header'        => '',
 			'enable_blocks'                  => 1,
 			'enable_legacy_widgets'          => 1,
+			'enable_rest_api'                => 1,
+			'enable_abilities_api'           => 1,
 			'enable_query_block'             => 1,
 			'enable_featured_image_block'    => 1,
 			'enable_related_posts_pro_block' => 1,
@@ -1343,6 +1346,26 @@ class Settings {
 				'name' => '<h3>' . esc_html__( 'Features', 'contextual-related-posts' ) . '</h3>',
 				'desc' => esc_html__( 'Turn off any features you do not use and Contextual Related Posts will not load their code. All features are enabled by default. Disabled blocks are unavailable in the editor and render empty on the front end.', 'contextual-related-posts' ),
 				'type' => 'header',
+			),
+			'features_api_header'            => array(
+				'id'   => 'features_api_header',
+				'name' => '<h3>' . esc_html__( 'API integrations', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Control the Contextual Related Posts REST API endpoints and WordPress Abilities API integration.', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
+			'enable_rest_api'                => array(
+				'id'      => 'enable_rest_api',
+				'name'    => esc_html__( 'REST API endpoints', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Registers the contextual-related-posts/v1 endpoints used by integrations and lazy loading. Keep enabled if your blocks, integrations, or lazy loading depend on these endpoints.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => 1,
+			),
+			'enable_abilities_api'           => array(
+				'id'      => 'enable_abilities_api',
+				'name'    => esc_html__( 'WordPress Abilities API', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Registers Contextual Related Posts abilities with WordPress when the Abilities API is available.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => 1,
 			),
 			'features_display_header'        => array(
 				'id'   => 'features_display_header',

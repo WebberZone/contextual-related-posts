@@ -28,7 +28,7 @@ class Abilities {
 	 */
 	public function __construct() {
 		// The Abilities API arrived in WordPress 6.9; without it there is nothing to register.
-		if ( ! function_exists( 'wp_register_ability' ) ) {
+		if ( ! Feature_Manager::is_enabled( 'abilities_api' ) || ! function_exists( 'wp_register_ability' ) ) {
 			return;
 		}
 

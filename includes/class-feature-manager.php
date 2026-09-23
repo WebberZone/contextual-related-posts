@@ -55,6 +55,14 @@ class Feature_Manager {
 				'setting' => 'enable_legacy_widgets',
 				'default' => true,
 			),
+			'rest_api'                => array(
+				'setting' => 'enable_rest_api',
+				'default' => true,
+			),
+			'abilities_api'           => array(
+				'setting' => 'enable_abilities_api',
+				'default' => true,
+			),
 			'query_block'             => array(
 				'setting' => 'enable_query_block',
 				'default' => true,

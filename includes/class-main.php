@@ -58,7 +58,7 @@ final class Main {
 	 *
 	 * @var Abilities
 	 */
-	public Abilities $abilities;
+	public ?Abilities $abilities = null;
 
 	/**
 	 * Blocks.
@@ -131,7 +131,9 @@ final class Main {
 		$this->language   = new Frontend\Language_Handler();
 		$this->styles     = new Frontend\Styles_Handler();
 		$this->shortcodes = new Frontend\Shortcodes();
-		$this->abilities  = new Abilities();
+		if ( Feature_Manager::is_enabled( 'abilities_api' ) ) {
+			$this->abilities = new Abilities();
+		}
 
 		if ( Feature_Manager::is_enabled( 'blocks' ) ) {
 			$this->blocks = new Frontend\Blocks\Blocks();
