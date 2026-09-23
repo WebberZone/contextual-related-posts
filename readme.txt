@@ -218,31 +218,26 @@ Release date: 15 September 2026
 
 **Added**
 
-* Added a "Minimum relevance (% of best match)" setting to omit weak related posts, disabled by default; manual, cornerstone and meta-key matches were exempt, and SQLite was not supported.
-* Added cache clearing for a saved post's current and previously cached related matches, so affected lists could refresh before their cache expired.
-* Added the WordPress Abilities API for retrieving related posts.
+* Added a minimum relevance setting to omit weak matches, disabled by default and unavailable on SQLite.
+* Added cache clearing for related lists affected by post edits or publishing.
+* Added WordPress Abilities API support for retrieving related posts.
 * Added `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
-* Added TranslatePress support for related posts served through the REST API, with translated output and language-specific links.
-* [Pro] Added optional recency weighting for related posts with a configurable boost and half-life, disabled by default.
-* [Pro] Added `post_date_gmt` to the shared index for recency-aware search ranking in Better Search Pro.
-* [Pro] Added abilities to clear the related posts cache and set post exclusions.
-* [Pro] Added TranslatePress support for lazy-loaded related posts in the visitor's language.
+* Added TranslatePress support for related posts served through the REST API.
+* [Pro] Added optional recency weighting with a configurable boost and half-life, disabled by default.
+* [Pro] Added abilities to clear the cache and set post exclusions.
+* [Pro] Added TranslatePress support for lazy-loaded related posts.
 
 **Changed**
 
 * Raised the minimum WordPress version to 6.9 for the Abilities API.
-* Batched related-cache clearing into one deferred flush during imports and requests saving more than 20 posts, while still clearing each saved post's own cache immediately.
-* Cleared related matches' caches when a post was trashed, independently of the full-cache-flush setting; restored posts refreshed related lists when published again.
-* Changed `Cache::delete_by_post_id()` to delete in one query and return cache-entry counts instead of metadata-row counts, reducing the counts reported by `wp crp cache clear <id>`.
-* Skipped cache clearing for WordPress internal post types, including menu items, templates and reusable blocks; the list was filterable with `crp_internal_post_types`.
-* Saved related post IDs alongside cached HTML so later edits could clear previously related lists, while honoring restrictions on caching logged-in and password-protected output.
-* Included the current language in related-posts cache keys, requiring multilingual sites to rebuild cached output once after updating.
+* Reduced cache-clearing overhead during imports, bulk edits and menu or template saves.
+* Cleared affected related lists when posts were trashed, independently of the full-cache-flush setting.
 
 **Fixed**
 
 * Cached related posts remained stale after ranking settings changed or settings were reset.
-* A post's own related-posts cache remained stale after saves through Quick Edit, Bulk Edit, WP-CLI, scheduled publishing, REST clients or sites with the meta box disabled.
-* Cached related posts output was shared between languages on WPML, Polylang and TranslatePress sites, so visitors could receive another language's titles and links.
+* Cached related posts remained stale after Quick Edit, Bulk Edit, scheduled publishing and other saves without the plugin's meta box.
+* Cached output could show another language's titles and links on WPML, Polylang and TranslatePress sites.
 
 = Earlier versions =
 
