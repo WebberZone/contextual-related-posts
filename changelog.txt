@@ -2,6 +2,68 @@
 
 This is an archive of older changelog entries. Most recent entries are maintained in readme.txt
 
+= 4.4.2 =
+
+Release date: 19 September 2026
+
+**Security**
+
+* Hardened thumbnail dimension handling to prevent stored cross-site scripting through block attributes.
+
+= 4.4.1 =
+
+Release date: 5 September 2026
+
+**Added**
+
+* Features tab and Feature Manager for disabling unused plugin components without changing existing defaults.
+* [Pro] Independent controls for the Query Loop, Featured Image, Related Posts Pro, page builder, bot protection, lazy loading, custom tables and WooCommerce modules.
+
+**Security**
+
+* Hardened settings sanitization for users without the `unfiltered_html` capability.
+* Hardened Query Loop REST meta filtering and taxonomy searches against unauthorized or private data access.
+* Password-protected post excerpts were served through the shared HTML cache.
+
+**Fixed**
+
+* Cache invalidation, dry-run cleanup and persistent object-cache invalidation were incorrect, and ordered IDs and taxonomy slugs could collide.
+* [Pro] Custom-table indexing did not run after REST metadata and taxonomy updates, and large term refreshes now run in bounded background batches.
+* [Pro] Query Loop block callbacks accumulated across repeated renders.
+
+= 4.4.0 =
+
+Release date: 29 August 2026
+Release post: https://webberzone.com/contextual-related-posts-v4-4/
+
+**Added**
+
+* [Pro] WPBakery, Elementor and Bricks Builder integrations (experimental), with a native "Related Posts (CRP)" element in each builder carrying the full set of CRP options.
+* [Pro] "Use precomputed taxonomy score" setting, which reads the taxonomy score from the indexed `tax_score` column instead of calculating it per query, at the cost of ignoring per-taxonomy weights in live queries.
+
+**Changed**
+
+* The site-wide "Exclude terms" setting is now applied to the related posts query; it was previously only honored per post in the metabox.
+* "Exclude terms" now splits on commas only, so `black friday` is matched as a phrase rather than as two separate words.
+* The REST API `limit` parameter is now capped at 100. Use `crp_rest_api_max_limit` to change it.
+* Renamed "Include only posts that contain these words" to "Also match posts that contain these words" to match what the option actually does.
+
+**Fixed**
+
+* Plugin data was deleted when uninstalling one version while its paired free or Pro counterpart was active.
+* Schema changes did not reach existing installs; `dbDelta()` now runs on version upgrades instead of on activation only.
+* The per-request post meta cache was keyed on post ID alone, so the same post ID on two sites of a multisite network shared one cache entry.
+* HTML entities survived tag stripping, so `&amp;`, `&nbsp;` and `&hellip;` were indexed as the words "amp", "nbsp" and "hellip".
+* Stopword stripping failed when the stopword list contained a `/`.
+* "Exclude terms" ignored the post content when content matching was enabled.
+* Style stylesheets were always enqueued for the default style instead of the requested one.
+* Feed thumbnail size settings were ignored; both width and height must now be greater than 0 for a size to be applied.
+* The contextual match SQL was built twice on every query.
+* [Pro] The cache collided across differently-configured shortcode, widget, block and builder calls on the same post.
+* [Pro] "Order by: Date" was overridden by relevance ordering, and an `Unknown column 'score'` error occurred when contextual matching was disabled with Include words set.
+* [Pro] `orderby="relevance"` used the unweighted core match instead of the Pro weighted score.
+* [Pro] Taxonomy term-count sorting was applied after the date sort instead of before it.
+
 = 4.3.1 =
 
 *Release Date - 17 August 2026*

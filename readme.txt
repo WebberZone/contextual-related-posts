@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.4.2
+Stable tag: 4.5.0
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -218,105 +218,37 @@ Release date: 15 September 2026
 
 **Added**
 
-* [Pro] Added optional recency weighting for related posts with a configurable boost and half-life, off by default.
-* [Pro] Added `post_date_gmt` to the shared index for recency-aware search ranking in Better Search Pro.
+* Added a "Minimum relevance (% of best match)" setting to omit weak related posts, disabled by default; manual, cornerstone and meta-key matches were exempt, and SQLite was not supported.
+* Added cache clearing for a saved post's current and previously cached related matches, so affected lists could refresh before their cache expired.
 * Added the WordPress Abilities API for retrieving related posts.
-* Raised the minimum WordPress version to 6.9 for the Abilities API.
-* [Pro] Added abilities to clear the related posts cache and set post exclusions.
 * Added `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
-* Added a "Minimum relevance (% of best match)" setting under List Tuning > Relevance Matching. For each source post, candidates scoring below that percentage of its strongest match are dropped before the display limit is applied, so a sparse post shows a shorter list instead of one padded with weak matches. Because the bar is relative to each post's own best match, one value works across a site whatever the absolute scores are. Disabled by default (0), so existing sites are unchanged. Manual posts, cornerstone posts and posts matched by "Related posts by meta key" are editorial choices that the relevance query never scores, so they stay in the list regardless; the random fallback (`crp_fill_random_posts`) is skipped while a threshold is on, since padding with unrelated posts is what the threshold exists to prevent. When the query is ordered by relevance the cutoff is applied to the posts already fetched; any other ordering (by date, an explicit `orderby`, or include words) runs one extra query to read the top score and applies the cutoff in SQL, so ordering still returns the right posts rather than the best of a truncated pool. Filterable with `crp_relevance_threshold`. Not available on SQLite, where relevance is a yes/no match.
-* Saving a post now clears the cached related posts of the posts it is related to, so a newly published post appears in their lists without waiting for the cache to expire. Filterable with `crp_clear_related_cache_on_save`, `crp_related_cache_clear_limit`, `crp_related_cache_clear_ids`, `crp_related_cache_clear_post_types`, `crp_internal_post_types`, `crp_related_cache_clear_batch_limit`, `crp_deferred_cache_flush_delay` and `crp_is_importing`. Clearing is best effort rather than a full reverse index, so some lists still wait for the cache to expire: it covers the top matches for the saved post, so a post that ranks outside them in another post's list is missed (raise `crp_related_cache_clear_limit` to widen it), and a post that has never been rendered has no record of what it used to match, so editing it to become unrelated leaves the lists that still show it. Only post types in the "Post types to include" setting are treated as able to appear in another post's list, so a shortcode or block using a per-instance `post_types` override that includes an excluded type must add it through the new `crp_related_cache_clear_post_types` filter for those lists to be cleared. Clearing is on by default; `add_filter( 'crp_clear_related_cache_on_save', '__return_false' )` turns it off, for instance on a site that caches nothing.
-* TranslatePress support: related posts served through the REST API are now returned in the visitor's language, with language-specific permalinks.
-* [Pro] Lazy-loaded related posts are now rendered in the visitor's TranslatePress language.
+* Added TranslatePress support for related posts served through the REST API, with translated output and language-specific links.
+* [Pro] Added optional recency weighting for related posts with a configurable boost and half-life, disabled by default.
+* [Pro] Added `post_date_gmt` to the shared index for recency-aware search ranking in Better Search Pro.
+* [Pro] Added abilities to clear the related posts cache and set post exclusions.
+* [Pro] Added TranslatePress support for lazy-loaded related posts in the visitor's language.
 
 **Changed**
 
-* Saving more than 20 posts in a single request now schedules one cache flush a few minutes after the request ends, rather than looking up and clearing each post's related posts, so imports and large bulk edits stay fast. Each saved post still has its own cached related posts cleared immediately. Filterable with `crp_related_cache_clear_batch_limit` and `crp_deferred_cache_flush_delay`. Saves made while `WP_IMPORTING` is set schedule the same single flush instead of clearing each post's related posts; importers that do not define that constant can return true from the new `crp_is_importing` filter to get the same treatment.
-* Moving a post to Trash now clears the cache of the posts it was related to, whatever the "Clear cache when a post is trashed or restored" setting is. That setting continues to control the full cache flush on its own. Restoring from Trash returns a post to Draft, so its related posts are cleared when it is published again rather than at the moment of restoring.
-* `Cache::delete_by_post_id()` now deletes in a single query. It returns a count of cache entries rather than of individual metadata rows, so `wp crp cache clear <id>` reports roughly half its previous number for the same cache.
-* Saving one of WordPress' own bookkeeping post types — menu items, templates, reusable blocks and the like — no longer touches the CRP cache at all, so saving a large menu no longer runs a delete per item. The list is filterable with `crp_internal_post_types`.
-* The list of related post IDs is now saved on requests that cache the HTML output too, rather than only when "Cache posts only" is on. It is still never read back unless that setting is enabled; saving it is what lets a save clear the cache of posts the saved post is no longer related to. In that HTML-only mode the list follows the HTML cache, so requests that cannot write it — logged-in visitors and password-protected posts — do not write the list either; with "Cache posts only" enabled the list is written for those requests as before.
-* The related posts cache key now includes the current language, so multilingual sites rebuild their cached output once after updating.
+* Raised the minimum WordPress version to 6.9 for the Abilities API.
+* Batched related-cache clearing into one deferred flush during imports and requests saving more than 20 posts, while still clearing each saved post's own cache immediately.
+* Cleared related matches' caches when a post was trashed, independently of the full-cache-flush setting; restored posts refreshed related lists when published again.
+* Changed `Cache::delete_by_post_id()` to delete in one query and return cache-entry counts instead of metadata-row counts, reducing the counts reported by `wp crp cache clear <id>`.
+* Skipped cache clearing for WordPress internal post types, including menu items, templates and reusable blocks; the list was filterable with `crp_internal_post_types`.
+* Saved related post IDs alongside cached HTML so later edits could clear previously related lists, while honoring restrictions on caching logged-in and password-protected output.
+* Included the current language in related-posts cache keys, requiring multilingual sites to rebuild cached output once after updating.
 
 **Fixed**
 
 * Cached related posts remained stale after ranking settings changed or settings were reset.
-* A post's own cached related posts were only cleared when the Contextual Related Posts meta box was submitted with the save. Quick Edit, Bulk Edit, WP-CLI, scheduled publishing, REST clients and sites with the meta box disabled all left it stale until the cache expired. Every save path now clears it.
-* Cached related posts output was shared between languages on WPML, Polylang and TranslatePress sites, so visitors could be served another language's titles and links.
-
-= 4.4.2 =
-
-*Release Date - 19 September 2026*
-
-* Fixed:
-	* Security: Hardened thumbnail dimension handling to prevent stored Cross-Site Scripting by an Author-level user via block attributes. Reported by Athiwat Tiprasaharn (Jitlada) and Itthidej Aramsri (Boeing777) via Wordfence.
-
-= 4.4.1 =
-
-Release date: 5 September 2026
-
-**Added**
-
-* Features tab and Feature Manager for disabling unused plugin components without changing existing defaults.
-* [Pro] Independent controls for the Query Loop, Featured Image, Related Posts Pro, page builder, bot protection, lazy loading, custom tables and WooCommerce modules.
-
-**Security**
-
-* Hardened settings sanitization for users without the `unfiltered_html` capability.
-* Hardened Query Loop REST meta filtering and taxonomy searches against unauthorized or private data access.
-* Password-protected post excerpts were served through the shared HTML cache.
-
-**Fixed**
-
-* Cache invalidation, dry-run cleanup and persistent object-cache invalidation were incorrect, and ordered IDs and taxonomy slugs could collide.
-* [Pro] Custom-table indexing did not run after REST metadata and taxonomy updates, and large term refreshes now run in bounded background batches.
-* [Pro] Query Loop block callbacks accumulated across repeated renders.
-
-= 4.4.0 =
-
-Release date: 29 August 2026
-Release post: https://webberzone.com/contextual-related-posts-v4-4/
-
-**Added**
-
-* [Pro] WPBakery, Elementor and Bricks Builder integrations (experimental), with a native "Related Posts (CRP)" element in each builder carrying the full set of CRP options.
-* [Pro] "Use precomputed taxonomy score" setting, which reads the taxonomy score from the indexed `tax_score` column instead of calculating it per query, at the cost of ignoring per-taxonomy weights in live queries.
-
-**Changed**
-
-* The site-wide "Exclude terms" setting is now applied to the related posts query; it was previously only honored per post in the metabox.
-* "Exclude terms" now splits on commas only, so `black friday` is matched as a phrase rather than as two separate words.
-* The REST API `limit` parameter is now capped at 100. Use `crp_rest_api_max_limit` to change it.
-* Renamed "Include only posts that contain these words" to "Also match posts that contain these words" to match what the option actually does.
-
-**Fixed**
-
-* Plugin data was deleted when uninstalling one version while its paired free or Pro counterpart was active.
-* Schema changes did not reach existing installs; `dbDelta()` now runs on version upgrades instead of on activation only.
-* The per-request post meta cache was keyed on post ID alone, so the same post ID on two sites of a multisite network shared one cache entry.
-* HTML entities survived tag stripping, so `&amp;`, `&nbsp;` and `&hellip;` were indexed as the words "amp", "nbsp" and "hellip".
-* Stopword stripping failed when the stopword list contained a `/`.
-* "Exclude terms" ignored the post content when content matching was enabled.
-* Style stylesheets were always enqueued for the default style instead of the requested one.
-* Feed thumbnail size settings were ignored; both width and height must now be greater than 0 for a size to be applied.
-* The contextual match SQL was built twice on every query.
-* [Pro] The cache collided across differently-configured shortcode, widget, block and builder calls on the same post.
-* [Pro] "Order by: Date" was overridden by relevance ordering, and an `Unknown column 'score'` error occurred when contextual matching was disabled with Include words set.
-* [Pro] `orderby="relevance"` used the unweighted core match instead of the Pro weighted score.
-* [Pro] Taxonomy term-count sorting was applied after the date sort instead of before it.
+* A post's own related-posts cache remained stale after saves through Quick Edit, Bulk Edit, WP-CLI, scheduled publishing, REST clients or sites with the meta box disabled.
+* Cached related posts output was shared between languages on WPML, Polylang and TranslatePress sites, so visitors could receive another language's titles and links.
 
 = Earlier versions =
 
-For the changelog of earlier versions, please refer to the separate changelog.txt file or the [releases page on GitHub](https://github.com/WebberZone/contextual-related-posts/releases).
-
+For the changelog of earlier versions, please refer to the [releases page on GitHub](https://github.com/WebberZone/contextual-related-posts/releases).
 
 == Upgrade Notice ==
 
 = 4.5.0 =
-Adds the WordPress Abilities API for related posts, optional Pro recency weighting, and refreshes cached related posts when ranking settings change. Requires WordPress 6.9 or later; update WordPress first on older sites.
-
-= 4.4.2 =
-Security release. Fixes a stored Cross-Site Scripting vulnerability that could be exploited by users with Author-level access or above. Update immediately.
-
-= 4.4.1 =
-Adds the Features tab and Feature Manager for selectively disabling unused plugin components. All features remain enabled by default.
+Keeps related posts fresher after edits and fixes multilingual cache mix-ups. Adds minimum relevance filtering and optional Pro recency weighting. Requires WordPress 6.9 or later; update WordPress first on older sites.
