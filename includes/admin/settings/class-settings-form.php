@@ -1442,13 +1442,13 @@ class Settings_Form {
 
 		<div class="repeater-item-footer">
 			<div class="repeater-item-actions">
-				<button type="button" class="button button-secondary move-up" aria-label="<?php esc_attr_e( 'Move item up', 'pfx' ); ?>" <?php disabled( $parent_disabled ); ?>>
+				<button type="button" class="button button-secondary move-up" aria-label="<?php echo esc_attr( $this->translation_strings['repeater_move_up'] ?? 'Move item up' ); ?>" <?php disabled( $parent_disabled ); ?>>
 					<span class="dashicons dashicons-arrow-up-alt2" aria-hidden="true"></span>
 				</button>
-				<button type="button" class="button button-secondary move-down" aria-label="<?php esc_attr_e( 'Move item down', 'pfx' ); ?>" <?php disabled( $parent_disabled ); ?>>
+				<button type="button" class="button button-secondary move-down" aria-label="<?php echo esc_attr( $this->translation_strings['repeater_move_down'] ?? 'Move item down' ); ?>" <?php disabled( $parent_disabled ); ?>>
 					<span class="dashicons dashicons-arrow-down-alt2" aria-hidden="true"></span>
 				</button>
-				<button type="button" class="button button-secondary remove-item" aria-label="<?php esc_attr_e( 'Remove item', 'pfx' ); ?>" <?php disabled( $parent_disabled ); ?>>
+				<button type="button" class="button button-secondary remove-item" aria-label="<?php echo esc_attr( $this->translation_strings['repeater_remove_item'] ?? 'Remove item' ); ?>" <?php disabled( $parent_disabled ); ?>>
 					<span class="dashicons dashicons-trash" aria-hidden="true"></span>
 				</button>
 			</div>
