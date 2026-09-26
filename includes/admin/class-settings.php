@@ -220,6 +220,7 @@ class Settings {
 			'enable_legacy_widgets'          => 1,
 			'enable_rest_api'                => 1,
 			'enable_abilities_api'           => 1,
+			'enable_advanced_block'          => 1,
 			'enable_query_block'             => 1,
 			'enable_featured_image_block'    => 1,
 			'enable_related_posts_pro_block' => 1,
@@ -1386,6 +1387,14 @@ class Settings {
 				'desc'    => esc_html__( 'Registers the classic Related Posts widget. Disable this if you use blocks or shortcodes instead.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => 1,
+			),
+			'enable_advanced_block'          => array(
+				'id'      => 'enable_advanced_block',
+				'name'    => esc_html__( 'Related Posts Advanced block', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Registers the standalone Advanced block, editor preview and related posts patterns.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => 1,
+				'pro'     => true,
 			),
 			'enable_query_block'             => array(
 				'id'      => 'enable_query_block',

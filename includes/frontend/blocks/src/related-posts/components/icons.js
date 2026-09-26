@@ -5,15 +5,15 @@ export const postIcon = (
 		xmlns="http://www.w3.org/2000/svg"
 		stroke=""
 	>
-		<g id="SVGRepo_bgCarrier" strokeWidth={0}>
+		<g id="SVGRepo_bgCarrier" strokeWidth={ 0 }>
 			<rect
-				x={-1.6}
-				y={-1.6}
-				width={19.2}
-				height={19.2}
-				rx={0}
+				x={ -1.6 }
+				y={ -1.6 }
+				width={ 19.2 }
+				height={ 19.2 }
+				rx={ 0 }
 				fill="#FFBD59"
-				strokeWidth={0}
+				strokeWidth={ 0 }
 			/>
 		</g>
 		<g

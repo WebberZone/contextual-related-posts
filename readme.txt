@@ -226,18 +226,25 @@ Release date: 15 September 2026
 * [Pro] Added optional recency weighting with a configurable boost and half-life, disabled by default.
 * [Pro] Added abilities to clear the cache and set post exclusions.
 * [Pro] Added TranslatePress support for lazy-loaded related posts.
+* [Pro] Added a standalone Advanced block with six selectable patterns and separate Settings and Styles tabs.
+* [Pro] Added a Transform option that converts supported legacy CRP Query Loop blocks to the Advanced block while preserving query settings and card content.
 
 **Changed**
 
 * Raised the minimum WordPress version to 6.9 for the Abilities API.
 * Reduced cache-clearing overhead during imports, bulk edits and menu or template saves.
 * Cleared affected related lists when posts were trashed, independently of the full-cache-flush setting.
+* Updated related-post block icons with WebberZone's amber and gold brand colors.
 
 **Fixed**
 
 * Cached related posts remained stale after ranking settings changed or settings were reset.
 * Cached related posts remained stale after Quick Edit, Bulk Edit, scheduled publishing and other saves without the plugin's meta box.
 * Cached output could show another language's titles and links on WPML, Polylang and TranslatePress sites.
+* [Pro] Advanced block queries ignored global post-type defaults and custom-field ordering.
+* [Pro] Related post images had incorrect or duplicated dimensions, borders or shadows in Advanced and Query Loop layouts.
+* [Pro] The Advanced block editor hid card-content blocks from the inserter, and preview links could navigate away from the editor.
+* [Pro] Advanced block previews failed for editors using valid custom-field conditions or an empty condition group.
 
 = Earlier versions =
 
@@ -246,4 +253,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 4.5.0 =
-Keeps related posts fresher after edits and fixes multilingual cache mix-ups. Adds minimum relevance filtering and optional Pro recency weighting. Requires WordPress 6.9 or later; update WordPress first on older sites.
+Adds minimum relevance filtering, optional Pro recency weighting, and a standalone Advanced block with selectable layouts. Fixes stale and multilingual related-post output. Requires WordPress 6.9 or later; update WordPress first on older sites.

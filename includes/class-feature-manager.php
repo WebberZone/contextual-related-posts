@@ -63,6 +63,10 @@ class Feature_Manager {
 				'setting' => 'enable_abilities_api',
 				'default' => true,
 			),
+			'advanced_block'          => array(
+				'setting' => 'enable_advanced_block',
+				'default' => true,
+			),
 			'query_block'             => array(
 				'setting' => 'enable_query_block',
 				'default' => true,

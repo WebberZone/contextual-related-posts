@@ -9,8 +9,8 @@ import metadata from './block.json';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType(metadata.name, {
+registerBlockType( metadata.name, {
 	...metadata,
 	icon: postIcon,
 	edit: Edit,
-});
+} );
