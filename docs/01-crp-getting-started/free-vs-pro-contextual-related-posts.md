@@ -47,7 +47,8 @@ Contextual Related Posts is free to use and packed with features right out of th
 | [Precomputed taxonomy score](https://webberzone.com/support/knowledgebase/contextual-related-posts-algorithm/#precomputed-taxonomy-score) | ❌ | ✅ |
 | **Display & Customization** |  |  |
 | [WPBakery, Elementor and Bricks integrations](https://webberzone.com/support/knowledgebase/page-builder-integrations/) *(experimental)* | ❌ | ✅ |
-| [Pro Query Loop block + block patterns](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/) | ❌ | ✅ |
+| [Standalone Related Posts Advanced block + six patterns](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/) | ❌ | ✅ |
+| [Contextual Related Posts Query Loop variation + patterns](https://webberzone.com/support/knowledgebase/contextual-related-posts-blocks/) | ❌ | ✅ |
 | [Extra shortcode parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-shortcode/) | ❌ | ✅ |
 | [Advanced per-post metabox settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/) | ❌ | ✅ |
 | [Per-post-type metabox control](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/) | ❌ | ✅ |

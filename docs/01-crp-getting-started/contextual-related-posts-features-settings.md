@@ -15,6 +15,18 @@ The **Features** tab, introduced in [Contextual Related Posts](https://webberzon
 
 Features is the first tab you land on when you open the settings screen. All features are enabled by default, so upgrading changes nothing until you turn something off. A block you disable is unavailable in the block editor and renders empty on the front end.
 
+## API integrations
+
+These controls determine whether Contextual Related Posts registers its API integrations. Both are enabled by default.
+
+### REST API endpoints
+
+Registers the Contextual Related Posts REST API endpoints used by integrations, lazy loading, and the Advanced block editor preview. If you turn this off, CRP endpoints are unavailable. Lazy loading falls back to rendering related posts inline, and the Advanced block cannot load live results in the editor. See [WP REST API Integration](https://webberzone.com/support/knowledgebase/wp-rest-api-integration/).
+
+### WordPress Abilities API
+
+Registers the shared and Pro Contextual Related Posts abilities when WordPress provides the Abilities API. This requires WordPress 6.9 or later. You can turn it off independently of the REST API endpoints. See [Contextual Related Posts Abilities API](https://webberzone.com/support/knowledgebase/contextual-related-posts-abilities-api/).
+
 ## Content and display
 
 These settings control the blocks, widget, and page builder integrations that Contextual Related Posts registers.
@@ -22,6 +34,10 @@ These settings control the blocks, widget, and page builder integrations that Co
 ### Related Posts block
 
 Registers the Related Posts block for the block editor.
+
+### Related Posts Advanced block *(Pro only)*
+
+Registers the standalone Advanced block, its related posts patterns, and its editor preview. The editor preview also requires **REST API endpoints** to be enabled.
 
 ### Legacy widget
 
