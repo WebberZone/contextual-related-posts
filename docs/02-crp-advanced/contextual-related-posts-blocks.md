@@ -12,15 +12,13 @@ featured_image: "https://webberzone.com/wp-content/uploads/2024/05/Choose-a-Rela
 
 [toc]
 
-[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) includes a basic Gutenberg block that can replace the widget or shortcode for displaying related posts. This block can be used in your posts, pages, or any other custom post type. You can also use it within the Site Editor using a block theme.
+[Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) includes a Related Posts block that can replace the widget or shortcode. You can use it in posts, pages, custom post types, and block theme templates.
 
-[Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) brings an advanced *Query Loop block*, which allows you to display related posts based on specified parameters. You can use the pre-built block patterns or create your own within posts or the site editor.
+[Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) adds two more choices: a Contextual Related Posts variation of the core Query Loop and a standalone Related Posts Advanced block. Both include patterns. The Advanced block has its own query controls and editable card template.
 
 ## Adding the Blocks
 
-To add the Contextual Related Posts blocks, click the plus (+) icon in the block editor. Search for “Related Posts” and see the “Contextual Related Posts” block appear. Click on it to insert the block into your content area.
-
-If you’re using the pro version, you will also see the “Contextual Related Posts Query Loop” in the list.
+To add a Contextual Related Posts block, click the plus (+) icon in the block editor and search for “Related Posts.” Insert the **Related Posts** block for the basic block. Pro users can also insert **Contextual Related Posts Query Loop** or **Related Posts — Advanced**.
 
 ![Insert Contextual Related Posts block](https://webberzone.com/wp-content/uploads/2024/05/Insert-Contextual-Related-Posts-block.webp)
 
@@ -41,7 +39,7 @@ The Related Posts block lets you preview the related posts directly in the block
 | Randomize posts | Toggle (ON/OFF) | Shuffle the related posts on each page load. This option will not take effect if you Cache the HTML output on the settings page. |
 | Other attributes | Textarea field | Enter other attributes in a URL-style string-query. It supports any of the plugin’s global settings, e.g. post_types=post,page&link_nofollow=1&exclude_post_ids=5,6. |
 
-### Pro Settings
+### Pro Settings for the Related Posts block
 
 Contextual Related Posts Pro users will see an additional section in the block settings sidebar that allows them to save the existing block settings as default or clear the defaults.
 
@@ -49,9 +47,7 @@ Pro users also get a **Keyword** field in the block sidebar. Enter a word or phr
 
 ## Using the Contextual Related Posts Query Loop Block
 
-This guide will familiarize you with the Core Query Loop Block included in WordPress. If not, the guide below should get you started using this block.
-
-The Contextual Related Posts Query Loop block allows you to modify the output and layout of the block flexibly. You have a few ready-made patterns currently included, with more coming in future versions. Here is a short guide on how to use it:
+The Contextual Related Posts Query Loop is a Pro variation of WordPress’s core Query Loop. It lets you use the core Query Loop structure with Contextual Related Posts query settings and related-post patterns.
 
 ### 1. Configuring the Query Loop Block
 
@@ -81,14 +77,7 @@ The preview inside the block editor is generated over the REST API and applies t
 
 ### 2. Customize the Layout
 
-When inserting the Query Loop block, the plugin selects a default grid layout with the post’s featured image and title.
-
-The Query Loop block provides several layout options (patterns) to choose from, including:
-
-- **List**: Display the posts or pages in a vertical list.
-- **Grid**: Text, Excerpt and Date grid.
-- **Left Thumbnail**: As the name suggests, the thumbnail is displayed in the left column, and the title, date, and excerpt are in the right column.
-- **Rounded Thumbs**: This aims to replicate the display of the Rounded Thumbnails of the basic Gutenberg block.
+The Query Loop variation includes six patterns: **Related Posts Grid**, **Related Posts in a Thumbnail Grid**, **Related Posts: Image, Title, Excerpt**, **Related Posts: Left Thumbnails**, **Rounded Thumbs**, and an unordered list of titles. Select the Query Loop variation, then use its pattern or Replace control to choose a layout.
 
 To select a pattern, you can select the block using the navigation bar at the bottom left of the editor or the Parent block in the top/hover toolbar.
 
@@ -122,3 +111,44 @@ If a featured image is not explicitly set for a post, the plugin will automatic
 5. **Site Icon**: Use the site icon configured in Settings > General.
 
 This feature ensures that your popular posts always have visually appealing featured images, even if a featured image hasn’t been set.
+
+## Using the standalone Related Posts Advanced block *(Pro only)*
+
+The Advanced block is a separate block from the Query Loop variation. Choose it when you want a related-posts query with a card template you can edit directly. You can insert it in post content or a block theme template, including a template part used for a sidebar or footer.
+
+### Choose a pattern
+
+When you insert an empty Advanced block, choose one of its six starting patterns:
+
+- **Text list** — linked titles in a simple list.
+- **Small image beside title** — a compact image and title layout.
+- **Image above title** — a card grid with an image above each title.
+- **Image, title and excerpt** — cards with an image, title, date, and excerpt.
+- **Horizontal image and text** — an image beside the title, date, and excerpt.
+- **Rounded thumbnails** — round images beside linked titles.
+
+Use **Change pattern** in the block toolbar or Layout controls to replace the card layout. The block keeps its source, query settings, heading, and empty-state content. The change can be undone in the editor.
+
+### Settings and Styles tabs
+
+The block’s inspector separates its controls into the **Settings** and **Styles** tabs.
+
+In **Settings**, choose whether results relate to the current post or a specific post. You can set a keyword override, number of posts, offset, order, post types, authors, included or excluded posts, taxonomy filters, and custom-field conditions. You can also choose whether to hide the section or show an empty-state message when no related posts are found.
+
+In **Styles**, set the maximum number of columns, minimum card width, and gap between cards. The columns range from 1 to 6, card width from 120 to 600 pixels, and gap from 0 to 100 pixels.
+
+### Edit the repeated card
+
+The **Related Posts Template** block contains one editable card layout that repeats for every result. Add or arrange **Related Post Title**, **Related Post Image**, **Related Post Date**, and **Related Post Excerpt** blocks, along with supported core blocks such as Groups, Columns, Headings, Paragraphs, Separators, and Spacers. Changes to the template update every card.
+
+The Related Post Image block uses the image fallback settings from Contextual Related Posts. You can use a first image in the post, an image stored in a meta field, a selected custom image, the configured default image, or the site icon.
+
+### Choose the source and preview
+
+The block uses the current post when it has a post context, such as in a single post or a Query Loop item. Choose **Specific post** to keep a fixed source post, which can be useful in a sidebar or footer that has no current-post context. In the editor, **Preview with post** lets you preview results when the editor has no source post.
+
+The live editor preview uses the Contextual Related Posts REST API. Keep **REST API endpoints** enabled on the [Features settings tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-features-settings/) to load related results in the editor. If the API is disabled, the block remains editable but shows a design preview instead of live results.
+
+### Convert a compatible Query Loop
+
+WordPress can transform a compatible Contextual Related Posts Query Loop variation into the Advanced block. The transform carries supported query settings and the post-template contents into the new block. It applies only to the Contextual Related Posts variation, not to every core Query Loop or every older Related Posts block. Pagination, unsupported inner blocks, and unsupported query settings prevent conversion.

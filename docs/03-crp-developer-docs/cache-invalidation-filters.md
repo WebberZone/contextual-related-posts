@@ -3,7 +3,7 @@ slug: cache-invalidation-filters
 title: "Cache invalidation filters"
 products: [contextual-related-posts]
 sections: ["03-crp-developer-docs"]
-tags: [contextual-related-posts, cache, filters, performance]
+tags: [cache, contextual-related-posts, filters, performance]
 status: publish
 order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2019/02/WZLogo-white-1.png"
@@ -102,7 +102,7 @@ The post types treated as able to appear in another post's related posts list.
 The shortcode and the block accept a per-instance `post_types` attribute that can include a post type the setting excludes. The plugin cannot see those attributes when a post is saved, so add such a post type here for its lists to be cleared.
 
 ```php
-// [crp post_types="post,recipe"] used somewhere on the site.
+// [[crp post_types="post,recipe"]] used somewhere on the site.
 add_filter(
     'crp_related_cache_clear_post_types',
     function ( $post_types ) {

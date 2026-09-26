@@ -19,6 +19,8 @@ toc: true
 - WordPress 6.9 or later, which provides the Abilities API used by the plugin.
 - Contextual Related Posts Pro and the `manage_options` capability to run the Pro management abilities.
 
+The **WordPress Abilities API** toggle on the [Features settings tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-features-settings/) controls whether CRP registers its abilities. It is enabled by default. Turning it off removes the shared lookup ability and, in Pro, the cache and exclusion abilities. This toggle is independent of the Contextual Related Posts REST API endpoints setting.
+
 ## Using an AI assistant
 
 The Abilities API does not add a chat screen to WordPress. It makes plugin actions available to connected software. To use an AI chat assistant, connect your WordPress site to an AI client that supports MCP through an MCP server. One option is the separate MCP Adapter plugin for WordPress; Contextual Related Posts does not include the adapter. Installing the adapter alone does not connect an AI client. Follow the adapter and client's setup instructions to connect them.
