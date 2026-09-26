@@ -133,6 +133,9 @@ class Settings {
 			'modified_legend'      => esc_html__( 'Setting modified from its default value', 'contextual-related-posts' ),
 			'default_label'        => esc_html__( 'Default', 'contextual-related-posts' ),
 			'default_none'         => esc_html__( 'None', 'contextual-related-posts' ),
+			'repeater_move_up'     => esc_html__( 'Move item up', 'contextual-related-posts' ),
+			'repeater_move_down'   => esc_html__( 'Move item down', 'contextual-related-posts' ),
+			'repeater_remove_item' => esc_html__( 'Remove item', 'contextual-related-posts' ),
 		);
 
 		/**
