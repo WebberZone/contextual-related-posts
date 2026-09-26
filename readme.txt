@@ -218,16 +218,16 @@ Release date: 15 September 2026
 
 **Added**
 
-* Added a minimum relevance setting to omit weak matches, disabled by default and unavailable on SQLite.
-* Added cache clearing for related lists affected by post edits or publishing.
-* Added WordPress Abilities API support for retrieving related posts.
-* Added `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
-* Added TranslatePress support for related posts served through the REST API.
-* [Pro] Added optional recency weighting with a configurable boost and half-life, disabled by default.
-* [Pro] Added abilities to clear the cache and set post exclusions.
-* [Pro] Added TranslatePress support for lazy-loaded related posts.
-* [Pro] Added a standalone Advanced block with six selectable patterns and separate Settings and Styles tabs.
-* [Pro] Added a Transform option that converts supported legacy CRP Query Loop blocks to the Advanced block while preserving query settings and card content.
+* A minimum relevance setting filtered out weak matches; it was disabled by default and unavailable on SQLite.
+* Post edits and publishing triggered cache clearing for affected related lists.
+* The WordPress Abilities API gained a way to retrieve related posts.
+* Exposed `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
+* Related posts served through the REST API worked with TranslatePress.
+* [Pro] Posts gained optional recency weighting with a configurable boost and half-life, disabled by default.
+* [Pro] Administrators gained abilities to clear the cache and set post exclusions.
+* [Pro] Lazy-loaded related posts worked with TranslatePress.
+* [Pro] A standalone Advanced block offered six selectable patterns and separate Settings and Styles tabs.
+* [Pro] A Transform option converted supported legacy CRP Query Loop blocks to the Advanced block while preserving query settings and card content.
 
 **Changed**
 
