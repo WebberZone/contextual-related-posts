@@ -12,6 +12,14 @@ The Tools page in [Contextual Related Posts](https://webberzone.com/plugins/cont
 
 Below is a summary of each tool available, including Pro features.
 
+## Status
+
+The Status section summarizes the current plugin and database state without changing anything. It shows the plugin and database schema versions, database server, WordPress posts table size and storage engine, FULLTEXT index status, cache state, and post meta migration status.
+
+If a FULLTEXT index is missing, the report links to **Recreate FULLTEXT index**. When post meta still needs migration, it links to the migration tool. Contextual Related Posts Pro also adds custom-table status, including whether the tables and indexes exist, the number of indexed posts, and any pending synchronization work.
+
+On multisite, the Network Admin Tools page shows network-wide plugin and database details. Open a site's Tools page for table, cache, and migration details specific to that site.
+
 ## Clear cache
 
 Use this tool to clear the Contextual Related Posts cache. This is helpful if you want to refresh the related posts cache across your site immediately.
