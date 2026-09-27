@@ -9,6 +9,8 @@
 
 namespace WebberZone\Contextual_Related_Posts\Admin;
 
+use WebberZone\Contextual_Related_Posts\Util\Cache;
+use WebberZone\Contextual_Related_Posts\Util\Helpers;
 use WebberZone\Contextual_Related_Posts\Util\Hook_Registry;
 use WebberZone\Contextual_Related_Posts\Util\Migration_Service;
 
@@ -106,6 +108,15 @@ class Tools_Page {
 		<div id="poststuff">
 		<div id="post-body" class="metabox-holder columns-2">
 		<div id="post-body-content">
+
+			<div class="postbox">
+				<h2 id="crp-status"><span><?php esc_html_e( 'Status', 'contextual-related-posts' ); ?></span></h2>
+				<div class="inside">
+					<div class="crp-db-status">
+						<?php echo self::get_status_report(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</div>
+				</div>
+			</div>
 
 			<div class="postbox">
 				<h2><span><?php esc_html_e( 'Clear cache', 'contextual-related-posts' ); ?></span></h2>
@@ -265,6 +276,285 @@ class Tools_Page {
 
 		<?php
 		echo ob_get_clean(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Get the rows shown in the Status box on the Tools page.
+	 *
+	 * Each row is an array with a 'label' (plain text) and a 'value' (HTML, already escaped).
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param bool $network_wide Whether the report is rendered on the Network Admin Tools page.
+	 * @return array Array of status rows keyed by row ID.
+	 */
+	public static function get_status_rows( $network_wide = false ) {
+		$rows = array();
+
+		$rows['plugin_version'] = array(
+			'label' => __( 'Plugin version', 'contextual-related-posts' ),
+			'value' => esc_html( WZ_CRP_VERSION ),
+		);
+
+		$rows['database_server'] = array(
+			'label' => __( 'Database server', 'contextual-related-posts' ),
+			'value' => esc_html( self::get_database_server_info() ),
+		);
+
+		// The remaining rows describe the current site's posts table and options.
+		if ( ! $network_wide ) {
+			$installed_db_version = get_option( 'crp_db_version', '0' );
+
+			$rows['db_version'] = array(
+				'label' => __( 'Database version', 'contextual-related-posts' ),
+				'value' => sprintf(
+					/* translators: 1: Installed database version, 2: Current database version. */
+					esc_html__( 'Installed version %1$s / Current version %2$s', 'contextual-related-posts' ),
+					self::status_label( WZ_CRP_DB_VERSION === $installed_db_version, $installed_db_version ),
+					esc_html( WZ_CRP_DB_VERSION )
+				),
+			);
+
+			$rows['fulltext_indexes'] = array(
+				'label' => __( 'FULLTEXT indexes', 'contextual-related-posts' ),
+				'value' => self::get_fulltext_indexes_status(),
+			);
+
+			$rows['posts_table'] = array(
+				'label' => __( 'Posts table', 'contextual-related-posts' ),
+				'value' => self::get_table_stats_html( self::get_table_stats( $GLOBALS['wpdb']->posts ) ),
+			);
+
+			$cache_status = Cache::get_status();
+			$cache_value  = self::status_label(
+				(bool) $cache_status['enabled'],
+				__( 'Enabled', 'contextual-related-posts' ),
+				__( 'Disabled', 'contextual-related-posts' ),
+				true
+			);
+			if ( $cache_status['enabled'] ) {
+				$cache_value .= '<br /><span class="description">' . sprintf(
+					/* translators: 1: Number of cached entries, 2: Cache expiry time. */
+					esc_html__( 'Cached entries: %1$s | Expiry: %2$s', 'contextual-related-posts' ),
+					'<strong>' . esc_html( number_format_i18n( $cache_status['cache_count'] ) ) . '</strong>',
+					'<strong>' . esc_html( $cache_status['expiration_human'] ) . '</strong>'
+				) . '</span>';
+			}
+
+			$next_flush = wp_next_scheduled( 'crp_deferred_cache_flush' );
+			if ( $next_flush ) {
+				$cache_value .= '<br /><span class="description">' . sprintf(
+					/* translators: %s: Human-readable time difference. */
+					esc_html__( 'A full cache flush after a bulk update is scheduled in %s.', 'contextual-related-posts' ),
+					esc_html( human_time_diff( time(), $next_flush ) )
+				) . '</span>';
+			}
+
+			$rows['cache'] = array(
+				'label' => __( 'Cache', 'contextual-related-posts' ),
+				'value' => $cache_value,
+			);
+
+			if ( get_option( 'crp_meta_migration_done', false ) ) {
+				$migration_value = self::status_label( true, __( 'Complete', 'contextual-related-posts' ) );
+			} else {
+				$migration_count = (int) self::get_migration_count();
+				$migration_value = $migration_count > 0
+					? self::status_label(
+						false,
+						sprintf(
+							/* translators: %s: Number of posts. */
+							_n( '%s post needs migration', '%s posts need migration', $migration_count, 'contextual-related-posts' ),
+							number_format_i18n( $migration_count )
+						)
+					) . ' <a href="#crp-migrate-post-meta">' . esc_html__( 'Migrate post meta', 'contextual-related-posts' ) . '</a>'
+					: self::status_label( true, __( 'Nothing to migrate', 'contextual-related-posts' ) );
+			}
+
+			$rows['meta_migration'] = array(
+				'label' => __( 'Post meta migration', 'contextual-related-posts' ),
+				'value' => $migration_value,
+			);
+		}
+
+		/**
+		 * Filter the rows shown in the Status box on the Tools page.
+		 *
+		 * @since 4.5.0
+		 *
+		 * @param array $rows         Array of status rows. Each row has a 'label' (plain text) and a 'value' (escaped HTML).
+		 * @param bool  $network_wide Whether the report is rendered on the Network Admin Tools page.
+		 */
+		return apply_filters( 'crp_tools_status_rows', $rows, $network_wide );
+	}
+
+	/**
+	 * Get the Status report shown on the Tools page.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param bool $network_wide Whether the report is rendered on the Network Admin Tools page.
+	 * @return string HTML output for the status report.
+	 */
+	public static function get_status_report( $network_wide = false ) {
+		$rows = self::get_status_rows( $network_wide );
+
+		ob_start();
+		?>
+		<table class="form-table">
+			<?php foreach ( $rows as $row ) : ?>
+				<?php
+				if ( empty( $row['label'] ) || ! isset( $row['value'] ) ) {
+					continue;
+				}
+				?>
+				<tr>
+					<th scope="row"><?php echo esc_html( $row['label'] ); ?></th>
+					<td><?php echo wp_kses_post( $row['value'] ); ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Wrap a status value in a coloured label.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param bool   $ok         Whether the status is good.
+	 * @param string $ok_text    Text to show when the status is good.
+	 * @param string $bad_text   Optional. Text to show when the status is not good. Defaults to $ok_text.
+	 * @param bool   $is_neutral Optional. Show the bad state in the default colour rather than red, e.g. for a disabled option.
+	 * @return string Escaped HTML.
+	 */
+	public static function status_label( $ok, $ok_text, $bad_text = null, $is_neutral = false ) {
+		if ( $ok ) {
+			return '<span style="color: #006400;">' . esc_html( $ok_text ) . '</span>';
+		}
+
+		$text = null === $bad_text ? $ok_text : $bad_text;
+
+		return $is_neutral
+			? '<span>' . esc_html( $text ) . '</span>'
+			: '<span style="color: #8B0000;">' . esc_html( $text ) . '</span>';
+	}
+
+	/**
+	 * Get the database server type and version.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return string Database server description, e.g. "MySQL 8.0.36" or "MariaDB 10.11.6".
+	 */
+	public static function get_database_server_info() {
+		global $wpdb;
+
+		if ( Helpers::is_sqlite() ) {
+			return 'SQLite';
+		}
+
+		$raw = (string) $wpdb->get_var( 'SELECT VERSION()' ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
+		preg_match( '/([0-9]+\.[0-9]+\.[0-9]+)/', $raw, $matches );
+		$version = $matches[1] ?? $wpdb->db_version();
+
+		return ( false !== stripos( $raw, 'MariaDB' ) ? 'MariaDB ' : 'MySQL ' ) . $version;
+	}
+
+	/**
+	 * Get the storage engine, estimated rows and size of a database table.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param string $table_name Full table name including prefix.
+	 * @return array|false Array with 'engine', 'entries' and 'size' keys, or false if the table was not found.
+	 */
+	public static function get_table_stats( $table_name ) {
+		global $wpdb;
+
+		if ( Helpers::is_sqlite() ) {
+			return false;
+		}
+
+		$status = $wpdb->get_row( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $wpdb->esc_like( $table_name ) ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
+		if ( empty( $status ) ) {
+			return false;
+		}
+
+		return array(
+			'engine'  => isset( $status['Engine'] ) ? (string) $status['Engine'] : '',
+			'entries' => isset( $status['Rows'] ) ? (int) $status['Rows'] : 0,
+			'size'    => (int) ( $status['Data_length'] ?? 0 ) + (int) ( $status['Index_length'] ?? 0 ),
+		);
+	}
+
+	/**
+	 * Format table statistics for the Status box.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @param array|false $stats Table statistics from get_table_stats().
+	 * @return string Escaped HTML.
+	 */
+	public static function get_table_stats_html( $stats ) {
+		if ( empty( $stats ) ) {
+			return '<span class="description">' . esc_html__( 'Table statistics are not available.', 'contextual-related-posts' ) . '</span>';
+		}
+
+		return '<span class="description">' . sprintf(
+			/* translators: 1: Storage engine, 2: Estimated number of rows, 3: Estimated table size. */
+			esc_html__( 'Engine: %1$s | Estimated entries: %2$s | Estimated size: %3$s', 'contextual-related-posts' ),
+			'<strong>' . esc_html( $stats['engine'] ) . '</strong>',
+			'<strong>' . esc_html( number_format_i18n( $stats['entries'] ) ) . '</strong>',
+			'<strong>' . esc_html( (string) size_format( $stats['size'] ) ) . '</strong>'
+		) . '</span>';
+	}
+
+	/**
+	 * Get the status of the FULLTEXT indexes on the posts table.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return string Escaped HTML.
+	 */
+	private static function get_fulltext_indexes_status() {
+		if ( Helpers::is_sqlite() ) {
+			return '<span class="description">' . esc_html__( 'FULLTEXT indexes are not used on SQLite.', 'contextual-related-posts' ) . '</span>';
+		}
+
+		$lines       = array();
+		$all_present = true;
+
+		foreach ( Db::check_fulltext_indexes() as $index => $status ) {
+			$installed   = ! empty( $status['installed'] );
+			$all_present = $all_present && $installed;
+			$lines[]     = sprintf(
+				'<code>%1$s</code> %2$s: %3$s',
+				esc_html( $index ),
+				esc_html( isset( $status['columns'] ) ? $status['columns'] : '' ),
+				self::status_label( $installed, __( 'Installed', 'contextual-related-posts' ), __( 'Not Installed', 'contextual-related-posts' ) )
+			);
+		}
+
+		$html = implode( '<br />', $lines );
+
+		$index_version = (int) get_option( 'crp_index_version', 0 );
+		$html         .= '<br /><span class="description">' . sprintf(
+			/* translators: 1: Installed index schema version, 2: Current index schema version. */
+			esc_html__( 'Index schema: installed %1$s / current %2$s', 'contextual-related-posts' ),
+			esc_html( (string) $index_version ),
+			esc_html( (string) Db::INDEX_VERSION )
+		) . '</span>';
+
+		if ( ! $all_present ) {
+			$html .= '<br /><a href="#crp-recreate-fulltext-index">' . esc_html__( 'Recreate the FULLTEXT indexes', 'contextual-related-posts' ) . '</a>';
+		}
+
+		return $html;
 	}
 
 	/**
