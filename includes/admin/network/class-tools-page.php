@@ -82,6 +82,15 @@ class Tools_Page {
 		<div id="post-body" class="metabox-holder columns-2">
 		<div id="post-body-content">
 
+			<div class="postbox">
+				<h2 id="crp-status"><span><?php esc_html_e( 'Status', 'contextual-related-posts' ); ?></span></h2>
+				<div class="inside">
+					<div class="crp-db-status">
+						<?php echo \WebberZone\Contextual_Related_Posts\Admin\Tools_Page::get_status_report( true ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</div>
+				</div>
+			</div>
+
 			<?php
 			/**
 			 * Action hook to add additional content to the Contextual Related Posts network tools page.
