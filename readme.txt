@@ -219,12 +219,15 @@ Release date: 15 September 2026
 **Added**
 
 * A minimum relevance setting filtered out weak matches; it was disabled by default and unavailable on SQLite.
+* Added a Status section to the Tools page showing database, index, cache and migration health.
 * Post edits and publishing triggered cache clearing for affected related lists.
 * The WordPress Abilities API gained a way to retrieve related posts.
 * Exposed `crp_cache_time` and `crp_cache_busting_settings` filters for cache lifetime and invalidation.
 * Related posts served through the REST API worked with TranslatePress.
 * [Pro] Posts gained optional recency weighting with a configurable boost and half-life, disabled by default.
 * [Pro] Administrators gained abilities to clear the cache and set post exclusions.
+* [Pro] Added WP-CLI commands to add, remove and list post exclusions.
+* [Pro] The Tools status report gained custom-table health, index coverage and reconciliation details.
 * [Pro] Lazy-loaded related posts worked with TranslatePress.
 * [Pro] A standalone Advanced block offered six selectable patterns and separate Settings and Styles tabs.
 * [Pro] A Transform option converted supported legacy CRP Query Loop blocks to the Advanced block while preserving query settings and card content.
@@ -253,4 +256,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 4.5.0 =
-Adds minimum relevance filtering, optional Pro recency weighting, and a standalone Advanced block with selectable layouts. Fixes stale and multilingual related-post output. Requires WordPress 6.9 or later; update WordPress first on older sites.
+Adds minimum relevance filtering, diagnostic status reporting, optional Pro recency weighting and a standalone Advanced block. Fixes stale and multilingual output. Requires WordPress 6.9 or later.
