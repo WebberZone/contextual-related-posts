@@ -57,6 +57,10 @@ wp crp
 │   ├── recreate  # Recreate FULLTEXT indexes for custom tables
 │   └── status    # Check status of FULLTEXT indexes
 ├── related      # Show related posts for a specific post (requires post ID)
+├── exclude
+│   ├── add       # Exclude a post from related-post results
+│   ├── remove    # Restore a post to related-post results
+│   └── list      # List excluded posts
 ├── settings
 │   ├── export    # Export plugin settings to file
 │   ├── import    # Import plugin settings from file
@@ -518,3 +522,106 @@ Show related posts for a specific post.
 **Arguments:**
 
 - `<post-id>` – Post ID to show related posts for
+
+Options:
+
+- `--limit=<number>` – Number of related posts to show. Default: 10.
+- `--url=<url>` – Site URL on multisite.
+- `--blog-id=<id>` – Site ID on multisite.
+- `--format=<format>` – Output format: table, JSON, CSV, or YAML.
+
+```bash
+wp crp related 123
+wp crp related 123 --limit=5
+wp crp related 123 --format=json
+```
+
+### Exclude Commands (wp crp exclude)
+
+Manage posts excluded from related-post results.
+
+#### wp crp exclude add
+
+Exclude a post by ID:
+
+```bash
+wp crp exclude add 123
+```
+
+#### wp crp exclude remove
+
+Restore an excluded post:
+
+```bash
+wp crp exclude remove 123
+```
+
+#### wp crp exclude list
+
+List excluded posts. The command returns up to 100 posts by default and supports a maximum limit of 1,000.
+
+```bash
+wp crp exclude list
+wp crp exclude list --limit=250 --offset=100
+wp crp exclude list --format=json
+```
+
+Options:
+
+- `--limit=<number>` – Maximum posts to return. Default: 100.
+- `--offset=<number>` – Number of posts to skip. Default: 0.
+- `--format=<format>` – Output format: table, JSON, or CSV.
+
+### Settings Commands (wp crp settings)
+
+Manage Contextual Related Posts settings as JSON.
+
+#### wp crp settings export
+
+```bash
+wp crp settings export
+wp crp settings export --file=my-settings.json
+```
+
+The `--file` option sets the output filename. The default is `settings.json`.
+
+#### wp crp settings import
+
+```bash
+wp crp settings import settings.json
+wp crp settings import settings.json --merge
+wp crp settings import settings.json --force
+```
+
+Use `--merge` to retain settings absent from the file. Without it, the imported settings replace the current array. Use `--force` to skip confirmation.
+
+#### wp crp settings get
+
+```bash
+wp crp settings get cache
+wp crp settings get cache --format=json
+```
+
+The output format can be table, JSON, CSV, YAML, or a single value.
+
+#### wp crp settings set
+
+```bash
+wp crp settings set cache true --type=bool
+wp crp settings set limit 10 --type=int
+wp crp settings set post_types "post,page"
+```
+
+The `--type` option accepts string, integer, boolean, or array values. Use `--force` to skip confirmation.
+
+### Status Command (wp crp status)
+
+Show plugin, WordPress, PHP, database, cache, FULLTEXT index, and custom-table status.
+
+```bash
+wp crp status
+wp crp status --format=json
+wp crp status --verbose
+```
+
+The output format can be table, JSON, or CSV. On multisite, use the standard WP-CLI `--url` option to target a site.
