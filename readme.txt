@@ -244,10 +244,7 @@ Release date: 1 October 2026
 * Cached related posts remained stale after ranking settings changed or settings were reset.
 * Cached related posts remained stale after Quick Edit, Bulk Edit, scheduled publishing and other saves without the plugin's meta box.
 * Cached output could show another language's titles and links on WPML, Polylang and TranslatePress sites.
-* [Pro] Advanced block queries ignored global post-type defaults and custom-field ordering.
-* [Pro] Related post images had incorrect or duplicated dimensions, borders or shadows in Advanced and Query Loop layouts.
-* [Pro] The Advanced block editor hid card-content blocks from the inserter, and preview links could navigate away from the editor.
-* [Pro] Advanced block previews failed for editors using valid custom-field conditions or an empty condition group.
+* [Pro] Related post images had incorrect or duplicated dimensions, borders or shadows in Query Loop layouts.
 
 = Earlier versions =
 
