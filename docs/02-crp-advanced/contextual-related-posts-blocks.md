@@ -16,13 +16,13 @@ featured_image: "https://webberzone.com/wp-content/uploads/2024/05/Choose-a-Rela
 
 [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) adds two more choices: a Contextual Related Posts variation of the core Query Loop and a standalone Related Posts Advanced block. Both include patterns. The Advanced block has its own query controls and editable card template.
 
-## Adding the Blocks
+## Adding the blocks
 
 To add a Contextual Related Posts block, click the plus (+) icon in the block editor and search for “Related Posts.” Insert the **Related Posts** block for the basic block. Pro users can also insert **Contextual Related Posts Query Loop** or **Related Posts — Advanced**.
 
 ![Insert Contextual Related Posts block](https://webberzone.com/wp-content/uploads/2024/05/Insert-Contextual-Related-Posts-block.webp)
 
-## Configuring the basic Gutenberg Block
+## Configuring the Related Posts block
 
 The Related Posts block lets you preview the related posts directly in the block editor. You can customize various aspects of the block using the sidebar as follows:
 
@@ -39,17 +39,17 @@ The Related Posts block lets you preview the related posts directly in the block
 | Randomize posts | Toggle (ON/OFF) | Shuffle the related posts on each page load. This option will not take effect if you Cache the HTML output on the settings page. |
 | Other attributes | Textarea field | Enter other attributes in a URL-style string-query. It supports any of the plugin’s global settings, e.g. post_types=post,page&link_nofollow=1&exclude_post_ids=5,6. |
 
-### Pro Settings for the Related Posts block
+### Pro settings for the Related Posts block
 
 Contextual Related Posts Pro users will see an additional section in the block settings sidebar that allows them to save the existing block settings as default or clear the defaults.
 
 Pro users also get a **Keyword** field in the block sidebar. Enter a word or phrase here and the plugin uses it instead of the current post's title and content to find related posts — the same behavior as the Keyword field in the post-edit metabox.
 
-## Using the Contextual Related Posts Query Loop Block
+## Contextual Related Posts Query Loop block
 
 The Contextual Related Posts Query Loop is a Pro variation of WordPress’s core Query Loop. It lets you use the core Query Loop structure with Contextual Related Posts query settings and related-post patterns.
 
-### 1. Configuring the Query Loop Block
+### 1. Configure the Query Loop block
 
 The Query Loop block allows you to customize the query that will be used to retrieve the related posts. You can configure the following settings:
 
@@ -75,7 +75,7 @@ Add more rows to build a compound filter. With two or more rows, a **Query Relat
 
 The preview inside the block editor is generated over the REST API and applies the same permission rules WordPress applies elsewhere. For anyone who is not an administrator, the preview only filters on meta keys that are registered, exposed to the REST API, not protected (keys beginning with an underscore), and editable by that user on the source post. Keys that fail those checks are dropped from the preview query. Administrators see the preview unfiltered. Front-end rendering is unaffected — this applies to the editor preview only.
 
-### 2. Customize the Layout
+### 2. Customize the layout
 
 The Query Loop variation includes six patterns: **Related Posts Grid**, **Related Posts in a Thumbnail Grid**, **Related Posts: Image, Title, Excerpt**, **Related Posts: Left Thumbnails**, **Rounded Thumbs**, and an unordered list of titles. Select the Query Loop variation, then use its pattern or Replace control to choose a layout.
 
@@ -87,7 +87,7 @@ Once you do so, you’ll see the “Replace” button, allowing you to select fr
 
 ![Choose a Related Posts Pattern](https://webberzone.com/wp-content/uploads/2024/05/Choose-a-Related-Posts-Pattern-1024x527.webp)
 
-### 3. Add Additional Blocks
+### 3. Add more blocks
 
 Within the Core Query Loop block, you can add additional blocks to display specific content for each post or page, such as:
 
@@ -98,7 +98,7 @@ Within the Core Query Loop block, you can add additional blocks to display speci
 
 You can arrange and style these blocks to create a visually appealing and informative layout for your content.
 
-## Contextual Related Posts Featured Image Block (Pro version)
+## Contextual Related Posts Featured Image block *(Pro only)*
 
 Contextual Related Posts Pro offers enhanced flexibility and reliability for displaying featured images in your posts. This can be used for the related posts list and across your WordPress site that uses the Block or the Site editor.
 
@@ -112,7 +112,7 @@ If a featured image is not explicitly set for a post, the plugin will automatic
 
 This feature ensures that your popular posts always have visually appealing featured images, even if a featured image hasn’t been set.
 
-## Using the standalone Related Posts Advanced block *(Pro only)*
+## Related Posts Advanced block *(Pro only)*
 
 The Advanced block is a separate block from the Query Loop variation. Choose it when you want a related-posts query with a card template you can edit directly. You can insert it in post content or a block theme template, including a template part used for a sidebar or footer.
 
@@ -140,6 +140,8 @@ In **Styles**, set the maximum number of columns, minimum card width, and gap be
 ### Edit the repeated card
 
 The **Related Posts Template** block contains one editable card layout that repeats for every result. Add or arrange **Related Post Title**, **Related Post Image**, **Related Post Date**, and **Related Post Excerpt** blocks, along with supported core blocks such as Groups, Columns, Headings, Paragraphs, Separators, and Spacers. Changes to the template update every card.
+
+The **Related Posts Empty State** block holds the content shown when no related posts are found. On the front end, it is displayed only when **Empty results** is set to **Show the empty state**. Edit its text or add blocks to it like any other content.
 
 The Related Post Image block uses the image fallback settings from Contextual Related Posts. You can use a first image in the post, an image stored in a meta field, a selected custom image, the configured default image, or the site icon.
 

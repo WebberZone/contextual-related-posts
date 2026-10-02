@@ -6,7 +6,10 @@ sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, lazy-load, performance, pro]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 Lazy loading, introduced in [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/) v4.3.0, defers rendering the related posts until the visitor is about to scroll them into view. The page is served without running the related posts query, and the list is fetched in the background via the REST API.
 
@@ -41,6 +44,8 @@ Use `lazy_load="1"` to lazy load a single shortcode while the global setting is 
 When lazy loading applies, CRP outputs a placeholder `<div class="crp_related crp-lazy-load">` carrying the post ID and an HMAC-signed copy of the display arguments. A small script watches the placeholder with an IntersectionObserver and, shortly before it enters the viewport, requests the rendered HTML from a REST endpoint (`contextual-related-posts/v1/posts/<id>/html`). The signature ensures the display arguments cannot be tampered with in transit.
 
 If the arguments payload is too large to round-trip safely, CRP falls back to rendering that instance inline.
+
+On TranslatePress sites, lazy-loaded lists are translated into the visitor's language from v4.5.0. See [Contextual Related Posts and Multilingual Sites](https://webberzone.com/support/knowledgebase/contextual-related-posts-multilingual/).
 
 ## Developer filters
 
