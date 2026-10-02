@@ -212,6 +212,16 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.1 =
+
+Release date: TBD
+
+**Fixed**
+
+* The deprecated `postid` argument was ignored, so `get_crp_posts()` returned posts related to the current post instead.
+* Missing FULLTEXT indexes were not recreated automatically on the free plugin, and the Tools status report showed the index schema as not installed.
+* [Pro] The Query Loop block ignored the deprecated `postid` query argument.
+
 = 4.5.0 =
 
 Release date: 2 October 2026

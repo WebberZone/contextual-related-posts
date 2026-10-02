@@ -64,7 +64,7 @@ class Display {
 		$args = Helpers::sanitize_args( $args );
 
 		// Set the post object like CRP_Core_Query::prepare_query_args().
-		$post_id = $args['post_id'] ?? $args['postid'] ?? null;
+		$post_id = ! empty( $args['post_id'] ) ? $args['post_id'] : ( $args['postid'] ?? null );
 
 		if ( ! empty( $post_id ) ) {
 			// Handle WP_Post object, int, or string.
