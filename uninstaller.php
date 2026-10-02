@@ -93,6 +93,13 @@ function crp_delete_data() {
 		delete_option( \WebberZone\Contextual_Related_Posts\Pro\Custom_Tables\Table_Manager::$db_version_option );
 	}
 
+	/**
+	 * Fires after the plugin data for the current site has been deleted on uninstall.
+	 *
+	 * On multisite this runs once per site.
+	 *
+	 * @since 3.5.0
+	 */
 	do_action( 'crp_delete_data' );
 }
 
