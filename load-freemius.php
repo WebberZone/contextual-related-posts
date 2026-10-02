@@ -73,6 +73,10 @@ if ( ! function_exists( __NAMESPACE__ . '\\crp_freemius' ) ) {
 
 	// Init Freemius.
 	crp_freemius();
-	// Signal that SDK was initiated.
+	/**
+	 * Fires after the Freemius SDK has been initialized.
+	 *
+	 * @since 3.5.0
+	 */
 	do_action( 'crp_freemius_loaded' );
 }
