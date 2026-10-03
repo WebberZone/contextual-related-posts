@@ -221,6 +221,7 @@ Release date: TBD
 * The deprecated `postid` argument was ignored, so `get_crp_posts()` returned posts related to the current post instead.
 * Missing FULLTEXT indexes were not recreated automatically on the free plugin, and the Tools status report showed the index schema as not installed.
 * [Pro] The Query Loop block ignored the deprecated `postid` query argument.
+* [Pro] The Featured Image block dropped its HTML anchor on WordPress 6.9.
 
 = 4.5.0 =
 
