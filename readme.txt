@@ -216,6 +216,10 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 Release date: TBD
 
+**Changed**
+
+* Updated Freemius SDK to the latest version.
+
 **Fixed**
 
 * The deprecated `postid` argument was ignored, so `get_crp_posts()` returned posts related to the current post instead.
