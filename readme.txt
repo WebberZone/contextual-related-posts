@@ -216,14 +216,11 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 Release date: TBD
 
-**Changed**
-
-* Updated Freemius SDK to the latest version.
-
 **Fixed**
 
+* Related-post queries used incomplete defaults and skipped caching before settings were saved.
 * The deprecated `postid` argument was ignored, so `get_crp_posts()` returned posts related to the current post instead.
-* Missing FULLTEXT indexes were not recreated automatically on the free plugin, and the Tools status report showed the index schema as not installed.
+* Missing FULLTEXT indexes were not restored automatically in the free plugin.
 * [Pro] The Query Loop block ignored the deprecated `postid` query argument.
 * [Pro] The Featured Image block dropped its HTML anchor on WordPress 6.9.
 
@@ -268,5 +265,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 4.5.0 =
-Adds minimum relevance filtering, diagnostic status reporting, optional Pro recency weighting and a standalone Advanced block. Fixes stale and multilingual output. Requires WordPress 6.9 or later.
+= 4.5.1 =
+Restores query defaults and caching before settings are saved, repairs missing indexes in Free, and fixes legacy post arguments and Pro image anchors.
