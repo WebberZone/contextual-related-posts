@@ -234,8 +234,10 @@ class CRP_Core_Query {
 			'post_id'          => false,
 		);
 		$caller_args = is_array( $args ) ? $args : wp_parse_args( $args );
-		$defaults    = array_merge( $defaults, $crp_settings );
-		$args        = wp_parse_args( $args, $defaults );
+		/** This filter is documented in includes/options-api.php */
+		$setting_defaults = apply_filters( 'crp_settings_defaults', \WebberZone\Contextual_Related_Posts\Admin\Settings::get_defaults() );
+		$defaults         = array_merge( $defaults, $setting_defaults, $crp_settings );
+		$args             = wp_parse_args( $args, $defaults );
 
 		// Set the source post.
 		$post_id = ! empty( $args['post_id'] ) ? $args['post_id'] : ( $args['postid'] ?? null );
