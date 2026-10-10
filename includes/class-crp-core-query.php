@@ -238,7 +238,7 @@ class CRP_Core_Query {
 		$args        = wp_parse_args( $args, $defaults );
 
 		// Set the source post.
-		$post_id = $args['post_id'] ?? $args['postid'] ?? null;
+		$post_id = ! empty( $args['post_id'] ) ? $args['post_id'] : ( $args['postid'] ?? null );
 
 		if ( ! empty( $post_id ) ) {
 			// Handle WP_Post object, int, or string.

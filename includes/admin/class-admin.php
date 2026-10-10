@@ -179,6 +179,7 @@ class Admin {
 	 */
 	public function hooks() {
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		Hook_Registry::add_action( 'admin_init', array( Db::class, 'maybe_heal_fulltext_indexes' ) );
 	}
 
 	/**

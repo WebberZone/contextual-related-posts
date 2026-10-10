@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.5.0
+Stable tag: 4.5.1
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -212,6 +212,17 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.1 =
+
+Release date: 10 October 2026
+
+**Fixed**
+
+* The deprecated `postid` argument was ignored, so `get_crp_posts()` returned posts related to the current post instead.
+* Missing FULLTEXT indexes were not recreated automatically on the free plugin, and the Tools status report showed the index schema as not installed.
+* [Pro] The Query Loop block ignored the deprecated `postid` query argument.
+* [Pro] The Featured Image block dropped its HTML anchor on WordPress 6.9.
+
 = 4.5.0 =
 
 Release date: 2 October 2026
@@ -253,5 +264,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 4.5.0 =
-Adds minimum relevance filtering, diagnostic status reporting, optional Pro recency weighting and a standalone Advanced block. Fixes stale and multilingual output. Requires WordPress 6.9 or later.
+= 4.5.1 =
+Restores correct related posts for legacy postid calls and automatic repair of missing FULLTEXT indexes in Free. Also fixes Pro Query Loop compatibility and Featured Image block anchors.
