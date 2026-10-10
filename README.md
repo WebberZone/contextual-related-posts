@@ -93,6 +93,11 @@ These integrations are new in 4.4.0 and marked experimental while they get real-
 
 [📖 WooCommerce Related Products Documentation](https://webberzone.com/support/knowledgebase/woocommerce-related-products/)
 
+#### FluentCart Integration
+
+* __Cart Recommendations__: Enable cart related products in the FluentCart settings tab to display native FluentCart product cards below the cart and checkout shortcodes or blocks. Recommendations use CRP relevance, exclude products already in the cart, and refresh when cart items or coupons change.
+* __Optional Cart Target__: Set a target in the store currency to recommend physical products within the remaining amount or half that amount, with a configurable price band. The target uses the discounted item subtotal and does not create a shipping rule. Leave it at zero for ordinary related products. Both CRP custom-table and standard post-table indexing are supported.
+
 ### WP-CLI Support
 
 Contextual Related Posts Pro includes comprehensive WP-CLI commands for advanced management and automation. Perfect for developers, agencies, and site administrators who need powerful command-line tools.

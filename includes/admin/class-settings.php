@@ -191,6 +191,10 @@ class Settings {
 			$settings_sections['woocommerce'] = __( 'WooCommerce', 'contextual-related-posts' );
 		}
 
+		if ( \crp_is_fluentcart_active() ) {
+			$settings_sections['fluentcart'] = __( 'FluentCart', 'contextual-related-posts' );
+		}
+
 		/**
 		 * Filter the array containing the settings' sections.
 		 *
@@ -235,6 +239,7 @@ class Settings {
 			'features_integration_header'    => '',
 			'enable_custom_tables'           => 1,
 			'enable_woocommerce'             => 1,
+			'enable_fluentcart'              => 1,
 			'list_general_header'            => '',
 			'add_to'                         => 'single,page',
 			'content_filter_priority'        => '999',
@@ -368,6 +373,15 @@ class Settings {
 			'wc_cart_upper_bound_pct'        => 20,
 			'wc_cart_heading'                => '',
 			'wc_cart_hook'                   => 'woocommerce_after_cart_table',
+			'fc_header'                      => '',
+			'fc_enable'                      => 1,
+			'fc_restrict_to_terms'           => 1,
+			'fc_exclude_out_of_stock'        => 0,
+			'fc_cart_enable'                 => 0,
+			'fc_cart_limit'                  => 4,
+			'fc_cart_target'                 => 0,
+			'fc_cart_upper_bound_pct'        => 20,
+			'fc_cart_heading'                => '',
 		);
 	}
 
@@ -1463,7 +1477,7 @@ class Settings {
 			'features_integration_header'    => array(
 				'id'   => 'features_integration_header',
 				'name' => '<h3>' . esc_html__( 'Integrations and storage', 'contextual-related-posts' ) . '</h3>',
-				'desc' => esc_html__( 'Control optional storage and WooCommerce integrations.', 'contextual-related-posts' ),
+				'desc' => esc_html__( 'Control optional storage, WooCommerce and FluentCart integrations.', 'contextual-related-posts' ),
 				'type' => 'header',
 			),
 			'enable_custom_tables'           => array(
@@ -1478,6 +1492,14 @@ class Settings {
 				'id'      => 'enable_woocommerce',
 				'name'    => esc_html__( 'WooCommerce integration', 'contextual-related-posts' ),
 				'desc'    => esc_html__( 'Loads related products and cart-related products integration when WooCommerce is active.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => 1,
+				'pro'     => true,
+			),
+			'enable_fluentcart'              => array(
+				'id'      => 'enable_fluentcart',
+				'name'    => esc_html__( 'FluentCart integration', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Loads related products and cart recommendations when FluentCart is active.', 'contextual-related-posts' ),
 				'type'    => 'checkbox',
 				'default' => 1,
 				'pro'     => true,
@@ -1737,6 +1759,125 @@ class Settings {
 		 * @param array $settings WooCommerce settings array
 		 */
 		return apply_filters( self::$prefix . '_settings_woocommerce', $settings );
+	}
+
+	/**
+	 * Retrieve the array of FluentCart settings
+	 *
+	 * @since 4.6.0
+	 *
+	 * @return array FluentCart settings array
+	 */
+	public static function settings_fluentcart() {
+		$settings = array(
+			'fc_header'               => array(
+				'id'   => 'fc_header',
+				'name' => '<h3>' . esc_html__( 'FluentCart Integration', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'CRP ranks the products in FluentCart\'s related products section: on the product page, the Related Products block, the shortcode and the product modal. FluentCart still controls whether the section shows, how many products it lists and how they look.', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
+			'fc_enable'               => array(
+				'id'      => 'fc_enable',
+				'name'    => esc_html__( 'Use CRP for related products', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Replace FluentCart\'s category and brand match with CRP\'s relevance-ranked results.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'fc_restrict_to_terms'    => array(
+				'id'      => 'fc_restrict_to_terms',
+				'name'    => esc_html__( 'Same category or brand only', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Only show products that share a category or brand with the current product. The Related Products block\'s own category and brand toggles still apply.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => true,
+				'pro'     => true,
+			),
+			'fc_exclude_out_of_stock' => array(
+				'id'      => 'fc_exclude_out_of_stock',
+				'name'    => esc_html__( 'Exclude out of stock products', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Hide products that FluentCart marks as out of stock.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
+			'fc_cart_header'          => array(
+				'id'   => 'fc_cart_header',
+				'name' => '<h3>' . esc_html__( 'Cart Related Products', 'contextual-related-posts' ) . '</h3>',
+				'desc' => esc_html__( 'Recommend available products based on the most expensive cart item. Products already in the cart are excluded. Works with the FluentCart cart and checkout blocks and shortcodes, with or without ECSI.', 'contextual-related-posts' ),
+				'type' => 'header',
+			),
+			'fc_cart_enable'          => array(
+				'id'      => 'fc_cart_enable',
+				'name'    => esc_html__( 'Enable cart related products', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Show recommendations after the FluentCart cart and checkout, and refresh them when the cart changes.', 'contextual-related-posts' ),
+				'type'    => 'checkbox',
+				'default' => false,
+				'pro'     => true,
+			),
+			'fc_cart_limit'           => array(
+				'id'      => 'fc_cart_limit',
+				'name'    => esc_html__( 'Number of cart related products', 'contextual-related-posts' ),
+				'type'    => 'number',
+				'default' => 4,
+				'min'     => 1,
+				'max'     => 12,
+				'size'    => 'small',
+				'pro'     => true,
+			),
+			'fc_cart_target'          => array(
+				'id'                => 'fc_cart_target',
+				'name'              => esc_html__( 'Cart target amount', 'contextual-related-posts' ),
+				'desc'              => esc_html__( 'Optional target in your store currency, such as your free shipping minimum. When set, recommend physical products priced near the remaining amount or half that amount, and hide the section once the discounted item subtotal reaches the target. Zero shows ordinary recommendations. This does not change shipping charges or create a free shipping rule.', 'contextual-related-posts' ),
+				'type'              => 'number',
+				'default'           => 0,
+				'min'               => 0,
+				'max'               => 1000000000,
+				'step'              => '0.01',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_fluentcart_cart_target' ),
+				'size'              => 'small',
+				'pro'               => true,
+			),
+			'fc_cart_upper_bound_pct' => array(
+				'id'      => 'fc_cart_upper_bound_pct',
+				'name'    => esc_html__( 'Price upper bound (%)', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Allow products up to this percentage above each price band. For a remaining amount of $20 and 20%, the bands are $20–$24 and $10–$12.', 'contextual-related-posts' ),
+				'type'    => 'number',
+				'default' => 20,
+				'min'     => 0,
+				'max'     => 200,
+				'size'    => 'small',
+				'pro'     => true,
+			),
+			'fc_cart_heading'         => array(
+				'id'      => 'fc_cart_heading',
+				'name'    => esc_html__( 'Cart section heading', 'contextual-related-posts' ),
+				'desc'    => esc_html__( 'Leave empty for Recommended products or the automatic remaining-target message.', 'contextual-related-posts' ),
+				'type'    => 'text',
+				'default' => '',
+				'size'    => 'regular',
+				'pro'     => true,
+			),
+		);
+
+		/**
+		 * Filters the FluentCart settings array
+		 *
+		 * @since 4.6.0
+		 *
+		 * @param array $settings FluentCart settings array
+		 */
+		return apply_filters( self::$prefix . '_settings_fluentcart', $settings );
+	}
+
+	/**
+	 * Sanitize the FluentCart cart target in store currency units.
+	 *
+	 * @since 4.6.0
+	 * @param mixed $value Submitted amount.
+	 * @return float Valid target.
+	 */
+	public static function sanitize_fluentcart_cart_target( $value ): float {
+		return is_numeric( $value ) ? round( min( 1000000000, max( 0, (float) $value ) ), 2 ) : 0.0;
 	}
 
 	/**

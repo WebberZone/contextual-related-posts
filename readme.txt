@@ -218,11 +218,8 @@ Release date: TBD
 
 **Fixed**
 
-* Related-post queries used incomplete defaults and skipped caching before settings were saved.
 * The deprecated `postid` argument was ignored, so `get_crp_posts()` returned posts related to the current post instead.
-* Missing FULLTEXT indexes were not restored automatically in the free plugin.
-* [Pro] The Query Loop block ignored the deprecated `postid` query argument.
-* [Pro] The Featured Image block dropped its HTML anchor on WordPress 6.9.
+* Missing FULLTEXT indexes were not recreated automatically on the free plugin, and the Tools status report showed the index schema as not installed.
 
 = 4.5.0 =
 
@@ -257,7 +254,6 @@ Release post: https://webberzone.com/announcements/contextual-related-posts-v4-5
 * Cached related posts remained stale after ranking settings changed or settings were reset.
 * Cached related posts remained stale after Quick Edit, Bulk Edit, scheduled publishing and other saves without the plugin's meta box.
 * Cached output could show another language's titles and links on WPML, Polylang and TranslatePress sites.
-* [Pro] Related post images had incorrect or duplicated dimensions, borders or shadows in Query Loop layouts.
 
 = Earlier versions =
 
@@ -265,5 +261,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 4.5.1 =
-Restores query defaults and caching before settings are saved, repairs missing indexes in Free, and fixes legacy post arguments and Pro image anchors.
+= 4.5.0 =
+Adds minimum relevance filtering, diagnostic status reporting, optional Pro recency weighting and a standalone Advanced block. Fixes stale and multilingual output. Requires WordPress 6.9 or later.
