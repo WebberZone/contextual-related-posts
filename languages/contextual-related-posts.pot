@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Contextual Related Posts 4.5.0\n"
+"Project-Id-Version: Contextual Related Posts 4.5.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/contextual-related-posts\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-02T18:30:06+00:00\n"
+"POT-Creation-Date: 2026-10-10T13:24:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: contextual-related-posts\n"
@@ -63,64 +63,64 @@ msgstr ""
 msgid "Contextual Related Posts: Post meta migration is required to keep your data compatible with the latest version. Please run the migration tool from the Tools page to update your database structure."
 msgstr ""
 
-#: includes/admin/class-admin.php:205
+#: includes/admin/class-admin.php:206
 msgid "Copied!"
 msgstr ""
 
-#: includes/admin/class-admin.php:206
+#: includes/admin/class-admin.php:207
 msgid "Copy to clipboard"
 msgstr ""
 
-#: includes/admin/class-admin.php:207
+#: includes/admin/class-admin.php:208
 msgid "Error copying to clipboard"
 msgstr ""
 
-#: includes/admin/class-admin.php:244
+#: includes/admin/class-admin.php:245
 msgid "Contextual Related Posts Pro - Buy now!"
 msgstr ""
 
-#: includes/admin/class-admin.php:247
+#: includes/admin/class-admin.php:248
 msgid "OR"
 msgstr ""
 
-#: includes/admin/class-admin.php:248
+#: includes/admin/class-admin.php:249
 msgid "Support the development - Send us a donation today."
 msgstr ""
 
-#: includes/admin/class-admin.php:279
+#: includes/admin/class-admin.php:280
 msgid "Contextual Related Posts quick links"
 msgstr ""
 
-#: includes/admin/class-admin.php:280
+#: includes/admin/class-admin.php:281
 msgid "Contextual Related Posts admin shortcuts"
 msgstr ""
 
-#: includes/admin/class-admin.php:281
+#: includes/admin/class-admin.php:282
 msgid "WebberZone Contextual Related Posts"
 msgstr ""
 
-#: includes/admin/class-admin.php:282
+#: includes/admin/class-admin.php:283
 msgid "Display related posts automatically on your site."
 msgstr ""
 
-#: includes/admin/class-admin.php:283
+#: includes/admin/class-admin.php:284
 msgid "Jump to your most-used Contextual Related Posts tools, manage content faster, and explore more WebberZone plugins."
 msgstr ""
 
-#: includes/admin/class-admin.php:287
+#: includes/admin/class-admin.php:288
 #: includes/admin/class-settings.php:1972
 #: includes/admin/class-settings.php:2036
 #: includes/admin/network/class-admin.php:81
 msgid "Settings"
 msgstr ""
 
-#: includes/admin/class-admin.php:293
+#: includes/admin/class-admin.php:294
 #: includes/admin/class-settings.php:2047
 #: includes/admin/network/class-tools-page.php:50
 msgid "Tools"
 msgstr ""
 
-#: includes/admin/class-admin.php:299
+#: includes/admin/class-admin.php:300
 msgid "WebberZone Plugins"
 msgstr ""
 
