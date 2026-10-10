@@ -97,11 +97,10 @@ This approach eliminates processing time during content retrieval, resulting in 
 ### Enable on a multisite network
 
 1. In Network Admin, go to **Contextual Related Posts → Settings** or **Better Search → Settings**
-2. Under the Performance settings section, select **Enable Enhanced Content Search Index on all sites**.
-3. Save settings
-4. Go to **Network Admin → Contextual Related Posts **→** Tools** or **Network Admin → Better Search **→** Tools**
-5. Select specific sites or leave all unchecked to process the entire network
-6. Click **Reindex Custom Tables**
+2. In the **Efficient Content Storage and Indexing (ECSI)** box, click **Enable on All Sites**. The change applies immediately.
+3. Go to **Network Admin → Contextual Related Posts → Tools** or **Network Admin → Better Search → Tools**
+4. Select specific sites or leave all unchecked to process the entire network
+5. Click **Reindex Custom Tables**
 
 > [!NOTE]
 > ⓘ The reindexing process runs in batches of 25 posts. For large sites, this may take several minutes.
