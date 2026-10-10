@@ -81,7 +81,7 @@ This system is ideal for:
 
 ### Precomputed taxonomy score
 
-CRP Pro v4.4.0 adds **Use precomputed taxonomy score** under the taxonomy weights. When [Enhanced Content Search Index](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/) is enabled, the taxonomy score is read from the indexed `tax_score` column instead of being calculated per query. That is faster, but live queries then ignore the per-taxonomy weights above.
+CRP Pro v4.4.0 adds **Use precomputed taxonomy score** under the taxonomy weights. When [Efficient Content Storage and Indexing](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/) is enabled, the taxonomy score is read from the indexed `tax_score` column instead of being calculated per query. That is faster, but live queries then ignore the per-taxonomy weights above.
 
 Leave it off if you still want those weights applied on every request.
 

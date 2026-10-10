@@ -97,7 +97,7 @@ This approach eliminates processing time during content retrieval, resulting in 
 ### Enable on a multisite network
 
 1. In Network Admin, go to **Contextual Related Posts → Settings** or **Better Search → Settings**
-2. Under the Performance settings section, select **Enable Enhanced Content Search Index on all sites**.
+2. Under the Performance settings section, select **Enable Efficient Content Storage and Indexing on all sites**.
 3. Save settings
 4. Go to **Network Admin → Contextual Related Posts **→** Tools** or **Network Admin → Better Search **→** Tools**
 5. Select specific sites or leave all unchecked to process the entire network
