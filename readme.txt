@@ -220,8 +220,6 @@ Release date: 10 October 2026
 
 * The deprecated `postid` argument was ignored, so `get_crp_posts()` returned posts related to the current post instead.
 * Missing FULLTEXT indexes were not recreated automatically on the free plugin, and the Tools status report showed the index schema as not installed.
-* [Pro] The Query Loop block ignored the deprecated `postid` query argument.
-* [Pro] The Featured Image block dropped its HTML anchor on WordPress 6.9.
 
 = 4.5.0 =
 
@@ -256,7 +254,6 @@ Release post: https://webberzone.com/announcements/contextual-related-posts-v4-5
 * Cached related posts remained stale after ranking settings changed or settings were reset.
 * Cached related posts remained stale after Quick Edit, Bulk Edit, scheduled publishing and other saves without the plugin's meta box.
 * Cached output could show another language's titles and links on WPML, Polylang and TranslatePress sites.
-* [Pro] Related post images had incorrect or duplicated dimensions, borders or shadows in Query Loop layouts.
 
 = Earlier versions =
 
