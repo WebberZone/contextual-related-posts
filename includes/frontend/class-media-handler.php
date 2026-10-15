@@ -598,7 +598,7 @@ class Media_Handler {
 		}
 
 		// Skip content scanning for very large posts to prevent memory exhaustion.
-		if ( strlen( $post->post_content ) > 50000 ) { // 50KB limit.
+		if ( strlen( $post->post_content ) > 50000 || post_password_required( $post ) ) { // 50KB limit.
 			$post_content = '';
 		} else {
 			/**
@@ -657,7 +657,7 @@ class Media_Handler {
 	 */
 	protected static function get_thumbnail_from_first_child( \WP_Post $post, array $args ): array {
 		$dimensions = self::get_thumb_size( $args['size'] );
-		$postimage  = self::get_first_image( $post->ID, $dimensions[0], $dimensions[1] );
+		$postimage  = post_password_required( $post ) ? '' : self::get_first_image( $post->ID, $dimensions[0], $dimensions[1] );
 
 		if ( ! $postimage ) {
 			return array(
@@ -848,6 +848,9 @@ class Media_Handler {
 		 * @param string $attachment_url Image URL.
 		 */
 		$attr = apply_filters( self::$prefix . '_get_image_attributes', $attr, $attachment_url );
+		if ( isset( $attr['src'] ) ) {
+			$attr['src'] = esc_url( $attr['src'] );
+		}
 		$attr = array_map( 'esc_attr', $attr );
 
 		// Construct the HTML img tag.
@@ -1150,7 +1153,7 @@ class Media_Handler {
 	public static function get_all_image_sizes( $size = '' ) {
 
 		if ( is_array( $size ) ) {
-			$size = self::get_appropriate_image_size( $size[0], $size[1] );
+			$size = self::get_appropriate_image_size( absint( $size[0] ?? 0 ), absint( $size[1] ?? 0 ) );
 		}
 
 		$sizes = wp_get_registered_image_subsizes();

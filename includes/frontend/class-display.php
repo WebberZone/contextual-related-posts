@@ -125,7 +125,7 @@ class Display {
 		}
 
 		// Support caching to speed up retrieval.
-		$meta_key = Cache::get_key( $args );
+		$meta_key = Cache::get_key( array_merge( $args, array( '_crp_output_version' => 2 ) ) );
 		if ( self::should_cache( $args ) ) {
 			$output = Cache::get_cache( $post->ID, $meta_key, 'html', $args );
 			if ( $output ) {
