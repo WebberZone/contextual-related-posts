@@ -50,6 +50,7 @@
         "build:vendor": "composer install --no-dev --optimize-autoloader --classmap-authoritative",
         "phpstan": "vendor/bin/phpstan analyse --memory-limit=2048M",
         "phpunit": "vendor/bin/phpunit --configuration phpunit.xml.dist",
+        "test:security": "vendor/bin/phpunit --configuration phpunit.xml.dist --filter 'Rendering_Security|Media_Security|REST_Password_Protection|Password_Renderers'",
         "phpstan-baseline": "vendor/bin/phpstan analyse --memory-limit=2048M --generate-baseline",
         "phpcs": "vendor/bin/phpcs -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",
         "phpcbf": "vendor/bin/phpcbf -p -v -s --standard=phpcs.xml.dist $(find . -name '*.php')",

@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.5.1
+Stable tag: 4.5.2
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -212,6 +212,19 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.2 =
+
+Release date: 15 October 2026
+
+**Security**
+
+* Prevented thumbnails from exposing images inside or attached to password-protected posts before the password was entered.
+* Hardened thumbnail URLs to reject unsafe protocols.
+
+**Fixed**
+
+* Malformed custom thumbnail dimensions caused PHP errors during image-size selection.
+
 = 4.5.1 =
 
 Release date: 10 October 2026
@@ -261,5 +274,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 4.5.1 =
-Restores correct related posts for legacy postid calls and automatic repair of missing FULLTEXT indexes in Free. Also fixes Pro Query Loop compatibility and Featured Image block anchors.
+= 4.5.2 =
+Security release. Prevents thumbnails from exposing images in password-protected posts and hardens thumbnail URLs. Also fixes errors with malformed thumbnail dimensions. Update recommended.
