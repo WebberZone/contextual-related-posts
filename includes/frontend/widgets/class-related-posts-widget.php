@@ -80,6 +80,7 @@ class Related_Posts_Widget extends \WP_Widget {
 		$orderings = Settings::get_orderings();
 
 		?>
+			<p><label><input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'archive_widget' ) ); ?>" <?php checked( ! empty( $instance['archive_widget'] ) ); ?> /> <?php esc_html_e( 'Show contextual posts on archives', 'contextual-related-posts' ); ?></label></p>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
 			<?php esc_html_e( 'Title', 'contextual-related-posts' ); ?>: <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
@@ -190,19 +191,20 @@ class Related_Posts_Widget extends \WP_Widget {
 	 * @return  array   Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance                  = $old_instance;
-		$instance                  = array();
-		$instance['title']         = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
-		$instance['limit']         = ( ! empty( $new_instance['limit'] ) ) ? intval( $new_instance['limit'] ) : '';
-		$instance['post_thumb_op'] = $new_instance['post_thumb_op'];
-		$instance['thumb_width']   = ( ! empty( $new_instance['thumb_width'] ) ) ? intval( $new_instance['thumb_width'] ) : '';
-		$instance['thumb_height']  = ( ! empty( $new_instance['thumb_height'] ) ) ? intval( $new_instance['thumb_height'] ) : '';
-		$instance['show_excerpt']  = isset( $new_instance['show_excerpt'] ) ? (bool) $new_instance['show_excerpt'] : false;
-		$instance['show_author']   = isset( $new_instance['show_author'] ) ? (bool) $new_instance['show_author'] : false;
-		$instance['show_date']     = isset( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;
-		$instance['offset']        = ( ! empty( $new_instance['offset'] ) ) ? intval( $new_instance['offset'] ) : '';
-		$instance['ordering']      = isset( $new_instance['ordering'] ) ? $new_instance['ordering'] : '';
-		$instance['random_order']  = isset( $new_instance['random_order'] ) ? (bool) $new_instance['random_order'] : false;
+		$instance                   = $old_instance;
+		$instance                   = array();
+		$instance['archive_widget'] = ! empty( $new_instance['archive_widget'] );
+		$instance['title']          = ( ! empty( $new_instance['title'] ) ) ? wp_strip_all_tags( $new_instance['title'] ) : '';
+		$instance['limit']          = ( ! empty( $new_instance['limit'] ) ) ? intval( $new_instance['limit'] ) : '';
+		$instance['post_thumb_op']  = $new_instance['post_thumb_op'];
+		$instance['thumb_width']    = ( ! empty( $new_instance['thumb_width'] ) ) ? intval( $new_instance['thumb_width'] ) : '';
+		$instance['thumb_height']   = ( ! empty( $new_instance['thumb_height'] ) ) ? intval( $new_instance['thumb_height'] ) : '';
+		$instance['show_excerpt']   = isset( $new_instance['show_excerpt'] ) ? (bool) $new_instance['show_excerpt'] : false;
+		$instance['show_author']    = isset( $new_instance['show_author'] ) ? (bool) $new_instance['show_author'] : false;
+		$instance['show_date']      = isset( $new_instance['show_date'] ) ? (bool) $new_instance['show_date'] : false;
+		$instance['offset']         = ( ! empty( $new_instance['offset'] ) ) ? intval( $new_instance['offset'] ) : '';
+		$instance['ordering']       = isset( $new_instance['ordering'] ) ? $new_instance['ordering'] : '';
+		$instance['random_order']   = isset( $new_instance['random_order'] ) ? (bool) $new_instance['random_order'] : false;
 
 		// Process post types to be selected.
 		$wp_post_types          = get_post_types(
@@ -251,6 +253,32 @@ class Related_Posts_Widget extends \WP_Widget {
 	 * @param   array $instance   Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
+		if ( is_archive() ) {
+			if ( empty( $instance['archive_widget'] ) ) {
+				return;
+			}
+			$overrides = array_filter(
+				$instance,
+				static function ( $value ) {
+					return '' !== $value && null !== $value;
+				}
+			);
+			$arguments = array_merge(
+				\WebberZone\Contextual_Related_Posts\Frontend\Display::get_default_args(),
+				$overrides,
+				array(
+					'is_widget' => true,
+					'heading'   => false,
+				)
+			);
+			$arguments = apply_filters( 'crp_widget_options', $arguments, $args, $instance, $this->id_base );
+			$output    = \WebberZone\Contextual_Related_Posts\Frontend\Archive_Posts::render( $arguments );
+			if ( '' !== $output ) {
+				$title = apply_filters( 'widget_title', ! empty( $instance['title'] ) ? $instance['title'] : __( 'You might also like', 'contextual-related-posts' ), $instance, $this->id_base );
+				echo $args['before_widget'] . $args['before_title'] . wp_kses_post( $title ) . $args['after_title'] . $output . $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			}
+			return;
+		}
 		global $post;
 
 		// Get the post meta.
