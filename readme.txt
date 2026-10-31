@@ -174,18 +174,6 @@ Contextual Related Posts is one of the many plugins developed by WebberZone. Che
 
 == Frequently Asked Questions ==
 
-= How do frequency-ranked keywords work? =
-
-Enable Frequency-ranked keywords under List tuning. It is off by default. When enabled, Contextual Related Posts strips markup and shortcodes, removes stopwords and picks the most frequent terms, reading at most the first 100,000 bytes of each post. The free version uses 20 terms per field; Pro lets you choose between 1 and 100.
-
-Pro also lets you add stopwords, restore words from the default stopword list, and exclude whole phrases globally or per post. A Keyword set in the post metabox overrides automatic extraction. Locale-specific stopword lists can be supplied through the `crp_keyword_locale` and `crp_keyword_stopwords_for_locale` filters.
-
-= How do I show related posts on archive pages? =
-
-Enable Show contextual posts on archives in the Related Posts widget. The list uses the current taxonomy, author, date or post type archive, respects your post types and exclusions, and omits unpublished and password-protected posts.
-
-Pro adds Taxonomy archive recommendations under List tuning. Enable it and select the category, tag or custom taxonomy archive locations under General. One list is shown after the main archive loop, ranked by the archive's term name, and replaces per-post automatic insertion on those pages. Archives whose posts never mention the term name show no list.
-
 Check out the [FAQ on the plugin page](https://wordpress.org/plugins/contextual-related-posts/faq/) or the [Knowledge Base](https://webberzone.com/support/product/contextual-related-posts/).
 
 If your question isn't listed here, please create a new post at the [WordPress.org support forum](https://wordpress.org/support/plugin/contextual-related-posts).
@@ -227,22 +215,6 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 = 4.5.3 =
 
 Release date: 31 October 2026
-
-**Added**
-
-* Frequency-ranked keyword extraction, off by default, which reads up to the first 100,000 bytes of a post instead of only its opening words.
-* Related Posts widget option to show posts from the current taxonomy, author, date or post type archive.
-* Automatic insertion on post type archives.
-* [Pro] Keyword controls: number of keywords, additional stopwords, restored default stopwords, and a keyword preview in the post editor.
-* [Pro] Global and per-post phrase exclusions, applied before keywords are extracted.
-* [Pro] Recommendations after the main loop on category, tag and custom taxonomy archives, ranked by the archive's term name.
-* [Pro] FluentCart related products ranked by Contextual Related Posts, with FluentCart's own matches as the fallback.
-* [Pro] FluentCart cart and checkout recommendations, with an optional cart target and price band.
-
-**Changed**
-
-* Split the Other archives insertion setting into separate custom taxonomy, author and date archive settings. Existing selections carry over.
-* Automatic related posts no longer appear on WooCommerce and FluentCart cart, checkout, receipt and account pages. Use `crp_exclude_automatic_on_commerce_page` to change this.
 
 **Fixed**
 
@@ -311,4 +283,4 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 == Upgrade Notice ==
 
 = 4.5.3 =
-Adds frequency-ranked keywords and archive lists, plus FluentCart related products and cart recommendations in Pro. Pro users with custom tables should reindex them from the Tools page after updating.
+Fixes PHP warnings and uncached related posts on sites that never saved the settings. Pro users with custom tables should reindex them from the Tools page after updating.

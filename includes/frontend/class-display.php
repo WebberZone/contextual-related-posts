@@ -163,36 +163,6 @@ class Display {
 			return $custom_template;
 		}
 
-		$output = self::render_results( $results, $args, $post );
-
-		// Support caching to speed up retrieval.
-		if ( self::should_cache( $args ) ) {
-			Cache::set_cache( $post->ID, $meta_key, $output, 0, 'html', $args );
-		}
-
-		/**
-		 * Filter the output
-		 *
-		 * @since   1.9.1
-		 *
-		 * @param   string  $output Formatted list of related posts.
-		 * @param   array   $args   Arguments array.
-		 */
-		return apply_filters( 'get_crp', $output, $args );
-	}
-
-
-	/**
-	 * Render a resolved list through the same presentation path on posts and archives.
-	 *
-	 * @since 4.5.3
-	 *
-	 * @param array    $results Resolved posts.
-	 * @param array    $args Display arguments.
-	 * @param \WP_Post $post Source context (ID 0 for archive lists).
-	 * @return string List markup.
-	 */
-	public static function render_results( array $results, array &$args, \WP_Post $post ): string {
 		if ( 'text_only' === $args['post_thumb_op'] || 'text_only' === $args['crp_styles'] ) {
 			$args['crp_styles']    = 'text_only';
 			$args['post_thumb_op'] = 'text_only';
@@ -305,7 +275,20 @@ class Display {
 
 		$output .= '</div>'; // Closing div of 'crp_related'.
 
-		return $output;
+		// Support caching to speed up retrieval.
+		if ( self::should_cache( $args ) ) {
+			Cache::set_cache( $post->ID, $meta_key, $output, 0, 'html', $args );
+		}
+
+		/**
+		 * Filter the output
+		 *
+		 * @since   1.9.1
+		 *
+		 * @param   string  $output Formatted list of related posts.
+		 * @param   array   $args   Arguments array.
+		 */
+		return apply_filters( 'get_crp', $output, $args );
 	}
 
 	/**
@@ -954,10 +937,6 @@ class Display {
 			return $content;
 		}
 
-		if ( Commerce_Pages::exclude_automatic_output( $post ) ) {
-			return $content;
-		}
-
 		// Check if this is the last call of the_content.
 		if ( doing_filter( 'the_content' ) && isset( $wp_filters['the_content'] ) && (int) $wp_filters['the_content'] !== $filter_calls ) {
 			return $content;
@@ -978,10 +957,6 @@ class Display {
 			return $content;
 		}
 
-		if ( is_archive() && apply_filters( 'crp_archive_replaces_content', false ) ) {
-			return $content;
-		}
-
 		$add_to = \crp_get_option( 'add_to', array( 'single', 'page' ) );
 		$add_to = wp_parse_list( $add_to );
 
@@ -992,10 +967,7 @@ class Display {
 			case is_home() && in_array( 'home', $add_to, true ):
 			case is_category() && in_array( 'category_archives', $add_to, true ):
 			case is_tag() && in_array( 'tag_archives', $add_to, true ):
-			case is_tax() && in_array( 'taxonomy_archives', $add_to, true ):
-			case is_author() && in_array( 'author_archives', $add_to, true ):
-			case is_date() && in_array( 'date_archives', $add_to, true ):
-			case is_post_type_archive() && in_array( 'post_type_archives', $add_to, true ):
+			case ( is_tax() || is_author() || is_date() ) && in_array( 'other_archives', $add_to, true ):
 				return self::generate_content( $content, self::related_posts() );
 			default:
 				return $content;

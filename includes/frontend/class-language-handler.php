@@ -28,7 +28,7 @@ class Language_Handler {
 	 */
 	public function __construct() {
 		Hook_Registry::add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		Hook_Registry::add_filter( 'crp_query_the_posts', array( $this, 'translate_ids' ), 999, 2 );
+		Hook_Registry::add_filter( 'crp_query_the_posts', array( $this, 'translate_ids' ), 999 );
 		Hook_Registry::add_filter( 'rest_pre_echo_response', array( $this, 'translate_rest_response' ), 10, 3 );
 	}
 
@@ -48,14 +48,13 @@ class Language_Handler {
 	 *
 	 * @since 3.5.0
 	 *
-	 * @param int[] $results Array of posts.
-	 * @param array $args Query arguments, including archive context.
+	 * @param  int[] $results Arry of Posts.
 	 * @return \WP_Post[] Updated array of WP_Post objects.
 	 */
-	public static function translate_ids( $results, $args = array() ) {
+	public static function translate_ids( $results ) {
 		global $post;
 
-		$processed_ids     = empty( $args['_crp_archive_context'] ) && ! empty( $post->ID ) ? array( $post->ID ) : array();
+		$processed_ids     = ! empty( $post->ID ) ? array( $post->ID ) : array();
 		$processed_results = array();
 
 		foreach ( $results as $result ) {
