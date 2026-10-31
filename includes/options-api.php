@@ -351,14 +351,3 @@ function crp_settings_reset() {
 function crp_is_woocommerce_active(): bool {
 	return class_exists( 'WooCommerce' );
 }
-
-/**
- * Check if FluentCart is active.
- *
- * @since 4.5.3
- *
- * @return bool
- */
-function crp_is_fluentcart_active(): bool {
-	return defined( 'FLUENTCART_VERSION' );
-}
