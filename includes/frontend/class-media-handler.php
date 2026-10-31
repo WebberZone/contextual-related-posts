@@ -551,17 +551,10 @@ class Media_Handler {
 	 * @return array{postimage: string, attachment_id: int, pick: string, extracted_alt: string}
 	 */
 	protected static function get_thumbnail_from_featured_image( \WP_Post $post, array $args ): array {
-		if ( false === get_post_thumbnail_id( $post->ID ) ) {
-			return array(
-				'postimage'     => '',
-				'attachment_id' => 0,
-				'pick'          => '',
-				'extracted_alt' => '',
-			);
-		}
+		$attachment_id = ( 'attachment' === $post->post_type ) ? $post->ID : (int) get_post_thumbnail_id( $post->ID );
 
-		$attachment_id = ( 'attachment' === $post->post_type ) ? $post->ID : get_post_thumbnail_id( $post->ID );
-		$postthumb     = wp_get_attachment_image_src( $attachment_id, $args['size'] );
+		// An ID of 0 makes wp_get_attachment_image_src() fall back to the global post, such as an attachment being viewed.
+		$postthumb = $attachment_id ? wp_get_attachment_image_src( $attachment_id, $args['size'] ) : false;
 
 		if ( false === $postthumb ) {
 			return array(
