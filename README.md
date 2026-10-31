@@ -93,6 +93,16 @@ These integrations are new in 4.4.0 and marked experimental while they get real-
 
 [📖 WooCommerce Related Products Documentation](https://webberzone.com/support/knowledgebase/woocommerce-related-products/)
 
+#### FluentCart Integration
+
+* __Related Products__: Rank FluentCart's native related-product displays with CRP. The requested count is a maximum: fewer products may appear when fewer text-relevant matches are available. If CRP finds no matches, FluentCart's native category and brand query remains as the fallback.
+* __Cart Recommendations__: Enable cart related products in the FluentCart settings tab to display native FluentCart product cards below the cart and checkout shortcodes or blocks. Recommendations use CRP relevance, exclude products already in the cart, and refresh when cart items or coupons change.
+* __Optional Cart Target__: Set a target in the store currency to recommend physical products within the remaining amount or half that amount, with a configurable price band. The target uses the discounted item subtotal and does not create a shipping rule. Leave it at zero for ordinary related products. Both CRP custom-table and standard post-table indexing are supported.
+* __Variation Selection__: Cart recommendations select an available, one-time variation. Target amounts are matched against eligible variations individually, and cards display the selected variation's price. Products requiring option selection link to that variation instead of adding an arbitrary default to the cart. These features work with FluentCart core whether FluentCart Pro is active or inactive.
+* __Custom Exclusions__: The `crp_fc_cart_excluded_product_ids` filter receives additional excluded product IDs, cart items, and the current device cart. It can suppress products offered by another recommendation system before ranking. Products already in the cart remain excluded. FluentCart Pro 1.8.0 has no public eligible-order-bump API, so automatic order-bump deduplication is not enabled; an integration must provide the relevant product IDs through this filter.
+
+Automatic related posts are suppressed on WooCommerce and FluentCart cart, checkout, receipt, and customer account pages. Detection uses configured page IDs and commerce shortcodes or blocks, including synced patterns, independently of the premium product integration settings. Dedicated product recommendations and explicitly placed CRP shortcodes or blocks remain available. Developers can override detection with `crp_exclude_automatic_on_commerce_page`.
+
 ### WP-CLI Support
 
 Contextual Related Posts Pro includes comprehensive WP-CLI commands for advanced management and automation. Perfect for developers, agencies, and site administrators who need powerful command-line tools.

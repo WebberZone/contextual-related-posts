@@ -141,6 +141,8 @@ final class Main {
 
 		// Load all hooks.
 		new Hook_Loader();
+		new Keyword_Extractor();
+		new Frontend\Archive_Posts();
 
 		// Initialize admin on init action to ensure translations are loaded.
 		add_action( 'init', array( $this, 'init_admin' ) );

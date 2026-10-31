@@ -27,6 +27,7 @@ class FeatureManagerTest extends WP_UnitTestCase {
 			'lazy_load'               => 'enable_lazy_load',
 			'custom_tables'           => 'enable_custom_tables',
 			'woocommerce'             => 'enable_woocommerce',
+			'fluentcart'              => 'enable_fluentcart',
 		);
 
 		$this->assertSame( array_keys( $expected ), array_keys( $features ) );

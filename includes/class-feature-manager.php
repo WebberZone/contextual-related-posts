@@ -99,6 +99,10 @@ class Feature_Manager {
 				'setting' => 'enable_woocommerce',
 				'default' => true,
 			),
+			'fluentcart'              => array(
+				'setting' => 'enable_fluentcart',
+				'default' => true,
+			),
 		);
 
 		/**
