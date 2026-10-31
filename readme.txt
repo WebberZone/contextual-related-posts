@@ -218,6 +218,7 @@ Release date: 1 November 2026
 
 **Fixed**
 
+* On attachment pages, and in search results that included an attachment, posts without a featured image used that attachment as their thumbnail.
 * On sites that had never saved the plugin settings, related posts from the REST API, Query Loop and `get_crp_posts()` raised PHP warnings and were not cached.
 
 = 4.5.2 =
