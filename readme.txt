@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.5.2
+Stable tag: 4.5.3
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -212,6 +212,14 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.3 =
+
+Release date: 31 October 2026
+
+**Fixed**
+
+* On sites that had never saved the plugin settings, related posts from the REST API, Query Loop and `get_crp_posts()` raised PHP warnings and were not cached.
+
 = 4.5.2 =
 
 Release date: 15 October 2026
@@ -274,5 +282,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 4.5.2 =
-Security release. Prevents thumbnails from exposing images in password-protected posts and hardens thumbnail URLs. Also fixes errors with malformed thumbnail dimensions. Update recommended.
+= 4.5.3 =
+Fixes PHP warnings and uncached related posts on sites that never saved the settings. Pro users with custom tables should reindex them from the Tools page after updating.
