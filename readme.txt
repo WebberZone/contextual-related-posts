@@ -214,7 +214,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 = 4.5.3 =
 
-Release date: 31 October 2026
+Release date: 1 November 2026
 
 **Fixed**
 
