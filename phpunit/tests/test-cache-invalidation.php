@@ -147,6 +147,7 @@ class CacheInvalidationTest extends WP_UnitTestCase {
 
 		$this->assertSame( 4, $this->cache_rows( $post_id ) );
 	}
+
 	public function test_related_posts_cache_is_cleared_on_save() {
 		$target  = self::factory()->post->create();
 		$post_id = self::factory()->post->create();
@@ -191,6 +192,7 @@ class CacheInvalidationTest extends WP_UnitTestCase {
 
 		$this->assertSame( 0, $this->cache_rows( $target ) );
 	}
+
 	public function test_oversized_batch_schedules_a_flush_instead_of_clearing_each_post() {
 		$target = self::factory()->post->create();
 		Cache::process_queue();
@@ -272,6 +274,7 @@ class CacheInvalidationTest extends WP_UnitTestCase {
 		$this->assertSame( 0, $this->cache_rows( $posts[1] ) );
 		$this->assertSame( 4, $this->cache_rows( $posts[2] ) );
 	}
+
 	public function test_ledger_is_written_for_an_anonymous_html_cacheable_request() {
 		crp_update_option( 'cache', 1 );
 		crp_update_option( 'cache_posts', 0 );
@@ -304,6 +307,7 @@ class CacheInvalidationTest extends WP_UnitTestCase {
 		$this->assertFalse( $query->should_cache_posts_list() );
 		unset( $_COOKIE[ 'wp-postpass_' . COOKIEHASH ] );
 	}
+
 	public function test_import_defers_a_single_flush_to_the_shutdown_drain() {
 		add_filter( 'crp_is_importing', '__return_true', 99 );
 		$this->stub_related( array() );

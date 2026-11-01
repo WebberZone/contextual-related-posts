@@ -22,6 +22,7 @@ class QueryDefaultsTest extends WP_UnitTestCase {
 		$this->assertSame( 604800, (int) $query->query_args['cache_time'] );
 		$this->assertFalse( get_option( 'crp_settings' ) );
 	}
+
 	public function test_saved_settings_and_caller_arguments_override_defaults() {
 		update_option( 'crp_settings', array( 'limit' => 3, 'cache_posts' => 0, 'same_post_type' => 1 ) );
 		$query = $this->query();
@@ -32,6 +33,7 @@ class QueryDefaultsTest extends WP_UnitTestCase {
 		$this->assertSame( 2, (int) $override->query_args['limit'] );
 		$this->assertTrue( $override->should_cache() );
 	}
+
 	public function test_default_post_cache_is_written_and_reused() {
 		delete_option( 'crp_settings' );
 		$source = self::factory()->post->create();
