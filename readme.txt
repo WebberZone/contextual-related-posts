@@ -285,3 +285,12 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 = 4.5.3 =
 Fixes PHP warnings and uncached related posts on sites that never saved the settings. Pro users with custom tables should reindex them from the Tools page after updating.
+
+= 4.5.2 =
+Security release. Prevents thumbnails from exposing images in password-protected posts and hardens thumbnail URLs. Also fixes errors with malformed thumbnail dimensions. Update recommended.
+
+= 4.5.1 =
+Restores correct related posts for legacy postid calls and automatic repair of missing FULLTEXT indexes in Free. Also fixes Pro Query Loop compatibility and Featured Image block anchors.
+
+= 4.5.0 =
+Adds minimum relevance filtering, diagnostic status reporting, optional Pro recency weighting and a standalone Advanced block. Fixes stale and multilingual output. Requires WordPress 6.9 or later.
