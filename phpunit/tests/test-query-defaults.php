@@ -22,13 +22,6 @@ class QueryDefaultsTest extends WP_UnitTestCase {
 		$this->assertSame( 604800, (int) $query->query_args['cache_time'] );
 		$this->assertFalse( get_option( 'crp_settings' ) );
 	}
-
-	public function test_empty_settings_use_defaults() {
-		update_option( 'crp_settings', array() );
-		$this->assertTrue( $this->query()->should_cache() );
-		$this->assertSame( array(), get_option( 'crp_settings' ) );
-	}
-
 	public function test_saved_settings_and_caller_arguments_override_defaults() {
 		update_option( 'crp_settings', array( 'limit' => 3, 'cache_posts' => 0, 'same_post_type' => 1 ) );
 		$query = $this->query();
@@ -39,23 +32,6 @@ class QueryDefaultsTest extends WP_UnitTestCase {
 		$this->assertSame( 2, (int) $override->query_args['limit'] );
 		$this->assertTrue( $override->should_cache() );
 	}
-
-	public function test_filtered_defaults_are_used_before_saved_settings() {
-		delete_option( 'crp_settings' );
-		$filter = static function ( $defaults ) {
-			$defaults['limit'] = 4;
-			return $defaults;
-		};
-		add_filter( 'crp_settings_defaults', $filter );
-		try {
-			$this->assertSame( 4, (int) $this->query()->query_args['limit'] );
-			update_option( 'crp_settings', array( 'limit' => 5 ) );
-			$this->assertSame( 5, (int) $this->query()->query_args['limit'] );
-		} finally {
-			remove_filter( 'crp_settings_defaults', $filter );
-		}
-	}
-
 	public function test_default_post_cache_is_written_and_reused() {
 		delete_option( 'crp_settings' );
 		$source = self::factory()->post->create();

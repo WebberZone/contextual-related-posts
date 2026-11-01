@@ -69,6 +69,17 @@ pnpm run zip             # Create distribution zip
 ncu -u && pnpm install   # Update dependencies to latest and reinstall
 ```
 
+## Unit tests
+
+Keep PHPUnit tests to a minimum. A test earns its place only if it would catch a regression that could ship unnoticed and hurt users:
+
+- security or privacy leaks, and abuse controls that cost money (rate limits, caps, bot refusal);
+- data loss or corruption (deletions, counts, imports, backups, migrations, multisite isolation);
+- stale or shared caches;
+- the primary output of a feature, with one representative test per behaviour.
+
+Do not add tests for wiring (hooks, routes, menus or assets registered), filters that only call `apply_filters`, "feature off does nothing", SQL text, query counts or private methods, or extra variants of a behaviour already covered. A bug fix extends an existing test or data provider rather than adding a new method, and only when the bug could plausibly recur.
+
 ## Distribution zip vendor invariant
 
 `build-zip.sh` excludes all of `vendor/` in its rsync block, then re-adds only the directories it names. **Any vendor directory reachable from a runtime `require` or the Composer autoloader must be re-added, or the shipped zip fatals** — this is not hypothetical; it shipped broken in `top-10` and `knowledgebase`.
