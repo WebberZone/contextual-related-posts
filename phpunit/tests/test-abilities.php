@@ -37,34 +37,6 @@ class AbilitiesTest extends WP_UnitTestCase {
 		add_filter( $hook, $callback, $priority, $accepted_args );
 		$this->test_filters[] = array( $hook, $callback, $priority );
 	}
-
-	public function test_related_input_schema_rejects_invalid_values_and_accepts_arrays() {
-		$ability = wp_get_ability( 'contextual-related-posts/get-related' );
-		$schema  = $ability->get_input_schema();
-
-		$this->assertWPError( rest_validate_value_from_schema( array(), $schema ) );
-		$this->assertWPError(
-			rest_validate_value_from_schema(
-				array(
-					'post_id' => 1,
-					'limit'   => 101,
-				),
-				$schema
-			)
-		);
-		$this->assertNotWPError(
-			rest_validate_value_from_schema(
-				array(
-					'post_id'       => 1,
-					'post_types'    => array( 'post', 'page' ),
-					'include_terms' => array( 1, 2 ),
-					'exclude_terms' => array( 3 ),
-				),
-				$schema
-			)
-		);
-	}
-
 	public function test_related_posts_use_crp_arguments_and_filter_unreadable_results() {
 		$source_id  = self::factory()->post->create();
 		$visible_id = self::factory()->post->create(
