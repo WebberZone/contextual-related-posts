@@ -44,6 +44,7 @@ class Test_CRP_Media_Security extends WP_UnitTestCase {
 	public function test_array_dimensions_are_validated_before_size_selection() {
 		$this->assertSame( Media_Handler::get_thumb_size( array( 150, 90 ) ), Media_Handler::get_thumb_size( array( '150" onerror="alert(1)', '90" onfocus="alert(1)' ) ) );
 	}
+
 	public function test_image_source_rejects_unsafe_protocols() {
 		$this->assertStringNotContainsString( 'javascript:', Media_Handler::get_image_html( 'javascript:alert(1)' ) );
 		$this->assertStringContainsString( 'https://example.org/safe.jpg', Media_Handler::get_image_html( 'https://example.org/safe.jpg' ) );

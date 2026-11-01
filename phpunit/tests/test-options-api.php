@@ -6,6 +6,7 @@ class OptionsApiTest extends WP_UnitTestCase {
 		delete_option( 'crp_settings' );
 		parent::tear_down();
 	}
+
 	public function test_update_option_recovers_from_a_non_array_setting() {
 		update_option( 'crp_settings', 'not-an-array' );
 
@@ -16,6 +17,7 @@ class OptionsApiTest extends WP_UnitTestCase {
 		$this->assertIsArray( $settings );
 		$this->assertSame( 1, $settings['cache'] );
 	}
+
 	public function test_delete_option_removes_an_existing_key() {
 		update_option(
 			'crp_settings',
