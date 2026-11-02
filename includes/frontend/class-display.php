@@ -63,6 +63,14 @@ class Display {
 		// Sanitize args.
 		$args = Helpers::sanitize_args( $args );
 
+		// Content (shortcode, block, builders) may not point thumbnails at protected meta other than the saved setting.
+		foreach ( array( 'thumb_meta', 'acf_field' ) as $meta_arg ) {
+			$saved = (string) crp_get_option( $meta_arg, '' );
+			if ( ! empty( $args[ $meta_arg ] ) && $saved !== $args[ $meta_arg ] && is_protected_meta( (string) $args[ $meta_arg ], 'post' ) ) {
+				$args[ $meta_arg ] = $saved;
+			}
+		}
+
 		// Set the post object like CRP_Core_Query::prepare_query_args().
 		$post_id = ! empty( $args['post_id'] ) ? $args['post_id'] : ( $args['postid'] ?? null );
 
@@ -80,6 +88,11 @@ class Display {
 		}
 
 		if ( ! $post instanceof \WP_Post ) {
+			return '';
+		}
+
+		// An explicitly chosen source feeds the heading and the match, so it must be one the viewer can read.
+		if ( ! empty( $post_id ) && ! self::can_use_source_post( $post ) ) {
 			return '';
 		}
 
@@ -125,7 +138,7 @@ class Display {
 		}
 
 		// Support caching to speed up retrieval.
-		$meta_key = Cache::get_key( array_merge( $args, array( '_crp_output_version' => 2 ) ) );
+		$meta_key = Cache::get_key( array_merge( $args, array( '_crp_output_version' => 3 ) ) );
 		if ( self::should_cache( $args ) ) {
 			$output = Cache::get_cache( $post->ID, $meta_key, 'html', $args );
 			if ( $output ) {
@@ -143,6 +156,17 @@ class Display {
 					'post_id' => isset( $args['post_id'] ) ? $args['post_id'] : $post->ID,
 				),
 				$args
+			)
+		);
+
+		// Drop anything a logged-out visitor could not read; the output is cached and shared.
+		$results = array_values(
+			array_filter(
+				(array) $results,
+				static function ( $result ) {
+					$result = get_post( $result );
+					return $result instanceof \WP_Post && 'revision' !== $result->post_type && is_post_publicly_viewable( $result );
+				}
 			)
 		);
 
@@ -402,6 +426,23 @@ class Display {
 	}
 
 	/**
+	 * Whether the current viewer may use a post as the source of a related posts list.
+	 *
+	 * @since 4.5.4
+	 *
+	 * @param \WP_Post $post Source post.
+	 * @return bool True if the post is publicly viewable or readable by the viewer.
+	 */
+	public static function can_use_source_post( \WP_Post $post ): bool {
+		// Revisions follow core's revisions endpoint: only users who can edit them may use them.
+		if ( 'revision' === $post->post_type ) {
+			return current_user_can( 'edit_post', $post->ID );
+		}
+
+		return is_post_publicly_viewable( $post ) || current_user_can( 'read_post', $post->ID );
+	}
+
+	/**
 	 * Check if the output should be cached.
 	 *
 	 * @since 3.5.0
@@ -518,7 +559,14 @@ class Display {
 			$output = wp_trim_words( $output, $excerpt_length, $more_link_element );
 		}
 
-		if ( post_password_required( $post ) ) {
+		// Revisions carry no password of their own, so check the parent post.
+		$password_post = $post;
+		$parent_id     = wp_is_post_revision( $post );
+		if ( $parent_id ) {
+			$password_post = get_post( $parent_id );
+		}
+
+		if ( ! $password_post || post_password_required( $password_post ) ) {
 			$output = __( 'There is no excerpt because this is a protected post.', 'contextual-related-posts' );
 		}
 
