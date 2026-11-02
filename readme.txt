@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.5.3
+Stable tag: 4.5.4
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -212,6 +212,15 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.4 =
+
+Release date: 2 November 2026
+
+**Security**
+
+* Hardened related posts so they include only published posts that visitors can view.
+* [Pro] Hardened the featured image REST endpoint and page builder attributes.
+
 = 4.5.3 =
 
 Release date: 1 November 2026
@@ -283,14 +292,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 4.5.3 =
-Fixes PHP warnings and uncached related posts on sites that never saved the settings. Pro users with custom tables should reindex them from the Tools page after updating.
-
-= 4.5.2 =
-Security release. Prevents thumbnails from exposing images in password-protected posts and hardens thumbnail URLs. Also fixes errors with malformed thumbnail dimensions. Update recommended.
-
-= 4.5.1 =
-Restores correct related posts for legacy postid calls and automatic repair of missing FULLTEXT indexes in Free. Also fixes Pro Query Loop compatibility and Featured Image block anchors.
-
-= 4.5.0 =
-Adds minimum relevance filtering, diagnostic status reporting, optional Pro recency weighting and a standalone Advanced block. Fixes stale and multilingual output. Requires WordPress 6.9 or later.
+= 4.5.4 =
+Security release. Update recommended.
