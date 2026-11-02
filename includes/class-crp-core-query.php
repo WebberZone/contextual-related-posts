@@ -322,12 +322,17 @@ class CRP_Core_Query {
 		$random_order       = ( $args['random_order'] || ( isset( $args['ordering'] ) && 'random' === $args['ordering'] ) ) ? true : false;
 		$this->random_order = $random_order;
 
+		// Restrict a caller-supplied post_type to public post types.
+		if ( ! empty( $args['post_type'] ) ) {
+			$args['post_type'] = Helpers::parse_post_types( $args['post_type'] );
+		}
+
 		if ( empty( $args['post_type'] ) ) {
 			$post_types = Helpers::parse_post_types( $args['post_types'] ?? '' );
 
 			// If we only want posts from the same post type.
 			if ( $args['same_post_type'] ) {
-				$post_types = (array) $this->source_post->post_type;
+				$post_types = Helpers::parse_post_types( $this->source_post->post_type );
 			}
 
 			/**
@@ -494,7 +499,7 @@ class CRP_Core_Query {
 		$args['meta_query'] = $meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 
 		// Set post_status.
-		$args['post_status'] = empty( $args['post_status'] ) ? array( 'publish', 'inherit' ) : $args['post_status'];
+		$args['post_status'] = Helpers::sanitize_post_status( $args['post_status'] ?? null );
 
 		// If posts_per_page was explicitly passed but limit was not, derive limit from posts_per_page.
 		// Skip negative values (e.g. -1 means "all posts" in WordPress) since limit is used for array_slice.
@@ -1590,6 +1595,14 @@ class CRP_Core_Query {
 
 		$posts = $this->unique_posts_by_id( $posts );
 		$posts = $this->filter_by_relevance( $posts );
+
+		// Drop posts visitors cannot view (e.g. attachments of drafts) before slicing, so lists stay full.
+		$posts = array_values(
+			array_filter(
+				$posts,
+				static fn( $post ) => 'revision' !== get_post_type( $post ) && is_post_publicly_viewable( $post )
+			)
+		);
 
 		$limit  = (int) $this->query_args['limit'];
 		$offset = $this->in_cache ? 0 : (int) $this->query_args['offset'];

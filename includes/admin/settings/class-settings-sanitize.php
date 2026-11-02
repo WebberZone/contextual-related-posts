@@ -175,7 +175,8 @@ class Settings_Sanitize {
 		$ids = array_filter( array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $value ) ) ) ) );
 
 		foreach ( $ids as $key => $value ) {
-			if ( false === get_post_status( $value ) ) {
+			// Drop missing posts, and posts the saving user cannot read (CLI and cron have no user).
+			if ( false === get_post_status( $value ) || ( is_user_logged_in() && ! current_user_can( 'read_post', $value ) ) ) {
 				unset( $ids[ $key ] );
 			}
 		}

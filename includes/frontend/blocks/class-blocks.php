@@ -70,6 +70,60 @@ class Blocks {
 
 
 	/**
+	 * Keep only the attributes declared by the block type.
+	 *
+	 * Core passes undeclared attributes through to the render callback unchanged, so
+	 * anything not in block.json must be dropped before it reaches the query.
+	 *
+	 * @since 4.5.4
+	 *
+	 * @param array  $attributes Block attributes.
+	 * @param string $block_name Block name.
+	 * @return array Declared attributes only.
+	 */
+	public static function filter_declared_attributes( array $attributes, string $block_name ): array {
+		$block_type = \WP_Block_Type_Registry::get_instance()->get_registered( $block_name );
+		$declared   = ( $block_type && is_array( $block_type->attributes ) ) ? $block_type->attributes : array();
+
+		return array_intersect_key( $attributes, $declared );
+	}
+
+	/**
+	 * Parse the `other_attributes` string against an allow-list of display and tuning keys.
+	 *
+	 * Mirrors the [crp] shortcode: only plugin settings keys and a few shortcode extras are
+	 * accepted. Query visibility keys such as post_status, post_type and perm are never kept.
+	 *
+	 * @since 4.5.4
+	 *
+	 * @param string $other_attributes Query-string formatted attributes.
+	 * @return array Allowed arguments.
+	 */
+	public static function parse_other_attributes( string $other_attributes ): array {
+		$parsed = wp_parse_args( $other_attributes );
+
+		$allowed = array_merge(
+			\crp_settings_defaults(),
+			array(
+				'heading'           => 1,
+				'offset'            => 0,
+				'include_cat_ids'   => '',
+				'include_post_ids'  => '',
+				'related_meta_keys' => '',
+				'include_words'     => '',
+				'manual_related'    => '',
+				'more_link_text'    => '',
+				'post_id'           => '',
+				'postid'            => '',
+			)
+		);
+
+		$blocked = array( 'post_status', 'post_type', 'perm', 'is_block', 'is_widget', 'is_shortcode', 'is_manual', 'echo' );
+
+		return array_diff_key( array_intersect_key( $parsed, $allowed ), array_flip( $blocked ) );
+	}
+
+	/**
 	 * Renders the `contextual-related-posts/related-posts` block on server.
 	 *
 	 * @since 3.5.0
@@ -78,6 +132,8 @@ class Blocks {
 	 * @return string Returns the post content with popular posts added.
 	 */
 	public static function render_block_related_posts( $attributes ) {
+
+		$attributes = self::filter_declared_attributes( (array) $attributes, 'contextual-related-posts/related-posts' );
 
 		$attributes['extra_class'] = isset( $attributes['className'] ) ? esc_attr( $attributes['className'] ) : '';
 
@@ -91,9 +147,10 @@ class Blocks {
 
 		$arguments = wp_parse_args( $attributes, $defaults );
 
-		if ( isset( $attributes['other_attributes'] ) ) {
-			$arguments = wp_parse_args( $attributes['other_attributes'], $arguments );
+		if ( ! empty( $attributes['other_attributes'] ) && is_string( $attributes['other_attributes'] ) ) {
+			$arguments = array_merge( $arguments, self::parse_other_attributes( $attributes['other_attributes'] ) );
 		}
+		$arguments['is_block'] = 1;
 
 		/**
 		 * Filters arguments passed to get_crp for the block.
