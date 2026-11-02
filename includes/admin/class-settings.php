@@ -78,9 +78,7 @@ class Settings {
 		Hook_Registry::add_filter( self::$prefix . '_after_setting_output', array( $this, 'display_admin_thumbnail' ), 10, 2 );
 		Hook_Registry::add_filter( self::$prefix . '_setting_field_description', array( $this, 'reset_default_thumb_setting' ), 10, 2 );
 
-		Hook_Registry::add_action( 'wp_ajax_nopriv_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
 		Hook_Registry::add_action( 'wp_ajax_' . self::$prefix . '_tag_search', array( $this, 'tags_search' ) );
-		Hook_Registry::add_action( 'wp_ajax_nopriv_' . self::$prefix . '_taxonomy_search_tom_select', array( __CLASS__, 'taxonomy_search_tom_select' ) );
 		Hook_Registry::add_action( 'wp_ajax_' . self::$prefix . '_taxonomy_search_tom_select', array( __CLASS__, 'taxonomy_search_tom_select' ) );
 
 		Hook_Registry::add_action( self::$prefix . '_settings_page_header', array( $this, 'settings_page_header' ) );

@@ -342,11 +342,64 @@ class Helpers {
 			parse_str( (string) $post_types, $parsed );
 		}
 
+		$public_types = get_post_types( array( 'public' => true ) );
+
 		if ( empty( $parsed ) || 'all' === $post_types ) {
-			$parsed = get_post_types( array( 'public' => true ) );
+			return $public_types;
 		}
 
-		return (array) $parsed;
+		// Keep only post types visitors can view, matching core's is_post_type_viewable().
+		$viewable = array_keys( array_filter( get_post_types(), 'is_post_type_viewable' ) );
+		$parsed   = array_values( array_intersect( array_map( 'strval', (array) $parsed ), $viewable ) );
+
+		if ( ! empty( $parsed ) ) {
+			return $parsed;
+		}
+
+		// Nothing valid was requested: fall back to the configured post types, not every public type.
+		$configured = \crp_get_option( 'post_types' );
+		if ( $configured !== $post_types && ! empty( $configured ) && 'all' !== $configured ) {
+			$configured = is_array( $configured ) ? $configured : ( false === strpos( $configured, '=' ) ? explode( ',', $configured ) : wp_parse_args( $configured ) );
+			$configured = array_values( array_intersect( array_map( 'strval', (array) $configured ), $viewable ) );
+			if ( ! empty( $configured ) ) {
+				return $configured;
+			}
+		}
+
+		return array( 'post' );
+	}
+
+	/**
+	 * Restrict a post_status argument to statuses that are safe to show on the front end.
+	 *
+	 * @since 4.5.4
+	 *
+	 * @param array|string|null $post_status Requested post status(es).
+	 * @return array Allowed post statuses. Defaults to publish and inherit.
+	 */
+	public static function sanitize_post_status( $post_status ): array {
+		$default = array( 'publish', 'inherit' );
+
+		if ( empty( $post_status ) ) {
+			return $default;
+		}
+
+		$allowed = array_merge( array_values( get_post_stati( array( 'public' => true ) ) ), array( 'inherit' ) );
+
+		/**
+		 * Filter the post statuses a related posts query may return.
+		 *
+		 * Statuses returned here are shown to every visitor and stored in the shared cache.
+		 *
+		 * @since 4.5.4
+		 *
+		 * @param string[] $allowed Allowed post statuses. Default public statuses plus inherit.
+		 */
+		$allowed = (array) apply_filters( 'crp_allowed_post_statuses', $allowed );
+
+		$post_status = array_values( array_intersect( wp_parse_list( $post_status ), $allowed ) );
+
+		return empty( $post_status ) ? $default : $post_status;
 	}
 
 	/**
