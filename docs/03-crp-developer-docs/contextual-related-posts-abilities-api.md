@@ -42,7 +42,7 @@ The input accepts these properties:
 | Property | Type | Required | Description |
 | --- | --- | --- | --- |
 | `post_id` | Integer | Yes | ID of the source post. The current user must be allowed to read it. |
-| `limit` | Integer | No | Maximum number of results. Defaults to `6`; accepted values are `1`–`100`. |
+| `limit` | Integer | No | Maximum number of results. Defaults to `6`; accepted values are `1` to `100`. |
 | `post_types` | String array | No | Post type names to include in the search. |
 | `include_terms` | Integer array | No | Term taxonomy IDs that results must match. |
 | `exclude_terms` | Integer array | No | Term taxonomy IDs to exclude from the results. |

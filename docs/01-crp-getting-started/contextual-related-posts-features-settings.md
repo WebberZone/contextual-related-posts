@@ -1,6 +1,6 @@
 ---
 slug: contextual-related-posts-features-settings
-title: "Contextual Related Posts Settings – Features"
+title: "Contextual Related Posts Settings: Features"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, features, settings]
@@ -93,7 +93,7 @@ Three of the Pro toggles control whether a module is *loaded*, not whether its b
 | Lazy load module | Lazy load related posts | Performance tab |
 | Custom tables module | Use Custom Tables | Performance tab |
 
-The WooCommerce toggle has no separate behavior setting — the integration runs whenever WooCommerce is active and the module is loaded.
+The WooCommerce toggle has no separate behavior setting: the integration runs whenever WooCommerce is active and the module is loaded.
 
 Leave the module toggle on unless you are certain you will never use the feature. Turning the module off while its behavior setting is on means the behavior stops working.
 
@@ -117,5 +117,5 @@ add_filter(
 
 ## See also
 
-- [Contextual Related Posts Settings – General](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/)
-- [Contextual Related Posts Settings – Performance](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/)
+- [Contextual Related Posts Settings: General](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/)
+- [Contextual Related Posts Settings: Performance](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/)

@@ -1,12 +1,15 @@
 ---
 slug: contextual-related-posts-settings-tools
-title: "Contextual Related Posts Settings – Tools"
+title: "Contextual Related Posts Settings: Tools"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, tools-page]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 The Tools page in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) provides a set of utilities to help you manage, troubleshoot, and optimize the plugin’s performance and data. You can access this via **Tools > Related Posts Tools** in your WordPress admin area.
 

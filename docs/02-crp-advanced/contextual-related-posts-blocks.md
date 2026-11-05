@@ -37,13 +37,15 @@ The Related Posts block lets you preview the related posts directly in the block
 | Thumbnail option | Dropdown | This provides four self-explanatory options. “Before title”, “After title”, “Only thumbnail, “Only text”. |
 | Order posts | Radio selector | Choose between ordering the posts by relevance, randomly or by date. This option directly modifies the related posts SQL query. Selecting random above will randomize the posts that are fetched from the database. This option will not take effect if you Cache the HTML output on the settings page. |
 | Randomize posts | Toggle (ON/OFF) | Shuffle the related posts on each page load. This option will not take effect if you Cache the HTML output on the settings page. |
-| Other attributes | Textarea field | Enter other attributes in a URL-style string-query. It supports any of the plugin’s global settings, e.g. post_types=post,page&link_nofollow=1&exclude_post_ids=5,6. |
+| Other attributes | Textarea field | Enter other attributes in a URL-style string-query. It accepts supported plugin settings and display attributes, for example `post_types=post,page&link_nofollow=1&exclude_post_ids=5,6`. Query visibility keys such as `post_status`, `post_type`, and `perm`, output-context flags, and unknown keys are ignored. Use `post_types` for a post-type selection. |
+
+The basic block renderer accepts only attributes declared by its registered block type. Adding undeclared attributes to the saved block markup does not pass them through to the related-post query.
 
 ### Pro settings for the Related Posts block
 
 Contextual Related Posts Pro users will see an additional section in the block settings sidebar that allows them to save the existing block settings as default or clear the defaults.
 
-Pro users also get a **Keyword** field in the block sidebar. Enter a word or phrase here and the plugin uses it instead of the current post's title and content to find related posts — the same behavior as the Keyword field in the post-edit metabox.
+Pro users also get a **Keyword** field in the block sidebar. Enter a word or phrase here and the plugin uses it instead of the current post's title and content to find related posts: the same behavior as the Keyword field in the post-edit metabox.
 
 ## Contextual Related Posts Query Loop block
 
@@ -58,8 +60,8 @@ The Query Loop block allows you to customize the query that will be used to retr
 - **Offset**: Set the number of posts to skip from the beginning of the results.
 - **Order By**: Choose how the results should be sorted (e.g., relevance, date, title, author, etc.).
 - **Order**: Toggle between Ascending and Descending.
-- **Filters – Taxonomy**: Filter the results by specific taxonomies (e.g., category, tag).
-- **Filters – Authors**: Filter the results by specific authors.
+- **Filters: Taxonomy**: Filter the results by specific taxonomies (e.g., category, tag).
+- **Filters: Authors**: Filter the results by specific authors.
 - **Keyword**: Enter a word or phrase to find related posts using that keyword instead of the current post's title and content.
 - **Post Meta Query**: Filter the results by one or more custom field values. See below.
 
@@ -67,13 +69,13 @@ The Query Loop block allows you to customize the query that will be used to retr
 
 The **Post Meta Query** panel filters related posts by custom field values. Each row has three parts:
 
-- **Meta Key** — chosen from the meta keys registered for the selected post type, including Advanced Custom Fields keys.
-- **Meta Value** — the value to compare against.
-- **Meta Compare** — the comparison operator: `=`, `!=`, `>`, `>=`, `<`, `<=`, `LIKE`, `NOT LIKE`, `IN`, `NOT IN`, `BETWEEN`, `NOT BETWEEN`, `EXISTS`, `NOT EXISTS`, `REGEXP`, `NOT REGEXP`, and `RLIKE`.
+- **Meta Key**: chosen from the meta keys registered for the selected post type, including Advanced Custom Fields keys.
+- **Meta Value**: the value to compare against.
+- **Meta Compare**: the comparison operator: `=`, `!=`, `>`, `>=`, `<`, `<=`, `LIKE`, `NOT LIKE`, `IN`, `NOT IN`, `BETWEEN`, `NOT BETWEEN`, `EXISTS`, `NOT EXISTS`, `REGEXP`, `NOT REGEXP`, and `RLIKE`.
 
 Add more rows to build a compound filter. With two or more rows, a **Query Relationship** selector appears so you can join them with `AND` or `OR`. Changing the post type clears the meta query, since the available keys differ per post type.
 
-The preview inside the block editor is generated over the REST API and applies the same permission rules WordPress applies elsewhere. For anyone who is not an administrator, the preview only filters on meta keys that are registered, exposed to the REST API, not protected (keys beginning with an underscore), and editable by that user on the source post. Keys that fail those checks are dropped from the preview query. Administrators see the preview unfiltered. Front-end rendering is unaffected — this applies to the editor preview only.
+The preview inside the block editor is generated over the REST API and applies the same permission rules WordPress applies elsewhere. For anyone who is not an administrator, the preview only filters on meta keys that are registered, exposed to the REST API, not protected (keys beginning with an underscore), and editable by that user on the source post. Keys that fail those checks are dropped from the preview query. Administrators see the preview unfiltered. Front-end rendering is unaffected: this applies to the editor preview only.
 
 ### 2. Customize the layout
 
@@ -112,6 +114,8 @@ If a featured image is not explicitly set for a post, the plugin will automatic
 
 This feature ensures that your popular posts always have visually appealing featured images, even if a featured image hasn’t been set.
 
+The featured-image editor preview requires permission to edit posts and access to the requested post. Revisions require permission to edit that revision. For users without `manage_options`, a custom image meta key must be registered, exposed through REST, unprotected, and editable by that user on the requested post. Keys that fail those checks are ignored in the preview.
+
 ## Related Posts Advanced block *(Pro only)*
 
 The Advanced block is a separate block from the Query Loop variation. Choose it when you want a related-posts query with a card template you can edit directly. You can insert it in post content or a block theme template, including a template part used for a sidebar or footer.
@@ -120,12 +124,12 @@ The Advanced block is a separate block from the Query Loop variation. Choose it 
 
 When you insert an empty Advanced block, choose one of its six starting patterns:
 
-- **Text list** — linked titles in a simple list.
-- **Small image beside title** — a compact image and title layout.
-- **Image above title** — a card grid with an image above each title.
-- **Image, title and excerpt** — cards with an image, title, date, and excerpt.
-- **Horizontal image and text** — an image beside the title, date, and excerpt.
-- **Rounded thumbnails** — round images beside linked titles.
+- **Text list**: linked titles in a simple list.
+- **Small image beside title**: a compact image and title layout.
+- **Image above title**: a card grid with an image above each title.
+- **Image, title and excerpt**: cards with an image, title, date, and excerpt.
+- **Horizontal image and text**: an image beside the title, date, and excerpt.
+- **Rounded thumbnails**: round images beside linked titles.
 
 Use **Change pattern** in the block toolbar or Layout controls to replace the card layout. The block keeps its source, query settings, heading, and empty-state content. The change can be undone in the editor.
 
@@ -147,7 +151,7 @@ The Related Post Image block uses the image fallback settings from Contextual Re
 
 ### Choose the source and preview
 
-The block uses the current post when it has a post context, such as in a single post or a Query Loop item. Choose **Specific post** to keep a fixed source post, which can be useful in a sidebar or footer that has no current-post context. In the editor, **Preview with post** lets you preview results when the editor has no source post.
+The block uses the current post when it has a post context, such as in a single post or a Query Loop item. An explicitly selected source must be publicly viewable or readable by the current viewer. An unreadable source produces no related-post output. Choose **Specific post** to keep a fixed source post, which can be useful in a sidebar or footer that has no current-post context. In the editor, **Preview with post** lets you preview results when the editor has no source post.
 
 The live editor preview uses the Contextual Related Posts REST API. Keep **REST API endpoints** enabled on the [Features settings tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-features-settings/) to load related results in the editor. If the API is disabled, the block remains editable but shows a design preview instead of live results.
 

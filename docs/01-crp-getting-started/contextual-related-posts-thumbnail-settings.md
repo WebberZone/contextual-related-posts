@@ -1,6 +1,6 @@
 ---
 slug: contextual-related-posts-thumbnail-settings
-title: "Contextual Related Posts Settings – Thumbnail"
+title: "Contextual Related Posts Settings: Thumbnail"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]
@@ -61,6 +61,8 @@ The value of this field should contain the URL of the image and can be set in th
 ## ACF field name *(Pro only)*
 
 If you use [Advanced Custom Fields (ACF)](https://www.advancedcustomfields.com/), enter the ACF field name that contains the thumbnail image. Supports Image Array, Image ID, Image URL, and Text field return formats. This is checked after the standard thumbnail meta field above.
+
+Shortcodes, blocks, and page builders cannot select a different protected thumbnail or ACF meta key. Such an override falls back to the key saved in the plugin settings. This does not prevent an administrator from configuring the intended protected key in the settings.
 
 ## Get the first image
 

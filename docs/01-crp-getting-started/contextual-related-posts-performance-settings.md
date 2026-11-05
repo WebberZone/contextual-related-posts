@@ -1,6 +1,6 @@
 ---
 slug: contextual-related-posts-performance-settings
-title: "Contextual Related Posts Settings – Performance"
+title: "Contextual Related Posts Settings: Performance"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, performance, settings]

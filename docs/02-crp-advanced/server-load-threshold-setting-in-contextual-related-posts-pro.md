@@ -6,7 +6,10 @@ sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, pro, settings]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 The **Server Load Threshold** setting was introduced in [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) Pro v4.2.0 and exists for one simple reason: your database should stay responsive, even when traffic spikes.
 
@@ -51,21 +54,21 @@ There is no perfect number. The right threshold depends on how much CPU your dat
 
 Shared hosting is unpredictable and usually constrained.
 
-Start with **10–15**. A lower value reduces the risk of slow pages or provider throttling.
+Start with **10 to 15**. A lower value reduces the risk of slow pages or provider throttling.
 
 ### VPS Hosting
 
 For VPS environments, CPU cores are a useful guide:
 
-- **1–2 cores**: 8–12
-- **2–4 cores**: 15–20
-- **4–8 cores**: 20–30
+- **1 to 2 cores**: 8 to 12
+- **2 to 4 cores**: 15 to 20
+- **4 to 8 cores**: 20 to 30
 
 A practical rule of thumb is roughly **twice your CPU core count**.
 
 ### Dedicated Servers
 
-Dedicated servers with plenty of CPU headroom can safely use higher values, typically **30–50** or more, depending on workload.
+Dedicated servers with plenty of CPU headroom can safely use higher values, typically **30 to 50** or more, depending on workload.
 
 If you’re unsure, leave the threshold at **15**. It works well for most WordPress sites and errs on the side of caution.
 

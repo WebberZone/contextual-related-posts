@@ -183,7 +183,7 @@ The WooCommerce integration works alongside:
 
 When enabled, CRP displays a section on the WooCommerce cart page showing products the customer could add to reach the free shipping threshold. The section only appears when the cart subtotal is below the free shipping minimum for the customer's shipping zone.
 
-CRP uses the most expensive item in the cart as the relevance anchor and filters candidates to a configurable price band around the remaining gap — so the suggestions are both contextually related and priced to close the gap.
+CRP uses the most expensive item in the cart as the relevance anchor and filters candidates to a configurable price band around the remaining gap, so the suggestions are both contextually related and priced to close the gap.
 
 ### Enabling cart related products
 
@@ -196,20 +196,20 @@ The base WooCommerce integration must also be enabled.
 
 ### Cart settings
 
-**Enable cart related products** — Displays the cart section when the cart subtotal is below the free shipping minimum. Disabled by default.
+**Enable cart related products**: Displays the cart section when the cart subtotal is below the free shipping minimum. Disabled by default.
 
-**Number of cart related products** — Maximum number of products to show. Default: `4`.
+**Number of cart related products**: Maximum number of products to show. Default: `4`.
 
-**Price upper bound (%)** — Controls the width of each price band. CRP queries both a full-gap band and a half-gap band; this percentage widens both. Example: gap = $20, upper bound = 20% → full-gap band covers $20–$24, half-gap band covers $10–$12. Default: `20`. Range: 0–200.
+**Price upper bound (%)**: Controls the width of each price band. CRP queries both a full-gap band and a half-gap band; this percentage widens both. Example: gap = $20, upper bound = 20% → full-gap band covers $20 to $24, half-gap band covers $10 to $12. Default: `20`. Range: 0 to 200.
 
-**Cart section heading** — Heading text displayed above the cart section. Leave empty to use the automatic "Add $X more for free shipping" message, where $X is the remaining gap formatted in the store currency. Default: empty.
+**Cart section heading**: Heading text displayed above the cart section. Leave empty to use the automatic "Add $X more for free shipping" message, where $X is the remaining gap formatted in the store currency. Default: empty.
 
-**Cart display position** — The WooCommerce action hook where the section is injected on the classic cart page. Options:
+**Cart display position**: The WooCommerce action hook where the section is injected on the classic cart page. Options:
 
-- **After cart table** (default) — `woocommerce_after_cart_table`
-- **Before cart collaterals** — `woocommerce_before_cart_collaterals`
-- **Cart collaterals (sidebar)** — `woocommerce_cart_collaterals`
-- **After cart section** — `woocommerce_after_cart`
+- **After cart table** (default): `woocommerce_after_cart_table`
+- **Before cart collaterals**: `woocommerce_before_cart_collaterals`
+- **Cart collaterals (sidebar)**: `woocommerce_cart_collaterals`
+- **After cart section**: `woocommerce_after_cart`
 
 ### How cart matching works
 
@@ -221,14 +221,14 @@ The most expensive product in the cart is used as the relevance anchor for CRP's
 
 CRP queries two price bands and mixes the results:
 
-- **Full-gap band** — products priced between the remaining gap and `gap × (1 + upper bound %)`. One product from this band closes the gap alone.
-- **Half-gap band** — products priced between half the gap and `(gap / 2) × (1 + upper bound %)`. Two products from this band together close the gap.
+- **Full-gap band**: products priced between the remaining gap and `gap × (1 + upper bound %)`. One product from this band closes the gap alone.
+- **Half-gap band**: products priced between half the gap and `(gap / 2) × (1 + upper bound %)`. Two products from this band together close the gap.
 
 The majority of slots go to full-gap products (so that a single item always closes the gap when the limit is 1), with the remainder filled from the half-gap band. Any unfilled slots are topped up from whichever band has leftover candidates. The final list is shuffled before display so the order varies between page loads.
 
 ### Filters
 
-**[`crp_wc_free_shipping_threshold`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_free_shipping_threshold/)** — Override the resolved threshold for stores with custom shipping logic.
+**[`crp_wc_free_shipping_threshold`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_free_shipping_threshold/)**: Override the resolved threshold for stores with custom shipping logic.
 
 ```php
 add_filter( 'crp_wc_free_shipping_threshold', function( float $threshold ): float {
@@ -236,7 +236,7 @@ add_filter( 'crp_wc_free_shipping_threshold', function( float $threshold ): floa
 } );
 ```
 
-**[`crp_wc_cart_related_products_query_args`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_query_args/)** — Modify the query arguments before the cart product query runs.
+**[`crp_wc_cart_related_products_query_args`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_query_args/)**: Modify the query arguments before the cart product query runs.
 
 ```php
 /**
@@ -256,7 +256,7 @@ add_filter( 'crp_wc_cart_related_products_query_args', function( array $query_ar
 }, 10, 4 );
 ```
 
-**[`crp_wc_cart_related_products_heading`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_heading/)** — Customize the heading text after it has been resolved.
+**[`crp_wc_cart_related_products_heading`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_heading/)**: Customize the heading text after it has been resolved.
 
 ```php
 /**
@@ -269,7 +269,7 @@ add_filter( 'crp_wc_cart_related_products_heading', function( string $heading, f
 }, 10, 3 );
 ```
 
-**[`crp_wc_cart_related_products_html`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_html/)** — Filter or replace the complete cart section HTML before it is output.
+**[`crp_wc_cart_related_products_html`](https://webberzone.dev/contextual-related-posts/hooks/crp_wc_cart_related_products_html/)**: Filter or replace the complete cart section HTML before it is output.
 
 ```php
 /**
@@ -284,7 +284,7 @@ add_filter( 'crp_wc_cart_related_products_html', function( string $output, float
 
 ### Styling
 
-The cart section is wrapped in `<section class="crp-cart-related-products crp-cart-position-{position}">`, where `{position}` reflects the chosen cart display position — for example `crp-cart-position-after_cart_table` or `crp-cart-position-cart_collaterals`. CRP injects scoped inline styles on the cart page to normalize image sizes, apply responsive grid layouts per position, and ensure add-to-cart buttons remain visible.
+The cart section is wrapped in `<section class="crp-cart-related-products crp-cart-position-{position}">`, where `{position}` reflects the chosen cart display position: for example `crp-cart-position-after_cart_table` or `crp-cart-position-cart_collaterals`. CRP injects scoped inline styles on the cart page to normalize image sizes, apply responsive grid layouts per position, and ensure add-to-cart buttons remain visible.
 
 Target `.crp-cart-related-products` in your theme CSS to override defaults, or use the position-specific class (`.crp-cart-position-after_cart_table`, `.crp-cart-position-cart_collaterals`, etc.) to apply overrides only for a particular cart hook.
 
@@ -380,7 +380,7 @@ add_filter( 'crp_wc_related_products_html', function( $output, $product_ids, $so
 ## Frequently asked questions
 
 **Why aren't cart related products showing?**
-The section only appears when all of the following are true: the base WooCommerce integration is enabled, the cart feature is enabled, the customer is on the cart page, and the cart subtotal is below the free shipping threshold for their zone. If no free shipping method is configured in WooCommerce, or if the cart total already meets the threshold, the section is suppressed. CRP searches two price bands (full-gap and half-gap), so products from either band qualify. If **Price upper bound (%)** is set very low and your catalog has limited price points near the gap, neither band may return results — try raising the percentage.
+The section only appears when all of the following are true: the base WooCommerce integration is enabled, the cart feature is enabled, the customer is on the cart page, and the cart subtotal is below the free shipping threshold for their zone. If no free shipping method is configured in WooCommerce, or if the cart total already meets the threshold, the section is suppressed. CRP searches two price bands (full-gap and half-gap), so products from either band qualify. If **Price upper bound (%)** is set very low and your catalog has limited price points near the gap, neither band may return results: try raising the percentage.
 
 **Does this work with product variations?**
 Variations are indexed through their parent product, and recommendations link to the main product page. Individual product variations will not appear as related products.

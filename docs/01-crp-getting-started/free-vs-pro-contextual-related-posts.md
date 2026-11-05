@@ -29,7 +29,7 @@ Contextual Related Posts is free to use and packed with features right out of th
 | **Caching & Performance** |  |  |
 | [Automatic query caching](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/) | ✅ | ✅ |
 | [Clear cache on post trash/restore](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/) | ✅ | ✅ |
-| [Configurable cache TTL (1 hour – 1 year)](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/) | ❌ | ✅ |
+| [Configurable cache TTL (1 hour: 1 year)](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/) | ❌ | ✅ |
 | [High-performance custom database tables](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/) | ❌ | ✅ |
 | [Server load threshold](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/) | ❌ | ✅ |
 | MySQL `MAX_EXECUTION_TIME` query guard | ❌ | ✅ |

@@ -6,7 +6,10 @@ sections: ["03-crp-developer-docs"]
 tags: [contextual-related-posts, crp_query]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) v3.0.0 introduced CRP_Query, which works as a wrapper for [WP_Query](https://developer.wordpress.org/reference/classes/wp_query/). This brings all the power and flexibility of WP_Query to Contextual Related Posts. If you’re not familiar with WP_Query, I recommend [reading docs](https://developer.wordpress.org/reference/classes/wp_query/).
 
@@ -58,13 +61,13 @@ In addition to the [WP_Query parameters](https://developer.wordpress.org/referen
 - **‘recency_halflife’** *(Pro only)*
 *(int)* Number of days over which half of the available recency boost decays. Values below 1 are clamped to 1. The settings field accepts up to 36,500 days. Values below 7 use hourly age calculations.
 - **`relevance_threshold`**
-*(int)* Minimum percentage of the strongest eligible match's score that a scored candidate must reach. Values are clamped to 0–100; 0 disables the threshold. If omitted, the saved List Tuning setting is used.
+*(int)* Minimum percentage of the strongest eligible match's score that a scored candidate must reach. Values are clamped to 0 to 100; 0 disables the threshold. If omitted, the saved List Tuning setting is used.
 
 ### Minimum relevance threshold
 
 The `relevance_threshold` argument applies a per-query cutoff based on the strongest eligible scored match for that source post. CRP applies it before the final result limit. For example, a value of 80 keeps scored matches with at least 80% of the strongest eligible score.
 
-Use the `crp_relevance_threshold` filter to change the effective threshold. It receives the current percentage and the `CRP_Core_Query` instance, and its return value is clamped to 0–100.
+Use the `crp_relevance_threshold` filter to change the effective threshold. It receives the current percentage and the `CRP_Core_Query` instance, and its return value is clamped to 0 to 100.
 
 ```php
 add_filter(
@@ -78,3 +81,13 @@ add_filter(
 ```
 
 Only the setting or query argument is included in the cache key. If the filter returns different thresholds based on request context, disable the relevant CRP caching for those results so a cached list is not reused under a different threshold.
+
+## Post types and statuses
+
+Caller-supplied `post_type` and `post_types` values are restricted to viewable post types. An invalid selection falls back to the configured viewable types, or to `post` if no configured type remains.
+
+The default `post_status` values are `publish` and `inherit`. Explicit statuses are intersected with public statuses and `inherit`. An empty result uses the defaults. Revisions and posts that are not publicly viewable are removed before the result limit is applied. This also excludes attachments whose parent is not publicly viewable.
+
+The `crp_allowed_post_statuses` filter receives the allowed status array when an explicit status is requested. It does not bypass the final public-visibility check. Results can enter a shared cache, so keep the allowed statuses suitable for every visitor.
+
+For an explicitly selected source in displayed related-post lists, the viewer must be able to read that source. Otherwise the display returns an empty string. This source check is separate from the public visibility required of the returned related posts.

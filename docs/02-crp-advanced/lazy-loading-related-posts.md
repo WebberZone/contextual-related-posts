@@ -15,7 +15,7 @@ Lazy loading, introduced in [Contextual Related Posts Pro](https://webberzone.co
 
 ## Why lazy load?
 
-- **Faster initial page load.** The related posts query — usually the most expensive part of CRP — runs only when the list is actually needed.
+- **Faster initial page load.** The related posts query (usually the most expensive part of CRP) runs only when the list is actually needed.
 - **Better with page caching.** Cached pages no longer bake in a stale related posts list; each visitor fetches a fresh list when they scroll to it.
 - **No layout surprises.** A placeholder occupies the list's position and announces the load to screen readers while the content is fetched.
 
@@ -27,7 +27,7 @@ Enable **Lazy load related posts** *(Pro only)* in the [Performance tab](https:/
 
 The **REST API endpoints** toggle on the [Features settings tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-features-settings/) must also be enabled. If it is off, CRP ignores the global lazy-load setting and any per-shortcode override, and renders the related posts inline.
 
-Lazy loading is automatically skipped where it cannot work — feeds, AMP pages, admin requests, REST, AJAX and cron requests, and WP-CLI — and the related posts render inline instead.
+Lazy loading is automatically skipped where it cannot work (feeds, AMP pages, admin requests, REST, AJAX and cron requests, and WP-CLI), and the related posts render inline instead.
 
 ## Per-instance override
 
@@ -79,7 +79,7 @@ add_filter(
 
 ## Styling the placeholder
 
-The placeholder uses the classes `crp_related crp-lazy-load`, so existing styles targeting `crp_related` apply to it. Target `.crp-lazy-load` to style the loading state — for example, to reserve a minimum height and avoid layout shift:
+The placeholder uses the classes `crp_related crp-lazy-load`, so existing styles targeting `crp_related` apply to it. Target `.crp-lazy-load` to style the loading state. For example, reserve a minimum height to avoid layout shift:
 
 ```css
 .crp-lazy-load {
