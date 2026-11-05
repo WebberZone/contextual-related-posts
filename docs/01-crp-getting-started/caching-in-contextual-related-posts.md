@@ -6,7 +6,10 @@ sections: ["01-crp-getting-started"]
 tags: [cache, contextual-related-posts]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 To improve the performance of your WordPress site, the [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) plugin offers two inbuilt caching options: **Cache Posts only** and **Cache HTML output**. This guide will walk you through enabling and configuring these settings.
 
@@ -40,7 +43,7 @@ You can manually clear the plugin cache by visiting the [Tools page](https://web
 
 The cache of a post is also cleared when it is edited. This is to ensure that the related posts are generated using the latest content.
 
-The entire cache is cleared when you save settings that affect ranking — the relevance weights, the minimum relevance threshold, and the recency boost — or when you reset the settings to their defaults. Cached lists are keyed on the query rather than the settings, so without this the old ranking would be served until each entry expired.
+The entire cache is cleared when you save settings that affect ranking (the relevance weights, the minimum relevance threshold, and the recency boost) or when you reset the settings to their defaults. Cached lists are keyed on the query rather than the settings, so without this the old ranking would be served until each entry expired.
 
 You can also enable the **Clear cache when a post is trashed or restored** option in the [**Performance** tab](https://webberzone.com/support/knowledgebase/contextual-related-posts-performance-settings/) to automatically clear the entire cache whenever a post is moved to Trash or restored from Trash. This option is disabled by default.
 

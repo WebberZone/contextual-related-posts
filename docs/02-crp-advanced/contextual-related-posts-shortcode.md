@@ -40,3 +40,9 @@ This shortcode lets you insert the contextually related posts anywhere in your p
 | include_post_ids | String | Comma-separated list of post IDs to always include in the selection. |
 | display_only_on_tax_ids *(pro only)* | String | Comma-separated list of term_taxonomy_id for categories and custom taxonomies. Limit the display of the related posts to only these taxonomies. If you have an older WordPress install, this might differ from the term_id. |
 | lazy_load *(pro only)* | Boolean | Override the global [Lazy load related posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) setting for this instance. 1 to lazy load, 0 to render inline. Omit to follow the global setting. |
+
+## Content visibility
+
+Related results must be publicly viewable. Private posts, drafts, revisions, and attachments of non-public posts are not included. An explicitly selected source must be publicly viewable or readable by the viewer; otherwise the shortcode produces no output.
+
+See [Display related posts with CRP_Query](https://webberzone.com/support/knowledgebase/crp-query/) for post-type and status handling.

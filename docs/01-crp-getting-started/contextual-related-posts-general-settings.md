@@ -1,6 +1,6 @@
 ---
 slug: contextual-related-posts-general-settings
-title: "Contextual Related Posts Settings – General"
+title: "Contextual Related Posts Settings: General"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts]
@@ -15,7 +15,7 @@ featured_image: "https://webberzone.com/wp-content/uploads/2019/04/Contextual-Re
 The **General options** tab in the [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) settings screen gives you the main options to configure the related posts on your WordPress site.
 
 > [!TIP]
-> 💡 Since v4.3.1, a search box on the settings screen filters options across all tabs as you type — useful for jumping straight to a setting without knowing which tab it lives on.
+> 💡 Since v4.3.1, a search box on the settings screen filters options across all tabs as you type. You can jump to a setting without knowing which tab it is on.
 
 ## General settings
 

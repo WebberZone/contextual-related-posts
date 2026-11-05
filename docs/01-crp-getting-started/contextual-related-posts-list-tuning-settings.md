@@ -1,6 +1,6 @@
 ---
 slug: contextual-related-posts-list-tuning-settings
-title: "Contextual Related Posts Settings – List tuning"
+title: "Contextual Related Posts Settings: List tuning"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]

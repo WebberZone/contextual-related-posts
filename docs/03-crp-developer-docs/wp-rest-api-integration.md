@@ -47,7 +47,7 @@ GET https://example.com/wp-json/contextual-related-posts/v1/posts/<id>/
 | exclude_categories | Comma-separated list of Taxonomy IDs from which posts are excluded |
 | lang | TranslatePress language code to render the response in |
 
-The `lang` parameter is used only with TranslatePress. It does not change which posts are returned; it selects the language the response fields are rendered in. On TranslatePress sites, CRP translates the REST response before it is sent — TranslatePress's page output buffer does not run for REST requests, so CRP hooks into `rest_pre_echo_response` and translates titles, excerpts, links, and permalinks. When `lang` is omitted, CRP falls back to the language of the referring page. Use the `crp_trp_rest_language` filter to override the resolved language.
+The `lang` parameter is used only with TranslatePress. It does not change which posts are returned; it selects the language the response fields are rendered in. On TranslatePress sites, CRP translates the REST response before it is sent: TranslatePress's page output buffer does not run for REST requests, so CRP hooks into `rest_pre_echo_response` and translates titles, excerpts, links, and permalinks. When `lang` is omitted, CRP falls back to the language of the referring page. Use the `crp_trp_rest_language` filter to override the resolved language.
 
 ## Advanced block editor preview (Pro)
 
@@ -67,7 +67,7 @@ Contextual Related Posts Pro registers a second endpoint that returns the render
 GET https://example.com/wp-json/contextual-related-posts/v1/posts/<id>/html
 ```
 
-This endpoint powers the [Lazy Load Related Posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) feature, so display arguments (`args`) are only honored when accompanied by a valid `sig` — an HMAC signature generated server-side when the placeholder is rendered. Requests without a matching signature fall back to the default arguments for that post; there is no way to render arbitrary arguments for a post from the client side.
+This endpoint powers the [Lazy Load Related Posts](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) feature, so display arguments (`args`) are only honored when accompanied by a valid `sig`: an HMAC signature generated server-side when the placeholder is rendered. Requests without a matching signature fall back to the default arguments for that post; there is no way to render arbitrary arguments for a post from the client side.
 
 ## Limiting the number of posts returned
 

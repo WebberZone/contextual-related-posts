@@ -1,6 +1,6 @@
 ---
 slug: contextual-related-posts-output-settings
-title: "Contextual Related Posts Settings – Output"
+title: "Contextual Related Posts Settings: Output"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]

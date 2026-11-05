@@ -7,7 +7,10 @@ tags: [contextual-related-posts, installation]
 status: publish
 order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2015/12/Installing-CRP.png"
+toc: true
 ---
+
+[toc]
 
 [Contextual Related Posts](https://wordpress.org/plugins/contextual-related-posts/) core plugin is hosted on WordPress.org. This makes installing it on your site extremely easy and just like any other plugin.
 

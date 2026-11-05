@@ -14,7 +14,7 @@ featured_image: "https://webberzone.com/wp-content/uploads/2025/12/Contextual-Re
 
 Contextual Related Posts CLI (CRP-CLI) offers an efficient way to manage Contextual Related Posts via the command line. This tool is part of [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) starting from version 4.2.0.
 
-![](https://webberzone.com/wp-content/uploads/2025/12/Contextual-Related-Posts-CLI-1024x683.webp)
+![Contextual Related Posts WP-CLI commands](https://webberzone.com/wp-content/uploads/2025/12/Contextual-Related-Posts-CLI-1024x683.webp)
 
 ## About WP-CLI
 
@@ -83,10 +83,10 @@ Clear all cached related posts data.
 
 **Options:**
 
-- `--network` – Clear cache for all sites in a multisite network
-- `--url=<url>` – Clear cache for specific site URL (multisite only)
-- `--blog-id=<id>` – Clear cache for specific blog ID (multisite only)
-- `--verbose` – Show detailed output
+- `--network`: Clear cache for all sites in a multisite network
+- `--url=<url>`: Clear cache for specific site URL (multisite only)
+- `--blog-id=<id>`: Clear cache for specific blog ID (multisite only)
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -102,10 +102,10 @@ Enable the CRP cache system.
 
 **Options:**
 
-- `--type=<type>` – Cache type to enable (posts, html, all) (default: all)
-- `--url=<url>` – Specific site URL to enable cache for (multisite only)
-- `--network` – Enable cache for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to enable cache for (multisite only)
+- `--type=<type>`: Cache type to enable (posts, html, all) (default: all)
+- `--url=<url>`: Specific site URL to enable cache for (multisite only)
+- `--network`: Enable cache for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to enable cache for (multisite only)
 
 **Examples:**
 
@@ -121,10 +121,10 @@ Disable the CRP cache system.
 
 **Options:**
 
-- `--type=<type>` – Cache type to disable (posts, html, all) (default: all)
-- `--url=<url>` – Specific site URL to disable cache for (multisite only)
-- `--network` – Disable cache for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to disable cache for (multisite only)
+- `--type=<type>`: Cache type to disable (posts, html, all) (default: all)
+- `--url=<url>`: Specific site URL to disable cache for (multisite only)
+- `--network`: Disable cache for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to disable cache for (multisite only)
 
 **Examples:**
 
@@ -140,19 +140,19 @@ Warm up the cache by pre-generating related posts data.
 
 **Options:**
 
-- `--post-ids=<ids>` – Comma-separated list of post IDs to warm cache for
-- `--post-type=<type>` – Specific post type to process (default: post)
-- `--limit=<number>` – Number of posts to process (default: 100)
-- `--recent=<count>` – Warm cache for the most recent N posts
-- `--all` – Warm cache for all posts
-- `--popular` – Warm cache for popular posts (by comment count)
-- `--html` – Warm HTML cache instead of posts cache
-- `--batch-size=<size>` – Batch size for processing (default: 50)
-- `--network` – Warm cache for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to warm cache for (multisite only)
-- `--force` – Force override existing lock file
-- `--dry-run` – Show what would be processed without making changes
-- `--verbose` – Show detailed output
+- `--post-ids=<ids>`: Comma-separated list of post IDs to warm cache for
+- `--post-type=<type>`: Specific post type to process (default: post)
+- `--limit=<number>`: Number of posts to process (default: 100)
+- `--recent=<count>`: Warm cache for the most recent N posts
+- `--all`: Warm cache for all posts
+- `--popular`: Warm cache for popular posts (by comment count)
+- `--html`: Warm HTML cache instead of posts cache
+- `--batch-size=<size>`: Batch size for processing (default: 50)
+- `--network`: Warm cache for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to warm cache for (multisite only)
+- `--force`: Force override existing lock file
+- `--dry-run`: Show what would be processed without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -170,10 +170,10 @@ Show cache keys for posts.
 
 **Options:**
 
-- `--post-id=<ids>` – Comma-separated list of post IDs to show keys for
-- `--url=<url>` – Specific site URL (multisite only)
-- `--blog-id=<id>` – Specific blog ID (multisite only)
-- `--verbose` – Show detailed output including cache values (posts only)
+- `--post-id=<ids>`: Comma-separated list of post IDs to show keys for
+- `--url=<url>`: Specific site URL (multisite only)
+- `--blog-id=<id>`: Specific blog ID (multisite only)
+- `--verbose`: Show detailed output including cache values (posts only)
 
 **Examples:**
 
@@ -190,10 +190,10 @@ Clean up expired cache entries.
 
 **Options:**
 
-- `--network` – Clean up for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to clean up for (multisite only)
-- `--dry-run` – Show what would be cleaned without making changes
-- `--verbose` – Show detailed output
+- `--network`: Clean up for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to clean up for (multisite only)
+- `--dry-run`: Show what would be cleaned without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -213,11 +213,11 @@ Migrate meta data from `crp_post_meta` array to individual `_crp_*` keys.
 
 **Options:**
 
-- `--dry-run` – Show what would be migrated without making changes
-- `--verbose` – Show detailed error messages
-- `--batch-size=<number>` – Number of posts to process in each batch (default: 100)
-- `--network` – Migrate meta on all sites in the network
-- `--blog-id=<id>` – Specific blog ID to migrate meta for (multisite only)
+- `--dry-run`: Show what would be migrated without making changes
+- `--verbose`: Show detailed error messages
+- `--batch-size=<number>`: Number of posts to process in each batch (default: 100)
+- `--network`: Migrate meta on all sites in the network
+- `--blog-id=<id>`: Specific blog ID to migrate meta for (multisite only)
 
 **Examples:**
 
@@ -236,12 +236,12 @@ This command will be removed in version v4.3.0 and is not recommended for produc
 
 **Options:**
 
-- `--dry-run` – Show what would be rolled back without making changes
-- `--verbose` – Show detailed error messages
-- `--batch-size=<number>` – Number of posts to process in each batch (default: 100)
-- `--network` – Rollback meta on all sites in the network
-- `--blog-id=<id>` – Specific blog ID to rollback meta for (multisite only)
-- `--force` – Force rollback without confirmation
+- `--dry-run`: Show what would be rolled back without making changes
+- `--verbose`: Show detailed error messages
+- `--batch-size=<number>`: Number of posts to process in each batch (default: 100)
+- `--network`: Rollback meta on all sites in the network
+- `--blog-id=<id>`: Specific blog ID to rollback meta for (multisite only)
+- `--force`: Force rollback without confirmation
 
 **Examples:**
 
@@ -257,9 +257,9 @@ Show database status and migration information.
 
 **Options:**
 
-- `--network` – Show status for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to show status for (multisite only)
-- `--format=<format>` – Output format (table, json, csv, yaml) (default: table)
+- `--network`: Show status for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to show status for (multisite only)
+- `--format=<format>`: Output format (table, json, csv, yaml) (default: table)
 
 **Examples:**
 
@@ -279,8 +279,8 @@ Create FULLTEXT indexes for related posts functionality.
 
 **Options:**
 
-- `--dry-run` – Show what would be created without making changes
-- `--verbose` – Show detailed output
+- `--dry-run`: Show what would be created without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -295,8 +295,8 @@ Delete FULLTEXT indexes.
 
 **Options:**
 
-- `--dry-run` – Show what would be deleted without making changes
-- `--force` – Force deletion without confirmation
+- `--dry-run`: Show what would be deleted without making changes
+- `--force`: Force deletion without confirmation
 
 **Examples:**
 
@@ -311,8 +311,8 @@ Recreate FULLTEXT indexes (delete then create).
 
 **Options:**
 
-- `--dry-run` – Show what would be recreated without making changes
-- `--verbose` – Show detailed output
+- `--dry-run`: Show what would be recreated without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -342,8 +342,8 @@ Create custom tables for CRP Pro.
 
 **Options:**
 
-- `--dry-run` – Show what would be created without making changes
-- `--verbose` – Show detailed output
+- `--dry-run`: Show what would be created without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -358,8 +358,8 @@ Drop custom tables.
 
 **Options:**
 
-- `--force` – Force table deletion without confirmation
-- `--dry-run` – Show what would be dropped without making changes
+- `--force`: Force table deletion without confirmation
+- `--dry-run`: Show what would be dropped without making changes
 
 **Examples:**
 
@@ -374,9 +374,9 @@ Show the custom tables’ status.
 
 **Options:**
 
-- `--network` – Show status for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to show status for (multisite only)
-- `--format=<format>` – Output format (table, json, csv, yaml) (default: table)
+- `--network`: Show status for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to show status for (multisite only)
+- `--format=<format>`: Output format (table, json, csv, yaml) (default: table)
 
 **Examples:**
 
@@ -392,8 +392,8 @@ Drop and recreate custom tables from scratch. All indexed data will be permanent
 
 **Options:**
 
-- `--force` – Skip confirmation prompt
-- `--dry-run` – Show what would be done without making changes
+- `--force`: Skip confirmation prompt
+- `--dry-run`: Show what would be done without making changes
 
 **Examples:**
 
@@ -407,8 +407,8 @@ Convert the custom table storage engine to InnoDB. FULLTEXT indexes are automati
 
 **Options:**
 
-- `--force` – Skip confirmation prompt
-- `--dry-run` – Show what would be done without making changes
+- `--force`: Skip confirmation prompt
+- `--dry-run`: Show what would be done without making changes
 
 **Examples:**
 
@@ -423,12 +423,12 @@ Index posts into custom tables.
 
 **Options:**
 
-- `--batch-size=<size>` – Batch size for processing (default: 50)
-- `--network` – Index posts for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to index posts for (multisite only)
-- `--force` – Force indexing even if a lock file exists
-- `--dry-run` – Show what would be indexed without making changes
-- `--verbose` – Show detailed output
+- `--batch-size=<size>`: Batch size for processing (default: 50)
+- `--network`: Index posts for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to index posts for (multisite only)
+- `--force`: Force indexing even if a lock file exists
+- `--dry-run`: Show what would be indexed without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -448,9 +448,9 @@ Create FULLTEXT indexes for custom tables.
 
 **Options:**
 
-- `--network` – Create indexes for all sites in a multisite network
-- `--dry-run` – Show what would be created without making changes
-- `--verbose` – Show detailed output
+- `--network`: Create indexes for all sites in a multisite network
+- `--dry-run`: Show what would be created without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -466,10 +466,10 @@ Delete FULLTEXT indexes from custom tables.
 
 **Options:**
 
-- `--network` – Delete indexes for all sites in a multisite network
-- `--dry-run` – Show what would be deleted without making changes
-- `--force` – Force deletion without confirmation
-- `--verbose` – Show detailed output
+- `--network`: Delete indexes for all sites in a multisite network
+- `--dry-run`: Show what would be deleted without making changes
+- `--force`: Force deletion without confirmation
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -485,9 +485,9 @@ Recreate FULLTEXT indexes for custom tables.
 
 **Options:**
 
-- `--network` – Recreate indexes for all sites in a multisite network
-- `--dry-run` – Show what would be recreated without making changes
-- `--verbose` – Show detailed output
+- `--network`: Recreate indexes for all sites in a multisite network
+- `--dry-run`: Show what would be recreated without making changes
+- `--verbose`: Show detailed output
 
 **Examples:**
 
@@ -503,9 +503,9 @@ Show FULLTEXT index status for custom tables.
 
 **Options:**
 
-- `--network` – Show status for all sites in the network
-- `--blog-id=<id>` – Specific blog ID to show status for (multisite only)
-- `--format=<format>` – Output format (table, json, csv, yaml) (default: table)
+- `--network`: Show status for all sites in the network
+- `--blog-id=<id>`: Specific blog ID to show status for (multisite only)
+- `--format=<format>`: Output format (table, json, csv, yaml) (default: table)
 
 **Examples:**
 
@@ -521,14 +521,14 @@ Show related posts for a specific post.
 
 **Arguments:**
 
-- `<post-id>` – Post ID to show related posts for
+- `<post-id>`: Post ID to show related posts for
 
 Options:
 
-- `--limit=<number>` – Number of related posts to show. Default: 10.
-- `--url=<url>` – Site URL on multisite.
-- `--blog-id=<id>` – Site ID on multisite.
-- `--format=<format>` – Output format: table, JSON, CSV, or YAML.
+- `--limit=<number>`: Number of related posts to show. Default: 10.
+- `--url=<url>`: Site URL on multisite.
+- `--blog-id=<id>`: Site ID on multisite.
+- `--format=<format>`: Output format: table, JSON, CSV, or YAML.
 
 ```bash
 wp crp related 123
@@ -568,9 +568,9 @@ wp crp exclude list --format=json
 
 Options:
 
-- `--limit=<number>` – Maximum posts to return. Default: 100.
-- `--offset=<number>` – Number of posts to skip. Default: 0.
-- `--format=<format>` – Output format: table, JSON, or CSV.
+- `--limit=<number>`: Maximum posts to return. Default: 100.
+- `--offset=<number>`: Number of posts to skip. Default: 0.
+- `--format=<format>`: Output format: table, JSON, or CSV.
 
 ### Settings Commands (wp crp settings)
 

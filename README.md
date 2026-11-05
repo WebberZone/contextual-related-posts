@@ -67,7 +67,7 @@ Two options on the settings page allow you to remove these indices when deactiva
 * [Efficient Content Storage and Indexing](https://webberzone.com/support/knowledgebase/efficient-content-storage-and-indexing/): Speed up your site with optimized custom tables and efficient database indices for lightning-fast queries.
 * [Cache Setting](https://webberzone.com/support/knowledgebase/caching-in-contextual-related-posts/): Fine-tune your performance with configurable cache times from 1 hour to 1 year.
 * [Server Load Threshold](https://webberzone.com/support/knowledgebase/server-load-threshold-setting-in-contextual-related-posts-pro/): Prevent CRP from running queries when the database is under heavy load.
-* [Bot Protection](https://webberzone.com/support/knowledgebase/contextual-related-posts-bot-protection/): Skip CRP processing for known bots and crawlers using an extensible signature list, saving server resources.
+* [Bot Protection](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/#enable-bot-protection-pro-only): Skip CRP processing for known bots and crawlers using an extensible signature list, saving server resources.
 * __Lazy Loading__: Load related posts via JavaScript only when they are about to enter the viewport, speeding up the initial page load. Works across the content, shortcode, widget and Related Posts block display methods and plays well with page caching plugins.
 
 #### 🎯 Smarter Content Matching
@@ -114,7 +114,7 @@ __Key WP-CLI Features:__
 
 #### 📊 Analytics & Content Strategy Tools
 
-* [Tracking Parameters](https://webberzone.com/support/knowledgebase/tracking-parameters/): Measure content performance with automatic UTM tracking for all related post clicks.
+* [Tracking Parameters](https://webberzone.com/support/knowledgebase/contextual-related-posts-output-settings/#add-tracking-parameters-to-urls-pro-only): Measure content performance with automatic UTM tracking for all related post clicks.
 * [Cornerstone Posts](https://webberzone.com/support/knowledgebase/cornerstone-posts-in-contextual-related-posts/): Guide visitors to your most important content by featuring key articles in your related posts lists.
 * [Additional Metabox Settings](https://webberzone.com/support/knowledgebase/contextual-related-posts-metabox/): Control related content at the individual post level for perfect content relationships.
 

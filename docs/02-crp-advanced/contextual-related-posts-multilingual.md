@@ -50,7 +50,7 @@ This behavior is automatic whenever Polylang is active; there is nothing to enab
 
 TranslatePress keeps one set of posts and translates the text on the fly. CRP detects TranslatePress when the `trp_translate` function and the `TRP_Translate_Press` class are available, and it reads the current language from the `TRP_LANGUAGE` global.
 
-TranslatePress's page output buffer does not run for REST requests, so CRP hooks into `rest_pre_echo_response` and translates the REST response itself. This covers related posts requested over the REST API — such as those served to the block editor or to [lazy loading](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) *(Pro only)* — which TranslatePress cannot reach on its own.
+TranslatePress's page output buffer does not run for REST requests, so CRP hooks into `rest_pre_echo_response` and translates the REST response itself. This covers related posts requested over the REST API, including those served to the block editor or to [lazy loading](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/) *(Pro only)*. TranslatePress cannot translate those responses through its page output buffer.
 
 ### REST API `lang` parameter
 

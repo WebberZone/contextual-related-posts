@@ -7,7 +7,10 @@ tags: [contextual-related-posts, css, customisation, styles]
 status: publish
 order: 0
 featured_image: "https://webberzone.com/wp-content/uploads/2019/02/WZLogo-white-1.png"
+toc: true
 ---
+
+[toc]
 
 [Contextual Related Posts](https://webberzone.com/plugins/contextual-related-posts/) has several customization options available via the [Settings page](https://webberzone.com/support/knowledgebase/contextual-related-posts-general-settings/) in WordPress Admin. You can access this via **Settings » Related Posts**.
 
@@ -54,7 +57,7 @@ You can add CSS styles for these classes either in the [Styles tab](https://webb
 
 ### [`crp_pre_related_posts`](https://webberzone.dev/contextual-related-posts/hooks/crp_pre_related_posts/)
 
-Short-circuits the related posts rendering. Return a non-null value to replace the output entirely — the query and the default rendering are skipped. Runs for all display methods: the content filter, shortcode, widget, block, and manual calls. Contextual Related Posts Pro uses this internally to swap in the [lazy load placeholder](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/).
+Short-circuits the related posts rendering. Return a non-null value to replace the output entirely: the query and the default rendering are skipped. Runs for all display methods: the content filter, shortcode, widget, block, and manual calls. Contextual Related Posts Pro uses this internally to swap in the [lazy load placeholder](https://webberzone.com/support/knowledgebase/lazy-loading-related-posts/).
 
 ```php
 add_filter(
@@ -72,11 +75,11 @@ add_filter(
 
 **Parameters:**
 
-- `$pre` *(string|null)* — Pre-rendered output. Default `null` (continue with the default rendering).
-- `$args` *(array)* — Fully parsed arguments array.
-- `$post` *(WP_Post)* — Post object the related posts are generated for.
+- `$pre` *(string|null)*: Pre-rendered output. Default `null` (continue with the default rendering).
+- `$args` *(array)*: Fully parsed arguments array.
+- `$post` *(WP_Post)*: Post object the related posts are generated for.
 
-**Returns:** `string|null` — Return a string to use it as the output; return `null` to continue normally.
+**Returns:** `string|null`: Return a string to use it as the output; return `null` to continue normally.
 
 ### `crp_custom_template`
 
@@ -86,11 +89,11 @@ The filter runs for automatic content output, the shortcode, widget, native Rela
 
 **Parameters:**
 
-- `$template` *(string|null)* — Default return value. Initially `null`.
-- `$results` *(WP_Post[]|int[])* — Related posts as post objects or IDs, matching the return type of `get_crp_posts()`.
-- `$args` *(array)* — Fully parsed display arguments.
+- `$template` *(string|null)*: Default return value. Initially `null`.
+- `$results` *(WP_Post[]|int[])*: Related posts as post objects or IDs, matching the return type of `get_crp_posts()`.
+- `$args` *(array)*: Fully parsed display arguments.
 
-**Returns:** `string|null` — Return a non-empty HTML string to replace the default output, or return `$template` to continue with the built-in renderer.
+**Returns:** `string|null`: Return a non-empty HTML string to replace the default output, or return `$template` to continue with the built-in renderer.
 
 This example supports either post objects or IDs in `$results`. It escapes the link and title and allows the safe image markup generated for the thumbnail.
 
@@ -132,13 +135,13 @@ CRP can cache this HTML for eligible requests when HTML caching is enabled. If y
 
 ### `Display::get_default_args()`
 
-Returns the full default arguments array for the related posts display — the built-in defaults merged with the saved plugin settings. Use it to build a complete `$args` array before calling the rendering or query functions.
+Returns the full default arguments array for the related posts display: the built-in defaults merged with the saved plugin settings. Use it to build a complete `$args` array before calling the rendering or query functions.
 
 ```php
 $args = WebberZone\Contextual_Related_Posts\Frontend\Display::get_default_args();
 ```
 
-**Returns:** `array` — Default arguments including all saved settings.
+**Returns:** `array`: Default arguments including all saved settings.
 
 ## See also
 

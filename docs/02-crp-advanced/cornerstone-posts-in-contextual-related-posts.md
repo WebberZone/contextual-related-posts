@@ -6,21 +6,24 @@ sections: ["02-crp-advanced"]
 tags: [contextual-related-posts, pro, related-posts, settings]
 status: publish
 order: 0
+toc: true
 ---
+
+[toc]
 
 ## What Are Cornerstone Posts?
 
-Cornerstone posts are the foundation of your website’s content strategy — your evergreen guides, key landing pages, or flagship blog posts. These pages explain core concepts, drive traffic, or convert readers into subscribers, customers, or loyal fans.
+Cornerstone posts are the foundation of your website’s content strategy: your evergreen guides, key landing pages, or flagship blog posts. These pages explain core concepts, drive traffic, or convert readers into subscribers, customers, or loyal fans.
 
 Most cornerstone content is well over 2,000 words long, though some can be over 5,000 and plays a significant role in any SEO strategy.
 
-By default, Contextual Related Posts shows posts that are algorithmically similar to the current one. But not all important content naturally ranks high in related results — especially newer posts, static pages, or niche articles.
+By default, Contextual Related Posts shows posts that are algorithmically similar to the current one. But not all important content naturally ranks high in related results, especially newer posts, static pages, or niche articles.
 
 That’s where the cornerstone posts feature introduced in [Contextual Related Posts Pro](https://webberzone.com/plugins/contextual-related-posts/pro/) v4 comes in.
 
 CRP Pro automatically includes a few of your chosen cornerstone posts in each related posts list when enabled. They’re inserted at random positions to blend naturally with the rest, giving your key content more visibility without overwhelming the reader or skewing relevance.
 
-**In short:** if there are articles you want your audience to keep seeing — no matter what they’re reading — this feature ensures they show up regularly, subtly, and effectively.
+**In short:** if there are articles you want your audience to keep seeing (no matter what they’re reading) this feature ensures they show up regularly, subtly, and effectively.
 
 ## How It Works
 

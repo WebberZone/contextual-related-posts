@@ -1,6 +1,6 @@
 ---
 slug: contextual-related-posts-styles-settings
-title: "Contextual Related Posts Settings – Styles"
+title: "Contextual Related Posts Settings: Styles"
 products: [contextual-related-posts]
 sections: ["01-crp-getting-started"]
 tags: [contextual-related-posts, settings]

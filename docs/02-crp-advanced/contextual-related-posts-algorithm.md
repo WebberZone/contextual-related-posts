@@ -34,9 +34,9 @@ In the free version of CRP, enabling **Related posts based on title and content*
 CRP Pro enhances the algorithm with:
 
 - A dedicated FULLTEXT index for `post_excerpt`.
-- Custom weight settings for each field — title, content, and excerpt.
+- Custom weight settings for each field: title, content, and excerpt.
 
-**Example:** You can assign a higher weight to `post_excerpt` to favor posts with similar summaries, while downplaying content matches. This lets you tailor results to your content strategy — e.g., favoring concise summaries or catchy titles.
+**Example:** You can assign a higher weight to `post_excerpt` to favor posts with similar summaries, while downplaying content matches. This lets you tailor results to your content strategy: e.g., favoring concise summaries or catchy titles.
 
 ## Recency weighting *(Pro only)*
 
@@ -48,7 +48,7 @@ The boost changes ordering only. It does not change matching, taxonomy filters, 
 
 ## Weighting Categories, Tags, and Taxonomies
 
-CRP Pro v4 introduced **taxonomy weighting** — giving you finer control over contextual matching beyond text.
+CRP Pro v4 introduced **taxonomy weighting** to control contextual matching beyond text.
 
 In the **List Tuning** tab, you can assign weights to:
 
