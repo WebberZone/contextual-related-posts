@@ -71,7 +71,7 @@ ncu -u && pnpm install   # Update dependencies to latest and reinstall
 
 ## Unit tests
 
-Keep PHPUnit tests to a minimum. A test earns its place only if it would catch a regression that could ship unnoticed and hurt users:
+Keep PHPUnit tests to a minimum. Write PHPUnit tests only for reusable features; skip one-off functionality. A test earns its place only if it would catch a regression that could ship unnoticed and hurt users:
 
 - security or privacy leaks, and abuse controls that cost money (rate limits, caps, bot refusal);
 - data loss or corruption (deletions, counts, imports, backups, migrations, multisite isolation);
