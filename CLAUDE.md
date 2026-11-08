@@ -34,7 +34,7 @@ Contextual Related Posts displays related posts via FULLTEXT search. Contextual 
 
 Namespace: `WebberZone\Contextual_Related_Posts`. Prefix: `crp`. Requires WordPress 6.9+, PHP 7.4+.
 
-Versions: `readme.txt`'s `Stable tag` is the released version; `WZ_CRP_VERSION` in `contextual-related-posts.php` is the working version — use it for new `@since` tags. Do not bump either unless asked.
+Versions: `readme.txt`'s `Stable tag` is the released version; `WZ_CRP_VERSION` in `contextual-related-posts.php` is the working version — use it for new `@since` tags. If the working version equals `Stable tag`, it is already released — don't use it for new work. Follow the root versioning rule: next `X.Y.(Z+1)` for fixes, `X.(Y+1).0` for features, never `X+1.0.0` ([../CLAUDE.md](../CLAUDE.md#versioning)).
 
 Constants defined in `contextual-related-posts.php`: `WZ_CRP_VERSION`, `WZ_CRP_PLUGIN_FILE`, `WZ_CRP_PLUGIN_DIR`, `WZ_CRP_PLUGIN_URL`, `WZ_CRP_DEFAULT_THUMBNAIL_URL`, `CRP_MAX_WORDS`, `CRP_CACHE_TIME`, `WZ_CRP_DB_VERSION`.
 
