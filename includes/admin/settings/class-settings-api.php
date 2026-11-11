@@ -842,7 +842,14 @@ class Settings_API {
 				}
 
 				// Every callback receives the field configuration so choice fields can validate against their own options.
-				return function ( $value ) use ( $settings_sanitize, $method, $setting ) {
+				$scalar_types = array( 'text', 'textarea', 'html', 'css', 'url', 'file', 'email', 'password', 'wysiwyg', 'number', 'csv', 'numbercsv', 'postids', 'color', 'datetime', 'select', 'radio', 'radiodesc' );
+				$is_scalar    = in_array( $setting['type'], $scalar_types, true );
+
+				return function ( $value ) use ( $settings_sanitize, $method, $setting, $is_scalar ) {
+					// Arrays or objects in single-value fields (crafted POST or import) would fatal in the string sanitizers.
+					if ( $is_scalar && ! is_scalar( $value ) && ! is_null( $value ) ) {
+						$value = '';
+					}
 					return $settings_sanitize->$method( $value, $setting );
 				};
 			}
