@@ -574,7 +574,7 @@ class Settings_Form {
 			$field_attributes['field_id'],
 			$field_attributes['field_name'],
 			$class . ' ' . $size . '-text',
-			esc_attr( stripslashes( $value ) ),
+			esc_attr( (string) $value ),
 			$attributes,
 			$placeholder
 		);
@@ -603,7 +603,7 @@ class Settings_Form {
 			$field_attributes['field_id'],
 			$field_attributes['field_name'],
 			$class . ' regular-text',
-			esc_attr( stripslashes( (string) $value ) ),
+			esc_attr( (string) $value ),
 			$attributes,
 			$placeholder
 		);
@@ -677,7 +677,7 @@ class Settings_Form {
 			'<textarea class="%4$s" cols="50" rows="5" id="%1$s" name="%2$s" %5$s %6$s>%3$s</textarea>',
 			$field_attributes['field_id'],
 			$field_attributes['field_name'],
-			esc_textarea( stripslashes( $value ) ),
+			esc_textarea( (string) $value ),
 			$class,
 			$attributes,
 			$placeholder
@@ -1012,7 +1012,7 @@ class Settings_Form {
 			sanitize_html_class( $size ) . '-text',
 			$field_attributes['field_id'],
 			$field_attributes['field_name'],
-			esc_attr( stripslashes( $value ) ),
+			esc_attr( (string) $value ),
 			$placeholder,
 			$attributes
 		);

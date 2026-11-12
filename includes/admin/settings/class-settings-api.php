@@ -942,7 +942,8 @@ class Settings_API {
 
 				// If callback is set, call it.
 				if ( $sanitize_callback ) {
-					$output[ $key ] = call_user_func( $sanitize_callback, $input[ $key ] );
+					// The sanitizers unslash form input, but WordPress has already unslashed the option value.
+					$output[ $key ] = call_user_func( $sanitize_callback, wp_slash( $input[ $key ] ) );
 					continue;
 				}
 			}
@@ -965,7 +966,7 @@ class Settings_API {
 		);
 
 		foreach ( array_diff_key( $input, $settings_types ) as $key => $value ) {
-			$output[ sanitize_text_field( (string) $key ) ] = $settings_sanitize->sanitize_missing( $value );
+			$output[ sanitize_text_field( (string) $key ) ] = $settings_sanitize->sanitize_missing( wp_slash( $value ) );
 		}
 
 		add_settings_error( $this->prefix . '-notices', '', $this->translation_strings['success_message'], 'updated' );
