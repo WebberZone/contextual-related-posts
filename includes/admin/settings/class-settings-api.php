@@ -1076,6 +1076,12 @@ class Settings_API {
 
 		}
 
+		$html .= sprintf(
+			'<li class="wz-settings-nav-save"><button type="submit" class="button button-primary" name="submit" form="%1$s">%2$s</button></li>',
+			esc_attr( "{$this->prefix}-settings-form" ),
+			esc_html( $this->translation_strings['save_changes'] )
+		);
+
 		$html .= '</ul>';
 
 		$allowed_html           = wp_kses_allowed_html( 'post' );
@@ -1089,6 +1095,8 @@ class Settings_API {
 		$allowed_html['button'] = array(
 			'type'       => true,
 			'class'      => true,
+			'name'       => true,
+			'form'       => true,
 			'aria-label' => true,
 			'hidden'     => true,
 		);

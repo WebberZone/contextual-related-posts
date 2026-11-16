@@ -63,11 +63,13 @@ class Display {
 		// Sanitize args.
 		$args = Helpers::sanitize_args( $args );
 
-		// Content (shortcode, block, builders) may not point thumbnails at protected meta other than the saved setting.
+		// Normalise before the cache key so a refused protected key shares the saved-key entry; Media_Handler enforces the same rule.
 		foreach ( array( 'thumb_meta', 'acf_field' ) as $meta_arg ) {
-			$saved = (string) crp_get_option( $meta_arg, '' );
-			if ( ! empty( $args[ $meta_arg ] ) && $saved !== $args[ $meta_arg ] && is_protected_meta( (string) $args[ $meta_arg ], 'post' ) ) {
-				$args[ $meta_arg ] = $saved;
+			if ( ! empty( $args[ $meta_arg ] ) && is_protected_meta( (string) $args[ $meta_arg ], 'post' ) ) {
+				$saved = (string) crp_get_option( $meta_arg, '' );
+				if ( $saved !== $args[ $meta_arg ] ) {
+					$args[ $meta_arg ] = $saved;
+				}
 			}
 		}
 

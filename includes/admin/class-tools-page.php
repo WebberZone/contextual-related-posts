@@ -41,7 +41,8 @@ class Tools_Page {
 	public function __construct() {
 		Hook_Registry::add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		Hook_Registry::add_action( 'admin_init', array( $this, 'process_settings_export' ) );
-		Hook_Registry::add_action( 'admin_init', array( $this, 'process_settings_import' ), 9 );
+		// After Settings_API::admin_init() (priority 10) registers the sanitize callback that update_option() applies.
+		Hook_Registry::add_action( 'admin_init', array( $this, 'process_settings_import' ), 11 );
 		Hook_Registry::add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		Hook_Registry::add_action( 'wp_ajax_crp_migrate_meta', array( $this, 'migrate_meta_batch' ) );
 		Hook_Registry::add_action( 'wp_ajax_crp_undo_migrate_meta', array( $this, 'undo_migrate_meta_batch' ) );
@@ -668,14 +669,27 @@ class Tools_Page {
 
 		$import_file = isset( $_FILES[ $filename ]['tmp_name'] ) ? ( wp_unslash( $_FILES[ $filename ]['tmp_name'] ) ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
-		if ( empty( $import_file ) ) {
+		if ( empty( $import_file ) || ! is_uploaded_file( $import_file ) ) {
 			wp_die( esc_html__( 'Please upload a file to import', 'contextual-related-posts' ) );
 		}
 
-		// Retrieve the settings from the file and convert the json object to an array.
-		$settings = (array) json_decode( file_get_contents( $import_file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$settings = json_decode( (string) file_get_contents( $import_file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 
-		update_option( 'crp_settings', $settings );
+		if ( empty( $settings ) || ! is_array( $settings ) ) {
+			wp_die( esc_html__( 'Please upload a valid .json file', 'contextual-related-posts' ) );
+		}
+
+		// The sanitize callback is only registered on screens that fire admin_menu.
+		if ( ! has_filter( 'sanitize_option_crp_settings' ) ) {
+			wp_die( esc_html__( 'Settings can only be imported from the Tools page.', 'contextual-related-posts' ) );
+		}
+
+		// The sanitize callback unsets registered keys absent from input, so merge first to keep unlisted settings.
+		$current  = get_option( 'crp_settings', array() );
+		$settings = array_merge( is_array( $current ) ? $current : array(), $settings );
+
+		// The sanitize callbacks unslash their input, as for a form submission.
+		update_option( 'crp_settings', wp_slash( $settings ) );
 
 		wp_safe_redirect(
 			add_query_arg(

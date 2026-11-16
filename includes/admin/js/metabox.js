@@ -132,7 +132,7 @@ jQuery(document).ready(function ($) {
                 postItem.append(dragHandle);
                 postItem.append(deleteButton);
                 postItem.append(' ');
-                postItem.append(selectedPost.label);
+                postItem.append(document.createTextNode(selectedPost.label));
 
                 // Add the post item to the post list
                 postList.append(postItem);

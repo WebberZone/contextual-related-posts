@@ -1496,7 +1496,14 @@ class CRP_Core_Query {
 		if ( ! empty( $this->query_args['related_meta_keys'] ) ) {
 			$related_meta_query = array();
 			$related_meta_keys  = wp_parse_list( $this->query_args['related_meta_keys'] );
+			$saved_meta_keys    = wp_parse_list( (string) \crp_get_option( 'related_meta_keys', '' ) );
 			foreach ( $related_meta_keys as $related_meta_key ) {
+				// Content may not match on protected meta other than the saved setting. A key not starting with
+				// an ASCII letter or digit (leading underscore, or a look-alike the collation folds onto a protected key) is treated as protected.
+				$is_protected = is_protected_meta( $related_meta_key, 'post' ) || is_protected_meta( strtolower( (string) $related_meta_key ), 'post' ) || 1 !== preg_match( '/^[A-Za-z0-9][A-Za-z0-9_.:-]*$/', (string) $related_meta_key );
+				if ( $is_protected && ! in_array( $related_meta_key, $saved_meta_keys, true ) ) {
+					continue;
+				}
 				$related_meta_value = (string) get_post_meta( $this->source_post->ID, $related_meta_key, true );
 				if ( ! empty( $related_meta_value ) ) {
 					$related_meta_query[] = array(

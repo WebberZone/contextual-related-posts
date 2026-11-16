@@ -212,6 +212,20 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.5 =
+
+**Added**
+
+* Save Changes button in settings navigation.
+**Fixed**
+
+* Settings imports are now sanitized the same way as settings saved from the settings page, and invalid files are rejected.
+* Importing a settings file that contains only some settings no longer deletes the settings missing from the file.
+* Shortcodes and blocks can no longer match related posts on protected custom fields other than those saved in the settings.
+* The manual related posts search now requires the edit posts capability, and selected titles are inserted as text.
+* Backslashes in Custom CSS, such as icon font codes, are no longer removed on the front end.
+* Changing the thumbnail meta field, ACF field or related meta keys settings now clears the cache.
+
 = 4.5.4 =
 
 Release date: 3 November 2026

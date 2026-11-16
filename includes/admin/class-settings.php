@@ -2204,6 +2204,9 @@ class Settings {
 			'weight_primary_term_boost',
 			'weight_recency',
 			'recency_halflife',
+			'related_meta_keys',
+			'thumb_meta',
+			'acf_field',
 		);
 
 		/**

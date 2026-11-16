@@ -418,6 +418,14 @@
 	list-style: none;
 }
 
+.wz-vertical-tabs > ul.nav-tab-wrapper li.wz-settings-nav-save {
+	margin-top: 12px;
+}
+
+.wz-vertical-tabs > ul.nav-tab-wrapper .wz-settings-nav-save .button {
+	width: 100%;
+}
+
 .wz-vertical-tabs > ul.nav-tab-wrapper .nav-tab {
 	display: block;
 	float: none;
@@ -483,6 +491,10 @@
 	}
 
 	.wz-vertical-tabs > ul.nav-tab-wrapper .wz-settings-search-wrap {
+		flex: 1 1 100%;
+	}
+
+	.wz-vertical-tabs > ul.nav-tab-wrapper li.wz-settings-nav-save {
 		flex: 1 1 100%;
 	}
 }

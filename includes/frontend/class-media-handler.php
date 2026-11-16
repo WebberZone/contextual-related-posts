@@ -113,6 +113,16 @@ class Media_Handler {
 		// Parse incomming $args into an array and merge it with $defaults.
 		$args = wp_parse_args( $args, $defaults );
 
+		// Content (shortcode, block, builders) may not point thumbnails at protected meta other than the saved setting.
+		foreach ( array( 'thumb_meta', 'acf_field' ) as $meta_arg ) {
+			if ( ! empty( $args[ $meta_arg ] ) && is_protected_meta( (string) $args[ $meta_arg ], 'post' ) ) {
+				$saved = (string) self::get_option( $meta_arg, '' );
+				if ( $saved !== $args[ $meta_arg ] ) {
+					$args[ $meta_arg ] = $saved;
+				}
+			}
+		}
+
 		$result = get_post( $args['post'] );
 
 		if ( empty( $result ) ) {

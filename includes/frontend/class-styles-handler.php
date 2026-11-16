@@ -119,7 +119,7 @@ class Styles_Handler {
 			self::enqueue_style( $style_id );
 		}
 
-		$custom_css = stripslashes( crp_get_option( 'custom_css' ) );
+		$custom_css = (string) crp_get_option( 'custom_css' );
 		if ( $custom_css ) {
 			wp_enqueue_style( 'crp-custom-style' );
 			wp_add_inline_style( 'crp-custom-style', $custom_css );

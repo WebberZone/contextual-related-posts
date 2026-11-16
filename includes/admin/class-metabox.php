@@ -372,6 +372,10 @@ class Metabox {
 		// Check the nonce.
 		check_ajax_referer( 'crp_get_posts_nonce', 'crp_get_posts_nonce' );
 
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error();
+		}
+
 		$search_term      = isset( $_POST['search_term'] ) ? sanitize_text_field( wp_unslash( $_POST['search_term'] ) ) : '';
 		$postid           = isset( $_POST['postid'] ) ? absint( $_POST['postid'] ) : 0;
 		$exclude_post_ids = isset( $_POST['exclude_post_ids'] ) ? wp_parse_id_list( wp_unslash( $_POST['exclude_post_ids'] ) ) : array();
@@ -440,7 +444,8 @@ class Metabox {
 
 			$result[] = array(
 				'id'    => $post->ID,
-				'title' => sprintf( '%1$s (%2$s)', $post->post_title, $post->ID ),
+				// Plain text: metabox.js inserts it as a text node, so decode stored entities such as &amp;.
+				'title' => sprintf( '%1$s (%2$s)', html_entity_decode( $post->post_title, ENT_QUOTES, get_bloginfo( 'charset' ) ), $post->ID ),
 			);
 		}
 
