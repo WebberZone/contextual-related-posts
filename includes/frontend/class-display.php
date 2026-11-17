@@ -870,7 +870,7 @@ class Display {
 		$link            = self::get_permalink( $args, $result );
 		$link_attributes = self::link_attributes( $args, $result );
 
-		$aria_label = '' === trim( wp_strip_all_tags( (string) $title ) ) ? ' aria-label="' . esc_attr( __( 'Untitled post', 'contextual-related-posts' ) ) . '"' : '';
+		$aria_label = '' === trim( wp_strip_all_tags( (string) $title ), " \t\n\r\0\x0B" ) ? ' aria-label="' . esc_attr( __( 'Untitled post', 'contextual-related-posts' ) ) . '"' : '';
 
 		$output .= '<a href="' . $link . '" ' . $link_attributes . $aria_label . ' class="crp_link ' . $result->post_type . '-' . $result->ID . '">';
 

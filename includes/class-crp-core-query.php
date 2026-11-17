@@ -27,7 +27,7 @@ class CRP_Core_Query {
 	/**
 	 * Source Post to find related posts for.
 	 *
-	 * @var \WP_Post A WP_Post instance.
+	 * @var \WP_Post|null A WP_Post instance, or null when no source is available.
 	 */
 	public $source_post;
 
@@ -183,7 +183,7 @@ class CRP_Core_Query {
 		self::$recursion_guard = true;
 		$this->prepare_query_args( $args );
 
-		if ( isset( $args['crp_query'] ) && true === $args['crp_query'] && ! $this->is_crp_query ) {
+		if ( $this->source_post instanceof \WP_Post && isset( $args['crp_query'] ) && true === $args['crp_query'] && ! $this->is_crp_query ) {
 			$this->hooks();
 		}
 		self::$recursion_guard = false;

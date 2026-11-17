@@ -36,6 +36,10 @@ class QueryDefaultsTest extends WP_UnitTestCase {
 
 	public function test_default_post_cache_is_written_and_reused() {
 		delete_option( 'crp_settings' );
+		$invalid = new WP_Query( array( 'crp_query' => true, 'post_id' => 999999999 ) );
+		$this->assertEmpty( $invalid->posts );
+		$invalid = new CRP_Query( array( 'post_id' => 999999999 ) );
+		$this->assertEmpty( $invalid->posts );
 		$source = self::factory()->post->create();
 		$related = self::factory()->post->create();
 		$args = array( 'post_id' => $source, 'manual_related' => array( $related ), 'limit' => 1 );

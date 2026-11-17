@@ -174,7 +174,10 @@ final class Hook_Loader {
 		}
 
 		if ( isset( $query->query_vars['crp_query'] ) && true === $query->query_vars['crp_query'] ) {
-			new CRP_Core_Query( $query->query_vars );
+			$crp = new CRP_Core_Query( $query->query_vars );
+			if ( ! $crp->source_post instanceof \WP_Post ) {
+				$query->set( 'post__in', array( 0 ) );
+			}
 		}
 	}
 }
