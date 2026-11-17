@@ -870,7 +870,9 @@ class Display {
 		$link            = self::get_permalink( $args, $result );
 		$link_attributes = self::link_attributes( $args, $result );
 
-		$output .= '<a href="' . $link . '" ' . $link_attributes . ' class="crp_link ' . $result->post_type . '-' . $result->ID . '">';
+		$aria_label = '' === trim( wp_strip_all_tags( (string) $title ) ) ? ' aria-label="' . esc_attr( __( 'Untitled post', 'contextual-related-posts' ) ) . '"' : '';
+
+		$output .= '<a href="' . $link . '" ' . $link_attributes . $aria_label . ' class="crp_link ' . $result->post_type . '-' . $result->ID . '">';
 
 		if ( 'after' === $args['post_thumb_op'] ) {
 			$output .= '<span class="crp_title">' . $title . '</span>'; // Add title when required by settings.

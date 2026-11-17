@@ -859,7 +859,7 @@ class Media_Handler {
 		// Construct the HTML img tag.
 		$html = '<img ' . rtrim( $hwstring, " \t\n\r\0\x0B" );
 		foreach ( $attr as $name => $value ) {
-			if ( '' !== $value ) {
+			if ( '' !== $value || 'alt' === $name ) {
 				$html .= " $name=" . '"' . $value . '"';
 			}
 		}

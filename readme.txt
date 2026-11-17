@@ -224,6 +224,7 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 * Shortcodes and blocks can no longer match related posts on protected custom fields other than those saved in the settings.
 * The manual related posts search now requires the edit posts capability, and selected titles are inserted as text.
 * Backslashes in Custom CSS, such as icon font codes, are no longer removed on the front end.
+* Thumbnails without alt text now output an empty `alt` attribute, and related post links with an empty title get an "Untitled post" accessible name.
 * Changing the thumbnail meta field, ACF field or related meta keys settings now clears the cache.
 
 = 4.5.4 =
