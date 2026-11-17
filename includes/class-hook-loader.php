@@ -177,6 +177,7 @@ final class Hook_Loader {
 			$crp = new CRP_Core_Query( $query->query_vars );
 			if ( ! $crp->source_post instanceof \WP_Post ) {
 				$query->set( 'post__in', array( 0 ) );
+				$query->set( 'ignore_sticky_posts', true );
 			}
 		}
 	}

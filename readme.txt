@@ -2,7 +2,7 @@
 Tags: related posts, related, contextual related posts, similar posts, seo
 Contributors: webberzone, ajay
 Donate link: https://wzn.io/donate-crp
-Stable tag: 4.5.5
+Stable tag: 4.5.6
 Requires at least: 6.9
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -212,6 +212,14 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.6 =
+
+Release date: 17 November 2026
+
+**Fixed**
+
+* Related posts queries returned null or unrelated sticky posts when the source post was unavailable.
+
 = 4.5.5 =
 
 Release date: 17 November 2026
@@ -315,5 +323,5 @@ For the changelog of earlier versions, please refer to the [releases page on Git
 
 == Upgrade Notice ==
 
-= 4.5.5 =
-Security release. Hardens settings imports and custom field handling, and fixes a related-post query error. Update recommended.
+= 4.5.6 =
+Fixes related post queries when a source post is unavailable.

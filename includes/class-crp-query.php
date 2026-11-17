@@ -37,6 +37,7 @@ if ( ! class_exists( 'CRP_Query' ) ) :
 
 			if ( ! $crp->source_post instanceof WP_Post ) {
 				parent::__construct();
+				$this->posts = array();
 				return;
 			}
 
