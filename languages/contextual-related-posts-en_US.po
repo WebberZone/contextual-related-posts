@@ -256,7 +256,7 @@ msgid "You have Top 10 WordPress Plugin installed. If you are trying to modify t
 msgstr ""
 
 #. translators: %s: search term
-#: includes/admin/class-metabox.php:537
+#: includes/admin/class-metabox.php:542
 #: includes/admin/class-settings-wizard.php:203
 #: includes/admin/class-settings.php:2350
 #, php-format
@@ -2129,7 +2129,7 @@ msgid "Only from categories (comma-separated list of term taxonomy IDs)"
 msgstr ""
 
 #. translators: %d is the number of cache entries cleared.
-#: includes/util/class-cache.php:553
+#: includes/util/class-cache.php:567
 #, php-format
 msgid "%d cache entry has been cleared"
 msgid_plural "%d cache entries have been cleared"

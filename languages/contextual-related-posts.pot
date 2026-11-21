@@ -2,14 +2,14 @@
 # This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Contextual Related Posts 4.5.6\n"
+"Project-Id-Version: Contextual Related Posts 4.5.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/contextual-related-posts\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-17T17:50:01+00:00\n"
+"POT-Creation-Date: 2026-11-21T04:08:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: contextual-related-posts\n"
@@ -250,7 +250,7 @@ msgid "You have Top 10 WordPress Plugin installed. If you are trying to modify t
 msgstr ""
 
 #. translators: %s: search term
-#: includes/admin/class-metabox.php:537
+#: includes/admin/class-metabox.php:542
 #: includes/admin/class-settings-wizard.php:203
 #: includes/admin/class-settings.php:2350
 #, php-format
@@ -2595,7 +2595,7 @@ msgid "Only from categories (comma-separated list of term taxonomy IDs)"
 msgstr ""
 
 #. translators: %d is the number of cache entries cleared.
-#: includes/util/class-cache.php:553
+#: includes/util/class-cache.php:567
 #, php-format
 msgid "%d cache entry has been cleared"
 msgid_plural "%d cache entries have been cleared"
