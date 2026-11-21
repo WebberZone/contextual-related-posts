@@ -54,6 +54,7 @@ function crp_delete_data() {
 		delete_option( 'crp_settings' );
 
 		// Delete wizard-related options.
+		delete_option( 'crp_cache_flushed_for' );
 		delete_option( 'crp_wizard_completed' );
 		delete_option( 'crp_wizard_completed_date' );
 		delete_option( 'crp_wizard_current_step' );

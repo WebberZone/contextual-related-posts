@@ -53,6 +53,20 @@ class Cache {
 	}
 
 	/**
+	 * Flush cached HTML once after upgrading to 4.5.7 so output cached before the heading fix is not served.
+	 *
+	 * @since 4.5.7
+	 */
+	public static function maybe_flush_on_upgrade() {
+		if ( '4.5.7' === get_option( 'crp_cache_flushed_for' ) ) {
+			return;
+		}
+
+		update_option( 'crp_cache_flushed_for', '4.5.7' );
+		self::delete();
+	}
+
+	/**
 	 * Clear the saved post's own cache and queue its related posts for clearing on shutdown.
 	 *
 	 * @since 4.5.0

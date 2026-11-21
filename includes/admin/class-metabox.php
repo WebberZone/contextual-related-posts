@@ -226,7 +226,7 @@ class Metabox {
 
 		<?php
 		if ( $thumb_meta ) {
-			echo '<img src="' . esc_attr( $value ) . '" style="max-width:100%" />';
+			echo '<img src="' . esc_url( $value ) . '" style="max-width:100%" />';
 		}
 		?>
 
@@ -384,6 +384,11 @@ class Metabox {
 
 		if ( empty( $search_term ) ) {
 			wp_send_json_error();
+		}
+
+		// A post the user cannot edit must not drive the relevance match.
+		if ( $postid && ! current_user_can( 'edit_post', $postid ) ) {
+			$postid = 0;
 		}
 
 		if ( ! $relevance || empty( $postid ) ) {

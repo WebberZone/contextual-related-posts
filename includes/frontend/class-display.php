@@ -642,7 +642,7 @@ class Display {
 			$postname = ( $crp_post instanceof \WP_Post ) ? $crp_post->post_title : '';
 
 			$title = empty( $args['title'] ) ? \crp_get_option( 'title', '' ) : $args['title'];
-			$title = str_replace( '%postname%', $postname, $title );    // Replace %postname% with the title of the current post.
+			$title = str_replace( '%postname%', esc_html( $postname ), $title );    // Replace %postname% with the title of the current post.
 		}
 
 		/**

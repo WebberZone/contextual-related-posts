@@ -89,6 +89,7 @@ final class Hook_Loader {
 		// After Sync_Manager::flush_pending_sync() so the reverse query sees the synced index.
 		Hook_Registry::add_action( 'shutdown', array( Cache::class, 'process_queue' ), 20 );
 		Hook_Registry::add_action( 'crp_deferred_cache_flush', array( Cache::class, 'deferred_flush' ) );
+		Hook_Registry::add_action( 'init', array( Cache::class, 'maybe_flush_on_upgrade' ) );
 	}
 
 	/**

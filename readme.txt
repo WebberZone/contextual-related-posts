@@ -212,6 +212,16 @@ The plugin also handles SSL, resizing, and fallback mechanisms automatically for
 
 == Changelog ==
 
+= 4.5.7 =
+
+Release date: 21 November 2026
+
+**Security**
+
+* Hardened the `%postname%` placeholder in the related posts heading to prevent stored cross-site scripting through post titles. Cached output is flushed once on upgrade.
+* Restricted manual related post searches to source posts the user can edit.
+* [Pro] Restricted the Query Loop block to source posts the visitor can read.
+
 = 4.5.6 =
 
 Release date: 17 November 2026
@@ -322,6 +332,9 @@ Release post: https://webberzone.com/announcements/contextual-related-posts-v4-5
 For the changelog of earlier versions, please refer to the [releases page on GitHub](https://github.com/WebberZone/contextual-related-posts/releases).
 
 == Upgrade Notice ==
+
+= 4.5.7 =
+Security fixes. Update recommended.
 
 = 4.5.6 =
 Fixes related post queries when a source post is unavailable.
